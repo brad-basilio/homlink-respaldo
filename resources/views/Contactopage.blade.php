@@ -62,7 +62,7 @@
 
       <!-- Columna 1 (60%) -->
       <div class="xs:col-span-12  lg:col-span-8 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
-       
+        
         <div class="items-center  xs:py-[5%] md:py-[8%] lg:py-[10%]  ">
          <form method="POST" action="{{ route('guardarcontacto') }}">
           @csrf

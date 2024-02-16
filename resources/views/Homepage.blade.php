@@ -6,15 +6,12 @@
   <title>Mundoweb</title>
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   
-  {{-- <link rel="stylesheet" href="{{ asset('css/slick.css') }}">
-  <script src="{{ asset('js/slick.min.js') }}"></script> --}}
-  {{-- <script src="js/jquery-3.7.1.min.js"></script>
-  <script src="js/slick.min.js"></script>  --}}
-  {{-- <link src="css/slick-theme.css" /> 
-  <link src="css/slick.css" />  --}}
-  {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> --}}
-  <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
+  <link rel="stylesheet" href="{{asset('css/slick.css')}}">
+  <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
+
+  <script src="{{asset('js/jquery.min.js')}}"></script>
+  <script src="{{asset('js/slick.min.js')}}"></script>
+
 </head>
 <body class="font-sans bg-gray-100  " >
 
@@ -90,7 +87,7 @@
     </div>
   
     <!-- Pie de página -->
-    <footer class=" p-1 h-14 lg:-mt-14 bg-azulmundoweb">
+    <footer class=" p-1 h-14 lg:-mt-14 bg-azulmundoweb mododev">
       <div class="carruselfooter ">
         <ul class="flex flex-row gap-4 ">
           <li class="inline-flex  items-center w-1/4 ">
@@ -120,8 +117,10 @@
 
 
 <script type="text/javascript">         
+    
     $(document).ready(function(){
-        $('.carruselfooter ul ').slick({
+        
+      $('.carruselfooter ul ').slick({
             autoplay: true, 
             autoplaySpeed: 1000, 
             speed: 4000,
@@ -141,6 +140,8 @@
             ]
         });
   
+        
+       
         
     });
   </script>
