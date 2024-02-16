@@ -19,17 +19,8 @@
 
 
 <body class="font-sans  bg-azulform textura " >
-    <input type="checkbox" id="active">
-    <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
-    <div class="wrapper">
-       <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Proyectos</a></li>
-          <li><a href="#">Contacto</a></li>
-       </ul>
-    </div>
-
+  
+</div> 
 <div class=" inset-0 bg-azulform bg-opacity-80">
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
@@ -38,17 +29,31 @@
     </div>
   
     <div class="inline-flex items-center xs:w-0/12 xl:w-6/12"> 
-      
+        asdadasdasdas
     </div>
   
     <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-end"> 
      <div class="group">
-        {{-- <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-            <img src="img/menu-03.svg" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></a>  --}}
+        <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
+            <img src="img/menu-03.svg" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></a> 
 
-           
-      </div>   
-    </div>
+
+            <div>
+                <input type="checkbox" id="active">
+                <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
+                <div class="wrapper">
+                   <ul>
+                      <li><a href="#">Inicio</a></li>
+                      <li><a href="#">Servicios</a></li>
+                      <li><a href="#">Proyectos</a></li>
+                      <li><a href="#">Contacto</a></li>
+                   </ul>
+              </div>  
+            </div>
+            
+    </div>   
+
+   
   </header>
   
 
@@ -79,6 +84,9 @@
                
                 <div class="w-full xs:col-span-12 lg:col-span-12  "> 
                   <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                  @error('nombre')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                  @enderror  
                 </div>
  
             </div>
@@ -87,10 +95,16 @@
 
                 <div class="w-full xs:col-span-12 lg:col-span-6 ">
                     <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                    @error('email')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="w-full xs:col-span-12 lg:col-span-6 ">
                     <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                    @error('telefono')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror
                 </div>
 
             </div> 
@@ -107,14 +121,20 @@
             <div class="grid grid-cols-12  mt-8 relative">
               <div class="col-span-12"> 
                 <select name="tipoproyecto" class="block appearance-none w-full bg-fondoinput  text-white py-4 px-4 pr-8 rounded-full">
+                    <option class="text-black" value="" selected disabled hidden >Selecciona el tipo de página</option>
                     <option class="text-black" value="One page" >One Page</option>
                     <option class="text-black" value="Landing" >Landing</option>
                     <option class="text-black" value="E-commerce" >E-commerce</option>
                     <option class="text-black" value="App móvil" >App móvil</option>
                 </select>
+                
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-7 text-white">
                     <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                   </div>
+
+                  @error('tipoproyecto')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror 
               </div>  
             </div>
 
@@ -153,11 +173,14 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-2" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">Teléfono</label>
-                        <input checked id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
+                        <input  id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>
-
+                
+                @error('tipocontacto')
+                    <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
+                @enderror 
             </div> 
 
             <h2 class="xs:text-lg xl:text-2xl text-white  font-bold mt-10">
@@ -184,7 +207,7 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-4" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">11:00 AM - 01:00 PM</label>
-                        <input checked id="bordered-radio-4" type="radio" value="11:00 AM - 01:00 PM" name="horacontacto" class="w-[15%] h-4" >
+                        <input  id="bordered-radio-4" type="radio" value="11:00 AM - 01:00 PM" name="horacontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>
@@ -202,10 +225,14 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-6" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">03:00 PM - 05:00 PM</label>
-                        <input checked id="bordered-radio-6" type="radio" value="03:00 PM - 05:00 PM" name="horacontacto" class="w-[15%] h-4" >
+                        <input  id="bordered-radio-6" type="radio" value="03:00 PM - 05:00 PM" name="horacontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>
+
+                    @error('horacontacto')
+                        <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
+                    @enderror 
             </div> 
 
 
