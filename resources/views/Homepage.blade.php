@@ -17,7 +17,7 @@
 
     <!-- Encabezado superpuesto -->
     <header class=" text-white px-[5%] xs:absolute xl:fixed w-full z-10 mt-10 h-20 flex justify-between items-center ">
-      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 "> 
+      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 z-50"> 
         <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-64 xl:w-64 "> </a>
       </div>
     

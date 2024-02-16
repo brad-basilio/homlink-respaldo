@@ -22,25 +22,36 @@
 
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-16 xs:absolute xl:fixed w-full z-10 mt-10 h-20 flex justify-between items-center">
-    <div class="items-center inline-flex xs:w-6/12 xl:w-3/12"> 
+    <div class="items-center inline-flex  xs:w-8/12 xl:w-3/12 z-50"> 
       <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-52 xl:w-64 "> </a>
     </div>
     <div class="inline-flex items-center xs:w-0/12 xl:w-6/12"> 
-      <!-- <ul class="flex space-x-6">
-        <li>Inicio</li>
-        <li>Servicios</li>
-        <li>Proyectos</li>
-        <li>Contacto</li>
-      </ul> -->
+     
     </div>
-    <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-end"> 
-     <div class="group">
-      <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
-        <img src="{{ asset('img/menu-03.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block "></a> 
-      </div>   
+    <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end"> 
+      <div class="group z-50" id="botonmenu">
+        <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
+           
+            <div class="menu-icon w-8 h-8" id="menuIcon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </a>  
+        </div>     
     </div>
   </header>
   
+  <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+     
+    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
+        <a class="hover:underline duration-300" href="#">Inicio</a>
+        <a class="hover:underline duration-300" href="#">Servicios</a>
+        <a class="hover:underline duration-300" href="#">Proyectos</a>
+        <a class="hover:underline duration-300" href="#">Contacto</a>
+    </div>
+  </div>
+
 
   <!-- Contenido principal -->
   <div class=" grid  grid-cols-12  h-screen w-screen bg-azulmundoweb xs:h-full lg:h-screen">
@@ -48,7 +59,7 @@
       <!-- Columna 1 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  xs:h-96 lg:h-full  flex">
          
-        <div class="h-full w-full bg-cover bg-center fondoservicios justify-center items-center relative ">
+        <div class="h-full w-full bg-cover bg-center fondoservicios justify-center items-center  ">
           <!-- <div class=" absolute inset-0 bg-black bg-opacity-60 "></div> -->
         </div>
         
@@ -148,6 +159,35 @@
 </body>
 </html>
 
+<script>
 
+  document.getElementById("menuIcon").addEventListener("click", function() {
+      var menuIcon = document.getElementById("menuIcon");
+      menuIcon.classList.toggle("change");
+  });
+  
+  
+      document.addEventListener("DOMContentLoaded", function() {
+          var menu = document.getElementById("menu");
+          var miBoton = document.getElementById("botonmenu");
+          var estado = false;
+          
+          miBoton.addEventListener("click", function() {
+             
+          if (estado) {
+              menu.classList.remove("w-screen", "h-screen", "opacity-100");
+              menu.classList.add("w-0", "h-0", "opacity-0");
+             
+          } else {
+              menu.classList.remove("w-0", "h-0", "opacity-0");
+              menu.classList.add("w-screen", "h-screen", "opacity-100");
+          }
+  
+          
+          estado = !estado;
+      });
+  
+  }); 
+  </script>
 
 

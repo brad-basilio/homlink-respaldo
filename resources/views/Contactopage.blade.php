@@ -18,50 +18,50 @@
 </head>
 
 
-<body class="font-sans  bg-azulform textura " >
+<body class="font-sans  bg-azulform textura w-full h-full" >
   
 </div> 
 <div class=" inset-0 bg-azulform bg-opacity-80">
   <!-- Encabezado superpuesto -->
-  <header class=" text-white px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
-    <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 "> 
-      <a href="{{ route('inicio') }}"><img src="img/logomundoweb.svg" class="h-full xs:w-52 xl:w-64 "> </a>
+  <header class=" text-white xs:px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
+    <div class="items-center inline-flex xs:w-8/12 xl:w-3/12 z-50"> 
+      <a href="{{ route('inicio') }}"><img src="{{ asset('img/logomundoweb.svg')}}" class="h-full xs:w-52 xl:w-64 "> </a>
     </div>
   
     <div class="inline-flex items-center xs:w-0/12 xl:w-6/12"> 
-        asdadasdasdas
+        
     </div>
   
-    <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-end"> 
-     <div class="group">
-        <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-            <img src="img/menu-03.svg" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></a> 
-
-
-            <div>
-                <input type="checkbox" id="active">
-                <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
-                <div class="wrapper">
-                   <ul>
-                      <li><a href="#">Inicio</a></li>
-                      <li><a href="#">Servicios</a></li>
-                      <li><a href="#">Proyectos</a></li>
-                      <li><a href="#">Contacto</a></li>
-                   </ul>
-              </div>  
+    <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end"> 
+     <div class="group z-50" id="botonmenu">
+        <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
+           
+            <div class="menu-icon w-8 h-8" id="menuIcon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
             </div>
-            
-    </div>   
-
+        </a>  
+        </div>   
+    </div>
    
   </header>
   
+  <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+     
+        <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
+            <a class="hover:underline duration-300" href="#">Inicio</a>
+            <a class="hover:underline duration-300" href="#">Servicios</a>
+            <a class="hover:underline duration-300" href="#">Proyectos</a>
+            <a class="hover:underline duration-300" href="#">Contacto</a>
+        </div>
+   </div>
 
   <!-- Contenido principal -->
-  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full px-[5%] gap-12">
+  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full px-[5%] xs:gap-0 lg:gap-12">
 
       <!-- Columna 1 (60%) -->
-      <div class="xs:col-span-12  lg:col-span-8 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
+      <div class="xs:col-span-12  lg:col-span-8  w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
         
         <div class="items-center  xs:py-[5%] md:py-[8%] lg:py-[10%]  ">
          <form method="POST" action="{{ route('guardarcontacto') }}">
@@ -339,3 +339,34 @@
 </div>
 </body>
 </html>
+
+<script>
+
+document.getElementById("menuIcon").addEventListener("click", function() {
+    var menuIcon = document.getElementById("menuIcon");
+    menuIcon.classList.toggle("change");
+});
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var menu = document.getElementById("menu");
+        var miBoton = document.getElementById("botonmenu");
+        var estado = false;
+        
+        miBoton.addEventListener("click", function() {
+           
+        if (estado) {
+            menu.classList.remove("w-screen", "h-screen", "opacity-100");
+            menu.classList.add("w-0", "h-0", "opacity-0");
+           
+        } else {
+            menu.classList.remove("w-0", "h-0", "opacity-0");
+            menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-20");
+        }
+
+        
+        estado = !estado;
+    });
+
+}); 
+</script>
