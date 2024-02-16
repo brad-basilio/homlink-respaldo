@@ -78,7 +78,7 @@
             <div class="grid grid-cols-12  mb-6 mt-8">
                
                 <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                  <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  type="text" placeholder="Nombre completo">
+                  <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
                 </div>
  
             </div>
@@ -86,11 +86,11 @@
             <div class="grid grid-cols-12  mb-6 mt-8 gap-6">
 
                 <div class="w-full xs:col-span-12 lg:col-span-6 ">
-                    <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  type="email" placeholder="Correo electrónico">
+                    <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
                 </div>
 
                 <div class="w-full xs:col-span-12 lg:col-span-6 ">
-                    <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  type="number" placeholder="Número de teléfono">
+                    <input class="appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
                 </div>
 
             </div> 
@@ -106,11 +106,11 @@
 
             <div class="grid grid-cols-12  mt-8 relative">
               <div class="col-span-12"> 
-                <select class="block appearance-none w-full bg-fondoinput  text-white py-4 px-4 pr-8 rounded-full">
-                    <option class="text-black">One Page</option>
-                    <option class="text-black">Landing</option>
-                    <option class="text-black">E-commerce</option>
-                    <option class="text-black">App móvil</option>
+                <select name="tipoproyecto" class="block appearance-none w-full bg-fondoinput  text-white py-4 px-4 pr-8 rounded-full">
+                    <option class="text-black" value="One page" >One Page</option>
+                    <option class="text-black" value="Landing" >Landing</option>
+                    <option class="text-black" value="E-commerce" >E-commerce</option>
+                    <option class="text-black" value="App móvil" >App móvil</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-7 text-white">
                     <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
@@ -125,7 +125,7 @@
             <div class="grid grid-cols-12  mb-6 mt-8">
                
                 <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                  <textarea rows="6" class=" appearance-none block w-full bg-fondoinput  text-white  border-none rounded-2xl   py-4 px-4 mb-3 leading-tight "  type="textarea" placeholder="Nombre completo"></textarea>
+                  <textarea rows="6" name="mensaje" class=" appearance-none block w-full bg-fondoinput  text-white  border-none rounded-2xl   py-4 px-4 mb-3 leading-tight "  type="textarea" placeholder="Nombre completo"></textarea>
                 </div>
  
             </div>
@@ -144,7 +144,7 @@
                    
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput   border-none rounded-full ">
                         <label for="bordered-radio-1" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">Correo Electrónico</label>
-                        <input id="bordered-radio-1" type="radio" value="" name="radiobuttoncontacto" class="h-4 w-[15%]">
+                        <input id="bordered-radio-1" type="radio" value="Correo Electrónico" name="tipocontacto" class="h-4 w-[15%]">
                     </div>
 
                 </div>
@@ -153,7 +153,7 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-2" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">Teléfono</label>
-                        <input checked id="bordered-radio-2" type="radio" value="" name="radiobuttoncontacto" class="w-[15%] h-4" >
+                        <input checked id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>
@@ -175,7 +175,7 @@
                    
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput   border-none rounded-full ">
                         <label for="bordered-radio-3" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">09:00 AM - 11:00 AM</label>
-                        <input id="bordered-radio-3" type="radio" value="" name="radiobuttonhora" class="h-4 w-[15%]">
+                        <input id="bordered-radio-3" type="radio" value="09:00 AM - 11:00 AM" name="horacontacto" class="h-4 w-[15%]">
                     </div>
 
                 </div>
@@ -184,7 +184,7 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-4" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">11:00 AM - 01:00 PM</label>
-                        <input checked id="bordered-radio-4" type="radio" value="" name="radiobuttonhora" class="w-[15%] h-4" >
+                        <input checked id="bordered-radio-4" type="radio" value="11:00 AM - 01:00 PM" name="horacontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>
@@ -193,7 +193,7 @@
                    
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput   border-none rounded-full ">
                         <label for="bordered-radio-5" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">01:00 PM - 03:00 PM</label>
-                        <input id="bordered-radio-5" type="radio" value="" name="radiobuttonhora" class="h-4 w-[15%]">
+                        <input id="bordered-radio-5" type="radio" value="01:00 PM - 03:00 PM" name="horacontacto" class="h-4 w-[15%]">
                     </div>
 
                 </div>
@@ -202,7 +202,7 @@
 
                     <div class="flex items-center ps-4 appearance-none w-full bg-fondoinput    border-none rounded-full ">
                         <label for="bordered-radio-6" class="w-[85%] py-4 ms-2 text-base font-normal text-white ">03:00 PM - 05:00 PM</label>
-                        <input checked id="bordered-radio-6" type="radio" value="" name="radiobuttonhora" class="w-[15%] h-4" >
+                        <input checked id="bordered-radio-6" type="radio" value="03:00 PM - 05:00 PM" name="horacontacto" class="w-[15%] h-4" >
                     </div>
                 
                 </div>

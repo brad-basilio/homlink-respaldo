@@ -15,8 +15,8 @@ class ContactoController extends Controller
     public function storeContacto(Request $request)
     {
         
-        $category = Contacto::create($request->all());
+        $contacto = Contacto::create($request->all());
         @dd;
-        return redirect()->route('contacto', $category)->with('mensaje','Mensaje enviado exitoso');
+        return redirect()->route('contacto', $contacto)->with('mensaje','Mensaje enviado exitoso');
     }
 }
