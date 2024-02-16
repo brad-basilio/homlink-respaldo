@@ -19,12 +19,12 @@
 <body class="font-sans bg-gray-100  " >
 
     <!-- Encabezado superpuesto -->
-    <header class=" text-white px-[5%] fixed w-full z-10 mt-10 h-20 flex justify-between items-center">
-      <div class="items-center inline-flex w-3/12 "> 
-        <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-52 xl:w-64 "> </a>
+    <header class=" text-white px-[5%] xs:absolute xl:fixed w-full z-10 mt-10 h-20 flex justify-between items-center ">
+      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 "> 
+        <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-64 xl:w-64 "> </a>
       </div>
     
-      <div class="inline-flex items-center w-6/12"> 
+      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block"> 
         <ul class="flex space-x-6">
           <li>Inicio</li>
           <li>Servicios</li>
@@ -33,7 +33,7 @@
         </ul>
       </div>
     
-      <div class="inline-flex items-center w-3/12 justify-center"> 
+      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block"> 
        <div class="group">
         <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
           <span class="group-hover:pr-3 transition-all  duration-500">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
@@ -43,12 +43,12 @@
     
   
     <!-- Contenido principal -->
-    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96  xs:h-full lg:h-screen  bg-fondo ">
+    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96  xs:h-full lg:h-screen  bg-fondo  ">
   
         <!-- Columna 1 (60%) -->
-        <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
+        <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto ">
          
-          <div class="items-center  xs:pt-[30%] md:pt-[20%] lg:pt-[5%]  xs:px-[2%] md:px-[8%]">
+          <div class="items-center  xs:pt-[30%] md:pt-[20%] lg:pt-[20%] xl:pt-[5%] xs:px-[2%] md:px-[8%]">
             <h1 class="xs:text-4xl xl:text-5xl  text-white w-full font-bold ">
               ¡Mundo Web,<br> nuestra pasión,
               tu transformación Digital!

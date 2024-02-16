@@ -22,10 +22,10 @@
 
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-16 fixed w-full z-10 mt-10 h-20 flex justify-between items-center">
-    <div class="items-center inline-flex w-3/12"> 
+    <div class="items-center inline-flex xs:w-6/12 xl:w-3/12"> 
       <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full"> </a>
     </div>
-    <div class="inline-flex items-center w-6/12"> 
+    <div class="inline-flex items-center xs:w-0/12 xl:w-6/12"> 
       <!-- <ul class="flex space-x-6">
         <li>Inicio</li>
         <li>Servicios</li>
@@ -33,7 +33,7 @@
         <li>Contacto</li>
       </ul> -->
     </div>
-    <div class="inline-flex items-center w-3/12 justify-end"> 
+    <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-end"> 
      <div class="group">
       <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
         <img src="{{ asset('img/menu-03.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block "></a> 

@@ -33,15 +33,15 @@
 <div class=" inset-0 bg-azulform bg-opacity-80">
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
-    <div class="items-center inline-flex w-3/12 "> 
+    <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 "> 
       <a href="{{ route('inicio') }}"><img src="img/logomundoweb.svg" class="h-full xs:w-52 xl:w-64 "> </a>
     </div>
   
-    <div class="inline-flex items-center w-6/12"> 
+    <div class="inline-flex items-center xs:w-0/12 xl:w-6/12"> 
       
     </div>
   
-    <div class="inline-flex items-center w-3/12 justify-end"> 
+    <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-end"> 
      <div class="group">
         {{-- <a type="button" class=" float-right text-lg bg-fondoboton text-white px-2 py-3 rounded-full w-auto inline-block  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
             <img src="img/menu-03.svg" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></a>  --}}
@@ -59,7 +59,8 @@
       <div class="xs:col-span-12  lg:col-span-8 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
        
         <div class="items-center  xs:py-[5%] md:py-[8%] lg:py-[10%]  ">
-         <form>
+         <form method="POST" action="{{ route('guardarcontacto') }}">
+          @csrf
           <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-bold  ">
             ¡Estamos Aquí para Ayudarte!
           </h1>
@@ -219,7 +220,7 @@
             </p>
 
             <div class="group mt-8 inline-block ">   
-                <button type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pr-3 group-hover:border-4 group-hover:border-white transition-all  duration-250" >
+                <button type="submit" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pr-3 group-hover:border-4 group-hover:border-white transition-all  duration-250" >
                  <span class="group-hover:pr-3 transition-all  duration-500">Enviar solicitud</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  group-hover:rotate-45 transition-all duration-500"></button>  
               </div>
 

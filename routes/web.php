@@ -35,3 +35,5 @@ Route::get('/servicios/ecommerce', [EcommercepageController::class, 'viewEcommer
 Route::get('/servicios/aplicativos', [AplicativosController::class, 'viewAplicativospage'])->name('aplicativospage');
 Route::get('/contacto', [ContactoController::class, 'viewContacto'])->name('contacto');
 Route::get('/proyectos', [ProyectosController::class, 'viewProyectos'])->name('proyectos');
+
+Route::post('/contacto', [ContactoController::class, 'storeContacto'] )->name('guardarcontacto');
