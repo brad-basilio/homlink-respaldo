@@ -64,49 +64,49 @@
           <h1 class="text-5xl text-white w-full font-bold ">
             Transformando Ideas <br> en Realidad Digital
           </h1>
-          <div class="flex flex-row border-b-2 pb-2 ">
+          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="w-[88%]">
                     <p class="text-base text-white  font-normal mt-6 ">One Page</p>
                     <h2 class="text-xl text-white w-full font-bold">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
             </div>
             <div class="w-[12%]">
-                <a type="button" href="{{ route('onepage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
-                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block hover:rotate-45 transition-all duration-500"></a>  
+                <a type="button" href="{{ route('onepage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6 " >
+                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
           </div>
 
 
-          <div class="flex flex-row border-b-2 pb-2">
+          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('landingpage') }}'">
             <div  class="w-[88%]">
                     <p class="text-base text-white  font-normal mt-6 ">Landing Page</p>
                     <h2 class="text-xl text-white w-full font-bold">Donde las Visitas se Convierten  en Historias <br> de Éxito</h2>
             </div>
             <div class="w-[12%]">
-                <a type="button" href="{{ route('landingpage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
-                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block hover:rotate-45 transition-all duration-500"></a>  
+                <a type="button" href="{{ route('landingpage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6" >
+                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
           </div>
 
-          <div class="flex flex-row border-b-2 pb-2 ">
+          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
             <div  class="w-[88%]">
                     <p class="text-base text-white  font-normal mt-6 ">E-commerce</p>
                     <h2 class="text-xl text-white w-full font-bold">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
             </div>
             <div  class="w-[12%]">
-                <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
-                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block hover:rotate-45 transition-all duration-500"></a>  
+                <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6" >
+                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
           </div>
 
 
-          <div class="flex flex-row border-b-2 pb-2 ">
+          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('aplicativospage') }}'">
             <div  class="w-[88%]">
                     <p class="text-base text-white  font-normal mt-6 ">Aplicativos Móviles y Web</p>
                     <h2 class="text-xl text-white w-full font-bold">Más Allá de lo Ordinario: Experiencias  Móviles <br> y Web Inigualables</h2>
             </div>
             <div  class="w-[12%]">
-                <a type="button" href="{{ route('aplicativospage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-75" >
-                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block hover:rotate-45 transition-all duration-500"></a>  
+                <a type="button" href="{{ route('aplicativospage') }}" class="float-left text-lg  text-white px-2 py-3 rounded-full w-auto inline-block text-center mt-6 " >
+                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
           </div>
 

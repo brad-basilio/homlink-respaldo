@@ -80,7 +80,7 @@
 
        <div class="flex justify-start"> 
           <div class="group ">
-            <a type="button" href="{{ route('onepage') }}" class="rounded-full w-auto inline-block" >
+            <a type="button" href="{{ route('servicios') }}" class="rounded-full w-auto inline-block" >
                 <img src="{{ asset('img/arrowleftup.svg')}}" alt="Flecha a la derecha" class="h-16 w-16  inline-block group-hover:-rotate-45 transition-all duration-500"></a>  
           </div>  
         </div>

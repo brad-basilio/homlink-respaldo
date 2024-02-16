@@ -14,7 +14,7 @@
   <link src="css/slick.css" />  --}}
   {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> --}}
-  
+  <script src="{{asset('js/jquery-3.7.1.min.js')}}"></script>
 </head>
 <body class="font-sans bg-gray-100  " >
 
@@ -26,10 +26,10 @@
     
       <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block"> 
         <ul class="flex space-x-6">
-          <li>Inicio</li>
-          <li>Servicios</li>
-          <li>Proyectos</li>
-          <li>Contacto</li>
+          <li><a href="{{ route('inicio') }}">Inicio</a></li>
+          <li><a href="{{ route('servicios') }}">Servicios</a></li>
+          <li><a href="{{ route('proyectos') }}">Proyectos</a></li>
+          <li><a href="{{ route('contacto') }}">Contacto</a></li>
         </ul>
       </div>
     
