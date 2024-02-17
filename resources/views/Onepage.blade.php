@@ -39,7 +39,7 @@
   
   <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
-    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
+    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wide">
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
@@ -54,14 +54,14 @@
       <div class="xs:col-span-12  lg:col-span-5 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
        
         <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
-          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-bold  ">
+          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full  font-RightgroteskMedium tracking-wider">
             One Page: Tu <br>Mensaje, Tu <br> Mundo Digital <br>en una Página
           </h1>
-          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10">Descubre el poder de la simplicidad con nuestras One Page. Condensamos 
+          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Descubre el poder de la simplicidad con nuestras One Page. Condensamos 
             tu mensaje en una sola página, maximizando el impacto y la accesibilidad. ¡Diseño eficiente para resultados extraordinarios!</p>
           <div class="group mt-8 inline-block ">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-             <span class="group-hover:pr-3 transition-all  duration-500">Quiero mi One Page</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+             <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi One Page</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
           </div>
           
 
@@ -101,7 +101,7 @@
 
         <div class="group  items-center  justify-end inline-block">   
             <a type="button" href="{{ route('landingpage') }}"  class=" text-lg  text-white  rounded-full w-auto inline-block text-center   group-hover:pl-3   transition-all  duration-500 " >
-            <span class="group-hover:pr-3 transition-all  duration-500">Servicio: Landing Page</span><img src="{{ asset('img/arrowright.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+            <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Servicio: Landing Page</span><img src="{{ asset('img/arrowright.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
         </div>
     
     </div>
@@ -113,6 +113,37 @@
 </body>
 </html>
 
+<script>
 
+
+  document.getElementById("menuIcon").addEventListener("click", function() {
+      var menuIcon = document.getElementById("menuIcon");
+      menuIcon.classList.toggle("change");
+  });
+  
+  
+  document.addEventListener("DOMContentLoaded", function() {
+          var menu = document.getElementById("menu");
+          var miBoton = document.getElementById("botonmenu");
+          var estado = false;
+          
+          miBoton.addEventListener("click", function() {
+             
+          if (estado) {
+              menu.classList.remove("w-screen", "h-screen", "opacity-100");
+              menu.classList.add("w-0", "h-0", "opacity-0");
+             
+          } else {
+              menu.classList.remove("w-0", "h-0", "opacity-0");
+              menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-20");
+          }
+  
+          
+          estado = !estado;
+    });
+  
+  }); 
+
+</script>
 
 

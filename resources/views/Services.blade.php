@@ -5,15 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundoweb - Servicios</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-   
-    {{-- <script src="../resource/js/jquery-3.7.1.min.js"></script>
-    <script src="../resource/js/slick.min.js"></script>  --}}
-    <!-- <link src="../resource/css/slick-theme.css" /> 
-    <link src="../resource/css/slick.css" /> -->
-  
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> --}}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
    
 </head>
 
@@ -44,7 +36,7 @@
   
   <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
-    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
+    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-MontserratMedium tracking-wider">
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
@@ -71,14 +63,14 @@
     <!-- Columna 2 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  p-4 text-left h-full flex flex-col justify-center items-center mx-auto">
         <div class="items-center w-full xs:pt-2 xs:pb-8 lg:py-10 lg:pb-0 xs:px-1 lg:px-0">
-          <p class="text-base text-white  font-normal mt-6 ">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
-          <h1 class="text-5xl text-white w-full font-bold ">
+          <p class="text-base text-white  font-normal mt-6 font-MontserratMedium">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
+          <h1 class="text-5xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
             Transformando Ideas <br> en Realidad Digital
           </h1>
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-white  font-normal mt-6 ">One Page</p>
-                    <h2 class="text-xl text-white w-full font-bold">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
+                    <p class="text-base text-white  font-bold mt-6 font-MontserratRegular ">One Page</p>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('onepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6 " >
@@ -89,8 +81,8 @@
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('landingpage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-white  font-normal mt-6 ">Landing Page</p>
-                    <h2 class="text-xl text-white w-full font-bold">Donde las Visitas se Convierten  en Historias <br> de Éxito</h2>
+                    <p class="text-base text-white  font-bold mt-6 font-MontserratRegular">Landing Page</p>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Donde las Visitas se Convierten  en Historias <br> de Éxito</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('landingpage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
@@ -100,8 +92,8 @@
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-white  font-normal mt-6 ">E-commerce</p>
-                    <h2 class="text-xl text-white w-full font-bold">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
+                    <p class="text-base text-white  font-bold mt-6 font-MontserratRegular">E-commerce</p>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
@@ -112,8 +104,8 @@
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('aplicativospage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-white  font-normal mt-6 ">Aplicativos Móviles y Web</p>
-                    <h2 class="text-xl text-white w-full font-bold">Más Allá de lo Ordinario: Experiencias  Móviles <br> y Web Inigualables</h2>
+                    <p class="text-base text-white  font-bold mt-6 font-MontserratRegular">Aplicativos Móviles y Web</p>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Más Allá de lo Ordinario: Experiencias  Móviles <br> y Web Inigualables</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('aplicativospage') }}" class="float-left text-lg  text-white px-2 xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6 " >

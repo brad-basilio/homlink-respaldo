@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundoweb - Aplicativos móviles</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 
 
@@ -37,7 +38,7 @@
   
   <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
-    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
+    <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
@@ -53,14 +54,14 @@
       <div class="xs:col-span-12  lg:col-span-5 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
        
         <div class="items-center  xs:py-[5%] md:py-[8%] lg:py-[27%]  xs:px-[2%] md:px-[8%] ">
-          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-bold  ">
+          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full  font-RightgroteskMedium tracking-wide ">
             Aplicativos Móviles y Web:<br> Lleva tu negocio a donde va tu audiencia
           </h1>
-          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10">Desarrollamos aplicativos móviles y web a medida. 
+          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Desarrollamos aplicativos móviles y web a medida. 
             Experiencias intuitivas y funcionalidades que cautivan. ¡Da el siguiente paso en la era digital!</p>
           <div class="group  mt-8 inline-block">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-             <span class="group-hover:pr-3 transition-all  duration-500">Quiero mi App</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+             <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi App</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
           </div>
           
 
