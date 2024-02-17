@@ -45,10 +45,10 @@
   <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
-        <a class="hover:underline duration-300" href="#">Inicio</a>
-        <a class="hover:underline duration-300" href="#">Servicios</a>
-        <a class="hover:underline duration-300" href="#">Proyectos</a>
-        <a class="hover:underline duration-300" href="#">Contacto</a>
+        <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
+        <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
+        <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+        <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
     </div>
   </div>
 

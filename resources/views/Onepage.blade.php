@@ -5,16 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundoweb - Onepage</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-    {{-- <link href="./output.css" rel="stylesheet">
-    <script src="../resource/js/jquery-3.7.1.min.js"></script>
-    <script src="../resource/js/slick.min.js"></script>  --}}
-    <!-- <link src="../resource/css/slick-theme.css" /> 
-    <link src="../resource/css/slick.css" /> -->
-  
-    {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-    --}}
+    <script src="{{ asset('js/funciones.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 
 
@@ -48,12 +40,12 @@
   <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
-        <a class="hover:underline duration-300" href="#">Inicio</a>
-        <a class="hover:underline duration-300" href="#">Servicios</a>
-        <a class="hover:underline duration-300" href="#">Proyectos</a>
-        <a class="hover:underline duration-300" href="#">Contacto</a>
+        <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
+        <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
+        <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+        <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
     </div>
-</div>
+  </div>
 
   <!-- Contenido principal -->
   <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full   ">
@@ -120,39 +112,6 @@
 </div>
 </body>
 </html>
-
-
-<script>
-
-  document.getElementById("menuIcon").addEventListener("click", function() {
-      var menuIcon = document.getElementById("menuIcon");
-      menuIcon.classList.toggle("change");
-  });
-  
-  
-      document.addEventListener("DOMContentLoaded", function() {
-          var menu = document.getElementById("menu");
-          var miBoton = document.getElementById("botonmenu");
-          var estado = false;
-          
-          miBoton.addEventListener("click", function() {
-             
-          if (estado) {
-              menu.classList.remove("w-screen", "h-screen", "opacity-100");
-              menu.classList.add("w-0", "h-0", "opacity-0");
-             
-          } else {
-              menu.classList.remove("w-0", "h-0", "opacity-0");
-              menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-20");
-          }
-  
-          
-          estado = !estado;
-      });
-  
-  }); 
-  </script>
-
 
 
 

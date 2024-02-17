@@ -34,14 +34,6 @@
             background-image: url('../../public/img/fondo2.png');  
         }
 
-        /* .fondonepage{
-            background-image: url('img/fondoonepage.png');  
-            object-fit: cover;
-            background-position: right;
-            background-size: 100%;
-            background-repeat:no-repeat;
-        } */
-
         .textura{
             background-image: url('../../public/img/texturaonepage.svg');  
             object-fit: cover;
@@ -76,9 +68,9 @@
           transition: 0.4s;
           }
 
-      .menu-icon.change .bar:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 10px);
-        margin-left:-2px;
+        .menu-icon.change .bar:nth-child(1) {
+          transform: rotate(-45deg) translate(-5px, 10px);
+          margin-left:-2px;
          }
         
         .menu-icon.change .bar:nth-child(2) {

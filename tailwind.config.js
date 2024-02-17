@@ -33,6 +33,15 @@ export default {
         fondoinput: '#FFFFFF66',
       },
 
+      fontFamily: {
+        RightgroteskMedium: ['RightgroteskMedium', 'sans-serif'],
+        PoppinsSemiBold: ['Poppins-SemiBold', 'sans-serif'],
+        MontserratMedium: ['Montserrat-Medium', 'sans-serif'],
+        MontserratSemibold: ['Montserrat-Semibold', 'sans-serif'],
+        MontserratRegular: ['Montserrat-Regular', 'sans-serif'],
+
+      },
+
     },
   },
   plugins: [],

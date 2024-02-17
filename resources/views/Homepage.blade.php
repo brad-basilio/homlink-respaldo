@@ -8,9 +8,10 @@
   
   <link rel="stylesheet" href="{{asset('css/slick.css')}}">
   <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
-
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/slick.min.js')}}"></script>
+  <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
 
 </head>
 <body class="font-sans bg-gray-100  " >
@@ -22,18 +23,18 @@
       </div>
     
       <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block"> 
-        <ul class="flex space-x-6">
-          <li><a href="{{ route('inicio') }}">Inicio</a></li>
-          <li><a href="{{ route('servicios') }}">Servicios</a></li>
-          <li><a href="{{ route('proyectos') }}">Proyectos</a></li>
-          <li><a href="{{ route('contacto') }}">Contacto</a></li>
+        <ul class="flex space-x-6 font-MontserratSemibold font-normal">
+          <li><a href="{{ route('inicio') }}" >Inicio</a></li>
+          <li><a href="{{ route('servicios') }}" >Servicios</a></li>
+          <li><a href="{{ route('proyectos') }}" >Proyectos</a></li>
+          <li><a href="{{ route('contacto') }}" >Contacto</a></li>
         </ul>
       </div>
     
       <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block"> 
        <div class="group">
         <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-          <span class="group-hover:pr-3 transition-all  duration-500">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
+          <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
         </div>   
       </div>
     </header>
@@ -46,16 +47,16 @@
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto ">
          
           <div class="items-center  xs:pt-[30%] md:pt-[20%] lg:pt-[20%] xl:pt-[5%] xs:px-[2%] md:px-[8%]">
-            <h1 class="xs:text-4xl xl:text-5xl  text-white w-full font-bold ">
+            <h1 class="xs:text-4xl xl:text-5xl  text-white w-full font-bold font-RightgroteskMedium tracking-wider">
               ¡Mundo Web,<br> nuestra pasión,
               tu transformación Digital!
             </h1>
-            <p class="xs:text-base xl:text-lg text-white  font-normal mt-6 ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
+            <p class="xs:text-base xl:text-lg text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
               sino que creamos experiencias digitales que impulsan el éxito de nuestros clientes.</p>
             <div class="group inline-block">   
               <a type="button" href="{{ route('servicios') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-               <span class="group-hover:pr-3 transition-all  duration-500">Servicios</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+               <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold">Servicios</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
             <div class="grid grid-flow-col auto-cols-max items-center mt-7">
                 <ul class="flex -space-x-6 xs:col-span-12 md:col-span-4">
@@ -65,7 +66,7 @@
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona4.png') }}"> </li>
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona5.png') }}"> </li>
                 </ul>
-                <p class="grid xs:col-span-12 md:col-span-8 ml-5 text-white text-lg items-end"><span class="font-bold text-2xl mr-2">100+ </span> Clientes digitalizados</p>
+                <p class="grid xs:col-span-12 md:col-span-8 ml-5 text-white text-base items-end font-MontserratRegular"><span class="font-bold text-2xl mr-2 font-RightgroteskMedium tracking-wide">100+ </span> Clientes digitalizados</p>
             </div>    
   
           </div>
@@ -89,7 +90,7 @@
     <!-- Pie de página -->
     <footer class=" p-1 h-14 lg:-mt-14 bg-azulmundoweb mododev">
       <div class="carruselfooter ">
-        <ul class="flex flex-row gap-4 ">
+        <ul class="flex flex-row gap-4 font-MontserratRegular">
           <li class="inline-flex  items-center w-1/4 ">
             <img class="rounded-full w-12 float-left" src="{{ asset('img/iconofooter.png') }}">
             <span class="float-left p-3 text-white">Creatividad inspiradora</span>
@@ -141,7 +142,6 @@
         });
   
         
-       
         
     });
   </script>
