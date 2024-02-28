@@ -61,7 +61,7 @@
       <!-- Columna 1 (60%) -->
       <div class="xs:col-span-12  lg:col-span-8 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
        
-        <div class="items-center  xs:pt-[5%] md:pt-[8%] lg:pt-[10%]  xs:px-[2%] md:px-[8%] ">
+        <div class="items-center  xs:pt-[5%] md:pt-[8%] lg:pt-[10%]  xs:px-[2%] md:px-[8%]  ">
           <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-bold  ">
             Portafolio: Nuestra Galería de Éxitos Digitales
           </h1>
@@ -69,7 +69,7 @@
             Cada proyecto es una historia de éxito. Sumérgete en nuestra galería de trabajos excepcionales 
             que no solo cumplen sino que superan las expectativas. Desde One Page cautivadoras hasta experiencias 
             E-commerce inolvidables, nuestro portafolio refleja nuestra dedicación a la innovación y la calidad.</p>
-          <div class="mt-10 flex flex-wrap gap-8">   
+          <div class="mt-10 flex flex-wrap gap-8 hidden">   
             <a type="button" class="text-lg bg-fondoboton text-white px-5 py-4 rounded-full w-auto  text-center" >
              <span >Todos los proyectos</span></a>  
 
