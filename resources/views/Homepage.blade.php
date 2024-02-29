@@ -38,9 +38,36 @@
           <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
         </div>   
       </div>
+    
+
+      <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end xs:block xl:hidden"> 
+        <div class="group z-50" id="botonmenu">
+            <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
+              
+                <div class="menu-icon w-8 h-8" id="menuIcon">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </a>  
+            </div>   
+      </div>
+
+
     </header>
     
-  
+    
+    <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+     
+     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
+         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
+         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
+         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+         <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
+     </div>
+   </div>
+
+
     <!-- Contenido principal -->
     <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96  xs:h-full lg:h-screen  bg-fondo  ">
   
@@ -147,3 +174,37 @@
     });
   </script>
   
+
+  
+<script>
+
+
+document.getElementById("menuIcon").addEventListener("click", function() {
+    var menuIcon = document.getElementById("menuIcon");
+    menuIcon.classList.toggle("change");
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+        var menu = document.getElementById("menu");
+        var miBoton = document.getElementById("botonmenu");
+        var estado = false;
+        
+        miBoton.addEventListener("click", function() {
+           
+        if (estado) {
+            menu.classList.remove("w-screen", "h-screen", "opacity-100");
+            menu.classList.add("w-0", "h-0", "opacity-0");
+           
+        } else {
+            menu.classList.remove("w-0", "h-0", "opacity-0");
+            menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-20");
+        }
+
+        
+        estado = !estado;
+  });
+
+}); 
+
+</script>
