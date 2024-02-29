@@ -277,7 +277,7 @@
             </h2>
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
-                Contacto@mundoweb.com.pe
+                hola@mundoweb.pe
              </p>  
              
              <h2 class="xs:text-lg xl:text-2xl text-white  mt-10 font-RightgroteskMedium tracking-wide">
