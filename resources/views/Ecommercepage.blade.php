@@ -6,7 +6,7 @@
     <title>Mundoweb - Ecommerce</title>
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
     <script src="{{ asset('js/funciones.js') }}"></script>
-    <link rel="stylesheet" href="{{asset('build/assets/app-DfCSP3-Y.css')}}">
+    <link rel="stylesheet" href="{{asset('build/assets/app-ChmRsNwb.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 

@@ -6,7 +6,7 @@
     <title>Mundoweb - Proyectos</title>
     <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
     
-    <link rel="stylesheet" href="{{asset('build/assets/app-DfCSP3-Y.css')}}">
+    <link rel="stylesheet" href="{{asset('build/assets/app-ChmRsNwb.css')}}">
     <link href="./output.css" rel="stylesheet">
     <script src="../resource/js/jquery-3.7.1.min.js"></script>
     <script src="../resource/js/slick.min.js"></script> 
@@ -69,7 +69,7 @@
             Cada proyecto es una historia de éxito. Sumérgete en nuestra galería de trabajos excepcionales 
             que no solo cumplen sino que superan las expectativas. Desde One Page cautivadoras hasta experiencias 
             E-commerce inolvidables, nuestro portafolio refleja nuestra dedicación a la innovación y la calidad.</p>
-          <div class="mt-10 flex flex-wrap gap-8 hidden">   
+          <div class="mt-10  flex-wrap gap-8 hidden">   
             <a type="button" class="text-lg bg-fondoboton text-white px-5 py-4 rounded-full w-auto  text-center" >
              <span >Todos los proyectos</span></a>  
 
