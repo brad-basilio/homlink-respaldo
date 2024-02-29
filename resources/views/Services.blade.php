@@ -90,7 +90,7 @@
         <div class="items-center w-full xs:pt-2 xs:pb-8 lg:py-10 lg:pb-0 xs:px-1 lg:px-0">
           <p class="text-base text-white  font-normal mt-6 mb-2 font-MontserratMedium">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
           <h1 class="text-4xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
-            Transformando Ideas en Realidad Digital
+            Transformando Ideas <br class="xs:hidden lg:block" >en Realidad Digital
           </h1>
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="xs:w-[80%] lg:w-[88%]">
