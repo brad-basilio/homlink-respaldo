@@ -103,7 +103,7 @@
         <!-- Columna 2 (40%) -->
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
-            <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[90%] rounded-3xl  bg-cover bg-center imagenMundoWeb  justify-center items-center relative ">
+            <div class="z-10 xs:w-[100%] lg:w-[90%] min-h-96 md:h-[90%] rounded-3xl  bg-cover bg-center imagenMundoWeb  justify-center items-center relative ">
               
               <div class=" absolute inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center">
                 <div><a><img class=" items-center flex m-auto hover:scale-75  transition-all  duration-1000	 " src="{{ asset('img/playboton.svg') }}"></a></div>
