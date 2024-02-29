@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mundoweb</title>
+  
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   
   <link rel="stylesheet" href="{{asset('css/slick.css')}}">
@@ -88,7 +89,7 @@
     </div>
   
     <!-- Pie de página -->
-    <footer class=" p-1 h-14 lg:-mt-14 bg-azulmundoweb mododev">
+    <footer class=" px-4 py-1 h-14 lg:-mt-14 bg-azulmundoweb mododev">
       <div class="carruselfooter ">
         <ul class="flex flex-row gap-4 font-MontserratRegular">
           <li class="inline-flex  items-center w-1/4 ">
