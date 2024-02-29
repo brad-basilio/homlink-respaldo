@@ -100,17 +100,18 @@
 
   </div>
 
-  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  ">
+  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-8 ">
 
    
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-            <!-- <div >
-              <h2>Servicio de entregas - Emprendenvio</h2>
-              <p>Landing page</p>  
-            </div> -->
-            <img class="m-auto" src="img/proyecto1.png"> 
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: Emprendenvio - Landing page</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: FLAJ GROUP S.A.C.</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto1.png"> 
       </div>
 
     </div>
@@ -118,10 +119,13 @@
     
     <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
        
-      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-         
-        <img class="m-auto" src="img/proyecto2.png">
-
+    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: MBLens - Ecommerce</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MB CORP INTERNATIONAL S.A.C</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://mblens.com/" > https://mblens.com/ </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto2.png"> 
       </div>
 
     </div>
@@ -133,10 +137,13 @@
    
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
      
-      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-       
-            <img class="m-auto" src="img/proyecto3.png"> 
-
+    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: Ibergruas - Ecommerce</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: IBERGRUAS PERU S.A.C.</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.ibergruas.com.pe/" > https://www.ibergruas.com.pe/ </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto3.png"> 
       </div>
 
     </div>
@@ -144,12 +151,14 @@
     
     <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
        
-      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-         
-        <img class="m-auto" src="img/proyecto4.png">
-
+    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: Machineshop - Ecommerce</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MACHINE SHOP S.A.C.</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.machineshop.pe/" > https://www.machineshop.pe/ </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto4.png"> 
       </div>
-
     </div>
 
 </div>
@@ -161,10 +170,13 @@
    
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
      
-      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-       
-            <img class="m-auto" src="img/proyecto5.png"> 
-
+    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: Limpiabnb - Landing page</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: LIMPIA BNB PERU S.A.C.</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto5.png"> 
       </div>
 
     </div>
@@ -172,10 +184,13 @@
     
     <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
        
-      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-         
-        <img class="m-auto" src="img/proyecto6.png">
-
+    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-bold font-RightgroteskMedium text-white">Proyecto: WeDesign - Catálogo</h2>
+              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: WEDESIGN S.A.C.</p> 
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://wedesignst.com/" > https://wedesignst.com/ </a> 
+            </div>
+            <img class="m-auto w-full" src="img/proyecto6.png"> 
       </div>
 
     </div>
