@@ -31,6 +31,7 @@ export default {
         azulmoviles: '#0018ff',
         azulform:  '#040a45',
         fondoinput: '#FFFFFF66',
+        textyellow: '#FDD448',
       },
 
       fontFamily: {
