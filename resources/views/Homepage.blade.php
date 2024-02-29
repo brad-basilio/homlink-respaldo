@@ -141,7 +141,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-4 px-[5%]  py-10 gap-10 text-white ">
+      <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]  py-10 gap-10 text-white ">
 
           <div class="flex flex-col items-start">
             <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
@@ -169,7 +169,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col items-end justify-end">
+          <div class="flex flex-col xs:items-start lg:items-end xs:justify-start lg:justify-end">
                 <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
           </div>
 
