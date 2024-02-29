@@ -89,7 +89,7 @@
     </div>
   
     <!-- Pie de página -->
-    <footer class=" px-4 py-1 h-14 lg:-mt-14 bg-azulmundoweb mododev">
+    <footer class=" px-1 py-3 h-14 lg:-mt-14 bg-azulmundoweb mododev">
       <div class="carruselfooter ">
         <ul class="flex flex-row gap-4 font-MontserratRegular">
           <li class="inline-flex  items-center w-1/4 ">
