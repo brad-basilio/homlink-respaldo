@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundoweb - Proyectos</title>
-    @vite(['resources/css/app.css'])
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+    
+    <link rel="stylesheet" href="{{asset('build/assets/app-DfCSP3-Y.css')}}">
     <link href="./output.css" rel="stylesheet">
     <script src="../resource/js/jquery-3.7.1.min.js"></script>
     <script src="../resource/js/slick.min.js"></script> 
-    <!-- <link src="../resource/css/slick-theme.css" /> 
-    <link src="../resource/css/slick.css" /> -->
+   
   
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
