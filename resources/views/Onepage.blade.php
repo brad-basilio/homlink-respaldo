@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mundoweb - Onepage</title>
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-    <link rel="stylesheet" href="{{asset('build/assets/app-ChmRsNwb.css')}}">
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <script src="{{ asset('js/funciones.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
@@ -81,8 +81,8 @@
   </div>
 
   <!-- Pie de página -->
-  <footer class="grid grid-cols-12 h-auto text-right items-center justify-between px-[5%] pb-[3%] pt-[1%]">
-   
+  <footer >
+   <div class="grid grid-cols-12 h-auto text-right items-center justify-between px-[5%] pb-[3%] pt-[1%] ">
     <div class="xs:col-span-12 lg:col-span-4 ">
 
        <div class="flex justify-start"> 
@@ -106,6 +106,41 @@
         </div>
     
     </div>
+   </div> 
+
+   {{-- <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]   py-10  gap-10 text-white  bg-azuloscuro">
+ 
+    <div class="flex flex-col items-start">
+      <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
+    </div>
+
+    <div>
+      <div class="mb-4">
+          <h2 class="font-MontserratSemibold mb-1">Teléfono</h2>
+          <p class="font-MontserratRegular text-sm"> +51 999 999 999</p>
+      </div>
+      <div>
+          <h2 class="font-MontserratSemibold">Email</h2>
+          <p class="font-MontserratRegular text-sm">hola@mundoweb.pe</p>
+      </div>
+    </div>
+
+    <div>
+    <div class="mb-4">
+          <h2 class="font-MontserratSemibold mb-1">Dirección</h2>
+          <p class="font-MontserratRegular text-sm">Centro Empresarial Peruano - Suizo Av. Aramburú 166 - Miraflores, Oficina 4B, Lima, Lima 51, PE</p>
+      </div>
+      <div>
+          <h2 class="font-MontserratSemibold">Horario</h2>
+          <p class="font-MontserratRegular text-sm">9am — 6pm</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col xs:items-start lg:items-end xs:justify-start lg:justify-end">
+          <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
+    </div>
+
+</div> --}}
 
   </footer>
 

@@ -1,22 +1,22 @@
 {
   "public/img/fondo2.png": {
-    "file": "assets/fondo2-Bnwn0u-4.png",
+    "file": "fondo2.png",
     "src": "public/img/fondo2.png"
   },
   "public/img/fondolanding.png": {
-    "file": "assets/fondolanding-8WsRtq9r.png",
+    "file": "fondolanding.png",
     "src": "public/img/fondolanding.png"
   },
   "public/img/imgmundoweb.jpg": {
-    "file": "assets/imgmundoweb-CpJFWa2b.jpg",
+    "file": "imgmundoweb.jpg",
     "src": "public/img/imgmundoweb.jpg"
   },
   "public/img/texturaonepage.svg": {
-    "file": "assets/texturaonepage-Ce4PVUtj.svg",
+    "file": "texturaonepage.svg",
     "src": "public/img/texturaonepage.svg"
   },
   "resources/css/app.css": {
-    "file": "assets/app-ChmRsNwb.css",
+    "file": "app.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },

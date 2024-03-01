@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mundoweb</title>
   
-  <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
-  <link rel="stylesheet" href="{{asset('build/assets/app-ChmRsNwb.css')}}">
+  {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
+  <link rel="stylesheet" href="{{asset('build/app.css')}}">
   <link rel="stylesheet" href="{{asset('css/slick.css')}}">
   <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
   <script src="{{asset('js/jquery.min.js')}}"></script>
@@ -141,7 +141,7 @@
         </div>
       </div>
 
-      <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]  py-10 gap-10 text-white ">
+      {{-- <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]  py-10 gap-10 text-white ">
 
           <div class="flex flex-col items-start">
             <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
@@ -173,7 +173,7 @@
                 <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
           </div>
 
-      </div>
+      </div> --}}
 
 
     </footer>

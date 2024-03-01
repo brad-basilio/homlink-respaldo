@@ -13,4 +13,15 @@ export default defineConfig({
             '$': 'jQuery'
         },
     },
+    build: {
+        rollupOptions: {
+          output: {
+            assetFileNames: (assetInfo) => {
+                if (assetInfo.name == 'app-C6GHMxSp.css')
+                  return 'app.css';
+                return assetInfo.name;
+              },           
+          },
+        },
+      },
 });
