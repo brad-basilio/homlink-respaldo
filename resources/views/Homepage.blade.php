@@ -160,7 +160,7 @@
 
           <div>
           <div class="mb-4">
-                <h2 class="font-MontserratSemibold mb-1">Direccion</h2>
+                <h2 class="font-MontserratSemibold mb-1">Dirección</h2>
                 <p class="font-MontserratRegular text-sm">Centro Empresarial Peruano - Suizo Av. Aramburú 166 - Miraflores, Oficina 4B, Lima, Lima 51, PE</p>
             </div>
             <div>

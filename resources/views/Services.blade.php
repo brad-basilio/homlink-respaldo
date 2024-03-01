@@ -35,7 +35,7 @@
     </div>
   </header>
    -->
-  <header class=" text-white xs:px-[5%]  xs:absolute xl:fixed  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
+  <header class=" text-white xs:px-[5%]  xs:absolute w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
     <div class="items-center inline-flex xs:w-8/12 xl:w-3/12 z-50"> 
       <a href="{{ route('inicio') }}"><img src="{{ asset('img/logomundoweb.svg')}}" class="h-full xs:w-52 xl:w-64 "> </a>
     </div>
@@ -72,7 +72,7 @@
 
 
   <!-- Contenido principal -->
-  <div class=" grid  grid-cols-12  h-screen w-screen bg-azulmundoweb xs:h-full lg:h-screen">
+  <div class=" grid  grid-cols-12  h-full w-full bg-azulmundoweb  ">
 
       <!-- Columna 1 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  xs:h-96 lg:h-full  flex">
@@ -81,14 +81,15 @@
           <!-- <div class=" absolute inset-0 bg-black bg-opacity-60 "></div> -->
         </div>
         
-    </div>
+      </div>
      
 
 
 
     <!-- Columna 2 (50%) -->
-      <div class="xs:col-span-12  lg:col-span-6  p-4 text-left h-full flex flex-col justify-center items-center mx-auto">
-        <div class="items-center w-full xs:pt-2 xs:pb-8 lg:py-10 lg:pb-0 xs:px-1 lg:px-0">
+      <div class="xs:col-span-12  lg:col-span-6  p-4  text-left h-full flex flex-col justify-center items-center mx-auto">
+        <div class="h-12"></div>
+        <div class="items-center w-full xs:pt-20 xs:pb-8 lg:py-10  xs:px-1 lg:px-0">
           <p class="text-base text-white  font-normal mt-6 mb-2 font-MontserratMedium">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
           <h1 class="text-4xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
             Transformando Ideas <br class="xs:hidden lg:block" >en Realidad Digital
@@ -147,6 +148,47 @@
      
 
   </div>
+
+  <footer >
+      
+     
+ 
+       <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]   py-10  gap-10 text-white  bg-azulmundoweb">
+ 
+           <div class="flex flex-col items-start">
+             <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
+           </div>
+ 
+           <div>
+             <div class="mb-4">
+                 <h2 class="font-MontserratSemibold mb-1">Teléfono</h2>
+                 <p class="font-MontserratRegular text-sm"> +51 999 999 999</p>
+             </div>
+             <div>
+                 <h2 class="font-MontserratSemibold">Email</h2>
+                 <p class="font-MontserratRegular text-sm">hola@mundoweb.pe</p>
+             </div>
+           </div>
+ 
+           <div>
+           <div class="mb-4">
+                 <h2 class="font-MontserratSemibold mb-1">Dirección</h2>
+                 <p class="font-MontserratRegular text-sm">Centro Empresarial Peruano - Suizo Av. Aramburú 166 - Miraflores, Oficina 4B, Lima, Lima 51, PE</p>
+             </div>
+             <div>
+                 <h2 class="font-MontserratSemibold">Horario</h2>
+                 <p class="font-MontserratRegular text-sm">9am — 6pm</p>
+             </div>
+           </div>
+ 
+           <div class="flex flex-col xs:items-start lg:items-end xs:justify-start lg:justify-end">
+                 <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
+           </div>
+ 
+       </div>
+ 
+ 
+     </footer>
 
   <!-- Pie de página -->
   <!-- <footer class=" p-1 h-14 -mt-14 bg-azulmundoweb">
