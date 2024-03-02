@@ -122,19 +122,19 @@
        <div class="carruselfooter ">
           <ul class="flex flex-row gap-4 font-MontserratRegular">
             <li class="inline-flex  items-center w-1/4 ">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/iconofooter.png') }}">
+              <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
               <span class="float-left p-3 text-white">Creatividad inspiradora</span>
             </li>
             <li class="inline-flex items-center  w-1/4 ">
-              <img class="rounded-full w-12  float-left" src="{{ asset('img/iconofooter.png') }}">
+              <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
               <span class="float-left p-3 text-white">Colaboración transparente</span>
             </li>
             <li class="inline-flex items-center  w-1/4">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/iconofooter.png') }}">
+              <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
               <span class="float-left p-3 text-white">Excelencia a medida</span>
             </li>
             <li class="inline-flex items-center  w-1/4">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/iconofooter.png') }}">
+              <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
               <span class="float-left p-3 text-white">Adaptabilidad digital</span>
             </li>
           </ul>
