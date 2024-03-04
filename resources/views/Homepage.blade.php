@@ -120,22 +120,22 @@
       
      <div class="px-1 py-2 h-16  bg-azulmundoweb mododev">
        <div class="carruselfooter ">
-          <ul class="flex flex-row gap-4 font-MontserratRegular">
+          <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
             <li class="inline-flex  items-center w-1/4 ">
               <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
               <span class="float-left p-3 text-white">Creatividad inspiradora</span>
             </li>
             <li class="inline-flex items-center  w-1/4 ">
               <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
-              <span class="float-left p-3 text-white">Colaboración transparente</span>
+              <span class="float-left p-3 text-white ">Colaboración transparente</span>
             </li>
             <li class="inline-flex items-center  w-1/4">
               <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
-              <span class="float-left p-3 text-white">Excelencia a medida</span>
+              <span class="float-left p-3 text-white ">Excelencia a medida</span>
             </li>
             <li class="inline-flex items-center  w-1/4">
               <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
-              <span class="float-left p-3 text-white">Adaptabilidad digital</span>
+              <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
             </li>
           </ul>
         </div>
