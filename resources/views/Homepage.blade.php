@@ -18,12 +18,12 @@
 <body class="font-sans bg-fondo" >
 
     <!-- Encabezado superpuesto -->
-    <header class=" text-white px-[5%]   w-full z-10 mt-10 h-20 flex justify-between items-center ">
-      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 z-50"> 
+    <header class=" text-white px-[5%]  w-full z-10  h-20 flex justify-between items-center ">
+      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 z-50 mt-10"> 
         <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-64 xl:w-64 "> </a>
       </div>
     
-      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block"> 
+      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block mt-10"> 
         <ul class="flex space-x-6 font-MontserratSemibold font-normal">
           <li><a href="{{ route('inicio') }}" >Inicio</a></li>
           <li><a href="{{ route('servicios') }}" >Servicios</a></li>
@@ -32,7 +32,7 @@
         </ul>
       </div>
     
-      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block"> 
+      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block mt-10"> 
        <div class="group">
         <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
           <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
@@ -40,8 +40,8 @@
       </div>
     
 
-      <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end xs:block xl:hidden"> 
-        <div class="group z-50" id="botonmenu">
+      <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end xs:block xl:hidden z-50 mt-10"> 
+        <div class="group " id="botonmenu">
             <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
               
                 <div class="menu-icon w-8 h-8" id="menuIcon">
@@ -57,15 +57,15 @@
     </header>
     
     
-    <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+    <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700 ">
      
-     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
-         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
-         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
-         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
-         <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
-     </div>
-   </div>
+      <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
+          <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
+          <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
+          <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+          <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
+      </div>
+    </div>
 
 
     <!-- Contenido principal -->
@@ -74,7 +74,7 @@
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto ">
          
-          <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%]">
+          <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
             <h1 class="xs:text-4xl xl:text-5xl  text-white w-full font-bold font-RightgroteskMedium tracking-wider">
               ¡Mundo Web,<br> nuestra pasión,
               tu transformación Digital!
@@ -86,7 +86,7 @@
               <a type="button" href="{{ route('servicios') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
                <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold">Servicios</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
-            <div class="grid grid-flow-col auto-cols-max items-center my-7">
+            <div class="grid grid-flow-col auto-cols-max items-center xs:mt-10 md:my-10">
                 <ul class="flex -space-x-6 xs:col-span-12 md:col-span-4">
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona1.png') }}"> </li>
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona2.png') }}"> </li>
@@ -103,11 +103,11 @@
         <!-- Columna 2 (40%) -->
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
-            <div class="z-10 xs:w-[100%] lg:w-[90%] min-h-96 md:h-[100%] rounded-3xl  bg-cover bg-center imagenMundoWeb  justify-center items-center relative ">
-              
-              <div class=" absolute inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center">
-                <div><a><img class=" items-center flex m-auto hover:scale-75  transition-all  duration-1000	 " src="{{ asset('img/playboton.svg') }}"></a></div>
-              </div>
+            <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[100%] rounded-3xl  bg-cover bg-center imagenMundoWeb flex justify-center items-center ">
+              <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
+              {{-- <div class="inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center  ">
+                <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
+              </div> --}}
               
             </div>
             
@@ -116,9 +116,9 @@
     </div>
   
     <!-- Pie de página -->
-    <footer >
+    <footer class="z-10">
       
-     <div class="px-1 py-2 h-16  bg-azulmundoweb mododev">
+     <div class="px-1 py-2 h-18  bg-azulmundoweb mododev">
        <div class="carruselfooter ">
           <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
             <li class="inline-flex  items-center w-1/4 ">
