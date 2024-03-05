@@ -11,7 +11,7 @@
 </head>
 
 
-<body class="font-sans bg-gray-100">
+<body class="font-sans bg-gray-100 " >
 
   <!-- Encabezado superpuesto -->
   <!-- <header class=" text-white px-16 xs:absolute xl:fixed w-full z-10 mt-10 h-20 flex justify-between items-center">
@@ -35,8 +35,8 @@
     </div>
   </header>
    -->
-  <header class=" text-white xs:px-[5%]  xs:absolute w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
-    <div class="items-center inline-flex xs:w-8/12 xl:w-3/12 z-50"> 
+  <header class=" text-white xs:px-[5%]  xs:absolute w-full  flex justify-between items-center h-[15%] pt-10">
+    <div class="items-center inline-flex xs:w-8/12 xl:w-3/12 z-50 py-7 "> 
       <a href="{{ route('inicio') }}"><img src="{{ asset('img/logomundoweb.svg')}}" class="h-full xs:w-52 xl:w-64 "> </a>
     </div>
   
@@ -72,7 +72,7 @@
 
 
   <!-- Contenido principal -->
-  <div class=" grid  grid-cols-12  h-full w-full bg-azulmundoweb  ">
+  <div class=" grid  grid-cols-12  w-full bg-azulmundoweb   lg:h-screen">
 
       <!-- Columna 1 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  xs:h-96 lg:h-full  flex">
@@ -88,7 +88,7 @@
 
     <!-- Columna 2 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  p-4  text-left h-full flex flex-col justify-center items-center mx-auto">
-        <div class="h-12"></div>
+        {{-- <div class="h-12"></div> --}}
         <div class="items-center w-full xs:pt-20 xs:pb-8 lg:py-10  xs:px-1 lg:px-0">
           <p class="text-base text-white  font-normal mt-6 mb-2 font-MontserratMedium">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
           <h1 class="text-4xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
