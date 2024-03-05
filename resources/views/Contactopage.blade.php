@@ -137,7 +137,23 @@
             <div class="grid grid-cols-12  mb-6 mt-8">
                
                 <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                  <textarea rows="6" name="mensaje" class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-2xl   py-4 px-4 mb-3 leading-tight "  type="textarea" placeholder="Nombre completo"></textarea>
+                  <textarea rows="6" name="mensaje" class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-2xl   py-4 px-4 mb-3 leading-tight "  type="textarea" placeholder="Tu mensaje"></textarea>
+                </div>
+ 
+            </div>
+
+            <h2 class="xs:text-lg xl:text-2xl text-white  font-RightgroteskMedium tracking-wide mt-10">
+                Si tienes una web que quieres mejorar, ingrésala aquí
+            </h2>
+
+
+            <div class="grid grid-cols-12  mb-6 mt-8">
+               
+                <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                  <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com">
+                  @error('urlweb')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                  @enderror  
                 </div>
  
             </div>
@@ -260,7 +276,7 @@
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
                 Centro Empresarial Peruano - Suizo<br>
-                Av. Aramburú 166 - Miraflores, Oficina 4B<br>
+                Av. Andrés Aramburú 150 - Miraflores, Oficina 4B<br>
                 Lima - Perú
              </p>
 
@@ -269,8 +285,7 @@
             </h2>
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
-                +51 976 515 983<br>
-                01 456 8265
+                +51 934 464 915
              </p>
 
              <h2 class="xs:text-lg xl:text-2xl text-white   mt-10 font-RightgroteskMedium tracking-wide">
@@ -287,7 +302,9 @@
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
                 Lunes a Viernes<br>
-                9:00 AM - 6:00 PM
+                9:00 AM - 6:00 PM<br>
+                Sábados<br>
+                9:00 AM - 1:00 PM
              </p> 
 
              <h2 class="xs:text-lg xl:text-2xl text-white  font-bold mt-10 font-RightgroteskMedium tracking-wide">

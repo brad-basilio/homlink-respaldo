@@ -49,7 +49,7 @@
   </header>
   
   
-  <div id="menu" class="fixed z-90 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+  <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
      
     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
@@ -103,7 +103,7 @@
 
   </div>
 
-  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos">
+  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos ">
 
    
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
