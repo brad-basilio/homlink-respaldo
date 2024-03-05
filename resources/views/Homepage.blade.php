@@ -18,12 +18,12 @@
 <body class="font-sans bg-fondo lg:h-screen" >
 
     <!-- Encabezado superpuesto -->
-    <header class=" text-white px-[5%]  w-full z-10  h-20 flex justify-between items-center ">
-      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 z-50 mt-10"> 
+    <header class=" text-white px-[5%]  w-full z-10 h-[15%]  flex justify-between items-center ">
+      <div class="items-center inline-flex xs:w-6/12 xl:w-3/12 z-50 py-7 "> 
         <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-64 xl:w-64 "> </a>
       </div>
     
-      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block mt-10"> 
+      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block py-7"> 
         <ul class="flex space-x-6 font-MontserratSemibold font-normal">
           <li><a href="{{ route('inicio') }}" >Inicio</a></li>
           <li><a href="{{ route('servicios') }}" >Servicios</a></li>
@@ -32,7 +32,7 @@
         </ul>
       </div>
     
-      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block mt-10"> 
+      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block py-7"> 
        <div class="group">
         <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
           <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
@@ -40,7 +40,7 @@
       </div>
     
 
-      <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end xs:block xl:hidden z-50 mt-10"> 
+      <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end xs:block xl:hidden z-50 py-7"> 
         <div class="group " id="botonmenu">
             <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
               
@@ -67,19 +67,19 @@
       </div>
     </div>
 
-    {{-- xs:h-full --}}
+
     <!-- Contenido principal -->
-    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96     bg-fondo  ">
+    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:h-full lg:h-[85%]     bg-fondo  ">
   
         <!-- Columna 1 (60%) -->
-        <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto ">
+        <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
          
           <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
-            <h1 class="xs:text-4xl xl:text-5xl  text-white w-full font-bold font-RightgroteskMedium tracking-wider">
+            <h1 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
               ¡Mundo Web,<br> nuestra pasión,
               tu transformación Digital!
             </h1>
-            <p class="xs:text-base xl:text-lg text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
+            <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
               sino que creamos experiencias digitales que impulsan el éxito de nuestros clientes.</p>
             <div class="group inline-block">   
@@ -103,7 +103,7 @@
         <!-- Columna 2 (40%) -->
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
-            <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[100%] rounded-3xl  bg-cover bg-center imagenMundoWeb flex justify-center items-center ">
+            <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[85%] rounded-3xl  bg-cover bg-center imagenMundoWeb flex justify-center items-center ">
               <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
               {{-- <div class="inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center  ">
                 <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
@@ -113,70 +113,37 @@
             
         </div>
   
+
+        
+
     </div>
   
     <!-- Pie de página -->
-    <footer class="z-10">
+    <footer class="z-10 col-span-2">
       
-     <div class="px-1 py-2 h-18  bg-azulmundoweb mododev">
-       <div class="carruselfooter ">
-          <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
-            <li class="inline-flex  items-center w-1/4 ">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
-              <span class="float-left p-3 text-white">Creatividad inspiradora</span>
-            </li>
-            <li class="inline-flex items-center  w-1/4 ">
-              <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
-              <span class="float-left p-3 text-white ">Colaboración transparente</span>
-            </li>
-            <li class="inline-flex items-center  w-1/4">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
-              <span class="float-left p-3 text-white ">Excelencia a medida</span>
-            </li>
-            <li class="inline-flex items-center  w-1/4">
-              <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
-              <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      {{-- <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]  py-10 gap-10 text-white ">
-
-          <div class="flex flex-col items-start">
-            <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
-          </div>
-
-          <div>
-            <div class="mb-4">
-                <h2 class="font-MontserratSemibold mb-1">Teléfono</h2>
-                <p class="font-MontserratRegular text-sm"> +51 999 999 999</p>
-            </div>
-            <div>
-                <h2 class="font-MontserratSemibold">Email</h2>
-                <p class="font-MontserratRegular text-sm">hola@mundoweb.pe</p>
-            </div>
-          </div>
-
-          <div>
-          <div class="mb-4">
-                <h2 class="font-MontserratSemibold mb-1">Dirección</h2>
-                <p class="font-MontserratRegular text-sm">Centro Empresarial Peruano - Suizo Av. Aramburú 166 - Miraflores, Oficina 4B, Lima, Lima 51, PE</p>
-            </div>
-            <div>
-                <h2 class="font-MontserratSemibold">Horario</h2>
-                <p class="font-MontserratRegular text-sm">9am — 6pm</p>
-            </div>
-          </div>
-
-          <div class="flex flex-col xs:items-start lg:items-end xs:justify-start lg:justify-end">
-                <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
-          </div>
-
-      </div> --}}
-
-
-    </footer>
+      <div class="px-1 py-2 h-16 lg:-mt-16 bg-azulmundoweb mododev  ">
+        <div class="carruselfooter ">
+           <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
+             <li class="inline-flex  items-center w-1/4 ">
+               <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
+               <span class="float-left p-3 text-white">Creatividad inspiradora</span>
+             </li>
+             <li class="inline-flex items-center  w-1/4 ">
+               <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
+               <span class="float-left p-3 text-white ">Colaboración transparente</span>
+             </li>
+             <li class="inline-flex items-center  w-1/4">
+               <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
+               <span class="float-left p-3 text-white ">Excelencia a medida</span>
+             </li>
+             <li class="inline-flex items-center  w-1/4">
+               <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
+               <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
+             </li>
+           </ul>
+         </div>
+       </div>
+     </footer>
   
     
   
