@@ -259,9 +259,9 @@
             </h2>
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
-                123 Calle Innovación, Suite 456<br>
-                Ciudad Tecnológica, CT 78901<br>
-                Perú
+                Centro Empresarial Peruano - Suizo<br>
+                Av. Aramburú 166 - Miraflores, Oficina 4B<br>
+                Lima - Perú
              </p>
 
              <h2 class="xs:text-lg xl:text-2xl text-white  mt-10 font-RightgroteskMedium tracking-wide">
@@ -299,7 +299,7 @@
              </p>
 
              <div class="group">
-                <a type="button" class="text-lg bg-fondoboton text-white px-3 py-2 mt-10 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
+                <a type="button" href="https://maps.app.goo.gl/HBop8pkCVnsW8uRa7" target="_blank" class="text-lg bg-fondoboton text-white px-3 py-2 mt-10 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
                   <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Ver mapa </span><img src="img/iconbutton.svg" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-75"></a> 
             </div> 
         </div>
