@@ -62,7 +62,7 @@
             Experiencia de compra fluida y herramientas para impulsar el crecimiento de tu negocio.</p>
           <div class="group  mt-8 inline-block">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
-             <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base ">Quiero mi Landing Page</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+             <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base ">Quiero mi e-commerce</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
           </div>
           
 

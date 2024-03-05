@@ -8,8 +8,11 @@
     
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-    <script src="../resource/js/jquery-3.7.1.min.js"></script>
-    <script src="../resource/js/slick.min.js"></script> 
+
+    <link rel="stylesheet" href="{{asset('css/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
+    <script src="{{asset('js/jquery.min.js')}}"></script>
+    <script src="{{asset('js/slick.min.js')}}"></script>
    
   
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
@@ -100,7 +103,7 @@
 
   </div>
 
-  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-8 ">
+  <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos">
 
    
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
@@ -130,11 +133,7 @@
 
     </div>
 
-</div>
 
-<div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  ">
-
-   
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
@@ -148,24 +147,84 @@
 
     </div>
 
+
+
+    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+       
+      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+              <div class="mx-[8%]">
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Machineshop - Ecommerce</h2>
+                <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MACHINE SHOP S.A.C.</p> 
+                <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.machineshop.pe/" > https://www.machineshop.pe/ </a> 
+              </div>
+              <img class="m-auto w-full" src="img/proyecto4.png"> 
+        </div>
+      </div>
+
+
+      <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+     
+        <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+                <div class="mx-[8%]">
+                  <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Limpiabnb - Landing page</h2>
+                  <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: LIMPIA BNB PERU S.A.C.</p> 
+                  <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
+                </div>
+                <img class="m-auto w-full" src="img/proyecto5.png"> 
+          </div>
+    
+        </div>
+    
+        
+        <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+           
+        <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+                <div class="mx-[8%]">
+                  <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: WeDesign - Catálogo</h2>
+                  <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: WEDESIGN S.A.C.</p> 
+                  <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://wedesignst.com/" > https://wedesignst.com/ </a> 
+                </div>
+                <img class="m-auto w-full" src="img/proyecto6.png"> 
+          </div>
+    
+        </div>
+
+</div>
+
+<div class="   grid-cols-12 xs:min-w-96  xs:h-full  hidden">
+
+   
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+     
+      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+              <div class="mx-[8%]">
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Ibergruas - Ecommerce</h2>
+                <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: IBERGRUAS PERU S.A.C.</p> 
+                <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.ibergruas.com.pe/" > https://www.ibergruas.com.pe/ </a> 
+              </div>
+              <img class="m-auto w-full" src="img/proyecto3.png"> 
+        </div>
+
+    </div>
+
     
     <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
        
-    <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
-            <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Machineshop - Ecommerce</h2>
-              <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MACHINE SHOP S.A.C.</p> 
-              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.machineshop.pe/" > https://www.machineshop.pe/ </a> 
-            </div>
-            <img class="m-auto w-full" src="img/proyecto4.png"> 
-      </div>
+      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+              <div class="mx-[8%]">
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Machineshop - Ecommerce</h2>
+                <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MACHINE SHOP S.A.C.</p> 
+                <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.machineshop.pe/" > https://www.machineshop.pe/ </a> 
+              </div>
+              <img class="m-auto w-full" src="img/proyecto4.png"> 
+        </div>
     </div>
 
 </div>
 
 
 
-<div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  ">
+<div class="   grid-cols-12 xs:min-w-96  xs:h-full  hidden">
 
    
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
@@ -257,6 +316,35 @@
 </body>
 </html>
 
+
+<script type="text/javascript">         
+    
+  $(document).ready(function(){
+      
+    $('.carruselproyectos ').slick({
+          autoplay: true, 
+          autoplaySpeed: 500, 
+          speed: 4000,
+          slidesToShow: 3,
+          centerMode: true,
+          slidesToScroll: 1,
+          arrows: false,
+          adaptivew: true,
+          responsive: [
+            {
+              breakpoint: 650,  // Tamaño de pantalla md (ejemplo, puedes ajustar según tus necesidades)
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+      });
+
+      
+      
+  });
+</script>
 
 
 <script>

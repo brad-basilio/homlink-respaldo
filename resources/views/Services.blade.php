@@ -94,9 +94,22 @@
           <h1 class="text-4xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
             Transformando Ideas <br class="xs:hidden lg:block" >en Realidad Digital
           </h1>
+          
+          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
+            <div  class="xs:w-[80%] lg:w-[88%]">
+                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular">E-commerce</p>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
+            </div>
+            <div  class="xs:w-[20%] lg:w-[12%]">
+                <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
+                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-14 w-14 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+            </div>
+          </div>
+          
+          
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular text-opacity-100">One Page</p>
+                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular text-opacity-100">Website</p>
                     <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
@@ -116,18 +129,6 @@
                     <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-14 w-14 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
           </div>
-
-          <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
-            <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular">E-commerce</p>
-                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
-            </div>
-            <div  class="xs:w-[20%] lg:w-[12%]">
-                <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
-                    <img src="{{ asset('img/Goup.svg')}}" alt="Flecha a la derecha" class="h-14 w-14 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
-            </div>
-          </div>
-
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('aplicativospage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
