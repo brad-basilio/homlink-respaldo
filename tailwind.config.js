@@ -43,6 +43,11 @@ export default {
 
       },
 
+      margin: {
+        '30': '7.5rem',
+
+      }
+
     },
   },
   plugins: [],

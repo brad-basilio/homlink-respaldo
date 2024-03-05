@@ -136,7 +136,7 @@
                <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
                <span class="float-left p-3 text-white ">Excelencia a medida</span>
              </li>
-             <li class="inline-flex items-center  w-1/4">
+             <li class="inline-flex items-center  w-1/4 ">
                <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
                <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
              </li>
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
            
         } else {
             menu.classList.remove("w-0", "h-0", "opacity-0");
-            menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-20");
+            menu.classList.add("w-screen", "h-screen", "opacity-100", "-mt-30");
         }
 
         
