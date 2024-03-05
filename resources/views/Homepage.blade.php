@@ -67,9 +67,9 @@
       </div>
     </div>
 
-
+    {{-- xs:h-full --}}
     <!-- Contenido principal -->
-    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96  xs:h-full   bg-fondo  ">
+    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:min-w-96     bg-fondo  ">
   
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto ">
