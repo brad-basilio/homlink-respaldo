@@ -11,7 +11,7 @@
 </head>
 
 
-<body class="font-sans  bg-azuloscuro textura" >
+<body class="font-sans  bg-azuloscuro textura lg:h-screen" >
 <div class=" inset-0 bg-azuloscuro bg-opacity-75">
   <!-- Encabezado superpuesto -->
   <header class=" text-white xs:px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">

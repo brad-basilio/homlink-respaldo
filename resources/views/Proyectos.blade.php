@@ -18,7 +18,7 @@
 </head>
 
 
-<body class="font-sans  bg-azulmoviles textura " >
+<body class="font-sans  bg-azulmoviles textura lg:h-screen" >
 <div class=" inset-0 bg-azulmoviles bg-opacity-30  ">
   <!-- Encabezado superpuesto -->
   <header class=" text-white xs:px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
@@ -216,7 +216,7 @@
     </div>
     </div>
 
-    <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]   py-10  gap-10 text-white  bg-azulmoviles">
+    {{-- <div class="grid xs:grid-cols-1 lg:grid-cols-4 px-[5%]   py-10  gap-10 text-white  bg-azulmoviles">
  
       <div class="flex flex-col items-start">
         <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-40 "> </a>
@@ -248,7 +248,7 @@
             <p class="font-MontserratRegular text-xs ">Copyright © 2023 Mundo Web. Reservados todos los derechos.</p>
       </div>
   
-  </div>
+  </div> --}}
   
   </footer>
 

@@ -15,7 +15,7 @@
 
 
 </head>
-<body class="font-sans bg-fondo" >
+<body class="font-sans bg-fondo lg:h-screen" >
 
     <!-- Encabezado superpuesto -->
     <header class=" text-white px-[5%]  w-full z-10  h-20 flex justify-between items-center ">

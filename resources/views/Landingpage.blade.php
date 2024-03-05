@@ -12,7 +12,7 @@
 </head>
 
 
-<body class="font-sans  bg-azulanding textura " >
+<body class="font-sans  bg-azulanding textura lg:h-screen" >
 <div class=" inset-0 bg-azulanding bg-opacity-75  ">
   <!-- Encabezado superpuesto -->
   <header class=" text-white xs:px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
