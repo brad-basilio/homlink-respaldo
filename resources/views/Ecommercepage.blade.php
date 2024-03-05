@@ -147,9 +147,135 @@
   
 
 <!-- Modal toggle -->
+{{-- <button data-modal-target="default-modal" data-modal-toggle="default-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+  Toggle modal
+</button>
 
+  <div>
+
+      <div class="bg-black p-5 opacity-85 w-96 h-full absolute top-1/2 left-1/2 overflow-hidden m-auto"> 
+      </div>
+      <div class="absolute top-1/2 left-1/2 text-white  m-auto">
+          <div>  
+                <h2 class="xs:text-lg xl:text-2xl text-white mt-10 font-RightgroteskMedium tracking-wide ">
+                    Oferta
+                </h2>
+
+                <div class="grid grid-cols-12  mb-6 mt-8">
+                  
+                    <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                      <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                      @error('nombre')
+                            <span class="text-red-500 text-base ">{{ $message }}</span>
+                      @enderror  
+                    </div>
+
+                </div>
+
+                <div class="grid grid-cols-12  mb-6 mt-8 gap-6">
+
+                  <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                      <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                      @error('email')
+                          <span class="text-red-500 text-base ">{{ $message }}</span>
+                      @enderror
+                  </div>
+
+                  <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                      <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                      @error('telefono')
+                          <span class="text-red-500 text-base ">{{ $message }}</span>
+                      @enderror
+                  </div>
+
+              </div> 
+
+        </div>
+      </div>
+
+  </div> --}}
 
   
+  
+ 
+ <div id="modelConfirm" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+     <div class="relative xs:top-8 md:top-10 lg:top-20 mx-auto shadow-xl rounded-md bg-azulform opacity-95 max-w-2xl">
+ 
+         <div class="flex justify-end p-2">
+             <button onclick="closeModal('modelConfirm')" type="button"
+                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                     <path fill-rule="evenodd"
+                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                         clip-rule="evenodd"></path>
+                 </svg>
+             </button>
+         </div>
+ 
+         <div class="p-12 pt-0 text-left">
+            
+          <h2 class=" text-base md:text-lg font-normal text-white  font-MontserratRegular tracking-wide ">
+            ¿Quieres que te hagamos un análisis a tu web, y ademas que podamos hacerte una propuesta con un 15% de descuento?<br>
+            Entonces déjanos tus datos:
+           </h2>
+
+          <div class="grid grid-cols-12  mb-2 mt-4">
+          
+                  <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                    <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                    @error('nombre')
+                          <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror  
+                  </div>
+
+          </div>
+
+          <div class="grid grid-cols-12  mb-2 mt-4 gap-3">
+
+                <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                    <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                    @error('email')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                    <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                    @error('telefono')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                    @enderror
+                </div>
+
+           </div> 
+
+            <div class="grid grid-cols-12  mb-6 mt-4">
+              
+                <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                  <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com">
+                  @error('urlweb')
+                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                  @enderror  
+                </div>
+
+            </div>
+
+            <a href="#" onclick="closeModal('modelConfirm')"
+                class="text-gray-900 bg-white hover:bg-gray-100   font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center mr-2"
+                data-modal-toggle="delete-user-modal">
+                Enviar mensaje
+            </a> 
+
+             <a href="#"  onclick="closeModal('modelConfirm')"
+                 class="text-white bg-red-600 hover:bg-red-800   font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center ">
+                 Cancelar
+             </a>
+            
+         </div>
+ 
+     </div>
+ </div>
+
+
 </div>
 </body>
 </html>
@@ -185,3 +311,35 @@
   
   }); 
   </script>
+
+
+<script type="text/javascript">
+  window.onload = function() {
+      // Esperar 1 segundo (1000 milisegundos) y luego abrir el modal automáticamente
+      setTimeout(function() {
+        openModal('modelConfirm'); // Reemplaza 'tuModalId' con el ID real de tu modal
+      }, 1000);
+    };
+    
+  window.openModal = function(modalId) {
+      document.getElementById(modalId).style.display = 'block'
+      document.getElementsByTagName('body')[0].classList.add('overflow-y-hidden')
+  }
+
+  window.closeModal = function(modalId) {
+      document.getElementById(modalId).style.display = 'none'
+      document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
+  }
+
+  // Close all modals when press ESC
+  document.onkeydown = function(event) {
+      event = event || window.event;
+      if (event.keyCode === 27) {
+          document.getElementsByTagName('body')[0].classList.remove('overflow-y-hidden')
+          let modals = document.getElementsByClassName('modal');
+          Array.prototype.slice.call(modals).forEach(i => {
+              i.style.display = 'none'
+          })
+      }
+  };
+</script>
