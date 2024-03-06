@@ -319,9 +319,9 @@
 <script type="text/javascript">
   window.onload = function() {
       // Esperar 1 segundo (1000 milisegundos) y luego abrir el modal automáticamente
-      setTimeout(function() {
+      
         openModal('modelConfirm'); // Reemplaza 'tuModalId' con el ID real de tu modal
-      }, 1000);
+      
     };
     
   window.openModal = function(modalId) {
