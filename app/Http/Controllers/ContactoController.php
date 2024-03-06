@@ -22,7 +22,8 @@ class ContactoController extends Controller
             'telefono' => 'required|integer|max:99999999999',
             'tipoproyecto' => 'required|string|max:255',
             'tipocontacto' => 'required|string|max:255',
-            'horacontacto' => 'required|string|max:20',
+            'horacontacto' => 'required|string|max:255',
+            'urlweb' => 'string|max:255',
         ];
     
         $mensajes = [

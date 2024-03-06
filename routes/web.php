@@ -12,6 +12,7 @@ use App\Http\Controllers\ProyectosController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,3 +38,4 @@ Route::get('/contacto', [ContactoController::class, 'viewContacto'])->name('cont
 Route::get('/proyectos', [ProyectosController::class, 'viewProyectos'])->name('proyectos');
 
 Route::post('/contacto', [ContactoController::class, 'storeContacto'] )->name('guardarcontacto');
+Route::post('/servicios/ecommerce', [EcommercepageController::class, 'storeContacto'] )->name('guardarpopup');

@@ -213,7 +213,8 @@
          </div>
  
          <div class="p-12 pt-0 text-left">
-            
+          <form method="POST" action="{{ route('guardarpopup') }}">
+          @csrf
           <h2 class=" text-base md:text-lg font-normal text-white  font-MontserratRegular tracking-wide ">
             ¿Quieres que te hagamos un análisis a tu web, y ademas que podamos hacerte una propuesta con un 15% de descuento?<br>
             Entonces déjanos tus datos:
@@ -259,17 +260,19 @@
 
             </div>
 
-            <a href="#" onclick="closeModal('modelConfirm')"
+            {{-- <a href="#" 
                 class="text-gray-900 bg-white hover:bg-gray-100   font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center mr-2"
                 data-modal-toggle="delete-user-modal">
                 Enviar mensaje
-            </a> 
-
-             <a href="#"  onclick="closeModal('modelConfirm')"
-                 class="text-white bg-red-600 hover:bg-red-800   font-medium rounded-lg text-base inline-flex items-center px-3 py-2.5 text-center ">
-                 Cancelar
-             </a>
+            </a>  --}}
             
+                <button onclick="closeModal('modelConfirm')" type="submit" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-4 py-2 rounded-full w-auto inline-block text-center mt-3   mr-2" >
+                  <span class=" font-MontserratSemibold text-base">Enviar solicitud</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></button>
+
+                <a href="#"  onclick="closeModal('modelConfirm')"
+                class="text-lg bg-red-500 text-white  px-6 py-3.5 rounded-full w-auto inline-block text-center  mr-3">
+                <span class=" font-MontserratSemibold text-base">Cancelar</span></a>
+          </form>
          </div>
  
      </div>

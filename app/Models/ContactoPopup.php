@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contacto extends Model
+class ContactoPopup extends Model
 {
     use HasFactory;
-    protected $fillable=['nombre','email','telefono','tipoproyecto','mensaje','urlweb','tipocontacto','horacontacto'];
-
+    protected $fillable=['nombre','email','telefono','urlweb'];
 }
