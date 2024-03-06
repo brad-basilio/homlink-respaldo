@@ -9,6 +9,7 @@ use App\Http\Controllers\EcommercepageController;
 use App\Http\Controllers\AplicativosController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProyectosController;
+use App\Http\Controllers\FormController;
 
 
 
@@ -38,4 +39,7 @@ Route::get('/contacto', [ContactoController::class, 'viewContacto'])->name('cont
 Route::get('/proyectos', [ProyectosController::class, 'viewProyectos'])->name('proyectos');
 
 Route::post('/contacto', [ContactoController::class, 'storeContacto'] )->name('guardarcontacto');
-Route::post('/servicios/ecommerce', [EcommercepageController::class, 'storeContacto'] )->name('guardarpopup');
+Route::post('/servicios/ecommerce', [FormController::class, 'store'] )->name('guardarpopup');
+Route::post('/servicios/landing', [FormController::class, 'store2'] )->name('guardarpopup2');
+Route::post('/servicios/onepage', [FormController::class, 'store3'] )->name('guardarpopup3');
+Route::post('/servicios/aplicativos', [FormController::class, 'store4'] )->name('guardarpopup4');

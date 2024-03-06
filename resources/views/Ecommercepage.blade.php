@@ -55,7 +55,11 @@
       <div class="xs:col-span-12  lg:col-span-5 w-full h-full  p-4  text-left  flex flex-col justify-center items-center mx-auto">
        
         <div class="items-center  xs:py-[5%] md:py-[8%] lg:py-[27%]  xs:px-[2%] md:px-[8%] ">
-          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-RightgroteskMedium tracking-wide ">
+           @if(Session::has('mensaje'))
+           <span class="text-yellow-300 text-2xl animate-fade-down ">Gracias, nos contactaremos contigo </span>
+           <br>  <span class="text-yellow-300 text-2xl animate-fade-down ">{{session()->get('name')}}</span>
+           @endif
+          <h1 class="xs:text-4xl xl:text-6xl  text-white w-full font-RightgroteskMedium tracking-wide mt-3">
             E-commerce:<br> Abre las puertas de tu tienda en línea
           </h1>
           <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Potenciamos tus ventas con soluciones E-commerce personalizadas. 
@@ -197,86 +201,95 @@
 
   
   
- 
- <div id="modelConfirm" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
-     <div class="relative xs:top-8 md:top-10 lg:top-20 mx-auto shadow-xl rounded-md bg-azulform opacity-95 max-w-2xl">
- 
-         <div class="flex justify-end p-2">
-             <button onclick="closeModal('modelConfirm')" type="button"
-                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                     <path fill-rule="evenodd"
-                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                         clip-rule="evenodd"></path>
-                 </svg>
-             </button>
+  @if(Session::has('mensaje'))
+
+  @else
+  <div id="modelConfirm" class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+    <div class="relative xs:top-8 md:top-10 lg:top-20 mx-auto shadow-xl rounded-md bg-azulform opacity-95 max-w-2xl animate-jump">
+
+        <div class="flex justify-end p-2">
+            <button onclick="closeModal('modelConfirm')" type="button"
+                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div class="p-12 pt-0 text-left">
+         <form method="POST" action="{{ route('guardarpopup') }}">
+         @csrf
+         <h2 class=" text-base md:text-lg font-normal text-white  font-MontserratRegular tracking-wide ">
+           ¿Quieres que te hagamos un análisis a tu web, y ademas que podamos hacerte una propuesta con un 15% de descuento?<br>
+           Entonces déjanos tus datos:
+          </h2>
+
+         <div class="grid grid-cols-12  mb-2 mt-4">
+         
+                 <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                   <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                   @error('nombre')
+                         <span class="text-red-500 text-base ">{{ $message }}</span>
+                   @enderror  
+                 </div>
+
+                 <div> 
+                  <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="source" type="hidden" value="E-commerce">  
+                </div>
+
          </div>
+
+         <div class="grid grid-cols-12  mb-2 mt-4 gap-3">
+
+               <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                   <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                   @error('email')
+                       <span class="text-red-500 text-base ">{{ $message }}</span>
+                   @enderror
+               </div>
+
+               <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                   <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                   @error('telefono')
+                       <span class="text-red-500 text-base ">{{ $message }}</span>
+                   @enderror
+               </div>
+
+          </div> 
+
+           <div class="grid grid-cols-12  mb-6 mt-4">
+             
+               <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                 <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com">
+                 @error('urlweb')
+                       <span class="text-red-500 text-base ">{{ $message }}</span>
+                 @enderror  
+               </div>
+
+           </div>
+
+           {{-- <a href="#" 
+               class="text-gray-900 bg-white hover:bg-gray-100   font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center mr-2"
+               data-modal-toggle="delete-user-modal">
+               Enviar mensaje
+           </a>  --}}
+           
+               <button onclick="closeModal('modelConfirm')" type="submit" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-4 py-2 rounded-full w-auto inline-block text-center mt-3   mr-2" >
+                 <span class=" font-MontserratSemibold text-base">Enviar solicitud</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></button>
+
+               <a href="#"  onclick="closeModal('modelConfirm')"
+               class="text-lg bg-red-500 text-white  px-6 py-3.5 rounded-full w-auto inline-block text-center  mr-3">
+               <span class=" font-MontserratSemibold text-base">Cancelar</span></a>
+         </form>
+        </div>
+
+    </div>
+</div>
+  @endif
+
  
-         <div class="p-12 pt-0 text-left">
-          <form method="POST" action="{{ route('guardarpopup') }}">
-          @csrf
-          <h2 class=" text-base md:text-lg font-normal text-white  font-MontserratRegular tracking-wide ">
-            ¿Quieres que te hagamos un análisis a tu web, y ademas que podamos hacerte una propuesta con un 15% de descuento?<br>
-            Entonces déjanos tus datos:
-           </h2>
-
-          <div class="grid grid-cols-12  mb-2 mt-4">
-          
-                  <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                    <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
-                    @error('nombre')
-                          <span class="text-red-500 text-base ">{{ $message }}</span>
-                    @enderror  
-                  </div>
-
-          </div>
-
-          <div class="grid grid-cols-12  mb-2 mt-4 gap-3">
-
-                <div class="w-full xs:col-span-12 lg:col-span-6 ">
-                    <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="email" type="email" placeholder="Correo electrónico">
-                    @error('email')
-                        <span class="text-red-500 text-base ">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="w-full xs:col-span-12 lg:col-span-6 ">
-                    <input class="font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
-                    @error('telefono')
-                        <span class="text-red-500 text-base ">{{ $message }}</span>
-                    @enderror
-                </div>
-
-           </div> 
-
-            <div class="grid grid-cols-12  mb-6 mt-4">
-              
-                <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                  <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com">
-                  @error('urlweb')
-                        <span class="text-red-500 text-base ">{{ $message }}</span>
-                  @enderror  
-                </div>
-
-            </div>
-
-            {{-- <a href="#" 
-                class="text-gray-900 bg-white hover:bg-gray-100   font-medium inline-flex items-center rounded-lg text-base px-3 py-2.5 text-center mr-2"
-                data-modal-toggle="delete-user-modal">
-                Enviar mensaje
-            </a>  --}}
-            
-                <button onclick="closeModal('modelConfirm')" type="submit" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-4 py-2 rounded-full w-auto inline-block text-center mt-3   mr-2" >
-                  <span class=" font-MontserratSemibold text-base">Enviar solicitud</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block  "></button>
-
-                <a href="#"  onclick="closeModal('modelConfirm')"
-                class="text-lg bg-red-500 text-white  px-6 py-3.5 rounded-full w-auto inline-block text-center  mr-3">
-                <span class=" font-MontserratSemibold text-base">Cancelar</span></a>
-          </form>
-         </div>
- 
-     </div>
- </div>
 
 
 </div>

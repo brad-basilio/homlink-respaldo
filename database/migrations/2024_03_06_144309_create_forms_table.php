@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('formulariopopup', function (Blueprint $table) {
+        Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
             $table->string('email');
             $table->integer('telefono');
             $table->string('urlweb');
+            $table->string('source');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('formulariopopup');
+        Schema::dropIfExists('forms');
     }
 };
