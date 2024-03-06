@@ -109,8 +109,8 @@
     <div  class="xs:col-span-12 lg:col-span-4 ">
 
         <div class="group  items-center  justify-end inline-block">   
-            <a type="button" href="{{ route('ecommercepage') }}" class=" text-lg  text-white  rounded-full w-auto inline-block text-center   group-hover:pl-3   transition-all  duration-500 " >
-            <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Servicio: E-Commerce</span><img src="{{ asset('img/arrowright.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
+            <a type="button" href="{{ route('aplicativospage') }}" class=" text-lg  text-white  rounded-full w-auto inline-block text-center   group-hover:pl-3   transition-all  duration-500 " >
+            <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Servicio: Aplicativo móvil</span><img src="{{ asset('img/arrowright.svg')}}" alt="Flecha a la derecha" class="h-12 w-12 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
         </div>
     
     </div>
