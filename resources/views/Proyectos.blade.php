@@ -124,19 +124,19 @@
     </div>
 
     
-    {{-- <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
        
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Aliqora</h2>
-              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.aliqora.com/" > https://www.aliqora.com/ </a> 
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: CJLocks</h2>
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.cjlocks.com.pe/" > https://www.cjlocks.com.pe/ </a> 
             </div>
-            <a target=_blank href="https://www.aliqora.com/" ><img class="m-auto w-full p-[5%]" src="img/Aliqora_ECO.png"> </a>
+            <a target=_blank href="https://www.cjlocks.com.pe/" ><img class="m-auto w-full p-[5%]" src="img/CJLocks_ECO.png"> </a>
             
       </div>
 
-    </div> --}}
+    </div>
 
 
     <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
