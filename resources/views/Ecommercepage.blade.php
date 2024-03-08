@@ -83,6 +83,12 @@
 
   </div>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="float" target="_blank">
+  <i class="fa fa-whatsapp my-float"></i>
+  </a>
+
+
   <!-- Pie de página -->
   <footer >
    <div class="grid grid-cols-12 h-auto text-right items-center justify-between px-[5%] pb-[3%] pt-[1%]">
