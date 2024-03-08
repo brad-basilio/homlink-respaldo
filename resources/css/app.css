@@ -51,7 +51,13 @@
             background-repeat:no-repeat;
         }
 
-        
+        .fondowsp{
+          background-image: url('../../public/img/Whatsap.svg');  
+          object-fit: cover;
+          background-position: center ;
+          background-size: 100%;
+          background-repeat:no-repeat;
+        }
 
           .menu-icon {
             display: flex;

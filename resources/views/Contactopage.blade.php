@@ -325,10 +325,9 @@
 
   </div>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-16 right-0 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in md:w-80 xs:w-48 float-right" target="_blank">
-  <img src="{{ asset('img/wsp.png') }}" class="fa fa-whatsapp my-float" />
-  </a>
+  <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-28 right-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none" target="_blank">
+    <img src="{{ asset('img/wspf.png') }}" class="md:w-56 w-40" />
+    </a>
 
 
   <!-- Pie de página -->
