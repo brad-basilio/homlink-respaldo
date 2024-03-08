@@ -115,17 +115,31 @@
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: AGR </h2>
-              <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Las Doñas </h2>
+              <a  class="text-base font-normal font-MontserratRegular text-white"  href="#" > Proyecto en desarrollo </a> 
             </div>
-            <a href="#" > <img class="m-auto w-full p-[5%]" src="img/AGR_ECO.png"> </a>
+            <a href="#" > <img class="m-auto w-full p-[5%]" src="img/LasDonas_ECO.png"> </a>
+      </div>
+
+    </div>
+
+
+
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
+     
+      <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
+            <div class="mx-[8%]">
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: AGR </h2>
+              <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://agrperu.com/" > https://agrperu.com/ </a> 
+            </div>
+            <a target=_blank href="https://agrperu.com/" > <img class="m-auto w-full p-[5%]" src="img/AGR_ECO.png"> </a>
       </div>
 
     </div>
 
     
     <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
-       
+       F
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             
             <div class="mx-[8%]">
