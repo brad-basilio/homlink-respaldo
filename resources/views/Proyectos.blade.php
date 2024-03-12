@@ -111,7 +111,7 @@
   <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos ">
 
    
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  ">
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
@@ -125,7 +125,7 @@
 
 
 
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  ">
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
@@ -138,8 +138,7 @@
     </div>
 
     
-    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
-       F
+    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             
             <div class="mx-[8%]">
@@ -153,7 +152,7 @@
     </div>
 
 
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
@@ -167,7 +166,7 @@
 
 
 
-    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+    <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0  flex flex-col justify-center  mx-auto ">
        
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
@@ -179,7 +178,7 @@
       </div>
 
 
-      <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+      <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
      
         <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                 <div class="mx-[8%]">
@@ -192,7 +191,7 @@
         </div>
     
         
-        <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+        <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
            
         <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                 <div class="mx-[8%]">
@@ -205,7 +204,7 @@
         </div>
 
 
-        <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+        <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
            
           <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                   <div class="mx-[8%]">
@@ -218,7 +217,7 @@
           </div>
 
 
-          <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+          <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
            
             <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                     <div class="mx-[8%]">
@@ -231,7 +230,7 @@
             </div>
 
 
-            <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+            <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
            
               <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                       <div class="mx-[8%]">
@@ -253,7 +252,7 @@
 <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos ">
 
  
-  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
+  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  ">
    
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -266,7 +265,7 @@
   </div>
 
   
-  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
      
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -279,7 +278,7 @@
   </div>
 
 
-  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
    
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -293,7 +292,7 @@
 
 
 
-  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
@@ -305,7 +304,7 @@
     </div>
 
 
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
    
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
@@ -328,7 +327,7 @@
 <div class=" grid  grid-cols-12 xs:min-w-96  xs:h-full  mt-12 carruselproyectos ">
 
  
-  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  ">
+  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  ">
    
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -341,7 +340,7 @@
   </div>
 
   
-  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
      
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -354,7 +353,7 @@
   </div>
 
 
-  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+  <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
    
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
@@ -368,7 +367,7 @@
 
 
 
-  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-4   flex flex-col justify-center  mx-auto ">
+  <div class="xs:col-span-12 lg:col-span-6  w-full h-full p-0   flex flex-col justify-center  mx-auto ">
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
@@ -380,7 +379,7 @@
     </div>
 
 
-    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-4   flex flex-col justify-center  mx-auto">
+    <div class="xs:col-span-12  lg:col-span-6 w-full h-full  p-0   flex flex-col justify-center  mx-auto">
    
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
@@ -529,9 +528,9 @@
   $(document).ready(function(){
       
     $('.carruselproyectos ').slick({
-          autoplay: true, 
-          autoplaySpeed: 500, 
-          speed: 4000,
+          // autoplay: true, 
+          // autoplaySpeed: 1000, 
+          // speed: 50,
           slidesToShow: 3,
           centerMode: true,
           slidesToScroll: 1,
