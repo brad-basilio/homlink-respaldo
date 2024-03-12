@@ -383,10 +383,10 @@
    
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Catering Guadalupe</h2>
-                <a  class="text-base font-normal font-MontserratRegular text-white" href="https://catering-guadalupe.com/" > https://catering-guadalupe.com/ </a> 
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Trento</h2>
+                <a  class="text-base font-normal font-MontserratRegular text-white" href="https://www.ctrento.com.pe/" > https://www.ctrento.com.pe/ </a> 
               </div>
-              <a target=_blank href="https://catering-guadalupe.com/" ><img class="m-auto w-full p-[5%]" src="img/Guadalupe_WS.png"> </a>
+              <a target=_blank href="https://www.ctrento.com.pe/" ><img class="m-auto w-full p-[5%]" src="img/Trento_WS.png"> </a>
         </div>
   
       </div>
