@@ -38,7 +38,7 @@ class FormController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            'urlweb' => 'string|max:255',
+            
         ];
     
         $mensajes = [
@@ -72,7 +72,7 @@ class FormController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            'urlweb' => 'string|max:255',
+            
         ];
     
         $mensajes = [
@@ -107,7 +107,7 @@ class FormController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            'urlweb' => 'string|max:255',
+            
         ];
     
         $mensajes = [
@@ -142,7 +142,7 @@ class FormController extends Controller
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            'urlweb' => 'string|max:255',
+            
         ];
     
         $mensajes = [

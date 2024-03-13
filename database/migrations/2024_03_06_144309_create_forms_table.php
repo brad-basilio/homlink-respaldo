@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('email');
             $table->integer('telefono');
-            $table->string('urlweb');
+            $table->string('urlweb')->nullable();
             $table->string('source');
             $table->timestamps();
         });
