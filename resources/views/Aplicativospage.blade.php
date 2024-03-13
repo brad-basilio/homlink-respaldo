@@ -23,6 +23,13 @@
     </div>
   
     <div class="inline-flex items-center xs:w-4/12 xl:w-3/12 justify-end"> 
+
+      <div class="group mr-5 hidden md:block z-30">   
+        <a type="button" href="{{ route('servicios') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  transition-all  duration-500" >
+          <img src="{{ asset('img/iconoleftup.svg') }}" alt="Flecha a la derecha" class="h-8 w-8 mr-2  inline-block  group-hover:-rotate-45 transition-all duration-500"><span class=" transition-all  duration-500 font-MontserratSemibold text-base ">Volver</span></a>  
+      </div>
+
+
      <div class="group z-50" id="botonmenu">
         <a type="button"  href="javascript:void(0)"   class=" float-right text-lg bg-fondoboton text-white w-16 h-16 rounded-full  inline-flex items-center justify-center" >
            
@@ -94,12 +101,12 @@
    <div class="grid grid-cols-12 h-20 -mt-20 text-right items-center justify-between px-[5%] pb-[3%] pt-[1%]">
     <div class="xs:col-span-12 lg:col-span-4 ">
 
-       <div class="flex justify-start -mt-16"> 
+       {{-- <div class="flex justify-start -mt-16"> 
           <div class="group">
             <a type="button" href="{{ route('servicios') }}" class="rounded-full w-auto inline-block" >
                 <img src="{{ asset('img/arrowleftup.svg') }}" alt="Flecha a la derecha" class="h-16 w-16  inline-block group-hover:-rotate-45 transition-all duration-500"></a>  
           </div>  
-        </div>
+        </div> --}}
 
     </div>
 
@@ -210,10 +217,7 @@
            <div class="grid grid-cols-12  mb-6 mt-4">
              
                <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                 <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com">
-                 @error('urlweb')
-                       <span class="text-red-500 text-base ">{{ $message }}</span>
-                 @enderror  
+                 <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
                </div>
 
            </div>
