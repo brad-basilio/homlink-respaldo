@@ -15,7 +15,7 @@
 
 
 </head>
-<body class="font-sans bg-fondo lg:h-screen" >
+<body class="font-sans bg-azuloscuro lg:h-screen" >
 
     <!-- Encabezado superpuesto -->
     <header class=" text-white px-[5%]  w-full z-10 h-[15%]  flex justify-between items-center ">
@@ -69,7 +69,7 @@
 
 
     <!-- Contenido principal -->
-    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:h-full lg:h-[85%]     bg-fondo  ">
+    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:h-full lg:h-[85%]     bg-azuloscuro  ">
   
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
