@@ -34,8 +34,8 @@
         </ul>
       </div>
     
-      <div class="inline-flex items-center xs:w-6/12 xl:w-3/12 justify-center xs:hidden xl:block py-7"> 
-       <div class="group">
+      <div class="flex flex-row items-end justify-end  xs:w-6/12 xl:w-3/12  xs:hidden xl:block py-7"> 
+       <div class="group flex flex-row items-end justify-end mr-5">
         <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
           <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi web </span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a> 
         </div>   
