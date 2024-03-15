@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="{{asset('css/slick-theme.css')}}">
   <script src="{{asset('js/jquery.min.js')}}"></script>
   <script src="{{asset('js/slick.min.js')}}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script  src="https://code.jquery.com/jquery-3.7.1.js"  crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
 
@@ -76,8 +78,7 @@
          
           <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
             <h1 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
-              ¡Mundo Web,<br> nuestra pasión,
-              tu transformación Digital!
+              ¡Mundo Web,<br> Nuestra pasión por la transformación digital!
             </h1>
             <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
@@ -125,7 +126,7 @@
     
 
     <!-- Pie de página -->
-    <footer class="z-10 col-span-2">
+    {{-- <footer class="z-10 col-span-2">
       
       <div class="px-1 py-2 h-16 lg:-mt-16 bg-azulmundoweb mododev  ">
         <div class="carruselfooter ">
@@ -149,7 +150,41 @@
            </ul>
          </div>
        </div>
-     </footer>
+     </footer> --}}
+
+     <footer  class="z-10 col-span-2" >
+      <div class="px-1 py-2 h-20 lg:-mt-20 bg-azulmundoweb">
+          <div  x-data="{}"
+          x-init="$nextTick(() => {
+              let ul = $refs.logos;
+              ul.insertAdjacentHTML('afterend', ul.outerHTML);
+              ul.nextSibling.setAttribute('aria-hidden', 'true');
+          })"
+          class="px-[5%]  bg-azulmw w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]"> 
+              <ul x-ref="logos" class="h-16 flex flex-row justify-between items-center  [&_li]:mx-10   animate-infinite-scroll">
+              
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo1.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo2.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo3.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo4.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo5.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo6.svg') }}"/></li>
+              
+              </ul>
+
+              <ul x-ref="logos" class="h-16 flex flex-row justify-between items-center  [&_li]:mx-10   animate-infinite-scroll" aria-hidden="true">
+              
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo1.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo2.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo3.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo4.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo5.svg') }}"/></li>
+                <li class="w-32 py-8"><img class="object-contain" src="{{ asset('img/Logo6.svg') }}"/></li>
+              
+              </ul>
+          </div> 
+      </div>
+   </footer>
   
     
   

@@ -20,6 +20,16 @@ export default {
 
     extend: {
 
+      animation: {
+        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+      },
+      keyframes: {
+        'infinite-scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-100%)' },
+        }
+      },
+
       colors: {
         primary: '#3490dc', // Puedes cambiar el código de color según tus preferencias
         fondo: '#1e2f33',
