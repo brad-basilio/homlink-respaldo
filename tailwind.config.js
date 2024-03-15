@@ -32,7 +32,8 @@ export default {
         azulform:  '#040a45',
         fondoinput: '#FFFFFF66',
         textyellow: '#FDD448',
-        azuloscuro: '#050A41'
+        azuloscuro: '#050A41',
+        mwnaranja: '#E15A29 ',
       },
 
       fontFamily: {

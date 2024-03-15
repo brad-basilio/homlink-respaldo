@@ -25,10 +25,10 @@
     
       <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block py-7"> 
         <ul class="flex space-x-6 font-MontserratSemibold font-normal">
-          <li><a href="{{ route('inicio') }}" >Inicio</a></li>
-          <li><a href="{{ route('servicios') }}" >Servicios</a></li>
-          <li><a href="{{ route('proyectos') }}" >Proyectos</a></li>
-          <li><a href="{{ route('contacto') }}" >Contacto</a></li>
+          <li class="hover:text-mwnaranja"><a href="{{ route('inicio') }}" >Inicio</a></li>
+          <li class="hover:text-mwnaranja"><a href="{{ route('servicios') }}" >Servicios</a></li>
+          <li class="hover:text-mwnaranja"><a href="{{ route('proyectos') }}" >Proyectos</a></li>
+          <li class="hover:text-mwnaranja"><a href="{{ route('contacto') }}" >Contacto</a></li>
         </ul>
       </div>
     
@@ -94,7 +94,7 @@
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona4.png') }}"> </li>
                   <li class="rounded-full"><img  class="rounded-full w-12" src="{{ asset('img/persona5.png') }}"> </li>
                 </ul>
-                <p class="grid xs:col-span-12 md:col-span-8 ml-5 text-white text-base items-end font-MontserratRegular"><span class="font-bold text-2xl mr-2 font-RightgroteskMedium tracking-wide">100+ </span> Clientes digitalizados</p>
+                <p class="grid xs:col-span-12 md:col-span-8 ml-5 text-mwnaranja text-base items-end font-MontserratRegular"><span class="font-bold text-2xl mr-2 font-RightgroteskMedium tracking-wide">100+ </span> Clientes digitalizados</p>
             </div>    
   
           </div>
