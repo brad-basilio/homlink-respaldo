@@ -76,7 +76,7 @@
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
          
-          <div class="items-center  xs:pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
+          <div class="items-center  xs:pt-[10%] md:pt-[10%] lg:pt-[10%]  xs:px-[2%] md:px-[8%] ">
             <h1 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
                Nuestra pasión por la transformación digital
             </h1>
