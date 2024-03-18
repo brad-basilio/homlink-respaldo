@@ -17,6 +17,14 @@
 
 
 </head>
+
+<div class="fullscreen-container">
+  <video loop muted autoplay  class="fullscreen-video">
+      <source src="../video/videofondomw.mp4" type="video/mp4">
+      <source src="../video/videofondomw.mp4" type="video/ogg">
+  </video>
+</div>
+
 <body class="font-sans bg-azuloscuro lg:h-screen" >
 
     <!-- Encabezado superpuesto -->
@@ -58,7 +66,7 @@
 
     </header>
     
-    
+   
     <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700 ">
      
       <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
@@ -71,8 +79,8 @@
 
 
     <!-- Contenido principal -->
-    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:h-full lg:h-[85%]     bg-azuloscuro  ">
-  
+    <div class=" grid  grid-cols-2  xs:gap-1 lg:gap-10  xs:h-full lg:h-[85%] ">
+    
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
          
@@ -105,7 +113,7 @@
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
             <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[85%] rounded-3xl  bg-cover bg-center imagenMundoWeb flex justify-center items-center ">
-              <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
+              <div><a href="javascript:void(0)"><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
               {{-- <div class="inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center  ">
                 <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
               </div> --}}
@@ -124,7 +132,15 @@
       <img src="{{ asset('img/wspf.png') }}" class="md:w-56 w-40" />
       </a>
     
-
+      <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700 ">
+     
+        <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
+            <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
+            <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
+            <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+            <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
+        </div>
+      </div>
     <!-- Pie de página -->
     {{-- <footer class="z-10 col-span-2">
       
