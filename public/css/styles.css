@@ -54,6 +54,7 @@
     left: 0;
     overflow: hidden;
     z-index: -100;
+    opacity: 0.3;
 }
 
 .fullscreen-video {
