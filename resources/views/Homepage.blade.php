@@ -26,8 +26,8 @@
 
 <div class="fullscreen-container">
   <video loop muted autoplay  class="fullscreen-video">
-      <source src="../video/videofondomwf.mp4" type="video/mp4">
-      <source src="../video/videofondomwf.mp4" type="video/ogg">
+      <source src="../video/videofondomw.mp4" type="video/mp4">
+      <source src="../video/videofondomw.mp4" type="video/ogg">
   </video>
 </div>
 
