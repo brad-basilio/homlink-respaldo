@@ -4,7 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mundoweb</title>
-  
+  <meta property="og:type" content="website" />
+  <meta property="og:title "content="Página web a medida" />
+  <meta property="og:description" content="El desarrollo de páginas web es un proceso de planificación, diseño, y programación. Su objetivo principal es crear una página web que sea atractiva, funcional y sobre todo que se vea muy bien en dispositivos móviles
+  " />
+  <meta property="og:image" content="enlace al archive de la imagen" />
+  <meta property="og:url" content="permalink" />
+
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
   <link rel="stylesheet" href="{{asset('build/app.css')}}">
   <link rel="stylesheet" href="{{asset('css/slick.css')}}">
@@ -33,14 +39,14 @@
         <a href="{{ route('inicio') }}"> <img src="{{ asset('img/logomundoweb.svg') }}" class="h-full xs:w-64 xl:w-64 "> </a>
       </div>
     
-      <div class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block py-7"> 
+      <nav class="inline-flex items-center xs:w-0/12 xl:w-6/12 xs:hidden xl:block py-7"> 
         <ul class="flex space-x-6 font-MontserratSemibold font-normal">
           <li class="hover:text-mwnaranja"><a href="{{ route('inicio') }}" >Inicio</a></li>
           <li class="hover:text-mwnaranja"><a href="{{ route('servicios') }}" >Servicios</a></li>
           <li class="hover:text-mwnaranja"><a href="{{ route('proyectos') }}" >Proyectos</a></li>
           <li class="hover:text-mwnaranja"><a href="{{ route('contacto') }}" >Contacto</a></li>
         </ul>
-      </div>
+      </nav>
     
       <div class="flex flex-row items-end justify-end  xs:w-6/12 xl:w-3/12  xs:hidden xl:block py-7"> 
        <div class="group flex flex-row items-end justify-end mr-5">
@@ -69,12 +75,12 @@
    
     <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700 ">
      
-      <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
+      <nav class="flex flex-col text-white text-left text-4xl font-bold space-y-4 font-RightgroteskMedium tracking-wider">
           <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
           <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
           <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
           <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
-      </div>
+      </nav>
     </div>
 
 
@@ -84,10 +90,11 @@
         <!-- Columna 1 (60%) -->
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
          
-          <div class="items-center  xs:pt-[10%] md:pt-[10%] lg:pt-[10%]  xs:px-[2%] md:px-[8%] ">
-            <h1 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
-               Nuestra pasión por la <span class="text-mwnaranja">transformación</span> digital
-            </h1>
+          <div class=" items-center  pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
+            <h1 class="text-mwnaranja text-lg   w-full font-semibold font-RightgroteskMedium tracking-wider">Página web a medida</h1>
+            <h2 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
+               Nuestra pasión por la <span class="text-mwnaranja">transformación</span><br> digital
+            </h2>
             <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
               sino que creamos experiencias digitales que impulsan el éxito de nuestros clientes.</p>
