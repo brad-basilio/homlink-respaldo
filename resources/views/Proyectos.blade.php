@@ -21,8 +21,8 @@
 </head>
 
 
-<body class="font-sans  bg-azulmoviles textura lg:h-screen" >
-<div class=" inset-0 bg-azulmoviles bg-opacity-30  ">
+<body class="font-sans  bg-azuloscuro lg:h-screen" >
+<div class=" inset-0 bg-azuloscuro bg-opacity-30  ">
   <!-- Encabezado superpuesto -->
   <header class=" text-white xs:px-[5%]  w-full  xs:pt-10 lg:pt-20 h-20 flex justify-between items-center">
     <div class="items-center inline-flex xs:w-8/12 xl:w-3/12 z-50"> 
@@ -49,7 +49,7 @@
   </header>
   
   
-  <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700">
+  <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azuloscuro opacity-0 duration-700">
      
     <div class="flex flex-col text-white text-left text-4xl font-bold space-y-4">
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
@@ -115,7 +115,7 @@
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Las Doñas </h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Las Doñas </h2>
               <a  class="text-base font-normal font-MontserratRegular text-white"  href="#" > Proyecto en desarrollo </a> 
             </div>
             <a href="#" > <img class="m-auto w-full p-[5%]" src="img/LasDonas_ECO.png"> </a>
@@ -129,7 +129,7 @@
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: AGR </h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: AGR </h2>
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://agrperu.com/" > https://agrperu.com/ </a> 
             </div>
             <a target=_blank href="https://agrperu.com/" > <img class="m-auto w-full p-[5%]" src="img/AGR_ECO.png"> </a>
@@ -142,7 +142,7 @@
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: CJLocks</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: CJLocks</h2>
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.cjlocks.com.pe/" > https://www.cjlocks.com.pe/ </a> 
             </div>
             <a target=_blank href="https://www.cjlocks.com.pe/" ><img class="m-auto w-full p-[5%]" src="img/CJLocks_ECO.png"> </a>
@@ -156,7 +156,7 @@
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Brujhas</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Brujhas</h2>
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://brujhas.com/" > https://brujhas.com/ </a> 
             </div>
             <a target=_blank href="https://brujhas.com/" ><img class="m-auto w-full p-[5%]" src="img/Brujas_ECO.png"></a>
@@ -170,7 +170,7 @@
        
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Doomine</h2>
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Doomine</h2>
                 <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="#" > Proyecto en desarrollo </a> 
               </div>
               <a  target=_blank href="#" ><img class="m-auto w-full p-[5%]" src="img/Doomine_ECO.png"> </a>
@@ -182,7 +182,7 @@
      
         <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                 <div class="mx-[8%]">
-                  <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Limajoya</h2>
+                  <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Limajoya</h2>
                   <a  class="text-base font-normal font-MontserratRegular text-white" href="https://limajoya.com.pe/"  target=_blank > https://limajoya.com.pe/ </a> 
                 </div>
                 <a  href="https://limajoya.com.pe/"  target=_blank><img class="m-auto w-full p-[5%]" src="img/Limajoya_ECO.png"> </a>
@@ -195,7 +195,7 @@
            
         <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                 <div class="mx-[8%]">
-                  <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Morandina</h2>
+                  <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Morandina</h2>
                   <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://morandina.com.pe/" > https://morandina.com.pe/ </a> 
                 </div>
                 <a target=_blank href="https://morandina.com.pe/" ><img class="m-auto w-full p-[5%]" src="img/Morandina_ECO.png"> </a>
@@ -208,7 +208,7 @@
            
           <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                   <div class="mx-[8%]">
-                    <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: PeruTop</h2>
+                    <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: PeruTop</h2>
                     <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="#" > Proyecto en desarrollo </a> 
                   </div>
                   <a  href="#" ><img class="m-auto w-full p-[5%]" src="img/PeruTop_ECO.png"> </a>
@@ -221,7 +221,7 @@
            
             <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                     <div class="mx-[8%]">
-                      <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Petale</h2>
+                      <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Petale</h2>
                       <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://petale.pe/" > https://petale.pe/ </a> 
                     </div>
                     <a target=_blank href="https://petale.pe/" ><img class="m-auto w-full p-[5%]" src="img/Petale_ECO.png"> </a>
@@ -234,7 +234,7 @@
            
               <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
                       <div class="mx-[8%]">
-                        <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Xaphi</h2>
+                        <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Xaphi</h2>
                         <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.xaphi.com/" > https://www.xaphi.com/ </a> 
                       </div>
                       <a target=_blank href="https://www.xaphi.com/"><img class="m-auto w-full p-[5%]" src="img/Xapi_ECO.png"> </a>
@@ -256,7 +256,7 @@
    
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Autodrive </h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Autodrive </h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" href="https://www.autodriveperu.com/" > https://www.autodriveperu.com/ </a> 
           </div>
           <a target=_blank  href="https://www.autodriveperu.com/"><img class="m-auto w-full p-[5%]" src="img/Autodrive_LP.png"></a>
@@ -269,7 +269,7 @@
      
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Dr. Kewin</h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Dr. Kewin</h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="#" > Proyecto en desarrollo </a> 
           </div>
           <a href="#"><img class="m-auto w-full p-[5%]" src="img/DrKewin_LP.png"></a>  
@@ -282,7 +282,7 @@
    
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Fit2Finance</h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Fit2Finance</h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="#" > Proyecto en desarrollo </a> 
           </div>
           <a href="#"><img class="m-auto w-full p-[5%]" src="img/FIT2Finance_LP.png"> </a>
@@ -296,7 +296,7 @@
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: LimpiaBnB</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: LimpiaBnB</h2>
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="#" > Proyecto en desarrollo </a> 
             </div>
             <a href="#"><img class="m-auto w-full p-[5%]" src="img/LimpiaBnb_LP.png"> </a>
@@ -308,7 +308,7 @@
    
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: YepAdvisors</h2>
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: YepAdvisors</h2>
                 <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
               </div>
               <a href="#"><img class="m-auto w-full p-[5%]" src="img/YepAdvisors_LP.png"> </a>
@@ -331,7 +331,7 @@
    
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Casa de fierro </h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Casa de fierro </h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" href="https://lacasadefierrorestaurante.com/" > https://lacasadefierrorestaurante.com/ </a> 
           </div>
           <a href="https://lacasadefierrorestaurante.com/" target=_blank><img class="m-auto w-full p-[5%]" src="img/Casadefierro_WS.png"> </a>
@@ -344,7 +344,7 @@
      
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Emprendenvio </h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Emprendenvio </h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://emprendenvio.com/" > https://emprendenvio.com/ </a> 
           </div>
           <a target=_blank href="https://emprendenvio.com/"><img class="m-auto w-full p-[5%]" src="img/Emprendenvio_WS.png"> </a>
@@ -357,7 +357,7 @@
    
   <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
           <div class="mx-[8%]">
-            <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Gandía</h2>
+            <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Gandía</h2>
             <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://gandia.com.pe/" > https://gandia.com.pe/ </a> 
           </div>
           <a target=_blank href="https://gandia.com.pe/"><img class="m-auto w-full p-[5%]" src="img/Gandia_WS.png"> </a>
@@ -371,7 +371,7 @@
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Globaltec</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Globaltec</h2>
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://globaltecloud.com/" > https://globaltecloud.com/ </a> 
             </div>
             <a target=_blank href="https://globaltecloud.com/"><img class="m-auto w-full p-[5%]" src="img/Globaltec.png"> </a>
@@ -383,7 +383,7 @@
    
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Trento</h2>
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Trento</h2>
                 <a  class="text-base font-normal font-MontserratRegular text-white" href="https://www.ctrento.com.pe/" > https://www.ctrento.com.pe/ </a> 
               </div>
               <a target=_blank href="https://www.ctrento.com.pe/" ><img class="m-auto w-full p-[5%]" src="img/Trento_WS.png"> </a>
@@ -400,7 +400,7 @@
      
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Ibergruas - Ecommerce</h2>
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Ibergruas - Ecommerce</h2>
                 <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: IBERGRUAS PERU S.A.C.</p> 
                 <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.ibergruas.com.pe/" > https://www.ibergruas.com.pe/ </a> 
               </div>
@@ -414,7 +414,7 @@
        
       <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
               <div class="mx-[8%]">
-                <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Machineshop - Ecommerce</h2>
+                <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Machineshop - Ecommerce</h2>
                 <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: MACHINE SHOP S.A.C.</p> 
                 <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://www.machineshop.pe/" > https://www.machineshop.pe/ </a> 
               </div>
@@ -433,7 +433,7 @@
      
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: Limpiabnb - Landing page</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: Limpiabnb - Landing page</h2>
               <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: LIMPIA BNB PERU S.A.C.</p> 
               <a  class="text-base font-normal font-MontserratRegular text-white" href="#" > Proyecto en desarrollo </a> 
             </div>
@@ -447,7 +447,7 @@
        
     <div class="xs:w-[100%] lg:w-[100%] min-h-96 md:h-[100%]  justify-center items-center  ">
             <div class="mx-[8%]">
-              <h2 class="text-xl font-normal font-RightgroteskMedium text-textyellow">Proyecto: WeDesign - Catálogo</h2>
+              <h2 class="text-xl font-normal font-RightgroteskMedium text-mwnaranja">Proyecto: WeDesign - Catálogo</h2>
               <p  class="text-base font-normal font-MontserratRegular text-white" >Cliente: WEDESIGN S.A.C.</p> 
               <a  class="text-base font-normal font-MontserratRegular text-white" target=_blank href="https://wedesignst.com/" > https://wedesignst.com/ </a> 
             </div>
