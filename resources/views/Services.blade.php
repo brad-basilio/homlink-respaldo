@@ -97,7 +97,7 @@
           
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular">E-commerce</p>
+                    <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">E-commerce</p>
                     <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
@@ -109,7 +109,7 @@
           
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular text-opacity-100">Website</p>
+                    <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular text-opacity-100">Website</p>
                     <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
@@ -121,7 +121,7 @@
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('landingpage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular">Landing Page</p>
+                    <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">Landing Page</p>
                     <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Donde las Visitas se Convierten  en Historias <br> de Éxito</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
@@ -132,7 +132,7 @@
 
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('aplicativospage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
-                    <p class="text-base text-textyellow  font-bold mt-6 font-MontserratRegular">Aplicativos Móviles y Web</p>
+                    <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">Aplicativos Móviles y Web</p>
                     <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Más Allá de lo Ordinario: Experiencias  Móviles <br> y Web Inigualables</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
