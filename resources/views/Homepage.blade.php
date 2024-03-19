@@ -93,7 +93,7 @@
           <div class=" items-center  pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
             <h1 class="text-mwnaranja text-lg   w-full font-semibold font-RightgroteskMedium tracking-wider">Página web a medida</h1>
             <h2 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
-               Nuestra pasión por la <span class="text-mwnaranja">transformación</span><br> digital
+               Pasión por la <span class="text-mwnaranja">transformación</span><br> digital
             </h2>
             <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
