@@ -25,10 +25,12 @@
 </head>
 
 <div class="fullscreen-container">
-  <video loop muted autoplay  class="fullscreen-video">
-      <source src="../video/videofondomw.mp4" type="video/mp4">
-      <source src="../video/videofondomw.mp4" type="video/ogg">
+  <video loop muted autoplay  class="fullscreen-video md:block" >
+      <source src="../video/videomwdesktop.mp4" type="video/mp4">
   </video>
+  <video loop muted autoplay  class="fullscreen-video block md:hidden" >
+    <source src="../video/videomwmovil.mp4" type="video/mp4">
+</video>
 </div>
 
 <body class="font-sans bg-azuloscuro lg:h-screen" >
