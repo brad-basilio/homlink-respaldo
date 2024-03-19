@@ -44,6 +44,8 @@ export default {
         textyellow: '#FDD448',
         azuloscuro: '#050A41',
         mwnaranja: '#E15A29 ',
+        formmw: 'rgba(255, 255, 255, 0.10)',
+        inputmw: 'rgba(255, 255, 255, 0.40)',
       },
 
       fontFamily: {

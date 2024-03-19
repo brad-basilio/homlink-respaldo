@@ -86,7 +86,7 @@
          
           <div class="items-center  xs:pt-[10%] md:pt-[10%] lg:pt-[10%]  xs:px-[2%] md:px-[8%] ">
             <h1 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
-               Nuestra pasión por la transformación digital
+               Nuestra pasión por la <span class="text-mwnaranja">transformación</span> digital
             </h1>
             <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
               soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
@@ -112,11 +112,136 @@
         <!-- Columna 2 (40%) -->
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
-            <div class="xs:w-[100%] lg:w-[90%] min-h-96 md:h-[85%] rounded-3xl  bg-cover bg-center imagenMundoWeb flex justify-center items-center ">
-              <div><a href="javascript:void(0)"><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
-              {{-- <div class="inset-0 bg-black bg-opacity-60 rounded-3xl flex justify-center items-center  ">
-                <div><a><img class=" items-center flex  m-auto hover:scale-75  transition-all  duration-1000	" src="{{ asset('img/playboton.svg') }}"></a></div>
-              </div> --}}
+            <div class="w-[100%]  min-h-96 md:h-[80%] rounded-3xl  bg-cover bg-center flex justify-center items-center ">
+             
+              <div class="text-left  space-y-2 flex flex-col justify-center items-start px-[5%] pt-[5%] pb-[5%]  bg-formmw rounded-2xl">
+
+                <h2 class="font-RightgroteskMedium text-2xl font-medium"><span class="text-white">Hablemos de tu próximo Proyecto</h2>
+                <p class="font-MontserratMedium text-base font-normal text-white"> Crea experiencias digitales que convierten visitantes en clientes leales</p>
+
+               <div class="w-full text-sm">
+                <form method="POST">
+                 <!-- @csrf -->
+                       
+                   <div class="grid grid-cols-12 mt-2">
+                      
+                       <div class="w-full col-span-12 lg:col-span-12  "> 
+                         <input class="font-MontserratRegular appearance-none block w-full  bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                         <!-- @error('nombre')
+                               <span class="text-red-500 text-base ">{{ $message }}</span>
+                         @enderror   -->
+                       </div>
+        
+                   </div>
+                   
+                   <div class="grid grid-cols-12 mt-3 gap-3">
+       
+                       <div class="w-full col-span-12 lg:col-span-6">
+                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                           <!-- @error('email')
+                               <span class="text-red-500 text-base ">{{ $message }}</span>
+                           @enderror -->
+                       </div>
+       
+                       <div class="w-full col-span-12 lg:col-span-6 ">
+                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                           <!-- @error('telefono')
+                               <span class="text-red-500 text-base ">{{ $message }}</span>
+                           @enderror -->
+                       </div>
+       
+                   </div> 
+    
+       
+                   <div class="grid grid-cols-12 mt-3 gap-3">
+       
+                        <div class="w-full col-span-12 lg:col-span-6 relative">
+
+                            <div class="col-span-12"> 
+                                <select name="tipoproyecto" class="font-MontserratRegular block appearance-none w-full bg-inputmw  text-white py-3 px-3 pr-8 rounded-xl">
+                                 
+                                    <option class="text-black" value="" selected disabled hidden >Cual es tu cargo</option>
+                                    <option class="text-black" value="One page" >One Page</option>
+                                    <option class="text-black" value="Landing" >Landing</option>
+                                    <option class="text-black" value="E-commerce" >E-commerce</option>
+                                    <option class="text-black" value="App móvil" >App móvil</option>
+                                
+                                </select>
+                                
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-7 text-white">
+                                    <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                                  </div>
+                
+                                <!-- @error('tipoproyecto')
+                                        <span class="text-red-500 text-base ">{{ $message }}</span>
+                                    @enderror  -->
+                            </div>  
+                            
+                        </div>
+        
+                        <div class="w-full col-span-12 lg:col-span-6 ">
+                            <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight " name="empresa"  type="text" placeholder="Empresa">
+                            <!-- @error('telefono')
+                                <span class="text-red-500 text-base ">{{ $message }}</span>
+                            @enderror -->
+                        </div>
+    
+                </div> 
+
+
+                <div class="grid grid-cols-12   mt-3">
+                      
+                       <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                         <textarea rows="1" name="mensaje" class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl   py-3 px-3 leading-tight "  type="textarea" placeholder="Tu mensaje"></textarea>
+                       </div>
+        
+                </div>
+       
+         
+                   <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
+                       ¿Cómo prefieres que te contactemos?
+                   </p>
+       
+                <div class="grid grid-cols-12  mt-3 gap-6">
+       
+                       <div class="w-full xs:col-span-12 lg:col-span-6   ">
+                          
+                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full   border-none rounded-xl ">
+                               <label for="bordered-radio-1" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">E-mail</label>
+                               <input id="bordered-radio-1" type="radio" value="Correo Electrónico" name="tipocontacto" class="h-4 w-[15%]">
+                           </div>
+       
+                      </div>
+       
+                       <div class="w-full xs:col-span-12 lg:col-span-6 ">
+       
+                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full    border-none rounded-xl ">
+                               <label for="bordered-radio-2" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">Teléfono</label>
+                               <input  id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
+                           </div>
+                       
+                       </div>
+                       
+                       <!-- @error('tipocontacto')
+                           <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
+                       @enderror  -->
+                </div> 
+
+
+                <div class="group  mt-3" >
+                        <button type="button" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
+                            Solicitar Servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
+                </div>
+       
+                 </form>
+       
+       
+               </div>
+
+
+            </div>
+
+
               
             </div>
             
