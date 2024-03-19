@@ -11,7 +11,7 @@
 </head>
 
 
-<body class="font-sans bg-gray-100 " >
+<body class="font-sans bg-azuloscuro " >
 
   <!-- Encabezado superpuesto -->
   <!-- <header class=" text-white px-16 xs:absolute xl:fixed w-full z-10 mt-10 h-20 flex justify-between items-center">
@@ -72,7 +72,7 @@
 
 
   <!-- Contenido principal -->
-  <div class=" grid  grid-cols-12  w-full bg-azulmundoweb   lg:h-screen">
+  <div class=" grid  grid-cols-12  w-full bg-azuloscuro   lg:h-screen">
 
       <!-- Columna 1 (50%) -->
       <div class="xs:col-span-12  lg:col-span-6  xs:h-96 lg:h-full  flex">
