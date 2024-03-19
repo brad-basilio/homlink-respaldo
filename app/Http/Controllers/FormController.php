@@ -166,6 +166,41 @@ class FormController extends Controller
         
         return redirect()->route('aplicativospage', $contactopopup)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
     }
+
+
+    public function store5(Request $request)
+    {
+
+       
+       
+        $reglasValidacion = [
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'telefono' => 'required|integer|max:99999999999',
+            
+        ];
+    
+        $mensajes = [
+            'nombre.required' => 'El campo nombre es obligatorio.',
+            'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
+            'email.required' => 'El campo correo electrónico es obligatorio.',
+            'email.email' => 'El formato del correo electrónico no es válido.',
+            'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
+            'telefono.required' => 'El campo teléfono es obligatorio.',
+            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+           
+        ];
+
+        
+
+        $request->validate($reglasValidacion, $mensajes);
+
+       
+        $formulariohome = Form::create($request->all());
+       
+        
+        return redirect()->route('inicio', $formulariohome)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+    }
     /**
      * Display the specified resource.
      */

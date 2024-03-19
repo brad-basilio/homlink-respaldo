@@ -120,17 +120,21 @@
                 <p class="font-MontserratMedium text-base font-normal text-white"> Crea experiencias digitales que convierten visitantes en clientes leales</p>
 
                <div class="w-full text-sm">
-                <form method="POST">
-                 <!-- @csrf -->
+                <form method="POST" action="{{ route('formhome') }}">
+                  @csrf 
                        
                    <div class="grid grid-cols-12 mt-2">
                       
                        <div class="w-full col-span-12 lg:col-span-12  "> 
                          <input class="font-MontserratRegular appearance-none block w-full  bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
-                         <!-- @error('nombre')
+                          @error('nombre')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
-                         @enderror   -->
+                         @enderror   
                        </div>
+
+                       <div> 
+                        <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="source" type="hidden" value="Home">  
+                      </div>
         
                    </div>
                    
@@ -138,22 +142,22 @@
        
                        <div class="w-full col-span-12 lg:col-span-6">
                            <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
-                           <!-- @error('email')
+                            @error('email')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
-                           @enderror -->
+                           @enderror 
                        </div>
        
                        <div class="w-full col-span-12 lg:col-span-6 ">
                            <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
-                           <!-- @error('telefono')
+                            @error('telefono')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
-                           @enderror -->
+                           @enderror 
                        </div>
        
                    </div> 
     
        
-                   <div class="grid grid-cols-12 mt-3 gap-3">
+                   {{-- <div class="grid grid-cols-12 mt-3 gap-3">
        
                         <div class="w-full col-span-12 lg:col-span-6 relative">
 
@@ -172,28 +176,29 @@
                                     <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
                                   </div>
                 
-                                <!-- @error('tipoproyecto')
+                                 @error('tipoproyecto')
                                         <span class="text-red-500 text-base ">{{ $message }}</span>
-                                    @enderror  -->
+                                    @enderror  
                             </div>  
                             
                         </div>
         
                         <div class="w-full col-span-12 lg:col-span-6 ">
                             <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight " name="empresa"  type="text" placeholder="Empresa">
-                            <!-- @error('telefono')
+                             @error('telefono')
                                 <span class="text-red-500 text-base ">{{ $message }}</span>
-                            @enderror -->
+                            @enderror 
                         </div>
     
-                </div> 
+                   </div>  --}}
 
 
                 <div class="grid grid-cols-12   mt-3">
                       
                        <div class="w-full xs:col-span-12 lg:col-span-12  "> 
-                         <textarea rows="1" name="mensaje" class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl   py-3 px-3 leading-tight "  type="textarea" placeholder="Tu mensaje"></textarea>
-                       </div>
+                         
+                         <input class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
+                        </div>
         
                 </div>
        
@@ -222,34 +227,23 @@
                        
                        </div>
                        
-                       <!-- @error('tipocontacto')
+                        @error('tipocontacto')
                            <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
-                       @enderror  -->
+                       @enderror  
                 </div> 
 
 
-                <div class="group  mt-3" >
-                        <button type="button" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
+                <div class="group  mt-6" >
+                        <button type="submit" href="{{ route('inicio') }}" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
                             Solicitar Servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
                 </div>
        
                  </form>
-       
-       
                </div>
-
-
             </div>
-
-
-              
-            </div>
-            
+           
+            </div> 
         </div>
-  
-
-        
-
     </div>
 
    

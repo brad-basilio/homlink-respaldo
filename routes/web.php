@@ -43,3 +43,5 @@ Route::post('/servicios/ecommerce', [FormController::class, 'store'] )->name('gu
 Route::post('/servicios/landing', [FormController::class, 'store2'] )->name('guardarpopup2');
 Route::post('/servicios/onepage', [FormController::class, 'store3'] )->name('guardarpopup3');
 Route::post('/servicios/aplicativos', [FormController::class, 'store4'] )->name('guardarpopup4');
+Route::post('/', [FormController::class, 'store5'] )->name('formhome');
+
