@@ -40,8 +40,8 @@ export default {
         'texturaecommerce': "url('/img_landingecommerce/texturaecommerce.png')",
         'texturaecommerce2': "url('/img_landingecommerce/texturaecommerce2.png')",
 
-        'fondowebsitef': "url('img_landingwebsite/fondowebsite.svg')",
-        'fondowebsite2': "url('img_landingwebsite/landingwebsite3.png')",
+        'fondowebsitef': "url('/img_landingwebsite/fondowebsite.png')",
+        'fondowebsite2': "url('/img_landingwebsite/landingwebsite3.png')",
 
         'texturawebsite': "url('/img_landingwebsite/texturawebsite.png')",
         'texturawebsite2': "url('/img_landingwebsite/texturawebsite2.png')",
