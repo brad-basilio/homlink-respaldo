@@ -10,6 +10,7 @@ use App\Http\Controllers\AplicativosController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\LandingController;
 
 
 
@@ -44,4 +45,15 @@ Route::post('/servicios/landing', [FormController::class, 'store2'] )->name('gua
 Route::post('/servicios/onepage', [FormController::class, 'store3'] )->name('guardarpopup3');
 Route::post('/servicios/aplicativos', [FormController::class, 'store4'] )->name('guardarpopup4');
 Route::post('/', [FormController::class, 'store5'] )->name('formhome');
+
+Route::get('/landingaplicativos', [LandingController::class, 'viewAplicativos'] )->name('landingaplicativos');
+Route::get('/landingmundoweb', [LandingController::class, 'viewstoreLanding'] )->name('landingmundoweb');
+Route::get('/landingecommerce', [LandingController::class, 'viewstoreEcommerce'] )->name('landingecommerce');
+Route::get('/landingwebsite', [LandingController::class, 'viewstoreWebsite'] )->name('landingwebsite');
+
+Route::post('/landingaplicativos/form', [LandingController::class, 'storeAplicativos'] )->name('guardarlandingaplicativos');
+Route::post('/landingmundoweb/form', [LandingController::class, 'storeLanding'] )->name('guardarlandingmundoweb');
+Route::post('/landingecommerce/form', [LandingController::class, 'storeEcommerce'] )->name('guardarlandingecommerce');
+Route::post('/landingwebsite/form', [LandingController::class, 'storeWebsite'] )->name('guardarlandingwebsite');
+
 

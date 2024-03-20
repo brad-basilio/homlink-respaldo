@@ -20,6 +20,34 @@ export default {
 
     extend: {
 
+
+      backgroundImage: {
+        'fondoapps': "url('/img_mundowebaplicativos/apps.png')",
+        'fondoapps2': "url('/img_mundowebaplicativos/apps3.png')",
+        'fondoapps3': "url('/img_mundowebaplicativos/apps4.png')",
+
+        'textura': "url('/img_mundowebaplicativos/texturaplicactivos.png')",
+        
+        'fondolanding': "url('/img_landingmundoweb/landing1.png')",
+        'fondolanding2': "url('/img_landingmundoweb/webslanding2.png')",
+        'fondolanding3': "url('/img_landingmundoweb/webslanding3.png')",
+
+        'texturalanding': "url('/img_landingmundoweb/texturalanding.png')",
+        'texturalanding2': "url('/img_landingmundoweb/texturalanding2.png')",
+
+        'fondoecommerce': "url('/img_landingecommerce/landingecoomerce3.png')",
+        
+        'texturaecommerce': "url('/img_landingecommerce/texturaecommerce.png')",
+        'texturaecommerce2': "url('/img_landingecommerce/texturaecommerce2.png')",
+
+        'fondowebsitef': "url('img_landingwebsite/fondowebsite.svg')",
+        'fondowebsite2': "url('img_landingwebsite/landingwebsite3.png')",
+
+        'texturawebsite': "url('/img_landingwebsite/texturawebsite.png')",
+        'texturawebsite2': "url('/img_landingwebsite/texturawebsite2.png')",
+
+      },
+
       animation: {
         'infinite-scroll': 'infinite-scroll 25s linear infinite',
       },
@@ -40,12 +68,34 @@ export default {
         azulecommerce:  '#0017d7',
         azulmoviles: '#0018ff',
         azulform:  '#040a45',
-        fondoinput: '#FFFFFF66',
-        textyellow: '#FDD448',
-        azuloscuro: '#050A41',
-        mwnaranja: '#E15A29 ',
-        formmw: 'rgba(255, 255, 255, 0.10)',
-        inputmw: 'rgba(255, 255, 255, 0.40)',
+        fondoinput: '#060A2F',
+        //colores de las donas
+        rosalasdonas: '#DF3876',
+        rosasuave: '#fcecf2',
+        griscard: '#f8f8f8',
+        colorgris: '#7c7c7c',
+        verdelasdonas: '#447279',
+        barracarrusel: '#060A2F',
+
+        //colores de mundoweb
+
+        azulmw: '#3f56fb',
+        textomw: '#3f4654',
+        textonegro: '#111827',
+        azulecoomer: '#1d1da9',
+        azulecommerboton: '#0A1983',
+        verdemw: '#1a292c',
+        verdeee: 'rgba(26, 41, 44, 0.7)',
+        verdeboton: '#355155',
+        verdebotonclaro: '#C2DFDF',
+        azulecommerboton: '#172FC7',
+        azulf: '#172FC7',
+        fondoinputverde: '#161f21 ',
+        azulfondo: '#091da8',
+        fondowebsite: '#EAF2F4',
+        azulwebsite: '#323BDC',
+        azultextowebsite: '#050A41',
+        
       },
 
       fontFamily: {
@@ -54,6 +104,30 @@ export default {
         MontserratMedium: ['Montserrat-Medium', 'sans-serif'],
         MontserratSemibold: ['Montserrat-Semibold', 'sans-serif'],
         MontserratRegular: ['Montserrat-Regular', 'sans-serif'],
+
+      },
+
+      height: {
+        '100': '28rem',
+        '128': '32rem',
+        '200': '38rem',
+
+      },
+
+      placeholderColor: {
+        'rosaplaceholder': '#DF387666',
+      
+      },
+
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        '16': '16px',
 
       },
 
