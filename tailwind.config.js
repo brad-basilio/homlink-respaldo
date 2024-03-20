@@ -76,7 +76,7 @@ export default {
         colorgris: '#7c7c7c',
         verdelasdonas: '#447279',
         barracarrusel: '#060A2F',
-
+        mwnaranja: '#E15A29',
         //colores de mundoweb
 
         azulmw: '#3f56fb',
