@@ -368,7 +368,7 @@
 
 
                 <div class="xl:col-span-6 flex flex-row justify-center items-start bg-fondowebsite2  bg-contain lg:bg-cover  bg-no-repeat bg-center xl:bg-left ">
-                    <div class="h-100 lg:h-200"></div>
+                    <div class="h-64 lg:h-200"></div>
                 </div>
              </div>
         </div> 

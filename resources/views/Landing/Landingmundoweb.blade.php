@@ -73,8 +73,8 @@
                 </div>
                 </div>
 
-                <div class="xl:col-span-7 flex flex-row justify-center items-start bg-fondolanding z-10 bg-contain sm:bg-cover  bg-no-repeat bg-center-top xl:bg-right  ">
-                    <div class="h-200"></div>
+                <div class="xl:col-span-7 flex flex-row justify-center items-start bg-fondolanding z-10 bg-contain xl:bg-cover  bg-no-repeat bg-right xl:bg-right  ">
+                    <div class="h-96"></div>
                 </div>
 
              </div>
@@ -290,7 +290,7 @@
                
 
 
-                <div class=" xl:col-span-6  text-left  space-y-10 flex flex-col justify-center items-start px-[5%] pt-[0%] pb-[5%] xl:px-[12%] xl:pt-[10%] xl:pb-[10%]">
+                <div class=" xl:col-span-6  text-left  space-y-5 flex flex-col justify-center items-start px-[5%] pt-[0%] pb-[0%] xl:px-[12%] xl:pt-[10%] xl:pb-[10%]">
                     
                    <div class="group bg-verdebotonclaro p-6 space-y-4 rounded-xl">
                        
@@ -350,7 +350,7 @@
 
 
                 <div class="xl:col-span-6 flex flex-row justify-center items-start bg-fondolanding2 z-10 bg-contain xl:bg-contain bg-center xl:bg-center  bg-no-repeat ">
-                    <div class="h-200"></div>
+                    <div class="h-100"></div>
                 </div>
 
              </div>
@@ -361,7 +361,7 @@
 
      <section >
         <div> 
-             <div class="grid grid-cols-1 xl:grid-cols-12 gap-10 xl:gap-0 bg-fondolanding3 bg-verdebotonclaro z-10 bg-cover  xl:bg-cover bg-no-repeat bg-center xl:bg-left-top">
+             <div class="grid grid-cols-1 xl:grid-cols-12 gap-10 xl:gap-0 bg-fondolanding3 bg-verdebotonclaro z-10 bg-auto  xl:bg-cover bg-no-repeat bg-top xl:bg-left-top">
                 
                 
                 <div class="xl:col-span-6 flex flex-row justify-center items-start   ">
