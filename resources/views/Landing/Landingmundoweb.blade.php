@@ -20,9 +20,9 @@
 
         <div class="header_middle grid grid-cols-12 h-28 ">
             <div class="block_left col-span-7 md:col-span-5 flex items-end justify-start ">
-
+                <a href="{{ route('landingmundoweb') }}">
                 <img class="w-52"  src="{{ asset('img_landingmundoweb/logowhitemw.svg') }}"/>
-
+                </a>
             </div>
 
             <div class="block_center col-span-1 md:col-span-2 py-10 flex flex-col justify-center items-end font-RightgroteskMedium">
@@ -32,7 +32,7 @@
             <div class="block_right col-span-4  md:col-span-5  flex flex-row items-end justify-end pl-2 ">
                          
                 <div class="group hidden md:block font-MontserratSemibold ">
-                    <a type="button" class=" float-right text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-3 rounded-full w-auto inline-block " >
+                    <a href="{{ route('inicio') }}" type="button" class=" float-right text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-3 rounded-full w-auto inline-block " >
                         Visita nuestra web<img src="{{ asset('img_landingmundoweb/flechaderecharriba.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></a> 
                 </div>
                 
@@ -375,7 +375,7 @@
                         Mundo Web tiene todo lo que necesitas para triunfar en el mundo digital.</p>
    
                    <div class="group">
-                           <a type="button" class="font-MontserratSemibold text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-3 rounded-full w-auto inline-block " >
+                           <a href="{{ route('proyectos') }}" type="button" class="font-MontserratSemibold text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-3 rounded-full w-auto inline-block " >
                             Descubre Más<img src="{{ asset('img_landingmundoweb/flechaderecharriba.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></a> 
                    </div>
                 </div>
@@ -393,17 +393,17 @@
             <div class="grid grid-cols-1 sm:grid-cols-12 md:grid-cols-12 gap-2 lg:gap-7">
                 <div class="flex flex-col justify-center items-start  sm:col-span-12 md:col-span-12 lg:col-span-4 lg:justify-start lg:items-start">
                     <div class="flex flex-col justify-center items-center m-auto lg:m-0 " >
-                        <img class="w-64 md:w-64 lg:max-w-64" src="{{ asset('img_landingmundoweb/logowhitemw.svg') }}">
+                        <a href="{{ route('landingmundoweb') }}" ><img class="w-64 md:w-64 lg:max-w-64" src="{{ asset('img_landingmundoweb/logowhitemw.svg') }}"></a>
                     </div>
                
                     <div class="group mt-6">
-                        <a type="button" class="font-MontserratRegular text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-2 rounded-full w-auto inline-block border-2" >
+                        <a href="{{ route('contacto') }}" type="button" class="font-MontserratRegular text-base lg:text-lg bg-verdeboton text-white px-2 lg:px-4 py-2 rounded-full w-auto inline-block border-2" >
                             Quiero mi web<img src="{{ asset('img_landingmundoweb/flechaderecharriba.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></a> 
                     </div>
 
                     <div class="flex flex-row items-center justify-center lg:justify-end lg:col-span-5 gap-3 mt-5">
-                        <img  src="{{ asset('img_mundowebaplicativos/Facebook.svg') }}" />
-                        <img  src="{{ asset('img_mundowebaplicativos/Instagram.svg') }}" />
+                        <a href="https://www.facebook.com/mundoweb.pe" target="_blank"><img  src="{{ asset('img_mundowebaplicativos/Facebook.svg') }}" /></a>
+                        <a href="https://www.instagram.com/mundoweb.pe/" target="_blank"><img  src="{{ asset('img_mundowebaplicativos/Instagram.svg') }}" /></a>
                     </div>
                 </div>
            
