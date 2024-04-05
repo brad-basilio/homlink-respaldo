@@ -95,6 +95,8 @@ export default {
         fondowebsite: '#EAF2F4',
         azulwebsite: '#323BDC',
         azultextowebsite: '#050A41',
+        inputmw: '#FFFFFF66',
+        fondoform: '#FFFFFF1A',
         
       },
 

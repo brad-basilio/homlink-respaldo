@@ -121,9 +121,9 @@
         <!-- Columna 2 (40%) -->
         <div class="xs:col-span-2 lg:col-span-1  flex p-8">
            
-            <div class="w-[100%]  min-h-96 md:h-[80%] rounded-3xl  bg-cover bg-center flex justify-center items-center ">
+            <div class="w-[100%]  min-h-96 md:h-[80%] rounded-3xl  bg-cover bg-center flex justify-center items-center md:px-[10%]">
              
-              <div class="text-left  space-y-2 flex flex-col justify-center items-start px-[5%] pt-[5%] pb-[5%]  bg-formmw rounded-2xl">
+              <div class="text-left  space-y-2 flex flex-col justify-center items-start px-[8%] pt-[8%] pb-[8%] rounded-2xl bg-fondoform">
 
                 <h2 class="font-RightgroteskMedium text-2xl font-medium"><span class="text-white">Hablemos de tu próximo Proyecto</h2>
                 <p class="font-MontserratMedium text-base font-normal text-white"> Crea experiencias digitales que convierten visitantes en clientes leales</p>
@@ -135,29 +135,29 @@
                    <div class="grid grid-cols-12 mt-2">
                       
                        <div class="w-full col-span-12 lg:col-span-12  "> 
-                         <input class="font-MontserratRegular appearance-none block w-full  bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight "  name="nombre" type="text" placeholder="Nombre completo">
+                         <input class="font-MontserratRegular appearance-none block w-full  bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "  name="nombre" type="text" placeholder="Nombre completo">
                           @error('nombre')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
                          @enderror   
                        </div>
 
                        <div> 
-                        <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight "  name="source" type="hidden" value="Home">  
+                        <input class=" font-MontserratRegular appearance-none block w-full bg-fondoinput  text-white  border-none rounded-full py-4 px-4 mb-2 leading-tight placeholder-slate-300 "  name="source" type="hidden" value="Home">  
                       </div>
         
                    </div>
                    
-                   <div class="grid grid-cols-12 mt-3 gap-3">
+                   <div class="grid grid-cols-12 mt-4 gap-3 ">
        
                        <div class="w-full col-span-12 lg:col-span-6">
-                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="email" type="email" placeholder="Correo electrónico">
+                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 " name="email" type="email" placeholder="Correo electrónico">
                             @error('email')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
                            @enderror 
                        </div>
        
                        <div class="w-full col-span-12 lg:col-span-6 ">
-                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3 leading-tight " name="telefono"  type="number" placeholder="Número de teléfono">
+                           <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 " name="telefono"  type="text" placeholder="Número de teléfono">
                             @error('telefono')
                                <span class="text-red-500 text-base ">{{ $message }}</span>
                            @enderror 
@@ -202,21 +202,21 @@
                    </div>  --}}
 
 
-                <div class="grid grid-cols-12   mt-3">
+                <div class="grid grid-cols-12   mt-4">
                       
                        <div class="w-full xs:col-span-12 lg:col-span-12  "> 
                          
-                         <input class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight "  name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
+                         <input class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "  name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
                         </div>
         
                 </div>
        
          
-                   <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
+                   {{-- <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
                        ¿Cómo prefieres que te contactemos?
-                   </p>
+                   </p> --}}
        
-                <div class="grid grid-cols-12  mt-3 gap-6">
+                {{-- <div class="grid grid-cols-12  mt-3 gap-6">
        
                        <div class="w-full xs:col-span-12 lg:col-span-6   ">
                           
@@ -239,12 +239,12 @@
                         @error('tipocontacto')
                            <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
                        @enderror  
-                </div> 
+                </div>  --}}
 
 
                 <div class="group  mt-6" >
                         <button type="submit" href="{{ route('inicio') }}" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
-                            Solicitar Servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
+                            Solicitar servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
                 </div>
        
                  </form>
@@ -255,9 +255,8 @@
         </div>
     </div>
 
-   
-    <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-28 right-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none" target="_blank">
-      <img src="{{ asset('img/wspf.png') }}" class="md:w-56 w-40" />
+    <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-28 left-2 md:left-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none" target="_blank">
+      <img src="{{ asset('img/wspf.svg') }}" class="w-16" />
       </a>
     
       <div id="menu" class="fixed z-40 w-0 h-0 flex justify-center items-center bg-azulanding opacity-0 duration-700 ">
