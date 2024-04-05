@@ -249,10 +249,15 @@
                         <button type="submit" href="{{ route('inicio') }}" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
                             Solicitar servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
                 </div>
+                
                 @if(Session::has('mensaje'))
-                <span class="text-yellow-300 text-lg animate-fade-down pt-4">Gracias, nos contactaremos contigo,  </span>
-                 <span class="text-yellow-300 text-lg animate-fade-down pt-4">{{session()->get('name')}}</span>
+                  <div class="grid grid-cols-12 pt-6">     
+                     <div class="w-full xs:col-span-12 lg:col-span-12  "> 
+                          <span class="text-white text-lg animate-fade-down  bg-mwnaranja rounded-xl pt-2 pb-3 px-3">Gracias, nos contactaremos contigo, {{session()->get('name')}} </span>
+                        </div>    
+                  </div>
                 @endif
+
                  </form>
                </div>
             </div>

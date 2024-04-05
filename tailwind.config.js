@@ -79,7 +79,7 @@ export default {
         mwnaranja: '#E15A29',
         //colores de mundoweb
 
-        azulmw: '#3f56fb',
+        //azulmw: '#3f56fb',
         textomw: '#3f4654',
         textonegro: '#111827',
         azulecoomer: '#1d1da9',
