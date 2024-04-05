@@ -37,7 +37,7 @@ class FormController extends Controller
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'telefono' => 'required',
             
         ];
     
@@ -48,7 +48,7 @@ class FormController extends Controller
             'email.email' => 'El formato del correo electrónico no es válido.',
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            
            
         ];
 
@@ -71,7 +71,7 @@ class FormController extends Controller
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'telefono' => 'required',
             
         ];
     
@@ -82,7 +82,7 @@ class FormController extends Controller
             'email.email' => 'El formato del correo electrónico no es válido.',
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            
            
         ];
 
@@ -106,7 +106,7 @@ class FormController extends Controller
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'telefono' => 'required',
             
         ];
     
@@ -117,7 +117,7 @@ class FormController extends Controller
             'email.email' => 'El formato del correo electrónico no es válido.',
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            
            
         ];
 
@@ -141,7 +141,7 @@ class FormController extends Controller
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'telefono' => 'required',
             
         ];
     
@@ -152,10 +152,9 @@ class FormController extends Controller
             'email.email' => 'El formato del correo electrónico no es válido.',
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            
            
         ];
-
         
 
         $request->validate($reglasValidacion, $mensajes);
@@ -172,11 +171,10 @@ class FormController extends Controller
     {
 
        
-       
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'telefono' => 'required',
             
         ];
     
@@ -187,7 +185,7 @@ class FormController extends Controller
             'email.email' => 'El formato del correo electrónico no es válido.',
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            
            
         ];
 

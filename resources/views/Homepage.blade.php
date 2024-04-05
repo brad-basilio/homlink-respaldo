@@ -208,8 +208,11 @@
                          
                          <input class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "  name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
                         </div>
-        
+                        
+                       
                 </div>
+
+               
        
          
                    {{-- <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
@@ -246,7 +249,10 @@
                         <button type="submit" href="{{ route('inicio') }}" class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block " >
                             Solicitar servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button> 
                 </div>
-       
+                @if(Session::has('mensaje'))
+                <span class="text-yellow-300 text-lg animate-fade-down pt-4">Gracias, nos contactaremos contigo,  </span>
+                 <span class="text-yellow-300 text-lg animate-fade-down pt-4">{{session()->get('name')}}</span>
+                @endif
                  </form>
                </div>
             </div>
