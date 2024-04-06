@@ -54,10 +54,14 @@
          
           <div class="flex flex-col justify-center items-center py-6 xs:px-[2%] md:px-[8%] gap-10">
            
-           <img class="w-[100%] md:w-[80%]" src="{{ asset('img/404.png') }}" />
+           <img class="w-[100%] md:w-[70%]" src="{{ asset('img/404.png') }}" />
+
+           <h2 class="text-xl  text-white w-full font-normal font-RightgroteskMedium tracking-wider text-center">
+            ¡Ups! Parece que te has perdido. La página que buscas no está disponible.<br> Pero no te preocupes, ¡estamos aquí para ayudarte!
+           </h2>
 
             <div class="group inline-block">   
-              <a type="button" href="{{ route('inicio') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
+              <a type="button" href="{{ route('inicio') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-3  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
                <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold">Ir al inicio</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
             </div>
             
