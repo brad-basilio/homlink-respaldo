@@ -8,6 +8,7 @@
     <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
     <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
     <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta name="keywords" content="Agencia de desarrollo web, Agencia de diseño web, Empresa de desarrollo web, Desarrolladores web, Páginas web Perú, Especialistas en diseño web, Creación de sitios web, Posicionamiento SEO, Empresa de posicionamiento web, Agencia de diseño web en Lima"/>
     <meta property="og:url" content="https://mundoweb.pe/" />
     <script src="{{ asset('js/funciones.js') }}"></script>
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
