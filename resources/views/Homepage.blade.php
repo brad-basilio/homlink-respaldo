@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mundoweb</title>
+  <title>Agencia de desarrollo web - Mundo Web</title>
   <meta property="og:type" content="website" />
-  <meta property="og:title "content="Página web a medida" />
-  <meta property="og:description" content="El desarrollo de páginas web es un proceso de planificación, diseño, y programación. Su objetivo principal es crear una página web que sea atractiva, funcional y sobre todo que se vea muy bien en dispositivos móviles
-  " />
-  <meta property="og:image" content="enlace al archive de la imagen" />
-  <meta property="og:url" content="permalink" />
+  <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+  <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+  <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+  <meta property="og:url" content="https://mundoweb.pe/" />
+
 
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
   <link rel="stylesheet" href="{{asset('build/app.css')}}">
@@ -93,13 +93,13 @@
         <div class="xs:col-span-2  lg:col-span-1 w-full h-full  p-4  text-left  flex flex-col justify-start items-center mx-auto ">
          
           <div class=" items-center  pt-[5%] md:pt-[5%] lg:pt-[5%]  xs:px-[2%] md:px-[8%] ">
-            <h1 class="text-mwnaranja text-lg   w-full font-semibold font-RightgroteskMedium tracking-wider">Página web a medida</h1>
+            <h1 class="text-mwnaranja text-lg   w-full font-semibold font-RightgroteskMedium tracking-wider">Especialistas en diseño web</h1>
             <h2 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
                Pasión por la <span class="text-mwnaranja">transformación</span><br> digital
             </h2>
-            <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa de desarrollo web joven y dinámica, especializada en transformar ideas en 
-              soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, 
-              sino que creamos experiencias digitales que impulsan el éxito de nuestros clientes.</p>
+            <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa especializada en el <b>Desarrollo Web</b> y estrategias digitales, 
+              como el posicionamiento SEO, para cumplir con tus objetivos. Mundo Web te ofrece la construcción de sitios web, 
+              aplicativos móviles, servicios de <b>e-commerce</b> y experiencias digitales que te impulsarán al éxito.</p>
             <div class="group inline-block">   
               <a type="button" href="{{ route('servicios') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
                <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold">Servicios</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  

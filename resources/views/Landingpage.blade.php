@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Landing</title>
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
 
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
@@ -69,10 +74,11 @@
           <br>  <span class="text-yellow-300 text-2xl animate-fade-down">{{session()->get('name')}}</span>
           @endif
           <h1 class="xs:text-4xl xl:text-6xl  text-white w-full  font-RightgroteskMedium tracking-wide ">
-            Landing Page:<br>Convierte visitantes en clientes potenciales con Landing Pages estratégicas
+            Landing Page: Tus visitante serán clientes potenciales
           </h1>
-          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10  font-MontserratRegular">Diseño cautivador y llamadas a la acción efectivas para impulsar conversiones.
-             ¡Optimiza tu presencia digital y potencia tus campañas!</p>
+          <h2 class="xs:text-base xl:text-lg text-white  font-normal mt-10  font-MontserratRegular">Tu página web tendrá un diseño cautivador y 
+            llamadas a la acción efectivas para impulsar conversiones. ¡Optimiza tu presencia digital con estrategias SEO!
+          </h2>
           <div class="group  mt-8 inline-block">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
              <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi Landing Page</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  

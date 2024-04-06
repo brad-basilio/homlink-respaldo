@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Proyectos</title>
-    <!-- @vite(['resources/css/app.css', 'resources/js/app.js']) -->
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
     
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -70,8 +74,8 @@
           </h1>
           <p class="xs:text-base xl:text-lg text-white  font-normal mt-10">
             Cada proyecto es una historia de éxito. Sumérgete en nuestra galería de trabajos excepcionales 
-            que no solo cumplen sino que superan las expectativas. Desde One Page cautivadoras hasta experiencias 
-            E-commerce inolvidables, nuestro portafolio refleja nuestra dedicación a la innovación y la calidad.</p>
+            que no solo cumplen sino que superan las expectativas. Desde <b>One Page</b> cautivadoras hasta experiencias 
+            <b>E-commerce</b> inolvidables, nuestro portafolio refleja nuestra dedicación a la innovación y la calidad.</p>
           <div class="mt-10  flex-wrap gap-8 hidden">   
             <a type="button" class="text-lg bg-fondoboton text-white px-5 py-4 rounded-full w-auto  text-center" >
              <span >Todos los proyectos</span></a>  

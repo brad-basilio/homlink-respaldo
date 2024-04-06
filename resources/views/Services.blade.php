@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Servicios</title>
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -87,18 +92,18 @@
 
 
     <!-- Columna 2 (50%) -->
-      <div class="xs:col-span-12  lg:col-span-6  p-4  text-left h-full flex flex-col justify-center items-center mx-auto">
+      <div class="xs:col-span-12  lg:col-span-6  p-4  text-left h-full flex flex-col justify-center items-center xl:mx-[10%] mx-[3%]">
         {{-- <div class="h-12"></div> --}}
-        <div class="items-center w-full xs:pt-20 xs:pb-8 lg:py-10  xs:px-1 lg:px-0">
+        <div class="items-center w-full xs:pt-10 xs:pb-8 lg:py-10  xs:px-1 lg:px-0">
           <p class="text-base text-white  font-normal mt-6 mb-2 font-MontserratMedium">¡Descubre Cómo Elevamos tu Presencia en Línea!</p>
           <h1 class="text-4xl text-white w-full font-bold font-RightgroteskMedium tracking-wider ">
-            Transformando Ideas <br class="xs:hidden lg:block" >en Realidad Digital
+            Somos desarrolladores web que transforman tus ideas en realidad digital
           </h1>
           
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer " onclick="window.location='{{ route('ecommercepage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
                     <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">E-commerce</p>
-                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Tu Tienda, Nuestro Arte: Potencia  tus Ventas<br> en Línea</h2>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider"><b>Desarrolladores de webs e-commerce</b> con estrategias SEO para vender tus productos</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('ecommercepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
@@ -110,7 +115,7 @@
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('onepage') }}'">
             <div class="xs:w-[80%] lg:w-[88%]">
                     <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular text-opacity-100">Website</p>
-                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Descubre la Magia de lo Simple:  One Page <br> que Cautivan</h2>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Somos especialista en <b>diseño</b> web para mejorar la relación entre tus clientes y tu marca</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('onepage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6 " >
@@ -122,7 +127,7 @@
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('landingpage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
                     <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">Landing Page</p>
-                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Donde las Visitas se Convierten  en Historias <br> de Éxito</h2>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Nuestras <b>estrategias SEO</b> harán de tu historia un éxito en el mundo web</h2>
             </div>
             <div class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('landingpage') }}" class="float-left text-lg  text-white xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6" >
@@ -133,7 +138,7 @@
           <div class="flex flex-row border-b-2 pb-2 group cursor-pointer" onclick="window.location='{{ route('aplicativospage') }}'">
             <div  class="xs:w-[80%] lg:w-[88%]">
                     <p class="text-base text-mwnaranja  font-bold mt-6 font-MontserratRegular">Aplicativos Móviles y Web</p>
-                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Más Allá de lo Ordinario: Experiencias  Móviles <br> y Web Inigualables</h2>
+                    <h2 class="text-xl text-white w-full font-RightgroteskMedium tracking-wider">Somos especialistas en aplicativos móviles y web que harán de tu experiencia inigualable</h2>
             </div>
             <div  class="xs:w-[20%] lg:w-[12%]">
                 <a type="button" href="{{ route('aplicativospage') }}" class="float-left text-lg  text-white px-2 xs:py-6 lg:py-3 rounded-full w-auto inline-block text-center mt-6 " >

@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Aplicativos móviles</title>
-     {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
@@ -69,8 +73,9 @@
           <h1 class="xs:text-4xl xl:text-6xl  text-white w-full  font-RightgroteskMedium tracking-wide ">
             Aplicativos Móviles y Web:<br> Lleva tu negocio a donde va tu audiencia
           </h1>
-          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Desarrollamos aplicativos móviles y web a medida. 
-            Experiencias intuitivas y funcionalidades que cautivan. ¡Da el siguiente paso en la era digital!</p>
+          <h2 class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Desarrollamos aplicativos móviles y web a medida. 
+            Te brindamos experiencias intuitivas y funcionalidades que cautivarán a tus clientes. ¡Da el siguiente paso en la era digital!
+          </h2>
           <div class="group  mt-8 inline-block">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
              <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi App</span><img src="{{ asset('img/iconbutton.svg') }}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  

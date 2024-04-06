@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Contacto</title>
-     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
     <link rel="stylesheet" href="{{asset('build/app.css')}}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
@@ -62,8 +66,8 @@
             ¡Estamos Aquí para Ayudarte!
           </h1>
           <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular ">
-            ¿Tienes preguntas sobre nuestros servicios o estás listo para comenzar tu proyecto? 
-            Llena el formulario a continuación y nos pondremos en contacto contigo en breve.
+            ¿Estás preparado para iniciar con tu <b>página weba</b> con nuestra agencia? A continuación, 
+            completa este formulario y nos contactaremos contigo para llevarte al éxito
           </p>
           
           

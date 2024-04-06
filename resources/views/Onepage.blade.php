@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mundoweb - Onepage</title>
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{asset('build/app.css')}}">
-    <script src="{{ asset('js/funciones.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <title>Agencia de desarrollo web - Mundo Web</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title "content="Agencia de desarrollo web - Mundo Web" />
+    <meta name="description" content="Somos la agencia de desarrollo web en Perú. Especialistas en diseño y desarrollo de páginas web, con enfoque en posicionamiento SEO. ¡Potencia tu presencia digital con nosotros!">
+    <meta property="og:image" content="{{ asset('img/logomundoweb.svg') }}" />
+    <meta property="og:url" content="https://mundoweb.pe/" />
 </head>
 
 
@@ -68,10 +69,11 @@
           @endif
           
           <h1 class="xs:text-4xl xl:text-6xl  text-white w-full  font-RightgroteskMedium tracking-wider">
-            Website: Tu <br>Mensaje, Tu <br> Mundo Digital <br>en una Página
+            Website: Tu <br>mensaje, Tu <br> mundo Digital <br>en una Página
           </h1>
-          <p class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Descubre el poder de la simplicidad con nuestras One Page. Condensamos 
-            tu mensaje en una sola página, maximizando el impacto y la accesibilidad. ¡Diseño eficiente para resultados extraordinarios!</p>
+          <h2 class="xs:text-base xl:text-lg text-white  font-normal mt-10 font-MontserratRegular">Somos una <b>empresa de desarrollo web</b> que implementa diversas estrategias  
+            para que las páginas de diversas marcas se ubiquen en los primeros lugares de los principales motores de búsqueda.
+          </h2>
           <div class="group mt-8 inline-block ">   
             <a type="button" href="{{ route('contacto') }}" class="text-lg bg-fondoboton text-white  px-6 py-3 rounded-full w-auto inline-block text-center mt-6  group-hover:pl-3 group-hover:border-4 group-hover:border-white transition-all  duration-500" >
              <span class="group-hover:pr-3 transition-all  duration-500 font-MontserratSemibold text-base">Quiero mi Website</span><img src="{{ asset('img/iconbutton.svg')}}" alt="Flecha a la derecha" class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all duration-500"></a>  
