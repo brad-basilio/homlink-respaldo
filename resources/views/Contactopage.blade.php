@@ -285,7 +285,7 @@
             </h2>
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
-                +51 934 464 915
+                +51 908 857 558
              </p>
 
              <h2 class="xs:text-lg xl:text-2xl text-white   mt-10 font-RightgroteskMedium tracking-wide">
@@ -325,7 +325,7 @@
 
   </div>
 
-  <a href="https://api.whatsapp.com/send?phone=51934464915&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-28 left-2 md:left-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none" target="_blank">
+  <a href="https://api.whatsapp.com/send?phone=51908857558&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20." class="fixed bottom-28 left-2 md:left-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none" target="_blank">
     <img src="{{ asset('img/wspf.svg') }}" class=" w-16" />
     </a>
 
