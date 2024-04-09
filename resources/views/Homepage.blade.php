@@ -11,7 +11,7 @@
   <meta property="og:url" content="https://mundoweb.pe/" />
   <meta name="keywords" content="Agencia de desarrollo web, Agencia de diseño web, Empresa de desarrollo web, Desarrolladores web, Páginas web Perú, Especialistas en diseño web, Creación de sitios web, Posicionamiento SEO, Empresa de posicionamiento web, Agencia de diseño web en Lima"/>
 
-
+  @livewireStyles
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
   <link rel="stylesheet" href="{{asset('build/app.css')}}">
   <link rel="stylesheet" href="{{asset('css/slick.css')}}">
@@ -58,6 +58,7 @@
           <li class="hover:text-mwnaranja"><a href="{{ route('inicio') }}" >Inicio</a></li>
           <li class="hover:text-mwnaranja"><a href="{{ route('servicios') }}" >Servicios</a></li>
           <li class="hover:text-mwnaranja"><a href="{{ route('proyectos') }}" >Proyectos</a></li>
+          <a class="hover:underline duration-300" href="{{ route('posts.index') }}">Blog</a>
           <li class="hover:text-mwnaranja"><a href="{{ route('contacto') }}" >Contacto</a></li>
         </ul>
       </nav>
@@ -93,6 +94,7 @@
           <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
           <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
           <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+          <a class="hover:underline duration-300" href="{{ route('posts.index') }}">Blog</a>
           <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
       </nav>
     </div>
@@ -109,6 +111,7 @@
             <h2 class="xs:text-4xl lg:text-5xl   text-white w-full font-bold font-RightgroteskMedium tracking-wider">
                Pasión por la <span class="text-mwnaranja">transformación</span><br> digital
             </h2>
+            
             <p class="xs:text-base xl:text-base text-white  font-normal mt-6 font-MontserratRegular ">Somos una empresa especializada en el <b>Desarrollo Web</b> y estrategias digitales, 
               como el posicionamiento SEO, para cumplir con tus objetivos. Mundo Web te ofrece la construcción de sitios web, 
               aplicativos móviles, servicios de <b>e-commerce</b> y experiencias digitales que te impulsarán al éxito.</p>
@@ -353,7 +356,7 @@
    </footer>
   
     
-  
+   @livewireScripts
   </body>
 </html>
 

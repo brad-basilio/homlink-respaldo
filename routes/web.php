@@ -11,9 +11,7 @@ use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\ProyectosController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\LandingController;
-
-
-
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +36,10 @@ Route::get('/servicios/ecommerce', [EcommercepageController::class, 'viewEcommer
 Route::get('/servicios/aplicativos', [AplicativosController::class, 'viewAplicativospage'])->name('aplicativospage');
 Route::get('/contacto', [ContactoController::class, 'viewContacto'])->name('contacto');
 Route::get('/proyectos', [ProyectosController::class, 'viewProyectos'])->name('proyectos');
+Route::get('/blog', [PostController::class, 'index'])->name('posts.index');
+Route::get('/blog/{post}', [PostController::class, 'show'])->name('posts.show');
+
+
 
 Route::post('/contacto', [ContactoController::class, 'storeContacto'] )->name('guardarcontacto');
 Route::post('/servicios/ecommerce', [FormController::class, 'store'] )->name('guardarpopup');

@@ -20,7 +20,27 @@ export default {
 
     extend: {
 
-
+      fontSize: {
+        text12: "12px",
+        text14: "14px",
+        text16: "16px",
+        text18: "18px",
+        text20: "20px",
+        text22: "22px",
+        text24: "24px",
+        text28: "28px",
+        text32: "32px",
+        text36: "36px",
+        text40: "40px",
+        text44: "44px",
+        text48: "48px",
+        text52: "52px",
+        text56: "56px",
+        text60: "60px",
+        text64: "64px",
+        text68: "68px",
+      },
+   
       backgroundImage: {
         'fondoapps': "url('/img_mundowebaplicativos/apps.png')",
         'fondoapps2': "url('/img_mundowebaplicativos/apps3.png')",
@@ -97,7 +117,8 @@ export default {
         azultextowebsite: '#050A41',
         inputmw: '#FFFFFF66',
         fondoform: '#FFFFFF1A',
-        
+        fondofooter: '#060A2F',
+        bgAzulFondo: "#040c44",
       },
 
       fontFamily: {
@@ -106,6 +127,7 @@ export default {
         MontserratMedium: ['Montserrat-Medium', 'sans-serif'],
         MontserratSemibold: ['Montserrat-Semibold', 'sans-serif'],
         MontserratRegular: ['Montserrat-Regular', 'sans-serif'],
+        monserrat: ['Montserrat-Medium', 'sans-serif'],
 
       },
 

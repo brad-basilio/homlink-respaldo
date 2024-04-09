@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+
 class PostSeeder extends Seeder
 {
     /**
@@ -14,7 +15,7 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        $posts =  Post::factory(100)->create();
+        $posts =  Post::factory(10)->create();
 
         foreach ($posts as $post) {
             Image::factory(1)->create([
@@ -22,10 +23,10 @@ class PostSeeder extends Seeder
                 'imageable_type' => Post::class,
             ]);
 
-            $posts->tags()->attach([
-                rand(1, 4),
-                rand(5, 8),
-            ]);
+            // $posts->tags()->attach([
+            //     rand(1, 4),
+            //     rand(5, 8),
+            // ]);
         }
     }
 }

@@ -68,6 +68,7 @@
         <a class="hover:underline duration-300" href="{{ route('inicio') }}">Inicio</a>
         <a class="hover:underline duration-300" href="{{ route('servicios') }}">Servicios</a>
         <a class="hover:underline duration-300" href="{{ route('proyectos') }}">Proyectos</a>
+        <a class="hover:underline duration-300" href="{{ route('posts.index') }}">Blog</a>
         <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
     </div>
   </div>
