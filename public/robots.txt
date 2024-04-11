@@ -1,2 +1,3 @@
-User-agent: *
-Disallow:
+User-Agent: *
+Sitemap: https://mundoweb.pe/sitemap.xml
+Allow:/
