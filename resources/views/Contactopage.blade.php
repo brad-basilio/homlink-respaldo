@@ -303,7 +303,7 @@
 
             <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
                 Centro Empresarial Peruano - Suizo<br>
-                Av. Andrés Aramburú 150 - Miraflores, Oficina 4B<br>
+                Av. Andrés Aramburú 166 - Miraflores, Oficina 4B<br>
                 Lima - Perú
              </p>
 

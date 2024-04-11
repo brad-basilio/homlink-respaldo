@@ -40,7 +40,6 @@
 
        gtag('config', 'G-1Q5HR10EMH');
      </script>
-     
 </head>
 
 

@@ -407,7 +407,7 @@
                     <div> 
                         <h2 class="text-lg font-medium mb-1">Dirección</h2>
                         <p class="text-base font-normal">
-                            Centro Empresarial Peruano - Suizo Av. Aramburú 150 - Miraflores, Oficina 4B, Lima, Lima 51, PE
+                            Centro Empresarial Peruano - Suizo - Av. Aramburú 166 - Miraflores, Oficina 4B, Lima, Lima 51, PE
                         </p> 
                     </div>
                     <div> 
