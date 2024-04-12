@@ -73,7 +73,8 @@ class LandingController extends Controller
         $formlanding = Landing::create($request->all());
        
         
-        return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
 
 
@@ -106,7 +107,8 @@ class LandingController extends Controller
         $formlanding = Landing::create($request->all());
        
         
-        return redirect()->route('landingmundoweb', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        // return redirect()->route('landingmundoweb', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
 
 
@@ -132,16 +134,13 @@ class LandingController extends Controller
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
            
         ];
-
         
-
         $request->validate($reglasValidacion, $mensajes);
-
        
         $formlanding = Landing::create($request->all());
-       
-        
-        return redirect()->route('landingecommerce', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+               
+        // return redirect()->route('landingecommerce', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
 
 
@@ -176,7 +175,8 @@ class LandingController extends Controller
         $formlanding = Landing::create($request->all());
        
         
-        return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
     /**
      * Display the specified resource.
