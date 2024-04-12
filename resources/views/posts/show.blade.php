@@ -151,7 +151,7 @@
                   </div>
  
                   <p>
-                    {{$post->body}}
+                    <div id="contenidoHTML">{!! $post->body !!}</div>
                   </p>
   
                   <div>
