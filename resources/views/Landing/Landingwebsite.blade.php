@@ -233,7 +233,7 @@
                       <select name="cargo"
                         class="font-MontserratRegular block appearance-none w-full bg-white  text-azulwebsite placeholder:text-azulwebsite py-4 px-4 pr-8 rounded-2xl">
                         <option class="text-black" value="" selected disabled hidden>Cual es tu cargo</option>
-                        <option class="text-black" value="SEO">SEO</option>
+                        <option class="text-black" value="CEO">CEO</option>
                         <option class="text-black" value="Director">Director</option>
                         <option class="text-black" value="Administrador">Administrador</option>
                         <option class="text-black" value="Comunity Manager">Comunity Manager</option>
