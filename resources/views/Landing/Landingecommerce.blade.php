@@ -255,7 +255,7 @@
                   <div class="w-full col-span-12 lg:col-span-6 ">
                     <input
                       class="font-MontserratRegular appearance-none block w-full bg-azulecommerboton  text-white placeholder:text-white border-none rounded-2xl py-4 px-4 mb-3 leading-tight "
-                      name="empresa" type="text" placeholder="Empresa">
+                      name="empresa" type="text" placeholder="Empresa / Marca">
                     <!-- @error('empresa')
   <span class="text-red-500 text-base ">{{ $message }}</span>
 @enderror -->
@@ -275,13 +275,13 @@
                 </div>
 
 
-                <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
+                {{-- <p class="xs:text-base xl:text-lg text-white  font-normal mt-2 font-MontserratRegular">
                   ¿Cómo prefieres que te contactemos?
-                </p>
+                </p> --}}
 
-                <div class="grid grid-cols-12  mt-3 gap-6">
+                {{-- <div class="grid grid-cols-12  mt-3 gap-6"> --}}
 
-                  <div class="w-full xs:col-span-12 lg:col-span-6 ">
+                {{-- <div class="w-full xs:col-span-12 lg:col-span-6 ">
 
                     <div
                       class="font-MontserratRegular flex items-center ps-4 appearance-none w-full bg-azulecommerboton   border-none rounded-2xl ">
@@ -293,8 +293,8 @@
                     </div>
 
                   </div>
-
-                  <div class="w-full xs:col-span-12 lg:col-span-6 ">
+ --}}
+                {{--  <div class="w-full xs:col-span-12 lg:col-span-6 ">
 
                     <div
                       class="font-MontserratRegular flex items-center ps-4 appearance-none w-full bg-azulecommerboton    border-none rounded-2xl ">
@@ -304,12 +304,12 @@
                         class="w-[15%] h-4">
                     </div>
 
-                  </div>
+                  </div> --}}
 
-                  <!-- @error('tipocontacto')
+                <!-- @error('tipocontacto')
   <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
 @enderror  -->
-                </div>
+                {{-- </div> --}}
 
 
                 <div class="group  mt-8">
