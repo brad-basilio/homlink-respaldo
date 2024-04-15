@@ -86,8 +86,8 @@
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium "><span
                 class="text-white">Conquista Todos los Dispositivos: Tu eCommerce a la Medida</h2>
             <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white md:w-[75%]"> En Mundo Web, creamos
-              experiencias de compra que brillan en cada pantalla. Descubre cómo llevar tu negocio al siguiente nivel
-              con nuestro eCommerce responsive</p>
+              experiencias de compra que brillan en cada pantalla. Nuestro equipo de expertos llevarán tu negocio a otro
+              nivel en el mundo digital con el desarrollo de eCommerce responsive.</p>
 
             <div class="group">
               <a type="button"
@@ -174,8 +174,9 @@
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium"><span
                 class="text-white">Hablemos de tu próximo Proyecto</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Crea Experiencias Digitales que
-              Convierten Visitantes en Clientes Leales</p>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Desarrollaremos el eCommerce
+              que necesita tu marca para estar en las primeras posiciones de los buscadores y encantar a cada una de las
+              personas que ingresen a tu proyecto. ¡Llena el formulario y descubre más sobre nuestro servicio!</p>
 
             <div class="w-full">
               <form id="formEcommerce">
@@ -345,9 +346,9 @@
       <div class="px-[5%] py-8 pt-[10%] md:pt-[3%]">
         <div class="space-y-10 flex flex-col justify-center items-center">
 
-          <p class="text-center text-lg md:text-xl font-medium text-white  font-MontserratMedium md:w-[85%]"> Descubre
-            cómo nuestro diseño y desarrollo de eCommerce responsive puede potenciar tu marca, aumentar las conversiones
-            y mejorar la experiencia del usuario.</p>
+          <p class="text-center text-lg md:text-xl font-medium text-white  font-MontserratMedium md:w-[85%]"> Nuestro
+            diseño y desarrollo eCommerce responsive potenciará tu marca, aumentará tus conversiones y mejorará la
+            experiencia del usuario en tu sitio web.</p>
           <h2 class=" text-center text-4xl md:text-6xl font-medium text-white font-RightgroteskMedium md:w-[85%]">
             Impulsa tu Negocio con Nuestros Servicios</h2>
 
@@ -370,8 +371,8 @@
               class="font-RightgroteskMedium text-lg lg:text-2xl  text-white  w-auto inline-block font-normal">
               Estética Impactante </a>
           </div>
-          <p class="font-MontserratMedium text-base  font-normal text-white"> Diseños visualmente atractivos que captan
-            la atención y generan confianza en tu marca.</p>
+          <p class="font-MontserratMedium text-base  font-normal text-white"> Te brindaremos diseños visualmente
+            atractivos para captar la atención de los usuarios e incrementar las ventas online.</p>
           <!-- <img src="../resource/img_mundoweb/flechaderechaarriba.svg" alt="Flecha a la derecha" class="float-end h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">     -->
         </div>
 
@@ -383,8 +384,9 @@
               class="font-RightgroteskMedium text-lg lg:text-2xl  text-white  w-auto inline-block font-normal">
               Navegación Intuitiva </a>
           </div>
-          <p class="font-MontserratMedium text-base  font-normal text-white"> Interfaz fácil de usar que mejora la
-            experiencia del usuario, aumentando la retención y las conversiones.</p>
+          <p class="font-MontserratMedium text-base  font-normal text-white"> Una interfaz fácil de usar que mejora la
+            experiencia del usuario, elevando la retención y mejorando las conversiones de tu sitio web.
+          </p>
 
         </div>
 
@@ -398,9 +400,9 @@
               class="font-RightgroteskMedium text-lg lg:text-2xl  text-white  w-auto inline-block font-normal">
               Adaptabilidad Total </a>
           </div>
-          <p class="font-MontserratMedium text-base  font-normal text-white"> Funciona perfectamente en dispositivos
-            móviles, tabletas y computadoras de escritorio, garantizando una experiencia consistente en cualquier
-            pantalla.</p>
+          <p class="font-MontserratMedium text-base  font-normal text-white"> Tu página web funcionará perfectamente en
+            dispositivos móviles, tablets y computadoras de escritorio, así garantizamos una experiencia única en
+            cualquier pantalla.</p>
 
         </div>
 
@@ -413,8 +415,9 @@
               class="font-RightgroteskMedium text-lg lg:text-2xl  text-white  w-auto inline-block font-normal">
               Visibilidad Reforzada </a>
           </div>
-          <p class="font-MontserratMedium text-base  font-normal text-white"> Implementación de prácticas SEO que
-            ayudan a mejorar tu ranking en buscadores, aumentando la visibilidad y el tráfico orgánico a tu sitio web.
+          <p class="font-MontserratMedium text-base  font-normal text-white"> Implementaremos estrategías Search Engine
+            Optimization (SEO) para mejorar tu posición en el ranking de buscadores, aumentando la visibilidad y el
+            tráfico de tu sitio web.
           </p>
 
         </div>
@@ -445,8 +448,8 @@
                 class="text-white">¿Listo para descubrir cómo nuestras soluciones pueden llevar tu negocio al siguiente
                 nivel?</h2>
             <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Desde deslumbrantes One Pages
-              hasta emocionantes E-commerce, nuestro portafolio presenta una amplia
-              gama de proyectos exitosos que hemos realizado para clientes satisfechos.</p>
+              hasta emocionantes E-commerce, nuestro portafolio muestra una amplia gama de proyectos exitosos realizados
+              para clientes satisfechos, lo que demuestra nuestra experiencia y calidad en el <b>desarrollo web</b>.</p>
 
             <div class="group">
               <a href="{{ route('proyectos') }}" type="button"

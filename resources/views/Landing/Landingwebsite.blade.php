@@ -83,11 +83,13 @@
             </div>
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium "><span
-                class="text-azultextowebsite">Diseño Web Personalizado que <span class="text-azulwebsite">Impulsa
+                class="text-azultextowebsite"> Diseño Web Personalizado que <span class="text-azulwebsite">Impulsa
                 </span>tu Marca</h2>
             <p class="font-MontserratMedium text-lg md:text-xl font-normal text-azultextowebsite"> En Mundo Web, creamos
               sitios web a medida que reflejan la esencia única de tu marca. Desde el diseño hasta la funcionalidad,
-              trabajamos contigo para crear una presencia en línea que destaque y atraiga a tu audiencia.</p>
+              nuestro equipo de expertos trabajará contigo para crear un website que destaque y atraiga a tu audiencia
+              en los principales motores de búsqueda.
+            </p>
 
             <div class="group">
               <a type="button"
@@ -173,8 +175,9 @@
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium text-azultextowebsite">
               ¿Listo para Crear tu <span class="text-azulwebsite">Página Web</span> Ideal?</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-azultextowebsite"> Crea Experiencias
-              Digitales que Convierten Visitantes en Clientes Leales</p>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-azultextowebsite"> Completa el
+              formulario y crea experiencias digitales que convierten visitantes en clientes leales.
+            </p>
 
             <div class="w-full">
               <form id='formwebsite'>
@@ -348,10 +351,10 @@
 
           <h2 class="text-left text-2xl md:text-4xl font-medium  font-RightgroteskMedium  text-azultextowebsite">
             Impulsa tu Presencia en Línea con <span class="text-azulwebsite">Mundo Web</span></h2>
-          <p class="text-left text-lg md:text-xl font-medium text-azultextowebsite  font-MontserratMedium"> Descubre
-            cómo Mundo Web puede llevar tu presencia en línea al siguiente nivel con una gama de ventajas excepcionales.
-            Desde diseños visualmente impactantes hasta soporte continuo, estamos comprometidos a hacer que tu
-            experiencia digital sea impecable.</p>
+          <p class="text-left text-lg md:text-xl font-medium text-azultextowebsite  font-MontserratMedium"> Mundo Web
+            tiene un modelo de trabajo que puede llevar tu presencia en línea al siguiente nivel. Estamos comprometidos
+            a hacer que tu experiencia digital sea impecable, por eso te ofrecemos diseños visualmente impactantes y un
+            soporte continuo.</p>
 
         </div>
       </div>
@@ -373,8 +376,9 @@
 
             </div>
             <p class="font-MontserratMedium text-base  font-normal text-white"> Nuestros sitios web a medida destacan
-              con diseños visualmente impactantes que cautivan a los visitantes desde el primer momento.
-              Cada detalle se diseña cuidadosamente para crear una experiencia memorable.</p>
+              con diseños visualmente impactantes que cautivan a los visitantes desde el primer momento. Nos enfocamos
+              en cada detalle para crear una experiencia memorable a tus potenciales clientes.
+            </p>
 
           </div>
 
@@ -388,10 +392,10 @@
 
             </div>
 
-            <p class="font-MontserratMedium text-base  font-normal text-white"> Nos especializamos en crear sitios web
-              con una funcionalidad impecable y una experiencia del usuario excepcional.
-              Desde la navegación intuitiva hasta las interacciones fluidas, cada aspecto se diseña para mantener a los
-              visitantes comprometidos.</p>
+            <p class="font-MontserratMedium text-base  font-normal text-white"> Nos especializamos en crear páginas web
+              con una funcionalidad impecable y una experiencia del usuario excepcional. Desde la navegación intuitiva
+              hasta las interacciones fluidas, cada aspecto se diseña para captar la atención de los visitantes y
+              generen un mayor compromiso con tu marca.</p>
 
           </div>
 
@@ -406,8 +410,8 @@
 
             </div>
 
-            <p class="font-MontserratMedium text-base  font-normal text-white"> Soporte continuo y actualizaciones
-              oportunas para mantener tu sitio web siempre en su mejor momento.</p>
+            <p class="font-MontserratMedium text-base  font-normal text-white"> Tenemos el trabajo de brindarle soporte
+              y actualizaciones constantes a tu sitio web para mejorar la relación entre los clientes y tu marca.</p>
 
           </div>
 
@@ -421,9 +425,9 @@
 
             </div>
 
-            <p class="font-MontserratMedium text-base  font-normal text-white"> Mejoramos la visibilidad de tu sitio
-              web en los motores de búsqueda para que puedas llegar a más
-              clientes potenciales de forma orgánica y aumentar tu tráfico en línea.</p>
+            <p class="font-MontserratMedium text-base  font-normal text-white"> Mundo Web te ayudará a crear páginas
+              web enfocados en la optimización de contenido (SEO) para mejorar tu posicionamiento en los buscadores y
+              que estés más cerca de tus clientes.</p>
 
           </div>
         </div>
@@ -442,9 +446,9 @@
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium"><span
                 class="text-white">¡Explora Nuestras Maravillas Digitales!</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Sumérgete en un universo de
-              posibilidades con nuestros otros servicios. Desde diseño web hasta desarrollo de aplicaciones,
-              Mundo Web tiene todo lo que necesitas para triunfar en el mundo digital.</p>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Te invitamos a descubrir un
+              universo de oportunidades con nuestros servicios integrales. Desde diseño web hasta desarrollo de
+              aplicaciones móviles, Mundo Web te ayudará a crear el mejor website para llegar tu marca al éxito.</p>
 
             <div class="group">
               <a href="{{ route('proyectos') }}" type="button"

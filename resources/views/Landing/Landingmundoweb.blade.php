@@ -62,10 +62,11 @@
           <div
             class=" xl:col-span-5  text-left  space-y-10 flex flex-col justify-center items-start px-[5%] pt-[10%] pb-[5%] xl:px-[12%] xl:pt-[20%] xl:pb-[45%]">
 
-            <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium "><span
-                class="text-white">Impulsa tus Conversiones con Nuestras Landing Pages</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Crea Experiencias Digitales que
-              Convierten Visitantes en Clientes Leales</p>
+            <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium "><span class="text-white">
+                Impulsa tus Conversaciones con Nuestras Landing Pages</h2>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Nuestros desarrolladores de
+              páginas web crean diseños que convierten visitantes en clientes leales
+            </p>
 
             <div class="group">
               <a type="button"
@@ -169,9 +170,10 @@
             class=" xl:col-span-6  text-left  space-y-10 flex flex-col justify-center items-start px-[5%]  pb-[5%] xl:pr-[12%]">
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium text-textonegro"><span
-                class="text-white">Hablemos de tu próximo Proyecto</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Crea Experiencias Digitales que
-              Convierten Visitantes en Clientes Leales</p>
+                class="text-white">Hablemos de tu Próximo Proyecto</h2>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Llena este formulario e
+              inmediatamente nuestro equipo se pondrá en contacto contigo para iniciar tu proyecto
+            </p>
 
             <div class="w-full">
               <form id=formMundoWeb>
@@ -342,9 +344,9 @@
         <div class="space-y-10 flex flex-col justify-center items-center">
 
           <p class="text-center text-lg md:text-xl font-medium text-white  font-MontserratMedium"> En Mundo Web,
-            nuestras landing pages ofrecen beneficios claros y tangibles</p>
+            nuestras landing pages te permitirán conectar tu marca con los usuarios</p>
           <h2 class=" text-center text-4xl md:text-6xl font-medium text-white font-RightgroteskMedium md:w-[85%]">
-            Atrapa la Atención, Convierte Visitantes en Clientes Potenciales <br>Proyecto</h2>
+            Capta la atención de las personas y logra que se conviertan en clientes de tu <br>Proyecto</h2>
 
 
         </div>
@@ -373,8 +375,9 @@
                 <img src="{{ asset('img_landingmundoweb/flechaderecharriba.svg') }}" alt="Flecha a la derecha"
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
-              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Diseñamos páginas que inspiran
-                acción y aumentan las conversiones.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Nuestros especialistas en
+                Desarrollo Web trabajarán para generar contenido de valor y aplicarán una serie de estrategias para
+                aumentar las conversiones..</p>
 
             </div>
 
@@ -390,8 +393,8 @@
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
 
-              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Capturamos datos clave para
-                impulsar relaciones significativas con los clientes.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Tu sitio web contará con datos
+                clave y contenido de calidad para impulsar relaciones significativas con potenciales clientes.</p>
 
             </div>
 
@@ -408,8 +411,9 @@
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
 
-              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Transmitimos profesionalismo y
-                confianza para destacar tu marca.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Somos profesionales que buscan
+                transmitir confianza para destacar tu marca en el mundo digital. Tu sitio web tendrá contenido de valor
+                y la seguridad para ti y tus clientes.</p>
 
             </div>
 
@@ -419,14 +423,15 @@
               <div class="flex flex-row justify-between items-center">
                 <a type="button"
                   class="font-RightgroteskMedium text-lg lg:text-4xl  text-verdeboton  w-auto inline-block font-normal">
-                  Optimización para Dispositivos Móviles </a>
+                  Optimización para Landing Pages </a>
 
                 <img src="{{ asset('img_landingmundoweb/flechaderecharriba.svg') }}" alt="Flecha a la derecha"
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
 
-              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Garantizamos una experiencia
-                excepcional en todos los dispositivos.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-verdeboton"> Tu página web será optimizada con
+                estrategias SEO para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu Landing
+                Pages contará con palabras claves, sitemap, robots.txt, ATL en tus imágenes y otras acciones. </p>
 
             </div>
           </div>
@@ -458,9 +463,10 @@
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium"><span
                 class="text-verdeboton">¡Explora Nuestras Maravillas Digitales!</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-verdeboton"> Sumérgete en un universo
-              de posibilidades con nuestros otros servicios. Desde diseño web hasta desarrollo de aplicaciones,
-              Mundo Web tiene todo lo que necesitas para triunfar en el mundo digital.</p>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-verdeboton"> Descubre un universo de
+              oportunidades con nuestros servicios integrales. Desde diseño web hasta desarrollo de aplicaciones, Mundo
+              Web te ofrece todo lo necesario para alcanzar el éxito en el mundo digital. ¡Haz brillar tu presencia en
+              línea!</p>
 
             <div class="group">
               <a href="{{ route('proyectos') }}" type="button"

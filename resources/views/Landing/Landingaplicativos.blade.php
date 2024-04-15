@@ -83,11 +83,11 @@
             </div>
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium text-textonegro"><span
-                class="text-white">Desarrolla tu App Móvil Ideal con Mundo Web</h2>
+                class="text-white">Desarrolla tu app móvil con Mundo Web</h2>
             <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> En Mundo Web, convertimos tus
-              ideas en aplicaciones móviles innovadoras y atractivas.
-              Desde la concepción hasta el lanzamiento, nuestro equipo está aquí para hacer realidad tu visión y
-              llevarte al siguiente nivel en el mundo digital.</p>
+              ideas en app móviles innovadoras y atractivas. Desde la concepción hasta el lanzamiento, nuestro equipo de
+              desarrollo de aplicaciones está aquí para hacer realidad tu visión y llevarte al éxito en el mundo
+              digital.</p>
 
             <div class="group">
               <a type="button"
@@ -168,10 +168,12 @@
             class=" xl:col-span-5  text-left  space-y-10 flex flex-col justify-center items-start px-[5%] pt-[10%] pb-[5%] xl:pl-[12%]">
 
             <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium text-textonegro"><span
-                class="text-white">¿Listo para Hacer Realidad tu App Móvil?</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Llena nuestro formulario y
-              comienza el viaje hacia el desarrollo de tu aplicación móvil.
-              ¡Con Mundo Web, transforma tu concepto en una aplicación exitosa que impacte en el mercado!</p>
+                class="text-white">¿Te animas a hacer realidad tu App Móvil?</h2>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white">
+              Llena este formulario y comienza el viaje hacia el desarrollo de tu aplicación móvil. En Mundo Web,
+              nuestros desarrolladores de app se pondrán en contacto contigo para crear una sitio que impacte en el
+              mercado.
+            </p>
 
             <div class="w-full">
               <form id="formAplicativos">
@@ -343,11 +345,10 @@
       <div class="px-[5%] py-8 pt-[6%] ">
         <div class="space-y-10 flex flex-col justify-center items-center">
           <h2 class=" text-center text-4xl md:text-6xl font-medium text-white font-RightgroteskMedium md:w-[75%]">
-            Beneficios Excepcionales para tu <br>Proyecto</h2>
+            Beneficios para el desarrollo de tu <br>app</h2>
           <p class="md:text-center text-lg md:text-xl font-medium text-white md:w-[70%] font-MontserratMedium"> Explora
-            los exclusivos beneficios que Mundo Web tiene para ofrecerte.
-            Desde experiencias innovadoras hasta soporte continuo, estamos aquí para impulsar el éxito de tu proyecto en
-            el mundo digital.</p>
+            los exclusivos beneficios que Mundo Web tiene para ofrecerte. Desde experiencias innovadoras hasta soporte
+            continuo, nuestro equipo trabajará para que tu aplicativo móvil tenga un gran impacto en las personas.</p>
 
         </div>
       </div>
@@ -379,9 +380,9 @@
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
               <p class="font-MontserratMedium text-lg  font-normal text-white"> Desarrollamos aplicaciones móviles que
-                ofrecen experiencias de usuario inmersivas y cautivadoras.
-                Desde la navegación intuitiva hasta el diseño elegante, cada detalle se adapta para maximizar el
-                compromiso del usuario.</p>
+                ofrecen experiencias de usuario inmersivas y cautivadoras. Nos comprometemos a desarrollar un proyecto
+                con una navegación intuitiva y un diseño elegante, cada detalle se adaptará para maximizar el compromiso
+                del usuario.</p>
 
             </div>
 
@@ -397,10 +398,10 @@
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
 
-              <p class="font-MontserratMedium text-lg  font-normal text-white"> Desarrollamos aplicaciones móviles que
-                ofrecen experiencias de usuario inmersivas y cautivadoras.
-                Desde la navegación intuitiva hasta el diseño elegante, cada detalle se adapta para maximizar el
-                compromiso del usuario.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-white"> En Mundoweb, garantizamos la máxima
+                compatibilidad con dispositivos móviles. Tu aplicativo se adaptará perfectamente a cualquier pantalla,
+                brindando una experiencia fluida y atractiva para los visitantes. ¡Confía en nosotros para llegar al
+                siguiente nivel!</p>
 
             </div>
 
@@ -417,10 +418,10 @@
                   class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500">
               </div>
 
-              <p class="font-MontserratMedium text-lg  font-normal text-white"> Desarrollamos aplicaciones móviles que
-                ofrecen experiencias de usuario inmersivas y cautivadoras.
-                Desde la navegación intuitiva hasta el diseño elegante, cada detalle se adapta para maximizar el
-                compromiso del usuario.</p>
+              <p class="font-MontserratMedium text-lg  font-normal text-white">Te garantizamos un soporte y
+                mantenimiento continuo para tu aplicativo móvil con la finalidad de garantizar su correcto
+                funcionamiento. El equipo de desarrolladores de Mundo Web resolverá cualquier duda o problema que tengas
+                en el instante.</p>
 
             </div>
 
@@ -441,11 +442,13 @@
           <div
             class=" xl:col-span-6  text-left  space-y-10 flex flex-col justify-center items-start px-[5%] pt-[0%] pb-[5%] xl:px-[10%] xl:pt-[10%] xl:pb-[10%]">
 
-            <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium"><span
-                class="text-white">¡Explora Nuestras Maravillas Digitales!</h2>
-            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Sumérgete en un universo de
-              posibilidades con nuestros otros servicios. Desde diseño web hasta desarrollo de aplicaciones,
-              Mundo Web tiene todo lo que necesitas para triunfar en el mundo digital.</p>
+            <h2 class="font-RightgroteskMedium text-4xl md:text-5xl lg:text-6xl font-medium"><span class="text-white">
+                ¡Explora Nuestras Maravillas Digitales!
+            </h2>
+            <p class="font-MontserratMedium text-lg md:text-xl font-normal text-white"> Descubre un universo de
+              oportunidades con nuestros servicios integrales. Mundo Web cuenta con diseños y estrategias que te
+              ayudarán a generar una relación más estrechas entre tu marca y potenciales clientes. ¡Comienza el
+              desarrollo de tu app HOY!</p>
 
             <div class="group">
               <a href="{{ route('proyectos') }}" type="button"
