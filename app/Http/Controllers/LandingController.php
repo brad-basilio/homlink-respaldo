@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\EmailConfig;
 use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
@@ -71,6 +72,7 @@ class LandingController extends Controller
 
        
         $formlanding = Landing::create($request->all());
+        $this-> envioCorreo($formlanding);
        
         
         // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
@@ -106,7 +108,7 @@ class LandingController extends Controller
        
         $formlanding = Landing::create($request->all());
        
-        
+        $this-> envioCorreo($formlanding);
         // return redirect()->route('landingmundoweb', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
@@ -138,6 +140,7 @@ class LandingController extends Controller
         $request->validate($reglasValidacion, $mensajes);
        
         $formlanding = Landing::create($request->all());
+        $this-> envioCorreo($formlanding);
                
         // return redirect()->route('landingecommerce', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message'=> 'Mensaje enviado con exito']);
@@ -173,7 +176,7 @@ class LandingController extends Controller
 
        
         $formlanding = Landing::create($request->all());
-       
+        $this-> envioCorreo($formlanding);
         
         // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message'=> 'Mensaje enviado con exito']);
@@ -208,5 +211,22 @@ class LandingController extends Controller
     public function destroy(Landing $landing)
     {
         //
+    }
+
+    private function envioCorreo($data){
+        
+        $name = $data['nombre'];
+        $mail = EmailConfig::config();
+        try {
+            $mail->addAddress($data['email']);
+            $mail->Body = "Buenas tardes $name su solicitud fue procesada";
+            $mail->isHTML(true);
+            $mail->send();
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
+       
     }
 }
