@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\EmailConfig;
 use App\Models\Form;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreFormRequest;
@@ -196,8 +197,9 @@ class FormController extends Controller
        
         $formulariohome = Form::create($request->all());
        
-        
-        return redirect()->route('inicio', $formulariohome)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        $this-> envioCorreo($formulariohome);
+        // return redirect()->route('inicio', $formulariohome)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
+        return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
     /**
      * Display the specified resource.
@@ -229,5 +231,20 @@ class FormController extends Controller
     public function destroy(Form $form)
     {
         //
+    }
+    private function envioCorreo($data){
+        
+        $name = $data['nombre'];
+        $mail = EmailConfig::config();
+        try {
+            $mail->addAddress($data['email']);
+            $mail->Body = "Buenas tardes $name su solicitud fue procesada";
+            $mail->isHTML(true);
+            $mail->send();
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
+       
     }
 }
