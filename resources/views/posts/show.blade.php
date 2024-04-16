@@ -151,7 +151,7 @@
                   </div>
  
                   <p>
-                    <div id="contenidoHTML">{!! $post->body !!}</div>ss
+                    <div id="contenidoHTML">{!! $post->body !!}</div>
                   </p>
   
                   <div>
