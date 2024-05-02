@@ -32,6 +32,10 @@ class LandingController extends Controller
     {
         return view('Landing/Landingwebsite');
     }
+
+    public function viewLandingpagemundoweb(){
+        return view('Landing/Landingmundowebfinal');
+    }
     
 
     /**
