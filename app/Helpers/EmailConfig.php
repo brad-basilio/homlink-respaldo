@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class EmailConfig
 {
-    static  function config(): PHPMailer
+    static  function config($name): PHPMailer
     {
         $mail = new PHPMailer(true);
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
@@ -17,7 +17,7 @@ class EmailConfig
         $mail->Password = 'rzhfwaxrddnppppr';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
-        $mail->Subject = 'Notificación de informacion Recibida';
+        $mail->Subject = '' . $name . ', Gracias por comunicarte con Mundo Web';
         $mail->CharSet = 'UTF-8';
         $mail->setFrom('hola@mundoweb.pe', 'Mundo Web');
         return $mail;
