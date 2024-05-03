@@ -75,14 +75,12 @@
 
   <header>
 
-    <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[10]">
+    <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]"> {{-- z-[100] --}}
       <div class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent ">
         <div>
           <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
               alt="mundo web"></a>
-
         </div>
-
         <div class="group">
           <a href="#formularioListo"
             class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] flex justify-center items-center gap-3 rounded-full">
@@ -100,9 +98,6 @@
         </div>
       </div>
     </div>
-
-
-
     <div class="flex justify-end w-11/12 mx-auto  z-10">
       <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
         <a href="https://web.whatsapp.com/send?phone=908857558" rel="noopener" target="_blank">
@@ -111,8 +106,6 @@
         </a>
       </div>
     </div>
-
-
   </header>
 
 
@@ -168,9 +161,6 @@
           </div>
         </div>
       </section>
-
-
-
       <section class="xl:-mt-10 z-0">
         <div class="bg-[#303BE4] ">
           <div x-data="{}" x-init="$nextTick(() => {
@@ -227,7 +217,6 @@
           </div>
         </div>
       </section>
-
       <section class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20">
 
         <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
@@ -317,7 +306,7 @@
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_6.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_6.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_32.png') }}')">
             </div>
 
             <div
@@ -363,13 +352,22 @@
             </div>
           </div>
 
+         {{--  <style>
+            #modalImage{
+                height: 800px !important;
+            }
+          </style> --}}
+
           <!-- Modal -->
-          <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-30">
+          <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-            <div class="modal-container bg-white w-5/6 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-              <div class="modal-content p-4 relative">
+            <div class="modal-container bg-white w-5/6 md:max-w-md mx-auto rounded shadow-lg z-[100] relative overflow-y-auto">
+              <div class="modal-content p-4 relative overflow-y-scroll h-[200px]">
                 <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span>
                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">
+                <div>
+                    <p>Holaaa</p>
+                </div>
               </div>
             </div>
           </div>
