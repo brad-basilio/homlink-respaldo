@@ -134,12 +134,12 @@
               que
               impulsan el éxito de nuestros clientes.</p>
 
-            <div class="pt-5">
+            <div class="pt-5 group">
               <a href="#formularioListo"
                 class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
                 <span>Quiero mi web</span>
 
-                <div>
+                <div class="group-hover:rotate-45 transition-all duration-500">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <circle cx="20" cy="20" r="20" fill="white" />
