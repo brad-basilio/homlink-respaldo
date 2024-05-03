@@ -307,53 +307,53 @@
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_6.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_6.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_32.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_7.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_7.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_40.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_8.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_8.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_41.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_9.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_9.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_45.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_10.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_11.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_12.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
             </div>
 
             <div
               class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
               <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi" class="w-full h-full"
-                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_13.png') }}')">
+                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
             </div>
           </div>
 
-         {{--  <style>
+          {{-- <style>
             #modalImage{
                 height: 800px !important;
             }
@@ -363,13 +363,45 @@
           <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
             <div class="modal-container bg-white w-5/6 md:max-w-md mx-auto rounded shadow-lg z-[100] relative overflow-y-auto">
-              <div class="modal-content p-4 relative overflow-y-scroll h-[200px]">
+              <div class="modal-content p-4 relative overflow-y-scroll" style="max-height: 600px;">
                 <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span>
-                <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">
-                
+                <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">               
               </div>
             </div>
           </div>
+
+         {{--  <div id="myModal" class="fixed inset-0 bg-black bg-opacity-50  justify-center items-center">
+            <div class="bg-white p-8 rounded-lg w-[500px] h-[500px] overflow-hidden">
+                <!-- Botón para cerrar el modal -->
+                <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-900" onclick="closeModal()">&times;</button>
+                <!-- Contenedor para la imagen -->
+                <div class="overflow-y-auto" style="max-height: 600px;"> <!-- Establecemos una altura máxima para el contenido -->
+                    <!-- Imagen dentro del modal -->
+                    <img src="" alt="Imagen en modal" id="modalImage" class="mx-auto">
+                </div>
+            </div>
+        </div> --}}
+
+       {{--  <script>
+            function openModal(imageUrl) {
+                // Muestra el modal
+                document.getElementById('myModal').classList.remove('hidden');
+                // Establece la imagen dentro del modal
+                document.getElementById('modalImage').src = imageUrl;
+                // Deshabilita el scroll del body
+                document.body.style.overflow = 'hidden';
+            }
+        
+            function closeModal() {
+                // Oculta el modal
+                document.getElementById('myModal').classList.add('hidden');
+                // Limpia la URL de la imagen para evitar que se muestre la última imagen abierta al abrir el modal nuevamente
+                document.getElementById('modalImage').src = '';
+                // Habilita el scroll del body
+                document.body.style.overflow = '';
+            }
+        </script> --}}
+        
 
 
           {{-- ------ --}}
@@ -609,6 +641,8 @@
     button.addEventListener('click', () => {
       closeModal();
     });
+
+    
   });
 </script>
 <script>
