@@ -437,7 +437,7 @@
               class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
               <div class="flex flex-col gap-5 basis-10/12">
                 <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización para Landing Pages</h2>
-                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con estrategias SEO para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu Landing Pages contará con palabras claves, sitemap, robots.txt, ATL en tus imágenes y otras acciones. 
+                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con estrategias SEO para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu Landing Page contará con palabras claves, sitemap, robots.txt, ATL en tus imágenes y otras acciones. 
                 </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
