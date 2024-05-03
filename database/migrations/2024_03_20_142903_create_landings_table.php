@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('telefono');
             $table->string('cargo')->nullable();
             $table->string('empresa')->nullable();
-            $table->text('mensaje')->nullable();
+            $table->string('mensaje')->nullable();
             $table->string('tipocontacto')->nullable();
             $table->string('urlweb')->nullable();
             $table->string('source');
