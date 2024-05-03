@@ -365,9 +365,7 @@
               <div class="modal-content p-4 relative overflow-y-scroll h-[200px]">
                 <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span>
                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">
-                <div>
-                    <p>Holaaa</p>
-                </div>
+                
               </div>
             </div>
           </div>
