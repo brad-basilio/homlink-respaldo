@@ -361,22 +361,24 @@
 
           <style>
             .height-modal{
-              max-height: 600px;
+              max-height: 550px;
+            
             }
 
             @media (min-width: 768px){
               .height-modal{
-              max-height: 800px;
+                max-height: 800px;
+                
               }
             }
           </style>
-
+ {{--  <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span> --}}
           <!-- Modal -->
           <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
             <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-            <div class="modal-container bg-white   mx-auto rounded shadow-lg z-[100] relative overflow-y-auto">
-              <div class="modal-content p-4 relative overflow-y-scroll height-modal"> {{--  style="max-height: 700px;" --}}
-                <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span>
+            <div class="modal-container bg-white w-5/6 mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative"> {{-- w-5/6 --}}
+              <div class="modal-content p-4 relative overflow-y-scroll height-modal"> {{--  style="max-height: 700px;" --}}     
+                <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-white text-text48"> &times; </span>
                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">               
               </div>
             </div>
