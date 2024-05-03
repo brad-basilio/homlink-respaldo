@@ -264,7 +264,7 @@ class LandingController extends Controller
                     }
                     p {
                         font-size: 40px;
-                        line-height: 70px;
+                        
                         color: #e15a29;
                         font-family: grotesk;
                     }
@@ -287,33 +287,64 @@ class LandingController extends Controller
             </head>
             <body>
                 <main>
-                    <table style=" width: 600px;">
+                    <table style="width: 600px;
+                    margin: auto; background: url(https://mundoweb.pe/mail/Fondo.png) no-repeat center center fixed;" >
                         <thead>
                             <tr>
                                 <th>
-                                    <img src="https://mundoweb.pe/mail/Frame_14466.png" alt="mundo web">
+                                    <img src="https://mundoweb.pe/mail/Frame_14466.png" alt="mundo web" style="padding-top: 100px;
+                                    padding-bottom: 50px;">
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td style="text-align: center;">
-                                    <p>¡Gracias <span style="color: #050a41">por escribirnos! 🚀</span> </p>
+                                <p
+                                style="
+                                  color: #e15a29;
+                                  font-size: 40px;
+                                  line-height: 70px;
+                                  font-family: grotesk;
+                                "
+                              >
+                                !Gracias <span style="color: #050a41">por escribirnos! 🚀</span>
+                              </p>
+                                    
                                 </td>
                             </tr>
                             <tr>
-                                <td style="text-align: center;">
-                                    <p>¡Hola <?php echo $name; ?>! En breve nuestra ejecutiva comercial se estará comunicando contigo.</p>
+                                <td >
+                                    <p style="color: #050a41; text-align: center; font-size: 24px; padding: 0 20px;">
+                                    
+                                        ¡Hola '.$name.'! En breve nuestra ejecutiva comercial
+                                                se estará comunicando contigo.
+                                        
+                                    </p>
+                                    
                                 </td>
+                            
                             </tr>
                             <tr>
                                 <td style="text-align: center;">
                                     <a href="#" class="cta-button">
-                                        <span>Haz que tu negocio despegue</span>
-                                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="20.5" cy="20" r="20" fill="white" />
-                                            <path d="M16.9587 15.0808L25.4807 15.0807M25.4807 15.0807L25.4807 23.4815M25.4807 15.0807L15.5812 24.9802" stroke="#E15A29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
+                                    <span style="color: white; font-size: 18px">Haz que tu negocio despegue</span>
+                                    <svg
+                                      width="41"
+                                      height="40"
+                                      viewBox="0 0 41 40"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <circle cx="20.5" cy="20" r="20" fill="white" />
+                                      <path
+                                        d="M16.9587 15.0808L25.4807 15.0807M25.4807 15.0807L25.4807 23.4815M25.4807 15.0807L15.5812 24.9802"
+                                        stroke="#E15A29"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      />
+                                    </svg>
                                     </a>
                                 </td>
                             </tr>
