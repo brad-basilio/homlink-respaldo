@@ -104,7 +104,7 @@
 
     <div class="flex justify-end w-11/12 mx-auto  z-10">
       <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
-        <a href="#" rel="noopener">
+        <a href="https://web.whatsapp.com/send?phone=908857558" rel="noopener">
           <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
             class="w-20 h-20 md:w-full md:h-full">
         </a>
@@ -252,36 +252,39 @@
                 @csrf
                 <div>
                   <input type="text" name="nombre" placeholder="Nombre Completo"
-                    class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
+                    class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
                 </div>
 
                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                   <div class="w-full">
                     <input type="email" name="email" placeholder="Correo Electrónico"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                   <div class="w-full">
                     <input type="tel" name="telefono" placeholder="Teléfono"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                   <div class="w-full">
                     <input type="text" placeholder="Empresa / Marca" name="empresa"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                   <div class="w-full">
                     <input type="text" placeholder="Link de Web (Opcional)" name="urlweb"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                 </div>
 
                 <input type="hidden" name="source" value="Landing Mundoweb Final">
 
                 <div>
-                  <input type="text" placeholder="Coméntanos sobre tu proyecto" name="mensaje"
-                    class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
+                  {{-- <textarea name="message" id="input" rows="5" maxlength="256"
+                    class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
+                  </textarea> --}}
+                  <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
+                    class="shadow-lg text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-2 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
                 </div>
               </form>
             </div>
