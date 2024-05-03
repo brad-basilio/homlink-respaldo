@@ -282,6 +282,42 @@ class LandingController extends Controller
                                     <td>
                                         <p
                                             style="
+                                            color: #050a41;
+                                            font-weight: 500;
+                                            font-size: 18px;
+                                            text-align: center;
+                                            width: 500px;
+                                            margin: 0 auto;
+                                            padding: 20px 0;
+                                            font-family: Montserrat, sans-serif;
+                                        "
+                                        >
+                                             <span style="display:block">Hola </span>
+                                            
+                                            
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p
+                                            style="
+                                                color: #e15a29;
+                                                font-size: 40px;
+                                                line-height: 20px;
+                                                font-family: grotesk;
+                                            "
+                                        >
+                                             <span style="display:block">' . $name . ' </span>
+                                            
+                                            
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p
+                                            style="
                                                 color: #e15a29;
                                                 font-size: 40px;
                                                 line-height: 70px;
@@ -309,45 +345,40 @@ class LandingController extends Controller
                                                 font-family: Montserrat, sans-serif;
                                             "
                                         >
-                                        <span style="display:block">¡Hola ' . $name . ' !</span>
-                                            En breve nuestra
-            ejecutiva comercial se estará comunicando
-            contigo.
-            </p>
+                                        
+                                            En breve nuestra ejecutiva comercial se estará comunicando contigo.
+                                        </p>
+                                    </td>
+                                </tr>
+            <tr>
+            <td>
+                <a href="https://mundoweb.pe/" style="
+                    text-decoration: none;
+                    background-color: #e15a29;
+                    color: white;
+                    border-radius: 40px;
+                    padding: 12px 20px;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    font-weight: 600;
+                    font-family: Montserrat, sans-serif;
+                ">
+                    <span>Haz que tu negocio despegue</span>
+                    <img  src="https://mundoweb.pe/mail/buttonmailing.png" style="
+                        width: 20px;
+                        margin-left: 15px;
+                        height: 20px;
+                    " />
+                </a>
             </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#" style="
-                                                text-decoration: none;
-                                                background-color: #e15a29;
-                                                color: white;
-                                                border-radius: 40px;
-                                                padding: 12px 20px;
-                                                display: inline-flex;
-                                                justify-content: center;
-                                                align-items: center;
-                                                gap: 10px;
-                                                font-weight: 600;
-                                                font-family: Montserrat, sans-serif;
-                                            ">
-                        <span>Haz que tu negocio despegue</span>
-                        <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="20.5" cy="20" r="20" fill="white" />
-                            <path
-                                d="M16.9587 15.0808L25.4807 15.0807M25.4807 15.0807L25.4807 23.4815M25.4807 15.0807L15.5812 24.9802"
-                                stroke="#E15A29" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td style="
-                                        text-align: right; padding-right: 30px;
-                                        ">
-                    <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
-                </td>
-            </tr>
+        </tr>
+        <tr>
+            <td style="text-align: right; padding-right: 30px;">
+                <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
+            </td>
+        </tr>
             </tbody>
             </table>
             </main>
