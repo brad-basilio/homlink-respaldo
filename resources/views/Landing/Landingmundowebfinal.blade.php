@@ -21,7 +21,7 @@
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Index</title>
+  <title>Landing Mundo Web</title>
 
   <style>
     .navbar-fixed-top.scrolled {
@@ -126,14 +126,8 @@
               <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
               transformación Digital! 🚀
             </h1>
-            <p class="font-montserrat font-medium text-text18 md:text-text20 text-[#3F4654]">Somos una
-              empresa de
-              desarrollo web
-              joven y dinámica, especializada en transformar ideas en soluciones digitales excepcionales.
-              En Mundo
-              Web, no solo construimos sitios web y aplicativos, sino que creamos experiencias digitales
-              que
-              impulsan el éxito de nuestros clientes.</p>
+            <p class="font-montserrat font-medium text-text18 md:text-text20 text-[#3F4654]">Somos una <b>empresa de desarrollo web</b> joven y dinámica, especializada en transformar ideas en soluciones digitales excepcionales. En Mundo Web, no solo construimos sitios web y aplicativos, sino que creamos experiencias digitales que impulsan el éxito de nuestros clientes.
+            </p>
 
             <div class="pt-5 group">
               <a href="#formularioListo"
@@ -245,8 +239,8 @@
             <h2
               class="text-[#050A41] font-RightgroteskMedium text-text40 md:text-text48 leading-tight font-medium w-full lg:w-2/3">
               ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
-            <p class="text-[#3F4654] text-text18 font-montserrat font-medium">Completa el formulario y crea
-              experiencias digitales que convierten visitantes en clientes leades</p>
+            <p class="text-[#3F4654] text-text18 font-montserrat font-medium">Llene el formulario y crea experiencias digitales que convierten visitantes en clientes leales.
+            </p>
 
             <div>
               <form id="dataForm" class="flex flex-col gap-5">
@@ -392,8 +386,8 @@
               ¡Impulsa tu presencia en linea con <span class="text-[#050A41]">Mundo Web!</span></h2>
 
             <p class="font-montserrat text-text18 md:text-text20 leading-tight text-white text-center py-5">
-              ¡Mundo
-              Web tiene un modelo de trabajo que puede llevar tu presencia en lína al siguiente nivel...
+                Somos una <b>agencia de desarrollo web</b> con un modelo de trabajo que puede llevar tu presencia en línea al siguiente nivel.
+
             </p>
           </div>
 
@@ -404,9 +398,8 @@
                 <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Aumento de
                   Conversiones
                 </h2>
-                <p class="text-text18  font-montserrat font-medium">Diseñamos páginas que inspiran
-                  acción y
-                  aumentan las conversiones.</p>
+                <p class="text-text18  font-montserrat font-medium">Nuestros especialistas en Desarrollo Web trabajarán para generar contenido de valor y aplicarán una serie de estrategias para aumentar las conversiones.
+                </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
                 <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web" class="w-8 h-8">
@@ -421,9 +414,8 @@
                   de Leads de
                   Calidad
                 </h2>
-                <p class="text-text18  font-montserrat font-medium">Capturamos datos clave para
-                  impulsar
-                  relaciones significativas con los clientes.</p>
+                <p class="text-text18  font-montserrat font-medium">Tu sitio  web contará con datos claves y contenido de calidad para impulsar relaciones significativas con potenciales clientes.
+                </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
                 <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web" class="w-8 h-8">
@@ -437,9 +429,8 @@
                 <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Mayor
                   Credibilidad y
                   Profesionalismo</h2>
-                <p class="text-text18  font-montserrat font-medium">Transmitimos profesionalismo y
-                  confianza
-                  para destacar tu marca.</p>
+                <p class="text-text18  font-montserrat font-medium">Somos  profesionales que buscan transmitir confianza para destacar tu marca en el mundo digital. Tu sitio web tendrá contenido de valor y la seguridad para ti y tus clientes.
+                </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
                 <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web" class="w-8 h-8">
@@ -449,13 +440,9 @@
             <div
               class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
               <div class="flex flex-col gap-5 basis-10/12">
-                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización
-                  para
-                  Dispositivos
-                  Móviles</h2>
-                <p class="text-text18  font-montserrat font-medium">Garantizamos una experiencia
-                  excepcional en
-                  todos los dispositivos.</p>
+                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización para Landing Pages</h2>
+                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con estrategias SEO para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu Landing Pages contará con palabras claves, sitemap, robots.txt, ATL en tus imágenes y otras acciones. 
+                </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
                 <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web" class="w-8 h-8">
