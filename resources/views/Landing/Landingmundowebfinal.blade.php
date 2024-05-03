@@ -27,6 +27,7 @@
     .navbar-fixed-top.scrolled {
       background-color: #fff !important;
       transition: background-color 200ms linear;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
     }
 
     .navbar-fixed-top.scrolled .nav-link {
@@ -56,47 +57,65 @@
         background-image: url({{ asset('images/img/imgMundoWeb/image_14.png') }});
       }
     }
+
+    /* .swiper-slide{
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+      
+      height: 100% !important;
+    } */
   </style>
 </head>
-<header class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[100]">
 
-
-  <div class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent">
-    <div>
-      <img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}" alt="mundo web">
-    </div>
-
-    <div>
-      <a href="#formularioListo"
-        class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] flex justify-center items-center gap-3 rounded-full">
-        <span>Quiero mi web</span>
-
-        <div>
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="20" cy="20" r="20" fill="white" />
-            <path d="M16.4583 15.0808L24.9803 15.0807M24.9803 15.0807L24.9803 23.4815M24.9803 15.0807L15.0808 24.9802"
-              stroke="#303BE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <div class="flex justify-end w-11/12 mx-auto mb-4 z-10">
-    <div class="fixed bottom-6 sm:bottom-[2rem] lg:bottom-[4rem] z-[80] lg:right-[40px]">
-      <a href="#" rel="noopener">
-        <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
-          class="w-20 h-20 md:w-full md:h-full">
-      </a>
-    </div>
-  </div>
-
-
-</header>
 
 
 <body class="body">
   <div class="overlay"></div>
+
+  <header>
+
+    <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[100]">
+      <div class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent ">
+        <div>
+          <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
+              alt="mundo web"></a>
+
+        </div>
+
+        <div class="group">
+          <a href="#formularioListo"
+            class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] flex justify-center items-center gap-3 rounded-full">
+            <span>Quiero mi web</span>
+
+            <div class="group-hover:rotate-45 transition-all  duration-500 ">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="20" fill="white" />
+                <path
+                  d="M16.4583 15.0808L24.9803 15.0807M24.9803 15.0807L24.9803 23.4815M24.9803 15.0807L15.0808 24.9802"
+                  stroke="#303BE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="flex justify-end w-11/12 mx-auto  z-10">
+      <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
+        <a href="https://web.whatsapp.com/send?phone=908857558" rel="noopener" target="_blank">
+          <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
+            class="w-20 h-20 md:w-full md:h-full">
+        </a>
+      </div>
+    </div>
+
+
+  </header>
+
+
   <div class="main">
     <main>
       <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
@@ -116,12 +135,12 @@
               que
               impulsan el éxito de nuestros clientes.</p>
 
-            <div class="pt-5">
+            <div class="pt-5 group">
               <a href="#formularioListo"
                 class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
                 <span>Quiero mi web</span>
 
-                <div>
+                <div class="group-hover:rotate-45 transition-all duration-500">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <circle cx="20" cy="20" r="20" fill="white" />
@@ -156,36 +175,63 @@
         </div>
       </section>
 
-      <section class="bg-[#303BE4] py-10">
 
-        <div class="w-11/12 mx-auto">
-          <div class="swiper clientes z-[20]">
-            <div class="swiper-wrapper items-center justify-center ">
-              <div class="swiper-slide ">
-                <img src="{{ asset('images/img/imgMundoWeb/image_15.png') }}" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="{{ asset('images/img/imgMundoWeb/image_16.png') }}" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="{{ asset('images/img/imgMundoWeb/image_17.png') }}" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="{{ asset('images/img/imgMundoWeb/image_18.png') }}" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="{{ asset('images/img/imgMundoWeb/image_19.png') }}" alt="">
-              </div>
-              <div class="swiper-slide">
-                <img src="{{ asset('images/img/imgMundoWeb/image_20.png') }}" alt="">
-              </div>
 
-            </div>
-            <div class="swiper-pagination"></div>
+      <section class="xl:-mt-10 z-0">
+        <div class="bg-[#303BE4] ">
+          <div x-data="{}" x-init="$nextTick(() => {
+              let ul = $refs.logos;
+              ul.insertAdjacentHTML('afterend', ul.outerHTML);
+              ul.nextSibling.setAttribute('aria-hidden', 'true');
+          })"
+            class="px-[5%]  bg-[#303BE4] w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)]">
+            <ul x-ref="logos"
+              class="h-32 flex flex-row justify-between items-center  [&_li]:mx-10 [&_img]:max-w-none  animate-infinite-scroll">
+
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo1.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo2.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo3.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo4.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo5.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo6.svg') }}" />
+              </li>
+
+            </ul>
+
+            <ul x-ref="logos"
+              class="h-32 flex flex-row justify-between items-center  [&_li]:mx-10 [&_img]:max-w-none  animate-infinite-scroll"
+              aria-hidden="true">
+
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo1.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo2.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo3.svg') }}" />
+              </li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo4.svg') }}" /></li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo5.svg') }}" /></li>
+              <li class="w-60 py-8"><img class="object-contain"
+                  src="{{ asset('img_mundowebaplicativos/Logo6.svg') }}" /></li>
+
+            </ul>
           </div>
         </div>
-
-
       </section>
 
       <section class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20">
@@ -207,47 +253,50 @@
                 @csrf
                 <div>
                   <input type="text" name="nombre" placeholder="Nombre Completo"
-                    class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
+                    class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
                 </div>
 
                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                   <div class="w-full">
                     <input type="email" name="email" placeholder="Correo Electrónico"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                   <div class="w-full">
                     <input type="tel" name="telefono" placeholder="Teléfono"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                   <div class="w-full">
                     <input type="text" placeholder="Empresa / Marca" name="empresa"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                   <div class="w-full">
                     <input type="text" placeholder="Link de Web (Opcional)" name="urlweb"
-                      class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                      class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                   </div>
                 </div>
 
                 <input type="hidden" name="source" value="Landing Mundoweb Final">
 
                 <div>
-                  <input type="text" placeholder="Coméntanos sobre tu proyecto" name="mensaje"
-                    class="text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
+                  {{-- <textarea name="message" id="input" rows="5" maxlength="256"
+                    class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
+                  </textarea> --}}
+                  <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
+                    class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
                 </div>
               </form>
             </div>
 
 
-            <div class="md:pt-10">
+            <div class="md:pt-10 group">
               <button id='procesarSolicitud'
                 class="font-montserrat font-semibold text-white py-3 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex text-text18">
                 <span>Solicitar Servicio</span>
 
-                <div>
+                <div class="group-hover:rotate-45 transition-all  duration-500 ">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <circle cx="20" cy="20" r="20" fill="white" />
@@ -417,12 +466,12 @@
           </div>
 
           <div class="pt-5 flex justify-between w-full">
-            <div class="w-full flex justify-center">
+            <div class="w-full flex justify-center group">
               <a href="#formularioListo"
                 class="font-montserrat font-semibold text-white py-2 px-4 bg-white bg-opacity-10 justify-center items-center gap-3 rounded-full inline-flex text-center">
                 <span>Quiero mi web</span>
 
-                <div>
+                <div class="group-hover:rotate-45 transition-all  duration-500 ">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <circle cx="20" cy="20" r="20" fill="white" />
@@ -443,175 +492,187 @@
 
     </main>
   </div>
-  <script>
-    $(function() {
-      $(document).scroll(function() {
-        var $nav = $(".navbar-fixed-top");
-        $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
-      });
-    });
-  </script>
-  <script>
-    var especialidades = new Swiper(".clientes", {
-      slidesPerView: 6,
-      spaceBetween: 20,
-      loop: true,
-      grabCursor: true,
-      centeredSlides: false,
-      initialSlide: 0,
-      allowTouchMove: true,
-      autoplay: {
-        delay: 1500,
-        disableOnInteraction: false,
-      },
-      breakpoints: {
-        0: {
-          slidesPerView: 2,
-        },
-        768: {
-          slidesPerView: 6,
-        },
-      },
-    });
 
 
-    // Función para abrir el modal con una imagen específica
-    function openModal(imageSrc) {
-      document.getElementById('modalImage').src = imageSrc;
-      document.getElementById('modal').classList.remove('hidden');
-      document.getElementById('modal').classList.add('flex');
-    }
+  <footer class="bg-[#303BE4] py-20">
 
-    // Función para cerrar el modal
-    function closeModal() {
-      document.getElementById('modal').classList.remove('flex');
-      document.getElementById('modal').classList.add('hidden');
-    }
+    <div
+      class="flex flex-col gap-5 md:gap-0 md:flex-row md:justify-between w-11/12 mx-auto border-b-[1px] border-gray-400 pb-10">
 
-    // Cerrar modal al hacer clic en el botón de cierre
-    const closeButtons = document.querySelectorAll('.close');
-    closeButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        closeModal();
-      });
-    });
-  </script>
-  <script>
-    $('#procesarSolicitud').on('click', function() {
-      console.log('precionando btn envio');
+      <div class="basis-8/12 flex flex-col gap-5 justify-between">
+        <div>
+          <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_31.png') }}"
+              alt="mundo web"></a>
 
-      let formulario = $('#dataForm').serialize()
-      Swal.fire({
+        </div>
 
-        title: 'Procesando información',
-        html: `Enviando... 
-            <div class="max-w-2xl mx-auto overflow-hidden flex justify-center items-center mt-4 ">
-                <div role="status">
-                    <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
-                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
-                    </svg>
-                    
-                </div>
+
+        <div class="group">
+          <a href="#"
+            class="border-white border-[1px] font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
+            <span>Ir a la web</span>
+
+            <div class="group-hover:rotate-45 transition-all  duration-500 ">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <circle cx="20" cy="20" r="20" fill="white" />
+                <path
+                  d="M16.4583 15.0808L24.9803 15.0807M24.9803 15.0807L24.9803 23.4815M24.9803 15.0807L15.0808 24.9802"
+                  stroke="#303BE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
             </div>
-            `,
-        allowOutsideClick: false,
-        onBeforeOpen: () => {
-          Swal.showLoading();
-        }
-      });
+          </a>
+        </div>
 
-      $.ajax({
-        url: '{{ route('guardarlandingmundoweb') }}',
-        method: 'POST',
-        data: formulario,
-        success: function(response) {
-          Swal.close();
-          Swal.fire({
-            title: response.message,
-            icon: "success",
-          });
-          $('#dataForm')[0].reset()
-        },
-        error: function(response) {
+        <div class="flex gap-5">
+          <a href="https://www.instagram.com/mundoweb.pe/" target="_blank">
+            <img src="{{ asset('/images/img/imgMundoWeb/Instagram.svg') }}" alt="instagram">
+          </a>
+          <a href="https://www.instagram.com/mundoweb.pe/" target="_blank">
+            <img src="{{ asset('/images/img/imgMundoWeb/Facebook.svg') }}" alt="facebook">
+          </a>
+        </div>
+      </div>
 
-          Swal.close();
-          Swal.fire({
-            title: response.responseJSON.message,
-            icon: "error",
-          });
-        }
-      });
+      <div class="basis-4/12 text-white">
 
-    })
-  </script>
+        <div class="">
+          <p class="font-montserrat font-normal text-text16 pb-5">Dirección</p>
+          <p class="font-montserrat font-normal text-text16">Centro Empresarial Peruano - Suizo</p>
+          <p class="font-montserrat font-normal text-text16">Av. Aramburú 150 - Miraflores, Oficina 4B, Lima,
+            Lima
+            51, PE</p>
 
+        </div>
+
+        <div>
+          <p class="font-montserrat font-normal text-text16 py-5">Horario</p>
+          <p class="font-montserrat font-normal text-text16">Lunes - Viernes 8am - 6pm</p>
+          <p class="font-montserrat font-normal text-text16">Sábados 9am - 1pm</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="pt-10 w-11/12 mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-7 font-monserrat ">
+        <div class="lg:col-span-7">
+          <p class="text-base font-normal text-white">Copyright © 2024 Mundo Web. Reservados todos los
+            derechos.</p>
+        </div>
+        <div class="flex flex-row justify-between lg:items-center lg:justify-end lg:col-span-5 gap-2 lg:gap-10">
+          <p class="text-base font-normal text-white">hola@mundoweb.pe</p>
+          <p class="text-base font-normal text-white">+51 934 464 915</p>
+        </div>
+      </div>
+    </div>
+
+  </footer>
 </body>
-<footer class="bg-[#303BE4] py-20">
 
-  <div
-    class="flex flex-col gap-5 md:gap-0 md:flex-row md:justify-between w-11/12 mx-auto border-b-[1px] border-gray-400 pb-10">
-
-    <div class="basis-8/12 flex flex-col gap-5 justify-between">
-      <div>
-        <img src="{{ asset('/images/img/imgMundoWeb/image_31.png') }}" alt="mundo web">
-      </div>
-
-
-      <div class="">
-        <a href="#"
-          class="border-white border-[1px] font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
-          <span>Ir a la web</span>
-
-          <div>
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <circle cx="20" cy="20" r="20" fill="white" />
-              <path d="M16.4583 15.0808L24.9803 15.0807M24.9803 15.0807L24.9803 23.4815M24.9803 15.0807L15.0808 24.9802"
-                stroke="#303BE4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
-        </a>
-      </div>
-
-      <div class="flex gap-5">
-
-        <img src="{{ asset('/images/img/imgMundoWeb/Instagram.svg') }}" alt="instagram">
-        <img src="{{ asset('/images/img/imgMundoWeb/Facebook.svg') }}" alt="facebook">
-
-      </div>
-    </div>
-
-    <div class="basis-4/12 text-white">
-
-      <div class="">
-        <p class="font-montserrat font-normal text-text16 pb-5">Dirección</p>
-        <p class="font-montserrat font-normal text-text16">Centro Empresarial Peruano - Suizo</p>
-        <p class="font-montserrat font-normal text-text16">Av. Aramburú 150 - Miraflores, Oficina 4B, Lima,
-          Lima
-          51, PE</p>
-
-      </div>
-
-      <div>
-        <p class="font-montserrat font-normal text-text16 py-5">Horario</p>
-        <p class="font-montserrat font-normal text-text16">Lunes - Viernes 8am - 6pm</p>
-        <p class="font-montserrat font-normal text-text16">Sábados 9am - 1pm</p>
-      </div>
-    </div>
-
-  </div>
-
-  <div
-    class="flex gap-2 md:gap-0 flex-col items-start md:flex-row md:justify-between md:items-center text-white w-11/12 mx-auto font-montserrat text-text14 pt-10">
-    <p>Copyright &copy; 2024 Mundo Web. Reservados todos los derechos.</p>
-
-    <div class="flex gap-2 md:flex-row  md:items-center md:gap-10 justify-between md:justify-end w-full">
-      <a href="#">hola@mundoweb.pe</a>
-      <p>+51 934 464 915</p>
-    </div>
-  </div>
-
-</footer>
 
 </html>
+
+<script>
+  $(function() {
+    $(document).scroll(function() {
+      var $nav = $(".navbar-fixed-top");
+      $nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+    });
+  });
+</script>
+<script>
+  var especialidades = new Swiper(".clientes", {
+    slidesPerView: 6,
+    spaceBetween: 20,
+    loop: true,
+    grabCursor: true,
+    centeredSlides: false,
+    initialSlide: 0,
+    allowTouchMove: true,
+    autoplay: {
+      delay: 1500,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      0: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 6,
+      },
+    },
+  });
+
+
+  // Función para abrir el modal con una imagen específica
+  function openModal(imageSrc) {
+    document.getElementById('modalImage').src = imageSrc;
+    document.getElementById('modal').classList.remove('hidden');
+    document.getElementById('modal').classList.add('flex');
+  }
+
+  // Función para cerrar el modal
+  function closeModal() {
+    document.getElementById('modal').classList.remove('flex');
+    document.getElementById('modal').classList.add('hidden');
+  }
+
+  // Cerrar modal al hacer clic en el botón de cierre
+  const closeButtons = document.querySelectorAll('.close');
+  closeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      closeModal();
+    });
+  });
+</script>
+<script>
+  $('#procesarSolicitud').on('click', function() {
+    console.log('precionando btn envio');
+
+    let formulario = $('#dataForm').serialize()
+    Swal.fire({
+
+      title: 'Procesando información',
+      html: `Enviando... 
+          <div class="max-w-2xl mx-auto overflow-hidden flex justify-center items-center mt-4 ">
+              <div role="status">
+                  <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+                      <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+                  </svg>
+                  
+              </div>
+          </div>
+          `,
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    $.ajax({
+      url: '{{ route('guardarlandingmundoweb') }}',
+      method: 'POST',
+      data: formulario,
+      success: function(response) {
+        Swal.close();
+        Swal.fire({
+          title: response.message,
+          icon: "success",
+        });
+        $('#dataForm')[0].reset()
+      },
+      error: function(response) {
+
+        Swal.close();
+        Swal.fire({
+          title: response.responseJSON.message,
+          icon: "error",
+        });
+      }
+    });
+
+  })
+</script>

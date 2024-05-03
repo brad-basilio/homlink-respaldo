@@ -52,7 +52,7 @@ Route::get('/landingaplicativos', [LandingController::class, 'viewAplicativos'] 
 Route::get('/landingmundoweb', [LandingController::class, 'viewstoreLanding'] )->name('landingmundoweb');
 Route::get('/landingecommerce', [LandingController::class, 'viewstoreEcommerce'] )->name('landingecommerce');
 Route::get('/landingwebsite', [LandingController::class, 'viewstoreWebsite'] )->name('landingwebsite');
-Route::get('/landingmundowebfinal', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
+Route::get('/landingmundoweb-landing', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
 
 Route::post('/landingaplicativos/form', [LandingController::class, 'storeAplicativos'] )->name('guardarlandingaplicativos');
 Route::post('/landingmundoweb/form', [LandingController::class, 'storeLanding'] )->name('guardarlandingmundoweb');
