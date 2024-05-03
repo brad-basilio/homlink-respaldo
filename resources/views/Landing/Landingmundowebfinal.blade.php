@@ -228,7 +228,8 @@
             <h2
               class="text-[#050A41] font-RightgroteskMedium text-text40 md:text-text48 leading-tight font-medium w-full lg:w-2/3">
               ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
-            <p class="text-[#3F4654] text-text18 font-montserrat font-medium">Llene el formulario y crea experiencias digitales que convierten visitantes en clientes leales.
+            <p class="text-[#3F4654] text-text18 font-montserrat font-medium">¡Desata el potencial de tu negocio! Convierte visitantes en clientes leales creando experiencias digitales únicas y cautivadoras. Llena nuestro formulario y déjanos ser tus aliados en el camino hacia el éxito en línea.
+
             </p>
 
             <div>
@@ -394,7 +395,7 @@
                 <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Aumento de
                   Conversiones
                 </h2>
-                <p class="text-text18  font-montserrat font-medium">Nuestros especialistas en Desarrollo Web trabajarán para generar contenido de valor y aplicarán una serie de estrategias para aumentar las conversiones.
+                <p class="text-text18  font-montserrat font-medium">Nuestros <b>especialistas en Desarrollo Web</b> trabajarán para generar contenido de valor y aplicarán una serie de estrategias para aumentar las conversiones.
                 </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
@@ -437,7 +438,7 @@
               class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
               <div class="flex flex-col gap-5 basis-10/12">
                 <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización para Landing Pages</h2>
-                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con estrategias SEO para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu Landing Page contará con palabras claves, sitemap, robots.txt y otras acciones.
+                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con <b>estrategias SEO</b> para aparecer en el ranking de los buscadores, como Google. En Mundo Web, tu <b>Landing Page</b> contará con palabras claves, sitemap, robots.txt y otras acciones.
                 </p>
               </div>
               <div class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
@@ -491,7 +492,7 @@
 
 
         <div class="group">
-          <a href="#"
+          <a href="#formularioListo"
             class="border-white border-[1px] font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
             <span>Ir a la web</span>
 
@@ -511,7 +512,7 @@
           <a href="https://www.instagram.com/mundoweb.pe/" target="_blank">
             <img src="{{ asset('/images/img/imgMundoWeb/Instagram.svg') }}" alt="instagram">
           </a>
-          <a href="https://www.instagram.com/mundoweb.pe/" target="_blank">
+          <a href="https://www.facebook.com/mundoweb.pe/" target="_blank">
             <img src="{{ asset('/images/img/imgMundoWeb/Facebook.svg') }}" alt="facebook">
           </a>
         </div>

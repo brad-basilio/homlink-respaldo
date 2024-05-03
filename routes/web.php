@@ -58,5 +58,3 @@ Route::post('/landingaplicativos/form', [LandingController::class, 'storeAplicat
 Route::post('/landingmundoweb/form', [LandingController::class, 'storeLanding'] )->name('guardarlandingmundoweb');
 Route::post('/landingecommerce/form', [LandingController::class, 'storeEcommerce'] )->name('guardarlandingecommerce');
 Route::post('/landingwebsite/form', [LandingController::class, 'storeWebsite'] )->name('guardarlandingwebsite');
-
-
