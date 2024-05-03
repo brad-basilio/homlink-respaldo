@@ -284,7 +284,7 @@
                     class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
                   </textarea> --}}
                   <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
-                    class="shadow-lg text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-2 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
+                    class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
                 </div>
               </form>
             </div>
