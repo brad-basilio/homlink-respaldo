@@ -75,7 +75,7 @@
 
   <header>
 
-    <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[100]">
+    <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[10]">
       <div class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent ">
         <div>
           <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
