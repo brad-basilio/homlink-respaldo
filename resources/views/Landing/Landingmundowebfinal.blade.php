@@ -365,6 +365,10 @@
             
             }
 
+            .opacidad{
+              opacity: 0.7;
+            }
+
             @media (min-width: 768px){
               .height-modal{
                 max-height: 800px;
@@ -375,10 +379,17 @@
  {{--  <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span> --}}
           <!-- Modal -->
           <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
-            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+            <div class="modal-overlay absolute w-full h-full bg-black opacity-50 opacidad"></div>
             <div class="modal-container bg-white w-5/6 mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative"> {{-- w-5/6 --}}
               <div class="modal-content p-4 relative overflow-y-scroll height-modal"> {{--  style="max-height: 700px;" --}}     
-                <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-white text-text48"> &times; </span>
+                <span class="close absolute top-2 right-0 mx-4 cursor-pointer text-white text-text48  leading-none p-5 rounded-lg">
+    
+                    <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M18 2L2 18M18 18L2 2" stroke="#ffffff" stroke-width="2.66667" stroke-linecap="round"/>
+                    </svg>
+             
+                 
+                </span>
                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">               
               </div>
             </div>
