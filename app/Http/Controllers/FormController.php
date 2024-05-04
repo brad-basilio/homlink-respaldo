@@ -235,7 +235,7 @@ class FormController extends Controller
     private function envioCorreo($data){
         
         $name = $data['nombre'];
-        $mail = EmailConfig::config();
+        $mail = EmailConfig::config($name);
         try {
             $mail->addAddress($data['email']);
             $mail->Body = "Buenas tardes $name su solicitud fue procesada";
