@@ -103,6 +103,16 @@
                 width: auto;
             }
         }
+
+        .ancho_modal{
+                width: 80%
+            }
+
+            @media (min-width:768px){
+                .ancho_modal{
+                width: 60%
+            }
+            }
     </style>
 
 
@@ -319,17 +329,17 @@
                             <form id="dataForm" class="flex flex-col gap-5">
                                 @csrf
                                 <div>
-                                    <input type="text" name="nombre" placeholder="Nombre Completo"
+                                    <input type="text" name="nombre" placeholder="Nombre Completo" required
                                         class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
-                                        <input type="email" name="email" placeholder="Correo Electrónico"
+                                        <input type="email" name="email" placeholder="Correo Electrónico" required id="email"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="tel" name="telefono" placeholder="Teléfono"
+                                        <input type="text" name="telefono" placeholder="Teléfono" required id="telefono"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
@@ -451,15 +461,17 @@
             }
           </style> --}}
 
+          
+
 
                     {{--  <span class="close absolute top-0 right-0 mx-4 cursor-pointer text-black text-text48">&times;</span> --}}
                     <!-- Modal -->
                     <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
                         <div class="modal-overlay absolute w-full h-full bg-black opacity-50 opacidad"></div>
                         <div
-                            class="modal-container bg-white w-5/6 mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative">
+                            class="modal-container bg-white mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative ancho_modal">
                             {{-- w-5/6 --}}
-                            <div class="modal-content p-4 relative overflow-y-scroll height-modal">
+                            <div class="modal-content p-4 relative overflow-y-scroll height-modal" >
                                 {{--  style="max-height: 700px;" --}}
                                 <span
                                     class="close absolute top-2 right-0 mx-4 cursor-pointer text-white text-text48  leading-none p-3  cerrar rounded-full">
@@ -773,10 +785,57 @@
     });
 </script>
 <script>
+
+/* function alerta(message) {
+            Swal.fire({
+                title: message,
+                icon: "error",
+            });
+        } */
+
+        /* function validarTelefono(value) {
+            if (value !== '') {
+                if (isNaN(value)) {
+                    alerta("Por favor, asegúrate de ingresar solo números en el teléfono");
+                    return false;
+                }
+            }
+
+            if (value.length < 9) {
+                alerta("El teléfono solo puede tener 9 dígitos");
+                return false;
+            }
+
+            return true;
+        } */
+
+       /*  function validarEmail(value) {
+            console.log(value)
+            const regex =
+                /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+
+            if (!regex.test(value)) {
+                alerta("Por favor, asegúrate de ingresar una dirección de correo electrónico válida");
+                return false;
+            }
+            return true;
+        }
+ */
+
+
+
     $('#procesarSolicitud').on('click', function() {
         console.log('precionando btn envio');
 
         let formulario = $('#dataForm').serialize()
+
+        /* if (!validarTelefono($('#telefono').val())) {
+                return;
+            };
+
+            if (!validarEmail($('#email').val())) {
+                return;
+            }; */
         Swal.fire({
 
             title: 'Procesando información',
