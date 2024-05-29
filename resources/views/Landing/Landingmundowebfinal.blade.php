@@ -339,7 +339,7 @@
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" name="telefono" placeholder="Teléfono" required id="telefono"
+                                        <input type="text" name="telefono" placeholder="Teléfono" required id="telefono" maxlength="9"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
