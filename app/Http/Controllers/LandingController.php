@@ -220,7 +220,7 @@ class LandingController extends Controller
     private function envioCorreo($data){
         
         $name = $data['nombre'];
-        $mail = EmailConfig::config($name);
+        $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
             $mail->addAddress($data['email']);
             $mail->Body = '
@@ -305,7 +305,7 @@ class LandingController extends Controller
                                                 color: #e15a29;
                                                 font-size: 40px;
                                                 line-height: 20px;
-                                                font-family: grotesk;
+                                                font-family: Montserrat, sans-serif;
                                             "
                                         >
                                              <span style="display:block">' . $name . ' </span>
@@ -321,7 +321,7 @@ class LandingController extends Controller
                                                 color: #e15a29;
                                                 font-size: 40px;
                                                 line-height: 70px;
-                                                font-family: grotesk;
+                                                font-family: Montserrat, sans-serif;
                                             "
                                         >
                                             !Gracias

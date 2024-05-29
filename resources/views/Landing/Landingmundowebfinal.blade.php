@@ -93,6 +93,16 @@
                 width: 24px;
             }
         }
+
+        .custom-auto-width {
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .custom-auto-width {
+                width: auto;
+            }
+        }
     </style>
 
 
@@ -105,7 +115,39 @@
 
     <header>
 
-        <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]"> {{-- z-[100] --}}
+        <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]">
+            <div class="mx-auto w-full md:w-11/12">
+                <div
+                    class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent w-11/12 mx-auto">
+                    <div>
+                        <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
+                            alt="mundo web"></a>
+                    </div>
+                    <div class="group custom-auto-width"> <!-- Cambié el orden de las clases -->
+                        <a href="#formularioListo"
+                            class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full flex">
+                            <!-- Quité la clase w-full del botón -->
+                            <span>Quiero mi web</span>
+                            <div class="group-hover:rotate-45 transition-all duration-500 ">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="20" cy="20" r="20" fill="white" />
+                                    <path
+                                        d="M16.4583 15.0808L24.9803 15.0807M24.9803 15.0807L24.9803 23.4815M24.9803 15.0807L15.0808 24.9802"
+                                        stroke="#303BE4" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        {{-- z-[100] --}}
+
+        {{-- <div class="px-[75px] absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]"> 
             <div class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent ">
                 <div>
                     <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
@@ -128,7 +170,7 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="flex justify-end w-11/12 mx-auto  z-10">
             <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
                 <a href="https://web.whatsapp.com/send?phone=908857558" rel="noopener" target="_blank">
@@ -180,8 +222,9 @@
 
                             <img src="{{ asset('images/img/imgMundoWeb/image_3.png') }}" alt="mundoweb" class="w-20">
 
-                            <p class="font-RightgroteskMedium uppercase text-text16 md:text-text24 font-medium"><span
-                                    class="text-[#E15A29] text-text16 md:text-text24">100+</span> Clientes digitalizados
+                            <p class="font-RightgroteskMedium uppercase text-text16 md:text-text24 font-medium">
+                                <span
+                                    class="text-[#E15A29] text-text24">100+</span> <span class="text-text14">Clientes digitalizados</span>
                             </p>
 
                         </div>
@@ -254,7 +297,7 @@
                     </div>
                 </div>
             </section>
-            <section class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20">
+            <section class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20 flex flex-col gap-10">
 
                 <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
                     <div class="flex justify-center">
@@ -469,7 +512,7 @@
 
                 </div>
 
-                <div class="w-11/12 mx-auto bg-[#303BE4] rounded-2xl py-10  px-5 my-20">
+                <div class="w-11/12 mx-auto bg-[#303BE4] rounded-2xl py-10  px-5 mt-10 mb-20">
                     <div class="w-full md:w-6/12 mx-auto">
                         <h2
                             class="text-white font-medium text-text44 md:text-text64 text-center leading-tight font-RightgroteskMedium">

@@ -6,6 +6,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class EmailConfig
 {
+    /* variable $name que se recibió */
     static  function config($name): PHPMailer
     {
         $mail = new PHPMailer(true);
