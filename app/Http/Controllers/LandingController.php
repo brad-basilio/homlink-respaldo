@@ -117,7 +117,12 @@ class LandingController extends Controller
         $landingData['time'] = Carbon::now()->toTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'website';
+        
+        if (empty($landingData['name'])) {
+            $landingData['name'] = $landingData['contact_name'];
+        }
 
+        
         
         $formlanding = Client::create($landingData);
        
