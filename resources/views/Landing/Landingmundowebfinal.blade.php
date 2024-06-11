@@ -356,7 +356,6 @@
                                 </div>
 
                                 <input type="hidden" name="source" id="source" value="Website">
-                                <input type="hidden" name="ip" id="ip">
                                 <input type="hidden" name="origin" id="llegade">
                                 <input type="hidden" name="client_width" id="anchodispositivo">
                                 <input type="hidden" name="client_height" id="largodispositivo">

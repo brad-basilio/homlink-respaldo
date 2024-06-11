@@ -112,11 +112,13 @@ class LandingController extends Controller
         $request->validate($reglasValidacion, $mensajes);
 
         $landingData = $request->all();
+        $ipAddress = $request->ip();
 
         $landingData['date'] = Carbon::now()->toDateString();
         $landingData['time'] = Carbon::now()->toTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'website';
+        $landingData['ip'] = $ipAddress;
         
         if (empty($landingData['name'])) {
             $landingData['name'] = $landingData['contact_name'];
