@@ -117,7 +117,7 @@ class LandingController extends Controller
         $landingData['created_hour'] = Carbon::now()->toTimeString();
         $landingData['status_id'] = 10;
         
-        $formlanding = Landing::create($landingData);
+        $formlanding = Client::create($landingData);
        
         $this-> envioCorreo($formlanding);
 
@@ -188,7 +188,7 @@ class LandingController extends Controller
         $request->validate($reglasValidacion, $mensajes);
 
        
-        $formlanding = Client::create($request->all());
+        $formlanding = Landing::create($request->all());
         $this-> envioCorreo($formlanding);
         
         // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
