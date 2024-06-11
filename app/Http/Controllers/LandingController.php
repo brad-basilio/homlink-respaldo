@@ -7,6 +7,7 @@ use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
 use App\Http\Requests\UpdateLandingRequest;
+use Carbon\Carbon;
 
 class LandingController extends Controller
 {
@@ -51,7 +52,7 @@ class LandingController extends Controller
      */
     public function storeAplicativos(Request $request)
     {
-        
+       
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -109,8 +110,12 @@ class LandingController extends Controller
 
         $request->validate($reglasValidacion, $mensajes);
 
-       
-        $formlanding = Landing::create($request->all());
+        $landingData = $request->all();
+
+        $landingData['fecha'] = Carbon::now()->toDateString();
+        $landingData['hora'] = Carbon::now()->toTimeString();
+        
+        $formlanding = Landing::create($landingData);
        
         $this-> envioCorreo($formlanding);
 

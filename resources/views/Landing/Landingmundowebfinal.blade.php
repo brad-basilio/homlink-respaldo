@@ -346,7 +346,7 @@
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
-                                        <input type="text" placeholder="Empresa / Marca" name="empresa"
+                                        <input type="text" placeholder="Empresa / Marca (Opcional)" name="empresa"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
@@ -355,18 +355,23 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="source" value="Landing Mundoweb Final">
+                                <input type="hidden" name="source" id="source" value="Landing Mundoweb">
+                                <input type="hidden" name="ip" id="ip">
+                                <input type="hidden" name="llegade" id="llegade">
+                                <input type="hidden" name="anchodispositivo" id="anchodispositivo">
+                                <input type="hidden" name="largodispositivo" id="largodispositivo">
+                                <input type="hidden" name="latitud" id="latitud">
+                                <input type="hidden" name="longitud" id="longitud">
+                                <input type="hidden" name="sistema" id="sistema">
 
                                 <div>
-                                    {{-- <textarea name="message" id="input" rows="5" maxlength="256"
-                    class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-50 font-medium border-none">
-                  </textarea> --}}
-                                    <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
+                                    <textarea name="mensaje" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
                                         class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
                                 </div>
                             </form>
                         </div>
 
+                        
 
                         <div class="md:pt-10 group">
                             <button id='procesarSolicitud'
@@ -879,4 +884,36 @@
         });
 
     })
+</script>
+
+<script>
+    // Obtener la IP del usuario (desde un servicio externo)
+    fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('ip').value = data.ip;
+    });
+
+    // Obtener información del navegador y del sistema operativo
+    const platform = navigator.platform;
+    document.getElementById('sistema').value = platform;
+
+    // Obtener la geolocalización del usuario (si se permite)
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            document.getElementById('latitud').value = position.coords.latitude;
+            document.getElementById('longitud').value = position.coords.longitude;
+        });
+    }
+
+    // Obtener la página de referencia
+    const referrer = document.referrer;
+    document.getElementById('llegade').value = referrer;
+
+
+    // Obtener la resolución de la pantalla
+    const screenWidth = window.screen.width;
+    const screenHeight = window.screen.height;
+    document.getElementById('anchodispositivo').value = screenWidth;
+    document.getElementById('largodispositivo').value = screenHeight;
 </script>

@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('mensaje')->nullable();
             $table->string('tipocontacto')->nullable();
             $table->string('urlweb')->nullable();
-            $table->string('source');
+            $table->string('source')->nullable();
+
             $table->timestamps();
         });
     }

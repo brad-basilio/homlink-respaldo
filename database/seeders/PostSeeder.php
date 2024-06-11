@@ -15,18 +15,18 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        $posts =  Post::factory(10)->create();
+        // $posts =  Post::factory(10)->create();
 
-        foreach ($posts as $post) {
-            Image::factory(1)->create([
-                'imageable_id' => $post->id,
-                'imageable_type' => Post::class,
-            ]);
+        // foreach ($posts as $post) {
+            // Image::factory(1)->create([
+            //     'imageable_id' => $post->id,
+            //     'imageable_type' => Post::class,
+            // ]);
 
             // $posts->tags()->attach([
             //     rand(1, 4),
             //     rand(5, 8),
             // ]);
-        }
+        // }
     }
 }
