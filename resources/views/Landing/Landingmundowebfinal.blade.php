@@ -113,6 +113,10 @@
                 width: 60%
             }
             }
+        .body-no-scroll {
+                overflow: hidden;
+        }
+            
     </style>
 
 
@@ -459,7 +463,7 @@
                         </div>
                     </div>
 
-                    
+                  
                     <!-- Modal -->
                     <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
                         <div class="modal-overlay absolute w-full h-full bg-black opacity-50 opacidad"></div>
@@ -722,12 +726,14 @@
         document.getElementById('modalImage').src = imageSrc;
         document.getElementById('modal').classList.remove('hidden');
         document.getElementById('modal').classList.add('flex');
+        document.body.classList.add('body-no-scroll');
     }
 
     // Función para cerrar el modal
     function closeModal() {
         document.getElementById('modal').classList.remove('flex');
         document.getElementById('modal').classList.add('hidden');
+        document.body.classList.remove('body-no-scroll');
     }
 
     // Cerrar modal al hacer clic en el botón de cierre
