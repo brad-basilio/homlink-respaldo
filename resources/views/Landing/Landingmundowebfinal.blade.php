@@ -403,7 +403,7 @@
 
                         {{-- ---- modal por imagenes --}}
 
-                        <div
+                        {{-- <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                             <img src="{{ asset('images/img/imgMundoWeb/image_6.png') }}" alt="hpi"
                                 class="w-full h-full"
@@ -429,9 +429,9 @@
                             <img src="{{ asset('images/img/imgMundoWeb/image_9.png') }}" alt="hpi"
                                 class="w-full h-full"
                                 onclick="openModal('{{ asset('images/img/imgMundoWeb/image_45.png') }}')">
-                        </div>
+                        </div> --}}
 
-                        {{-- <div
+                        <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                             <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
                                 class="w-full h-full"
@@ -457,7 +457,7 @@
                             <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
                                 class="w-full h-full"
                                 onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
-                        </div> --}}
+                        </div>
                     </div>
 
                     
