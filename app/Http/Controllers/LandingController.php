@@ -7,6 +7,7 @@ use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
 use App\Http\Requests\UpdateLandingRequest;
+use App\Models\Client;
 use Carbon\Carbon;
 
 class LandingController extends Controller
@@ -187,7 +188,7 @@ class LandingController extends Controller
         $request->validate($reglasValidacion, $mensajes);
 
        
-        $formlanding = Landing::create($request->all());
+        $formlanding = Client::create($request->all());
         $this-> envioCorreo($formlanding);
         
         // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
