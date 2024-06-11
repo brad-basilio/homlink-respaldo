@@ -366,7 +366,7 @@
 
                                 <div>
                                     <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
-                                        class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul placeholder:opacity-40"></textarea>
+                                        class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul"></textarea>
                                 </div>
                             </form>
                         </div>
