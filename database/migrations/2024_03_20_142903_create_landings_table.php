@@ -22,6 +22,17 @@ return new class extends Migration
             $table->string('tipocontacto')->nullable();
             $table->string('urlweb')->nullable();
             $table->string('source')->nullable();
+            $table->string('fecha')->nullable();
+            $table->string('hora')->nullable();
+            $table->string('lead')->nullable();
+            $table->string('ip')->nullable();
+            $table->string('llegade')->nullable();
+            $table->string('anchodispositivo')->nullable();
+            $table->string('largodispositivo')->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
+            $table->string('sistema')->nullable();
+            $table->boolean('status')->default(true)->nullable();
 
             $table->timestamps();
         });

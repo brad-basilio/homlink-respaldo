@@ -89,20 +89,20 @@ class LandingController extends Controller
     {
         
         $reglasValidacion = [
-            'nombre' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'telefono' => 'required|integer|max:99999999999',
+            'contact_name' => 'required|string|max:255',
+            'contact_email' => 'required|email|max:255',
+            'contact_phone' => 'required|integer|max:99999999999',
             
         ];
     
         $mensajes = [
-            'nombre.required' => 'El campo nombre es obligatorio.',
-            'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
-            'email.required' => 'El campo correo electrónico es obligatorio.',
-            'email.email' => 'El formato del correo electrónico no es válido.',
-            'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
-            'telefono.required' => 'El campo teléfono es obligatorio.',
-            'telefono.integer' => 'El campo teléfono debe ser un número entero.',
+            'contact_name.required' => 'El campo nombre es obligatorio.',
+            'contact_name.max' => 'El campo nombre no puede tener más de :max caracteres.',
+            'contact_email.required' => 'El campo correo electrónico es obligatorio.',
+            'contact_email.email' => 'El formato del correo electrónico no es válido.',
+            'contact_email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
+            'contact_phone.required' => 'El campo teléfono es obligatorio.',
+            'contact_phone.integer' => 'El campo teléfono debe ser un número entero.',
            
         ];
 
@@ -112,8 +112,9 @@ class LandingController extends Controller
 
         $landingData = $request->all();
 
-        $landingData['fecha'] = Carbon::now()->toDateString();
-        $landingData['hora'] = Carbon::now()->toTimeString();
+        $landingData['created_date'] = Carbon::now()->toDateString();
+        $landingData['created_hour'] = Carbon::now()->toTimeString();
+        $landingData['status_id'] = 10;
         
         $formlanding = Landing::create($landingData);
        

@@ -329,40 +329,40 @@
                             <form id="dataForm" class="flex flex-col gap-5">
                                 @csrf
                                 <div>
-                                    <input type="text" name="nombre" placeholder="Nombre Completo" required
+                                    <input type="text" name="contact_name" placeholder="Nombre Completo" required
                                         class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
-                                        <input type="email" name="email" placeholder="Correo Electrónico" required id="email"
+                                        <input type="email" name="contact_email" placeholder="Correo Electrónico" required id="email"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" name="telefono" placeholder="Teléfono" required id="telefono" maxlength="9"
+                                        <input type="text" name="contact_phone" placeholder="Teléfono" required id="telefono" maxlength="9"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
-                                        <input type="text" placeholder="Empresa / Marca (Opcional)" name="empresa"
+                                        <input type="text" placeholder="Empresa / Marca (Opcional)" name="name"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" placeholder="Link de Web (Opcional)" name="urlweb"
+                                        <input type="text" placeholder="Link de Web (Opcional)" name="web_url"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
 
                                 <input type="hidden" name="source" id="source" value="Website">
                                 <input type="hidden" name="ip" id="ip">
-                                <input type="hidden" name="llegade" id="llegade">
-                                <input type="hidden" name="anchodispositivo" id="anchodispositivo">
-                                <input type="hidden" name="largodispositivo" id="largodispositivo">
-                                <input type="hidden" name="latitud" id="latitud">
-                                <input type="hidden" name="longitud" id="longitud">
-                                <input type="hidden" name="sistema" id="sistema">
+                                <input type="hidden" name="origin" id="llegade">
+                                <input type="hidden" name="client_width" id="anchodispositivo">
+                                <input type="hidden" name="client_height" id="largodispositivo">
+                                <input type="hidden" name="client_latitude" id="latitud">
+                                <input type="hidden" name="client_longitude" id="longitud">
+                                <input type="hidden" name="client_system" id="sistema">
 
                                 <div>
                                     <textarea name="mensaje" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
