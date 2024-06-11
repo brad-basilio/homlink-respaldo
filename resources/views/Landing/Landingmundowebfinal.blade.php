@@ -402,33 +402,33 @@
 
                         {{-- ---- modal por imagenes --}}
 
-                        {{-- <div
+                        <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_6.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}" alt="limpiabnb"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_32.png') }}')">
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
                         </div>
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_7.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}" alt="emprendenvio"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_40.png') }}')">
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                         </div>
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_8.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}" alt="logistic"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_41.png') }}')">
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
                         </div>
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_9.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/MockUpHidromec.png') }}" alt="hpi"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_45.png') }}')">
-                        </div> --}}
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/Hidromec.png') }}')">
+                        </div>
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
