@@ -122,6 +122,12 @@ class LandingController extends Controller
             $landingData['name'] = $landingData['contact_name'];
         }
 
+        if (empty($landingData['web_url'])) {
+            $landingData['web_url'] = 'https://';
+        }
+
+        
+
         
         
         $formlanding = Client::create($landingData);
