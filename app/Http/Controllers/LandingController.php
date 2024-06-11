@@ -241,10 +241,10 @@ class LandingController extends Controller
 
     private function envioCorreo($data){
         
-        $name = $data['nombre'];
+        $name = $data['contact_name'];
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
-            $mail->addAddress($data['email']);
+            $mail->addAddress($data['contact_email']);
             $mail->Body = '
             <html lang="en">
                 <head>
