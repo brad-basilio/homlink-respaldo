@@ -52,7 +52,7 @@ Route::get('/landingaplicativos', [LandingController::class, 'viewAplicativos'] 
 Route::get('/landingmundoweb', [LandingController::class, 'viewstoreLanding'] )->name('landingmundoweb');
 Route::get('/landingecommerce', [LandingController::class, 'viewstoreEcommerce'] )->name('landingecommerce');
 Route::get('/landingwebsite', [LandingController::class, 'viewstoreWebsite'] )->name('landingwebsite');
-Route::get('/landingmundoweb-landing', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
+Route::get('/website', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
 
 Route::post('/landingaplicativos/form', [LandingController::class, 'storeAplicativos'] )->name('guardarlandingaplicativos');
 Route::post('/landingmundoweb/form', [LandingController::class, 'storeLanding'] )->name('guardarlandingmundoweb');
@@ -60,12 +60,3 @@ Route::post('/landingecommerce/form', [LandingController::class, 'storeEcommerce
 Route::post('/landingwebsite/form', [LandingController::class, 'storeWebsite'] )->name('guardarlandingwebsite');
 
 
-// Route::domain('websites.mundoweb.pe')->group(function () {
-   
-//     Route::get('/', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
-//     Route::get('/landingmundoweb-landing', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
-// });
-
-// Route::group(['domain' => 'websites.mundoweb.pe'], function(){
-//     Route::get('/', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
-// });
