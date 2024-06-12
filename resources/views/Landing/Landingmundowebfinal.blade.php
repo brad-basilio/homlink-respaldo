@@ -429,9 +429,9 @@
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/WedesignMk.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/WeDesing.png') }}')">
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
                         </div>
 
                         <div
