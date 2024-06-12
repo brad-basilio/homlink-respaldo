@@ -359,7 +359,7 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="source" id="source" value="Landing_website">
+                                <input type="hidden" name="source" id="source" value="Landing-Website">
                                 <input type="hidden" name="origin" id="llegade">
                                 <input type="hidden" name="client_width" id="anchodispositivo">
                                 <input type="hidden" name="client_height" id="largodispositivo">
@@ -368,7 +368,7 @@
                                 <input type="hidden" name="client_system" id="sistema">
 
                                 <div>
-                                    <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Ingresa tu mensaje "
+                                    <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Cuéntanos sobre tu proyecto"
                                         class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul"></textarea>
                                 </div>
                             </form>
@@ -502,12 +502,10 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Aumento de
-                                    Conversiones
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Mayor Credibilidad y Profesionalismo
                                 </h2>
-                                <p class="text-text18  font-montserrat font-medium">Nuestros <b>especialistas en
-                                        Desarrollo Web</b> trabajarán para generar contenido de valor y aplicarán una
-                                    serie de estrategias para aumentar las conversiones.
+                                <p class="text-text18  font-montserrat font-medium">Somos profesionales que buscan transmitir confianza para destacar tu 
+                                    marca en el mundo digital. Tu sitio web tendrá contenido de valor y la seguridad para ti y tus clientes.
                                 </p>
                             </div>
                             <div
@@ -521,13 +519,10 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Generación
-                                    de Leads de
-                                    Calidad
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización para Website
                                 </h2>
-                                <p class="text-text18  font-montserrat font-medium">Tu sitio web contará con datos
-                                    claves y contenido de calidad para impulsar relaciones significativas con
-                                    potenciales clientes.
+                                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con estrategias SEO para aparecer en el ranking de los buscadores, 
+                                    como Google. En Mundo Web, tu Website contará con palabras claves, sitemap, robots.txt y otras acciones, con lo que lograremos un buen posicionamiento orgánico.
                                 </p>
                             </div>
                             <div
@@ -541,12 +536,10 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Mayor
-                                    Credibilidad y
-                                    Profesionalismo</h2>
-                                <p class="text-text18  font-montserrat font-medium">Somos profesionales que buscan
-                                    transmitir confianza para destacar tu marca en el mundo digital. Tu sitio web tendrá
-                                    contenido de valor y la seguridad para ti y tus clientes.
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Generación de Leads de Calidad
+                                </h2>
+                                <p class="text-text18  font-montserrat font-medium">Tu sitio web contará con datos claves y contenido de calidad para impulsar relaciones 
+                                    significativas con potenciales clientes y todo directamente a tu panel de control.
                                 </p>
                             </div>
                             <div
@@ -559,12 +552,9 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Optimización
-                                    para Landing Pages</h2>
-                                <p class="text-text18  font-montserrat font-medium">Tu página web será optimizada con
-                                    <b>estrategias SEO</b> para aparecer en el ranking de los buscadores, como Google.
-                                    En Mundo Web, tu <b>Landing Page</b> contará con palabras claves, sitemap,
-                                    robots.txt y otras acciones.
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Ten mayor visibilidad</h2>
+                                <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar la visibilidad y alcance global de tu negocio, atrayendo más clientes 
+                                    potenciales, sobre todo con un contenido 100% administrable, por medio de un panel de control super amigable.
                                 </p>
                             </div>
                             <div
