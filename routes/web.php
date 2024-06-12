@@ -61,5 +61,8 @@ Route::post('/landingwebsite/form', [LandingController::class, 'storeWebsite'] )
 
 
 Route::domain('websites.mundoweb.pe')->group(function () {
+   
     Route::get('/', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
+    Route::get('/landingmundoweb-landing', [LandingController::class, 'viewLandingpagemundoweb'])->name('ultimalanding');
 });
+
