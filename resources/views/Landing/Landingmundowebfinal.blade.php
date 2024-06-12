@@ -359,7 +359,7 @@
                                     </div>
                                 </div>
 
-                                <input type="hidden" name="source" id="source" value="Website">
+                                <input type="hidden" name="source" id="source" value="Landing_website">
                                 <input type="hidden" name="origin" id="llegade">
                                 <input type="hidden" name="client_width" id="anchodispositivo">
                                 <input type="hidden" name="client_height" id="largodispositivo">
@@ -429,9 +429,9 @@
 
                         <div
                             class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/MockUpHidromec.png') }}" alt="hpi"
+                            <img src="{{ asset('images/img/imgMundoWeb/WedesignMk.png') }}" alt="hpi"
                                 class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/Hidromec.png') }}')">
+                                onclick="openModal('{{ asset('images/img/imgMundoWeb/WeDesing.png') }}')">
                         </div>
 
                         <div
