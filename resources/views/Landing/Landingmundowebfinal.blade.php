@@ -643,7 +643,7 @@
                 <div class="">
                     <p class="font-montserrat font-normal text-text16 pb-5">Dirección</p>
                     <p class="font-montserrat font-normal text-text16">Centro Empresarial Peruano - Suizo</p>
-                    <p class="font-montserrat font-normal text-text16">Av. Aramburú 150 - Miraflores, Oficina 4B, Lima,
+                    <p class="font-montserrat font-normal text-text16">Av. Aramburú 166 - Miraflores, Oficina 4B, Lima,
                         Lima
                         51, PE</p>
 
