@@ -59,4 +59,6 @@ Route::post('/landingmundoweb/form', [LandingController::class, 'storeLanding'] 
 Route::post('/landingecommerce/form', [LandingController::class, 'storeEcommerce'] )->name('guardarlandingecommerce');
 Route::post('/landingwebsite/form', [LandingController::class, 'storeWebsite'] )->name('guardarlandingwebsite');
 
-
+Route::get('/csrf-token', function () {
+    return response()->json(['token' => csrf_token()]);
+});
