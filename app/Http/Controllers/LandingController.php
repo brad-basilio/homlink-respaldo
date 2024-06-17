@@ -113,9 +113,11 @@ class LandingController extends Controller
 
         $landingData = $request->all();
         $ipAddress = $request->ip();
+        $carbon = Carbon::now('America/Lima');
 
-        $landingData['date'] = Carbon::now()->toDateString();
-        $landingData['time'] = Carbon::now()->toTimeString();
+        $landingData['date'] = $carbon->toDateString();
+        $landingData['time'] = $carbon->toTimeString();
+        $landingData['created_at'] = $carbon->toDateTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'Landing-Website';
         $landingData['ip'] = $ipAddress;
