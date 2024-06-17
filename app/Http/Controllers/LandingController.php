@@ -7,6 +7,7 @@ use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
 use App\Http\Requests\UpdateLandingRequest;
+use App\Jobs\SendLandingFormEmail;
 use App\Models\Client;
 use Carbon\Carbon;
 
@@ -35,10 +36,11 @@ class LandingController extends Controller
         return view('Landing/Landingwebsite');
     }
 
-    public function viewLandingpagemundoweb(){
+    public function viewLandingpagemundoweb()
+    {
         return view('Landing/Landingmundowebfinal');
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -53,14 +55,14 @@ class LandingController extends Controller
      */
     public function storeAplicativos(Request $request)
     {
-       
+
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            
+
         ];
-    
+
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -69,33 +71,33 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-           
+
         ];
 
-        
+
 
         $request->validate($reglasValidacion, $mensajes);
 
-       
+
         $formlanding = Landing::create($request->all());
-        $this-> envioCorreo($formlanding);
-       
-        
+        LandingController::envioCorreo($formlanding);
+
+
         // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
-        return response()->json(['message'=> 'Mensaje enviado con exito']);
+        return response()->json(['message' => 'Mensaje enviado con exito']);
     }
 
 
     public function storeLanding(Request $request)
     {
-        
+
         $reglasValidacion = [
             'contact_name' => 'required|string|max:255',
             'contact_email' => 'required|email|max:255',
             'contact_phone' => 'required|integer|max:99999999999',
-            
+
         ];
-    
+
         $mensajes = [
             'contact_name.required' => 'El campo nombre es obligatorio.',
             'contact_name.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -104,10 +106,10 @@ class LandingController extends Controller
             'contact_email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'contact_phone.required' => 'El campo teléfono es obligatorio.',
             'contact_phone.integer' => 'El campo teléfono debe ser un número entero.',
-           
+
         ];
 
-        
+
 
         $request->validate($reglasValidacion, $mensajes);
 
@@ -119,7 +121,7 @@ class LandingController extends Controller
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'Landing-Website';
         $landingData['ip'] = $ipAddress;
-        
+
         if (empty($landingData['name'])) {
             $landingData['name'] = $landingData['contact_name'];
         }
@@ -128,17 +130,19 @@ class LandingController extends Controller
             $landingData['web_url'] = 'https://';
         }
 
-        
 
-        
-        
+
+
+
         $formlanding = Client::create($landingData);
-       
-        $this-> envioCorreo($formlanding);
 
-        $this->envioCorreoMundo($formlanding);
+        SendLandingFormEmail::dispatchAfterResponse($formlanding);
+
+        // LandingController::envioCorreo($formlanding);
+
+        // LandingController::envioCorreoMundo($formlanding);
         // return redirect()->route('landingmundoweb', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
-        return response()->json(['message'=> 'Mensaje enviado con exito']);
+        return response()->json(['message' => 'Mensaje enviado con exito']);
     }
 
 
@@ -146,14 +150,14 @@ class LandingController extends Controller
 
     public function storeEcommerce(Request $request)
     {
-        
+
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            
+
         ];
-    
+
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -162,16 +166,16 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-           
+
         ];
-        
+
         $request->validate($reglasValidacion, $mensajes);
-       
+
         $formlanding = Landing::create($request->all());
-        $this-> envioCorreo($formlanding);
-               
+        LandingController::envioCorreo($formlanding);
+
         // return redirect()->route('landingecommerce', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
-        return response()->json(['message'=> 'Mensaje enviado con exito']);
+        return response()->json(['message' => 'Mensaje enviado con exito']);
     }
 
 
@@ -179,14 +183,14 @@ class LandingController extends Controller
 
     public function storeWebsite(Request $request)
     {
-        
+
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-            
+
         ];
-    
+
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -195,19 +199,19 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-           
+
         ];
 
-        
+
 
         $request->validate($reglasValidacion, $mensajes);
 
-       
+
         $formlanding = Landing::create($request->all());
-        $this-> envioCorreo($formlanding);
-        
+        LandingController::envioCorreo($formlanding);
+
         // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
-        return response()->json(['message'=> 'Mensaje enviado con exito']);
+        return response()->json(['message' => 'Mensaje enviado con exito']);
     }
     /**
      * Display the specified resource.
@@ -241,8 +245,9 @@ class LandingController extends Controller
         //
     }
 
-    private function envioCorreo($data){
-        
+    static function envioCorreo($data)
+    {
+
         $name = $data['contact_name'];
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
@@ -412,18 +417,13 @@ class LandingController extends Controller
             ';
             $mail->isHTML(true);
             $mail->send();
-            
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
-       
     }
+    static function envioCorreoMundo($data)
+    {
 
-
-
-    private function envioCorreoMundo($data){
-        
         /* $name = $data['nombre']; */
         $name = 'Administrador';
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
@@ -576,11 +576,8 @@ class LandingController extends Controller
             ';
             $mail->isHTML(true);
             $mail->send();
-            
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
-       
     }
 }
