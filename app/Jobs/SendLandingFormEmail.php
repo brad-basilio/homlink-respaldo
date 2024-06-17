@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Controllers\LandingController;
+use App\Models\Landing;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -14,9 +15,9 @@ class SendLandingFormEmail implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  private object $data;
+  private Landing $data;
 
-  public function __construct(Request $data)
+  public function __construct(Landing $data)
   {
     $this->data = $data;
   }
