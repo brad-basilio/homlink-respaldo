@@ -15,9 +15,9 @@ class SendLandingFormEmail implements ShouldQueue
 {
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-  private Landing $data;
+  private $data;
 
-  public function __construct(Landing $data)
+  public function __construct($data)
   {
     $this->data = $data;
   }
@@ -29,7 +29,6 @@ class SendLandingFormEmail implements ShouldQueue
       LandingController::envioCorreo($data);
       LandingController::envioCorreoMundo($data);
     } catch (\Throwable $th) {
-      
     }
   }
 }
