@@ -1006,10 +1006,10 @@
                 slidesPerView: 1,
             },
         },
-        autoplay: {
-        delay: 2000, 
-        disableOnInteraction: false, 
-        },
+        // autoplay: {
+        // delay: 2000, 
+        // disableOnInteraction: false, 
+        // },
     });
 </script>
 
