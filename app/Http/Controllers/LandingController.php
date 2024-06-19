@@ -133,8 +133,8 @@ class LandingController extends Controller
             $landingData['web_url'] = 'https://';
         }
 
-        if (empty($landingData['business_sector'])) {
-            $landingData['business_sector'] = 'Rubro desconocido';
+        if (empty($landingData['sector '])) {
+            $landingData['sector '] = 'Rubro desconocido';
         }
 
        

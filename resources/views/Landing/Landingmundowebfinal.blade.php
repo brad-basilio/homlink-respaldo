@@ -133,7 +133,7 @@
         }
 
         .swiper-pagination-proceso .swiper-pagination-bullet {
-            background-color: white;
+            background-color: #303BE4;
             opacity: 1;
         }
 
@@ -388,7 +388,7 @@
 
                     <div id="formularioListo" class="flex flex-col justify-center gap-10">
                         <h2
-                            class="text-[#050A41] font-RightgroteskMedium text-text40 md:text-text48 leading-tight font-medium w-full lg:w-2/3">
+                            class="text-[#050A41] font-RightgroteskMedium text-text32 md:text-text64 leading-tight font-medium w-full lg:w-2/3">
                             ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
                         <p class="text-[#3F4654] text-text18 font-montserrat font-medium">¡Desata el potencial de tu
                             negocio! Convierte visitantes en clientes leales creando experiencias digitales únicas y
@@ -426,7 +426,7 @@
                                     </div>
                                     <div class="w-full">
                                         <input type="text" placeholder="Rubro Empresarial (Opcional)"
-                                            name="business_sector"
+                                            name="sector"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
 
@@ -476,7 +476,7 @@
 
                 <div class="w-11/12 mx-auto flex flex-col gap-10 md:gap-16 pt-10">
                     <h2
-                        class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text48 font-medium  w-full lg:w-4/12 leading-tight">
+                        class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text64 font-medium  w-full lg:w-6/12 leading-tight">
                         ¡Explora nuestras Maravillas <span class="text-[#E15A29]">Digitales!</span></h2>
                     
                     <div class="hidden lg:block">
@@ -641,14 +641,14 @@
                     </div>
                 </div>
 
-                <div class="w-11/12 mx-auto bg-[#303BE4] rounded-2xl py-10  px-5 mt-10 mb-20 ">
+                <div class="w-11/12 mx-auto rounded-2xl py-10  px-5 mt-10 mb-20 ">
                     <div class="w-full md:w-6/12 mx-auto">
                         <h2
-                            class="text-white font-medium text-text44 md:text-text64 text-center leading-tight font-RightgroteskMedium">
+                            class="text-[#050A41] font-medium text-text32 md:text-text64 text-center leading-tight font-RightgroteskMedium">
                             ¡Impulsa tu presencia en linea con <span class="text-mwnaranja">Mundo Web!</span></h2>
 
                         <p
-                            class="font-montserrat text-text18 md:text-text20 leading-tight text-white text-center py-5">
+                            class="font-montserrat text-text18 md:text-text20 leading-tight text-[#050A41] text-center py-5">
                             Somos una <b>agencia de desarrollo web</b> con un modelo de trabajo que puede llevar tu
                             presencia en línea al siguiente nivel.
 
@@ -658,27 +658,26 @@
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 gap-10 2xl:gap-16 py-14 md:px-10  lg:px-20 min-[2000px]:px-[16%] ">
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                <div class="flex flex-col gap-5 basis-10/12">
-                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick
-                                        Off
-                                        (Levantamiento de Información)
-                                    </h2>
-                                    <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la
-                                        audiencia objetivo y los requerimientos del proyecto.
-                                        Todo comienza por entender tu visión y objetivos.
-                                    </p>
-                                </div>
-                                <div
-                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                        class="w-8 h-8">
-                                </div>
-
+                                class="text-white flex gap-2 group  bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 relative">
+                                    <div class="flex flex-col gap-5 basis-10/12">
+                                        <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick
+                                            Off
+                                            (Levantamiento de Información)
+                                        </h2>
+                                        <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la
+                                            audiencia objetivo y los requerimientos del proyecto.
+                                            Todo comienza por entender tu visión y objetivos.
+                                        </p>
+                                    </div>
+                                    <div
+                                        class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                            class="w-8 h-8">
+                                    </div>   
                             </div>
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2.
                                         Propuesta
@@ -698,7 +697,7 @@
 
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3.
                                         Maquetación HTML
@@ -717,7 +716,7 @@
                             </div>
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4.
                                         Implementación y Configuración SEO</h2>
@@ -736,7 +735,7 @@
 
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5.
                                         Programación del BACK END y FRONT END</h2>
@@ -754,7 +753,7 @@
 
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6.
                                         Pruebas y
@@ -772,7 +771,7 @@
 
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7.
                                         Capacitación y Despliegue</h2>
@@ -790,16 +789,12 @@
 
 
                             <div
-                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8.
-                                        Mantenimiento Web</h2>
-                                    <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar
-                                        la
-                                        visibilidad y alcance global de tu negocio, atrayendo más clientes
-                                        potenciales, sobre todo con un contenido 100% administrable, por medio de un
-                                        panel
-                                        de control super amigable.
+                                        Garantía</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Luego de entregado el servicio, contamos con un periodo de garantía y 
+                                        acompañamiento para asegurar la calidad de su producto, con mundo web, tendrás máxima seguridad de un buen soporte a tu servicio.
                                     </p>
                                 </div>
                                 <div
@@ -819,9 +814,9 @@
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                1. Kick Off
+                                                1. <br>Kick Off
                                                 (Levantamiento de Información)
                                             </h2>
                                             <p class="text-text18  font-montserrat font-medium">Analizaremos la
@@ -830,21 +825,15 @@
                                                 Todo comienza por entender tu visión y objetivos.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
-
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                2. Propuesta
+                                                2. <br>Propuesta
                                                 Diseño Web
                                             </h2>
                                             <p class="text-text18  font-montserrat font-medium">Presentamos una
@@ -852,20 +841,15 @@
                                                 que este alineada a las especificaciones identificadas.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                3.
+                                                3. <br>
                                                 Maquetación HTML
                                             </h2>
                                             <p class="text-text18  font-montserrat font-medium">Convertimos la
@@ -875,20 +859,15 @@
                                                 navegación.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                4.
+                                                4. <br>
                                                 Implementación y Configuración SEO</h2>
                                             <p class="text-text18  font-montserrat font-medium">Colocaremos las
                                                 palabras clave, las
@@ -896,20 +875,15 @@
                                                 el indexado en buscadores de google para poder encontrarte fácilmente.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                5.
+                                                5. <br>
                                                 Programación del BACK END y FRONT END</h2>
                                             <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener
                                                 un panel de
@@ -917,39 +891,29 @@
                                                 más.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                6. Pruebas y
+                                                6. <br>Pruebas y
                                                 Funcionamiento</h2>
                                             <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de
                                                 funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                7.
+                                                7. <br>
                                                 Capacitación y Despliegue</h2>
                                             <p class="text-text18  font-montserrat font-medium">Se realiza una
                                                 capacitación sobre
@@ -957,20 +921,15 @@
                                                 cliente.
                                             </p>
                                         </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
-                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                                        <div class="flex flex-col gap-5 basis-10/12">
+                                        <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
-                                                8.
+                                                8. <br>
                                                 Mantenimiento Web</h2>
                                             <p class="text-text18  font-montserrat font-medium">Tener un sitio web es
                                                 aumentar la
@@ -979,11 +938,6 @@
                                                 de un panel
                                                 de control super amigable.
                                             </p>
-                                        </div>
-                                        <div
-                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
-                                                alt="mundo web" class="w-8 h-8">
                                         </div>
                                     </div>
                                 </div>
@@ -995,7 +949,7 @@
                     <div class="pt-5 flex justify-between w-full">
                         <div class="w-full flex justify-center group">
                             <a href="#formularioListo"
-                                class="font-montserrat font-semibold text-white py-2 px-4 bg-white bg-opacity-10 justify-center items-center gap-3 rounded-full inline-flex text-center">
+                                class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4]  justify-center items-center gap-3 rounded-full inline-flex text-center">
                                 <span>Quiero mi web</span>
 
                                 <div class="group-hover:rotate-45 transition-all  duration-500 ">
