@@ -122,6 +122,7 @@ class LandingController extends Controller
         $landingData['created_at'] = $carbon->toDateTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'Landing-Website';
+        
         $landingData['ip'] = $ipAddress;
 
         if (empty($landingData['name'])) {
@@ -132,7 +133,11 @@ class LandingController extends Controller
             $landingData['web_url'] = 'https://';
         }
 
+        if (empty($landingData['business_sector'])) {
+            $landingData['business_sector'] = 'Rubro desconocido';
+        }
 
+       
 
 
 

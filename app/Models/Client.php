@@ -11,7 +11,7 @@ class Client extends Model
 
     protected $connection = "mysql_atalaya";
 
-    protected $fillable=['ruc','name', 'description', 'contact_name', 'contact_phone' , 'contact_email', 'contact_address' ,'contact_position', 'message' ,
+    protected $fillable=['ruc','name', 'business_sector', 'description', 'contact_name', 'contact_phone' , 'contact_email', 'contact_address' ,'contact_position', 'message' ,
                         'web_url', 'source', 'date', 'time', 'ip', 'origin', 'client_width', 'client_height', 'client_latitude', 'client_longitude', 
                         'client_system', 'status_id'
                         ];

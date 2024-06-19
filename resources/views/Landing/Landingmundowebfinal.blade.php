@@ -349,14 +349,20 @@
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
+                                    
                                     <div class="w-full">
                                         <input type="text" placeholder="Empresa / Marca (Opcional)" name="name"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" placeholder="Link de Web (Opcional)" name="web_url"
+                                        <input type="text" placeholder="Rubro Empresarial (Opcional)" name="business_sector"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
+                                   
+                                </div>
+                                <div class="w-full">
+                                    <input type="text" placeholder="Link de Web (Opcional)" name="web_url"
+                                        class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                 </div>
 
                                 <input type="hidden" name="source" id="source" value="Landing-Website">
@@ -484,7 +490,7 @@
                     </div>
                 </div>
 
-                <div class="w-11/12 mx-auto bg-[#303BE4] rounded-2xl py-10  px-5 mt-10 mb-20">
+                <div class="w-11/12 mx-auto bg-[#303BE4] rounded-2xl py-10  px-5 mt-10 mb-20 ">
                     <div class="w-full md:w-6/12 mx-auto">
                         <h2
                             class="text-white font-medium text-text44 md:text-text64 text-center leading-tight font-RightgroteskMedium">
@@ -498,14 +504,14 @@
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 py-14 md:px-10 lg:px-20">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 2xl:gap-16 py-14 md:px-10  lg:px-20 min-[2000px]:px-[16%]">
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Kick Off (Levantamiento de Información)
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick Off (Levantamiento de Información)
                                 </h2>
                                 <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la audiencia objetivo y los requerimientos del proyecto. 
-                                    Todo comienza por entender tu visión y ojetivos.
+                                    Todo comienza por entender tu visión y objetivos.
                                 </p>
                             </div>
                             <div
@@ -519,7 +525,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Propuesta Diseño Web
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2. Propuesta Diseño Web
                                 </h2>
                                 <p class="text-text18  font-montserrat font-medium">Presentamos una propuesta de diseño que este alineada a las especificaciones identificadas.
                                 </p>
@@ -535,7 +541,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Maquetación HTML
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3. Maquetación HTML
                                 </h2>
                                 <p class="text-text18  font-montserrat font-medium">Convertimos la propuesta de diseño web en un sitio navegable, donde revisaremos todas las funcionalidades de navegación.
                                 </p>
@@ -550,8 +556,8 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Implementación y Configuración SEO</h2>
-                                <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave, las metadescripciones, realizaremos la curación y
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4. Implementación y Configuración SEO</h2>
+                                <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave, las metadescripciones, realizaremos la curación de texto y
                                      el indexado en buscadores de google para poder encontrarte fácilmente.
                                 </p>
                             </div>
@@ -566,7 +572,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Programación del BACK END y FRONT END</h2>
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5. Programación del BACK END y FRONT END</h2>
                                 <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener un panel de control de la web donde podremos administrar el contenido, información y más.
                                 </p>
                             </div>
@@ -581,7 +587,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Pruebas y Funcionamiento</h2>
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6. Pruebas y Funcionamiento</h2>
                                 <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
                                 </p>
                             </div>
@@ -596,7 +602,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Capacitación y Despliegue</h2>
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7. Capacitación y Despliegue</h2>
                                 <p class="text-text18  font-montserrat font-medium">Se realiza una capacitación sobre el uso de la plataforma, seguido del despliegue a los servidores del cliente.
                                 </p>
                             </div>
@@ -611,7 +617,7 @@
                         <div
                             class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                             <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">Mantenimiento Web</h2>
+                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8. Mantenimiento Web</h2>
                                 <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar la visibilidad y alcance global de tu negocio, atrayendo más clientes 
                                     potenciales, sobre todo con un contenido 100% administrable, por medio de un panel de control super amigable.
                                 </p>
