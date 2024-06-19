@@ -197,7 +197,7 @@
 
     <header>
 
-        <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]">
+        <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]" class="overflow-x-hidden">
             <div class="mx-auto w-full md:w-11/12">
                 <div
                     class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent w-11/12 mx-auto">
@@ -266,9 +266,9 @@
 
     <div class="main overflow-x-hidden">
         <main>
-            <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32" data-aos="fade-right" data-aos-duration="1500">
+            <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
-                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0">
+                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
                         
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
                             <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
@@ -314,11 +314,11 @@
 
                     </div>
 
-                    <div class="hidden basis-1/2 md:flex items-start justify-end" >
+                    <div class="hidden basis-1/2 md:flex items-start justify-end" data-aos="fade-left" data-aos-duration="1500">
                         <img src="{{ asset('images/img/imgMundoWeb/image_4.png') }}" alt="mundo web" class="">
                     </div>
 
-                    <div class=" basis-1/2 flex md:hidden items-start justify-center" >
+                    <div class=" basis-1/2 flex md:hidden items-start justify-center" data-aos="fade-left" data-aos-duration="1500">
                         <img src="{{ asset('images/img/imgMundoWeb/image_35.png') }}" alt="mundo web" class="">
                     </div>
                 </div>
