@@ -117,6 +117,37 @@
         .body-no-scroll {
             overflow: hidden;
         }
+
+        /* ---------------- Modificar los Bullets de swiper Beneficios -------------------- */
+        .procesoRelative {
+        position: relative;
+        }
+        .swiper-pagination-proceso
+        .swiper-pagination-bullet.swiper-pagination-bullet-active {
+        background-color: transparent;
+        background-image: url({{ asset('img/bullets.svg') }});
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 20px;
+        height: 20px;
+        }
+        .swiper-pagination-proceso .swiper-pagination-bullet {
+        background-color: white;
+        opacity: 1;
+        }
+        .swiper-pagination-proceso.swiper-pagination-horizontal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+        .swiper-pagination-proceso.swiper-pagination-horizontal {
+            --swiper-pagination-bottom: 670px;
+            position: absolute;
+            justify-content: start;
+        }
+        }
     </style>
 
 
@@ -655,7 +686,7 @@
 
                         </div>
                     </div>
-                    <div class="w-11/12 lg:w-9/12 mx-auto relative block lg:hidden">
+                    <div class="w-11/12 lg:w-9/12 mx-auto relative block lg:hidden procesoRelative">
                         <div class="swiper proceso rounded-2xl">
                             <div class="swiper-wrapper">
 
@@ -831,6 +862,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="swiper-pagination-proceso mt-4 mb-2"></div>
                         </div>
                     </div>
 
@@ -960,7 +992,8 @@
             prevEl: ".swiper-button-prev",
         },
         pagination: {
-            el: ".swiper-pagination",
+            el: ".swiper-pagination-proceso",
+            clickable: true,
         },
         breakpoints: {
             0: {
