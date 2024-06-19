@@ -543,7 +543,8 @@
                         </div>
                     </div>
 
-                    <div class="w-full relative block lg:hidden proyectosRelative">
+                    <div data-aos="fade-up" data-aos-duration="1500"
+                     class="w-full relative block lg:hidden proyectosRelative">
                         <div class="swiper proyectos rounded-2xl">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide flex items-center justify-center mx-auto">
@@ -808,7 +809,7 @@
 
                         </div>
                     </div>
-                    <div class="w-full relative block lg:hidden procesoRelative">
+                    <div class="w-full relative block lg:hidden procesoRelative" data-aos="fade-up" data-aos-duration="1500">
                         <div class="swiper proceso rounded-2xl">
                             <div class="swiper-pagination-proceso mt-2 mb-4"></div>
                             <div class="swiper-wrapper">
