@@ -120,33 +120,69 @@
 
         /* ---------------- Modificar los Bullets de swiper Beneficios -------------------- */
         .procesoRelative {
-        position: relative;
+            position: relative;
         }
-        .swiper-pagination-proceso
-        .swiper-pagination-bullet.swiper-pagination-bullet-active {
-        background-color: transparent;
-        background-image: url({{ asset('img/bullets.svg') }});
-        background-repeat: no-repeat;
-        background-position: center;
-        width: 20px;
-        height: 20px;
+
+        .swiper-pagination-proceso .swiper-pagination-bullet.swiper-pagination-bullet-active {
+            background-color: transparent;
+            background-image: url({{ asset('img/bullets.svg') }});
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 20px;
+            height: 20px;
         }
+
         .swiper-pagination-proceso .swiper-pagination-bullet {
-        background-color: white;
-        opacity: 1;
+            background-color: white;
+            opacity: 1;
         }
+
         .swiper-pagination-proceso.swiper-pagination-horizontal {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         @media (min-width: 1024px) {
-        .swiper-pagination-proceso.swiper-pagination-horizontal {
-            --swiper-pagination-bottom: 670px;
-            position: absolute;
-            justify-content: start;
+            .swiper-pagination-proceso.swiper-pagination-horizontal {
+                --swiper-pagination-bottom: 670px;
+                position: absolute;
+                justify-content: start;
+            }
         }
+
+
+        /* ---------------- Modificar los Bullets de swiper Proyectos -------------------- */
+        .proyectosRelative {
+            position: relative;
+        }
+
+        .swiper-pagination-proyectos .swiper-pagination-bullet.swiper-pagination-bullet-active {
+            background-color: transparent;
+            background-image: url({{ asset('img/bullets.svg') }});
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 20px;
+            height: 20px;
+        }
+
+        .swiper-pagination-proyectos .swiper-pagination-bullet {
+            background-color: #303BE4;
+            opacity: 1;
+        }
+
+        .swiper-pagination-proyectos.swiper-pagination-horizontal {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .swiper-pagination-proyectos.swiper-pagination-horizontal {
+                --swiper-pagination-bottom: 670px;
+                position: absolute;
+                justify-content: start;
+            }
         }
     </style>
 
@@ -442,68 +478,148 @@
                     <h2
                         class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text48 font-medium  w-full lg:w-4/12 leading-tight">
                         ¡Explora nuestras Maravillas <span class="text-[#E15A29]">Digitales!</span></h2>
+                    
+                    <div class="hidden lg:block">
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
 
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+                            {{-- ---- modal por imagenes --}}
 
-                        {{-- ---- modal por imagenes --}}
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}" alt="limpiabnb"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}" alt="limpiabnb"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}" alt="emprendenvio"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}" alt="emprendenvio"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}" alt="logistic"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}" alt="logistic"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
-                        </div>
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
+                            </div>
 
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
-                        </div>
-
-                        <div
-                            class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                            <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
-                                class="w-full h-full"
-                                onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
+                            <div
+                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
+                                    class="w-full h-full"
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
+                            </div>
                         </div>
                     </div>
 
+                    <div class="w-11/12 lg:w-9/12  relative block lg:hidden proyectosRelative">
+                        <div class="swiper proyectos rounded-2xl">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}"
+                                            alt="limpiabnb" class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}"
+                                            alt="emprendenvio" class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}"
+                                            alt="logistic" class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
+                                            class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
+                                            class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
+                                            class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
+                                            class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
+                                            class="w-full h-full"
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination-proyectos mt-4 mb-2"></div>
+                        </div>
+                    </div>
 
                     <!-- Modal -->
                     <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
@@ -544,7 +660,8 @@
                             <div
                                 class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
-                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick Off
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick
+                                        Off
                                         (Levantamiento de Información)
                                     </h2>
                                     <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la
@@ -563,10 +680,12 @@
                             <div
                                 class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
-                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2. Propuesta
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2.
+                                        Propuesta
                                         Diseño Web
                                     </h2>
-                                    <p class="text-text18  font-montserrat font-medium">Presentamos una propuesta de diseño
+                                    <p class="text-text18  font-montserrat font-medium">Presentamos una propuesta de
+                                        diseño
                                         que este alineada a las especificaciones identificadas.
                                     </p>
                                 </div>
@@ -584,7 +703,8 @@
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3.
                                         Maquetación HTML
                                     </h2>
-                                    <p class="text-text18  font-montserrat font-medium">Convertimos la propuesta de diseño
+                                    <p class="text-text18  font-montserrat font-medium">Convertimos la propuesta de
+                                        diseño
                                         web en un sitio navegable, donde revisaremos todas las funcionalidades de
                                         navegación.
                                     </p>
@@ -601,7 +721,8 @@
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4.
                                         Implementación y Configuración SEO</h2>
-                                    <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave, las
+                                    <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave,
+                                        las
                                         metadescripciones, realizaremos la curación de texto y
                                         el indexado en buscadores de google para poder encontrarte fácilmente.
                                     </p>
@@ -619,7 +740,8 @@
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5.
                                         Programación del BACK END y FRONT END</h2>
-                                    <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener un panel de
+                                    <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener un
+                                        panel de
                                         control de la web donde podremos administrar el contenido, información y más.
                                     </p>
                                 </div>
@@ -634,7 +756,8 @@
                             <div
                                 class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
-                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6. Pruebas y
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6.
+                                        Pruebas y
                                         Funcionamiento</h2>
                                     <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de
                                         funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
@@ -653,7 +776,8 @@
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7.
                                         Capacitación y Despliegue</h2>
-                                    <p class="text-text18  font-montserrat font-medium">Se realiza una capacitación sobre
+                                    <p class="text-text18  font-montserrat font-medium">Se realiza una capacitación
+                                        sobre
                                         el uso de la plataforma, seguido del despliegue a los servidores del cliente.
                                     </p>
                                 </div>
@@ -670,9 +794,11 @@
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8.
                                         Mantenimiento Web</h2>
-                                    <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar la
+                                    <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar
+                                        la
                                         visibilidad y alcance global de tu negocio, atrayendo más clientes
-                                        potenciales, sobre todo con un contenido 100% administrable, por medio de un panel
+                                        potenciales, sobre todo con un contenido 100% administrable, por medio de un
+                                        panel
                                         de control super amigable.
                                     </p>
                                 </div>
@@ -686,7 +812,7 @@
 
                         </div>
                     </div>
-                    <div class="w-11/12 lg:w-9/12 mx-auto relative block lg:hidden procesoRelative">
+                    <div class="w-11/12 lg:w-9/12  relative block lg:hidden procesoRelative">
                         <div class="swiper proceso rounded-2xl">
                             <div class="swiper-wrapper">
 
@@ -713,7 +839,7 @@
                                     </div>
                                 </div>
 
-                                <div class="swiper-slide">  
+                                <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-10/12">
@@ -734,7 +860,7 @@
                                     </div>
                                 </div>
 
-                                <div class="swiper-slide">  
+                                <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-10/12">
@@ -757,7 +883,7 @@
                                     </div>
                                 </div>
 
-                                <div class="swiper-slide">     
+                                <div class="swiper-slide">
                                     <div
                                         class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-10/12">
@@ -985,7 +1111,7 @@
         spaceBetween: 30,
         loop: true,
         grabCursor: true,
-        centeredSlides: false,
+        centeredSlides: true,
         initialSlide: 0,
         navigation: {
             nextEl: ".swiper-button-next",
@@ -1006,10 +1132,34 @@
                 slidesPerView: 1,
             },
         },
-        // autoplay: {
-        // delay: 2000, 
-        // disableOnInteraction: false, 
-        // },
+    });
+
+    var swiper = new Swiper(".proyectos", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        grabCursor: true,
+        centeredSlides: true,
+        initialSlide: 0,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination-proyectos",
+            clickable: true,
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 1,
+            },
+        },
     });
 </script>
 
@@ -1071,7 +1221,6 @@
     });
 </script>
 <script>
-
     $('#procesarSolicitud').on('click', function() {
         console.log('precionando btn envio');
 
