@@ -195,7 +195,7 @@
 <body class="body">
     <div class="overlay"></div>
 
-    <header >
+    <header>
 
         <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]">
             <div class="mx-auto w-full md:w-11/12">
@@ -268,7 +268,7 @@
         <main>
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
-                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
+                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" >
                         
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
                             <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
@@ -323,7 +323,7 @@
                     </div>
                 </div>
             </section>
-            <section class="xl:-mt-10 z-0">
+            <section class="xl:-mt-10 z-0" >
                 <div class="bg-[#303BE4] ">
                     <div x-data="{}" x-init="$nextTick(() => {
                         let ul = $refs.logos;
@@ -382,12 +382,12 @@
             <section
                 class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10">
 
-                <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
-                    <div class="flex justify-center hidden md:block" data-aos="fade-right" data-aos-duration="1500">
-                        <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}" alt="mundo web">
+                <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2" data-aos="fade-right" data-aos-duration="1500">
+                    <div class="flex justify-center hidden md:block">
+                        <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}"  alt="mundo web">
                     </div>
 
-                    <div id="formularioListo" class="flex flex-col justify-center gap-10" data-aos="fade-left" data-aos-duration="1500">
+                    <div id="formularioListo" class="flex flex-col justify-center gap-10" >
                         <h2
                             class="text-[#050A41] font-RightgroteskMedium text-text32 md:text-text64 leading-tight font-medium w-full lg:w-2/3">
                             ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
