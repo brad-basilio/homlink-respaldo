@@ -314,11 +314,11 @@
 
                     </div>
 
-                    <div class="hidden basis-1/2 md:flex items-start justify-end" data-aos="fade-left" data-aos-duration="1500">
+                    <div class="hidden basis-1/2 md:flex items-start justify-end" >
                         <img src="{{ asset('images/img/imgMundoWeb/image_4.png') }}" alt="mundo web" class="">
                     </div>
 
-                    <div class=" basis-1/2 flex md:hidden items-start justify-center" data-aos="fade-left" data-aos-duration="1500">
+                    <div class=" basis-1/2 flex md:hidden items-start justify-center" >
                         <img src="{{ asset('images/img/imgMundoWeb/image_35.png') }}" alt="mundo web" class="">
                     </div>
                 </div>
