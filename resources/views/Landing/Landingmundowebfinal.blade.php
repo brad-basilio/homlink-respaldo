@@ -104,19 +104,19 @@
             }
         }
 
-        .ancho_modal{
-                width: 80%
-            }
+        .ancho_modal {
+            width: 80%
+        }
 
-            @media (min-width:768px){
-                .ancho_modal{
+        @media (min-width:768px) {
+            .ancho_modal {
                 width: 60%
             }
-            }
-        .body-no-scroll {
-                overflow: hidden;
         }
-            
+
+        .body-no-scroll {
+            overflow: hidden;
+        }
     </style>
 
 
@@ -134,8 +134,8 @@
                 <div
                     class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent w-11/12 mx-auto">
                     <div>
-                        <a href="{{ route('ultimalanding') }}"><img src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}"
-                            alt="mundo web"></a>
+                        <a href="{{ route('ultimalanding') }}"><img
+                                src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}" alt="mundo web"></a>
                     </div>
                     <div class="group custom-auto-width"> <!-- Cambié el orden de las clases -->
                         <a href="#formularioListo"
@@ -237,8 +237,8 @@
                             <img src="{{ asset('images/img/imgMundoWeb/image_3.png') }}" alt="mundoweb" class="w-20">
 
                             <p class="font-RightgroteskMedium uppercase text-text16 md:text-text24 font-medium">
-                                <span
-                                    class="text-[#E15A29] text-text24">100+</span> <span class="text-text14">Clientes digitalizados</span>
+                                <span class="text-[#E15A29] text-text24">100+</span> <span class="text-text14">Clientes
+                                    digitalizados</span>
                             </p>
 
                         </div>
@@ -311,7 +311,8 @@
                     </div>
                 </div>
             </section>
-            <section class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20 flex flex-col gap-10">
+            <section
+                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20 flex flex-col gap-10">
 
                 <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
                     <div class="flex justify-center">
@@ -339,26 +340,29 @@
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
-                                        <input type="email" name="contact_email" placeholder="Correo Electrónico" required id="email"
+                                        <input type="email" name="contact_email" placeholder="Correo Electrónico"
+                                            required id="email"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" name="contact_phone" placeholder="Teléfono" required id="telefono" maxlength="9"
+                                        <input type="text" name="contact_phone" placeholder="Teléfono" required
+                                            id="telefono" maxlength="9"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
-                                    
+
                                     <div class="w-full">
                                         <input type="text" placeholder="Empresa / Marca (Opcional)" name="name"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                     <div class="w-full">
-                                        <input type="text" placeholder="Rubro Empresarial (Opcional)" name="business_sector"
+                                        <input type="text" placeholder="Rubro Empresarial (Opcional)"
+                                            name="business_sector"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
-                                   
+
                                 </div>
                                 <div class="w-full">
                                     <input type="text" placeholder="Link de Web (Opcional)" name="web_url"
@@ -380,7 +384,7 @@
                             </form>
                         </div>
 
-                        
+
 
                         <div class="md:pt-10 group">
                             <button id='procesarSolicitud'
@@ -469,20 +473,20 @@
                         </div>
                     </div>
 
-                  
+
                     <!-- Modal -->
                     <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
                         <div class="modal-overlay absolute w-full h-full bg-black opacity-50 opacidad"></div>
                         <div
                             class="modal-container bg-white mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative ancho_modal">
                             {{-- w-5/6 --}}
-                            <div class="modal-content p-4 relative overflow-y-scroll height-modal" >
+                            <div class="modal-content p-4 relative overflow-y-scroll height-modal">
                                 {{--  style="max-height: 700px;" --}}
                                 <span
                                     class="close absolute top-2 right-0 mx-4 cursor-pointer text-white text-text48  leading-none p-3  cerrar rounded-full">
                                     <img src="{{ asset('images/img/imgMundoWeb/cerrar_close.svg') }}" alt=""
                                         class="cerrar_close">
-                                 
+
                                 </span>
                                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">
                             </div>
@@ -503,133 +507,331 @@
 
                         </p>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 2xl:gap-16 py-14 md:px-10  lg:px-20 min-[2000px]:px-[16%]">
+                    <div class="hidden lg:block">
                         <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick Off (Levantamiento de Información)
-                                </h2>
-                                <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la audiencia objetivo y los requerimientos del proyecto. 
-                                    Todo comienza por entender tu visión y objetivos.
-                                </p>
-                            </div>
+                            class="grid grid-cols-1 md:grid-cols-2 gap-10 2xl:gap-16 py-14 md:px-10  lg:px-20 min-[2000px]:px-[16%] ">
                             <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick Off
+                                        (Levantamiento de Información)
+                                    </h2>
+                                    <p class="text-text18  font-montserrat font-medium">Analizaremos la competencia, la
+                                        audiencia objetivo y los requerimientos del proyecto.
+                                        Todo comienza por entender tu visión y objetivos.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+
                             </div>
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2. Propuesta
+                                        Diseño Web
+                                    </h2>
+                                    <p class="text-text18  font-montserrat font-medium">Presentamos una propuesta de diseño
+                                        que este alineada a las especificaciones identificadas.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3.
+                                        Maquetación HTML
+                                    </h2>
+                                    <p class="text-text18  font-montserrat font-medium">Convertimos la propuesta de diseño
+                                        web en un sitio navegable, donde revisaremos todas las funcionalidades de
+                                        navegación.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4.
+                                        Implementación y Configuración SEO</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave, las
+                                        metadescripciones, realizaremos la curación de texto y
+                                        el indexado en buscadores de google para poder encontrarte fácilmente.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5.
+                                        Programación del BACK END y FRONT END</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener un panel de
+                                        control de la web donde podremos administrar el contenido, información y más.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6. Pruebas y
+                                        Funcionamiento</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de
+                                        funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7.
+                                        Capacitación y Despliegue</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Se realiza una capacitación sobre
+                                        el uso de la plataforma, seguido del despliegue a los servidores del cliente.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                <div class="flex flex-col gap-5 basis-10/12">
+                                    <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8.
+                                        Mantenimiento Web</h2>
+                                    <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar la
+                                        visibilidad y alcance global de tu negocio, atrayendo más clientes
+                                        potenciales, sobre todo con un contenido 100% administrable, por medio de un panel
+                                        de control super amigable.
+                                    </p>
+                                </div>
+                                <div
+                                    class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                    <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
+                                        class="w-8 h-8">
+                                </div>
+                            </div>
+
 
                         </div>
+                    </div>
+                    <div class="w-11/12 lg:w-9/12 mx-auto relative block lg:hidden">
+                        <div class="swiper proceso rounded-2xl">
+                            <div class="swiper-wrapper">
 
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2. Propuesta Diseño Web
-                                </h2>
-                                <p class="text-text18  font-montserrat font-medium">Presentamos una propuesta de diseño que este alineada a las especificaciones identificadas.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
+                                <div class="swiper-slide">
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                1. Kick Off
+                                                (Levantamiento de Información)
+                                            </h2>
+                                            <p class="text-text18  font-montserrat font-medium">Analizaremos la
+                                                competencia, la
+                                                audiencia objetivo y los requerimientos del proyecto.
+                                                Todo comienza por entender tu visión y objetivos.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">  
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                2. Propuesta
+                                                Diseño Web
+                                            </h2>
+                                            <p class="text-text18  font-montserrat font-medium">Presentamos una
+                                                propuesta de diseño
+                                                que este alineada a las especificaciones identificadas.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">  
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                3.
+                                                Maquetación HTML
+                                            </h2>
+                                            <p class="text-text18  font-montserrat font-medium">Convertimos la
+                                                propuesta de diseño
+                                                web en un sitio navegable, donde revisaremos todas las funcionalidades
+                                                de
+                                                navegación.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">     
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                4.
+                                                Implementación y Configuración SEO</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Colocaremos las
+                                                palabras clave, las
+                                                metadescripciones, realizaremos la curación de texto y
+                                                el indexado en buscadores de google para poder encontrarte fácilmente.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                5.
+                                                Programación del BACK END y FRONT END</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener
+                                                un panel de
+                                                control de la web donde podremos administrar el contenido, información y
+                                                más.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                6. Pruebas y
+                                                Funcionamiento</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de
+                                                funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                7.
+                                                Capacitación y Despliegue</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Se realiza una
+                                                capacitación sobre
+                                                el uso de la plataforma, seguido del despliegue a los servidores del
+                                                cliente.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="swiper-slide">
+                                    <div
+                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        <div class="flex flex-col gap-5 basis-10/12">
+                                            <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
+                                                8.
+                                                Mantenimiento Web</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Tener un sitio web es
+                                                aumentar la
+                                                visibilidad y alcance global de tu negocio, atrayendo más clientes
+                                                potenciales, sobre todo con un contenido 100% administrable, por medio
+                                                de un panel
+                                                de control super amigable.
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
+                                            <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}"
+                                                alt="mundo web" class="w-8 h-8">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3. Maquetación HTML
-                                </h2>
-                                <p class="text-text18  font-montserrat font-medium">Convertimos la propuesta de diseño web en un sitio navegable, donde revisaremos todas las funcionalidades de navegación.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4. Implementación y Configuración SEO</h2>
-                                <p class="text-text18  font-montserrat font-medium">Colocaremos las palabras clave, las metadescripciones, realizaremos la curación de texto y
-                                     el indexado en buscadores de google para poder encontrarte fácilmente.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-{{-- ------------------------- --}}
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5. Programación del BACK END y FRONT END</h2>
-                                <p class="text-text18  font-montserrat font-medium">Esto no permitirá tener un panel de control de la web donde podremos administrar el contenido, información y más.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6. Pruebas y Funcionamiento</h2>
-                                <p class="text-text18  font-montserrat font-medium">Realizamos pruebas de funcionalidad, usabilidad, rendimiento, seguridad y compatibilidad.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7. Capacitación y Despliegue</h2>
-                                <p class="text-text18  font-montserrat font-medium">Se realiza una capacitación sobre el uso de la plataforma, seguido del despliegue a los servidores del cliente.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-
-
-                        <div
-                            class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
-                            <div class="flex flex-col gap-5 basis-10/12">
-                                <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8. Mantenimiento Web</h2>
-                                <p class="text-text18  font-montserrat font-medium">Tener un sitio web es aumentar la visibilidad y alcance global de tu negocio, atrayendo más clientes 
-                                    potenciales, sobre todo con un contenido 100% administrable, por medio de un panel de control super amigable.
-                                </p>
-                            </div>
-                            <div
-                                class="opacity-0  md:duration-300 basis-2/12 flex justify-end items-start group-hover:opacity-100">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_30.png') }}" alt="mundo web"
-                                    class="w-8 h-8">
-                            </div>
-                        </div>
-
-
                     </div>
 
                     <div class="pt-5 flex justify-between w-full">
@@ -744,6 +946,40 @@
 
 </html>
 
+
+<script>
+    var swiper = new Swiper(".proceso", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        grabCursor: true,
+        centeredSlides: false,
+        initialSlide: 0,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 1,
+            },
+        },
+        autoplay: {
+        delay: 2000, 
+        disableOnInteraction: false, 
+        },
+    });
+</script>
+
 <script>
     $(function() {
         $(document).scroll(function() {
@@ -803,44 +1039,6 @@
 </script>
 <script>
 
-/* function alerta(message) {
-            Swal.fire({
-                title: message,
-                icon: "error",
-            });
-        } */
-
-        /* function validarTelefono(value) {
-            if (value !== '') {
-                if (isNaN(value)) {
-                    alerta("Por favor, asegúrate de ingresar solo números en el teléfono");
-                    return false;
-                }
-            }
-
-            if (value.length < 9) {
-                alerta("El teléfono solo puede tener 9 dígitos");
-                return false;
-            }
-
-            return true;
-        } */
-
-       /*  function validarEmail(value) {
-            console.log(value)
-            const regex =
-                /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
-
-            if (!regex.test(value)) {
-                alerta("Por favor, asegúrate de ingresar una dirección de correo electrónico válida");
-                return false;
-            }
-            return true;
-        }
- */
-
-
-
     $('#procesarSolicitud').on('click', function() {
         console.log('precionando btn envio');
 
@@ -899,13 +1097,6 @@
 </script>
 
 <script>
-    // Obtener la IP del usuario (desde un servicio externo)
-    fetch('https://api.ipify.org?format=json')
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('ip').value = data.ip;
-    });
-
     // Obtener información del navegador y del sistema operativo
     const platform = navigator.platform;
     document.getElementById('sistema').value = platform;
