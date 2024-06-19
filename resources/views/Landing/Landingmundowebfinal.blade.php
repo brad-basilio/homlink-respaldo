@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Landing Mundo Web</title>
@@ -269,10 +270,9 @@
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
                     <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
-                        
+                        <span class="font-RightgroteskMedium text-text32 md:text-text64">🚀</span>
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
-                            <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
-                            transformación Digital! 🚀
+                            <span class="text-[#E15A29]">¡Nuestra pasión, </span><span id="type"></span> 
                         </h1>
                         <p class="font-montserrat font-medium text-text18 md:text-text20 text-[#3F4654]">Somos una
                             <b>empresa de desarrollo web</b> joven y dinámica, especializada en transformar ideas en
@@ -1057,6 +1057,12 @@
 
 
 <script>
+    new Typewriter('#type', {
+            strings: ['tu transformación Digital!', 'tu presencia en Internet', 'la calidad en tu Servicio'], 
+            autoStart: true,
+            loop:true,
+        });
+
     var swiper = new Swiper(".proceso", {
         slidesPerView: 1,
         spaceBetween: 30,
