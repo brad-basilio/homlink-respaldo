@@ -647,7 +647,7 @@
                     <div class="w-full md:w-6/12 mx-auto">
                         <h2 data-aos="fade-right" data-aos-duration="1500"
                             class="text-[#050A41] lg:text-white font-medium text-text32 md:text-text64 text-center leading-tight font-RightgroteskMedium">
-                            ¡Impulsa tu presencia en linea con <span class="text-mwnaranja">Mundo Web!</span></h2>
+                            ¡Conoce la receta que usamos en <span class="text-mwnaranja">Mundo Web!</span></h2>
 
                         <p  data-aos="fade-left" data-aos-duration="1500"
                             class="font-montserrat text-text18 md:text-text20 leading-tight text-[#050A41] lg:text-white text-center py-5">
