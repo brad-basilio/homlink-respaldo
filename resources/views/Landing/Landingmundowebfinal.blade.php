@@ -12,13 +12,14 @@
     {{-- sweet Alert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ asset('css/styles.css') }}" /> --}}
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Landing Mundo Web</title>
@@ -194,7 +195,7 @@
 <body class="body">
     <div class="overlay"></div>
 
-    <header>
+    <header data-aos="fade-up" data-aos-duration="1500">
 
         <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]">
             <div class="mx-auto w-full md:w-11/12">
@@ -266,7 +267,7 @@
     <div class="main">
         <main>
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
-                <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10">
+                <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" data-aos="fade-up" data-aos-duration="1500">
                     <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0">
                         {{-- tipografia h1 --}}
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
@@ -322,7 +323,7 @@
                     </div>
                 </div>
             </section>
-            <section class="xl:-mt-10 z-0">
+            <section class="xl:-mt-10 z-0" data-aos="fade-left" data-aos-duration="1500">
                 <div class="bg-[#303BE4] ">
                     <div x-data="{}" x-init="$nextTick(() => {
                         let ul = $refs.logos;
@@ -379,7 +380,7 @@
                 </div>
             </section>
             <section
-                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10">
+                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10" data-aos="fade-up" data-aos-duration="1500">
 
                 <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
                     <div class="flex justify-center hidden md:block">
@@ -475,65 +476,65 @@
                 </div>
 
                 <div class="w-11/12 mx-auto flex flex-col gap-10 md:gap-16 pt-10">
-                    <h2
+                    <h2 data-aos="fade-up" data-aos-duration="1500"
                         class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text64 font-medium  w-full lg:w-6/12 leading-tight">
                         ¡Explora nuestras Maravillas <span class="text-[#E15A29]">Digitales!</span></h2>
                     
-                    <div class="hidden lg:block">
+                    <div class="hidden lg:block" >
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
 
                             {{-- ---- modal por imagenes --}}
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}" alt="limpiabnb"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}" alt="emprendenvio"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}" alt="logistic"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
                                     class="w-full h-full"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
                             </div>
 
-                            <div
+                            <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                 <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
                                     class="w-full h-full"
@@ -641,14 +642,14 @@
                     </div>
                 </div>
 
-                <div class="w-11/12 mx-auto rounded-2xl py-10  px-5 mt-10 mb-20 ">
+                <div class="w-11/12 bg-white lg:bg-[#303BE4] mx-auto rounded-2xl py-10  px-5 mt-10 mb-20 ">
                     <div class="w-full md:w-6/12 mx-auto">
-                        <h2
-                            class="text-[#050A41] font-medium text-text32 md:text-text64 text-center leading-tight font-RightgroteskMedium">
+                        <h2 data-aos="fade-up" data-aos-duration="1500"
+                            class="text-[#050A41] lg:text-white font-medium text-text32 md:text-text64 text-center leading-tight font-RightgroteskMedium">
                             ¡Impulsa tu presencia en linea con <span class="text-mwnaranja">Mundo Web!</span></h2>
 
-                        <p
-                            class="font-montserrat text-text18 md:text-text20 leading-tight text-[#050A41] text-center py-5">
+                        <p  data-aos="fade-up" data-aos-duration="1500"
+                            class="font-montserrat text-text18 md:text-text20 leading-tight text-[#050A41] lg:text-white text-center py-5">
                             Somos una <b>agencia de desarrollo web</b> con un modelo de trabajo que puede llevar tu
                             presencia en línea al siguiente nivel.
 
@@ -657,8 +658,8 @@
                     <div class="hidden lg:block">
                         <div
                             class="grid grid-cols-1 md:grid-cols-2 gap-10 2xl:gap-16 py-14 md:px-10  lg:px-20 min-[2000px]:px-[16%] ">
-                            <div
-                                class="text-white flex gap-2 group  bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 relative">
+                            <div data-aos="fade-right" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 relative">
                                     <div class="flex flex-col gap-5 basis-10/12">
                                         <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">1. Kick
                                             Off
@@ -676,8 +677,8 @@
                                     </div>   
                             </div>
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-left" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">2.
                                         Propuesta
@@ -696,8 +697,8 @@
                             </div>
 
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-right" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">3.
                                         Maquetación HTML
@@ -715,8 +716,8 @@
                                 </div>
                             </div>
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-left" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">4.
                                         Implementación y Configuración SEO</h2>
@@ -734,8 +735,8 @@
                             </div>
 
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-right" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">5.
                                         Programación del BACK END y FRONT END</h2>
@@ -752,8 +753,8 @@
                             </div>
 
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-left" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">6.
                                         Pruebas y
@@ -770,8 +771,8 @@
                             </div>
 
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-right" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">7.
                                         Capacitación y Despliegue</h2>
@@ -788,8 +789,8 @@
                             </div>
 
 
-                            <div
-                                class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
+                            <div data-aos="fade-left" data-aos-duration="1500"
+                                class="text-white flex gap-2 group bg-white  bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
                                 <div class="flex flex-col gap-5 basis-10/12">
                                     <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">8.
                                         Garantía</h2>
@@ -946,10 +947,10 @@
                         </div>
                     </div>
 
-                    <div class="pt-5 flex justify-between w-full">
+                    <div class="pt-5 flex justify-between w-full" data-aos="fade-up" data-aos-duration="1500">
                         <div class="w-full flex justify-center group">
                             <a href="#formularioListo"
-                                class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4]  justify-center items-center gap-3 rounded-full inline-flex text-center">
+                                class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] lg:bg-white lg:bg-opacity-10  justify-center items-center gap-3 rounded-full inline-flex text-center">
                                 <span>Quiero mi web</span>
 
                                 <div class="group-hover:rotate-45 transition-all  duration-500 ">
@@ -976,7 +977,7 @@
     </div>
 
 
-    <footer class="bg-[#303BE4] py-20">
+    <footer class="bg-[#303BE4] py-20" data-aos="fade-up" data-aos-duration="1500">
 
         <div
             class="flex flex-col gap-5 md:gap-0 md:flex-row md:justify-between w-11/12 mx-auto border-b-[1px] border-gray-400 pb-10">
@@ -1254,4 +1255,7 @@
     const screenHeight = window.screen.height;
     document.getElementById('anchodispositivo').value = screenWidth;
     document.getElementById('largodispositivo').value = screenHeight;
+</script>
+<script>
+    AOS.init();
 </script>
