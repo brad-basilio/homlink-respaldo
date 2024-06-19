@@ -933,13 +933,9 @@
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 8. <br>
-                                                Mantenimiento Web</h2>
-                                            <p class="text-text18  font-montserrat font-medium">Tener un sitio web es
-                                                aumentar la
-                                                visibilidad y alcance global de tu negocio, atrayendo más clientes
-                                                potenciales, sobre todo con un contenido 100% administrable, por medio
-                                                de un panel
-                                                de control super amigable.
+                                                Garantía</h2>
+                                            <p class="text-text18  font-montserrat font-medium">Luego de entregado el servicio, contamos con un periodo de garantía y 
+                                                acompañamiento para asegurar la calidad de su producto, con mundo web, tendrás máxima seguridad de un buen soporte a tu servicio.
                                             </p>
                                         </div>
                                     </div>
