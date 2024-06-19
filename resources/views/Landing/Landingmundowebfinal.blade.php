@@ -192,7 +192,7 @@
 
 
 
-<body class="body overflow-x-hidden">
+<body class="body">
     <div class="overlay"></div>
 
     <header>
@@ -264,7 +264,7 @@
     </header>
 
 
-    <div class="main">
+    <div class="main overflow-x-hidden">
         <main>
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
