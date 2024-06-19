@@ -380,14 +380,14 @@
                 </div>
             </section>
             <section
-                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10" data-aos="fade-up" data-aos-duration="1500">
+                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10">
 
                 <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
-                    <div class="flex justify-center hidden md:block">
+                    <div class="flex justify-center hidden md:block" data-aos="fade-right" data-aos-duration="1500">
                         <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}" alt="mundo web">
                     </div>
 
-                    <div id="formularioListo" class="flex flex-col justify-center gap-10">
+                    <div id="formularioListo" class="flex flex-col justify-center gap-10" data-aos="fade-left" data-aos-duration="1500">
                         <h2
                             class="text-[#050A41] font-RightgroteskMedium text-text32 md:text-text64 leading-tight font-medium w-full lg:w-2/3">
                             ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
@@ -476,7 +476,7 @@
                 </div>
 
                 <div class="w-11/12 mx-auto flex flex-col gap-10 md:gap-16 pt-10">
-                    <h2 data-aos="fade-up" data-aos-duration="1500"
+                    <h2 data-aos="fade-right" data-aos-duration="1500"
                         class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text64 font-medium  w-full lg:w-6/12 leading-tight">
                         ¡Explora nuestras Maravillas <span class="text-[#E15A29]">Digitales!</span></h2>
                     
@@ -543,7 +543,7 @@
                         </div>
                     </div>
 
-                    <div data-aos="fade-up" data-aos-duration="1500"
+                    <div data-aos="fade-right" data-aos-duration="1500"
                      class="w-full relative block lg:hidden proyectosRelative">
                         <div class="swiper proyectos rounded-2xl">
                             <div class="swiper-wrapper">
@@ -645,11 +645,11 @@
 
                 <div class="w-11/12 bg-white lg:bg-[#303BE4] mx-auto rounded-2xl py-10  px-5 mt-10 mb-20 ">
                     <div class="w-full md:w-6/12 mx-auto">
-                        <h2 data-aos="fade-up" data-aos-duration="1500"
+                        <h2 data-aos="fade-right" data-aos-duration="1500"
                             class="text-[#050A41] lg:text-white font-medium text-text32 md:text-text64 text-center leading-tight font-RightgroteskMedium">
                             ¡Impulsa tu presencia en linea con <span class="text-mwnaranja">Mundo Web!</span></h2>
 
-                        <p  data-aos="fade-up" data-aos-duration="1500"
+                        <p  data-aos="fade-left" data-aos-duration="1500"
                             class="font-montserrat text-text18 md:text-text20 leading-tight text-[#050A41] lg:text-white text-center py-5">
                             Somos una <b>agencia de desarrollo web</b> con un modelo de trabajo que puede llevar tu
                             presencia en línea al siguiente nivel.
@@ -809,7 +809,7 @@
 
                         </div>
                     </div>
-                    <div class="w-full relative block lg:hidden procesoRelative" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="w-full relative block lg:hidden procesoRelative" data-aos="fade-left" data-aos-duration="1500">
                         <div class="swiper proceso rounded-2xl">
                             <div class="swiper-pagination-proceso mt-2 mb-4"></div>
                             <div class="swiper-wrapper">
