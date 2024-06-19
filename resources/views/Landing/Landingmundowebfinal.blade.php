@@ -266,7 +266,7 @@
     <div class="main">
         <main>
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
-                <div class="flex flex-col lg:flex-row justify-between gap-10">
+                <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10">
                     <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0">
                         {{-- tipografia h1 --}}
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
@@ -317,7 +317,7 @@
                         <img src="{{ asset('images/img/imgMundoWeb/image_4.png') }}" alt="mundo web" class="">
                     </div>
 
-                    <div class=" basis-1/2 flex md:hidden items-start justify-center py-10">
+                    <div class=" basis-1/2 flex md:hidden items-start justify-center">
                         <img src="{{ asset('images/img/imgMundoWeb/image_35.png') }}" alt="mundo web" class="">
                     </div>
                 </div>
@@ -379,10 +379,10 @@
                 </div>
             </section>
             <section
-                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full py-20 flex flex-col gap-10">
+                class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10">
 
                 <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2">
-                    <div class="flex justify-center">
+                    <div class="flex justify-center hidden md:block">
                         <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}" alt="mundo web">
                     </div>
 
@@ -542,10 +542,10 @@
                         </div>
                     </div>
 
-                    <div class="w-11/12 lg:w-9/12  relative block lg:hidden proyectosRelative">
+                    <div class="w-full relative block lg:hidden proyectosRelative">
                         <div class="swiper proyectos rounded-2xl">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide">
+                                <div class="swiper-slide flex items-center justify-center mx-auto">
                                     <div
                                         class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
                                         <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}"
@@ -812,7 +812,7 @@
 
                         </div>
                     </div>
-                    <div class="w-11/12 lg:w-9/12  relative block lg:hidden procesoRelative">
+                    <div class="w-full relative block lg:hidden procesoRelative">
                         <div class="swiper proceso rounded-2xl">
                             <div class="swiper-wrapper">
 
@@ -1031,7 +1031,6 @@
                 <div>
                     <a href="{{ route('ultimalanding') }}"><img
                             src="{{ asset('/images/img/imgMundoWeb/image_31.png') }}" alt="mundo web"></a>
-
                 </div>
 
 
