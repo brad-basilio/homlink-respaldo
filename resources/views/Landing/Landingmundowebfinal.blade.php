@@ -809,11 +809,12 @@
                     </div>
                     <div class="w-full relative block lg:hidden procesoRelative">
                         <div class="swiper proceso rounded-2xl">
+                            <div class="swiper-pagination-proceso mt-2 mb-4"></div>
                             <div class="swiper-wrapper">
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 1. <br>Kick Off
@@ -830,7 +831,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 2. <br>Propuesta
@@ -846,7 +847,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 3. <br>
@@ -864,7 +865,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 4. <br>
@@ -880,7 +881,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4] justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 5. <br>
@@ -896,7 +897,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4]  justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 6. <br>Pruebas y
@@ -910,7 +911,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4]  justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 7. <br>
@@ -926,7 +927,7 @@
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="text-white flex gap-2 group bg-white bg-opacity-10 justify-between rounded-xl px-5 py-10 md:p-10 ">
+                                        class="text-white flex gap-2 group bg-[#303BE4]  justify-between rounded-xl px-5 py-10 md:p-10 ">
                                         <div class="flex flex-col gap-5 basis-full">
                                             <h2 class="font-RightgroteskMedium font-medium text-text32 leading-tight ">
                                                 8. <br>
@@ -942,7 +943,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="swiper-pagination-proceso mt-4 mb-2"></div>
                         </div>
                     </div>
 
