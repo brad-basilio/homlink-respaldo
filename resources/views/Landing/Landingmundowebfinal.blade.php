@@ -253,7 +253,7 @@
                 </div>
             </div>
         </div> --}}
-        <div class="flex justify-end w-11/12 mx-auto  z-10" data-aos="fade-left" data-aos-duration="1500">
+        <div class="flex justify-end w-11/12 mx-auto  z-10" >
             <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
                 <a href="https://web.whatsapp.com/send?phone=908857558" rel="noopener" target="_blank">
                     <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
