@@ -192,7 +192,7 @@
 
 
 
-<body class="body">
+<body class="body overflow-x-hidden">
     <div class="overlay"></div>
 
     <header>
