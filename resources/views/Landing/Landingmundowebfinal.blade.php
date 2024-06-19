@@ -266,9 +266,9 @@
 
     <div class="main overflow-x-hidden">
         <main>
-            <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
+            <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32" data-aos="fade-right" data-aos-duration="1500">
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
-                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
+                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0">
                         
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
                             <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
