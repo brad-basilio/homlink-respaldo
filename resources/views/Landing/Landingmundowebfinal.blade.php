@@ -195,17 +195,17 @@
 <body class="body">
     <div class="overlay"></div>
 
-    <header data-aos="fade-up" data-aos-duration="1500">
+    <header >
 
         <div class="absolute md:fixed left-0 right-0 py-5 navbar-fixed-top z-[20]">
             <div class="mx-auto w-full md:w-11/12">
                 <div
                     class="flex flex-col md:flex-row md:justify-between items-center gap-5 bg-transparent w-11/12 mx-auto">
-                    <div>
+                    <div data-aos="fade-right" data-aos-duration="1500">
                         <a href="{{ route('ultimalanding') }}"><img
                                 src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}" alt="mundo web"></a>
                     </div>
-                    <div class="group custom-auto-width"> <!-- Cambié el orden de las clases -->
+                    <div class="group custom-auto-width" data-aos="fade-left" data-aos-duration="1500">
                         <a href="#formularioListo"
                             class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full flex">
                             <!-- Quité la clase w-full del botón -->
@@ -267,9 +267,9 @@
     <div class="main">
         <main>
             <section class="bg_fondoMain bg-cover bg-center bg-no-repeat sm:w-full h-full pt-40 md:pt-32">
-                <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" data-aos="fade-up" data-aos-duration="1500">
-                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0">
-                        {{-- tipografia h1 --}}
+                <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
+                    <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
+                        
                         <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
                             <span class="text-[#E15A29]">¡Nuestra pasión,</span> tu
                             transformación Digital! 🚀
@@ -314,16 +314,16 @@
 
                     </div>
 
-                    <div class="hidden basis-1/2 md:flex items-start justify-end">
+                    <div class="hidden basis-1/2 md:flex items-start justify-end" data-aos="fade-left" data-aos-duration="1500">
                         <img src="{{ asset('images/img/imgMundoWeb/image_4.png') }}" alt="mundo web" class="">
                     </div>
 
-                    <div class=" basis-1/2 flex md:hidden items-start justify-center">
+                    <div class=" basis-1/2 flex md:hidden items-start justify-center" data-aos="fade-left" data-aos-duration="1500">
                         <img src="{{ asset('images/img/imgMundoWeb/image_35.png') }}" alt="mundo web" class="">
                     </div>
                 </div>
             </section>
-            <section class="xl:-mt-10 z-0" data-aos="fade-left" data-aos-duration="1500">
+            <section class="xl:-mt-10 z-0">
                 <div class="bg-[#303BE4] ">
                     <div x-data="{}" x-init="$nextTick(() => {
                         let ul = $refs.logos;
