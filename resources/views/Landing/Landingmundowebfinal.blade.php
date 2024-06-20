@@ -382,12 +382,12 @@
             <section
                 class="bg_fondoMainMobile bg-cover bg-center bg-no-repeat sm:w-full h-full pt-20 flex flex-col gap-10">
 
-                <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2" >
-                    <div class="flex justify-center hidden md:block" data-aos="fade-right" data-aos-duration="1500">
+                <div class="w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2" data-aos="fade-right" data-aos-duration="1500">
+                    <div class="flex justify-center hidden md:block">
                         <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}"  alt="mundo web">
                     </div>
 
-                    <div id="formularioListo" class="flex flex-col justify-center gap-10" data-aos="fade-left" data-aos-duration="1500">
+                    <div id="formularioListo" class="flex flex-col justify-center gap-10">
                         <h2
                             class="text-[#050A41] font-RightgroteskMedium text-text32 md:text-text64 leading-tight font-medium w-full lg:w-2/3">
                             ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
