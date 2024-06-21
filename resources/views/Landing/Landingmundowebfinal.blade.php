@@ -256,7 +256,7 @@
         </div> --}}
         <div class="flex justify-end w-11/12 mx-auto  z-10" >
             <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
-                <a href="https://web.whatsapp.com/send?phone=51908857558" rel="noopener" target="_blank">
+                <a href="https://wa.link/x8295h" rel="noopener" target="_blank">
                     <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
                         class="w-20 h-20 md:w-full md:h-full">
                 </a>
