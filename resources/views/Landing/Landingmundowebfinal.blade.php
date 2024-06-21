@@ -494,9 +494,9 @@
 
                             <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}" alt="emprendenvio"
+                                <img src="{{ asset('images/img/imgMundoWeb/webverde.png') }}" alt="emprendenvio"
                                     class="w-full h-full"
-                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/webverde.png') }}')">
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
