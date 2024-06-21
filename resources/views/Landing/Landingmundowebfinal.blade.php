@@ -559,7 +559,7 @@
                                 <div class="swiper-slide">
                                     <div
                                         class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/MockupEmprende.png') }}"
+                                        <img src="{{ asset('images/img/imgMundoWeb/webverde.png') }}"
                                             alt="emprendenvio" class="w-full h-full"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                                     </div>
