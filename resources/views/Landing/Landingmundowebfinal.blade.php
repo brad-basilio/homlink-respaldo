@@ -18,9 +18,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> --}}
+
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://unpkg.com/typewriter-effect@latest/dist/core.js"></script>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script> --}}
 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Landing Mundo Web</title>
@@ -74,7 +81,7 @@
         }
 
         .opacidad {
-            opacity: 0.7;
+            opacity: 0.8;
         }
 
         .cerrar {
@@ -82,17 +89,18 @@
         }
 
         .cerrar_close {
-            width: 18px;
+            width: 15px;
         }
 
         @media (min-width: 768px) {
             .height-modal {
-                max-height: 800px;
+                max-height: 700px;
 
             }
 
             .cerrar_close {
-                width: 24px;
+                width: 18px;
+                
             }
         }
 
@@ -479,65 +487,65 @@
                     <h2 data-aos="fade-right" data-aos-duration="1500"
                         class="text-[#050A41] font-RightgroteskMedium  text-text32 md:text-text64 font-medium  w-full lg:w-6/12 leading-tight">
                         ¡Explora nuestras Maravillas <span class="text-[#E15A29]">Digitales!</span></h2>
-                    
+                     
                     <div class="hidden lg:block" >
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
 
                             {{-- ---- modal por imagenes --}}
 
-                            <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}" alt="limpiabnb"
-                                    class="w-full h-full"
-                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
+                            <div data-aos="fade-up" data-aos-duration="1500" 
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img  src="{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}" alt="limpiabnb"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top"
+                                   onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
                             </div>
-
+                           
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/webverde.png') }}" alt="emprendenvio"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}" alt="emprendenvio"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}" alt="logistic"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}" alt="logistic"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/Capi.png') }}" alt="hpi"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_43.png') }}" alt="hpi"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_42.png') }}" alt="hpi"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_44.png') }}" alt="hpi"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
                             </div>
 
                             <div data-aos="fade-up" data-aos-duration="1500"
-                                class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
-                                    class="w-full h-full"
+                                class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                <img src="{{ asset('images/img/imgMundoWeb/image_46.png') }}" alt="hpi"
+                                    class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                     onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
                             </div>
                         </div>
@@ -549,72 +557,72 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide flex items-center justify-center mx-auto">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/MockUpBnb.png') }}"
-                                            alt="limpiabnb" class="w-full h-full"
-                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                       <img  src="{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}" alt="limpiabnb"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top"
+                                        onclick="openModal('{{ asset('images/img/imgMundoWeb/LimpiaBnb.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/webverde.png') }}"
-                                            alt="emprendenvio" class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                        <img src="{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}" alt="emprendenvio"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/EmprendeEnvio.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/MockupLogistic.png') }}"
-                                            alt="logistic" class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                       <img src="{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}" alt="logistic"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/PatnertsLogistic.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/CapiMk.png') }}" alt="hpi"
-                                            class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                        <img src="{{ asset('images/img/imgMundoWeb/Capi.png') }}" alt="hpi"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/Capi.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/image_10.png') }}" alt="hpi"
-                                            class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                         <img src="{{ asset('images/img/imgMundoWeb/image_43.png') }}" alt="hpi"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/image_43.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/image_11.png') }}" alt="hpi"
-                                            class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                        <img src="{{ asset('images/img/imgMundoWeb/image_42.png') }}" alt="hpi"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/image_42.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/image_12.png') }}" alt="hpi"
-                                            class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                       <img src="{{ asset('images/img/imgMundoWeb/image_44.png') }}" alt="hpi"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/image_44.png') }}')">
                                     </div>
                                 </div>
 
                                 <div class="swiper-slide">
                                     <div
-                                        class="flex justify-center items-center md:hover:scale-110 md:duration-300 border-black border-[10px] rounded-xl">
-                                        <img src="{{ asset('images/img/imgMundoWeb/image_13.png') }}" alt="hpi"
-                                            class="w-full h-full"
+                                        class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
+                                         <img src="{{ asset('images/img/imgMundoWeb/image_46.png') }}" alt="hpi"
+                                            class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
                                             onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
                                     </div>
                                 </div>
@@ -625,18 +633,21 @@
 
                     <!-- Modal -->
                     <div id="modal" class="modal hidden fixed inset-0 items-center justify-center z-[100]">
+                           
+                            <span class=" close absolute top-[10%] md:top-0 right-[8%] md:right-[20%] -mr-3 cursor-pointer text-white text-text48  leading-none p-3  cerrar rounded-full z-[101]">
+                                <img src="{{ asset('images/img/imgMundoWeb/cerrar_close.svg') }}" alt=""
+                                        class="cerrar_close">
+                            </span>
+
                         <div class="modal-overlay absolute w-full h-full bg-black opacity-50 opacidad"></div>
+                        
                         <div
                             class="modal-container bg-white mx-auto  rounded shadow-lg z-[100]  overflow-y-auto relative ancho_modal">
                             {{-- w-5/6 --}}
+                            
                             <div class="modal-content p-4 relative overflow-y-scroll height-modal">
                                 {{--  style="max-height: 700px;" --}}
-                                <span
-                                    class="close absolute top-2 right-0 mx-4 cursor-pointer text-white text-text48  leading-none p-3  cerrar rounded-full">
-                                    <img src="{{ asset('images/img/imgMundoWeb/cerrar_close.svg') }}" alt=""
-                                        class="cerrar_close">
-
-                                </span>
+                               
                                 <img id="modalImage" src="" alt="Imagen" class="w-full h-auto">
                             </div>
                         </div>
@@ -1176,6 +1187,17 @@
 
 
     });
+
+
+    // Cerrar modal al hacer clic fuera del contenido del modal
+    document.querySelector('.modal-overlay').addEventListener('click', closeModal);
+
+    // Cerrar modal al presionar la tecla Escape
+    document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+    });
 </script>
 <script>
     $('#procesarSolicitud').on('click', function() {
@@ -1261,4 +1283,14 @@
 </script>
 <script>
     AOS.init();
+
+    $('#ex1').click(function(event) {
+        event.preventDefault();
+        this.blur(); // Manually remove focus from clicked link.
+        $.get(this.href, function(html) {
+            $(html).appendTo('body').modal();
+        });
+    });
 </script>
+
+
