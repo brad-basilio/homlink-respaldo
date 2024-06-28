@@ -14,10 +14,8 @@ class EmailConfig
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        // $mail->Username = 'hola@mundoweb.pe';
-        // $mail->Password = 'uohombtocndviqyz';
-        $mail->Username = 'diegomartinez1996x@gmail.com';
-        $mail->Password = 'piqutsbcfdzsrnkp';
+        $mail->Username = 'hola@mundoweb.pe';
+        $mail->Password = 'tyiuxfbugobqlvbf';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $mail->Port = 465;
         $mail->Subject = '' . $name . ', Gracias por comunicarte con Mundo Web';
