@@ -271,8 +271,8 @@
                 <div class="flex flex-col lg:flex-row justify-between gap-0 md:gap-10" >
                     <div class="basis-1/2 flex flex-col gap-5 px-5 md:pl-16 pt-16  md:pb-0" data-aos="fade-right" data-aos-duration="1500">
                         <span class="font-RightgroteskMedium text-text32 md:text-text64">🚀</span>
-                        <h1 class="font-RightgroteskMedium text-text32 md:text-text44 lg:text-text56 leading-tight text-[#050A41] md:h-40 h-28 sm:h-60">
-                            <span class="text-[#E15A29]">¡Nuestra pasión, </span><span id="type"></span> 
+                        <h1 class="font-RightgroteskMedium text-text32 md:text-text64 leading-tight text-[#050A41]">
+                            <span class="text-[#E15A29]">¡Nuestra pasión, </span><span id="type">tu transformación Digital!</span> 
                         </h1>
                         <p class="font-montserrat font-medium text-text18 md:text-text20 text-[#3F4654]">Somos una
                             <b>empresa de desarrollo web</b> joven y dinámica, especializada en transformar ideas en
@@ -1057,11 +1057,11 @@
 
 
 <script>
-    new Typewriter('#type', {
-            strings: ['tu transformación Digital!', 'tu presencia en Internet', 'la calidad en tu Servicio'], 
-            autoStart: true,
-            loop:true,
-        });
+    //new Typewriter('#type', {
+         //   strings: ['tu transformación Digital!', 'tu presencia en Internet', 'la calidad en tu Servicio'], 
+        //    autoStart: true,
+        //    loop:true,
+       // });
 
     var swiper = new Swiper(".proceso", {
         slidesPerView: 1,
