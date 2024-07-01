@@ -263,7 +263,7 @@
             </div>
         </div> --}}
         <div class="flex justify-end w-11/12 mx-auto  z-10" >
-            <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[4rem] z-[80]  lg:right-[40px]">
+            <div class="fixed bottom-6 sm:bottom-[2rem] right-[20px] lg:bottom-[7rem] z-[80]  lg:right-[40px]">
                 <a href="https://wa.link/x8295h" rel="noopener" target="_blank">
                     <img src="{{ asset('images/img/imgMundoWeb/WhatsApp.svg') }}" alt="whatsapp"
                         class="w-20 h-20 md:w-full md:h-full">
@@ -544,9 +544,9 @@
 
                             <div data-aos="fade-up" data-aos-duration="1500"
                                 class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
-                                <img src="{{ asset('images/img/imgMundoWeb/image_46.png') }}" alt="hpi"
+                                <img src="{{ asset('images/img/imgMundoWeb/machineshop.png') }}" alt="hpi"
                                     class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
-                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
+                                    onclick="openModal('{{ asset('images/img/imgMundoWeb/machineshop.png') }}')">
                             </div>
                         </div>
                     </div>
@@ -621,9 +621,9 @@
                                 <div class="swiper-slide">
                                     <div
                                         class="flex justify-center items-start md:hover:scale-110 md:duration-300 shadow-md shadow-black border-black border-[7px] rounded-xl overflow-hidden">
-                                         <img src="{{ asset('images/img/imgMundoWeb/image_46.png') }}" alt="hpi"
+                                         <img src="{{ asset('images/img/imgMundoWeb/machineshop.png') }}" alt="hpi"
                                             class="w-full h-[400px] xl:h-[520px] bg-cover object-cover  object-top p-0"
-                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/image_46.png') }}')">
+                                            onclick="openModal('{{ asset('images/img/imgMundoWeb/machineshop.png') }}')">
                                     </div>
                                 </div>
                             </div>
@@ -1055,7 +1055,7 @@
                 <div
                     class="flex flex-row justify-between lg:items-center lg:justify-end lg:col-span-5 gap-2 lg:gap-10">
                     <p class="text-base font-normal text-white">hola@mundoweb.pe</p>
-                    <p class="text-base font-normal text-white">+51 934 464 915</p>
+                   
                 </div>
             </div>
         </div>
