@@ -422,6 +422,11 @@
                                             required id="email"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
+                                    
+                                </div>
+
+                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
+                                    
                                     <div class="w-full flex">
                                     
                                         <select id="phone_prefix" name="country_prefix" class="w-2/5 shadow-lg text-[#323BDC] font-montserrat py-4 px-5 rounded-l-xl text-text16 font-medium bg-white border-none">
