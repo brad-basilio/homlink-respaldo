@@ -443,10 +443,10 @@ class LandingController extends Controller
                 ]
             ]);
 
-            // dump($res->text());
+            dump($res->text());
 
         } catch (\Throwable $th) {
-            // dump($th);
+            dump($th);
         }
     }
     static function envioCorreoMundo($data)
