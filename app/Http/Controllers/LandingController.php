@@ -428,7 +428,7 @@ class LandingController extends Controller
             $mail->isHTML(true);
             $mail->send();
 
-            new Fetch(env('WA_URL') . '/api/send', [
+            $res = new Fetch(env('WA_URL') . '/api/send', [
                 'method' => 'POST',
                 'headers' => [
                     'Accept' => 'application/json',
@@ -442,8 +442,11 @@ class LandingController extends Controller
                     'html' => $html
                 ]
             ]);
+
+            // dump($res->text());
+
         } catch (\Throwable $th) {
-            //throw $th;
+            // dump($th);
         }
     }
     static function envioCorreoMundo($data)
