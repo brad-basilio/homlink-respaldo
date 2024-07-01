@@ -91,7 +91,7 @@ class LandingController extends Controller
 
     public function storeLanding(Request $request)
     {
-
+        
         $reglasValidacion = [
             'contact_name' => 'required|string|max:255',
             'contact_email' => 'required|email|max:255',
@@ -138,8 +138,8 @@ class LandingController extends Controller
             $landingData['sector '] = 'Rubro desconocido';
         }
 
-
-
+       
+        
 
 
         $formlanding = Client::create($landingData);

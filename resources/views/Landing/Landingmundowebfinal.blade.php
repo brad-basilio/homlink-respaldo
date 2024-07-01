@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
+
+
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> --}}
 
 
@@ -420,10 +422,15 @@
                                             required id="email"
                                             class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
                                     </div>
-                                    <div class="w-full">
+                                    <div class="w-full flex">
+                                    
+                                        <select id="phone_prefix" name="country_prefix" class="w-2/5 shadow-lg text-[#323BDC] font-montserrat py-4 px-5 rounded-l-xl text-text16 font-medium bg-white border-none">
+                                            <option value="" disabled selected>Selecciona</option>
+                                        </select>
+                                   
                                         <input type="text" name="contact_phone" placeholder="Teléfono" required
                                             id="telefono" maxlength="9"
-                                            class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                                            class="shadow-lg text-[#323BDC] font-montserrat w-3/5 py-4 px-5 rounded-r-xl text-text16 font-medium bg-white border-none">
                                     </div>
                                 </div>
 
@@ -1292,5 +1299,28 @@
         });
     });
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phonePrefixSelect = document.getElementById('phone_prefix');
+
+        fetch('./prefijocelular.json')
+            .then(response => response.json())
+            .then(phonePrefixes => {
+                phonePrefixes.forEach(prefix => {
+                    const option = document.createElement('option');
+                    option.value = prefix.realCode;
+                    option.textContent = `${prefix.country} (${prefix.beautyCode})`;
+                    if (prefix.realCode === "51") {
+                        option.selected = true; 
+                    }
+                    phonePrefixSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error cargando el archivo JSON:', error));
+    });
+</script>
+
+
 
 
