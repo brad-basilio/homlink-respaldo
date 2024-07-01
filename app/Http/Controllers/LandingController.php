@@ -140,7 +140,7 @@ class LandingController extends Controller
 
        
         
-        dd($request);
+        
 
         $formlanding = Client::create($landingData);
 
