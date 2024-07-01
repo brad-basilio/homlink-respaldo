@@ -1305,7 +1305,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         const phonePrefixSelect = document.getElementById('phone_prefix');
 
@@ -1323,6 +1323,39 @@
                 });
             })
             .catch(error => console.error('Error cargando el archivo JSON:', error));
+    });
+</script> --}}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const phonePrefixSelect = document.getElementById('phone_prefix');
+
+        fetch('./prefijocelular.json')
+            .then(response => response.json())
+            .then(phonePrefixes => {
+                phonePrefixes.forEach(prefix => {
+                    const option = document.createElement('option');
+                    option.value = prefix.realCode;
+                    option.textContent = `${prefix.country} (${prefix.beautyCode})`;
+                    phonePrefixSelect.appendChild(option);
+                });
+
+                // Recuperar y establecer el prefijo seleccionado desde localStorage
+                const selectedPrefix = localStorage.getItem('selectedPrefix');
+                if (selectedPrefix) {
+                    phonePrefixSelect.value = selectedPrefix;
+                } else {
+                    // Si no hay valor en localStorage, establecer Perú como predeterminado
+                    phonePrefixSelect.value = "51";
+                }
+            })
+            .catch(error => console.error('Error cargando el archivo JSON:', error));
+
+        // Guardar la selección en localStorage al cambiar la selección
+        phonePrefixSelect.addEventListener('change', function() {
+            localStorage.setItem('selectedPrefix', phonePrefixSelect.value);
+        });
     });
 </script>
 
