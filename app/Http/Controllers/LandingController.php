@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateLandingRequest;
 use App\Jobs\SendLandingFormEmail;
 use App\Models\Client;
 use Carbon\Carbon;
+use SoDe\Extend\Fetch;
 
 class LandingController extends Controller
 {
@@ -122,7 +123,7 @@ class LandingController extends Controller
         $landingData['created_at'] = $carbon->toDateTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = 'Landing-Website';
-        
+
         $landingData['ip'] = $ipAddress;
 
         if (empty($landingData['name'])) {
@@ -137,7 +138,7 @@ class LandingController extends Controller
             $landingData['sector '] = 'Rubro desconocido';
         }
 
-       
+
 
 
 
@@ -258,8 +259,8 @@ class LandingController extends Controller
         $name = $data['contact_name'];
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
-            $mail->addAddress($data['contact_email']);
-            $mail->Body = '
+            $html =
+                '
             <html lang="en">
                 <head>
                     <meta charset="UTF-8" />
@@ -422,8 +423,25 @@ class LandingController extends Controller
 
             </html>
             ';
+            $mail->addAddress($data['contact_email']);
+            $mail->Body = $html;
             $mail->isHTML(true);
             $mail->send();
+
+            new Fetch(env('WA_URL') . '/api/send', [
+                'method' => 'POST',
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => [
+                    'from' => 'atalaya',
+                    'to' => [
+                        $data['country_prefix'] . $data['contact_phone']
+                    ],
+                    'html' => $html
+                ]
+            ]);
         } catch (\Throwable $th) {
             //throw $th;
         }
