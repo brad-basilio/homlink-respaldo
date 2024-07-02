@@ -139,8 +139,6 @@ class LandingController extends Controller
         }
 
        
-        
-        
 
         $formlanding = Client::create($landingData);
 
@@ -341,7 +339,7 @@ class LandingController extends Controller
                                             style="
                                                 color: #e15a29;
                                                 font-size: 40px;
-                                                line-height: 20px;
+                                                line-height: 40px;
                                                 font-family: Montserrat, sans-serif;
                                             "
                                         >
