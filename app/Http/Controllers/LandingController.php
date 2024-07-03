@@ -441,12 +441,12 @@ class LandingController extends Controller
                 ]
             ]);
 
-            sleep(3);
+            sleep(5);
 
             $message = SettingController::get('whatsapp-new-lead-notification-message-client');
 
             foreach ($data as $key => $value) {
-                $message = str_replace('{' . $key . '}', $value, $message);
+                $message = str_replace('{{' . $key . '}}', $value, $message);
             }
 
             new Fetch(env('WA_URL') . '/api/send', [
@@ -626,7 +626,7 @@ class LandingController extends Controller
             $destinatary = SettingController::get('whatsapp-new-lead-notification-waid');
 
             foreach ($data as $key => $value) {
-                $message = str_replace('{' . $key . '}', $value, $message);
+                $message = str_replace('{{' . $key . '}}', $value, $message);
             }
 
             new Fetch(env('WA_URL') . '/api/send', [
@@ -638,7 +638,7 @@ class LandingController extends Controller
                 'body' => [
                     'from' => 'atalaya',
                     'to' => [$destinatary],
-                    'content' => $message
+                    'content' => UtilController::html2wa($message)
                 ]
             ]);
         } catch (\Throwable $th) {
