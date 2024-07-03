@@ -91,7 +91,7 @@ class LandingController extends Controller
 
     public function storeLanding(Request $request)
     {
-        
+
         $reglasValidacion = [
             'contact_name' => 'required|string|max:255',
             'contact_email' => 'required|email|max:255',
@@ -138,9 +138,9 @@ class LandingController extends Controller
             $landingData['sector '] = 'Rubro desconocido';
         }
 
-       
-        
-        
+
+
+
 
         $formlanding = Client::create($landingData);
 
@@ -428,7 +428,7 @@ class LandingController extends Controller
             $mail->isHTML(true);
             $mail->send();
 
-            $res = new Fetch(env('WA_URL') . '/api/send', [
+            new Fetch(env('WA_URL') . '/api/send', [
                 'method' => 'POST',
                 'headers' => [
                     'Accept' => 'application/json',
@@ -443,8 +443,28 @@ class LandingController extends Controller
                 ]
             ]);
 
-            // dump($res->text());
+            sleep(3);
 
+            $message = SettingController::get('whatsapp-new-lead-notification-message-client');
+
+            foreach ($data as $key => $value) {
+                $message = str_replace('{' . $key . '}', $value, $message);
+            }
+
+            new Fetch(env('WA_URL') . '/api/send', [
+                'method' => 'POST',
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => [
+                    'from' => 'atalaya',
+                    'to' => [
+                        $data['country_prefix'] . $data['contact_phone']
+                    ],
+                    'content' => $message
+                ]
+            ]);
         } catch (\Throwable $th) {
             // dump($th);
         }
@@ -457,8 +477,7 @@ class LandingController extends Controller
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
             $mail->addAddress('hola@mundoweb.pe');
-            $mail->Body = '
-            <html lang="en">
+            $mail->Body = '<html lang="en">
                 <head>
                     <meta charset="UTF-8" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -566,44 +585,64 @@ class LandingController extends Controller
                                     </td>
                                 </tr>
                                 
-            <tr>
-            <td>
-                <a href="https://mundoweb.pe/" style="
-                    text-decoration: none;
-                    background-color: #e15a29;
-                    color: white;
-                    border-radius: 40px;
-                    padding: 12px 20px;
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 10px;
-                    font-weight: 600;
-                    font-family: Montserrat, sans-serif;
-                ">
-                    <span>Haz que tu negocio despegue</span>
-                    <img  src="https://mundoweb.pe/mail/buttonmailing.png" style="
-                        width: 20px;
-                        margin-left: 15px;
-                        height: 20px;
-                    " />
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 30px;">
-                <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
-            </td>
-        </tr>
-            </tbody>
-            </table>
-            </main>
-            </body>
+                <tr>
+                <td>
+                    <a href="https://mundoweb.pe/" style="
+                        text-decoration: none;
+                        background-color: #e15a29;
+                        color: white;
+                        border-radius: 40px;
+                        padding: 12px 20px;
+                        display: inline-flex;
+                        justify-content: center;
+                        align-items: center;
+                        gap: 10px;
+                        font-weight: 600;
+                        font-family: Montserrat, sans-serif;
+                    ">
+                        <span>Haz que tu negocio despegue</span>
+                        <img  src="https://mundoweb.pe/mail/buttonmailing.png" style="
+                            width: 20px;
+                            margin-left: 15px;
+                            height: 20px;
+                        " />
+                    </a>
+                </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding-right: 30px;">
+                        <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+                </main>
+                </body>
 
-            </html>
-            ';
+            </html>';
             $mail->isHTML(true);
             $mail->send();
+
+
+            $message = SettingController::get('whatsapp-new-lead-notification-message');
+            $destinatary = SettingController::get('whatsapp-new-lead-notification-waid');
+
+            foreach ($data as $key => $value) {
+                $message = str_replace('{' . $key . '}', $value, $message);
+            }
+
+            new Fetch(env('WA_URL') . '/api/send', [
+                'method' => 'POST',
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => [
+                    'from' => 'atalaya',
+                    'to' => [$destinatary],
+                    'content' => $message
+                ]
+            ]);
         } catch (\Throwable $th) {
             //throw $th;
         }
