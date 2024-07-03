@@ -11,6 +11,7 @@ use App\Jobs\SendLandingFormEmail;
 use App\Models\Client;
 use Carbon\Carbon;
 use SoDe\Extend\Fetch;
+use SoDe\Extend\Text;
 
 class LandingController extends Controller
 {
@@ -623,7 +624,7 @@ class LandingController extends Controller
 
 
             $message = SettingController::get('whatsapp-new-lead-notification-message');
-            $destinatary = SettingController::get('whatsapp-new-lead-notification-waid');
+            $destinatary = Text::keep(SettingController::get('whatsapp-new-lead-notification-waid'), '0123456789@gc.us');
 
             foreach ($data->toArray() as $key => $value) {
                 $message = str_replace('{{' . $key . '}}', $value, $message);
