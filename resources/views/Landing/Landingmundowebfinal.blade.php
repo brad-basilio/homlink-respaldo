@@ -1253,13 +1253,11 @@
                 Swal.fire({
                     title: response.message,
                     icon: "success",
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = 'https://mundoweb.pe/website#formularioListo';
-                    }
                 });
 
                 $('#dataForm')[0].reset();  
+                
+                window.location.href = 'https://mundoweb.pe/website#formularioListo';
             },
             error: function(response) {
 
