@@ -247,8 +247,8 @@
                       </div>
 
                       <!-- @error('cargo')
-  <span class="text-red-500 text-base ">{{ $message }}</span>
-@enderror  -->
+                              <span class="text-red-500 text-base ">{{ $message }}</span>
+                            @enderror  -->
                     </div>
 
                   </div>
@@ -258,8 +258,8 @@
                       class="font-MontserratRegular appearance-none block w-full bg-white  text-azulwebsite placeholder:text-azulwebsite border-none rounded-2xl py-4 px-4 mb-3 leading-tight "
                       name="empresa" type="text" placeholder="Empresa / Marca">
                     <!-- @error('empresa')
-  <span class="text-red-500 text-base ">{{ $message }}</span>
-@enderror -->
+                          <span class="text-red-500 text-base ">{{ $message }}</span>
+                        @enderror -->
                   </div>
 
                 </div>
