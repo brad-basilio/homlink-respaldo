@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('landings', function (Blueprint $table) {
-            $table->string('fecha')->nullable();
-            $table->string('hora')->nullable();
-            $table->string('lead')->nullable();
-            $table->string('ip')->nullable();
-            $table->string('llegade')->nullable();
-            $table->string('anchodispositivo')->nullable();
-            $table->string('largodispositivo')->nullable();
-            $table->string('latitud')->nullable();
-            $table->string('longitud')->nullable();
-            $table->string('sistema')->nullable();
+            // $table->string('fecha')->nullable();
+            // $table->string('hora')->nullable();
+            // $table->string('lead')->nullable();
+            // $table->string('ip')->nullable();
+            // $table->string('llegade')->nullable();
+            // $table->string('anchodispositivo')->nullable();
+            // $table->string('largodispositivo')->nullable();
+            // $table->string('latitud')->nullable();
+            // $table->string('longitud')->nullable();
+            // $table->string('sistema')->nullable();
         });
     }
 
