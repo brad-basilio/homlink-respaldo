@@ -32,6 +32,16 @@
         gtag('event', 'conversion', {'send_to': 'AW-11094498070/qv5WCLv1icQZEJa2oqop'});
         </script>
 
+        <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7CQ3LKCR4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N7CQ3LKCR4');
+    </script>
+
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> --}}
 
 
