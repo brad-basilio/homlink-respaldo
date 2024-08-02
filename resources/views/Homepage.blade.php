@@ -522,9 +522,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           title: response.message,
           icon: "success",
         }).then((result) => {
-        if (result.isConfirmed) {
             window.location.href = "{{ route('thankyoupage') }}";
-        }
         });
       },
       error: function(response) {
