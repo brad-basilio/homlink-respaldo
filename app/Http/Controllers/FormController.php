@@ -201,6 +201,12 @@ class FormController extends Controller
         // return redirect()->route('inicio', $formulariohome)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message'=> 'Mensaje enviado con exito']);
     }
+
+
+    public function thankyoupage(){
+        return view('Thankyupage');
+    }
+
     /**
      * Display the specified resource.
      */

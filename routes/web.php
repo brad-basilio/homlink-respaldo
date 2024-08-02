@@ -47,6 +47,7 @@ Route::post('/servicios/landing', [FormController::class, 'store2'] )->name('gua
 Route::post('/servicios/onepage', [FormController::class, 'store3'] )->name('guardarpopup3');
 Route::post('/servicios/aplicativos', [FormController::class, 'store4'] )->name('guardarpopup4');
 Route::post('/', [FormController::class, 'store5'] )->name('formhome');
+Route::get('/thankyoupage', [FormController::class, 'thankyoupage'] )->name('thankyoupage');
 
 Route::get('/landingaplicativos', [LandingController::class, 'viewAplicativos'] )->name('landingaplicativos');
 Route::get('/landingmundoweb', [LandingController::class, 'viewstoreLanding'] )->name('landingmundoweb');
