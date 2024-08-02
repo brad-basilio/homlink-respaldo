@@ -540,8 +540,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   document.getElementById('formHome').addEventListener('submit', async function(e) {
     e.preventDefault()
-    if (!validarTelefono($('#contact_phone').val())) return;
-    if (!validarEmail($('#contact_email').val())) return;
+    // if (!validarTelefono($('#contact_phone').val())) return;
+    // if (!validarEmail($('#contact_email').val())) return;
 
     try {
       const request = {
