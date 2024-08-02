@@ -123,7 +123,7 @@ class LandingController extends Controller
         $landingData['time'] = $carbon->toTimeString();
         $landingData['created_at'] = $carbon->toDateTimeString();
         $landingData['status_id'] = 10;
-        $landingData['origin'] = 'Landing-Website';
+        $landingData['origin'] = '[Mundo Web] - Landing WebSite';
 
         $landingData['ip'] = $ipAddress;
 
