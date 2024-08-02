@@ -552,8 +552,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         // tradename: $('#tradename').val(),
         // workers: $('#workers').val(),
         message: $('#message').val(),
-        origin: '[Mundo Web] - Landing WebSite',
-        source: '[Mundo Web] - Landing WebSite',
+        origin: '[Mundo Web] - Web Oficial',
+        source: '[Mundo Web] - Web Oficial',
       }
       const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
         method: 'POST',
