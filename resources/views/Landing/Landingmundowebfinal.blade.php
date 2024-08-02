@@ -438,14 +438,16 @@
                                 @csrf
                                 <div>
                                     <input type="text" name="contact_name" placeholder="Nombre Completo" required
-                                        class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white border-none">
+                                        class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px]
+                                          text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16  placeholder-opacity-25 font-medium bg-white">
                                 </div>
 
                                 <div class="flex flex-col md:flex-row md:justify-between gap-5 w-full">
                                     <div class="w-full">
                                         <input type="email" name="contact_email" placeholder="Correo Electrónico"
                                             required id="email"
-                                            class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                                            class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px]
+                                             text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white">
                                     </div>
                                     
                                 </div>
@@ -454,13 +456,16 @@
                                     
                                     <div class="w-full flex">
                                     
-                                        <select id="phone_prefix" name="country_prefix" class="w-2/5 shadow-lg text-[#323BDC] font-montserrat py-4 px-5 rounded-l-xl text-text16 font-medium bg-white border-none">
+                                        <select id="phone_prefix" name="country_prefix" class="
+                                            shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                            w-2/5 text-[#323BDC] font-montserrat py-4 px-5 rounded-l-xl text-text16 font-medium bg-white border-r-0">
                                             <option value="" disabled selected>Selecciona</option>
                                         </select>
                                    
                                         <input type="text" name="contact_phone" placeholder="Teléfono" required
                                             id="telefono" maxlength="9"
-                                            class="shadow-lg text-[#323BDC] font-montserrat w-3/5 py-4 px-5 rounded-r-xl text-text16 font-medium bg-white border-none">
+                                            class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                             text-[#323BDC] font-montserrat w-3/5 py-4 px-5 rounded-r-xl text-text16 font-medium bg-white border-l-0">
                                     </div>
                                 </div>
 
@@ -468,18 +473,21 @@
 
                                     <div class="w-full">
                                         <input type="text" placeholder="Empresa / Marca (Opcional)" name="name"
-                                            class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                                            class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                             text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white">
                                     </div>
                                     <div class="w-full">
                                         <input type="text" placeholder="Rubro Empresarial (Opcional)"
                                             name="sector"
-                                            class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                                            class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                             text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white">
                                     </div>
 
                                 </div>
                                 <div class="w-full">
                                     <input type="text" placeholder="Link de Web (Opcional)" name="web_url"
-                                        class="shadow-lg text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white border-none">
+                                        class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                         text-[#323BDC] font-montserrat w-full py-4 px-5 rounded-xl text-text16 font-medium bg-white ">
                                 </div>
 
                                 <input type="hidden" name="source" id="source" value="[Mundo Web] - Landing WebSite">
@@ -492,7 +500,8 @@
 
                                 <div>
                                     <textarea name="message" id="input" rows="5" maxlength="256" placeholder="Cuéntanos sobre tu proyecto"
-                                        class="shadow-lg  text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul"></textarea>
+                                        class="shadow-sm shadow-[#303BE4] border-[#303BE4] border-[1px] 
+                                          text-[#323BDC] w-full py-4 bg-bgRosaWeak rounded-xl text-text16 font-medium px-5 font-montserrat placeholder:text-textAzul"></textarea>
                                 </div>
                             </form>
                         </div>
