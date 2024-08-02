@@ -198,7 +198,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="w-full col-span-12 lg:col-span-12  ">
                   <input
                     class="font-MontserratRegular appearance-none block w-full  bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "
-                    name="nombre" type="text" placeholder="Nombre completo">
+                    name="nombre" type="text" placeholder="Nombre completo" id="contact_name">
                   @error('nombre')
                     <span class="text-red-500 text-base ">{{ $message }}</span>
                   @enderror
@@ -217,7 +217,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="w-full col-span-12 lg:col-span-6">
                   <input
                     class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 "
-                    name="email" type="email" placeholder="Correo electrónico">
+                    name="email" type="email" placeholder="Correo electrónico" id="contact_email">
                   @error('email')
                     <span class="text-red-500 text-base ">{{ $message }}</span>
                   @enderror
@@ -226,7 +226,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="w-full col-span-12 lg:col-span-6 ">
                   <input
                     class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 "
-                    name="telefono" type="text" placeholder="Número de teléfono">
+                    name="telefono" type="text" placeholder="Número de teléfono" id="contact_phone">
                   @error('telefono')
                     <span class="text-red-500 text-base ">{{ $message }}</span>
                   @enderror
@@ -275,9 +275,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                 <div class="w-full xs:col-span-12 lg:col-span-12  ">
 
-                  <input
+                  <textarea
                     class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "
-                    name="urlweb" type="text" placeholder="https://tu-web.com (opcional)">
+                    name="urlweb"  placeholder="Mensaje" rows="3" id="message"></textarea>
                 </div>
 
 
@@ -536,4 +536,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     });
 
   })
+</script>
+<script>
+  document.getElementById('formHome').addEventListener('submit', async function(e) {
+    e.preventDefault()
+    if (!validarTelefono($('#contact_phone').val())) return;
+    if (!validarEmail($('#contact_email').val())) return;
+
+    try {
+      const request = {
+        contact_name: $('#contact_name').val(),
+        contact_phone: $('#contact_phone').val(),
+        contact_email: $('#contact_email').val(),
+        // contact_position: $('#contact_position').val(),
+        // tradename: $('#tradename').val(),
+        // workers: $('#workers').val(),
+        message: $('#message').val(),
+        origin: '[Mundo Web] - Landing WebSite',
+        source: '[Mundo Web] - Landing WebSite',
+      }
+      const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(request)
+      })
+      const data = await res.json()
+    } catch (error) {
+      console.error(error)
+    }
+  })
+</script>
+<script>
+      // Obtener información del navegador y del sistema operativo
+      const platform = navigator.platform;
+      document.getElementById('sistema').value = platform;
+
+      // Obtener la geolocalización del usuario (si se permite)
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              document.getElementById('latitud').value = position.coords.latitude;
+              document.getElementById('longitud').value = position.coords.longitude;
+          });
+      }
+
+      // Obtener la resolución de la pantalla
+      const screenWidth = window.screen.width;
+      const screenHeight = window.screen.height;
+      document.getElementById('anchodispositivo').value = screenWidth;
+      document.getElementById('largodispositivo').value = screenHeight;
+
 </script>
