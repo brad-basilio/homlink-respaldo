@@ -24,6 +24,15 @@
 
 </head>
 
+<div class="fullscreen-container">
+    <video loop muted autoplay class="fullscreen-video md:block">
+      <source src="../video/videomwdesktop.mp4" type="video/mp4">
+    </video>
+    <video loop muted autoplay class="fullscreen-video block md:hidden">
+      <source src="../video/videomwmovil.mp4" type="video/mp4">
+    </video>
+</div>
+
 <body class="font-sans bg-azuloscuro h-screen">
 
     <!-- Encabezado superpuesto -->
@@ -41,7 +50,7 @@
     <div class="grid grid-cols-1 h-[85%]">
         <div class="col-span-1 w-full h-full p-4 text-left flex flex-col justify-center items-center mx-auto">
             <div class="flex flex-col justify-center items-center xs:px-[2%] md:px-[8%] gap-5 h-full">
-                <img class="w-[400px]" src="{{ asset('img/thank.png') }}" />
+                <img class="w-[500px]" src="{{ asset('img/thank.png') }}" />
                 <h2 class="text-2xl text-white w-full font-normal font-RightgroteskMedium tracking-wider text-center">
                     ¡Gracias por tu mensaje! Nos pondremos en contacto contigo lo antes posible.
                 </h2>
