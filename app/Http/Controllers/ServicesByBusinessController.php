@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Fetch;
+use SoDe\Extend\JSON;
 use SoDe\Extend\Response;
 
 class ServicesByBusinessController extends BasicController
@@ -44,7 +45,7 @@ class ServicesByBusinessController extends BasicController
 
     public function enableService(Request $request)
     {
-        $response = Response::simpleTryCatch(function ($res) use ($request) {
+        $response = Response::simpleTryCatch(function ($response) use ($request) {
             $serviceJpa = Service::select()
                 ->where('correlative', $request->service)
                 ->where('status', true)
@@ -75,10 +76,21 @@ class ServicesByBusinessController extends BasicController
                 'invitation_accepted' => true
             ]);
 
-            $res->data = [
-                'business' => $businessJpa->uuid,
-                'service' => $serviceJpa->correlative
-            ];
+            $correlative = $serviceJpa->correlative;
+            $domain = env('APP_DOMAIN');
+            $uuid = $businessJpa->uuid;
+
+            $res = file_get_contents("//{$correlative}.{$domain}/api/start/{$uuid}");
+            if ($res === FALSE) {
+                ServicesByBusiness::where('id', $sbb->id)->delete();
+                throw new Exception('Ocurrio un error al inicializar el servicio ' . $serviceJpa->name);
+            }
+
+            $data = JSON::parse($res);
+            if ($data['status'] != 200) {
+                ServicesByBusiness::where('id', $sbb->id)->delete();
+                throw new Exception($data['message'] ?? 'Ocurrio un error inesperado al inicializar el servicio ' . $serviceJpa->name);
+            }
         });
 
         return response(

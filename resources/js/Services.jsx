@@ -87,8 +87,8 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN }) => {
     const result = await servicesByBusinessesRest.enableService(businessRuc, service)
     e.target.disabled = false
     if (!result) return
-    const res = await Fetch(`//${result.data.service}.${APP_DOMAIN}/api/start/${result.data.business}`);
-    console.log(res)
+    // const res = await Fetch(`//${result.data.service}.${APP_DOMAIN}/api/start/${result.data.business}`);
+    console.log(result)
     getServicesByBusiness()
   }
 
