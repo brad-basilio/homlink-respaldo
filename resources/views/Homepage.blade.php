@@ -28,13 +28,24 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-WKKZ35GL');</script>
-        <!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WKKZ35GL');
+  </script>
+  <!-- End Google Tag Manager -->
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q5HR10EMH"></script>
@@ -49,14 +60,17 @@
     gtag('config', 'G-1Q5HR10EMH');
   </script>
   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7CQ3LKCR4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7CQ3LKCR4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-N7CQ3LKCR4');
-    </script>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N7CQ3LKCR4');
+  </script>
 </head>
 
 <div class="fullscreen-container">
@@ -69,10 +83,10 @@
 </div>
 
 <body class="font-sans bg-azuloscuro lg:h-screen">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKKZ35GL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKKZ35GL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-[5%]  w-full z-10 h-[15%]  flex justify-between items-center ">
@@ -241,7 +255,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
                   <textarea
                     class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "
-                    name="urlweb"  placeholder="Mensaje" rows="3" id="message"></textarea>
+                    name="urlweb" placeholder="Mensaje" rows="3" id="message"></textarea>
                 </div>
               </div>
               <div class="group  mt-6">
@@ -421,7 +435,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           title: response.message,
           icon: "success",
         }).then((result) => {
-            window.location.href = "{{ route('thankyoupage') }}";
+          window.location.href = "{{ route('thankyoupage') }}";
         });
       },
       error: function(response) {
@@ -463,28 +477,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         body: JSON.stringify(request)
       })
       const data = await res.json()
+
+      const restCRM = await fetch('https://crm.mundoweb.pe/free/leads', {
+        headers: {
+          'Authorization': 'Bearer e56472dc-528a-11ef-92d6-020000e88c92',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          ...request,
+          tradename: request.contact_name
+        })
+      })
+      const dataCRM = await restCRM.json()
     } catch (error) {
       console.error(error)
     }
   })
 </script>
 <script>
-      // Obtener información del navegador y del sistema operativo
-      const platform = navigator.platform;
-      document.getElementById('sistema').value = platform;
+  // Obtener información del navegador y del sistema operativo
+  const platform = navigator.platform;
+  document.getElementById('sistema').value = platform;
 
-      // Obtener la geolocalización del usuario (si se permite)
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-              document.getElementById('latitud').value = position.coords.latitude;
-              document.getElementById('longitud').value = position.coords.longitude;
-          });
-      }
+  // Obtener la geolocalización del usuario (si se permite)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      document.getElementById('latitud').value = position.coords.latitude;
+      document.getElementById('longitud').value = position.coords.longitude;
+    });
+  }
 
-      // Obtener la resolución de la pantalla
-      const screenWidth = window.screen.width;
-      const screenHeight = window.screen.height;
-      document.getElementById('anchodispositivo').value = screenWidth;
-      document.getElementById('largodispositivo').value = screenHeight;
-
+  // Obtener la resolución de la pantalla
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  document.getElementById('anchodispositivo').value = screenWidth;
+  document.getElementById('largodispositivo').value = screenHeight;
 </script>
