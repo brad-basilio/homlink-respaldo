@@ -7,11 +7,6 @@ use App\Models\Contacto;
 
 class ContactoController extends Controller
 {
-    public function viewContacto(){
-        return view('Contactopage');
-    }
-
-
     public function storeContacto(Request $request)
     {
         

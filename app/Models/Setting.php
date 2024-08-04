@@ -9,8 +9,6 @@ class Setting extends Model
 {
     use HasFactory;
 
-    protected $connection = "mysql_atalaya";
-
     protected $fillable = [
         'name',
         'description',
