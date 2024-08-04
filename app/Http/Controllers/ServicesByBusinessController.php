@@ -80,7 +80,7 @@ class ServicesByBusinessController extends BasicController
             $domain = env('APP_DOMAIN');
             $uuid = $businessJpa->uuid;
 
-            $res = file_get_contents("//{$correlative}.{$domain}/api/start/{$uuid}");
+            $res = file_get_contents("http://{$correlative}.{$domain}/api/start/{$uuid}");
             if ($res === FALSE) {
                 ServicesByBusiness::where('id', $sbb->id)->delete();
                 throw new Exception('Ocurrio un error al inicializar el servicio ' . $serviceJpa->name);
