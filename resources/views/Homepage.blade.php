@@ -235,43 +235,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               </div>
 
-
-              {{-- <div class="grid grid-cols-12 mt-3 gap-3">
-       
-                        <div class="w-full col-span-12 lg:col-span-6 relative">
-
-                            <div class="col-span-12"> 
-                                <select name="tipoproyecto" class="font-MontserratRegular block appearance-none w-full bg-inputmw  text-white py-3 px-3 pr-8 rounded-xl">
-                                 
-                                    <option class="text-black" value="" selected disabled hidden >Cual es tu cargo</option>
-                                    <option class="text-black" value="One page" >One Page</option>
-                                    <option class="text-black" value="Landing" >Landing</option>
-                                    <option class="text-black" value="E-commerce" >E-commerce</option>
-                                    <option class="text-black" value="App móvil" >App móvil</option>
-                                
-                                </select>
-                                
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-7 text-white">
-                                    <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                  </div>
-                
-                                 @error('tipoproyecto')
-                                        <span class="text-red-500 text-base ">{{ $message }}</span>
-                                    @enderror  
-                            </div>  
-                            
-                        </div>
-        
-                        <div class="w-full col-span-12 lg:col-span-6 ">
-                            <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight " name="empresa"  type="text" placeholder="Empresa">
-                             @error('telefono')
-                                <span class="text-red-500 text-base ">{{ $message }}</span>
-                            @enderror 
-                        </div>
-    
-                   </div>  --}}
-
-
               <div class="grid grid-cols-12   mt-4">
 
                 <div class="w-full xs:col-span-12 lg:col-span-12  ">
@@ -280,50 +243,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "
                     name="urlweb"  placeholder="Mensaje" rows="3" id="message"></textarea>
                 </div>
-
-
               </div>
-
-
-
-
-              {{-- <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
-                       ¿Cómo prefieres que te contactemos?
-                   </p> --}}
-
-              {{-- <div class="grid grid-cols-12  mt-3 gap-6">
-       
-                       <div class="w-full xs:col-span-12 lg:col-span-6   ">
-                          
-                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full   border-none rounded-xl ">
-                               <label for="bordered-radio-1" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">E-mail</label>
-                               <input id="bordered-radio-1" type="radio" value="Correo Electrónico" name="tipocontacto" class="h-4 w-[15%]">
-                           </div>
-       
-                      </div>
-       
-                       <div class="w-full xs:col-span-12 lg:col-span-6 ">
-       
-                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full    border-none rounded-xl ">
-                               <label for="bordered-radio-2" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">Teléfono</label>
-                               <input  id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
-                           </div>
-                       
-                       </div>
-                       
-                        @error('tipocontacto')
-                           <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
-                       @enderror  
-                </div>  --}}
-
-
               <div class="group  mt-6">
                 <button type="submit" href="{{ route('inicio') }}"
                   class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block ">
                   Solicitar servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha"
                     class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button>
               </div>
-
               @if (Session::has('mensaje'))
                 <div class="grid grid-cols-12 pt-6">
                   <div class="w-full xs:col-span-12 lg:col-span-12  ">
@@ -332,7 +258,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   </div>
                 </div>
               @endif
-
             </form>
           </div>
         </div>
@@ -340,7 +265,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </div>
-
   <a href="https://api.whatsapp.com/send?phone=51908857558&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20."
     class="fixed bottom-28 left-2 md:left-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none"
     target="_blank">
@@ -358,32 +282,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
     </div>
   </div>
-  <!-- Pie de página -->
-  {{-- <footer class="z-10 col-span-2">
-      
-      <div class="px-1 py-2 h-16 lg:-mt-16 bg-azulmundoweb mododev  ">
-        <div class="carruselfooter ">
-           <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
-             <li class="inline-flex  items-center w-1/4 ">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
-               <span class="float-left p-3 text-white">Creatividad inspiradora</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4 ">
-               <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
-               <span class="float-left p-3 text-white ">Colaboración transparente</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
-               <span class="float-left p-3 text-white ">Excelencia a medida</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4 ">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
-               <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
-             </li>
-           </ul>
-         </div>
-       </div>
-     </footer> --}}
 
   <footer class="z-10 col-span-2">
     <div class="px-1 py-2 h-20 lg:-mt-20 bg-azulmundoweb">

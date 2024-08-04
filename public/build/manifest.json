@@ -3,8 +3,8 @@
     "file": "Adminto.css",
     "src": "_Adminto-!~{00f}~.js"
   },
-  "_Adminto-BXy2n_Qx.js": {
-    "file": "assets/Adminto-BXy2n_Qx.js",
+  "_Adminto-Ckx4Zi2i.js": {
+    "file": "assets/Adminto-Ckx4Zi2i.js",
     "name": "Adminto",
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
@@ -28,11 +28,11 @@
       "_CreateReactScript-fryF6WsV.js"
     ]
   },
-  "_CheckboxFormGroup-BpStloWx.js": {
-    "file": "assets/CheckboxFormGroup-BpStloWx.js",
+  "_CheckboxFormGroup-DG7ZdoUt.js": {
+    "file": "assets/CheckboxFormGroup-DG7ZdoUt.js",
     "name": "CheckboxFormGroup",
     "imports": [
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_CreateReactScript-fryF6WsV.js"
     ]
   },
@@ -93,12 +93,12 @@
       "_CreateReactScript-fryF6WsV.js"
     ]
   },
-  "_TippyButton-DduHegcU.js": {
-    "file": "assets/TippyButton-DduHegcU.js",
+  "_TippyButton-CLwADKzg.js": {
+    "file": "assets/TippyButton-CLwADKzg.js",
     "name": "TippyButton",
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
-      "_Adminto-BXy2n_Qx.js"
+      "_Adminto-Ckx4Zi2i.js"
     ]
   },
   "_UsersByServicesByBusinessesRest-cXNvIK4h.js": {
@@ -123,31 +123,19 @@
       "_CreateReactScript-fryF6WsV.js"
     ]
   },
-  "public/img/fondo2.png": {
-    "file": "fondo2.png",
-    "src": "public/img/fondo2.png"
-  },
-  "public/img/fondolanding.png": {
-    "file": "fondolanding.png",
-    "src": "public/img/fondolanding.png"
-  },
-  "public/img/texturaonepage.svg": {
-    "file": "texturaonepage.svg",
-    "src": "public/img/texturaonepage.svg"
-  },
   "resources/css/app.css": {
     "file": "app.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/Account.jsx": {
-    "file": "assets/Account-B2PEURdw.js",
+    "file": "assets/Account-Cz8RSTMV.js",
     "name": "Account",
     "src": "resources/js/Account.jsx",
     "isEntry": true,
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_InputFormGroup-h37C16bz.js",
       "_PasswordFormGroup-B_vqCPa3.js",
       "_JSEncrypt-D3I3x59l.js",
@@ -155,18 +143,18 @@
     ]
   },
   "resources/js/Businesses.jsx": {
-    "file": "assets/Businesses-BjKI0AYF.js",
+    "file": "assets/Businesses-T-yU6b60.js",
     "name": "Businesses",
     "src": "resources/js/Businesses.jsx",
     "isEntry": true,
     "imports": [
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_CreateReactScript-fryF6WsV.js",
       "_BasicRest-4QHAt8VX.js",
       "_Modal-BlYbLNMj.js",
       "_InputFormGroup-h37C16bz.js",
       "_SelectFormGroup-DgCpZP3V.js",
-      "_CheckboxFormGroup-BpStloWx.js",
+      "_CheckboxFormGroup-DG7ZdoUt.js",
       "_UsersByServicesByBusinessesRest-cXNvIK4h.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
@@ -182,13 +170,13 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-B1S1oUcK.js",
+    "file": "assets/Home-C49tw8hZ.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
   },
@@ -205,7 +193,7 @@
     ]
   },
   "resources/js/Permissions.jsx": {
-    "file": "assets/Permissions-Alz7Vv-d.js",
+    "file": "assets/Permissions-CdDuaVsy.js",
     "name": "Permissions",
     "src": "resources/js/Permissions.jsx",
     "isEntry": true,
@@ -213,21 +201,21 @@
       "_CreateReactScript-fryF6WsV.js",
       "_Table-DxOOZK6a.js",
       "_TextareaFormGroup-C_B3CboX.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_Modal-BlYbLNMj.js",
       "_InputFormGroup-h37C16bz.js",
-      "_TippyButton-DduHegcU.js",
+      "_TippyButton-CLwADKzg.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
   },
   "resources/js/Profile.jsx": {
-    "file": "assets/Profile-CPnalPx0.js",
+    "file": "assets/Profile-BuSj0VkE.js",
     "name": "Profile",
     "src": "resources/js/Profile.jsx",
     "isEntry": true,
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_InputFormGroup-h37C16bz.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
@@ -247,7 +235,7 @@
     ]
   },
   "resources/js/Roles.jsx": {
-    "file": "assets/Roles-KebRXcmH.js",
+    "file": "assets/Roles-TlEiBoA6.js",
     "name": "Roles",
     "src": "resources/js/Roles.jsx",
     "isEntry": true,
@@ -256,22 +244,22 @@
       "_Table-DxOOZK6a.js",
       "_TextareaFormGroup-C_B3CboX.js",
       "_RolesRest-vh5dsi3x.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_Modal-BlYbLNMj.js",
-      "_CheckboxFormGroup-BpStloWx.js",
+      "_CheckboxFormGroup-DG7ZdoUt.js",
       "_InputFormGroup-h37C16bz.js",
-      "_TippyButton-DduHegcU.js",
+      "_TippyButton-CLwADKzg.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
   },
   "resources/js/Services.jsx": {
-    "file": "assets/Services-DlPL245L.js",
+    "file": "assets/Services-UD4Sbm9k.js",
     "name": "Services",
     "src": "resources/js/Services.jsx",
     "isEntry": true,
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_SelectFormGroup-DgCpZP3V.js",
       "_BasicRest-4QHAt8VX.js",
       "_sweetalert2.all-uggxmCrK.js",
@@ -281,22 +269,22 @@
     ]
   },
   "resources/js/Settings.jsx": {
-    "file": "assets/Settings-BSibTxde.js",
+    "file": "assets/Settings-KGtuqfIE.js",
     "name": "Settings",
     "src": "resources/js/Settings.jsx",
     "isEntry": true,
     "imports": [
       "_CreateReactScript-fryF6WsV.js",
       "_Table-DxOOZK6a.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_Modal-BlYbLNMj.js",
       "_InputFormGroup-h37C16bz.js",
-      "_TippyButton-DduHegcU.js",
+      "_TippyButton-CLwADKzg.js",
       "_sweetalert2.all-uggxmCrK.js"
     ]
   },
   "resources/js/Users.jsx": {
-    "file": "assets/Users-C_-7AsT2.js",
+    "file": "assets/Users-C9FXLtWW.js",
     "name": "Users",
     "src": "resources/js/Users.jsx",
     "isEntry": true,
@@ -306,7 +294,7 @@
       "_Table-DxOOZK6a.js",
       "_RolesRest-vh5dsi3x.js",
       "_UsersRest-BKJrLo_s.js",
-      "_Adminto-BXy2n_Qx.js",
+      "_Adminto-Ckx4Zi2i.js",
       "_Modal-BlYbLNMj.js",
       "_InputFormGroup-h37C16bz.js",
       "_PasswordFormGroup-B_vqCPa3.js",

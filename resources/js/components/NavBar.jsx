@@ -159,7 +159,7 @@ const NavBar = ({ can, session = {}, title = '', whatsappStatus }) => {
 
 
       <div className="logo-box">
-        <a href="index.html" className="logo logo-light text-center">
+        <a href="/home" className="logo logo-light text-center">
           <span className="logo-sm">
             <img src="/assets/img/icon.svg" alt="" height="22" />
           </span>
@@ -167,7 +167,7 @@ const NavBar = ({ can, session = {}, title = '', whatsappStatus }) => {
             <img src="/assets/img/logo.svg" alt="" height="16" />
           </span>
         </a>
-        <a href="index.html" className="logo logo-dark text-center">
+        <a href="/home" className="logo logo-dark text-center">
           <span className="logo-sm">
             <img src="/assets/img/icon-dark.svg" alt="" height="22" />
           </span>
