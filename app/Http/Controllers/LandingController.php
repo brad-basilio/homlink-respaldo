@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\EmailConfig;
+use App\Http\Classes\EmailConfig;
 use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
