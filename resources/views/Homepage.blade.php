@@ -480,7 +480,7 @@
 
       const restCRM = await fetch('https://crm.mundoweb.pe/free/leads', {
         headers: {
-          'Authorization': 'Bearer e56472dc-528a-11ef-92d6-020000e88c92',
+          'Authorization': 'Bearer d7ea9f05-529b-11ef-92d6-020000e88c92',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
