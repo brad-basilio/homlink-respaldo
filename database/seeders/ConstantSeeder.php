@@ -19,7 +19,7 @@ class ConstantSeeder extends Seeder
         ], [
             'name' => 'Terminos y condiciones',
             'value' => File::get('storage/app/utils/terms.html'),
-            'type' => 'simple'
+            'type' => 'html'
         ]);
 
         Constant::updateOrCreate([
