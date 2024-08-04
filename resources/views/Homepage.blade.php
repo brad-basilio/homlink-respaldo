@@ -241,7 +241,7 @@
                 <div class="w-full col-span-12 lg:col-span-6 ">
                   <input
                     class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 "
-                    name="telefono" type="text" placeholder="Número de teléfono" id="contact_phone">
+                    name="telefono" type="text" placeholder="Número de teléfono asdiasda" id="contact_phone">
                   @error('telefono')
                     <span class="text-red-500 text-base ">{{ $message }}</span>
                   @enderror
@@ -478,13 +478,14 @@
       })
       const data = await res.json()
 
-      const restCRM = await fetch('https://crm.mundoweb.pe/free/leads', {
+      const restCRM = await fetch("{{route('save.crm')}}", {
+        method: 'POST',
         headers: {
-          'Authorization': 'Bearer d7ea9f05-529b-11ef-92d6-020000e88c92',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           ...request,
+          _token: $('[name="_token"]').val(),
           tradename: request.contact_name
         })
       })

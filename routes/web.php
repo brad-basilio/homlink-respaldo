@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
 // Mundo web
 Route::get('/', fn () => view('Homepage'))->name('inicio');
 Route::post('/', [FormController::class, 'store5'])->name('formhome');
+Route::post('/save/crm', [FormController::class, 'saveInAtalaya'])->name('save.crm');
 
 Route::get('/servicios', fn () => view('Services'))->name('servicios');
 Route::get('/servicios/onepage', fn () => view('Onepage'))->name('onepage');

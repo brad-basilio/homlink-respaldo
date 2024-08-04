@@ -90,15 +90,17 @@ class UsersByServicesByBusinessController extends BasicController
       $ubsbb = UsersByServicesByBusiness::with(['service'])
         ->select(['users_by_services_by_businesses.*'])
         ->join('services_by_businesses', 'services_by_businesses.id', 'users_by_services_by_businesses.service_by_business_id')
+        ->join('services', 'services.id', 'services_by_businesses.service_id')
+        ->join('businesses', 'businesses.id', 'services_by_businesses.business_id')
         ->where('user_id', Auth::user()->id)
-        ->where('services_by_businesses.service_id', $request->service)
-        ->where('services_by_businesses.business_id', $request->business)
+        ->where('services.correlative', $request->service)
+        ->where('businesses.uuid', $request->business)
         ->first();
       if (!$ubsbb) throw new Exception('No tienes permisos para este servicio');
 
       UsersByServicesByBusiness::join('services_by_businesses', 'services_by_businesses.id', 'users_by_services_by_businesses.service_by_business_id')
         ->where('users_by_services_by_businesses.user_id', Auth::user()->id)
-        ->where('services_by_businesses.service_id', $request->service)
+        ->where('services_by_businesses.service_id', $ubsbb->service->id)
         ->update([
           'active' => false
         ]);

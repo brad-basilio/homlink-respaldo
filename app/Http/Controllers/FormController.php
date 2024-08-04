@@ -7,10 +7,27 @@ use App\Models\Form;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
-
+use SoDe\Extend\Fetch;
+use SoDe\Extend\JSON;
+use SoDe\Extend\Response;
 
 class FormController extends Controller
 {
+
+    public function saveInAtalaya (Request $request) {
+        $response = Response::simpleTryCatch(function (Response $response) use ($request) {
+            new Fetch('https://crm.mundoweb.pe/free/leads', [
+                'method' => 'POST',
+                'headers' => [
+                    'Authorization' => 'Bearer d7ea9f05-529b-11ef-92d6-020000e88c92',
+                    'Content-Type' => 'application/json'
+                ],
+                'body' => $request->all()
+            ]);
+        });
+        return response($response->toArray(), $response->status);
+    }
+
     public function store(Request $request)
     {
         $reglasValidacion = [

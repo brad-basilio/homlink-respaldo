@@ -3,8 +3,6 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BusinessController;
-use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ClientNoteController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LandingFormController;
 use App\Http\Controllers\PaymentController;
@@ -72,13 +70,6 @@ Route::middleware('auth')->group(function () {
     Route::patch('/business/status', [BusinessController::class, 'status']);
     Route::patch('/business/client-status', [BusinessController::class, 'clientStatus']);
     Route::delete('/business/{id}', [BusinessController::class, 'delete']);
-
-    // ClientNotes routes
-    Route::post('/client-notes', [ClientNoteController::class, 'save']);
-    Route::post('/client-notes/paginate', [ClientNoteController::class, 'paginate']);
-    Route::get('/client-notes/client/{id}', [ClientNoteController::class, 'byClient']);
-    Route::patch('/client-notes/status', [ClientNoteController::class, 'status']);
-    Route::delete('/client-notes/{id}', [ClientNoteController::class, 'delete']);
 
     // Types routes
     Route::post('/types', [TypeController::class, 'save']);

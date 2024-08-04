@@ -6,23 +6,23 @@ import UsersByServicesByBusinessesRest from "../../actions/UsersByServicesByBusi
 
 const usersByServicesByBusinessesRest = new UsersByServicesByBusinessesRest()
 
-const BusinessIWorkCard = ({ id: businessId, name, person, owner, my_services, APP_DOMAIN }) => {
+const BusinessIWorkCard = ({ uuid, name, person, owner, my_services, APP_DOMAIN }) => {
 
-  const beforeRedirect = async ({ id: serviceId, invitation_accepted, invitation_token, correlative }) => {
+  const beforeRedirect = async ({ invitation_accepted, invitation_token, correlative }) => {
     if (!invitation_accepted) {
       location.href = `//${APP_DOMAIN}/invitation/${invitation_token}`
       return
     }
     const result = await usersByServicesByBusinessesRest.authorize({
-      service: serviceId,
-      business: businessId
+      service: correlative,
+      business: uuid
     })
     if (!result) return
 
     window.open(`//${correlative}.${APP_DOMAIN}/home`)
   }
 
-  return <div key={`business-${businessId}`} className="card mb-0 border" style={{ width: '240px', minHeight: '120px' }}>
+  return <div key={`business-${uuid}`} className="card mb-0 border" style={{ width: '240px', minHeight: '120px' }}>
     <div className="card-body">
       <h5 className="mt-0 mb-1 text-truncate">
         <i className='fa fa-building me-1'></i>

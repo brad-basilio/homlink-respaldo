@@ -143,7 +143,7 @@
     ]
   },
   "resources/js/Businesses.jsx": {
-    "file": "assets/Businesses-T-yU6b60.js",
+    "file": "assets/Businesses-eJvHklkP.js",
     "name": "Businesses",
     "src": "resources/js/Businesses.jsx",
     "isEntry": true,
@@ -253,19 +253,19 @@
     ]
   },
   "resources/js/Services.jsx": {
-    "file": "assets/Services-7N0Bqcxd.js",
+    "file": "assets/Services-D6QjlkPF.js",
     "name": "Services",
     "src": "resources/js/Services.jsx",
     "isEntry": true,
     "imports": [
-      "_CreateReactScript-fryF6WsV.js",
       "_Adminto-Ckx4Zi2i.js",
-      "_SelectFormGroup-DgCpZP3V.js",
-      "_BasicRest-4QHAt8VX.js",
+      "_CreateReactScript-fryF6WsV.js",
       "_sweetalert2.all-uggxmCrK.js",
-      "_Modal-BlYbLNMj.js",
+      "_BasicRest-4QHAt8VX.js",
+      "_UsersByServicesByBusinessesRest-cXNvIK4h.js",
       "_UsersRest-BKJrLo_s.js",
-      "_UsersByServicesByBusinessesRest-cXNvIK4h.js"
+      "_SelectFormGroup-DgCpZP3V.js",
+      "_Modal-BlYbLNMj.js"
     ]
   },
   "resources/js/Settings.jsx": {

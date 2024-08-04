@@ -1,16 +1,16 @@
+import Tippy from '@tippyjs/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Adminto from './components/Adminto';
-import CreateReactScript from './Utils/CreateReactScript';
-import SelectFormGroup from './components/form/SelectFormGroup';
-import { Fetch, GET } from 'sode-extend-react';
-import ServicesByBusinessesRest from './actions/ServicesByBusinessesRest';
-import Tippy from '@tippyjs/react';
+import { GET } from 'sode-extend-react';
 import Swal from 'sweetalert2';
+import ServicesByBusinessesRest from './actions/ServicesByBusinessesRest';
+import UsersByServicesByBusinessesRest from './actions/UsersByServicesByBusinessesRest';
+import UsersRest from './actions/UsersRest';
+import Adminto from './components/Adminto';
+import SelectFormGroup from './components/form/SelectFormGroup';
 import Modal from './components/Modal';
 import ArrayJoin from './Utils/arrayJoin';
-import UsersRest from './actions/UsersRest';
-import UsersByServicesByBusinessesRest from './actions/UsersByServicesByBusinessesRest';
+import CreateReactScript from './Utils/CreateReactScript';
 
 const usersRest = new UsersRest()
 const servicesByBusinessesRest = new ServicesByBusinessesRest()
@@ -125,10 +125,13 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN }) => {
     setServiceLoaded(newServicesByBusiness[serviceLoaded.service.correlative])
   }
 
-  const onServiceOpen = async ({id: serviceId, correlative}) => {
+  const onServiceOpen = async ({ correlative }) => {
+    const selected = $(businessRef.current).find('option:selected')
+    const business = JSON.parse(selected.attr('data'))
+
     const result = await usersByServicesByBusinessesRest.authorize({
-      service: serviceId,
-      business: $(businessRef.current).val()
+      service: correlative,
+      business: business.uuid
     })
     if (!result) return
 
