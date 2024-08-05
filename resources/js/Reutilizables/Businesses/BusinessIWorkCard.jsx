@@ -1,16 +1,14 @@
-import { Link } from "@inertiajs/react"
 import Tippy from "@tippyjs/react"
 import React from "react"
-import { Fetch } from "sode-extend-react"
 import UsersByServicesByBusinessesRest from "../../actions/UsersByServicesByBusinessesRest"
 
 const usersByServicesByBusinessesRest = new UsersByServicesByBusinessesRest()
 
-const BusinessIWorkCard = ({ uuid, name, person, owner, my_services, APP_DOMAIN }) => {
+const BusinessIWorkCard = ({ uuid, name, APP_PROTOCOL, owner, my_services, APP_DOMAIN }) => {
 
   const beforeRedirect = async ({ invitation_accepted, invitation_token, correlative }) => {
     if (!invitation_accepted) {
-      location.href = `//${APP_DOMAIN}/invitation/${invitation_token}`
+      location.href = `${APP_PROTOCOL}//${APP_DOMAIN}/invitation/${invitation_token}`
       return
     }
     const result = await usersByServicesByBusinessesRest.authorize({
@@ -19,7 +17,7 @@ const BusinessIWorkCard = ({ uuid, name, person, owner, my_services, APP_DOMAIN 
     })
     if (!result) return
 
-    window.open(`//${correlative}.${APP_DOMAIN}/home`)
+    window.open(`${APP_PROTOCOL}//${correlative}.${APP_DOMAIN}/home`)
   }
 
   return <div key={`business-${uuid}`} className="card mb-0 border" style={{ width: '240px', minHeight: '120px' }}>

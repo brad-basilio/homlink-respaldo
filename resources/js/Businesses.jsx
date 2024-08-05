@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 
 const businessesRest = new BusinessesRest();
 
-const Businesses = ({ businesses, businessesIWork, economic_sectors = [], business_activities = [], session, APP_DOMAIN, PUBLIC_RSA_KEY }) => {
+const Businesses = ({ businesses, businessesIWork, economic_sectors = [], business_activities = [], session, APP_DOMAIN, APP_PROTOCOL }) => {
 
   const gridRef = useRef()
   const modalRef = useRef()
@@ -145,7 +145,7 @@ const Businesses = ({ businesses, businessesIWork, economic_sectors = [], busine
           <h5 className="card-header">Empresas en las que trabajo</h5>
           <div className="card-body d-flex gap-2 justify-content-center flex-wrap">
             {
-              businessesIWork.map(business => <BusinessIWorkCard {...business} session={session} APP_DOMAIN={APP_DOMAIN}/>)
+              businessesIWork.map(business => <BusinessIWorkCard {...business} session={session} APP_DOMAIN={APP_DOMAIN} APP_PROTOCOL={APP_PROTOCOL}/>)
             }
           </div>
         </div>

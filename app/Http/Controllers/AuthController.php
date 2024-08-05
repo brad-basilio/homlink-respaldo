@@ -60,6 +60,7 @@ class AuthController extends Controller
     }
 
     return Inertia::render('Login', [
+      'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
       'APP_DOMAIN' => env('APP_DOMAIN'),
       'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
       'message' => $message ?? null
@@ -75,6 +76,7 @@ class AuthController extends Controller
     // ...
 
     return Inertia::render('Register', [
+      'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
       'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
       'RECAPTCHA_SITE_KEY' => env('RECAPTCHA_SITE_KEY'),
       'terms' => Constant::value('terms')

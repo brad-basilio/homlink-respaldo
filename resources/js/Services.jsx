@@ -16,7 +16,7 @@ const usersRest = new UsersRest()
 const servicesByBusinessesRest = new ServicesByBusinessesRest()
 const usersByServicesByBusinessesRest = new UsersByServicesByBusinessesRest()
 
-const Services = ({ businesses = [], services = [], session, APP_DOMAIN }) => {
+const Services = ({ businesses = [], services = [], session, APP_DOMAIN, APP_PROTOCOL }) => {
 
   const businessRef = useRef()
   const userRef = useRef()
@@ -87,7 +87,7 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN }) => {
     const result = await servicesByBusinessesRest.enableService(businessRuc, service)
     e.target.disabled = false
     if (!result) return
-    // const res = await Fetch(`//${result.data.service}.${APP_DOMAIN}/api/start/${result.data.business}`);
+    // const res = await Fetch(`${APP_PROTOCOL}://${result.data.service}.${APP_DOMAIN}/api/start/${result.data.business}`);
     console.log(result)
     getServicesByBusiness()
   }
@@ -135,7 +135,7 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN }) => {
     })
     if (!result) return
 
-    window.open(`//${correlative}.${APP_DOMAIN}/home`)
+    window.open(`${APP_PROTOCOL}://${correlative}.${APP_DOMAIN}/home`)
   }
 
   return (

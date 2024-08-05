@@ -40,6 +40,7 @@ class BasicController extends Controller
       'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
       'APP_URL' => env('APP_URL'),
       'APP_DOMAIN' => env('APP_DOMAIN'),
+      'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
     ];
     foreach ($this->setReactViewProperties() as $key => $value) {
       $properties[$key] = $value;

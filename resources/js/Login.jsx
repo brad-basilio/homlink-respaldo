@@ -7,7 +7,7 @@ import { Link } from '@inertiajs/react'
 import Swal from 'sweetalert2'
 import { GET } from 'sode-extend-react'
 
-const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN }) => {
+const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
 
   document.title = 'Login | Atalaya'
 
@@ -49,7 +49,7 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN }) => {
 
     if (!result) return setLoading(false)
 
-    if (GET.service) location.href = `//${GET.service}.${APP_DOMAIN}/home`;
+    if (GET.service) location.href = `${APP_PROTOCOL}://${GET.service}.${APP_DOMAIN}/home`;
     else location.href = './home';
   }
 
