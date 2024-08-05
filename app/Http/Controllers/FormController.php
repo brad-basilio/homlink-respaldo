@@ -7,6 +7,7 @@ use App\Models\Form;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
+use Exception;
 use SoDe\Extend\Fetch;
 use SoDe\Extend\JSON;
 use SoDe\Extend\Response;
@@ -16,7 +17,7 @@ class FormController extends Controller
 
     public function saveInAtalaya (Request $request) {
         $response = Response::simpleTryCatch(function (Response $response) use ($request) {
-            new Fetch('https://crm.mundoweb.pe/free/leads', [
+            $res = new Fetch('https://crm.mundoweb.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [
                     'Authorization' => 'Bearer d7ea9f05-529b-11ef-92d6-020000e88c92',
@@ -24,6 +25,10 @@ class FormController extends Controller
                 ],
                 'body' => $request->all()
             ]);
+            $data = $res->json();
+            if (!$res->ok) {
+                throw new Exception($data['message'] ?? 'Ocurrio un error inespesperado al guardar los datos');
+            }
         });
         return response($response->toArray(), $response->status);
     }
