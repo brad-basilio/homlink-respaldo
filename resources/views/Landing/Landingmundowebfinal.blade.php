@@ -506,7 +506,7 @@
                 </div>
 
                 <input type="hidden" name="source" id="source" value="[Mundo Web] - Landing WebSite">
-                <input type="hidden" name="origin" id="llegade">
+                <input type="hidden" name="origin" id="llegade" value="[Mundo Web] - Landing WebSite">
                 <input type="hidden" name="client_width" id="anchodispositivo">
                 <input type="hidden" name="client_height" id="largodispositivo">
                 <input type="hidden" name="client_latitude" id="latitud">
@@ -1316,7 +1316,7 @@
           contact_email: $('[name="contact_email"]').val(),
           country_prefix: $('[name="country_prefix"]').val(),
           contact_phone: $('[name="contact_phone"]').val(),
-          name: $('[name="name"]').val(),
+          tradename: $('[name="name"]').val(),
           sector: $('[name="sector"]').val(),
           web_url: $('[name="web_url"]').val(),
           source: $('[name="source"]').val(),
