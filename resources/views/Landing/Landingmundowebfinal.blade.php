@@ -1310,7 +1310,24 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(formulario)
+      body: JSON.stringify({
+        _token: $('[name="_token"]').val(),
+        contact_name: $('[name="contact_name"]').val(),
+        contact_email: $('[name="contact_email"]').val(),
+        country_prefix: $('[name="country_prefix"]').val(),
+        contact_phone: $('[name="contact_phone"]').val(),
+        name: $('[name="name"]').val(),
+        sector: $('[name="sector"]').val(),
+        web_url: $('[name="web_url"]').val(),
+        source: $('[name="source"]').val(),
+        origin: $('[name="origin"]').val(),
+        client_width: $('[name="client_width"]').val(),
+        client_height: $('[name="client_height"]').val(),
+        client_latitude: $('[name="client_latitude"]').val(),
+        client_longitude: $('[name="client_longitude"]').val(),
+        client_system: $('[name="client_system"]').val(),
+        message: $('[name="message"]').val(),
+      })
     })
 
   })
