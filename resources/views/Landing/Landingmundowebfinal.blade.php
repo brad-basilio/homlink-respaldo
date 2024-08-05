@@ -1310,7 +1310,7 @@
       headers: {
         'Content-Type': 'application/json'
       },
-      body: formulario
+      body: JSON.stringify(formulario)
     })
 
   })
