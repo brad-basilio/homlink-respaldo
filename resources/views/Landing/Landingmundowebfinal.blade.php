@@ -1305,7 +1305,7 @@
       }
     });
 
-    await fetch("{{ route('save.crm') }}", {
+    fetch("{{ route('save.crm') }}", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
