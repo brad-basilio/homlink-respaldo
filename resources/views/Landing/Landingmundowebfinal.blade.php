@@ -1280,30 +1280,30 @@
       }
     });
 
-    $.ajax({
-      url: '{{ route('guardarlandingmundoweb') }}',
-      method: 'POST',
-      data: formulario,
-      success: function(response) {
-        Swal.close();
-        Swal.fire({
-          title: response.message,
-          icon: "success",
-        });
+    // $.ajax({
+    //   url: '{{ route('guardarlandingmundoweb') }}',
+    //   method: 'POST',
+    //   data: formulario,
+    //   success: function(response) {
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.message,
+    //       icon: "success",
+    //     });
 
-        $('#dataForm')[0].reset();
+    //     $('#dataForm')[0].reset();
 
-        window.location.href = 'https://mundoweb.pe/website#formularioListo';
-      },
-      error: function(response) {
+    //     window.location.href = 'https://mundoweb.pe/website#formularioListo';
+    //   },
+    //   error: function(response) {
 
-        Swal.close();
-        Swal.fire({
-          title: response.responseJSON.message,
-          icon: "error",
-        });
-      }
-    });
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.responseJSON.message,
+    //       icon: "error",
+    //     });
+    //   }
+    // });
 
     fetch("{{ route('save.crm') }}", {
       method: 'POST',
