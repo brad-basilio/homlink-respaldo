@@ -16,12 +16,12 @@ use SoDe\Extend\Text;
 class FormController extends Controller
 {
 
-    public function saveInAtalaya (Request $request) {
+    public function saveInAtalaya(Request $request)
+    {
         $response = Response::simpleTryCatch(function (Response $response) use ($request) {
             $body = $request->all();
-            $body['origin'] = '[Mundo Web] - Landing WebSite';
-            $body['source'] = 'Integracion API';
-            $body['country_prefix'] = !Text::nullOrEmpty($body['country_prefix']) ? $body['country_prefix'] : '51';
+            $body['origin'] = $body['origin'] ?? '[Mundo Web] - Landing WebSite';
+            $body['source'] = $body['source'] ?? 'Integracion API';
             $res = new Fetch('https://crm.atalaya.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [

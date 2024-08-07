@@ -453,22 +453,12 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          _token: $('[name="_token"]').val(),
-          contact_name: $('[name="contact_name"]').val(),
-          contact_email: $('[name="contact_email"]').val(),
-          contact_phone: `${$('[name="country_prefix"]').val()}${$('[name="contact_phone"]').val()}`,
-          tradename: $('[name="name"]').val(),
-          sector: $('[name="sector"]').val(),
-          web_url: $('[name="web_url"]').val(),
-          source: $('[name="source"]').val(),
-          origin: $('[name="origin"]').val(),
-          client_width: $('[name="client_width"]').val(),
-          client_height: $('[name="client_height"]').val(),
-          client_latitude: $('[name="client_latitude"]').val(),
-          client_longitude: $('[name="client_longitude"]').val(),
-          client_system: $('[name="client_system"]').val(),
-          message: $('[name="message"]').val(),
-        })
+        contact_name: $('#contact_name').val(),
+        contact_phone: '51' + $('#contact_phone').val(),
+        contact_email: $('#contact_email').val(),
+        message: $('#message').val(),
+        origin: '[Mundo Web] - Web Oficial'
+      })
       })
       .then(async res => {
         const data = await res.json()
@@ -496,49 +486,49 @@
   })
 </script>
 <script>
-  document.getElementById('formHome').addEventListener('submit', async function(e) {
-    e.preventDefault()
-    // if (!validarTelefono($('#contact_phone').val())) return;
-    // if (!validarEmail($('#contact_email').val())) return;
+  // document.getElementById('formHome').addEventListener('submit', async function(e) {
+  //   e.preventDefault()
+  //   // if (!validarTelefono($('#contact_phone').val())) return;
+  //   // if (!validarEmail($('#contact_email').val())) return;
 
-    try {
-      const request = {
-        contact_name: $('#contact_name').val(),
-        contact_phone: $('#contact_phone').val(),
-        contact_email: $('#contact_email').val(),
-        // contact_position: $('#contact_position').val(),
-        // tradename: $('#tradename').val(),
-        // workers: $('#workers').val(),
-        message: $('#message').val(),
-        origin: '[Mundo Web] - Web Oficial',
-        source: '[Mundo Web] - Web Oficial',
-      }
-      const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(request)
-      })
-      const data = await res.json()
+  //   try {
+  //     const request = {
+  //       contact_name: $('#contact_name').val(),
+  //       contact_phone: $('#contact_phone').val(),
+  //       contact_email: $('#contact_email').val(),
+  //       // contact_position: $('#contact_position').val(),
+  //       // tradename: $('#tradename').val(),
+  //       // workers: $('#workers').val(),
+  //       message: $('#message').val(),
+  //       origin: '[Mundo Web] - Web Oficial',
+  //       source: '[Mundo Web] - Web Oficial',
+  //     }
+  //     const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(request)
+  //     })
+  //     const data = await res.json()
 
-      const restCRM = await fetch("{{route('save.crm')}}", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          ...request,
-          _token: $('[name="_token"]').val(),
-          tradename: request.contact_name
-        })
-      })
-      const dataCRM = await restCRM.json()
-    } catch (error) {
-      console.error(error)
-    }
-  })
+  //     const restCRM = await fetch("{{route('save.crm')}}", {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         ...request,
+  //         _token: $('[name="_token"]').val(),
+  //         tradename: request.contact_name
+  //       })
+  //     })
+  //     const dataCRM = await restCRM.json()
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // })
 </script>
 <script>
   // Obtener información del navegador y del sistema operativo
