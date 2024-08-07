@@ -453,12 +453,13 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-        contact_name: $('#contact_name').val(),
-        contact_phone: '51' + $('#contact_phone').val(),
-        contact_email: $('#contact_email').val(),
-        message: $('#message').val(),
-        origin: '[Mundo Web] - Web Oficial'
-      })
+          _token: $('[name="_token"]').val(),
+          contact_name: $('#contact_name').val(),
+          contact_phone: '51' + $('#contact_phone').val(),
+          contact_email: $('#contact_email').val(),
+          message: $('#message').val(),
+          origin: '[Mundo Web] - Web Oficial'
+        })
       })
       .then(async res => {
         const data = await res.json()
@@ -513,7 +514,7 @@
   //     })
   //     const data = await res.json()
 
-  //     const restCRM = await fetch("{{route('save.crm')}}", {
+  //     const restCRM = await fetch("{{ route('save.crm') }}", {
   //       method: 'POST',
   //       headers: {
   //         'Content-Type': 'application/json'
