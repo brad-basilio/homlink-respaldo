@@ -102,7 +102,7 @@
         <li class="hover:text-mwnaranja"><a href="{{ route('proyectos') }}">Proyectos</a></li>
         <a class="hover:underline duration-300" href="{{ route('posts.index') }}">Blog</a>
         <li class="hover:text-mwnaranja"><a href="{{ route('contacto') }}">Contacto</a></li>
-        <li class="hover:text-mwnaranja"><a href="{{ route('Home.jsx') }}">Atalaya</a></li>
+        {{-- <li class="hover:text-mwnaranja"><a href="{{ route('Home.jsx') }}">Atalaya</a></li> --}}
       </ul>
     </nav>
 
