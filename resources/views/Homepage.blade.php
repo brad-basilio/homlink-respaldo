@@ -476,10 +476,10 @@
         $('#dataForm')[0].reset();
 
         window.location.href = 'https://mundoweb.pe/website#formularioListo';
-      }).catch(() => {
+      }).catch((error) => {
         Swal.close();
         Swal.fire({
-          title: response.responseJSON.message,
+          title: error,
           icon: "error",
         });
       })
