@@ -425,28 +425,73 @@
 
     let formDataArray = $(this).serializeArray();
 
-    $.ajax({
-      url: '{{ route('formhome') }}',
-      method: 'POST',
-      data: $(this).serialize(),
-      success: function(response) {
+    // $.ajax({
+    //   url: '{{ route('formhome') }}',
+    //   method: 'POST',
+    //   data: $(this).serialize(),
+    //   success: function(response) {
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.message,
+    //       icon: "success",
+    //     }).then((result) => {
+    //       window.location.href = "{{ route('thankyoupage') }}";
+    //     });
+    //   },
+    //   error: function(response) {
+
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.responseJSON.message,
+    //       icon: "error",
+    //     });
+    //   }
+    // });
+    fetch("{{ route('save.crm') }}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          _token: $('[name="_token"]').val(),
+          contact_name: $('[name="contact_name"]').val(),
+          contact_email: $('[name="contact_email"]').val(),
+          contact_phone: `${$('[name="country_prefix"]').val()}${$('[name="contact_phone"]').val()}`,
+          tradename: $('[name="name"]').val(),
+          sector: $('[name="sector"]').val(),
+          web_url: $('[name="web_url"]').val(),
+          source: $('[name="source"]').val(),
+          origin: $('[name="origin"]').val(),
+          client_width: $('[name="client_width"]').val(),
+          client_height: $('[name="client_height"]').val(),
+          client_latitude: $('[name="client_latitude"]').val(),
+          client_longitude: $('[name="client_longitude"]').val(),
+          client_system: $('[name="client_system"]').val(),
+          message: $('[name="message"]').val(),
+        })
+      })
+      .then(async res => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data?.message ?? 'Ocurrio un error inesperado')
+        return data
+      })
+      .then(response => {
         Swal.close();
         Swal.fire({
           title: response.message,
           icon: "success",
-        }).then((result) => {
-          window.location.href = "{{ route('thankyoupage') }}";
         });
-      },
-      error: function(response) {
 
+        $('#dataForm')[0].reset();
+
+        window.location.href = 'https://mundoweb.pe/website#formularioListo';
+      }).catch(() => {
         Swal.close();
         Swal.fire({
           title: response.responseJSON.message,
           icon: "error",
         });
-      }
-    });
+      })
 
   })
 </script>

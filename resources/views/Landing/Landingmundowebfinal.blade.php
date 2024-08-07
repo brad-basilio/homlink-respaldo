@@ -1328,7 +1328,11 @@
           message: $('[name="message"]').val(),
         })
       })
-      .then(res => res.json())
+      .then(async res => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data?.message ?? 'Ocurrio un error inesperado')
+        return data
+      })
       .then(response => {
         Swal.close();
         Swal.fire({
