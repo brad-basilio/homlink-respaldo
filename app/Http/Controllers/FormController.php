@@ -11,6 +11,7 @@ use Exception;
 use SoDe\Extend\Fetch;
 use SoDe\Extend\JSON;
 use SoDe\Extend\Response;
+use SoDe\Extend\Text;
 
 class FormController extends Controller
 {
@@ -20,7 +21,7 @@ class FormController extends Controller
             $body = $request->all();
             $body['origin'] = '[Mundo Web] - Landing WebSite';
             $body['source'] = 'Integracion API';
-            $body['country_prefix'] = $body['country_prefix'] ? $body['country_prefix'] : '51';
+            $body['country_prefix'] = !Text::nullOrEmpty($body['country_prefix']) ? $body['country_prefix'] : '51';
             $res = new Fetch('https://crm.atalaya.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [
