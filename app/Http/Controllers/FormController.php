@@ -23,7 +23,7 @@ class FormController extends Controller
             $res = new Fetch('https://crm.mundoweb.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [
-                    'Authorization' => 'Bearer d7ea9f05-529b-11ef-92d6-020000e88c92',
+                    'Authorization' => 'Bearer dbb494f4-54d2-11ef-bfda-26a0a2e74226',
                     'Content-Type' => 'application/json'
                 ],
                 'body' => $body
