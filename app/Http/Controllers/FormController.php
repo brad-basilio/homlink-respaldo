@@ -20,7 +20,7 @@ class FormController extends Controller
             $body = $request->all();
             $body['origin'] = '[Mundo Web] - Landing WebSite';
             $body['source'] = 'Integracion API';
-            $res = new Fetch('https://crm.mundoweb.pe/free/leads', [
+            $res = new Fetch('https://atalaya.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [
                     'Authorization' => 'Bearer dbb494f4-54d2-11ef-bfda-26a0a2e74226',
