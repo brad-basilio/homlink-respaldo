@@ -17,7 +17,7 @@ class FormController extends Controller
 {
 
     public function saveInAtalaya(Request $request)
-    {
+    {   
         $response = Response::simpleTryCatch(function (Response $response) use ($request) {
             $body = $request->all();
             $body['origin'] = $body['origin'] ?? '[Mundo Web] - Landing WebSite';
