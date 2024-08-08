@@ -433,7 +433,7 @@
 
                         </p>
 
-                        <div>
+                        <div class="">
                             <form id="dataForm" class="flex flex-col gap-5">
                                 @csrf
                                 <div>
