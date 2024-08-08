@@ -22,6 +22,7 @@ class FormController extends Controller
             $body = $request->all();
             $body['origin'] = $body['origin'] ?? '[Mundo Web] - Landing WebSite';
             $body['source'] = $body['source'] ?? 'Integracion API';
+            $body['triggered_by'] = $body['triggered_by'] ?? 'Pauta';
             $res = new Fetch('https://crm.atalaya.pe/free/leads', [
                 'method' => 'POST',
                 'headers' => [
