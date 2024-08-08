@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Str;
 
+$storage_path_parts = explode(DIRECTORY_SEPARATOR, base_path());
+array_pop($storage_path_parts);
+$storage_path = implode(DIRECTORY_SEPARATOR, $storage_path_parts) . DIRECTORY_SEPARATOR . 'atalaya_sessions';
+
 return [
 
     /*
@@ -59,7 +63,8 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
+    // 'files' => storage_path('framework/sessions'),
+    'files' => $storage_path,
 
     /*
     |--------------------------------------------------------------------------

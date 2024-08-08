@@ -7,7 +7,7 @@ export default {
   ],
   theme: {
 
-    
+
 
     screens: {
       'xs': '120px',
@@ -40,14 +40,14 @@ export default {
         text64: "64px",
         text68: "68px",
       },
-   
+
       backgroundImage: {
         'fondoapps': "url('/img_mundowebaplicativos/apps.png')",
         'fondoapps2': "url('/img_mundowebaplicativos/apps3.png')",
         'fondoapps3': "url('/img_mundowebaplicativos/apps4.png')",
 
         'textura': "url('/img_mundowebaplicativos/texturaplicactivos.png')",
-        
+
         'fondolanding': "url('/img_landingmundoweb/landing1.png')",
         'fondolanding2': "url('/img_landingmundoweb/webslanding2.png')",
         'fondolanding3': "url('/img_landingmundoweb/webslanding3.png')",
@@ -56,7 +56,7 @@ export default {
         'texturalanding2': "url('/img_landingmundoweb/texturalanding2.png')",
 
         'fondoecommerce': "url('/img_landingecommerce/landingecoomerce3.png')",
-        
+
         'texturaecommerce': "url('/img_landingecommerce/texturaecommerce.png')",
         'texturaecommerce2': "url('/img_landingecommerce/texturaecommerce2.png')",
 
@@ -85,9 +85,9 @@ export default {
         azulmundoweb: '#303BE4',
         azuloscuro: '#080B44',
         azulanding: '#091CA6',
-        azulecommerce:  '#0017d7',
+        azulecommerce: '#0017d7',
         azulmoviles: '#0018ff',
-        azulform:  '#040a45',
+        azulform: '#040a45',
         fondoinput: '#060A2F',
         //colores de las donas
         rosalasdonas: '#DF3876',
@@ -140,7 +140,7 @@ export default {
 
       placeholderColor: {
         'rosaplaceholder': '#DF387666',
-      
+
       },
 
       borderWidth: {

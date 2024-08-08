@@ -28,13 +28,24 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-        <!-- Google Tag Manager -->
-        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-        })(window,document,'script','dataLayer','GTM-WKKZ35GL');</script>
-        <!-- End Google Tag Manager -->
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-WKKZ35GL');
+  </script>
+  <!-- End Google Tag Manager -->
 
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Q5HR10EMH"></script>
@@ -49,14 +60,17 @@
     gtag('config', 'G-1Q5HR10EMH');
   </script>
   <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7CQ3LKCR4"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-N7CQ3LKCR4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-      gtag('config', 'G-N7CQ3LKCR4');
-    </script>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-N7CQ3LKCR4');
+  </script>
 </head>
 
 <div class="fullscreen-container">
@@ -69,10 +83,10 @@
 </div>
 
 <body class="font-sans bg-azuloscuro lg:h-screen">
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKKZ35GL"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WKKZ35GL" height="0" width="0"
+      style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
 
   <!-- Encabezado superpuesto -->
   <header class=" text-white px-[5%]  w-full z-10 h-[15%]  flex justify-between items-center ">
@@ -88,6 +102,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li class="hover:text-mwnaranja"><a href="{{ route('proyectos') }}">Proyectos</a></li>
         <a class="hover:underline duration-300" href="{{ route('posts.index') }}">Blog</a>
         <li class="hover:text-mwnaranja"><a href="{{ route('contacto') }}">Contacto</a></li>
+        <li class="hover:text-mwnaranja"><a href="//atalaya.pe">Atalaya</a></li>
       </ul>
     </nav>
 
@@ -226,7 +241,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <div class="w-full col-span-12 lg:col-span-6 ">
                   <input
                     class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3 leading-tight placeholder-slate-300 "
-                    name="telefono" type="text" placeholder="Número de teléfono" id="contact_phone">
+                    name="telefono" type="text" placeholder="Número de teléfono asdiasda" id="contact_phone">
                   @error('telefono')
                     <span class="text-red-500 text-base ">{{ $message }}</span>
                   @enderror
@@ -234,95 +249,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
               </div>
 
-
-              {{-- <div class="grid grid-cols-12 mt-3 gap-3">
-       
-                        <div class="w-full col-span-12 lg:col-span-6 relative">
-
-                            <div class="col-span-12"> 
-                                <select name="tipoproyecto" class="font-MontserratRegular block appearance-none w-full bg-inputmw  text-white py-3 px-3 pr-8 rounded-xl">
-                                 
-                                    <option class="text-black" value="" selected disabled hidden >Cual es tu cargo</option>
-                                    <option class="text-black" value="One page" >One Page</option>
-                                    <option class="text-black" value="Landing" >Landing</option>
-                                    <option class="text-black" value="E-commerce" >E-commerce</option>
-                                    <option class="text-black" value="App móvil" >App móvil</option>
-                                
-                                </select>
-                                
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-7 text-white">
-                                    <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                                  </div>
-                
-                                 @error('tipoproyecto')
-                                        <span class="text-red-500 text-base ">{{ $message }}</span>
-                                    @enderror  
-                            </div>  
-                            
-                        </div>
-        
-                        <div class="w-full col-span-12 lg:col-span-6 ">
-                            <input class="font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-3 px-3  leading-tight " name="empresa"  type="text" placeholder="Empresa">
-                             @error('telefono')
-                                <span class="text-red-500 text-base ">{{ $message }}</span>
-                            @enderror 
-                        </div>
-    
-                   </div>  --}}
-
-
               <div class="grid grid-cols-12   mt-4">
 
                 <div class="w-full xs:col-span-12 lg:col-span-12  ">
 
                   <textarea
                     class=" font-MontserratRegular appearance-none block w-full bg-inputmw  text-white  border-none rounded-xl py-4 px-3  leading-tight placeholder-slate-300 "
-                    name="urlweb"  placeholder="Mensaje" rows="3" id="message"></textarea>
+                    name="urlweb" placeholder="Mensaje" rows="3" id="message"></textarea>
                 </div>
-
-
               </div>
-
-
-
-
-              {{-- <p class="text-base  text-white  font-normal mt-3 font-MontserratRegular">
-                       ¿Cómo prefieres que te contactemos?
-                   </p> --}}
-
-              {{-- <div class="grid grid-cols-12  mt-3 gap-6">
-       
-                       <div class="w-full xs:col-span-12 lg:col-span-6   ">
-                          
-                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full   border-none rounded-xl ">
-                               <label for="bordered-radio-1" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">E-mail</label>
-                               <input id="bordered-radio-1" type="radio" value="Correo Electrónico" name="tipocontacto" class="h-4 w-[15%]">
-                           </div>
-       
-                      </div>
-       
-                       <div class="w-full xs:col-span-12 lg:col-span-6 ">
-       
-                           <div class="bg-inputmw  font-MontserratRegular flex items-center ps-4 appearance-none w-full    border-none rounded-xl ">
-                               <label for="bordered-radio-2" class="w-[85%] py-3 ms-2 text-base font-normal text-white ">Teléfono</label>
-                               <input  id="bordered-radio-2" type="radio" value="Teléfono" name="tipocontacto" class="w-[15%] h-4" >
-                           </div>
-                       
-                       </div>
-                       
-                        @error('tipocontacto')
-                           <span class="text-red-500 text-base xs:col-span-12 ">{{ $message }}</span>
-                       @enderror  
-                </div>  --}}
-
-
               <div class="group  mt-6">
                 <button type="submit" href="{{ route('inicio') }}"
                   class="font-MontserratSemibold font-light text-base bg-inputmw  text-white px-3  py-2 rounded-full w-auto inline-block ">
                   Solicitar servicio<img src="{{ asset('img/flechaderecha.svg') }}" alt="Flecha a la derecha"
                     class="h-10 w-10 ml-2 inline-block group-hover:rotate-45 transition-all  duration-500"></button>
               </div>
-
               @if (Session::has('mensaje'))
                 <div class="grid grid-cols-12 pt-6">
                   <div class="w-full xs:col-span-12 lg:col-span-12  ">
@@ -331,7 +272,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   </div>
                 </div>
               @endif
-
             </form>
           </div>
         </div>
@@ -339,7 +279,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
     </div>
   </div>
-
   <a href="https://api.whatsapp.com/send?phone=51908857558&text=Hola%21%20Quisiera%20m%C3%A1s%20informaci%C3%B3n%20."
     class="fixed bottom-28 left-2 md:left-5 z-50 animate-wiggle animate-infinite animate-delay-[5ms] animate-ease-in  float-right block bg-none"
     target="_blank">
@@ -357,32 +296,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a class="hover:underline duration-300" href="{{ route('contacto') }}">Contacto</a>
     </div>
   </div>
-  <!-- Pie de página -->
-  {{-- <footer class="z-10 col-span-2">
-      
-      <div class="px-1 py-2 h-16 lg:-mt-16 bg-azulmundoweb mododev  ">
-        <div class="carruselfooter ">
-           <ul class="flex flex-row gap-4 font-MontserratRegular text-sm">
-             <li class="inline-flex  items-center w-1/4 ">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/lapiz.png') }}">
-               <span class="float-left p-3 text-white">Creatividad inspiradora</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4 ">
-               <img class="rounded-full w-12  float-left" src="{{ asset('img/manos.png') }}">
-               <span class="float-left p-3 text-white ">Colaboración transparente</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/regla.png') }}">
-               <span class="float-left p-3 text-white ">Excelencia a medida</span>
-             </li>
-             <li class="inline-flex items-center  w-1/4 ">
-               <img class="rounded-full w-12 float-left" src="{{ asset('img/edificios.png') }}">
-               <span class="float-left p-3 text-white ">Adaptabilidad digital</span>
-             </li>
-           </ul>
-         </div>
-       </div>
-     </footer> --}}
 
   <footer class="z-10 col-span-2">
     <div class="px-1 py-2 h-20 lg:-mt-20 bg-azulmundoweb">
@@ -512,80 +425,128 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     let formDataArray = $(this).serializeArray();
 
-    $.ajax({
-      url: '{{ route('formhome') }}',
-      method: 'POST',
-      data: $(this).serialize(),
-      success: function(response) {
+    // $.ajax({
+    //   url: '{{ route('formhome') }}',
+    //   method: 'POST',
+    //   data: $(this).serialize(),
+    //   success: function(response) {
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.message,
+    //       icon: "success",
+    //     }).then((result) => {
+    //       window.location.href = "{{ route('thankyoupage') }}";
+    //     });
+    //   },
+    //   error: function(response) {
+
+    //     Swal.close();
+    //     Swal.fire({
+    //       title: response.responseJSON.message,
+    //       icon: "error",
+    //     });
+    //   }
+    // });
+    fetch("{{ route('save.crm') }}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          _token: $('[name="_token"]').val(),
+          contact_name: $('#contact_name').val(),
+          contact_phone: '51' + $('#contact_phone').val(),
+          contact_email: $('#contact_email').val(),
+          message: $('#message').val(),
+          origin: '[Mundo Web] - Web Oficial'
+        })
+      })
+      .then(async res => {
+        const data = await res.json()
+        if (!res.ok) throw new Error(data?.message ?? 'Ocurrio un error inesperado')
+        return data
+      })
+      .then(response => {
         Swal.close();
         Swal.fire({
           title: response.message,
           icon: "success",
-        }).then((result) => {
-            window.location.href = "{{ route('thankyoupage') }}";
         });
-      },
-      error: function(response) {
 
+        $('#dataForm')[0].reset();
+
+        window.location.href = 'https://mundoweb.pe/website#formularioListo';
+      }).catch((error) => {
         Swal.close();
         Swal.fire({
-          title: response.responseJSON.message,
+          title: error,
           icon: "error",
         });
-      }
-    });
-
-  })
-</script>
-<script>
-  document.getElementById('formHome').addEventListener('submit', async function(e) {
-    e.preventDefault()
-    // if (!validarTelefono($('#contact_phone').val())) return;
-    // if (!validarEmail($('#contact_email').val())) return;
-
-    try {
-      const request = {
-        contact_name: $('#contact_name').val(),
-        contact_phone: $('#contact_phone').val(),
-        contact_email: $('#contact_email').val(),
-        // contact_position: $('#contact_position').val(),
-        // tradename: $('#tradename').val(),
-        // workers: $('#workers').val(),
-        message: $('#message').val(),
-        origin: '[Mundo Web] - Web Oficial',
-        source: '[Mundo Web] - Web Oficial',
-      }
-      const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(request)
       })
-      const data = await res.json()
-    } catch (error) {
-      console.error(error)
-    }
+
   })
 </script>
 <script>
-      // Obtener información del navegador y del sistema operativo
-      const platform = navigator.platform;
-      document.getElementById('sistema').value = platform;
+  // document.getElementById('formHome').addEventListener('submit', async function(e) {
+  //   e.preventDefault()
+  //   // if (!validarTelefono($('#contact_phone').val())) return;
+  //   // if (!validarEmail($('#contact_email').val())) return;
 
-      // Obtener la geolocalización del usuario (si se permite)
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-              document.getElementById('latitud').value = position.coords.latitude;
-              document.getElementById('longitud').value = position.coords.longitude;
-          });
-      }
+  //   try {
+  //     const request = {
+  //       contact_name: $('#contact_name').val(),
+  //       contact_phone: $('#contact_phone').val(),
+  //       contact_email: $('#contact_email').val(),
+  //       // contact_position: $('#contact_position').val(),
+  //       // tradename: $('#tradename').val(),
+  //       // workers: $('#workers').val(),
+  //       message: $('#message').val(),
+  //       origin: '[Mundo Web] - Web Oficial',
+  //       source: '[Mundo Web] - Web Oficial',
+  //     }
+  //     const res = await fetch('https://atalaya.mundoweb.pe/free/clients', {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(request)
+  //     })
+  //     const data = await res.json()
 
-      // Obtener la resolución de la pantalla
-      const screenWidth = window.screen.width;
-      const screenHeight = window.screen.height;
-      document.getElementById('anchodispositivo').value = screenWidth;
-      document.getElementById('largodispositivo').value = screenHeight;
+  //     const restCRM = await fetch("{{ route('save.crm') }}", {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         ...request,
+  //         _token: $('[name="_token"]').val(),
+  //         tradename: request.contact_name
+  //       })
+  //     })
+  //     const dataCRM = await restCRM.json()
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // })
+</script>
+<script>
+  // Obtener información del navegador y del sistema operativo
+  const platform = navigator.platform;
+  document.getElementById('sistema').value = platform;
 
+  // Obtener la geolocalización del usuario (si se permite)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      document.getElementById('latitud').value = position.coords.latitude;
+      document.getElementById('longitud').value = position.coords.longitude;
+    });
+  }
+
+  // Obtener la resolución de la pantalla
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  document.getElementById('anchodispositivo').value = screenWidth;
+  document.getElementById('largodispositivo').value = screenHeight;
 </script>

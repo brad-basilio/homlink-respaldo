@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\EmailConfig;
+use App\Http\Classes\EmailConfig;
 use App\Models\Landing;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreLandingRequest;
@@ -15,56 +15,13 @@ use SoDe\Extend\Text;
 
 class LandingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function viewAplicativos()
-    {
-        return view('Landing/Landingaplicativos');
-    }
-
-    public function viewstoreLanding()
-    {
-        return view('Landing/Landingmundoweb');
-    }
-
-    public function viewstoreEcommerce()
-    {
-        return view('Landing/Landingecommerce');
-    }
-
-    public function viewstoreWebsite()
-    {
-        return view('Landing/Landingwebsite');
-    }
-
-    public function viewLandingpagemundoweb()
-    {
-        return view('Landing/Landingmundowebfinal');
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function storeAplicativos(Request $request)
     {
-
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-
         ];
-
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -73,33 +30,21 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-
         ];
-
-
-
         $request->validate($reglasValidacion, $mensajes);
-
-
         $formlanding = Landing::create($request->all());
         LandingController::envioCorreo($formlanding);
-
-
         // return redirect()->route('landingaplicativos', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message' => 'Mensaje enviado con exito']);
     }
 
-
     public function storeLanding(Request $request)
     {
-
         $reglasValidacion = [
             'contact_name' => 'required|string|max:255',
             'contact_email' => 'required|email|max:255',
             'contact_phone' => 'required|integer|max:99999999999',
-
         ];
-
         $mensajes = [
             'contact_name.required' => 'El campo nombre es obligatorio.',
             'contact_name.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -108,38 +53,27 @@ class LandingController extends Controller
             'contact_email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'contact_phone.required' => 'El campo teléfono es obligatorio.',
             'contact_phone.integer' => 'El campo teléfono debe ser un número entero.',
-
         ];
-
-
-
         $request->validate($reglasValidacion, $mensajes);
-
         $landingData = $request->all();
         $ipAddress = $request->ip();
         $carbon = Carbon::now('America/Lima');
-
         $landingData['date'] = $carbon->toDateString();
         $landingData['time'] = $carbon->toTimeString();
         $landingData['created_at'] = $carbon->toDateTimeString();
         $landingData['status_id'] = 10;
         $landingData['origin'] = '[Mundo Web] - Landing WebSite';
-
         $landingData['ip'] = $ipAddress;
 
         if (empty($landingData['name'])) {
             $landingData['name'] = $landingData['contact_name'];
         }
-
         if (empty($landingData['web_url'])) {
             $landingData['web_url'] = 'https://';
         }
-
         if (empty($landingData['sector '])) {
             $landingData['sector '] = 'Rubro desconocido';
         }
-
-       
 
         $formlanding = Client::create($landingData);
 
@@ -151,20 +85,13 @@ class LandingController extends Controller
         // return redirect()->route('landingmundoweb', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message' => 'Mensaje enviado con exito']);
     }
-
-
-
-
     public function storeEcommerce(Request $request)
     {
-
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-
         ];
-
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -173,31 +100,20 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-
         ];
-
         $request->validate($reglasValidacion, $mensajes);
-
         $formlanding = Landing::create($request->all());
         LandingController::envioCorreo($formlanding);
-
         // return redirect()->route('landingecommerce', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message' => 'Mensaje enviado con exito']);
     }
-
-
-
-
     public function storeWebsite(Request $request)
     {
-
         $reglasValidacion = [
             'nombre' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'telefono' => 'required|integer|max:99999999999',
-
         ];
-
         $mensajes = [
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.max' => 'El campo nombre no puede tener más de :max caracteres.',
@@ -206,55 +122,15 @@ class LandingController extends Controller
             'email.max' => 'El campo correo electrónico no puede tener más de :max caracteres.',
             'telefono.required' => 'El campo teléfono es obligatorio.',
             'telefono.integer' => 'El campo teléfono debe ser un número entero.',
-
         ];
-
-
-
         $request->validate($reglasValidacion, $mensajes);
-
-
         $formlanding = Landing::create($request->all());
         LandingController::envioCorreo($formlanding);
-
         // return redirect()->route('landingwebsite', $formlanding)->with('mensaje','Mensaje enviado exitoso')->with('name', $request->nombre);
         return response()->json(['message' => 'Mensaje enviado con exito']);
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(Landing $landing)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Landing $landing)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateLandingRequest $request, Landing $landing)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Landing $landing)
-    {
-        //
-    }
-
     static function envioCorreo($data)
     {
-
         $name = $data['contact_name'];
         $mail = EmailConfig::config($name); /* variable $name que se agregó */
         try {
@@ -386,39 +262,39 @@ class LandingController extends Controller
                                         </p>
                                     </td>
                                 </tr>
-            <tr>
-            <td>
-                <a href="https://mundoweb.pe/" style="
-                    text-decoration: none;
-                    background-color: #e15a29;
-                    color: white;
-                    border-radius: 40px;
-                    padding: 12px 20px;
-                    display: inline-flex;
-                    justify-content: center;
-                    align-items: center;
-                    gap: 10px;
-                    font-weight: 600;
-                    font-family: Montserrat, sans-serif;
-                ">
-                    <span>Haz que tu negocio despegue</span>
-                    <img  src="https://mundoweb.pe/mail/buttonmailing.png" style="
-                        width: 20px;
-                        margin-left: 15px;
-                        height: 20px;
-                    " />
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align: right; padding-right: 30px;">
-                <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
-            </td>
-        </tr>
-            </tbody>
-            </table>
-            </main>
-            </body>
+                                <tr>
+                                <td>
+                                    <a href="https://mundoweb.pe/" style="
+                                        text-decoration: none;
+                                        background-color: #e15a29;
+                                        color: white;
+                                        border-radius: 40px;
+                                        padding: 12px 20px;
+                                        display: inline-flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        gap: 10px;
+                                        font-weight: 600;
+                                        font-family: Montserrat, sans-serif;
+                                    ">
+                                        <span>Haz que tu negocio despegue</span>
+                                        <img  src="https://mundoweb.pe/mail/buttonmailing.png" style="
+                                            width: 20px;
+                                            margin-left: 15px;
+                                            height: 20px;
+                                        " />
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right; padding-right: 30px;">
+                                    <img src="https://mundoweb.pe/mail/10_rgb.png" alt="mundo web" style="width: 80%; margin-top: 100px" />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </main>
+                </body>
 
             </html>
             ';

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Landing extends Model
 {
     use HasFactory;
-    protected $fillable=['nombre','email', 'telefono', 'cargo', 'empresa' , 'mensaje', 'tipocontacto' ,'urlweb', 'source' , 'fecha',
-                            'hora', 'lead','ip', 'llegade', 'anchodispositivo', 'largodispositivo', 'latitud', 'longitud', 'sistema'];
+    
+    protected $connection = 'mysql_mundoweb';
+    protected $fillable = [];
 }
