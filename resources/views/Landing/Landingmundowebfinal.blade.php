@@ -1359,13 +1359,6 @@
 
         let formulario = $('#dataForm').serialize()
 
-        /* if (!validarTelefono($('#telefono').val())) {
-                return;
-            };
-
-            if (!validarEmail($('#email').val())) {
-                return;
-            }; */
         Swal.fire({
 
             title: 'Procesando información',
@@ -1385,31 +1378,6 @@
                 Swal.showLoading();
             }
         });
-
-        // $.ajax({
-        //   url: '{{ route('guardarlandingmundoweb') }}',
-        //   method: 'POST',
-        //   data: formulario,
-        //   success: function(response) {
-        //     Swal.close();
-        //     Swal.fire({
-        //       title: response.message,
-        //       icon: "success",
-        //     });
-
-        //     $('#dataForm')[0].reset();
-
-        //     window.location.href = 'https://mundoweb.pe/website#formularioListo';
-        //   },
-        //   error: function(response) {
-
-        //     Swal.close();
-        //     Swal.fire({
-        //       title: response.responseJSON.message,
-        //       icon: "error",
-        //     });
-        //   }
-        // });
 
         fetch("{{ route('save.crm') }}", {
                 method: 'POST',
@@ -1569,35 +1537,69 @@
 </script>
 
 <script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const phonePrefixSelect = document.getElementById('phone_prefix');
+
+    //     fetch('./prefijocelular.json')
+    //         .then(response => response.json())
+    //         .then(phonePrefixes => {
+    //             phonePrefixes.forEach(prefix => {
+    //                 const option = document.createElement('option');
+    //                 option.value = prefix.realCode;
+    //                 option.textContent = `${prefix.country} (${prefix.beautyCode})`;
+    //                 phonePrefixSelect.appendChild(option);
+    //             });
+
+    //             // Recuperar y establecer el prefijo seleccionado desde localStorage
+    //             const selectedPrefix = localStorage.getItem('selectedPrefix');
+    //             if (selectedPrefix) {
+    //                 phonePrefixSelect.value = selectedPrefix;
+    //             } else {
+    //                 // Si no hay valor en localStorage, establecer Perú como predeterminado
+    //                 phonePrefixSelect.value = "51";
+    //             }
+    //         })
+    //         .catch(error => console.error('Error cargando el archivo JSON:', error));
+
+    //     // Guardar la selección en localStorage al cambiar la selección
+    //     phonePrefixSelect.addEventListener('change', function() {
+    //         localStorage.setItem('selectedPrefix', phonePrefixSelect.value);
+    //     });
+    // });
+
     document.addEventListener('DOMContentLoaded', function() {
-        const phonePrefixSelect = document.getElementById('phone_prefix');
+    const phonePrefixSelect = document.getElementById('phone_prefix');
 
-        fetch('./prefijocelular.json')
-            .then(response => response.json())
-            .then(phonePrefixes => {
-                phonePrefixes.forEach(prefix => {
-                    const option = document.createElement('option');
-                    option.value = prefix.realCode;
-                    option.textContent = `${prefix.country} (${prefix.beautyCode})`;
-                    phonePrefixSelect.appendChild(option);
-                });
+    fetch('./prefijocelular.json')
+        .then(response => response.json())
+        .then(phonePrefixes => {
+            phonePrefixes.forEach(prefix => {
+                const option = document.createElement('option');
+                option.value = prefix.realCode;
+                option.textContent = `${prefix.country} (${prefix.beautyCode})`;
+                phonePrefixSelect.appendChild(option);
+            });
 
-                // Recuperar y establecer el prefijo seleccionado desde localStorage
-                const selectedPrefix = localStorage.getItem('selectedPrefix');
-                if (selectedPrefix) {
-                    phonePrefixSelect.value = selectedPrefix;
-                } else {
-                    // Si no hay valor en localStorage, establecer Perú como predeterminado
-                    phonePrefixSelect.value = "51";
-                }
-            })
-            .catch(error => console.error('Error cargando el archivo JSON:', error));
+            // Recuperar y establecer el prefijo seleccionado desde localStorage
+            const selectedPrefix = localStorage.getItem('selectedPrefix');
+            if (selectedPrefix) {
+                phonePrefixSelect.value = selectedPrefix;
+                console.log(`Prefijo seleccionado recuperado: ${selectedPrefix}`);
+            } else {
+                // Si no hay valor en localStorage, establecer Perú como predeterminado
+                phonePrefixSelect.value = "51";
+                console.log('No se encontró prefijo en localStorage. Se estableció Perú (51) como predeterminado.');
+            }
+        })
+        .catch(error => console.error('Error cargando el archivo JSON:', error));
 
-        // Guardar la selección en localStorage al cambiar la selección
-        phonePrefixSelect.addEventListener('change', function() {
-            localStorage.setItem('selectedPrefix', phonePrefixSelect.value);
-        });
+    // Guardar la selección en localStorage al cambiar la selección
+    phonePrefixSelect.addEventListener('change', function() {
+        const newSelectedPrefix = phonePrefixSelect.value;
+        localStorage.setItem('selectedPrefix', newSelectedPrefix);
+        console.log(`Nuevo prefijo seleccionado guardado en localStorage: ${newSelectedPrefix}`);
     });
+});
 </script>
 <script>
     function getParameterByName(name) {
@@ -1635,7 +1637,7 @@
 
         sourceInputOrigin.value = nuevo;
         sourceInputWspOrigin.value = nuevoWsp;
-
+        
         console.log(sourceInputOrigin.value);
         console.log(sourceInputWspOrigin.value);
     }
