@@ -21,7 +21,6 @@ class FormController extends Controller
        
         $response = Response::simpleTryCatch(function (Response $response) use ($request) {
             $body = $request->all();
-            dd($body);
             $body['origin'] = $body['origin'] ?? '[Mundo Web] - Landing WebSite';
             $body['source'] = $body['source'] ?? 'Integracion API';
             $body['triggered_by'] = $body['triggered_by'] ?? 'Pauta';
