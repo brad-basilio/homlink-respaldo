@@ -259,7 +259,7 @@
                                 src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}" alt="mundo web"></a>
                     </div>
                     <div class="group custom-auto-width">
-                        <a href="#formularioListo"
+                        <a href="#dataForm"
                             class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full flex">
                             <!-- Quité la clase w-full del botón -->
                             <span>Quiero mi web</span>
@@ -406,7 +406,7 @@
                         </p>
 
                         <div class="pt-5 group">
-                            <a href="#formularioListo"
+                            <a href="#dataForm"
                                 class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
                                 <span>Quiero mi web</span>
 
@@ -518,7 +518,7 @@
                         <img src="{{ asset('images/img/imgMundoWeb/image_5.png') }}" alt="mundo web">
                     </div>
 
-                    <div id="formularioListo" class="flex flex-col justify-center gap-10">
+                    <div id="formulario" class="flex flex-col justify-center gap-10">
                         <h2
                             class="text-[#050A41] font-RightgroteskMedium text-text32 md:text-text64 leading-tight font-medium w-full lg:w-2/3">
                             ¿Listo para crear tu página <span class="text-[#E15A29]">web a medida?</span> </h2>
@@ -1111,7 +1111,7 @@
 
                     <div class="pt-5 flex justify-between w-full" data-aos="fade-up" data-aos-duration="1500">
                         <div class="w-full flex justify-center group">
-                            <a href="#formularioListo"
+                            <a href="#formulario"
                                 class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] lg:bg-white lg:bg-opacity-10  justify-center items-center gap-3 rounded-full inline-flex text-center">
                                 <span>Quiero mi web</span>
 
@@ -1152,7 +1152,7 @@
 
 
                 <div class="group">
-                    <a href="#formularioListo"
+                    <a href="#formulario"
                         class="border-white border-[1px] font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
                         <span>Ir a la web</span>
 
