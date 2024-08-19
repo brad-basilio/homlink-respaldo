@@ -259,7 +259,7 @@
                                 src="{{ asset('/images/img/imgMundoWeb/image_1.png') }}" alt="mundo web"></a>
                     </div>
                     <div class="group custom-auto-width">
-                        <a href="#dataForm"
+                        <a href="#formulario"
                             class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full flex">
                             <!-- Quité la clase w-full del botón -->
                             <span>Quiero mi web</span>
@@ -406,7 +406,7 @@
                         </p>
 
                         <div class="pt-5 group">
-                            <a href="#dataForm"
+                            <a href="#formulario"
                                 class="font-montserrat font-semibold text-white py-2 px-4 bg-[#303BE4] justify-center items-center gap-3 rounded-full inline-flex">
                                 <span>Quiero mi web</span>
 
