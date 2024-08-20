@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <meta name="facebook-domain-verification" content="768bcx49gly3h4wxa2gtsifncbvln9" />
+    
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {

@@ -13,7 +13,7 @@
   <meta property="og:url" content="https://mundoweb.pe/" />
   <meta name="keywords"
     content="Agencia de desarrollo web, Agencia de diseño web, Empresa de desarrollo web, Desarrolladores web, Páginas web Perú, Especialistas en diseño web, Creación de sitios web, Posicionamiento SEO, Empresa de posicionamiento web, Agencia de diseño web en Lima" />
-
+  <meta name="facebook-domain-verification" content="768bcx49gly3h4wxa2gtsifncbvln9" />
 
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js'])  --}}
   <link rel="stylesheet" href="{{ asset('build/app.css') }}">
