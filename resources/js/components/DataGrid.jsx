@@ -8,7 +8,7 @@ const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, 
       language: "es",
       dataSource: {
         load: async (params) => {
-          const data = await rest.paginate(params)
+          const data = await rest.paginate({...params, _token: $('[name="csrf_token"]').attr('content')})
           return data
         },
       },

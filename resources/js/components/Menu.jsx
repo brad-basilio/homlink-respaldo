@@ -1,9 +1,9 @@
+import Tippy from '@tippyjs/react'
 import React from 'react'
-import Logout from '../actions/Logout'
+import 'tippy.js/dist/tippy.css'
+import Logout from '../Actions/Logout'
 import MenuItem from './MenuItem'
 import MenuItemContainer from './MenuItemContainer'
-import Tippy from '@tippyjs/react'
-import 'tippy.js/dist/tippy.css';
 
 const Menu = ({ session, can }) => {
   const mainRole = session.roles[0]
@@ -13,11 +13,11 @@ const Menu = ({ session, can }) => {
   return (<div className="left-side-menu">
     <div className="h-100" data-simplebar>
       <div className="user-box text-center">
-        <img src={`api/profile/thumbnail/${session.relative_id}?v=${new Date(session.updated_at).getTime() }`} alt={session.name} title={session.name}
+        <img src={`/api/profile/thumbnail/${session.uuid}?v=${new Date(session.updated_at).getTime()}`} alt={session.name} title={session.name}
           className="rounded-circle img-thumbnail avatar-md" style={{ backgroundColor: 'unset', borderColor: '#98a6ad', objectFit: 'cover', objectPosition: 'center' }} />
         <div className="dropdown">
           <a href="#" className="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"
-            aria-expanded="false">{session.name} {session.lastname} {idBirthday ? <Tippy content={`Feliz cumpleaños ${session.name}`} arrow={true}><i className=' fas fa-birthday-cake text-danger'></i></Tippy> : ''}</a>
+            aria-expanded="false">{session.name.split(' ')[0]} {session.lastname.split(' ')[0]} {idBirthday ? <Tippy content={`Feliz cumpleaños ${session.name}`} arrow={true}><i className=' fas fa-birthday-cake text-danger'></i></Tippy> : ''}</a>
           <div className="dropdown-menu user-pro-dropdown">
 
 
@@ -44,9 +44,9 @@ const Menu = ({ session, can }) => {
           </div>
         </div>
 
-        <Tippy content={mainRole.description} arrow={true}>
-          <p className="text-muted left-user-info" >{mainRole.name}</p>
-        </Tippy>
+        {/* <Tippy content={mainRole.description} arrow={true}> */}
+        <p className="text-muted left-user-info" >{mainRole.name}</p>
+        {/* </Tippy> */}
 
         <ul className="list-inline">
           <li className="list-inline-item">
@@ -71,38 +71,27 @@ const Menu = ({ session, can }) => {
       <div id="sidebar-menu" className='show'>
 
         <ul id="side-menu">
-          <li className="menu-title">Panel de navegacion</li>
-          <MenuItem href="/home" icon='mdi mdi-home'>Inicio</MenuItem>
-          <MenuItem href="/businesses" icon='mdi mdi-bag-checked'>Empresas</MenuItem>
+          <li className="menu-title">Navigation Panel</li>
+          <MenuItem href="/coach/home" icon='mdi mdi-home'>Dashboard</MenuItem>
 
-          <li className="menu-title">Configuracion</li>
-          <MenuItem href="/profile" icon='mdi mdi-account'>Mi perfil</MenuItem>
-          <MenuItem href="/account" icon='mdi mdi-account-key'>Mi cuenta</MenuItem>
+          <MenuItemContainer title='Procesos' icon='mdi mdi-file-document'>
+            <MenuItem href='/coach/requests' icon='mdi mdi-file-download'>Solicitudes</MenuItem>
+            <MenuItem href='/coach/agreements' icon='mdi mdi-handshake'>Acuerdos realizados</MenuItem>
+            <MenuItem href='/coach/approved-agreements' icon='mdi mdi-handshake-outline'>Acuerdos aprobados</MenuItem>
+            <MenuItem href='/coach/sessions' icon='mdi mdi-playlist-play'>Sesiones</MenuItem>
+          </MenuItemContainer>
 
-          {
-            can(['people', 'users', 'constants'], 'all', 'list') && <>
-              <li className="menu-title">Menus del sistema</li>
-              <MenuItemContainer title='Mantenimiento' icon='mdi mdi-application-cog'>
-                {
-                  can('people', 'all', 'list') &&
-                  <MenuItem href='/people' icon='mdi mdi-account-group'>Personas</MenuItem>
-                }
-                {
-                  can('users', 'all', 'list') &&
-                  <MenuItem href='/users' icon='mdi mdi-account-multiple'>Usuarios</MenuItem>
-                }
-              </MenuItemContainer>
-              {
-                can('constants', 'all', 'list') &&
-                <MenuItem href='/constants' icon='mdi mdi-cogs'>Constantes</MenuItem>
-              }
-            </>
-          }
+          <MenuItem href="/coach/calendar" icon='mdi mdi-calendar'>Calendario</MenuItem>
+          <MenuItem href="/coach/resources" icon='mdi mdi-cube'>Recursos</MenuItem>
+          <MenuItem href="/coach/payments" icon='mdi mdi-currency-usd'>Pagos</MenuItem>
+
+          <li className="menu-title">Configuraciones</li>
+          <MenuItem href="/coach/profile" icon='mdi mdi-account-box'>Mi perfil</MenuItem>
+          <MenuItem href="/coach/bank-accounts" icon='mdi mdi-credit-card-settings'>Cuentas bancarias</MenuItem>
+
         </ul>
 
       </div>
-
-
       <div className="clearfix"></div>
 
     </div>

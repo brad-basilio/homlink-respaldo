@@ -10,10 +10,13 @@ class PreUser extends Model
     use HasFactory;
 
     protected $fillable = [
+        'name',
+        'lastname',
         'email',
         'password',
         'person_id',
         'confirmation_token',
+        'role',
         'token',
     ];
 

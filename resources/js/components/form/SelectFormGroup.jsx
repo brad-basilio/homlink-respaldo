@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 
-const SelectFormGroup = ({ col, label, eRef, required = false, children, dropdownParent, disabled = false, onChange = () => { },
+const SelectFormGroup = ({ col, label, eRef, required = false, children, dropdownParent, multiple = false, disabled = false, onChange = () => { },
   templateResult,
   templateSelection
 }) => {
@@ -20,7 +20,7 @@ const SelectFormGroup = ({ col, label, eRef, required = false, children, dropdow
     <label htmlFor=''>
       {label} {(label && required) && <b className="text-danger">*</b>}
     </label>
-    <select ref={eRef} required={required} className='form-control' style={{ width: '100%' }} disabled={disabled}>
+    <select ref={eRef} required={required} className='form-control' style={{ width: '100%' }} disabled={disabled} multiple={multiple}>
       {children}
     </select>
   </div>

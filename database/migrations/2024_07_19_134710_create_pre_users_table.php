@@ -14,14 +14,14 @@ return new class extends Migration
     {
         Schema::create('pre_users', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('lastname');
             $table->string('email');
             $table->string('password');
-            $table->unsignedBigInteger('person_id');
             $table->char('confirmation_token', 36);
             $table->char('token', 36);
+            $table->char('role', 36);
             $table->timestamps();
-
-            $table->foreign('person_id')->references('id')->on('people');
         });
     }
 

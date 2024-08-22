@@ -8,10 +8,13 @@
 <html lang="es">
 
 <head>
+  @viteReactRefresh
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Gestion de clientes | Atalaya</title>
-  <link rel="shortcut icon" href="/assets/img/icon.svg" type="image/png">
+  <title>Panel | {{ env('APP_NAME', 'Net Coaching') }}</title>
+  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/png">
+
+  <meta name="csrf_token" content="{{ csrf_token() }}">
 
   <link href="/lte/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 

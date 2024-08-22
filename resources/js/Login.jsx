@@ -6,10 +6,11 @@ import AuthRest from './actions/AuthRest'
 import { Link } from '@inertiajs/react'
 import Swal from 'sweetalert2'
 import { GET } from 'sode-extend-react'
+import logo from './Svg/logo.svg'
 
 const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
 
-  document.title = 'Login | Atalaya'
+  document.title = 'Login | NetCoaching'
 
   const jsEncrypt = new JSEncrypt()
   jsEncrypt.setPublicKey(PUBLIC_RSA_KEY)
@@ -49,8 +50,7 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
 
     if (!result) return setLoading(false)
 
-    if (GET.service) location.href = `${APP_PROTOCOL}://${GET.service}.${APP_DOMAIN}/home`;
-    else location.href = './home';
+    location.reload();
   }
 
   return (
@@ -62,9 +62,9 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
             <div className="col-md-8 col-lg-6 col-xl-4">
               <div className="text-center">
                 <Link href="/">
-                  <img src="/assets/img/logo-dark.svg" alt="" height="22" className="mx-auto" style={{ height: '22px' }} />
+                  <img src={logo} alt="" className="mx-auto" style={{ height: '40px' }} />
                 </Link>
-                <p className="text-muted mt-2 mb-4">Atalaya by Mundo Web</p>
+                <p className="text-muted mt-2 mb-4">Bienvenido a Net Coaching</p>
               </div>
               <div className="card">
                 <div className="card-body p-4">
@@ -99,7 +99,7 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
                   <p> <Link href="/recovery" className="text-muted ms-1"><i
                     className="fa fa-lock me-1"></i>Olvidaste tu contraseña?</Link></p>
                   <p className="text-muted">No tienes una cuenta aun? <Link href="/register"
-                    className="text-dark ms-1"><b>Registrate</b></Link></p>
+                    className="text-white ms-1"><b>Registrate</b></Link></p>
                 </div>
               </div>
             </div>

@@ -185,7 +185,7 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN, APP_PRO
                               {
                                 sbb.users.map((user, i) => (<div key={`user-${i}`} className="avatar-group-item mb-0">
                                   <Tippy content={`${user?.person?.name || user?.name} ${user?.person?.lastname || user?.lastname} ${session.id == user.id && '(Tú)'}`}>
-                                    <img src={`/api/profile/thumbnail/${user.relative_id}`} className="rounded-circle avatar-sm" alt={`${user.name} ${user.lastname}`} />
+                                    <img src={`/api/profile/thumbnail/${user.uuid}`} className="rounded-circle avatar-sm" alt={`${user.name} ${user.lastname}`} />
                                   </Tippy>
                                 </div>))
                               }
@@ -235,7 +235,7 @@ const Services = ({ businesses = [], services = [], session, APP_DOMAIN, APP_PRO
                   {serviceLoaded?.users?.map((user, i) => {
                     return <tr key={`user-${i}`}>
                       <td>
-                        <img src={`/api/profile/thumbnail/${user.relative_id}`} className="rounded-circle avatar-sm me-1" alt={`${user.name} ${user.lastname}`}></img>
+                        <img src={`/api/profile/thumbnail/${user.uuid}`} className="rounded-circle avatar-sm me-1" alt={`${user.name} ${user.lastname}`}></img>
                       </td>
                       <td>
                         <div>

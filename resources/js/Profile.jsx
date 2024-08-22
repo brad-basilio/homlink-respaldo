@@ -1,117 +1,82 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Adminto from './components/Adminto';
 import CreateReactScript from './Utils/CreateReactScript';
-import InputFormGroup from './components/form/InputFormGroup';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { Cookies, JSON, Notify } from 'sode-extend-react';
-import ProfileRest from './actions/ProfileRest';
+import Base from './Components/Base';
+import HtmlContent from './Utils/HtmlContent';
 
-const Profile = (props) => {
-  const nameRef = useRef()
-  const lastnameRef = useRef()
-  const birthdateRef = useRef()
+const Profile = ({ coach, country, resources }) => {
 
-  const [session, setSession] = useState(props.session)
-
-  const onFormSubmit = async (e) => {
-    e.preventDefault();
-
-    const request = {
-      name: nameRef.current.value,
-      lastname: lastnameRef.current.value,
-      birthdate: birthdateRef.current.value
-    }
-
-    const result = await ProfileRest.save(request)
-
-    if (!result) return
-
-    const newSession = structuredClone(session)
-    newSession.name = request.name
-    newSession.lastname = request.lastname
-    newSession.birthdate = request.birthdate
-    setSession(newSession)
-  }
-
-  const onProfileChange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const { full, thumbnail, type, ok } = await File.compress(file)
-
-      if (!ok) throw new Error('Ocurrio un error al comprimir la imagen. Intenta con otra.')
-
-      const request = new FormData();
-      request.append('thumbnail', await File.fromURL(`data:${type};base64,${thumbnail}`));
-      request.append('full', await File.fromURL(`data:${type};base64,${full}`));
-
-      const res = await fetch('/api/profile', {
-        method: 'POST',
-        headers: {
-          'X-Xsrf-Token': decodeURIComponent(Cookies.get('XSRF-TOKEN'))
-        },
-        body: request
-      })
-      const data = JSON.parseable(await res.text())
-      if (!res.ok) throw new Error(data?.message ?? 'Ocurrio un error inesperado')
-
-      const newSession = structuredClone(session)
-      newSession.relative_id = data.data.relative_id
-      setSession(newSession)
-
-      Notify.add({
-        icon: '/assets/img/logo-login.svg',
-        title: 'Correcto',
-        body: 'La imagen de perfil se actualizo correctamente',
-        type: 'success'
-      })
-    } catch (error) {
-      Notify.add({
-        icon: '/assets/img/logo-login.svg',
-        title: 'Error',
-        body: error.message,
-        type: 'danger'
-      })
-    }
-  }
-
-  return <Adminto {...props} title='Perfil de usuario' session={session}>
-    <div className='row justify-content-center align-items-center' style={{ height: 'calc(100vh - 135px)' }}>
-      <div className='col-xl-3 col-lg-4 col-md-6 col-sm-8 col-xs-12'>
-        <form className='card' onSubmit={onFormSubmit}>
-          <div className='card-header'>
-            <h4 className='card-title mb-0'>Perfil</h4>
+  return (
+    <div className="flex flex-col-reverse md:flex-row gap-4 md:gap-8">
+      <div className="md:w-2/3">
+        <img
+          className='w-full aspect-[8/3] object-cover object-center rounded-lg'
+          src={`/api/cover/${coach.uuid}`}
+          alt="Cover Photo"
+        />
+        <div className="flex gap-4 my-[5%] items-center">
+          <img
+            className='w-24 h-24 rounded-full object-cover object-center'
+            src={`/api/profile/${coach.uuid}`}
+            alt="Profile Photo"
+          />
+          <div>
+            <h1 className="text-2xl font-bold">{coach.name} {coach.lastname}</h1>
+            <p>{coach.title}</p>
           </div>
-          <div className='card-body'>
-            <Tippy content='Cambiar foto de perfil' arrow={true}>
-              <label htmlFor='avatar' className='rounded-circle mx-auto d-block' style={{ cursor: 'pointer', width: 'max-content' }}>
-                <input className='d-none' type='file' name='avatar' id='avatar' accept='image/*' onChange={onProfileChange} />
-                <img className='avatar-xl rounded-circle' src={`api/profile/${session.relative_id}?v=${crypto.randomUUID()}`} alt={`Perfil de ${session.name} ${session.lastname}`} style={{ objectFit: 'cover', objectPosition: 'center' }} />
-              </label>
-            </Tippy>
-            <hr className='mt-3 mb-2' />
-            <InputFormGroup eRef={nameRef} label='Nombres' value={session.name} required />
-            <InputFormGroup eRef={lastnameRef} label='Apellidos' value={session.lastname} required />
-            <InputFormGroup eRef={birthdateRef} label='Fecha de nacimiento' value={session.birthdate} type='date' required />
-            <div className='text-center'>
-              <button className='btn btn-primary btn-block' type='submit'>
-                <i className='fa fa-save'></i> Actualizar
-              </button>
-            </div>
-            <hr className='mt-3 mb-2' />
-            <p className='card-text text-center'>
-              <small className='text-muted'>Ultima actualizacion {moment(session.updated_at).fromNow()}</small>
-            </p>
-          </div>
-        </form>
+        </div>
+        <div className="prose">
+          <HtmlContent html={coach.description} />
+        </div>
+
+        <h3 className='text-lg font-bold mt-[5%] mb-[2.5%]'>Contenidos y temas</h3>
+
+
+        <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-gray-500 dark:text-gray-400" data-inactive-classes="text-gray-500 dark:text-gray-400">
+          {
+            resources.map((resource, i) => {
+              return <>
+                <h2 id={`accordion-heading-${i}`}>
+                  <button type="button" className="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200  dark:text-gray-400 gap-3" data-accordion-target={`#accordion-${i}`} aria-expanded="true" aria-controls={`accordion-${i}`}>
+                    <span>{resource.name}</span>
+                    <i data-accordion-icon className='text-lg rotate-180 shrink-0 fas fa-angle-down'></i>
+                  </button>
+                </h2>
+                <div id={`accordion-${i}`} className="hidden" aria-labelledby={`accordion-heading-${i}`}>
+                  <div className="py-5 border-b border-gray-200 prose">
+                    <HtmlContent html={resource.description}/>
+                  </div>
+                </div>
+              </>
+            })
+          }
+        
+        </div>
+
+      </div>
+      <div className="md:w-1/3 sticky top-[15%] h-max">
+        <h2 className="text-xl font-semibold mb-4">Datos del Coach</h2>
+        <h3 className='text-lg'>S/ 120.00</h3>
+        <p className='mb-2'>
+          <i className='fas fa-globe-americas w-6'></i>
+          <b>Nacionalidad</b>: {country.name} - {coach.city}
+        </p>
+        <p className='mb-2'>
+          <i className='fas fa-file-alt w-6'></i>
+          <b>Resumen</b>: {coach.summary}
+        </p>
+        <button type="button" class="focus:outline-none text-white bg-[#ff5b5b] hover:bg-[#ff5b5bbb] focus:ring-4 focus:ring-[#ff5b5bdd] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
+          Quiero mi coach
+          <i className='fab fa-whatsapp ms-2'></i>
+          </button>
       </div>
     </div>
-  </Adminto>
+  );
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Profile {...properties} />);
+  createRoot(el).render(<Base {...properties}>
+    <Profile {...properties} />
+  </Base>);
 })

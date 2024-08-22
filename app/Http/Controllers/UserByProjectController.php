@@ -70,7 +70,7 @@ class UserByProjectController extends Controller
         }
     }
 
-    public function getUser(Request $request, $relative_id)
+    public function getUser(Request $request, $uuid)
     {
         $response = new Response();
         try {
@@ -82,7 +82,7 @@ class UserByProjectController extends Controller
                 'users_by_projects.created_at'
             ])
                 ->join('users', 'users.id', '=', 'users_by_projects.user_id')
-                ->where('relative_id', $relative_id)
+                ->where('uuid', $uuid)
                 ->first();
 
             if (!$user) throw new Exception('Usuario no encontrado');

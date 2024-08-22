@@ -133,7 +133,7 @@ const Users = ({ can, PUBLIC_RSA_KEY }) => {
             container.append(DxBox([
               <img
                 className='avatar-xs rounded-circle'
-                src={`/api/profile/thumbnail/${data.relative_id}`}
+                src={`/api/profile/thumbnail/${data.uuid}`}
                 alt={data.name}
               />,
               <p className='mb-0' style={{ fontSize: "14px" }}>{data.email}</p>

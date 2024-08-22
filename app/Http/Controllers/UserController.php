@@ -35,7 +35,7 @@ class UserController extends BasicController
             if (!$jpa) {
                 if (!isset($request->password) || !isset($request->confirm)) throw new Exception('Debes ingresar una contraseña para el nuevo usuario');
                 $jpa = new User();
-                $jpa->relative_id = Crypto::randomUUID();
+                $jpa->uuid = Crypto::randomUUID();
             }
             $jpa->name = $request->name;
             $jpa->lastname = $request->lastname;

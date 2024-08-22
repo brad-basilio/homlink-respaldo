@@ -32,7 +32,7 @@
   @inertiaHead
 </head>
 
-<body class="loading authentication-bg-pattern">
+<body class="loading authentication-bg-pattern" style="background-color: #05455A">
   @inertia
 
   <script src="/lte/assets/js/vendor.min.js"></script>
