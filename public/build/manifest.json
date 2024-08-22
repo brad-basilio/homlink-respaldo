@@ -253,7 +253,7 @@
     "isEntry": true
   },
   "resources/js/Admin/Components/Menu.jsx": {
-    "file": "assets/Menu-xRQIoUP3.js",
+    "file": "assets/Menu-CgbTVkeA.js",
     "name": "Menu",
     "src": "resources/js/Admin/Components/Menu.jsx",
     "isEntry": true,
@@ -276,7 +276,7 @@
     ]
   },
   "resources/js/Admin/Components/MenuItemContainer.jsx": {
-    "file": "assets/MenuItemContainer-_27vzOo3.js",
+    "file": "assets/MenuItemContainer-CKKK7PRl.js",
     "name": "MenuItemContainer",
     "src": "resources/js/Admin/Components/MenuItemContainer.jsx",
     "isEntry": true,
@@ -462,7 +462,7 @@
     ]
   },
   "resources/js/Components/Menu.jsx": {
-    "file": "assets/Menu-CgbTVkeA.js",
+    "file": "assets/Menu-xRQIoUP3.js",
     "name": "Menu",
     "src": "resources/js/Components/Menu.jsx",
     "isEntry": true,
@@ -486,7 +486,7 @@
     ]
   },
   "resources/js/Components/MenuItemContainer.jsx": {
-    "file": "assets/MenuItemContainer-CKKK7PRl.js",
+    "file": "assets/MenuItemContainer-_27vzOo3.js",
     "name": "MenuItemContainer",
     "src": "resources/js/Components/MenuItemContainer.jsx",
     "isEntry": true,
