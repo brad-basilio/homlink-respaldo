@@ -1,11 +1,10 @@
-import { Link } from '@inertiajs/react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from '../Utils/CreateReactScript';
-import Adminto from '../Components/Adminto';
+import BaseAdminto from '../Components/Adminto/Base';
 import SimpleCounter from '../Components/Counter/SimpleCounter';
 
-const Home = () => {
+const Home = ({session}) => {
   return (
     <>
       <div className="row justify-content-center">
@@ -65,7 +64,7 @@ const Home = () => {
 };
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Adminto {...properties} title="Dashboard">
+  createRoot(el).render(<BaseAdminto {...properties} title="Dashboard">
     <Home {...properties} />
-  </Adminto>);
+  </BaseAdminto>);
 })

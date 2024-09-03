@@ -1,43 +1,56 @@
 import React, { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import Modal from "../Components/Modal";
-import Table from "../Components/Table";
-import InputFormGroup from "../Components/form/InputFormGroup";
-import SelectFormGroup from "../Components/form/SelectFormGroup";
-import TextareaFormGroup from "../Components/form/TextareaFormGroup";
-import CreateReactScript from "../Utils/CreateReactScript";
-import SetSelectValue from "../Utils/SetSelectValue";
-import CoachesRest from "../actions/CoachesRest";
-import Adminto from "./components/Adminto";
+import Modal from "@Adminto/Modal.jsx";
+import Table from "@Adminto/Table";
+import InputFormGroup from "@Adminto/form/InputFormGroup";
+import SelectAPIFormGroup from "@Adminto/Form/SelectAPIFormGroup";
+import PasswordFormGroup from "@Adminto/Form/PasswordFormGroup";
+import CreateReactScript from "@Utils/CreateReactScript";
+import SetSelectValue from "@Utils/SetSelectValue";
+import BaseAdminto from "@Adminto/Base";
+import JSEncrypt from "jsencrypt";
+import Global from "@Utils/Global";
+import AdminCoachesRest from "@Rest/Admin/CoachesRest";
+import DxBox from "@Adminto/Dx/DxBox";
+import ReactAppend from "@Utils/ReactAppend";
+import DxButton from "@Adminto/Dx/DxButton";
 
-const coachesRest = new CoachesRest();
+const coachesRest = new AdminCoachesRest();
 
-const Coaches = ({ countries }) => {
+const Coaches = ({ }) => {
   const gridRef = useRef()
   const modalRef = useRef()
 
   // Form elements ref
   const idRef = useRef()
-  const tableRef = useRef()
   const nameRef = useRef()
-  const professionRef = useRef()
-  const cityRef = useRef()
-  const countryRef = useRef()
-  const colorRef = useRef()
-  const phoneRef = useRef()
-  const descriptionRef = useRef()
+  const lastnameRef = useRef()
+  const emailRef = useRef()
+  const rolesRef = useRef()
+  const passwordRef = useRef()
+  const confirmRef = useRef()
+
+  const jsEncrypt = new JSEncrypt()
+  jsEncrypt.setPublicKey(Global.PUBLIC_RSA_KEY)
 
   const [isEditing, setIsEditing] = useState(false)
 
-  const onModalOpen = (data) => {
+  const onModalOpen = async (data) => {
+
+
+
     if (data?.id) setIsEditing(true)
     else setIsEditing(false)
 
+    const roles = await RolesRest.byUser(data?.id)
+
     idRef.current.value = data?.id || null
-    SetSelectValue(tableRef.current, data?.table?.id, data?.table?.name)
     nameRef.current.value = data?.name || null
-    phoneRef.current.value = data?.color || '#343a40'
-    descriptionRef.current.value = data?.description || null
+    lastnameRef.current.value = data?.lastname || null
+    emailRef.current.value = data?.email || null
+    SetSelectValue(rolesRef.current, roles, 'id', 'name')
+    passwordRef.current.value = null
+    confirmRef.current.value = null
 
     $(modalRef.current).modal('show')
   }
@@ -45,12 +58,17 @@ const Coaches = ({ countries }) => {
   const onModalSubmit = async (e) => {
     e.preventDefault()
 
+    const password = passwordRef.current.value
+    const confirm = confirmRef.current.value
+
     const request = {
       id: idRef.current.value || undefined,
-      table_id: tableRef.current.value,
       name: nameRef.current.value,
-      color: colorRef.current.value,
-      description: descriptionRef.current.value,
+      lastname: lastnameRef.current.value,
+      email: emailRef.current.value,
+      roles: $(rolesRef.current).val(),
+      password: password ? jsEncrypt.encrypt(password) : undefined,
+      confirm: confirm ? jsEncrypt.encrypt(confirm) : undefined
     }
 
     const result = await coachesRest.save(request)
@@ -83,43 +101,43 @@ const Coaches = ({ countries }) => {
             onClick: () => $(gridRef.current).dxDataGrid('instance').refresh()
           }
         });
-        container.unshift({
-          widget: 'dxButton', location: 'after',
-          options: {
-            icon: 'plus',
-            hint: 'Nuevo registro',
-            onClick: () => onModalOpen()
-          }
-        });
+        // container.unshift({
+        //   widget: 'dxButton', location: 'after',
+        //   options: {
+        //     icon: 'plus',
+        //     hint: 'Nuevo registro',
+        //     onClick: () => onModalOpen()
+        //   }
+        // });
       }}
       columns={[
         {
           dataField: 'id',
           caption: 'ID',
-          visible: false
-        },
-        {
-          dataField: 'table.name',
-          caption: 'Tabla',
-          dataType: 'string'
+          dataType: 'number',
+          sortOrder: 'asc'
         },
         {
           dataField: 'name',
-          caption: 'Estado de tabla'
+          caption: 'Nombres'
         },
         {
-          dataField: 'color',
-          caption: 'Color',
+          dataField: 'lastname',
+          caption: 'Apellidos'
+        },
+        {
+          dataField: 'email',
+          caption: 'Correo',
+          dataType: 'email',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <span className={`badge rounded-pill`} style={{ backgroundColor: data.color || '#343a40' }}>{data.color}</span>)
-          }
-        },
-        {
-          dataField: 'description',
-          caption: 'Descripcion',
-          cellTemplate: (container, { value }) => {
-            if (!value) ReactAppend(container, <i className='text-muted'>- Sin descripcion -</i>)
-            else ReactAppend(container, value)
+            container.append(DxBox([
+              <img
+                className='avatar-xs rounded-circle'
+                src={`/api/profile/thumbnail/${data.uuid}`}
+                alt={data.name}
+              />,
+              <p className='mb-0' style={{ fontSize: "14px" }}>{data.email}</p>
+            ], false))
           }
         },
         {
@@ -143,45 +161,32 @@ const Coaches = ({ countries }) => {
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
-            container.attr('style', 'display: flex; gap: 4px; overflow: unset')
-
-            ReactAppend(container, <TippyButton className='btn btn-xs btn-soft-primary' title='Editar' onClick={() => onModalOpen(data)}>
-              <i className='fa fa-pen'></i>
-            </TippyButton>)
-
-            ReactAppend(container, <TippyButton className='btn btn-xs btn-light' title={data.status === null ? 'Restaurar' : 'Cambiar estado'} onClick={() => onStatusChange(data)}>
-              {
-                data.status === 1
-                  ? <i className='fa fa-toggle-on text-success' />
-                  : data.status === 0 ?
-                    <i className='fa fa-toggle-off text-danger' />
-                    : <i className='fas fa-trash-restore' />
-              }
-            </TippyButton>)
-
-            ReactAppend(container, <TippyButton className='btn btn-xs btn-soft-danger' title='Eliminar' onClick={() => onDeleteClicked(data.id)}>
-              <i className='fa fa-trash-alt'></i>
-            </TippyButton>)
+            container.append(DxButton({
+              className: 'btn btn-xs btn-light',
+              title: data.status === null ? 'Restaurar' : 'Cambiar estado',
+              icon: data.status === 1 ? 'fa fa-toggle-on text-success' : data.status === 0 ? 'fa fa-toggle-off text-danger' : 'fas fa-trash-restore',
+              onClick: () => onStatusChange(data)
+            }))
+            container.append(DxButton({
+              className: 'btn btn-xs btn-soft-danger',
+              title: 'Eliminar',
+              icon: 'fa fa-trash-alt',
+              onClick: () => onDeleteClicked(data.id)
+            }))
           },
           allowFiltering: false,
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar datos del coach' : 'Agregar nuevo coach'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='status-crud-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar usuario' : 'Agregar usuario'} onSubmit={onModalSubmit}>
+      <div className='row' id='users-crud-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Nombre completo' col='col-12' required />
-        <InputFormGroup eRef={professionRef} label='Especialidad' col='col-12' required />
-        <SelectFormGroup eRef={countryRef} label='Pais' col='col-md-6' dropdownParent='#status-crud-container' required >
-          {
-            countries.map((country, i) => {
-              return <option key={`country-${i}`} value={country.id}>{country.name}</option>
-            })
-          }
-        </SelectFormGroup>
-        <InputFormGroup eRef={cityRef} label='Ciudad' col='col-md-6' required />
-        <InputFormGroup eRef={phoneRef} label='Telefono de contacto' col='col-12' required />
-        <TextareaFormGroup eRef={descriptionRef} label='Reseña' col='col-12' />
+        <InputFormGroup eRef={nameRef} label='Nombres' col='col-md-6' required />
+        <InputFormGroup eRef={lastnameRef} label='Apellidos' col='col-md-6' required />
+        <InputFormGroup eRef={emailRef} label='Correo' col='col-12' type='email' required />
+        <SelectAPIFormGroup eRef={rolesRef} label='Asignar roles' col='col-12' dropdownParent='#users-crud-container' searchAPI='/api/roles/paginate' searchBy='name' required multiple />
+        <PasswordFormGroup eRef={passwordRef} label='Contraseña' col='col-md-6' required={!isEditing} />
+        <PasswordFormGroup eRef={confirmRef} label='Repetir contraseña' col='col-md-6' required={!isEditing} />
       </div>
     </Modal>
   </>
@@ -189,7 +194,7 @@ const Coaches = ({ countries }) => {
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Adminto {...properties} title='Coaches'>
+  createRoot(el).render(<BaseAdminto {...properties} title='Coaches'>
     <Coaches {...properties} />
-  </Adminto>);
+  </BaseAdminto>);
 })

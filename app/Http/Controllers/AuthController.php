@@ -9,6 +9,7 @@ use App\Models\ModelHasRoles;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\PreUser;
+use App\Models\SpecialtiesByUser;
 use App\Models\Specialty;
 use App\Providers\RouteServiceProvider;
 use Exception;
@@ -19,6 +20,7 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use SoDe\Extend\Crypto;
+use SoDe\Extend\JSON;
 use SoDe\Extend\Response;
 use SoDe\Extend\Trace;
 use Spatie\Permission\Models\Role;
@@ -50,6 +52,7 @@ class AuthController extends Controller
     };
 
     if ($confirmation) {
+      $userJpa = new User();
       try {
         //code...
         $preUserJpa = PreUser::select()
@@ -59,7 +62,7 @@ class AuthController extends Controller
 
         $roleJpa = Role::where('relative_id', $preUserJpa->role)->first();
 
-        User::create([
+        $userJpa = User::create([
           'uuid' => Crypto::randomUUID(),
           'name' => $preUserJpa->name,
           'lastname' => $preUserJpa->lastname,
@@ -67,13 +70,25 @@ class AuthController extends Controller
           'email_verified_at' => Trace::getDate('mysql'),
           'password' => $preUserJpa->password,
           'birthdate' => $preUserJpa->birthdate,
+          'status' => false
         ])->assignRole($roleJpa->name);
+
+        $specialties = JSON::parse($preUserJpa->specialties);
+        foreach ($specialties as $specialty) {
+          SpecialtiesByUser::create([
+            'user_id' => $userJpa->id,
+            'specialty_id' => $specialty
+          ]);
+        }
+
         $message = 'La confirmacion se ha realizado con exito';
 
         $preUserJpa->delete();
         return redirect('/login?message=' . $message);
       } catch (\Throwable $th) {
-        return redirect('/login');
+        $userJpa->delete();
+        dump($th);
+        // return redirect('/login');
       }
     }
 
@@ -146,7 +161,8 @@ class AuthController extends Controller
         'password' => 'required|string',
         'confirmation' => 'required|string',
         'captcha' => 'required|string',
-        'terms' => 'required|accepted'
+        'terms' => 'required|accepted',
+        'specialties' => 'required|array'
       ]);
 
       $body = $request->all();
@@ -170,6 +186,7 @@ class AuthController extends Controller
         'password' => Controller::decode($body['password']),
         'confirmation_token' => Crypto::randomUUID(),
         'token' => Crypto::randomUUID(),
+        'specialties' => JSON::stringify($body['specialties'])
       ]);
 
       $content = Constant::value('confirm-email');

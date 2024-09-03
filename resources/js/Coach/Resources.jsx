@@ -1,14 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Adminto from '../Components/Adminto';
+import BaseAdminto from '../Components/Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
 import ResourcesRest from '../Actions/ResourcesRest';
 import Table from '../Components/Table';
 import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/form/InputFormGroup';
-import TextareaFormGroup from '../Components/form/TextareaFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
-import TippyButton from '../Components/form/TippyButton';
 import SelectFormGroup from '../Components/form/SelectFormGroup';
 import QuillFormGroup from '../Components/form/QuillFormGroup';
 import DxButton from '../Components/dx/DxButton';
@@ -40,8 +38,12 @@ const Resources = ({ specialties }) => {
     tagsRef.current.value = data?.tags ?? ''
     $(specialtyRef).val(data?.specialty_id ?? '').trigger('change')
     $(socialMediaRef).val(data?.social_media ?? '').trigger('change')
-    mediaIdRef.current.value = data?.media_id ?? ''
-    descriptionRef.editor.root.innerHTML = data?.description
+    if (data?.social_media == 'youtube' && data?.media_id) {
+      mediaIdRef.current.value = `https://youtu.be/${data?.media_id}`
+    } else {
+      mediaIdRef.current.value = data?.media_id ?? ''
+    }
+    descriptionRef.editor.root.innerHTML = data?.description ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -73,7 +75,16 @@ const Resources = ({ specialties }) => {
   }
 
   const onDeleteClicked = async (id) => {
-    const result = await statusesRest.delete(id)
+    const { isConfirmed } = await Swal.fire({
+      title: 'Eliminar recurso',
+      text: '¿Estas seguro de eliminar este recurso?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar',
+      cancelButtonText: 'Cancelar'
+    })
+    if (!isConfirmed) return
+    const result = await resourcesRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
@@ -118,7 +129,11 @@ const Resources = ({ specialties }) => {
           caption: 'Imagen',
           width: '90px',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src='/api/cover/thumbnail/null' style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
+            if (data.social_media == 'youtube') {
+              ReactAppend(container, <img src={`https://i.ytimg.com/vi/${data.media_id}/hqdefault.jpg`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
+            } else {
+              ReactAppend(container, <img src='/api/cover/thumbnail/null' style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
+            }
           }
         },
         {
@@ -185,7 +200,7 @@ const Resources = ({ specialties }) => {
 
 CreateReactScript((el, properties) => {
 
-  createRoot(el).render(<Adminto {...properties} title='Recursos'>
+  createRoot(el).render(<BaseAdminto {...properties} title='Recursos'>
     <Resources {...properties} />
-  </Adminto>);
+  </BaseAdminto>);
 })

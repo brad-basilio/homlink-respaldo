@@ -1,27 +1,15 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
+use App\Http\Controllers\Admin\CoachController as AdminCoachController;
+use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
+use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
-use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\LandingFormController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RemainingHistoryController;
-use App\Http\Controllers\ServicesByBusinessController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\StatusController;
-use App\Http\Controllers\TableController;
-use App\Http\Controllers\TypeController;
-use App\Http\Controllers\UserByProjectController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\UsersByServicesByBusinessController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +32,27 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard/{range}', [DashboardController::class, 'revenue']);
 
+    Route::middleware('can:Admin')->prefix('admin')->group(function () {
+        Route::post('/coaches/paginate', [AdminCoachController::class, 'paginate']);
+        Route::patch('/coaches/status', [AdminCoachController::class, 'status']);
+
+        Route::post('/resources/paginate', [AdminResourceController::class, 'paginate']);
+        Route::patch('/resources/status', [AdminResourceController::class, 'status']);
+        Route::delete('/resources/{id}', [AdminResourceController::class, 'delete']);
+
+        Route::post('/benefits', [AdminBenefitController::class, 'save']);
+        Route::post('/benefits/paginate', [AdminBenefitController::class, 'paginate']);
+        Route::patch('/benefits/status', [AdminBenefitController::class, 'status']);
+        Route::patch('/benefits/{field}', [AdminBenefitController::class, 'boolean']);
+        Route::delete('/benefits/{id}', [AdminBenefitController::class, 'delete']);
+
+        Route::post('/sliders', [AdminSliderController::class, 'save']);
+        Route::post('/sliders/paginate', [AdminSliderController::class, 'paginate']);
+        Route::patch('/sliders/status', [AdminSliderController::class, 'status']);
+        Route::patch('/sliders/{field}', [AdminSliderController::class, 'boolean']);
+        Route::delete('/sliders/{id}', [AdminSliderController::class, 'delete']);
+    });
+
     Route::middleware('can:Coach')->prefix('coach')->group(function () {
         Route::post('/resources', [CoachResourceController::class, 'save']);
         Route::post('/resources/paginate', [CoachResourceController::class, 'paginate']);
@@ -55,7 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/thumbnail/{uuid}', [ProfileController::class, 'thumbnail']);
     Route::post('/profile', [ProfileController::class, 'saveProfile']);
     Route::patch('/profile', [ProfileController::class, 'save']);
-    
+
     Route::get('/cover/{uuid}', [CoverController::class, 'full']);
     Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
     Route::post('/cover', [CoverController::class, 'saveCover']);

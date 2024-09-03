@@ -1,5 +1,6 @@
 import { createInertiaApp } from '@inertiajs/react'
 import { Cookies, FetchParams } from 'sode-extend-react'
+import Global from './Global';
 
 const CreateReactScript = (render) => {
 
@@ -7,6 +8,11 @@ const CreateReactScript = (render) => {
     resolve: name => `/${name}.jsx`,
     setup: ({ el, props }) => {
       const properties = props.initialPage.props
+      if (properties?.global) {
+        for (const name in properties.global) {
+          Global.set(name, properties.global[name])
+        }
+      }
       const can = (page, ...keys) => {
         const keys2validate = []
         if (Array.isArray(page)) {
@@ -23,12 +29,18 @@ const CreateReactScript = (render) => {
         }
         return false
       }
+
+      const hasRole = (role) => {
+        const roles = properties?.session?.roles ?? []
+        return Boolean(roles.find(x => x.name == role))
+      }
+
       FetchParams.headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         'X-Xsrf-Token': decodeURIComponent(Cookies.get('XSRF-TOKEN'))
       }
-      render(el, { ...properties, can })
+      render(el, { ...properties, can, hasRole })
     },
   });
 }

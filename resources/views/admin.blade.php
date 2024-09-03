@@ -16,6 +16,7 @@
 
   <meta name="csrf_token" content="{{ csrf_token() }}">
 
+  <link href="/lte/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
   <link href="/lte/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
 
   {{-- QuillJs Styles --}}
@@ -73,6 +74,7 @@
     <script src="/lte/assets/libs/jquery-knob/jquery.knob.min.js"></script>
   @endif
   <script src="/lte/assets/libs/quill/quill.min.js"></script>
+  <script src="/lte/assets/libs/mohithg-switchery/switchery.min.js"></script>
   <script src="/lte/assets/libs/select2/js/select2.full.min.js"></script>
   <script src="/lte/assets/libs/tippy.js/tippy.all.min.js"></script>
 

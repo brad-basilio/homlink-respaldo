@@ -17,7 +17,9 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             ServiceSeeder::class,
             ConstantSeeder::class,
-            SpecialtySeeder::class
+            SpecialtySeeder::class,
+            BenefitSeeder::class,
+            SliderSeeder::class,
         ]);
     }
 }

@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import Adminto from './components/Adminto';
+import BaseAdminto from './Components/Adminto/Base';
 import CreateReactScript from './Utils/CreateReactScript';
-import InputFormGroup from './components/form/InputFormGroup';
-import PasswordFormGroup from './components/form/PasswordFormGroup';
+import InputFormGroup from './Components/form/InputFormGroup';
+import PasswordFormGroup from './Components/form/PasswordFormGroup';
 import 'tippy.js/dist/tippy.css';
-import Logout from './actions/Logout';
-import AccountRest from './actions/AccountRest';
+import Logout from './Actions/Logout';
+import AccountRest from './Actions/AccountRest';
 import JSEncrypt from 'jsencrypt'
 
 const Account = ({ session, PUBLIC_RSA_KEY }) => {
@@ -95,7 +95,7 @@ const Account = ({ session, PUBLIC_RSA_KEY }) => {
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Adminto {...properties} title='Cuenta de usuario'>
+  createRoot(el).render(<BaseAdminto {...properties} title='Cuenta de usuario'>
     <Account {...properties} />
-  </Adminto>);
+  </BaseAdminto>);
 })

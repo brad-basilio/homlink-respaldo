@@ -7,11 +7,13 @@ use App\Models\Resource;
 use App\Models\Specialty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SoDe\Extend\Text;
 
 class ResourceController extends BasicController
 {
     public $model = Resource::class;
     public $reactView = 'Coach/Resources';
+    public $softDeletion = false;
 
     public function setReactViewProperties(Request $request)
     {
@@ -30,6 +32,9 @@ class ResourceController extends BasicController
     {
         $body = $request->all();
         $body['owner_id'] = Auth::user()->id;
+        if ($body['social_media'] == 'youtube') {
+            $body['media_id'] = Text::getYTVideoId($body['media_id']);
+        }
         return $body;
     }
 }

@@ -1,16 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Adminto from '../Components/Adminto';
 import CreateReactScript from '../Utils/CreateReactScript';
 import InputFormGroup from '../Components/form/InputFormGroup';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { Cookies, JSON, Notify } from 'sode-extend-react';
 import ProfileRest from '../Actions/ProfileRest';
 import SelectFormGroup from '../Components/form/SelectFormGroup';
 import TextareaFormGroup from '../Components/form/TextareaFormGroup';
 import QuillFormGroup from '../Components/form/QuillFormGroup';
 import CoverRest from '../Actions/CoverRest';
+import BaseAdminto from '../components/Adminto/Base';
 
 const coverRest = new CoverRest()
 
@@ -156,7 +155,7 @@ const Profile = (props) => {
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Adminto {...properties} title='Perfil de usuario'>
+  createRoot(el).render(<BaseAdminto {...properties} title='Perfil de usuario'>
     <Profile {...properties} />
-  </Adminto>);
+  </BaseAdminto>);
 })

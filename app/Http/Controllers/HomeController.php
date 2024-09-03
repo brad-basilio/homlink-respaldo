@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Benefit;
 use Illuminate\Http\Request;
 
 class HomeController extends BasicController
@@ -11,6 +12,12 @@ class HomeController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
-        return [];
+        $benefits = Benefit::select(['icon', 'name', 'image'])
+            ->where('status', true)
+            ->where('visible', true)
+            ->get();
+        return [
+            'benefits' => $benefits
+        ];
     }
 }

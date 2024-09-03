@@ -1,16 +1,16 @@
 
 import React, { useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import CreateReactScript from './Utils/CreateReactScript.jsx'
-import ReactAppend from './Utils/ReactAppend.jsx'
-import SetQuillValue from './Utils/SetQuillValue.jsx'
-import SettingsRest from './actions/SettingsRest.js'
-import Adminto from './components/Adminto.jsx'
-import Modal from './components/Modal.jsx'
-import Table from './components/Table.jsx'
-import InputFormGroup from './components/form/InputFormGroup.jsx'
-import QuillFormGroup from './components/form/QuillFormGroup.jsx'
-import TippyButton from './components/form/TippyButton.jsx'
+import CreateReactScript from './Utils/CreateReactScript'
+import ReactAppend from './Utils/ReactAppend'
+import SetQuillValue from './Utils/SetQuillValue'
+import SettingsRest from './actions/SettingsRest'
+import BaseAdminto from './components/Adminto/Base'
+import Modal from './Components/Modal'
+import Table from './Components/Table'
+import InputFormGroup from './Components/form/InputFormGroup'
+import QuillFormGroup from './Components/form/QuillFormGroup'
+import TippyButton from './components/form/TippyButton'
 
 const Settings = ({ can }) => {
   const gridRef = useRef()
@@ -133,8 +133,8 @@ const Settings = ({ can }) => {
 CreateReactScript((el, properties) => {
   if (!properties.can('settings', 'root', 'all', 'list')) return location.href = '/';
   createRoot(el).render(
-    <Adminto {...properties} title='Constantes de configuracion'>
+    <BaseAdminto {...properties} title='Constantes de configuracion'>
       <Settings {...properties} />
-    </Adminto>
+    </BaseAdminto>
   );
 })

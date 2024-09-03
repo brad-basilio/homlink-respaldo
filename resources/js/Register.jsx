@@ -73,8 +73,6 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
 
     const request = {
       role: $(roleRef.current).val(),
-      // document_type: $(documentTypeRef.current).val(),
-      // document_number: documentNumberRef.current.value,
       name: nameRef.current.value,
       lastname: lastnameRef.current.value,
       email: emailRef.current.value,
@@ -82,7 +80,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
       confirmation: jsEncrypt.encrypt(confirmation),
       terms: termsRef.current.checked,
       captcha: captchaValue,
-      // _token: token
+      specialties: $(specialtyRef.current).val()
     }
     const result = await AuthRest.signup(request)
     if (!result) return setLoading(false)
@@ -127,11 +125,6 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
                       </div>
                     </div>
                   </div>
-                  {/* <div className="col-sm-6 mb-2">
-                    <label htmlFor="document_number" className="form-label">Numero documento <b className="text-danger">*</b></label>
-                    <input ref={documentNumberRef} className="form-control" type="text" id="document_number" placeholder="Ingrese su documento"
-                      required />
-                  </div> */}
 
                   <SelectFormGroup label='Especialidad' eRef={specialtyRef} required multiple>
                     {

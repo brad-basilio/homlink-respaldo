@@ -18,16 +18,23 @@ class UsersSeeder extends Seeder
         ],[
             'name' => 'Usuario',
             'lastname' => 'Admin',
-            'email' => 'admin@mundoweb.pe',
             'password' => 'r00tme'
         ])->assignRole('Admin');
+
         User::updateOrCreate([
-            'email' => 'gamboapalominocarlosmanuel@gmail.com'
-        ],[
-            'name' => 'Manuel',
-            'lastname' => 'Gamboa',
-            'email' => 'gamboapalominocarlosmanuel@gmail.com',
-            'password' => 'abcd1234'
+            'email' => 'coach@mundoweb.pe'
+        ], [
+            'name' => 'Usuario',
+            'lastname' => 'Coach',
+            'password' => 'r00tme'
         ])->assignRole('Coach');
+
+        User::updateOrCreate([
+            'email' => 'coachee@mundoweb.pe'
+        ], [
+            'name' => 'Usuario',
+            'lastname' => 'Coachee',
+            'password' => 'r00tme'
+        ])->assignRole('Coachee');
     }
 }

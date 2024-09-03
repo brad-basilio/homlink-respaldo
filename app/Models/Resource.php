@@ -19,7 +19,9 @@ class Resource extends Model
         'specialty_id',
         'social_media',
         'media_id',
-        'owner_id'
+        'tags',
+        'owner_id',
+        'status'
     ];
 
     public function specialty()

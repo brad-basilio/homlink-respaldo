@@ -1,1 +1,0 @@
-import{R as t}from"./Footer-B80Lgev0.js";import{i}from"./WhatsAppStatuses-BF-FjpQX.js";import"./TippyButton-TBKQ4cvW.js";const u=({title:e,className:r,onClick:o,children:n,eRef:a,...m})=>t.createElement(i,{content:e,arrow:!0},t.createElement("button",{ref:a,className:r,onClick:o,...m},n));export{u as T};

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('lastname');
+            $table->longText('specialties');
             $table->string('email');
             $table->string('password');
             $table->char('confirmation_token', 36);

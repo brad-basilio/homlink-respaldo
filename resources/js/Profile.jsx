@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from './Utils/CreateReactScript';
 import 'tippy.js/dist/tippy.css';
-import Base from './Components/Base';
+import TailwindBase from './Components/Tailwind/Base';
 import HtmlContent from './Utils/HtmlContent';
 
 const Profile = ({ coach, country, resources }) => {
@@ -76,7 +76,7 @@ const Profile = ({ coach, country, resources }) => {
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Base {...properties}>
+  createRoot(el).render(<TailwindBase {...properties}>
     <Profile {...properties} />
-  </Base>);
+  </TailwindBase>);
 })

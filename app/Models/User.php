@@ -81,4 +81,8 @@ class User extends Authenticatable
     {
         return $this->getRoleNames()[0];
     }
+
+    public function specialties () {
+        return $this->hasManyThrough(Specialty::class, SpecialtiesByUser::class, 'user_id', 'id', 'id', 'specialty_id');
+    }
 }

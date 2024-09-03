@@ -78,6 +78,34 @@ class BasicRest {
     }
   }
 
+  boolean = async ({ id, field, value }) => {
+    try {
+      const { status: fetchStatus, result } = await Fetch(`/api/${this.path}/boolean`, {
+        method: 'PATCH',
+        body: JSON.stringify({ id, field, value })
+      })
+      if (!fetchStatus) throw new Error(result?.message ?? 'Ocurrio un error inesperado')
+
+      Notify.add({
+        icon: '/assets/img/logo-login.svg',
+        title: 'Correcto',
+        body: result.message,
+        type: 'success'
+      })
+
+      return true
+    } catch (error) {
+      Notify.add({
+        icon: '/assets/img/logo-login.svg',
+        title: 'Error',
+        body: error.message,
+        type: 'danger'
+      })
+
+      return false
+    }
+  }
+
   delete = async (id) => {
     try {
       const { status: fetchStatus, result } = await Fetch(`/api/${this.path}/${id}`, {

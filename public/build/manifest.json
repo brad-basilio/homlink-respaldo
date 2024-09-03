@@ -1,174 +1,97 @@
 {
-  "_Adminto-BGAXhy00.js": {
-    "file": "assets/Adminto-BGAXhy00.js",
-    "name": "Adminto",
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/NavBar.jsx"
-    ]
-  },
-  "_AuthRest-Ca01IOe6.js": {
-    "file": "assets/AuthRest-Ca01IOe6.js",
+  "_AuthRest-DR9L0JTk.js": {
+    "file": "assets/AuthRest-DR9L0JTk.js",
     "name": "AuthRest",
     "imports": [
-      "resources/js/Admin/Components/NavBar.jsx"
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx"
     ]
   },
-  "_Base-kkuK3TK5.js": {
-    "file": "assets/Base-kkuK3TK5.js",
+  "_Base-ByuOWtOb.js": {
+    "file": "assets/Base-ByuOWtOb.js",
     "name": "Base",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "_logo-BjQK9OLG.js"
     ]
   },
-  "_CheckboxFormGroup-DLi5doGv.js": {
-    "file": "assets/CheckboxFormGroup-DLi5doGv.js",
-    "name": "CheckboxFormGroup",
+  "_Base-OU1LMgxd.js": {
+    "file": "assets/Base-OU1LMgxd.js",
+    "name": "Base",
     "imports": [
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Utils/ReactAppend.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/MenuItem.jsx"
     ]
   },
-  "_CreateReactScript-QlbMmlWm.js": {
-    "file": "assets/CreateReactScript-QlbMmlWm.js",
+  "_CreateReactScript-CMRUimfa.js": {
+    "file": "assets/CreateReactScript-CMRUimfa.js",
     "name": "CreateReactScript",
     "imports": [
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/NavBar.jsx"
+      "resources/js/Components/MenuItem.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx"
     ]
   },
-  "_DxButton-CsjWvhyj.js": {
-    "file": "assets/DxButton-CsjWvhyj.js",
-    "name": "DxButton"
-  },
-  "_HtmlContent-BLAong16.js": {
-    "file": "assets/HtmlContent-BLAong16.js",
+  "_HtmlContent-Xxru9nF6.js": {
+    "file": "assets/HtmlContent-Xxru9nF6.js",
     "name": "HtmlContent",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
-  "_InputFormGroup-CZpmvUlF.js": {
-    "file": "assets/InputFormGroup-CZpmvUlF.js",
+  "_InputFormGroup-DF0_5j3z.js": {
+    "file": "assets/InputFormGroup-DF0_5j3z.js",
     "name": "InputFormGroup",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "_JSEncrypt-D3I3x59l.js": {
     "file": "assets/JSEncrypt-D3I3x59l.js",
     "name": "JSEncrypt"
   },
-  "_Modal-XkEoS3lt.js": {
-    "file": "assets/Modal-XkEoS3lt.js",
+  "_Modal-DHkEiqp8.js": {
+    "file": "assets/Modal-DHkEiqp8.js",
     "name": "Modal",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
-  "_PasswordFormGroup-CkglPy2s.js": {
-    "file": "assets/PasswordFormGroup-CkglPy2s.js",
-    "name": "PasswordFormGroup",
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
-  },
-  "_PermissionsRest-BWS04-FT.js": {
-    "file": "assets/PermissionsRest-BWS04-FT.js",
-    "name": "PermissionsRest",
-    "imports": [
-      "resources/js/Admin/Components/NavBar.jsx"
-    ]
-  },
-  "_QuillFormGroup-CKFL5hYu.js": {
-    "file": "assets/QuillFormGroup-CKFL5hYu.js",
+  "_QuillFormGroup-bCC0TPmm.js": {
+    "file": "assets/QuillFormGroup-bCC0TPmm.js",
     "name": "QuillFormGroup",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
-  "_ReactAppend-BdSt2FVL.js": {
-    "file": "assets/ReactAppend-BdSt2FVL.js",
+  "_ReactAppend-CcrUg4Ih.js": {
+    "file": "assets/ReactAppend-CcrUg4Ih.js",
     "name": "ReactAppend",
     "imports": [
       "resources/js/Utils/ReactAppend.jsx"
     ]
   },
-  "_RolesRest-SrtbPD5t.js": {
-    "file": "assets/RolesRest-SrtbPD5t.js",
-    "name": "RolesRest",
-    "imports": [
-      "resources/js/Admin/Components/NavBar.jsx"
-    ]
-  },
-  "_SelectFormGroup-qoOLdQsk.js": {
-    "file": "assets/SelectFormGroup-qoOLdQsk.js",
+  "_SelectFormGroup-BDnyfbv9.js": {
+    "file": "assets/SelectFormGroup-BDnyfbv9.js",
     "name": "SelectFormGroup",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
-  "_SetSelectValue-DL-AgtMG.js": {
-    "file": "assets/SetSelectValue-DL-AgtMG.js",
-    "name": "SetSelectValue"
-  },
-  "_Table-w4bmKtdW.js": {
-    "file": "assets/Table-w4bmKtdW.js",
+  "_Table-BYti2dT1.js": {
+    "file": "assets/Table-BYti2dT1.js",
     "name": "Table",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx"
     ]
   },
-  "_TextareaFormGroup-CH1nUIqS.js": {
-    "file": "assets/TextareaFormGroup-CH1nUIqS.js",
-    "name": "TextareaFormGroup",
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
-  },
-  "_TippyButton-DwRY6mBw.js": {
-    "file": "assets/TippyButton-DwRY6mBw.js",
-    "name": "TippyButton",
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx"
-    ]
-  },
-  "_UsersByServicesByBusinessesRest-BvZssUgN.js": {
-    "file": "assets/UsersByServicesByBusinessesRest-BvZssUgN.js",
-    "name": "UsersByServicesByBusinessesRest",
-    "imports": [
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx"
-    ]
-  },
-  "_UsersRest-DgfedDod.js": {
-    "file": "assets/UsersRest-DgfedDod.js",
-    "name": "UsersRest",
-    "imports": [
-      "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx"
-    ]
-  },
-  "_WhatsAppStatuses-BF-FjpQX.js": {
-    "file": "assets/WhatsAppStatuses-BF-FjpQX.js",
-    "name": "WhatsAppStatuses",
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Utils/ReactAppend.jsx",
-      "resources/js/Admin/Components/NavBar.jsx"
-    ]
-  },
-  "____vite-browser-external_commonjs-proxy-BiUUwCOo.js": {
-    "file": "assets/___vite-browser-external_commonjs-proxy-BiUUwCOo.js",
+  "____vite-browser-external_commonjs-proxy-DqvwVSHi.js": {
+    "file": "assets/___vite-browser-external_commonjs-proxy-DqvwVSHi.js",
     "name": "___vite-browser-external_commonjs-proxy",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "_logo-BjQK9OLG.js": {
@@ -178,11 +101,11 @@
       "logo.svg"
     ]
   },
-  "_sweetalert2.all-F2DmAxQ2.js": {
-    "file": "assets/sweetalert2.all-F2DmAxQ2.js",
+  "_sweetalert2.all-C0GeQoJH.js": {
+    "file": "assets/sweetalert2.all-C0GeQoJH.js",
     "name": "sweetalert2.all",
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/css/app.css": {
@@ -191,403 +114,440 @@
     "isEntry": true
   },
   "resources/js/Account.jsx": {
-    "file": "assets/Account-DBP9p9V9.js",
+    "file": "assets/Account-B3lK8hjp.js",
     "name": "Account",
     "src": "resources/js/Account.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Adminto-BGAXhy00.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_PasswordFormGroup-CkglPy2s.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Admin/Components/NavBar.jsx",
+      "_Base-OU1LMgxd.js",
+      "_CreateReactScript-CMRUimfa.js",
+      "_InputFormGroup-DF0_5j3z.js",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
       "_JSEncrypt-D3I3x59l.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Admin/Coaches.jsx": {
-    "file": "assets/Coaches-DmIK9pGT.js",
+    "file": "assets/Coaches-DO3yuEoE.js",
     "name": "Coaches",
     "src": "resources/js/Admin/Coaches.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Modal-XkEoS3lt.js",
-      "_Table-w4bmKtdW.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_TextareaFormGroup-CH1nUIqS.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_SetSelectValue-DL-AgtMG.js",
+      "_Modal-DHkEiqp8.js",
+      "_Table-BYti2dT1.js",
+      "_InputFormGroup-DF0_5j3z.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "_CreateReactScript-CMRUimfa.js",
       "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "_Base-OU1LMgxd.js",
+      "_JSEncrypt-D3I3x59l.js",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/MenuItem.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx"
     ]
   },
-  "resources/js/Admin/Components/Adminto.jsx": {
-    "file": "assets/Adminto-BgyY3ixX.js",
-    "name": "Adminto",
-    "src": "resources/js/Admin/Components/Adminto.jsx",
+  "resources/js/Admin/Home.jsx": {
+    "file": "assets/Home-B-YgCdBS.js",
+    "name": "Home",
+    "src": "resources/js/Admin/Home.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Admin/Components/Footer.jsx": {
-    "file": "assets/Footer-B80Lgev0.js",
-    "name": "Footer",
-    "src": "resources/js/Admin/Components/Footer.jsx",
-    "isEntry": true
-  },
-  "resources/js/Admin/Components/Menu.jsx": {
-    "file": "assets/Menu-CgbTVkeA.js",
-    "name": "Menu",
-    "src": "resources/js/Admin/Components/Menu.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Admin/Components/MenuItem.jsx": {
-    "file": "assets/MenuItem-COCTGmIB.js",
-    "name": "MenuItem",
-    "src": "resources/js/Admin/Components/MenuItem.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Admin/Components/MenuItemContainer.jsx": {
-    "file": "assets/MenuItemContainer-CKKK7PRl.js",
-    "name": "MenuItemContainer",
-    "src": "resources/js/Admin/Components/MenuItemContainer.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
-  },
-  "resources/js/Admin/Components/NavBar.jsx": {
-    "file": "assets/NavBar-BThilt_4.js",
-    "name": "NavBar",
-    "src": "resources/js/Admin/Components/NavBar.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Admin/Components/RightBar.jsx": {
-    "file": "assets/RightBar-CgokeoEo.js",
-    "name": "RightBar",
-    "src": "resources/js/Admin/Components/RightBar.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Businesses.jsx": {
-    "file": "assets/Businesses-mFCEzJtP.js",
-    "name": "Businesses",
-    "src": "resources/js/Businesses.jsx",
-    "isEntry": true,
-    "imports": [
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
-      "_Adminto-BGAXhy00.js",
-      "_Modal-XkEoS3lt.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_CheckboxFormGroup-DLi5doGv.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "_UsersByServicesByBusinessesRest-BvZssUgN.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_sweetalert2.all-F2DmAxQ2.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "_CreateReactScript-CMRUimfa.js",
+      "_Base-OU1LMgxd.js",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx"
     ]
   },
   "resources/js/Coach/Home.jsx": {
-    "file": "assets/Home-CVmlgntN.js",
+    "file": "assets/Home-Cr_JhJli.js",
     "name": "Home",
     "src": "resources/js/Coach/Home.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_Adminto-BGAXhy00.js",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx"
+      "_CreateReactScript-CMRUimfa.js",
+      "_Base-OU1LMgxd.js",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx"
     ]
   },
   "resources/js/Coach/Profile.jsx": {
-    "file": "assets/Profile-BHvLo9Fq.js",
+    "file": "assets/Profile-BdS5Znx8.js",
     "name": "Profile",
     "src": "resources/js/Coach/Profile.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Adminto-BGAXhy00.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_TextareaFormGroup-CH1nUIqS.js",
-      "_QuillFormGroup-CKFL5hYu.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "_CreateReactScript-CMRUimfa.js",
+      "_InputFormGroup-DF0_5j3z.js",
+      "_Base-OU1LMgxd.js",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "_SelectFormGroup-BDnyfbv9.js",
+      "_QuillFormGroup-bCC0TPmm.js",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Coach/Resources.jsx": {
-    "file": "assets/Resources-DWFL8uJM.js",
+    "file": "assets/Resources-rFGZrVgv.js",
     "name": "Resources",
     "src": "resources/js/Coach/Resources.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Adminto-BGAXhy00.js",
-      "_CreateReactScript-QlbMmlWm.js",
+      "_Base-OU1LMgxd.js",
+      "_CreateReactScript-CMRUimfa.js",
       "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
-      "_Table-w4bmKtdW.js",
-      "_Modal-XkEoS3lt.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_ReactAppend-BdSt2FVL.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_QuillFormGroup-CKFL5hYu.js",
-      "_DxButton-CsjWvhyj.js",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/MenuItem.jsx"
+      "_Table-BYti2dT1.js",
+      "_Modal-DHkEiqp8.js",
+      "_InputFormGroup-DF0_5j3z.js",
+      "_ReactAppend-CcrUg4Ih.js",
+      "_SelectFormGroup-BDnyfbv9.js",
+      "_QuillFormGroup-bCC0TPmm.js",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/MenuItem.jsx"
     ]
   },
-  "resources/js/Components/Adminto.jsx": {
-    "file": "assets/Adminto-Ct6xI4NF.js",
-    "name": "Adminto",
-    "src": "resources/js/Components/Adminto.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Components/Base.jsx": {
-    "file": "assets/Base-_27vzOo3.js",
+  "resources/js/Components/Adminto/Base.jsx": {
+    "file": "assets/Base-BKNJ3qlr.js",
     "name": "Base",
-    "src": "resources/js/Components/Base.jsx",
+    "src": "resources/js/Components/Adminto/Base.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Adminto/Footer.jsx": {
+    "file": "assets/Footer-D-06G-5n.js",
+    "name": "Footer",
+    "src": "resources/js/Components/Adminto/Footer.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/Menu.jsx": {
+    "file": "assets/Menu-COPdKjg4.js",
+    "name": "Menu",
+    "src": "resources/js/Components/Adminto/Menu.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Adminto/NavBar.jsx": {
+    "file": "assets/NavBar-CZGRlkOx.js",
+    "name": "NavBar",
+    "src": "resources/js/Components/Adminto/NavBar.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Adminto/RightBar.jsx": {
+    "file": "assets/RightBar-CZGRlkOx.js",
+    "name": "RightBar",
+    "src": "resources/js/Components/Adminto/RightBar.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx": {
+    "file": "assets/CheckboxFormGroup-DlX7yyx9.js",
+    "name": "CheckboxFormGroup",
+    "src": "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/InputFormGroup.jsx": {
+    "file": "assets/InputFormGroup-D-06G-5n.js",
+    "name": "InputFormGroup",
+    "src": "resources/js/Components/Adminto/form/InputFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
+    "file": "assets/PasswordFormGroup-DlX7yyx9.js",
+    "name": "PasswordFormGroup",
+    "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/QuillFormGroup.jsx": {
+    "file": "assets/QuillFormGroup-D-06G-5n.js",
+    "name": "QuillFormGroup",
+    "src": "resources/js/Components/Adminto/form/QuillFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
+    "file": "assets/SelectAPIFormGroup-D3e_Xn4g.js",
+    "name": "SelectAPIFormGroup",
+    "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Adminto/form/SelectFormGroup.jsx": {
+    "file": "assets/SelectFormGroup-DlX7yyx9.js",
+    "name": "SelectFormGroup",
+    "src": "resources/js/Components/Adminto/form/SelectFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/TextareaFormGroup.jsx": {
+    "file": "assets/TextareaFormGroup-D-06G-5n.js",
+    "name": "TextareaFormGroup",
+    "src": "resources/js/Components/Adminto/form/TextareaFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Adminto/form/TippyButton.jsx": {
+    "file": "assets/TippyButton-Ca89MSNc.js",
+    "name": "TippyButton",
+    "src": "resources/js/Components/Adminto/form/TippyButton.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ],
+    "css": [
+      "TippyButton.css"
     ]
   },
   "resources/js/Components/Counter/SimpleCounter.jsx": {
-    "file": "assets/SimpleCounter-_27vzOo3.js",
+    "file": "assets/SimpleCounter-D-06G-5n.js",
     "name": "SimpleCounter",
     "src": "resources/js/Components/Counter/SimpleCounter.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dw2-Jt69.js",
+    "file": "assets/DataGrid-CZGRlkOx.js",
     "name": "DataGrid",
     "src": "resources/js/Components/DataGrid.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
-  "resources/js/Components/Footer.jsx": {
-    "file": "assets/Footer-_27vzOo3.js",
-    "name": "Footer",
-    "src": "resources/js/Components/Footer.jsx",
+  "resources/js/Components/Home/Banner.jsx": {
+    "file": "assets/Banner-D-06G-5n.js",
+    "name": "Banner",
+    "src": "resources/js/Components/Home/Banner.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/Home/Benefits.jsx": {
-    "file": "assets/Benefits-_27vzOo3.js",
+    "file": "assets/Benefits-D-06G-5n.js",
     "name": "Benefits",
     "src": "resources/js/Components/Home/Benefits.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Home/Blogs.jsx": {
+    "file": "assets/Blogs-D-06G-5n.js",
+    "name": "Blogs",
+    "src": "resources/js/Components/Home/Blogs.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Home/Contact.jsx": {
+    "file": "assets/Contact-D-06G-5n.js",
+    "name": "Contact",
+    "src": "resources/js/Components/Home/Contact.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/Home/Header.jsx": {
-    "file": "assets/Header-_27vzOo3.js",
+    "file": "assets/Header-D-06G-5n.js",
     "name": "Header",
     "src": "resources/js/Components/Home/Header.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
-  "resources/js/Components/Menu.jsx": {
-    "file": "assets/Menu-xRQIoUP3.js",
-    "name": "Menu",
-    "src": "resources/js/Components/Menu.jsx",
+  "resources/js/Components/Home/Testimonies.jsx": {
+    "file": "assets/Testimonies-D-06G-5n.js",
+    "name": "Testimonies",
+    "src": "resources/js/Components/Home/Testimonies.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/MenuItem.jsx": {
-    "file": "assets/MenuItem-CCaDmG7E.js",
+    "file": "assets/MenuItem-YvjQIalw.js",
     "name": "MenuItem",
     "src": "resources/js/Components/MenuItem.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Components/MenuItemContainer.jsx": {
-    "file": "assets/MenuItemContainer-_27vzOo3.js",
+    "file": "assets/MenuItemContainer-D-06G-5n.js",
     "name": "MenuItemContainer",
     "src": "resources/js/Components/MenuItemContainer.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/Modal.jsx": {
-    "file": "assets/Modal-_27vzOo3.js",
+    "file": "assets/Modal-D-06G-5n.js",
     "name": "Modal",
     "src": "resources/js/Components/Modal.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
-  },
-  "resources/js/Components/NavBar.jsx": {
-    "file": "assets/NavBar-Dw2-Jt69.js",
-    "name": "NavBar",
-    "src": "resources/js/Components/NavBar.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Components/RightBar.jsx": {
-    "file": "assets/RightBar-Dw2-Jt69.js",
-    "name": "RightBar",
-    "src": "resources/js/Components/RightBar.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/Table.jsx": {
-    "file": "assets/Table-Dw2-Jt69.js",
+    "file": "assets/Table-CZGRlkOx.js",
     "name": "Table",
     "src": "resources/js/Components/Table.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
+    ]
+  },
+  "resources/js/Components/Tailwind/Base.jsx": {
+    "file": "assets/Base-D-06G-5n.js",
+    "name": "Base",
+    "src": "resources/js/Components/Tailwind/Base.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Tailwind/Footer.jsx": {
+    "file": "assets/Footer-DlX7yyx9.js",
+    "name": "Footer",
+    "src": "resources/js/Components/Tailwind/Footer.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
+    ]
+  },
+  "resources/js/Components/Tailwind/Header.jsx": {
+    "file": "assets/Header-DlX7yyx9.js",
+    "name": "Header",
+    "src": "resources/js/Components/Tailwind/Header.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/accordion/Accordion.jsx": {
-    "file": "assets/Accordion-_27vzOo3.js",
+    "file": "assets/Accordion-B80Lgev0.js",
     "name": "Accordion",
     "src": "resources/js/Components/accordion/Accordion.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
+    "isEntry": true
   },
   "resources/js/Components/accordion/AccordionCard.jsx": {
-    "file": "assets/AccordionCard-_27vzOo3.js",
+    "file": "assets/AccordionCard-D-06G-5n.js",
     "name": "AccordionCard",
     "src": "resources/js/Components/accordion/AccordionCard.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/dropdown/Dropdown.jsx": {
-    "file": "assets/Dropdown-_27vzOo3.js",
+    "file": "assets/Dropdown-D-06G-5n.js",
     "name": "Dropdown",
     "src": "resources/js/Components/dropdown/Dropdown.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/dropdown/DropdownEnd.jsx": {
-    "file": "assets/DropdownEnd-_27vzOo3.js",
+    "file": "assets/DropdownEnd-D-06G-5n.js",
     "name": "DropdownEnd",
     "src": "resources/js/Components/dropdown/DropdownEnd.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/dropdown/DropdownItem.jsx": {
-    "file": "assets/DropdownItem-_27vzOo3.js",
+    "file": "assets/DropdownItem-D-06G-5n.js",
     "name": "DropdownItem",
     "src": "resources/js/Components/dropdown/DropdownItem.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/dx/DxBox.jsx": {
-    "file": "assets/DxBox-7VSXldqw.js",
+    "file": "assets/DxBox-Cv6xFNc5.js",
     "name": "DxBox",
     "src": "resources/js/Components/dx/DxBox.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx"
     ]
   },
@@ -598,373 +558,267 @@
     "isEntry": true
   },
   "resources/js/Components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-_27vzOo3.js",
+    "file": "assets/CheckboxFormGroup-D-06G-5n.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-_27vzOo3.js",
+    "file": "assets/InputFormGroup-DlX7yyx9.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/form/InputFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-_27vzOo3.js",
+    "file": "assets/PasswordFormGroup-D-06G-5n.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-_27vzOo3.js",
+    "file": "assets/QuillFormGroup-DlX7yyx9.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/form/QuillFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Dw2-Jt69.js",
+    "file": "assets/SelectAPIFormGroup-CZGRlkOx.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-_27vzOo3.js",
+    "file": "assets/SelectFormGroup-D-06G-5n.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/form/SelectFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-_27vzOo3.js",
+    "file": "assets/TextareaFormGroup-DlX7yyx9.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/form/TextareaFormGroup.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Components/form/TippyButton.jsx": {
-    "file": "assets/TippyButton-TBKQ4cvW.js",
+    "file": "assets/TippyButton-D8FLxN9H.js",
     "name": "TippyButton",
     "src": "resources/js/Components/form/TippyButton.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ],
-    "css": [
-      "TippyButton.css"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/TippyButton.jsx"
     ]
   },
   "resources/js/Components/modals/WhatsAppModal.jsx": {
-    "file": "assets/WhatsAppModal-DuuYyIUI.js",
+    "file": "assets/WhatsAppModal-CBZPuWCP.js",
     "name": "WhatsAppModal",
     "src": "resources/js/Components/modals/WhatsAppModal.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "_sweetalert2.all-F2DmAxQ2.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "_sweetalert2.all-C0GeQoJH.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ],
     "css": [
       "WhatsAppModal.css"
     ]
   },
   "resources/js/Components/svg/Yeti.jsx": {
-    "file": "assets/Yeti-_27vzOo3.js",
+    "file": "assets/Yeti-D-06G-5n.js",
     "name": "Yeti",
     "src": "resources/js/Components/svg/Yeti.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/ConfirmEmail.jsx": {
-    "file": "assets/ConfirmEmail-ByoiQcQo.js",
+    "file": "assets/ConfirmEmail-BIdZgpK9.js",
     "name": "ConfirmEmail",
     "src": "resources/js/ConfirmEmail.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Utils/ReactAppend.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
+      "_CreateReactScript-CMRUimfa.js",
+      "resources/js/Components/MenuItem.jsx",
       "_logo-BjQK9OLG.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-DpFTRE8Q.js",
+    "file": "assets/Home-DfjOhZeU.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/MenuItem.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_Base-kkuK3TK5.js",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/NavBar.jsx",
+      "_CreateReactScript-CMRUimfa.js",
+      "_Base-ByuOWtOb.js",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
       "_logo-BjQK9OLG.js"
     ]
   },
   "resources/js/Login.jsx": {
-    "file": "assets/Login-CZ-3ieAA.js",
+    "file": "assets/Login-DGvMRmHc.js",
     "name": "Login",
     "src": "resources/js/Login.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Utils/ReactAppend.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "_JSEncrypt-D3I3x59l.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_AuthRest-Ca01IOe6.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "_sweetalert2.all-F2DmAxQ2.js",
-      "resources/js/Admin/Components/NavBar.jsx",
+      "_CreateReactScript-CMRUimfa.js",
+      "_AuthRest-DR9L0JTk.js",
+      "resources/js/Components/MenuItem.jsx",
+      "_sweetalert2.all-C0GeQoJH.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
       "_logo-BjQK9OLG.js",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
-    ]
-  },
-  "resources/js/Permissions.jsx": {
-    "file": "assets/Permissions-DDsAmIby.js",
-    "name": "Permissions",
-    "src": "resources/js/Permissions.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_ReactAppend-BdSt2FVL.js",
-      "_PermissionsRest-BWS04-FT.js",
-      "_Adminto-BGAXhy00.js",
-      "_Modal-XkEoS3lt.js",
-      "_Table-w4bmKtdW.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_TextareaFormGroup-CH1nUIqS.js",
-      "_TippyButton-DwRY6mBw.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx"
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Profile.jsx": {
-    "file": "assets/Profile-DJyoT98E.js",
+    "file": "assets/Profile-BVxpF7M5.js",
     "name": "Profile",
     "src": "resources/js/Profile.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "_Base-kkuK3TK5.js",
-      "_HtmlContent-BLAong16.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/NavBar.jsx",
+      "_CreateReactScript-CMRUimfa.js",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "_Base-ByuOWtOb.js",
+      "_HtmlContent-Xxru9nF6.js",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
       "_logo-BjQK9OLG.js"
     ]
   },
   "resources/js/Register.jsx": {
-    "file": "assets/Register-C7cSFCTr.js",
+    "file": "assets/Register-DNKUhRjm.js",
     "name": "Register",
     "src": "resources/js/Register.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Utils/ReactAppend.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "_JSEncrypt-D3I3x59l.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_AuthRest-Ca01IOe6.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_Modal-XkEoS3lt.js",
-      "_HtmlContent-BLAong16.js",
-      "_sweetalert2.all-F2DmAxQ2.js",
+      "_CreateReactScript-CMRUimfa.js",
+      "_AuthRest-DR9L0JTk.js",
+      "resources/js/Components/MenuItem.jsx",
+      "_SelectFormGroup-BDnyfbv9.js",
+      "_Modal-DHkEiqp8.js",
+      "_HtmlContent-Xxru9nF6.js",
+      "_sweetalert2.all-C0GeQoJH.js",
       "_logo-BjQK9OLG.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Reutilizables/Businesses/BusinessCard.jsx": {
-    "file": "assets/BusinessCard-CCaDmG7E.js",
+    "file": "assets/BusinessCard-C3EEOiZb.js",
     "name": "BusinessCard",
     "src": "resources/js/Reutilizables/Businesses/BusinessCard.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx": {
-    "file": "assets/BusinessIWorkCard-rEAJw_L_.js",
+    "file": "assets/BusinessIWorkCard-Bx4M_-JK.js",
     "name": "BusinessIWorkCard",
     "src": "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/accordion/Accordion.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Reutilizables/Projects/DateRange.jsx": {
-    "file": "assets/DateRange-_27vzOo3.js",
+    "file": "assets/DateRange-D-06G-5n.js",
     "name": "DateRange",
     "src": "resources/js/Reutilizables/Projects/DateRange.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
-    ]
-  },
-  "resources/js/Roles.jsx": {
-    "file": "assets/Roles-DbBRD9CT.js",
-    "name": "Roles",
-    "src": "resources/js/Roles.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_ReactAppend-BdSt2FVL.js",
-      "_PermissionsRest-BWS04-FT.js",
-      "_RolesRest-SrtbPD5t.js",
-      "_Adminto-BGAXhy00.js",
-      "_Modal-XkEoS3lt.js",
-      "_Table-w4bmKtdW.js",
-      "_CheckboxFormGroup-DLi5doGv.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_TextareaFormGroup-CH1nUIqS.js",
-      "_TippyButton-DwRY6mBw.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx"
-    ]
-  },
-  "resources/js/Services.jsx": {
-    "file": "assets/Services-CfpI2mba.js",
-    "name": "Services",
-    "src": "resources/js/Services.jsx",
-    "isEntry": true,
-    "imports": [
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Utils/ReactAppend.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_sweetalert2.all-F2DmAxQ2.js",
-      "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
-      "_UsersByServicesByBusinessesRest-BvZssUgN.js",
-      "_UsersRest-DgfedDod.js",
-      "_Adminto-BGAXhy00.js",
-      "_SelectFormGroup-qoOLdQsk.js",
-      "_Modal-XkEoS3lt.js",
-      "_CreateReactScript-QlbMmlWm.js",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Admin/Components/MenuItem.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Settings.jsx": {
-    "file": "assets/Settings-CfWWCDuF.js",
+    "file": "assets/Settings-wgEhPtmH.js",
     "name": "Settings",
     "src": "resources/js/Settings.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
       "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_ReactAppend-BdSt2FVL.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "_Adminto-BGAXhy00.js",
-      "_Modal-XkEoS3lt.js",
-      "_Table-w4bmKtdW.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_QuillFormGroup-CKFL5hYu.js",
-      "_TippyButton-DwRY6mBw.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "_WhatsAppStatuses-BF-FjpQX.js",
-      "resources/js/Components/form/TippyButton.jsx"
+      "_CreateReactScript-CMRUimfa.js",
+      "_ReactAppend-CcrUg4Ih.js",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "_Base-OU1LMgxd.js",
+      "_Modal-DHkEiqp8.js",
+      "_Table-BYti2dT1.js",
+      "_InputFormGroup-DF0_5j3z.js",
+      "_QuillFormGroup-bCC0TPmm.js",
+      "resources/js/Components/Adminto/form/TippyButton.jsx",
+      "resources/js/Components/MenuItem.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Svg/logo.svg": {
     "file": "logo.svg",
     "src": "resources/js/Svg/logo.svg"
   },
-  "resources/js/Users.jsx": {
-    "file": "assets/Users-Djuh9yIf.js",
-    "name": "Users",
-    "src": "resources/js/Users.jsx",
-    "isEntry": true,
-    "imports": [
-      "_JSEncrypt-D3I3x59l.js",
-      "resources/js/Admin/Components/Footer.jsx",
-      "resources/js/Utils/ReactAppend.jsx",
-      "_CreateReactScript-QlbMmlWm.js",
-      "_ReactAppend-BdSt2FVL.js",
-      "_SetSelectValue-DL-AgtMG.js",
-      "_RolesRest-SrtbPD5t.js",
-      "_UsersRest-DgfedDod.js",
-      "_Adminto-BGAXhy00.js",
-      "_Modal-XkEoS3lt.js",
-      "_Table-w4bmKtdW.js",
-      "_InputFormGroup-CZpmvUlF.js",
-      "_PasswordFormGroup-CkglPy2s.js",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Components/form/TippyButton.jsx",
-      "resources/js/Components/dx/DxBox.jsx",
-      "_DxButton-CsjWvhyj.js",
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js",
-      "resources/js/Reutilizables/Businesses/BusinessIWorkCard.jsx",
-      "_WhatsAppStatuses-BF-FjpQX.js"
-    ]
-  },
   "resources/js/Utils/CreateReactScript.jsx": {
-    "file": "assets/CreateReactScript-BaMkhSPW.js",
+    "file": "assets/CreateReactScript-DlKDmD4e.js",
     "name": "CreateReactScript",
     "src": "resources/js/Utils/CreateReactScript.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/MenuItem.jsx",
-      "resources/js/Admin/Components/NavBar.jsx",
-      "resources/js/Admin/Components/Footer.jsx",
-      "____vite-browser-external_commonjs-proxy-BiUUwCOo.js"
+      "resources/js/Components/MenuItem.jsx",
+      "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
+      "resources/js/Components/accordion/Accordion.jsx",
+      "____vite-browser-external_commonjs-proxy-DqvwVSHi.js"
     ]
   },
   "resources/js/Utils/HtmlContent.jsx": {
-    "file": "assets/HtmlContent-_27vzOo3.js",
+    "file": "assets/HtmlContent-D-06G-5n.js",
     "name": "HtmlContent",
     "src": "resources/js/Utils/HtmlContent.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Utils/Number2Currency.jsx": {
@@ -980,12 +834,12 @@
     "isEntry": true
   },
   "resources/js/Utils/ReactAppend.jsx": {
-    "file": "assets/ReactAppend-BbdAvxK7.js",
+    "file": "assets/ReactAppend-CCMqV5u4.js",
     "name": "ReactAppend",
     "src": "resources/js/Utils/ReactAppend.jsx",
     "isEntry": true,
     "imports": [
-      "resources/js/Admin/Components/Footer.jsx"
+      "resources/js/Components/accordion/Accordion.jsx"
     ]
   },
   "resources/js/Utils/SetQuillValue.jsx": {
