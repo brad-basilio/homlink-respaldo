@@ -28,7 +28,6 @@ class BasicRest {
       let status = false
       let result = {}
       if (this.hasFiles) {
-        console.log(this.path)
         const res = await fetch(`/api/${this.path}`, {
           method: 'POST',
           headers: {

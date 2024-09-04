@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CreateReactScript from './Utils/CreateReactScript';
 import { createRoot } from 'react-dom/client';
 import Base from '@Tailwind/Base';
 import Header from './Components/Coaches/Header';
 import Content from './Components/Coaches/Content';
+import Events from './Components/Coaches/Events';
+import FAQSection from './Components/Coaches/FAQSection';
 
-function Coaches({ specialties, coaches, countries }) {
+function Coaches({ specialties, countries, events, faqs }) {
+  const [filter, setFilter] = useState({
+    specialty: null,
+    search: null,
+    orderBy: 'asc',
+    minPrice: null,
+    maxPrice: null
+  })
   return (<>
-    <Header specialties={specialties} />
-    <Content coaches={coaches} countries={countries}/>
+    <Header specialties={specialties} setFilter={setFilter} />
+    <Content countries={countries} filter={filter} setFilter={setFilter} />
+    <FAQSection faqs={faqs} />
+    <Events events={events} />
   </>);
 }
 

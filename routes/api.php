@@ -4,12 +4,14 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
+use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -31,11 +33,14 @@ Route::post('signup', [AuthController::class, 'signup']);
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
 Route::get('/benefits/media/{uuid}', [AdminBenefitController::class, 'media']);
 Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
+Route::get('/events/media/{uuid}', [AdminEventController::class, 'media']);
 
 Route::get('/profile/{uuid}', [ProfileController::class, 'full']);
 Route::get('/profile/thumbnail/{uuid}', [ProfileController::class, 'thumbnail']);
 Route::get('/cover/{uuid}', [CoverController::class, 'full']);
 Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
+
+Route::post('/coaches/paginate', [CoachController::class, 'paginate']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
@@ -80,6 +85,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/testimonies/status', [AdminTestimonyController::class, 'status']);
         Route::patch('/testimonies/{field}', [AdminTestimonyController::class, 'boolean']);
         Route::delete('/testimonies/{id}', [AdminTestimonyController::class, 'delete']);
+
+        Route::post('/events', [AdminEventController::class, 'save']);
+        Route::post('/events/paginate', [AdminEventController::class, 'paginate']);
+        Route::patch('/events/status', [AdminEventController::class, 'status']);
+        Route::patch('/events/{field}', [AdminEventController::class, 'boolean']);
+        Route::delete('/events/{id}', [AdminEventController::class, 'delete']);
     });
 
     Route::middleware('can:Coach')->prefix('coach')->group(function () {

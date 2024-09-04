@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             AboutusSeeder::class,
             IndicatorSeeder::class,
             TestimonySeeder::class,
+            EventSeeder::class,
         ]);
     }
 }

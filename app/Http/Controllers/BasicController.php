@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SoDe\Extend\Crypto;
@@ -24,7 +25,8 @@ class BasicController extends Controller
   public $reactRootView = 'admin';
   public $imageFields = [];
 
-  public function media(Request $request, string $uuid) {
+  public function media(Request $request, string $uuid)
+  {
     try {
       $content = Storage::get('images/' . $uuid . '.img');
       if (!$content) throw new Exception('Imagen no encontrado');
@@ -69,6 +71,11 @@ class BasicController extends Controller
     return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView);
   }
 
+  public function specialCount(string $model): null|int
+  {
+    return null;
+  }
+
   public function paginate(Request $request): HttpResponse|ResponseFactory
   {
     $response =  new dxResponse();
@@ -108,7 +115,12 @@ class BasicController extends Controller
         $instance->orderBy('id', 'DESC');
       }
 
-      $totalCount = $instance->count('*');
+      if ($this->specialCount($this->model) != null) {
+        $totalCount = $this->specialCount($this->model);
+      } else {
+        $totalCount =  $instance->count();
+      }
+
       $jpas = $request->isLoadingAll
         ? $instance->get()
         : $instance

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Resource;
+use App\Models\Event;
 use App\Models\SpecialtiesByUser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use SoDe\Extend\JSON;
 
 class CoachController extends BasicController
 {
+    public $model = User::class;
     public $reactView = 'Coaches';
     public $reactRootView = 'public';
 
@@ -26,28 +27,39 @@ class CoachController extends BasicController
             ->where('status', true)
             ->get();
 
-        $coaches = User::select([
-            'users.*'
-        ])
-            ->with(['specialties'])
-            ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
-            ->where('mhr.role_id', 2)
-            ->get();
         $countries = JSON::parse(File::get('../storage/app/utils/countries.json'));
+
+        $events = Event::lastFour();
+
         return [
             'specialties' => $specialties,
-            'coaches' => $coaches,
             'countries' => $countries,
+            'events' => $events,
         ];
     }
 
     public function setPaginationInstance(string $model)
     {
         return $this->model::select([
+            DB::raw('DISTINCT(users.id)'),
             'users.*'
         ])
             ->with(['specialties'])
             ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
-            ->where('mhr.role_id', 2);
+            ->leftJoin('specialties_by_users AS sbu', 'sbu.user_id', 'users.id')        // cambiar a solo join
+            ->leftJoin('specialties AS specialty', 'specialty.id', 'sbu.specialty_id')  // cambiar a solo join
+            ->where('mhr.role_id', 2)
+            ->where('users.status', true);
+    }
+
+    public function specialCount(string $model): null|int
+    {
+        return $this->model::select(DB::raw('COUNT(DISTINCT(users.id)) as total_count'))
+            ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
+            ->leftJoin('specialties_by_users AS sbu', 'sbu.user_id', 'users.id')
+            ->leftJoin('specialties AS specialty', 'specialty.id', 'sbu.specialty_id')
+            ->where('mhr.role_id', 2)
+            ->where('users.status', true)
+            ->value('total_count');
     }
 }
