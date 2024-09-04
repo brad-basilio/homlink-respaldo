@@ -84,6 +84,7 @@ const Menu = ({ session, can, hasRole }) => {
               <MenuItem href="/admin/benefits" icon='mdi mdi-cube-outline'>Beneficios</MenuItem>
               <MenuItem href="/admin/testimonies" icon='mdi mdi-forum'>Testimonios</MenuItem>
               <MenuItem href="/admin/events" icon='mdi mdi-calendar'>Programas y Eventos</MenuItem>
+              <MenuItem href="/admin/faqs" icon='mdi mdi-head-question'>FAQs</MenuItem>
             </>
           }
           {

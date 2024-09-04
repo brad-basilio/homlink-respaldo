@@ -2,8 +2,7 @@ import React from "react"
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Base = ({ children, summary }) => {
-  console.log(summary)
+const Base = ({ children, summary, session }) => {
   const menuItems = [
     {
       label: 'Inicio',
@@ -27,7 +26,7 @@ const Base = ({ children, summary }) => {
     }
   ];
   return <>
-    <Header items={menuItems} />
+    <Header items={menuItems} session={session} />
     <main>
       {children}
     </main>

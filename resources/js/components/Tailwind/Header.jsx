@@ -1,7 +1,7 @@
 import React from "react"
 import logo from '../../Svg/logo.svg'
 
-const Header = ({ items }) => {
+const Header = ({ items, session }) => {
   return (
     <>
       <nav className="bg-[#05455A] fixed w-full z-30 top-0 start-0 shadow-lg">
@@ -14,7 +14,17 @@ const Header = ({ items }) => {
               href="/login"
               className="font-semibold block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#ef4444] md:p-0"
             >
-              Empezar
+              {
+                session
+                  ? <div className="flex items-center gap-2">
+                    <img src={`/api/profile/thumbnail/${session.uuid}`} className="w-8 h-8 rounded-full aspect-square object-cover object-center"></img>
+                    <span className="flex flex-col">
+                      Dashboard
+                      <span className="text-xs font-thin -mt-1">{session.name.split(' ')[0]} {session.lastname.split(' ')[0]}</span>
+                    </span>
+                  </div>
+                  : 'Empezar'
+              }
             </a>
             <button
               type="button"

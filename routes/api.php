@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
@@ -91,6 +92,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/events/status', [AdminEventController::class, 'status']);
         Route::patch('/events/{field}', [AdminEventController::class, 'boolean']);
         Route::delete('/events/{id}', [AdminEventController::class, 'delete']);
+
+        Route::post('/faqs', [AdminFaqController::class, 'save']);
+        Route::post('/faqs/paginate', [AdminFaqController::class, 'paginate']);
+        Route::patch('/faqs/status', [AdminFaqController::class, 'status']);
+        Route::patch('/faqs/{field}', [AdminFaqController::class, 'boolean']);
+        Route::delete('/faqs/{id}', [AdminFaqController::class, 'delete']);
     });
 
     Route::middleware('can:Coach')->prefix('coach')->group(function () {

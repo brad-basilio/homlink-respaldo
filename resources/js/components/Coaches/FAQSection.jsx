@@ -2,38 +2,27 @@ import React from "react";
 import FAQItem from "./FAQItem";
 
 const FAQSection = ({ faqs = [] }) => {
-  const faqData = [
-    {
-      question: "¿En qué consiste el coaching ontológico?",
-      answer: "El coaching ontológico es un enfoque que se centra en la transformación personal y profesional a través de la toma de conciencia, el cambio de paradigmas y el desarrollo de nuevas formas de ser y actuar."
-    },
-    {
-      question: "¿Cuáles son las ventajas del coaching ontológico?",
-      answer: "Holasdasdsda"
-    },
-    {
-      question: "¿Cuál es la diferencia entre las \"habilidades blandas\" y las \"habilidades de poder\"?",
-      answer: "asdasdasd"
-    },
-    {
-      question: "¿Cómo puedo mejorar mis habilidades de comunicación?",
-      answer: "asdasdasd"
-    }
-  ];
   return (
-    <section className="p-[5%] flex flex-wrap gap-10 justify-between items-start self-center w-full max-w-screen-xl text-cyan-950 max-md:max-w-full">
-      <div className="flex flex-col min-w-[240px] w-[469px] max-md:max-w-full">
-        <h2 className="text-4xl font-bold leading-10 max-md:max-w-full">
+    <section className="p-[5%] grid grid-cols-12 gap-10 justify-between items-start self-center w-full text-cyan-950">
+      <div className="flex flex-col items-start text-left col-span-12 md:col-span-6 lg:col-span-4 max-md:items-center max-md:text-center">
+        <h2 className="text-4xl font-bold leading-10 max-md:text-2xl">
           Respuestas a tus Preguntas Más Comunes
         </h2>
         <div className="flex w-6 min-h-[24px]" />
-        <p className="text-base leading-6 max-md:max-w-full">
+        <p className="text-base leading-6">
           Encuentra respuestas a tus dudas más habituales sobre Net Coaching. Exploramos las preguntas frecuentes para ayudarte a obtener una comprensión completa de nuestros servicios.
         </p>
       </div>
-      <div className="flex flex-col min-w-[240px] w-[519px] max-md:max-w-full">
-        {faqData.map((item, index) => (
-          <FAQItem key={index} question={item.question} answer={item.answer} isOpen={index == 0} />
+
+      <div className="flex flex-col gap-6  col-span-12 md:col-span-6 lg:col-span-8 max-md:items-center">
+        {faqs.map((item, index) => (
+          <FAQItem
+            key={index}
+            question={item.name}
+            answer={item.description}
+            isOpen={index == 0}
+            className="border-t border-cyan-950 pt-4"
+          />
         ))}
       </div>
     </section>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Faq;
 use App\Models\SpecialtiesByUser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,10 +32,13 @@ class CoachController extends BasicController
 
         $events = Event::lastFour();
 
+        $faqs = Faq::where('visible', true)->where('visible', true)->get();
+
         return [
             'specialties' => $specialties,
             'countries' => $countries,
             'events' => $events,
+            'faqs' => $faqs,
         ];
     }
 
