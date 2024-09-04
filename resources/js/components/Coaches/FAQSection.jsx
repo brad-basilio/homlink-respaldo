@@ -3,7 +3,7 @@ import FAQItem from "./FAQItem";
 
 const FAQSection = ({ faqs = [] }) => {
   return (
-    <section className="p-[5%] grid grid-cols-12 gap-10 justify-between items-start self-center w-full text-cyan-950">
+    <section className="p-[5%] flex flex-col md:flex-row gap-10 justify-between items-start w-full  mx-auto text-cyan-950">
       <div className="flex flex-col items-start text-left col-span-12 md:col-span-6 lg:col-span-4 max-md:items-center max-md:text-center">
         <h2 className="text-4xl font-bold leading-10 max-md:text-2xl">
           Respuestas a tus Preguntas Más Comunes
@@ -14,18 +14,19 @@ const FAQSection = ({ faqs = [] }) => {
         </p>
       </div>
 
-      <div className="flex flex-col gap-6  col-span-12 md:col-span-6 lg:col-span-8 max-md:items-center">
+      <div className="flex flex-col gap-6 col-span-12 md:col-span-6 lg:col-span-8 max-md:items-center">
         {faqs.map((item, index) => (
           <FAQItem
             key={index}
             question={item.name}
             answer={item.description}
-            isOpen={index == 0}
+            isOpen={index === 0}
             className="border-t border-cyan-950 pt-4"
           />
         ))}
       </div>
     </section>
+
   );
 }
 

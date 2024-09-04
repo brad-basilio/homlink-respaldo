@@ -17,12 +17,12 @@ const Base = ({ children, summary, session }) => {
       ref: '/coaches'
     },
     {
-      label: 'Programas & Eventos',
+      label: 'Eventos',
       ref: '/events'
     },
     {
-      label: 'Beneficios',
-      ref: '/benefits'
+      label: 'Blog',
+      ref: '/resources'
     }
   ];
   return <>

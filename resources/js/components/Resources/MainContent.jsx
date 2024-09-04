@@ -8,7 +8,9 @@ const MainContent = ({ resources }) => {
           ? `https://i.ytimg.com/vi/${resource.media_id}/hqdefault.jpg`
           : `/api/cover/thumbnail/${resource.media_id}`;
         const ref = `/resources/${resource.id}`
-
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(resource.description, 'text/html');
+        const plainText = doc.body.textContent || "";
         return (
           <article key={index} className="w-full">
             <a href={ref}>
@@ -39,6 +41,7 @@ const MainContent = ({ resources }) => {
                 Categoria: <span className="text-red-500">{resource.specialty.name}</span>
               </div>
             </div>
+            <p className='mt-2 text-base leading-6 text-cyan-950 line-clamp-3 h-[72px]'>{plainText}</p>
           </article>
         );
       })}

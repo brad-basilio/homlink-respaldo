@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '../Components/Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import ResourcesRest from '../Actions/ResourcesRest';
+import ResourcesRest from '../Actions/Coach/ResourcesRest';
 import Table from '../Components/Table';
 import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/form/InputFormGroup';

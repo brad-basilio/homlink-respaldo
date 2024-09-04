@@ -16,6 +16,7 @@ use App\Http\Controllers\Coach\HomeController as CoachHomeController;
 use App\Http\Controllers\Coach\ProfileController as CoachProfileController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
@@ -34,9 +35,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/resources', [ResourceController::class, 'reactView'])->name('Resources.jsx');
+Route::get('/resources/{resourceId}', [ResourceController::class, 'get'])->name('ResourceDetails.jsx');
 Route::get('/about', [AboutusController::class, 'reactView'])->name('About.jsx');
 Route::get('/coaches', [CoachController::class, 'reactView'])->name('Coaches.jsx');
-Route::get('/resources/{resourceId}', [ResourceController::class, 'get'])->name('ResourceDetails.jsx');
+Route::get('/events', [EventController::class, 'reactView'])->name('Events.jsx');
 
 Route::get('/profile/{coach}', [ProfileController::class, 'reactView'])->name('Profile.jsx');
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');

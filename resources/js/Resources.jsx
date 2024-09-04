@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from './Utils/CreateReactScript';
 import TailwindBase from '@Tailwind/Base';
@@ -6,21 +6,17 @@ import Header from './Components/Resources/Header';
 import Sidebar from './Components/Resources/Sidebar';
 import MainContent from './Components/Resources/MainContent';
 
-const Resources = ({ resources }) => {
+const Resources = ({ specialties, archive }) => {
 
-  const specialties = []
-  resources.forEach(resource => {
-    if (specialties.find(x => x.id == resource.specialty.id)) return
-    specialties.push(resource.specialty)
-  });
+  const [resources, setResources] = useState([]);
 
   return (
     <>
-      <main className='flex flex-col mt-16'>
+      <main className='flex flex-col mt-[68px]'>
         <Header />
         <div className="flex gap-5 max-md:flex-col p-[5%]">
-          <Sidebar specialties={specialties} />
-          <MainContent resources={resources} />
+          <Sidebar specialties={specialties} archive={archive} setResources={setResources}/>
+          <MainContent resources={resources}  />
         </div>
       </main>
     </>

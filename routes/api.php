@@ -16,6 +16,7 @@ use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ResourceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +43,7 @@ Route::get('/cover/{uuid}', [CoverController::class, 'full']);
 Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 
 Route::post('/coaches/paginate', [CoachController::class, 'paginate']);
+Route::post('/resources/paginate', [ResourceController::class, 'paginate']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])

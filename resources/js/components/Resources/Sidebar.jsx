@@ -1,56 +1,93 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import ArrayJoin from '@Utils/ArrayJoin';
+import ResourcesRest from '@Rest/ResourcesRest';
 
-const Sidebar = ({ specialties }) => {
+const resourcesRest = new ResourcesRest()
 
-  const categories = [
-    { title: 'Todas las categorías', isActive: true, icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/701732b6bd91887682c39b41d57a41202c313af1d4971a256321afba101048ae?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731' },
-    { title: 'Coaching empresarial', isActive: false },
-    { title: 'Coaching de vida', isActive: false },
-    { title: 'Coaching motivacional', isActive: false },
-    { title: 'Coaching autoconocimiento', isActive: false },
-  ];
+const Sidebar = ({ specialties, archive, setResources }) => {
 
-  const archives = [
-    { title: 'Marzo 2023', isActive: false },
-    { title: 'Febrero 2023', isActive: true, icon: 'https://cdn.builder.io/api/v1/image/assets/TEMP/ea973f0f2ca14f1da16ed00770b17430d2a3f040d2cec3a3069320847dc5d269?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731' },
-    { title: 'Enero 2023', isActive: false },
-    { title: 'Diciembre 2022', isActive: false },
-    { title: 'Noviembre 2022', isActive: false },
-  ];
+  const [search, setSearch] = useState(null);
+  const [type, setType] = useState(null);
+  const [month, setMonth] = useState(archive[0]?.full || null);
+
+  useEffect(() => {
+    const filter = []
+    if (search) filter.push(ArrayJoin([
+      ['name', 'contains', search],
+      ['description', 'contains', search]
+    ], 'or'))
+    if (type) filter.push(['specialty_id', '=', type])
+    if (month) {
+      const [m, y] = month.split('-').map(Number);
+      const firstDay = moment().year(y).month(m - 1).startOf('month').format('YYYY-MM-DD [00:00:00]');
+      const lastDay = moment().year(y).month(m - 1).endOf('month').format('YYYY-MM-DD [23:59:59]');
+
+      filter.push(ArrayJoin([
+        ['created_at', '>=', firstDay],
+        ['created_at', '<=', lastDay],
+      ], 'and'))
+    }
+
+    refreshResources(ArrayJoin(filter, 'and'))
+  }, [search, type, month])
+
+  const refreshResources = async (filter) => {
+    const result = await resourcesRest.paginate({
+      filter,
+      isLoadingAll: true,
+      sort: [{ selector: 'created_at', desc: false }],
+    })
+    const newResources = result?.data ?? []
+    setResources(newResources);
+  }
 
   return (
     <aside className="flex flex-col w-[21%] max-md:ml-0 max-md:w-full">
       <div className="flex flex-col w-full text-sm leading-snug text-teal-950 max-md:mt-10">
-        <div className="flex gap-2 items-center px-2.5 py-3 w-full font-medium leading-tight text-black whitespace-nowrap rounded-lg bg-neutral-100">
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f5c50c94270995306ee0789677e210ca3ea7a92c00f6e316e4d0fccb8a581e61?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731" alt="" className="object-contain shrink-0 self-stretch my-auto w-4 aspect-square" />
-          <div className="self-stretch my-auto">Buscar</div>
+        <div className="flex gap-2 items-center px-2.5 py-3 w-full font-medium text-black whitespace-nowrap rounded-lg bg-neutral-100">
+          <i className='fa fa-search shrink-0 self-stretch my-auto'></i>
+          <label htmlFor="searchInput" className="sr-only">Buscar</label>
+          <input
+            id="searchInput"
+            type="text"
+            placeholder="Buscar"
+            className="self-stretch my-auto bg-transparent outline-none"
+            onChange={e => setSearch((e.target.value || '').toLowerCase())}
+          />
         </div>
         <div className="flex flex-col mt-8 w-full text-center max-w-[200px]">
           <div className="flex gap-10 justify-between items-center w-full text-base font-bold leading-tight whitespace-nowrap">
             <div className="self-stretch my-auto">Categorías</div>
             <div className="flex shrink-0 self-stretch my-auto w-5 h-5" />
           </div>
-          {specialties.map((specialty, index) => (
-            <div key={index} className={`flex gap-10 justify-between items-center mt-4 w-full`}>
+          {[
+            { id: null, name: 'Todos' },
+            ...specialties
+          ].map((specialty, index) => (
+            <div key={index} className={`flex gap-10 justify-between items-center mt-4 w-full ${specialty.id == type ? 'text-red-500' : 'cursor-pointer'}`} onClick={() => setType(specialty.id || null)}>
               <div className="self-stretch my-auto">{specialty.name}</div>
-              <div className="flex shrink-0 self-stretch my-auto w-5 h-5" />
+              {
+                (type == specialty.id)
+                  ? <i className="mdi mdi-chevron-right text-lg text-red-500"></i>
+                  : ''
+              }
             </div>
           ))}
         </div>
-        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/153dd3ab65491e274b3e521062c6c09d1341d8d05c4472c5acd5443c38fb02cf?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731" alt="" className="object-contain mt-8 aspect-[200] w-[200px]" />
-        <div className="flex flex-col mt-8 w-full text-center max-w-[200px]">
+        <hr className='w-1/2 mx-auto my-8' />
+        <div className="flex flex-col w-full text-center max-w-[200px]">
           <div className="flex gap-10 justify-between items-center w-full text-base font-bold leading-tight whitespace-nowrap">
             <div className="self-stretch my-auto">Archivo</div>
             <div className="flex shrink-0 self-stretch my-auto w-5 h-5" />
           </div>
-          {archives.map((archive, index) => (
-            <div key={index} className={`flex gap-10 justify-between items-center mt-4 w-full ${archive.isActive ? 'font-medium leading-tight text-red-500' : ''}`}>
-              <div className="self-stretch my-auto">{archive.title}</div>
-              {archive.icon ? (
-                <img loading="lazy" src={archive.icon} alt="" className="object-contain shrink-0 self-stretch my-auto w-5 aspect-square" />
-              ) : (
-                <div className="flex shrink-0 self-stretch my-auto w-5 h-5" />
-              )}
+          {archive.map((item, index) => (
+            <div key={index} className={`flex gap-10 justify-between items-center mt-4 w-full ${month == item.full ? 'font-medium leading-tight text-red-500' : ''}`} onClick={() => setMonth(item.full)}>
+              <div className="self-stretch my-auto">{item.month} {item.year}</div>
+              {
+                (month == item.full)
+                  ? <i className="mdi mdi-chevron-right text-lg text-red-500"></i>
+                  : ''
+              }
             </div>
           ))}
         </div>

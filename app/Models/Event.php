@@ -38,4 +38,20 @@ class Event extends Model
             ->take(4)
             ->get();
     }
+
+    static function upcoming()
+    {
+        return Event::select([
+            'image',
+            'name',
+            'type',
+            'date_time',
+            'description'
+        ])
+            ->where('visible', true)
+            ->where('status', true)
+            ->where('date_time', '>', Trace::getDate('mysql'))
+            ->orderBy('date_time', 'asc')
+            ->get();
+    }
 }

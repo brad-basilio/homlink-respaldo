@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use SoDe\Extend\Text;
 
 class ResourceController extends BasicController
 {
@@ -15,11 +17,55 @@ class ResourceController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
-        $resourcesJpa = Resource::with(['specialty'])
-            ->where('status', true)->get();
-        return [
-            'resources' => $resourcesJpa
+        $specialties = Resource::select([
+            'specialties.id',
+            'specialties.name'
+        ])
+            ->join('specialties', 'resources.specialty_id', '=', 'specialties.id')
+            ->where('status', true)
+            ->distinct()
+            ->get();
+
+        $monthsAndYears = Resource::select(
+            DB::raw('YEAR(created_at) as year, MONTH(created_at) as month')
+        )
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->get();
+
+        $monthsNames = [
+            1 => 'Enero',
+            2 => 'Febrero',
+            3 => 'Marzo',
+            4 => 'Abril',
+            5 => 'Mayo',
+            6 => 'Junio',
+            7 => 'Julio',
+            8 => 'Agosto',
+            9 => 'Septiembre',
+            10 => 'Octubre',
+            11 => 'Noviembre',
+            12 => 'Diciembre'
         ];
+
+        $formattedResults = $monthsAndYears->map(function ($item) use ($monthsNames) {
+            return [
+                'year' => $item->year,
+                'month' => $monthsNames[$item->month],
+                'full' => Text::fillStart($item->month, '0', 2) . '-' . Text::fillStart($item->year, '0', 4)
+            ];
+        });
+        return [
+            'specialties' => $specialties,
+            'archive' => $formattedResults
+        ];
+    }
+
+    public function setPaginationInstance(string $model)
+    {
+        return $model::with(['specialty'])
+            ->where('status', true);
     }
 
     public function get(Request $request, string $resourceId)

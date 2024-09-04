@@ -1,7 +1,7 @@
-import BasicRest from "./BasicRest";
+import BasicRest from "../BasicRest";
 
 class ResourcesRest extends BasicRest {
-  path = 'resources'
+  path = 'coach/resources';
 }
 
 export default ResourcesRest

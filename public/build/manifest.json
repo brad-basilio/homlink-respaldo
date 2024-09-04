@@ -1,4 +1,8 @@
 {
+  "_ArrayJoin-2k6ba35P.js": {
+    "file": "assets/ArrayJoin-2k6ba35P.js",
+    "name": "ArrayJoin"
+  },
   "_AuthRest-NEu16Tw2.js": {
     "file": "assets/AuthRest-NEu16Tw2.js",
     "name": "AuthRest",
@@ -20,8 +24,8 @@
       "tippy.css"
     ]
   },
-  "_Base-ClTpTyI0.js": {
-    "file": "assets/Base-ClTpTyI0.js",
+  "_Base-CuojlR7s.js": {
+    "file": "assets/Base-CuojlR7s.js",
     "name": "Base",
     "imports": [
       "resources/js/Components/About/StatisticCard.jsx",
@@ -63,6 +67,14 @@
   "_DxButton-CsjWvhyj.js": {
     "file": "assets/DxButton-CsjWvhyj.js",
     "name": "DxButton"
+  },
+  "_EventCard-CtJ3h8DV.js": {
+    "file": "assets/EventCard-CtJ3h8DV.js",
+    "name": "EventCard",
+    "imports": [
+      "resources/js/Components/About/StatisticCard.jsx",
+      "_index-DFv2mRv-.js"
+    ]
   },
   "_HtmlContent-BY9uANKo.js": {
     "file": "assets/HtmlContent-BY9uANKo.js",
@@ -188,13 +200,13 @@
       "_index-DFv2mRv-.js"
     ]
   },
-  "_swiper-!~{01I}~.js": {
+  "_swiper-!~{01K}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{01I}~.js"
+    "src": "_swiper-!~{01K}~.js"
   },
-  "_tippy-!~{01E}~.js": {
+  "_tippy-!~{01G}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{01E}~.js"
+    "src": "_tippy-!~{01G}~.js"
   },
   "_tippy-react.esm-3ehftxB_.js": {
     "file": "assets/tippy-react.esm-3ehftxB_.js",
@@ -210,7 +222,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-lIal56_l.js",
+    "file": "assets/About-DwT6hg4e.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -219,7 +231,7 @@
       "_index-DFv2mRv-.js",
       "_CreateReactScript-yWJ4gJYl.js",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
       "_index.esm-B502ZfUP.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
       "_main-BBbUrZUL.js",
@@ -606,7 +618,7 @@
     ]
   },
   "resources/js/Coaches.jsx": {
-    "file": "assets/Coaches-B4ba5na1.js",
+    "file": "assets/Coaches-iTTCmpMP.js",
     "name": "Coaches",
     "src": "resources/js/Coaches.jsx",
     "isEntry": true,
@@ -615,10 +627,12 @@
       "_index-DFv2mRv-.js",
       "_CreateReactScript-yWJ4gJYl.js",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
       "_hoist-non-react-statics.cjs-CgXjTu_P.js",
       "_tippy-react.esm-3ehftxB_.js",
       "resources/js/Components/Coaches/Content.jsx",
+      "_ArrayJoin-2k6ba35P.js",
+      "_EventCard-CtJ3h8DV.js",
       "_index.esm-B502ZfUP.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
       "_main-BBbUrZUL.js",
@@ -739,7 +753,7 @@
     ]
   },
   "resources/js/Components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-C08uxN3-.js",
+    "file": "assets/Modal-CgKqWWsy.js",
     "name": "Modal",
     "src": "resources/js/Components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -773,7 +787,7 @@
     ]
   },
   "resources/js/Components/Adminto/Table.jsx": {
-    "file": "assets/Table-BdwIDiZM.js",
+    "file": "assets/Table-BwBpJXq9.js",
     "name": "Table",
     "src": "resources/js/Components/Adminto/Table.jsx",
     "isEntry": true,
@@ -785,7 +799,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-CgKqWWsy.js",
+    "file": "assets/CheckboxFormGroup-C08uxN3-.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -815,7 +829,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-CgKqWWsy.js",
+    "file": "assets/PasswordFormGroup-C08uxN3-.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -835,7 +849,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BdwIDiZM.js",
+    "file": "assets/SelectAPIFormGroup-BwBpJXq9.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -911,16 +925,6 @@
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js"
     ]
   },
-  "resources/js/Components/Coaches/EventCard.jsx": {
-    "file": "assets/EventCard-CgKqWWsy.js",
-    "name": "EventCard",
-    "src": "resources/js/Components/Coaches/EventCard.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Components/About/StatisticCard.jsx",
-      "_index-DFv2mRv-.js"
-    ]
-  },
   "resources/js/Components/Coaches/Events.jsx": {
     "file": "assets/Events-CgKqWWsy.js",
     "name": "Events",
@@ -981,6 +985,26 @@
       "_index-DFv2mRv-.js",
       "_main-BBbUrZUL.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js"
+    ]
+  },
+  "resources/js/Components/Events/Content.jsx": {
+    "file": "assets/Content-CgKqWWsy.js",
+    "name": "Content",
+    "src": "resources/js/Components/Events/Content.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/StatisticCard.jsx",
+      "_index-DFv2mRv-.js"
+    ]
+  },
+  "resources/js/Components/Events/EventCard.jsx": {
+    "file": "assets/EventCard-CgKqWWsy.js",
+    "name": "EventCard",
+    "src": "resources/js/Components/Events/EventCard.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/StatisticCard.jsx",
+      "_index-DFv2mRv-.js"
     ]
   },
   "resources/js/Components/Home/Banner.jsx": {
@@ -1078,7 +1102,7 @@
     ]
   },
   "resources/js/Components/Modal.jsx": {
-    "file": "assets/Modal-CgKqWWsy.js",
+    "file": "assets/Modal-C08uxN3-.js",
     "name": "Modal",
     "src": "resources/js/Components/Modal.jsx",
     "isEntry": true,
@@ -1108,17 +1132,20 @@
     ]
   },
   "resources/js/Components/Resources/Sidebar.jsx": {
-    "file": "assets/Sidebar-CgKqWWsy.js",
+    "file": "assets/Sidebar-Bv-GCPLd.js",
     "name": "Sidebar",
     "src": "resources/js/Components/Resources/Sidebar.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Components/About/StatisticCard.jsx",
-      "_index-DFv2mRv-.js"
+      "_index-DFv2mRv-.js",
+      "resources/js/Components/Coaches/Content.jsx",
+      "_main-BBbUrZUL.js",
+      "____vite-browser-external_commonjs-proxy-BQdpDcDf.js"
     ]
   },
   "resources/js/Components/Table.jsx": {
-    "file": "assets/Table-BwBpJXq9.js",
+    "file": "assets/Table-BdwIDiZM.js",
     "name": "Table",
     "src": "resources/js/Components/Table.jsx",
     "isEntry": true,
@@ -1227,7 +1254,7 @@
     "isEntry": true
   },
   "resources/js/Components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-C08uxN3-.js",
+    "file": "assets/CheckboxFormGroup-CgKqWWsy.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -1247,7 +1274,7 @@
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-C08uxN3-.js",
+    "file": "assets/PasswordFormGroup-CgKqWWsy.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1267,7 +1294,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BwBpJXq9.js",
+    "file": "assets/SelectAPIFormGroup-BdwIDiZM.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1357,8 +1384,30 @@
       "tippy.css"
     ]
   },
+  "resources/js/Events.jsx": {
+    "file": "assets/Events-ByCYamWK.js",
+    "name": "Events",
+    "src": "resources/js/Events.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/StatisticCard.jsx",
+      "_Base-CuojlR7s.js",
+      "_index-DFv2mRv-.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_EventCard-CtJ3h8DV.js",
+      "_CreateReactScript-yWJ4gJYl.js",
+      "_logo-BjQK9OLG.js",
+      "_index.esm-B502ZfUP.js",
+      "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
+      "_main-BBbUrZUL.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
+    ]
+  },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-R-pSLriK.js",
+    "file": "assets/Home-aKGAhbNV.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1367,7 +1416,7 @@
       "_index-DFv2mRv-.js",
       "resources/js/Utils/ReactAppend.jsx",
       "resources/js/Components/Home/Benefits.jsx",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
       "_CreateReactScript-yWJ4gJYl.js",
       "_logo-BjQK9OLG.js",
       "_index.esm-B502ZfUP.js",
@@ -1406,7 +1455,7 @@
     ]
   },
   "resources/js/Profile.jsx": {
-    "file": "assets/Profile-fTGzcki4.js",
+    "file": "assets/Profile-BJcnV-fX.js",
     "name": "Profile",
     "src": "resources/js/Profile.jsx",
     "isEntry": true,
@@ -1415,7 +1464,7 @@
       "_index-DFv2mRv-.js",
       "resources/js/Utils/ReactAppend.jsx",
       "_CreateReactScript-yWJ4gJYl.js",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
       "_HtmlContent-BY9uANKo.js",
       "_index.esm-B502ZfUP.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
@@ -1455,7 +1504,7 @@
     ]
   },
   "resources/js/ResourceDetails.jsx": {
-    "file": "assets/ResourceDetails-Dvgx9t4C.js",
+    "file": "assets/ResourceDetails-BNGvC_bN.js",
     "name": "ResourceDetails",
     "src": "resources/js/ResourceDetails.jsx",
     "isEntry": true,
@@ -1464,7 +1513,7 @@
       "_index-DFv2mRv-.js",
       "resources/js/Utils/ReactAppend.jsx",
       "_CreateReactScript-yWJ4gJYl.js",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
       "_HtmlContent-BY9uANKo.js",
       "_index.esm-B502ZfUP.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
@@ -1477,7 +1526,7 @@
     ]
   },
   "resources/js/Resources.jsx": {
-    "file": "assets/Resources-CVFq_0fM.js",
+    "file": "assets/Resources-C7Sb_Tv6.js",
     "name": "Resources",
     "src": "resources/js/Resources.jsx",
     "isEntry": true,
@@ -1486,7 +1535,9 @@
       "_index-DFv2mRv-.js",
       "resources/js/Utils/ReactAppend.jsx",
       "_CreateReactScript-yWJ4gJYl.js",
-      "_Base-ClTpTyI0.js",
+      "_Base-CuojlR7s.js",
+      "_ArrayJoin-2k6ba35P.js",
+      "resources/js/Components/Coaches/Content.jsx",
       "_index.esm-B502ZfUP.js",
       "____vite-browser-external_commonjs-proxy-BQdpDcDf.js",
       "_main-BBbUrZUL.js",
