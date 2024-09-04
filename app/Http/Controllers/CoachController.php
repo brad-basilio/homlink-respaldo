@@ -3,34 +3,51 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resource;
+use App\Models\SpecialtiesByUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use SoDe\Extend\File;
 use SoDe\Extend\JSON;
 
 class CoachController extends BasicController
 {
-    public $reactView = 'Profile';
+    public $reactView = 'Coaches';
     public $reactRootView = 'public';
-    
+
     public function setReactViewProperties(Request $request)
     {
-        $coach = User::where('uuid', $request->coach)->first();
+        $specialties = SpecialtiesByUser::select([
+            DB::raw('DISTINCT(specialties.id)'),
+            'specialties.id',
+            'specialties.name'
+        ])
+            ->join('specialties', 'specialties.id', 'specialties_by_users.specialty_id')
+            ->where('status', true)
+            ->get();
 
-        if (!$coach) return redirect('/');
-
+        $coaches = User::select([
+            'users.*'
+        ])
+            ->with(['specialties'])
+            ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
+            ->where('mhr.role_id', 2)
+            ->get();
         $countries = JSON::parse(File::get('../storage/app/utils/countries.json'));
-        $country = array_filter($countries, function ($country) use ($coach) {
-            return $country['id'] == $coach->country;
-        });
-        $country = reset($country);
-
-        $resoources = Resource::where('owner_id', $coach->id)->get();
-
         return [
-            'coach' => $coach,
-            'country' => $country,
-            'resources' => $resoources,
+            'specialties' => $specialties,
+            'coaches' => $coaches,
+            'countries' => $countries,
         ];
+    }
+
+    public function setPaginationInstance(string $model)
+    {
+        return $this->model::select([
+            'users.*'
+        ])
+            ->with(['specialties'])
+            ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
+            ->where('mhr.role_id', 2);
     }
 }

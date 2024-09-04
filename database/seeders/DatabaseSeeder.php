@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             SpecialtySeeder::class,
             BenefitSeeder::class,
             SliderSeeder::class,
+            AboutusSeeder::class,
+            IndicatorSeeder::class,
         ]);
     }
 }

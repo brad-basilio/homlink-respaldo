@@ -1,6 +1,5 @@
 import React from 'react'
 import { SwiperSlide, Swiper } from 'swiper/react';
-import 'swiper/css'
 
 const Benefits = ({ benefits }) => {
   return (<>
@@ -9,10 +8,10 @@ const Benefits = ({ benefits }) => {
         <h1 className="w-full text-4xl leading-10 text-teal-950">
           Descubre cómo Net Coaching puede ser tu aliado en el camino hacia el éxito
         </h1>
-        <button className='flex gap-2 justify-center items-center px-6 py-4 text-base font-bold leading-tight bg-red-500 rounded-lg text-zinc-100 self-start mt-10'>
+        <a href='/login' className='w-max flex gap-2 justify-center items-center px-6 py-4 text-base font-bold leading-tight bg-red-500 rounded-lg text-zinc-100 self-start mt-10'>
           <span className="self-stretch my-auto">Iniciar</span>
           <i className='ms-1 fas fa-sign-in-alt'></i>
-        </button>
+        </a>
       </div>
       <div className="w-full md:w-1/2">
         <Swiper
@@ -34,9 +33,10 @@ const Benefits = ({ benefits }) => {
                   <div className="relative w-full aspect-[3/4]">
                     <img
                       loading="lazy"
-                      src={'/api/cover/thumbnail/null'}
+                      src={`/api/benefits/media/${benefit.image}`}
                       className="absolute inset-0 w-full object-cover object-center aspect-[3/4]"
                       alt='Tecnologia'
+                      onError={e => e.target.src = '/api/cover/thumbnail/null'}
                     />
                   </div>
                   <div className="absolute bottom-0 left-0 p-2 text-center line-clamp-2 h-[70px] w-full" style={{backgroundColor: 'rgba(255, 255, 255, .50)'}}>

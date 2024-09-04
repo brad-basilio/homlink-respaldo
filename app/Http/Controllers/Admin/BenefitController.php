@@ -12,6 +12,7 @@ class BenefitController extends BasicController
 {
    public $model = Benefit::class;
    public $reactView = 'Admin/Benefit';
+   public $imageFields = ['image'];
 
    public function setReactViewProperties(Request $request)
    {

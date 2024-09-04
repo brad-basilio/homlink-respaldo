@@ -6,18 +6,16 @@ import Table from '../Components/Table';
 import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
-import SelectFormGroup from '../Components/form/SelectFormGroup';
 import DxButton from '../Components/dx/DxButton';
-import BenefitsRest from '../Actions/Admin/BenefitsRest';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import { renderToString } from 'react-dom/server';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import SlidersRest from '../Actions/Admin/SlidersRest';
+import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 
-const benefitsRest = new BenefitsRest()
 const slidersRest = new SlidersRest()
 
-const Sliders = ({ icons = [] }) => {
+const Sliders = () => {
 
   const gridRef = useRef()
   const modalRef = useRef()
@@ -25,9 +23,12 @@ const Sliders = ({ icons = [] }) => {
   // Form elements ref
   const idRef = useRef()
   const nameRef = useRef()
-  const iconRef = useRef()
   const descriptionRef = useRef()
   const imageRef = useRef()
+  const primarybtnTextRef = useRef()
+  const primarybtnUrlRef = useRef()
+  const secondarybtnTextRef = useRef()
+  const secondarybtnUrlRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -36,9 +37,13 @@ const Sliders = ({ icons = [] }) => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
-    $(iconRef.current).val(data?.icon ?? 'fab fa-dribbble-square').trigger('change')
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
+    imageRef.image.src = data?.image ?? ''
+    primarybtnTextRef.current.value = data?.primarybtn_text ?? ''
+    primarybtnUrlRef.current.value = data?.primarybtn_url ?? ''
+    secondarybtnTextRef.current.value = data?.secondarybtn_text
+    secondarybtnUrlRef.current.value = data?.secondarybtn_url
 
     $(modalRef.current).modal('show')
   }
@@ -46,14 +51,26 @@ const Sliders = ({ icons = [] }) => {
   const onModalSubmit = async (e) => {
     e.preventDefault()
 
+    const file = imageRef.current.files[0]
+    const { full, type } = await File.compress(file, { square: false })
+
     const request = {
       id: idRef.current.value || undefined,
-      icon: $(iconRef.current).val(),
       name: nameRef.current.value,
       description: descriptionRef.current.value,
+      primarybtn_text: primarybtnTextRef.current.value,
+      primarybtn_url: primarybtnUrlRef.current.value,
+      secondarybtn_text: secondarybtnTextRef.current.value,
+      secondarybtn_url: secondarybtnUrlRef.current.value,
     }
 
-    const result = await slidersRest.save(request)
+    const formData = new FormData()
+    for (const key in request) {
+      formData.append(key, request[key])
+    }
+    formData.append('image', await File.fromURL(`data:${type};base64,${full}`))
+
+    const result = await slidersRest.save(formData)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
@@ -75,7 +92,7 @@ const Sliders = ({ icons = [] }) => {
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
       title: 'Eliminar recurso',
-      text: '¿Estas seguro de eliminar este beneficio?',
+      text: '¿Estas seguro de eliminar este slider?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, eliminar',
@@ -85,13 +102,6 @@ const Sliders = ({ icons = [] }) => {
     const result = await slidersRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const iconTemplate = (e) => {
-    return $(renderToString(<span>
-      <i className={`${e.id} me-1`}></i>
-      {e.text}
-    </span>))
   }
 
   return (<>
@@ -109,8 +119,8 @@ const Sliders = ({ icons = [] }) => {
           widget: 'dxButton', location: 'after',
           options: {
             icon: 'plus',
-            text: 'Nuevo beneficio',
-            hint: 'Nuevo beneficio',
+            text: 'Nuevo slider',
+            hint: 'Nuevo slider',
             onClick: () => onModalOpen()
           }
         });
@@ -124,30 +134,14 @@ const Sliders = ({ icons = [] }) => {
         {
           dataField: 'name',
           caption: 'Titulo',
-          width: 400,
-          cellTemplate: (container, { data }) => {
-            container.html(renderToString(<p className='mb-0' style={{
-              width: '390px',
-              textOverflow: 'ellipsis',
-              overflow: 'hidden',
-              display: '-webkit-box',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 2
-            }}>
-              {data.name}
-            </p>))
-          }
+          width: '75%',
         },
         {
           dataField: 'image',
           caption: 'Imagen',
           width: '90px',
           cellTemplate: (container, { data }) => {
-            if (data.social_media == 'youtube') {
-              ReactAppend(container, <img src={`https://i.ytimg.com/vi/${data.media_id}/hqdefault.jpg`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
-            } else {
-              ReactAppend(container, <img src='/api/cover/thumbnail/null' style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
-            }
+            ReactAppend(container, <img src={`/api/sliders/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
           }
         },
         {
@@ -162,24 +156,24 @@ const Sliders = ({ icons = [] }) => {
             })} />)
           }
         },
-        {
-          dataField: 'status',
-          caption: 'Estado',
-          dataType: 'boolean',
-          cellTemplate: (container, { data }) => {
-            switch (data.status) {
-              case 1:
-                ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
-                break
-              case 0:
-                ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
-                break
-              default:
-                ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
-                break
-            }
-          }
-        },
+        // {
+        //   dataField: 'status',
+        //   caption: 'Estado',
+        //   dataType: 'boolean',
+        //   cellTemplate: (container, { data }) => {
+        //     switch (data.status) {
+        //       case 1:
+        //         ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
+        //         break
+        //       case 0:
+        //         ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
+        //         break
+        //       default:
+        //         ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
+        //         break
+        //     }
+        //   }
+        // },
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
@@ -200,20 +194,16 @@ const Sliders = ({ icons = [] }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar beneficio' : 'Agregar beneficio'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='benefits-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar slider' : 'Agregar slider'} onSubmit={onModalSubmit} size='md'>
+      <div className='row' id='sliders-container'>
         <input ref={idRef} type='hidden' />
-        <SelectFormGroup eRef={iconRef} label="Ícono" dropdownParent='#benefits-container' required templateResult={iconTemplate} templateSelection={iconTemplate}>
-          {
-            icons.map((icon, i) => {
-              return <option key={`icon-${i}`} value={icon.id}>
-                {icon.value}
-              </option>
-            })
-          }
-        </SelectFormGroup>
-        <InputFormGroup eRef={nameRef} label='Titulo' col='col-12' required />
+        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-12' />
+        <TextareaFormGroup eRef={nameRef} label='Titulo' col='col-12' rows={2} required />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
+        <InputFormGroup eRef={primarybtnTextRef} label='Texto botón primario' col='col-sm-6' required />
+        <InputFormGroup eRef={primarybtnUrlRef} label='URL botón primario' col='col-sm-6' required />
+        <InputFormGroup eRef={secondarybtnTextRef} label='Texto botón secundario' col='col-sm-6' />
+        <InputFormGroup eRef={secondarybtnUrlRef} label='URL botón secundario' col='col-sm-6' />
       </div>
     </Modal>
   </>

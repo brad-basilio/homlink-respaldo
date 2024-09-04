@@ -12,6 +12,7 @@ import BenefitsRest from '../Actions/Admin/BenefitsRest';
 import TextareaFormGroup from '../Components/Adminto/form/TextareaFormGroup';
 import { renderToString } from 'react-dom/server';
 import SwitchFormGroup from '../Components/Adminto/form/SwitchFormGroup';
+import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 
 const benefitsRest = new BenefitsRest()
 
@@ -34,6 +35,7 @@ const Benefits = ({ icons }) => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
+    imageRef.image.src = data?.image ?? ''
     $(iconRef.current).val(data?.icon ?? 'fab fa-dribbble-square').trigger('change')
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
@@ -44,6 +46,9 @@ const Benefits = ({ icons }) => {
   const onModalSubmit = async (e) => {
     e.preventDefault()
 
+    const file = imageRef.current.files[0]
+    const { full, type } = await File.compress(file, { square: false })
+
     const request = {
       id: idRef.current.value || undefined,
       icon: $(iconRef.current).val(),
@@ -51,7 +56,13 @@ const Benefits = ({ icons }) => {
       description: descriptionRef.current.value,
     }
 
-    const result = await benefitsRest.save(request)
+    const formData = new FormData()
+    for (const key in request) {
+      formData.append(key, request[key])
+    }
+    formData.append('image', await File.fromURL(`data:${type};base64,${full}`))
+
+    const result = await benefitsRest.save(formData)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
@@ -138,11 +149,7 @@ const Benefits = ({ icons }) => {
           caption: 'Imagen',
           width: '90px',
           cellTemplate: (container, { data }) => {
-            if (data.social_media == 'youtube') {
-              ReactAppend(container, <img src={`https://i.ytimg.com/vi/${data.media_id}/hqdefault.jpg`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
-            } else {
-              ReactAppend(container, <img src='/api/cover/thumbnail/null' style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} />)
-            }
+            ReactAppend(container, <img src={`/api/benefits/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
           }
         },
         {
@@ -157,24 +164,24 @@ const Benefits = ({ icons }) => {
             })} />)
           }
         },
-        {
-          dataField: 'status',
-          caption: 'Estado',
-          dataType: 'boolean',
-          cellTemplate: (container, { data }) => {
-            switch (data.status) {
-              case 1:
-                ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
-                break
-              case 0:
-                ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
-                break
-              default:
-                ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
-                break
-            }
-          }
-        },
+        // {
+        //   dataField: 'status',
+        //   caption: 'Estado',
+        //   dataType: 'boolean',
+        //   cellTemplate: (container, { data }) => {
+        //     switch (data.status) {
+        //       case 1:
+        //         ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
+        //         break
+        //       case 0:
+        //         ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
+        //         break
+        //       default:
+        //         ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
+        //         break
+        //     }
+        //   }
+        // },
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
@@ -198,6 +205,7 @@ const Benefits = ({ icons }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar beneficio' : 'Agregar beneficio'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='benefits-container'>
         <input ref={idRef} type='hidden' />
+        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-12' />
         <SelectFormGroup eRef={iconRef} label="Ícono" dropdownParent='#benefits-container' required templateResult={iconTemplate} templateSelection={iconTemplate}>
           {
             icons.map((icon, i) => {

@@ -5,8 +5,8 @@ const Contact = () => {
   const inputFields = [
     { label: 'Nombre completo', placeholder: 'Nombre y apellido', type: 'text' },
     { label: 'Correo electrónico (opcional)', placeholder: 'hola@mail.com', type: 'email' },
+    { label: 'WhatsApp', placeholder: '+51 999 999 999', type: 'tel' },
     { label: 'Asunto', placeholder: 'Asunto', type: 'text' },
-    { label: 'WhatsApp', placeholder: '+51 999 999 999', type: 'tel' }
   ];
 
   return <>
@@ -23,17 +23,17 @@ const Contact = () => {
           </header>
 
           <form className="w-full text-sm mt-8">
-            <div className="flex flex-nowrap flex-col gap-6 items-start w-full">
+            <div className="flex flex-wrap gap-4 items-start w-full">
               {inputFields.map((field, index) => (
                 <div
                   key={index}
-                  className="w-1/2 max-md:w-full"
+                  className="w-full"
                 >
                   <label className="leading-snug text-teal-950">{field.label}</label>
                   <input
                     type={field.type}
                     placeholder={field.placeholder}
-                    className="px-2.5 py-4 mt-1 w-full font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30"
+                    className="px-2.5 py-4 mt-1 w-full font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30 outline-none"
                     aria-label={field.label}
                   />
                 </div>
@@ -43,7 +43,11 @@ const Contact = () => {
                 <label className="leading-snug text-teal-950">Mensaje</label>
                 <textarea
                   placeholder="Hola..."
-                  className="flex-1 px-2.5 py-4 mt-1 font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30"
+                  className="flex-1 px-2.5 py-4 mt-1 font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30 outline-none"
+                  style={{
+                    fieldSizing: 'content',
+                    minHeight: '90px'
+                  }}
                   aria-label="Mensaje"
                 />
               </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Classes\dxResponse;
+use App\Models\Aboutus;
 use App\Models\dxDataGrid;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
+use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 
 class BasicController extends Controller
@@ -19,6 +22,22 @@ class BasicController extends Controller
   public $softDeletion = true;
   public $reactView = 'Home';
   public $reactRootView = 'admin';
+  public $imageFields = [];
+
+  public function media(Request $request, string $uuid) {
+    try {
+      $content = Storage::get('images/' . $uuid . '.img');
+      if (!$content) throw new Exception('Imagen no encontrado');
+      return response($content, 200, [
+        'Content-Type' => 'application/octet-stream'
+      ]);
+    } catch (\Throwable $th) {
+      $content = Storage::get('utils/cover-404.svg');
+      return response($content, 200, [
+        'Content-Type' => 'image/svg+xml'
+      ]);
+    }
+  }
 
   public function setPaginationInstance(string $model)
   {
@@ -32,8 +51,10 @@ class BasicController extends Controller
 
   public function reactView(Request $request)
   {
+    $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
     $properties = [
       'session' => Auth::user(),
+      'summary' => $summaryJpa->description,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME'),
@@ -121,6 +142,15 @@ class BasicController extends Controller
     try {
 
       $body = $this->beforeSave($request);
+
+      foreach ($this->imageFields as $field) {
+        $full = $request->file($field);
+        $uuid = Crypto::randomUUID();
+        $path = 'images/' . $uuid . '.img';
+        Storage::put($path, file_get_contents($full));
+        $body[$field] = $uuid;
+      }
+
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
 
       if (!$jpa) {

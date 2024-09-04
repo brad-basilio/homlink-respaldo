@@ -1,6 +1,7 @@
 import React from "react"
+import Global from "../../Utils/Global";
 
-const Footer = ({ items }) => {
+const Footer = ({ items, summary }) => {
 
   const policyItems = [
     'Políticas de uso',
@@ -27,9 +28,13 @@ const Footer = ({ items }) => {
             alt="Net Coaching Logo"
             className="object-contain max-w-full aspect-[8.93] w-[214px] max-sm:mx-auto"
           />
-          <p className="mt-4 max-sm:mx-auto text-center md:text-start">
-            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut interdum tortor ac ornare commodo.
-          </p>
+          {
+            summary
+              ? <p className="mt-4 max-sm:mx-auto text-center md:text-start">
+                {summary}
+              </p>
+              : ''
+          }
         </div>
         <div className="flex flex-wrap gap-10 justify-center md:justify-between items-start min-w-[240px] w-[560px] max-md:max-w-full max-sm:mx-auto">
           <nav className="flex flex-col w-40 text-center md:text-start">
@@ -71,7 +76,7 @@ const Footer = ({ items }) => {
       <hr className="mt-10 w-full border-gray-50 max-md:max-w-full" />
       <div className="flex flex-wrap gap-10 justify-between items-center mt-5 w-full max-md:max-w-full">
         <p className="self-stretch my-auto text-sm font-medium leading-tight text-gray-50 max-sm:mx-auto text-center">
-          Donec varius pulvinar gravida. Etiam ut venenatis enim
+          Copyright © {new Date().getFullYear()} <b>{Global.APP_NAME}</b>. Todos los derechos reservados. Powered by <a href="//mundoweb.pe" className="font-bold cursor-pointer" target="_blank">Mundo Web</a>
         </p>
         <div className="flex gap-4 items-start self-stretch my-auto max-sm:mx-auto">
           {socialIcons.map((icon, index) => (

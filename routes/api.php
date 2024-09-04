@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
+use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\AuthController;
@@ -25,6 +27,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signup']);
+Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
+Route::get('/benefits/media/{uuid}', [AdminSliderController::class, 'media']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
@@ -39,6 +43,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/resources/paginate', [AdminResourceController::class, 'paginate']);
         Route::patch('/resources/status', [AdminResourceController::class, 'status']);
         Route::delete('/resources/{id}', [AdminResourceController::class, 'delete']);
+
+        Route::post('/aboutus', [AdminAboutusController::class, 'save']);
+        Route::post('/aboutus/paginate', [AdminAboutusController::class, 'paginate']);
+        Route::patch('/aboutus/status', [AdminAboutusController::class, 'status']);
+        Route::patch('/aboutus/{field}', [AdminAboutusController::class, 'boolean']);
+        Route::delete('/aboutus/{id}', [AdminAboutusController::class, 'delete']);
+
+        Route::post('/indicators', [AdminIndicatorController::class, 'save']);
+        Route::post('/indicators/paginate', [AdminIndicatorController::class, 'paginate']);
+        Route::patch('/indicators/status', [AdminIndicatorController::class, 'status']);
+        Route::patch('/indicators/{field}', [AdminIndicatorController::class, 'boolean']);
+        Route::delete('/indicators/{id}', [AdminIndicatorController::class, 'delete']);
 
         Route::post('/benefits', [AdminBenefitController::class, 'save']);
         Route::post('/benefits/paginate', [AdminBenefitController::class, 'paginate']);

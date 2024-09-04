@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Resource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,6 +12,8 @@ use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory as RoutingResponseFactory;
+use SoDe\Extend\File;
+use SoDe\Extend\JSON;
 use SoDe\Extend\Text;
 
 class ProfileController extends BasicController
@@ -18,7 +21,29 @@ class ProfileController extends BasicController
 
   public $reactView = 'Profile';
   public $model = User::class;
-  
+  public $reactRootView = 'public';
+
+  public function setReactViewProperties(Request $request)
+  {
+    $coach = User::where('uuid', $request->coach)->first();
+
+    if (!$coach) return redirect('/');
+
+    $countries = JSON::parse(File::get('../storage/app/utils/countries.json'));
+    $country = array_filter($countries, function ($country) use ($coach) {
+      return $country['id'] == $coach->country;
+    });
+    $country = reset($country);
+
+    $resoources = Resource::where('owner_id', $coach->id)->get();
+
+    return [
+      'coach' => $coach,
+      'country' => $country,
+      'resources' => $resoources,
+    ];
+  }
+
   public function thumbnail(Request $request, $uuid)
   {
     try {

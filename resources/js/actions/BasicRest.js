@@ -4,12 +4,12 @@ let controller = new AbortController()
 
 class BasicRest {
   path = null
+  hasFiles = false
 
   paginate = async (params) => {
     controller.abort('Nothing')
     controller = new AbortController()
     const signal = controller.signal
-    console.log(params)
     const res = await fetch(`/api/${this.path}/paginate`, {
       method: 'POST',
       headers: {
@@ -23,12 +23,28 @@ class BasicRest {
     return await res.json()
   }
 
-  save = async (client) => {
+  save = async (request) => {
     try {
-      const { status, result } = await Fetch(`/api/${this.path}`, {
-        method: 'POST',
-        body: JSON.stringify(client)
-      })
+      let status = false
+      let result = {}
+      if (this.hasFiles) {
+        const res = await fetch(`/api/${this.path}`, {
+          method: 'POST',
+          headers: {
+            'X-Xsrf-Token': decodeURIComponent(Cookies.get('XSRF-TOKEN'))
+          },
+          body: request
+        })
+        status = res.ok
+        result = JSON.parseable(await res.text())
+      } else {
+        const fetchRes = await Fetch(`/api/${this.path}`, {
+          method: 'POST',
+          body: JSON.stringify(request)
+        })
+        status = fetchRes.status
+        result = fetchRes.result
+      }
 
       if (!status) throw new Error(result?.message || 'Ocurrio un error inesperado')
 

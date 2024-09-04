@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\AboutusController;
+use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Coach\HomeController as CoachHomeController;
@@ -12,6 +15,7 @@ use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +31,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/resources', [ResourceController::class, 'reactView'])->name('Resources.jsx');
+Route::get('/about', [AboutusController::class, 'reactView'])->name('About.jsx');
+Route::get('/coaches', [CoachController::class, 'reactView'])->name('Coaches.jsx');
 Route::get('/resources/{resourceId}', [ResourceController::class, 'get'])->name('ResourceDetails.jsx');
 
-Route::get('/profile/{coach}', [CoachController::class, 'reactView'])->name('Profile.jsx');
+Route::get('/profile/{coach}', [ProfileController::class, 'reactView'])->name('Profile.jsx');
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
 Route::get('/register', [AuthController::class, 'registerView'])->name('Register.jsx');
 Route::get('/confirm-email/{token}', [AuthController::class, 'confirmEmailView'])->name('ConfirmEmail.jsx');
@@ -56,6 +62,9 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/coaches', [AdminCoachController::class, 'reactView'])->name('Admin/Coaches.jsx');
     Route::get('/resources', [AdminResourceController::class, 'reactView'])->name('Admin/Resources.jsx');
     Route::get('/profile', [CoachProfileController::class, 'reactView'])->name('Admin/Profile.jsx');
+
+    Route::get('/about', [AdminAboutusController::class, 'reactView'])->name('Admin/About.jsx');
+    Route::get('/indicators', [AdminIndicatorController::class, 'reactView'])->name('Admin/Indicators.jsx');
     Route::get('/sliders', [AdminSliderController::class, 'reactView'])->name('Admin/Sliders.jsx');
     Route::get('/benefits', [AdminBenefitController::class, 'reactView'])->name('Admin/Benefits.jsx');
 });

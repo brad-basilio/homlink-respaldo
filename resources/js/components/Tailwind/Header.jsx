@@ -39,7 +39,7 @@ const Header = ({ items }) => {
                 <li key={`item-${i}`}>
                   <a
                     href={item.ref}
-                    className={`block py-2 px-3 rounded md:p-0 font-semibold ${location.pathname.startsWith(item.ref)
+                    className={`block py-2 px-3 rounded md:p-0 font-semibold ${location.pathname == item.ref
                       ? 'text-white md:bg-transparent md:text-[#ef4444] bg-[#ef4444]'
                       : 'text-gray-900 hover:bg-gray-100 md:text-white md:hover:bg-transparent md:hover:text-[#ef4444]'
                       }`}

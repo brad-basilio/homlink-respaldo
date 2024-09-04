@@ -8,6 +8,7 @@ import HtmlContent from './Utils/HtmlContent';
 const Profile = ({ coach, country, resources }) => {
 
   return (
+    <section className='p-[5%] mt-[68px]'>
     <div className="flex flex-col-reverse md:flex-row gap-4 md:gap-8">
       <div className="md:w-2/3">
         <img
@@ -55,9 +56,9 @@ const Profile = ({ coach, country, resources }) => {
         </div>
 
       </div>
-      <div className="md:w-1/3 sticky top-[15%] h-max">
+      <div className="md:w-1/3 block md:sticky top-[15%] h-max">
         <h2 className="text-xl font-semibold mb-4">Datos del Coach</h2>
-        <h3 className='text-lg'>S/ 120.00</h3>
+        <h3 className='text-xl mb-2'>S/ 120.00</h3>
         <p className='mb-2'>
           <i className='fas fa-globe-americas w-6'></i>
           <b>Nacionalidad</b>: {country.name} - {coach.city}
@@ -72,6 +73,7 @@ const Profile = ({ coach, country, resources }) => {
           </button>
       </div>
     </div>
+    </section>
   );
 }
 

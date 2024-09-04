@@ -1,21 +1,19 @@
-import { Link } from '@inertiajs/react';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import CreateReactScript from './Utils/CreateReactScript';
-import Base from './Components/Tailwind/Base';
-import Header from './Components/Home/Header';
-import Benefits from './Components/Home/Benefits';
 import Banner from './Components/Home/Banner';
-import Testimonies from './Components/Home/Testimonies';
+import Benefits from './Components/Home/Benefits';
 import Blogs from './Components/Home/Blogs';
 import Contact from './Components/Home/Contact';
+import Header from './Components/Home/Header';
+import Testimonies from './Components/Home/Testimonies';
+import Base from './Components/Tailwind/Base';
+import CreateReactScript from './Utils/CreateReactScript';
 
-const Home = ({benefits}) => {
-  console.log(benefits)
+const Home = ({ sliders, benefits }) => {
   return (
     <>
       <main className='flex flex-col'>
-        <Header />
+        <Header sliders={sliders} />
         <Benefits benefits={benefits} />
         <Banner />
         <Testimonies />
@@ -27,7 +25,7 @@ const Home = ({benefits}) => {
 };
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Base>
+  createRoot(el).render(<Base {...properties}>
     <Home {...properties} />
   </Base>);
 })

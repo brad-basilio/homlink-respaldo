@@ -2,7 +2,8 @@ import React from "react"
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Base = ({ children, ...properties }) => {
+const Base = ({ children, summary }) => {
+  console.log(summary)
   const menuItems = [
     {
       label: 'Inicio',
@@ -10,7 +11,7 @@ const Base = ({ children, ...properties }) => {
     },
     {
       label: 'Nosotros',
-      ref: '/about-us'
+      ref: '/about'
     },
     {
       label: 'Coaches',
@@ -30,7 +31,7 @@ const Base = ({ children, ...properties }) => {
     <main>
       {children}
     </main>
-    <Footer items={menuItems} />
+    <Footer items={menuItems} summary={summary} />
   </>
 }
 
