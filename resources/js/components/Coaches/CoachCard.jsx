@@ -11,6 +11,7 @@ const CoachCard = ({ uuid, name, lastname, country, city, summary, specialties, 
             src={`/api/profile/${uuid}`}
             alt="Profile picture of Cameron Williamson"
             className="object-cover object-center w-full rounded-t-lg aspect-square"
+            onError={e => e.target.src = '/api/profile/thumbnail/null'}
           />
         </div>
         <div className="flex flex-col w-full text-cyan-950 border p-2 rounded-b-lg">

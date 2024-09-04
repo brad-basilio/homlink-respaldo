@@ -39,7 +39,7 @@ const Sliders = () => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    imageRef.image.src = data?.image ?? ''
+    imageRef.image.src = `/api/sliders/media/${data?.image}`
     primarybtnTextRef.current.value = data?.primarybtn_text ?? ''
     primarybtnUrlRef.current.value = data?.primarybtn_url ?? ''
     secondarybtnTextRef.current.value = data?.secondarybtn_text
@@ -91,7 +91,7 @@ const Sliders = () => {
 
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar recurso',
+      title: 'Eliminar slider',
       text: '¿Estas seguro de eliminar este slider?',
       icon: 'warning',
       showCancelButton: true,

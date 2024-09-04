@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Benefit;
+use App\Models\Resource;
 use App\Models\Slider;
+use App\Models\Testimony;
 use Illuminate\Http\Request;
 
 class HomeController extends BasicController
@@ -21,9 +23,14 @@ class HomeController extends BasicController
             ->where('status', true)
             ->where('visible', true)
             ->get();
+        $resources = Resource::lastThree();
+
+        $testimonies = Testimony::lastTen();
         return [
             'sliders' => $sliders,
-            'benefits' => $benefits
+            'benefits' => $benefits,
+            'resources' => $resources,
+            'testimonies' => $testimonies,
         ];
     }
 }

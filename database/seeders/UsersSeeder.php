@@ -56,7 +56,10 @@ class UsersSeeder extends Seeder
             ], [
                 'name' => $coach['name'],
                 'lastname' => $coach['lastname'],
-                'password' => 'abcd1234'
+                'password' => 'abcd1234',
+                'price' => \random_int(100, 500),
+                'trained_hours' => \random_int(100, 200),
+                'experience' => \random_int(0, 20),
             ])->assignRole('Coach');
         }
     }

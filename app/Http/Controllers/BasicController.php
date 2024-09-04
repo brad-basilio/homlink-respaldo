@@ -144,6 +144,7 @@ class BasicController extends Controller
       $body = $this->beforeSave($request);
 
       foreach ($this->imageFields as $field) {
+        if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
         $uuid = Crypto::randomUUID();
         $path = 'images/' . $uuid . '.img';

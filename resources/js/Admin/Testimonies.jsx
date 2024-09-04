@@ -9,20 +9,24 @@ import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import IndicatorsRest from '../Actions/Admin/IndicatorsRest';
+import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
+import SelectFormGroup from '../Components/form/SelectFormGroup';
+import TestimoniesRest from '../Actions/Admin/TestimoniesRest';
+import DxBox from '../Components/Adminto/Dx/DxBox';
 
-const indicatorsRest = new IndicatorsRest()
+const testimoniesRest = new TestimoniesRest()
 
-const Indicators = () => {
+const Testimonies = ({ countries }) => {
 
   const gridRef = useRef()
   const modalRef = useRef()
 
   // Form elements ref
   const idRef = useRef()
-  const symbolRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
+  const imageRef = useRef()
+  const countryRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -31,9 +35,11 @@ const Indicators = () => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
-    symbolRef.current.value = data?.symbol ?? ''
     nameRef.current.value = data?.name ?? ''
+    $(countryRef.current).val(data?.country_id ?? '89').trigger('change');
     descriptionRef.current.value = data?.description ?? ''
+    imageRef.image.src = `/api/testimonies/media/${data?.image}`
+    imageRef.current.value = null
 
     $(modalRef.current).modal('show')
   }
@@ -43,47 +49,52 @@ const Indicators = () => {
 
     const request = {
       id: idRef.current.value || undefined,
-      symbol: symbolRef.current.value,
+      country_id: $(countryRef.current).val(),
+      country: $(countryRef.current).find('option:selected').text(),
       name: nameRef.current.value,
       description: descriptionRef.current.value,
     }
 
-    const result = await indicatorsRest.save(request)
+    const formData = new FormData()
+    for (const key in request) {
+      formData.append(key, request[key])
+    }
+    const file = imageRef.current.files[0]
+    if (file) {
+      const { thumbnail, type, ...rest } = await File.compress(file, { square: false })
+      formData.append('image', await File.fromURL(`data:${type};base64,${thumbnail}`))
+    }
+
+    const result = await testimoniesRest.save(formData)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
     $(modalRef.current).modal('hide')
   }
 
-  const onStatusChange = async ({ id, status }) => {
-    const result = await indicatorsRest.status({ id, status })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
   const onVisibleChange = async ({ id, value }) => {
-    const result = await indicatorsRest.boolean({ id, field: 'visible', value })
+    const result = await testimoniesRest.boolean({ id, field: 'visible', value })
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar indicador',
-      text: '¿Estas seguro de eliminar este indicador?',
+      title: 'Eliminar testimonio',
+      text: '¿Estas seguro de eliminar este testimonio?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     })
     if (!isConfirmed) return
-    const result = await indicatorsRest.delete(id)
+    const result = await testimoniesRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   return (<>
-    <Table gridRef={gridRef} title='Indicadores' rest={indicatorsRest}
+    <Table gridRef={gridRef} title='Testimonios' rest={testimoniesRest}
       toolBar={(container) => {
         container.unshift({
           widget: 'dxButton', location: 'after',
@@ -97,8 +108,8 @@ const Indicators = () => {
           widget: 'dxButton', location: 'after',
           options: {
             icon: 'plus',
-            text: 'Nuevo slider',
-            hint: 'Nuevo slider',
+            text: 'Nuevo testimonio',
+            hint: 'Nuevo testimonio',
             onClick: () => onModalOpen()
           }
         });
@@ -111,15 +122,21 @@ const Indicators = () => {
         },
         {
           dataField: 'name',
-          caption: 'Número',
+          caption: 'Autor',
+          cellTemplate: (container, { data }) => {
+            container.append(DxBox([
+              <img
+                className='avatar-xs rounded-circle'
+                src={`/api/testimonies/media/${data.image}`}
+                alt={data.name}
+              />,
+              <p className='mb-0' style={{ fontSize: "14px" }}>{data.name}</p>
+            ], false))
+          }
         },
         {
-          dataField: 'symbol',
-          caption: 'Símbolo',
-        },
-        {
-          dataField: 'description',
-          caption: 'Descripción',
+          dataField: 'country',
+          caption: 'Pais',
         },
         {
           dataField: 'visible',
@@ -133,24 +150,6 @@ const Indicators = () => {
             })} />)
           }
         },
-        // {
-        //   dataField: 'status',
-        //   caption: 'Estado',
-        //   dataType: 'boolean',
-        //   cellTemplate: (container, { data }) => {
-        //     switch (data.status) {
-        //       case 1:
-        //         ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
-        //         break
-        //       case 0:
-        //         ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
-        //         break
-        //       default:
-        //         ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
-        //         break
-        //     }
-        //   }
-        // },
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
@@ -171,12 +170,21 @@ const Indicators = () => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar indicador' : 'Agregar indicador'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='indicators-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar testimonio' : 'Agregar testimonio'} onSubmit={onModalSubmit} size='md'>
+      <div className='row' id='testimony-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Número' col='col-sm-8' rows={2} required />
-        <InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />
-        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
+        <div className='col-12'>
+          <div className='row'>
+            <ImageFormGroup eRef={imageRef} label='Imagen' col='col-sm-4 col-xs-12' aspect={1}/>
+            <div className='col-sm-8 col-xs-12'>
+              <InputFormGroup eRef={nameRef} label='Autor' rows={2} required />
+              <SelectFormGroup eRef={countryRef} label='Pais' required dropdownParent='#testimony-container'>
+                {countries.map((country, i) => <option key={`country-${i}`} value={country.id} >{country.name}</option>)}
+              </SelectFormGroup>
+            </div>
+          </div>
+        </div>
+        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} required />
       </div>
     </Modal>
   </>
@@ -185,7 +193,7 @@ const Indicators = () => {
 
 CreateReactScript((el, properties) => {
 
-  createRoot(el).render(<BaseAdminto {...properties} title='Indicadores'>
-    <Indicators {...properties} />
+  createRoot(el).render(<BaseAdminto {...properties} title='Testimonios'>
+    <Testimonies {...properties} />
   </BaseAdminto>);
 })

@@ -32,4 +32,18 @@ class Resource extends Model
     {
         return $this->hasOne(User::class, 'id', 'owner_id');
     }
+
+    static function lastThree() {
+        return Resource::select([
+            'id',
+            'name',
+            'description',
+            'social_media',
+            'media_id'
+        ])
+            ->where('status', true)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+    }
 }

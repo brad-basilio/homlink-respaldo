@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
+use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
 use App\Http\Controllers\CoverController;
@@ -28,7 +29,13 @@ use Illuminate\Support\Facades\Route;
 Route::post('login', [AuthController::class, 'login']);
 Route::post('signup', [AuthController::class, 'signup']);
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
-Route::get('/benefits/media/{uuid}', [AdminSliderController::class, 'media']);
+Route::get('/benefits/media/{uuid}', [AdminBenefitController::class, 'media']);
+Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
+
+Route::get('/profile/{uuid}', [ProfileController::class, 'full']);
+Route::get('/profile/thumbnail/{uuid}', [ProfileController::class, 'thumbnail']);
+Route::get('/cover/{uuid}', [CoverController::class, 'full']);
+Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
@@ -67,6 +74,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/sliders/status', [AdminSliderController::class, 'status']);
         Route::patch('/sliders/{field}', [AdminSliderController::class, 'boolean']);
         Route::delete('/sliders/{id}', [AdminSliderController::class, 'delete']);
+
+        Route::post('/testimonies', [AdminTestimonyController::class, 'save']);
+        Route::post('/testimonies/paginate', [AdminTestimonyController::class, 'paginate']);
+        Route::patch('/testimonies/status', [AdminTestimonyController::class, 'status']);
+        Route::patch('/testimonies/{field}', [AdminTestimonyController::class, 'boolean']);
+        Route::delete('/testimonies/{id}', [AdminTestimonyController::class, 'delete']);
     });
 
     Route::middleware('can:Coach')->prefix('coach')->group(function () {
@@ -76,13 +89,9 @@ Route::middleware('auth')->group(function () {
         Route::delete('/resources/{id}', [CoachResourceController::class, 'delete']);
     });
 
-    Route::get('/profile/{uuid}', [ProfileController::class, 'full']);
-    Route::get('/profile/thumbnail/{uuid}', [ProfileController::class, 'thumbnail']);
     Route::post('/profile', [ProfileController::class, 'saveProfile']);
     Route::patch('/profile', [ProfileController::class, 'save']);
 
-    Route::get('/cover/{uuid}', [CoverController::class, 'full']);
-    Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
     Route::post('/cover', [CoverController::class, 'saveCover']);
 
     Route::patch('/account/email', [AccountController::class, 'email']);

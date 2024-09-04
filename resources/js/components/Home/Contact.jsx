@@ -4,8 +4,8 @@ const Contact = () => {
 
   const inputFields = [
     { label: 'Nombre completo', placeholder: 'Nombre y apellido', type: 'text' },
-    { label: 'Correo electrónico (opcional)', placeholder: 'hola@mail.com', type: 'email' },
     { label: 'WhatsApp', placeholder: '+51 999 999 999', type: 'tel' },
+    { label: 'Correo electrónico', placeholder: 'hola@mail.com', type: 'email' },
     { label: 'Asunto', placeholder: 'Asunto', type: 'text' },
   ];
 
@@ -23,12 +23,9 @@ const Contact = () => {
           </header>
 
           <form className="w-full text-sm mt-8">
-            <div className="flex flex-wrap gap-4 items-start w-full">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {inputFields.map((field, index) => (
-                <div
-                  key={index}
-                  className="w-full"
-                >
+                <div key={index} className="w-full">
                   <label className="leading-snug text-teal-950">{field.label}</label>
                   <input
                     type={field.type}
@@ -39,13 +36,12 @@ const Contact = () => {
                 </div>
               ))}
 
-              <div className="flex flex-col w-full">
+              <div className="md:col-span-2 w-full">
                 <label className="leading-snug text-teal-950">Mensaje</label>
                 <textarea
                   placeholder="Hola..."
-                  className="flex-1 px-2.5 py-4 mt-1 font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30 outline-none"
+                  className="flex-1 px-2.5 py-4 mt-1 font-medium leading-tight bg-white rounded-lg border border-solid border-zinc-200 text-teal-950 text-opacity-30 outline-none w-full"
                   style={{
-                    fieldSizing: 'content',
                     minHeight: '90px'
                   }}
                   aria-label="Mensaje"
@@ -58,9 +54,11 @@ const Contact = () => {
               className="flex gap-2 justify-center items-center self-start px-6 py-4 mt-14 text-base font-bold leading-tight bg-red-500 rounded-lg text-zinc-100 max-md:mt-10"
             >
               <span className="my-auto">¡No esperes más, únete a nosotros!</span>
-              <i className=" fas fa-envelope ms-1"></i>
+              <i className="fas fa-envelope ms-1"></i>
             </button>
           </form>
+
+
         </section>
 
         <aside className="flex flex-col w-6/12 max-md:hidden">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutusController;
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
@@ -7,14 +8,14 @@ use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\SliderController as AdminSliderController;
+use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Coach\HomeController as CoachHomeController;
 use App\Http\Controllers\Coach\ProfileController as CoachProfileController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ResourceController;
-use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,4 +68,5 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/indicators', [AdminIndicatorController::class, 'reactView'])->name('Admin/Indicators.jsx');
     Route::get('/sliders', [AdminSliderController::class, 'reactView'])->name('Admin/Sliders.jsx');
     Route::get('/benefits', [AdminBenefitController::class, 'reactView'])->name('Admin/Benefits.jsx');
+    Route::get('/testimonies', [AdminTestimonyController::class, 'reactView'])->name('Admin/Testimonies.jsx');
 });

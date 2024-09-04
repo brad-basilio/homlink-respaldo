@@ -9,15 +9,15 @@ import Testimonies from './Components/Home/Testimonies';
 import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
-const Home = ({ sliders, benefits }) => {
+const Home = ({ sliders, benefits, resources, testimonies }) => {
   return (
     <>
       <main className='flex flex-col'>
         <Header sliders={sliders} />
         <Benefits benefits={benefits} />
         <Banner />
-        <Testimonies />
-        <Blogs />
+        <Testimonies testimonies={testimonies} />
+        <Blogs resources={resources} />
         <Contact />
       </main>
     </>

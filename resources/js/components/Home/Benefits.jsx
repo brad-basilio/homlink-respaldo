@@ -83,10 +83,10 @@ const Benefits = ({ benefits }) => {
             ))
           }
         </div>
-        <button className='flex gap-2 justify-center items-center px-6 py-4 text-base font-bold leading-tight bg-red-500 rounded-lg text-zinc-100 self-start mt-14 max-sm:self-center'>
+        <a href='/coaches' className='flex gap-2 justify-center items-center px-6 py-4 text-base font-bold leading-tight bg-red-500 rounded-lg text-zinc-100 self-start mt-14 max-sm:self-center'>
           <i className='fa fa-search'></i>
           <span>Busca tu coach</span>
-        </button>
+        </a>
       </div>
     </section>
   </>);
