@@ -5,10 +5,8 @@ import Logout from '../../Actions/Logout'
 import MenuItem from '../MenuItem'
 import MenuItemContainer from '../MenuItemContainer'
 
-const Menu = ({ session, can, hasRole }) => {
+const Menu = ({ session, hasRole }) => {
   const mainRole = session.roles[0]
-
-  const idBirthday = moment(session.birthdate).format('MM-DD') == moment().format('MM-DD')
 
   return (<div className="left-side-menu">
     <div className="h-100" data-simplebar>
@@ -17,7 +15,7 @@ const Menu = ({ session, can, hasRole }) => {
           className="rounded-circle img-thumbnail avatar-md" style={{ backgroundColor: 'unset', borderColor: '#98a6ad', objectFit: 'cover', objectPosition: 'center' }} />
         <div className="dropdown">
           <a href="#" className="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"
-            aria-expanded="false">{session.name.split(' ')[0]} {session.lastname.split(' ')[0]} {idBirthday ? <Tippy content={`Feliz cumpleaños ${session.name}`} arrow={true}><i className=' fas fa-birthday-cake text-danger'></i></Tippy> : ''}</a>
+            aria-expanded="false">{session.name.split(' ')[0]} {session.lastname.split(' ')[0]}</a>
           <div className="dropdown-menu user-pro-dropdown">
 
 
@@ -88,20 +86,20 @@ const Menu = ({ session, can, hasRole }) => {
             </>
           }
           {
-          hasRole('Coach') && <>
-            <MenuItem href="/coach/home" icon='mdi mdi-home'>Dashboard</MenuItem>
+            hasRole('Coach') && <>
+              <MenuItem href="/coach/home" icon='mdi mdi-home'>Dashboard</MenuItem>
 
-            <MenuItemContainer title='Procesos' icon='mdi mdi-file-document'>
-              <MenuItem href='/coach/requests' icon='mdi mdi-file-download'>Solicitudes</MenuItem>
-              <MenuItem href='/coach/agreements' icon='mdi mdi-handshake'>Acuerdos realizados</MenuItem>
-              <MenuItem href='/coach/approved-agreements' icon='mdi mdi-handshake-outline'>Acuerdos aprobados</MenuItem>
-              <MenuItem href='/coach/sessions' icon='mdi mdi-playlist-play'>Sesiones</MenuItem>
-            </MenuItemContainer>
+              <MenuItemContainer title='Procesos' icon='mdi mdi-file-document'>
+                <MenuItem href='/coach/requests' icon='mdi mdi-file-download'>Solicitudes</MenuItem>
+                <MenuItem href='/coach/agreements' icon='mdi mdi-handshake'>Acuerdos realizados</MenuItem>
+                <MenuItem href='/coach/approved-agreements' icon='mdi mdi-handshake-outline'>Acuerdos aprobados</MenuItem>
+                <MenuItem href='/coach/sessions' icon='mdi mdi-playlist-play'>Sesiones</MenuItem>
+              </MenuItemContainer>
 
-            <MenuItem href="/coach/calendar" icon='mdi mdi-calendar'>Calendario</MenuItem>
-            <MenuItem href="/coach/resources" icon='mdi mdi-cube'>Recursos</MenuItem>
-            <MenuItem href="/coach/payments" icon='mdi mdi-currency-usd'>Pagos</MenuItem>
-          </>
+              <MenuItem href="/coach/calendar" icon='mdi mdi-calendar'>Calendario</MenuItem>
+              <MenuItem href="/coach/resources" icon='mdi mdi-cube'>Recursos</MenuItem>
+              <MenuItem href="/coach/payments" icon='mdi mdi-currency-usd'>Pagos</MenuItem>
+            </>
           }
 
           <li className="menu-title">Configuraciones</li>

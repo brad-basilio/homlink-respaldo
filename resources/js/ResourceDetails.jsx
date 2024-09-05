@@ -14,8 +14,8 @@ const ResourceDetails = ({ resource }) => {
 
   return (
     <>
-      <main className='flex flex-col mt-16'>
-        <header className="flex flex-col justify-center self-center max-w-full px-[5%]" style={{ paddingTop: '15%' }}>
+      <main className='p-[5%] flex flex-col mt-[68px]'>
+        <header className="flex flex-col justify-center self-center max-w-full">
           <h1 className="text-2xl md:text-4xl font-bold leading-tight text-center text-teal-950 max-md:max-w-full">
             {resource.name}
           </h1>
@@ -27,14 +27,22 @@ const ResourceDetails = ({ resource }) => {
             </div>
           </div>
         </header>
-        <section className='p-[5%]'>
-          <img className='block mx-auto aspect-video object-cover object-center w-full max-w-[600px]' src={link} alt="" />
+        <section className='py-[5%]'>
+          {
+            resource.social_media == 'youtube'
+              ? <iframe className='block mx-auto aspect-video object-cover object-center w-full max-w-[720px]' src={`https://www.youtube.com/embed/${resource.media_id}`} title={resource.name} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+              : <>
+                <iframe className='block mx-auto aspect-video object-cover object-center w-full max-w-[720px]'  src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02gpLe3v614moTtQKeXdpNGrkbddTn3bSdUr6zbVn8DBWh3G7h66kXRFE8VCCBQyzWl%26id%3D100074665197621&show_text=false&width=500" style={{ border: 'none', overflow: 'hidden' }} scrolling="no" frameBorder="0" allowFullScreen={true} allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                {/* <img className='block mx-auto aspect-video object-cover object-center w-full max-w-[720px]' src={link} alt="" /> */}
+              </>
+          }
         </section>
-        <section className='p-[5%]'>
+        <hr  className='w-1/2 mx-auto'/>
+        <section className='py-[5%]'>
           <HtmlContent className='max-w-[720px] mx-auto prose' html={resource.description} />
         </section>
-        <section className='p-[5%]'>
-          <div className="flex flex-wrap gap-1 items-center mt-12 w-full text-sm max-md:mt-10 max-md:max-w-full">
+        <section className='pt-[5%]'>
+          <div className="flex flex-wrap gap-1 items-center w-full text-sm max-md:max-w-full">
             <div className="self-stretch my-auto leading-snug text-teal-950">Etiquetas</div>
             <div className="self-stretch my-auto font-medium leading-tight text-red-500">
               {tags.map((tag, index) => (
@@ -44,7 +52,7 @@ const ResourceDetails = ({ resource }) => {
               ))}
             </div>
           </div>
-          <hr className="mt-12 w-full border-t border-gray-200 max-md:mt-10 max-md:max-w-full" />
+          {/* <hr className="mt-12 w-full border-t border-gray-200 max-md:mt-10 max-md:max-w-full" /> */}
 
           {/* <nav className="flex flex-wrap gap-10 justify-center items-center mt-12 w-full max-md:mt-10 max-md:max-w-full">
             <div className="flex flex-col flex-1 shrink justify-center self-stretch my-auto basis-0 min-w-[240px] max-md:max-w-full">
@@ -73,7 +81,7 @@ const ResourceDetails = ({ resource }) => {
 };
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<TailwindBase>
+  createRoot(el).render(<TailwindBase {...properties}>
     <ResourceDetails {...properties} />
   </TailwindBase>);
 })

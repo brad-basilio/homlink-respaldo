@@ -15,7 +15,7 @@ const NavBar = ({ session = {}, title = 'Pagina' }) => {
             href="#" role="button" aria-haspopup="false" aria-expanded="false">
             <img src={`/api/profile/thumbnail/${session.uuid}?v=${crypto.randomUUID()}`} alt="user-image" className="rounded-circle" style={{ objectFit: 'cover', objectPosition: 'center' }} />
             <span className="pro-user-name ms-1">
-              {session.name} {session.lastname}
+              {session.name.split(' ')[0]} {session.lastname.split(' ')[0]}
               <i className="mdi mdi-chevron-down"></i>
             </span>
           </a>

@@ -25,7 +25,8 @@ class ResourceController extends BasicController
 
     public function setPaginationInstance(string $model)
     {
-        return $model::with('specialty');
+        return $model::with('specialty')
+            ->where('owner_id', Auth::user()->id);
     }
 
     public function beforeSave(Request $request)

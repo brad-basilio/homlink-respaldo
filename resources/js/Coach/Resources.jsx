@@ -1,15 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '../Components/Adminto/Base';
-import CreateReactScript from '../Utils/CreateReactScript';
+import CreateReactScript from '@Utils/CreateReactScript';
 import ResourcesRest from '../Actions/Coach/ResourcesRest';
 import Table from '../Components/Table';
 import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/form/InputFormGroup';
-import ReactAppend from '../Utils/ReactAppend';
+import ReactAppend from '@Utils/ReactAppend';
 import SelectFormGroup from '../Components/form/SelectFormGroup';
 import QuillFormGroup from '../Components/form/QuillFormGroup';
 import DxButton from '../Components/dx/DxButton';
+import TextareaFormGroup from '../Components/Adminto/form/TextareaFormGroup';
 
 const resourcesRest = new ResourcesRest()
 
@@ -190,7 +191,7 @@ const Resources = ({ specialties }) => {
           <option value="youtube">YouTube</option>
           <option value="facebook">Facebook</option>
         </SelectFormGroup>
-        <InputFormGroup eRef={mediaIdRef} label='Link del recurso' col='col-12' required />
+        <TextareaFormGroup eRef={mediaIdRef} label='Link del recurso' col='col-12' rows={1} required />
         <QuillFormGroup eRef={descriptionRef} label='Descripcion' col='col-12' height='240px' required />
       </div>
     </Modal>

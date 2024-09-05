@@ -23,7 +23,7 @@ const Content = ({ countries, filter, setFilter }) => {
         filter2send.push(['price', '<=', filter[key]])
       } else if (key == 'search') {
         filter2send.push(ArrayJoin([
-          ['name', 'contains', filter[key]],
+          ['users.name', 'contains', filter[key]],
           ['lastname', 'contains', filter[key]]
         ], 'or'))
       } else if (key == 'specialty') {
