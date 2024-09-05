@@ -55,15 +55,4 @@ class CoachController extends BasicController
             ->where('mhr.role_id', 2)
             ->where('users.status', true);
     }
-
-    public function specialCount(string $model): null|int
-    {
-        return $this->model::select(DB::raw('COUNT(DISTINCT(users.id)) as total_count'))
-            ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
-            ->leftJoin('specialties_by_users AS sbu', 'sbu.user_id', 'users.id')
-            ->leftJoin('specialties AS specialty', 'specialty.id', 'sbu.specialty_id')
-            ->where('mhr.role_id', 2)
-            ->where('users.status', true)
-            ->value('total_count');
-    }
 }

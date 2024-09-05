@@ -71,11 +71,6 @@ class BasicController extends Controller
     return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView);
   }
 
-  public function specialCount(string $model): null|int
-  {
-    return null;
-  }
-
   public function paginate(Request $request): HttpResponse|ResponseFactory
   {
     $response =  new dxResponse();
@@ -115,10 +110,11 @@ class BasicController extends Controller
         $instance->orderBy('id', 'DESC');
       }
 
-      if ($this->specialCount($this->model) != null) {
-        $totalCount = $this->specialCount($this->model);
-      } else {
-        $totalCount =  $instance->count();
+      $totalCount = 0;
+      if ($request->requireTotalCount) {
+        $instance4count = clone $instance;
+        $instance4count->getQuery()->groups = null;
+        $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(id)) as total_count'))->value('total_count');
       }
 
       $jpas = $request->isLoadingAll
