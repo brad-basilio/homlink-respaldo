@@ -12,6 +12,7 @@ import { renderToString } from 'react-dom/server';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import SlidersRest from '../Actions/Admin/SlidersRest';
 import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
+import Swal from 'sweetalert2';
 
 const slidersRest = new SlidersRest()
 

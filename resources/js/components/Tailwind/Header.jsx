@@ -12,7 +12,7 @@ const Header = ({ items, session }) => {
           <div className="flex gap-4 md:order-2 rtl:space-x-reverse items-center">
             <a
               href="/login"
-              className="font-semibold block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#ef4444] md:p-0"
+              className="font-semibold block text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-[#ef4444] md:p-0"
             >
               {
                 session

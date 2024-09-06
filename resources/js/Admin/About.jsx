@@ -1,16 +1,16 @@
+import BaseAdminto from '@Adminto/Base';
+import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
+import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import BaseAdminto from '@Adminto/Base';
-import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
-import InputFormGroup from '../Components/form/InputFormGroup';
-import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
-import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
-import { renderToString } from 'react-dom/server';
-import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import AboutusRest from '../Actions/Admin/AboutusRest';
+import Modal from '../Components/Modal';
+import Table from '../Components/Table';
+import DxButton from '../Components/dx/DxButton';
+import InputFormGroup from '../Components/form/InputFormGroup';
+import CreateReactScript from '../Utils/CreateReactScript';
+import ReactAppend from '../Utils/ReactAppend';
+import Swal from 'sweetalert2';
 
 const aboutusRest = new AboutusRest()
 
@@ -164,7 +164,7 @@ const About = () => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar about' : 'Agregar about'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='benefits-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Titulo' col='col-12' rows={2} required  disabled/>
+        <InputFormGroup eRef={nameRef} label='Titulo' col='col-12' rows={2} required disabled />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
       </div>
     </Modal>

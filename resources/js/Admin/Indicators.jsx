@@ -10,6 +10,7 @@ import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import IndicatorsRest from '../Actions/Admin/IndicatorsRest';
+import Swal from 'sweetalert2';
 
 const indicatorsRest = new IndicatorsRest()
 

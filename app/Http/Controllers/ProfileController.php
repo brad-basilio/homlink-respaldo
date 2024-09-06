@@ -25,9 +25,50 @@ class ProfileController extends BasicController
 
   public function setReactViewProperties(Request $request)
   {
-    $coach = User::where('uuid', $request->coach)->first();
+    $coach = User::with(['specialties'])
+    ->where('uuid', $request->coach)
+      ->where('status', true)
+      ->first();
 
     if (!$coach) return redirect('/');
+
+    $specialtyIds = $coach->specialties->pluck('id')->toArray();
+
+    // Traer 4 coaches con precio mayor que el del coach principal o sin especialidades
+    $coachesAbove = User::with(['specialties'])
+    ->where(function ($query) use ($specialtyIds) {
+      $query->whereHas('specialties', function ($query) use ($specialtyIds) {
+        $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+      })
+        ->orDoesntHave('specialties');  // Coaches sin especialidades
+    })
+      ->where('price', '>', $coach->price)  // Coaches con precio mayor que el del coach principal
+      ->where('status', true)
+      ->where('id', '<>', $coach->id)
+      ->take(4)  // Traer 4 de una sola vez
+      ->get();
+
+    // Traer 4 coaches con precio menor o igual que el del coach principal o sin especialidades
+    $coachesBelow = User::with(['specialties'])
+    ->where(function ($query) use ($specialtyIds) {
+      $query->whereHas('specialties', function ($query) use ($specialtyIds) {
+        $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+      })
+        ->orDoesntHave('specialties');  // Coaches sin especialidades
+    })
+      ->where('price', '<=', $coach->price)  // Coaches con precio menor o igual que el del coach principal
+      ->where('status', true)
+      ->where('id', '<>', $coach->id)
+      ->take(4)  // Traer 4 de una sola vez
+      ->get();
+
+    // Unir ambos resultados
+    $coaches = $coachesAbove->merge($coachesBelow);
+
+    // Limitar a los primeros 4 coaches
+    $coaches = $coaches->sortByDesc(function () use ($coach) {
+      return $coach->price > $coach->price;
+    })->take(4);
 
     $countries = JSON::parse(File::get('../storage/app/utils/countries.json'));
     $country = array_filter($countries, function ($country) use ($coach) {
@@ -35,12 +76,14 @@ class ProfileController extends BasicController
     });
     $country = reset($country);
 
-    $resoources = Resource::where('owner_id', $coach->id)->get();
+    $resources = Resource::where('owner_id', $coach->id)->get();
 
     return [
       'coach' => $coach,
       'country' => $country,
-      'resources' => $resoources,
+      'countries' => $countries,
+      'resources' => $resources,
+      'coaches' => $coaches
     ];
   }
 

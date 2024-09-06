@@ -4,80 +4,101 @@ import CreateReactScript from './Utils/CreateReactScript';
 import 'tippy.js/dist/tippy.css';
 import TailwindBase from './Components/Tailwind/Base';
 import HtmlContent from './Utils/HtmlContent';
+import CoachCard from './Components/Coaches/CoachCard';
 
-const Profile = ({ coach, country, resources }) => {
+const Profile = ({ coach, country, countries, resources, coaches }) => {
 
   return (
-    <section className='p-[5%] mt-[68px]'>
-      <div className="flex flex-col-reverse md:flex-row gap-4 md:gap-8">
-        <div className="md:w-2/3">
-          <img
-            className='w-full aspect-[8/3] object-cover object-center rounded-lg'
-            src={`/api/cover/${coach.uuid}`}
-            alt="Cover Photo"
-          />
-          <div className="flex gap-4 my-[5%] items-center">
+    <>
+      <section className='p-[5%] mt-[68px]'>
+        <div className="flex flex-col-reverse md:flex-row gap-4 md:gap-8">
+          <div className="md:w-2/3">
             <img
-              className='w-24 h-24 rounded-full object-cover object-center'
-              src={`/api/profile/${coach.uuid}`}
-              alt="Profile Photo"
+              className='w-full aspect-[8/3] object-cover object-center rounded-lg'
+              src={`/api/cover/${coach.uuid}`}
+              alt="Cover Photo"
             />
-            <div>
-              <h1 className="text-2xl font-bold">{coach.name} {coach.lastname}</h1>
-              <p>{coach.title}</p>
+            <div className="flex gap-4 my-[5%] items-center">
+              <img
+                className='w-24 h-24 rounded-full object-cover object-center'
+                src={`/api/profile/${coach.uuid}`}
+                alt="Profile Photo"
+              />
+              <div>
+                <h1 className="text-2xl font-bold">{coach.name} {coach.lastname}</h1>
+                <p>{coach.title}</p>
+                <div>
+                  {
+                    coach.specialties.length > 0
+                      ? coach.specialties.map((specialty, index) => (<span key={index} className="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded ">
+                        {specialty.name}
+                      </span>))
+                      : <i>- Sin especialidad -</i>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="prose">
-            <HtmlContent html={coach.description} />
-          </div>
+            <div className="prose">
+              <HtmlContent html={coach.description} />
+            </div>
 
-          <h3 className='text-lg font-bold mt-[5%] mb-[2.5%]'>Contenidos y temas</h3>
+            <h3 className='text-lg font-bold mt-[5%] mb-[2.5%]'>Contenidos y temas</h3>
 
 
-          <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-gray-500 dark:text-gray-400" data-inactive-classes="text-gray-500 dark:text-gray-400">
-            {
-              resources.map((resource, i) => {
-                return <>
-                  <h2 id={`accordion-heading-${i}`}>
-                    <button type="button" className="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200  dark:text-gray-400 gap-3" data-accordion-target={`#accordion-${i}`} aria-expanded="true" aria-controls={`accordion-${i}`}>
-                      <span>{resource.name}</span>
-                      <i data-accordion-icon className='text-lg rotate-180 shrink-0 fas fa-angle-down'></i>
-                    </button>
-                  </h2>
-                  <div id={`accordion-${i}`} className="hidden" aria-labelledby={`accordion-heading-${i}`}>
-                    <div className="py-5 border-b border-gray-200 prose">
-                      <HtmlContent html={resource.description} />
+            <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-gray-500 dark:text-gray-400" data-inactive-classes="text-gray-500 dark:text-gray-400">
+              {
+                resources.map((resource, i) => {
+                  return <>
+                    <h2 id={`accordion-heading-${i}`}>
+                      <button type="button" className="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200  dark:text-gray-400 gap-3" data-accordion-target={`#accordion-${i}`} aria-expanded="true" aria-controls={`accordion-${i}`}>
+                        <span>{resource.name}</span>
+                        <i data-accordion-icon className='text-lg rotate-180 shrink-0 fas fa-angle-down'></i>
+                      </button>
+                    </h2>
+                    <div id={`accordion-${i}`} className="hidden" aria-labelledby={`accordion-heading-${i}`}>
+                      <div className="py-5 border-b border-gray-200 prose">
+                        <HtmlContent html={resource.description} />
+                      </div>
                     </div>
-                  </div>
-                </>
-              })
-            }
+                  </>
+                })
+              }
+
+            </div>
 
           </div>
-
+          <div className="md:w-1/3 block md:sticky top-[15%] h-max">
+            <h2 className='text-2xl mb-2 text-red-500 font-bold'>S/. {Number(coach.price).toFixed(2)}</h2>
+            <p className='mb-2'>
+              <i className='fas fa-globe-americas w-6'></i>
+              <b>Nacionalidad</b>: {country.name} - {coach.city}
+            </p>
+            <p className='mb-2'>
+              <i className='fas fa-flag w-6'></i>
+              <b>Experiencia</b>: {coach.experience > 0 ? <>{coach.experience} años</> : <i>Sin experiencia</i>}
+            </p>
+            <p className='mb-2'>
+              <i className='fas fa-file-alt w-6'></i>
+              <b>Resumen</b>: {coach.summary}
+            </p>
+            <button type="button" class="focus:outline-none text-white bg-[#ff5b5b] hover:bg-[#ff5b5bbb] focus:ring-4 focus:ring-[#ff5b5bdd] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
+              Quiero mi coach
+              <i className='fab fa-whatsapp ms-2'></i>
+            </button>
+          </div>
         </div>
-        <div className="md:w-1/3 block md:sticky top-[15%] h-max">
-          <h2 className="text-xl font-semibold mb-4">Datos del Coach</h2>
-          <h3 className='text-xl mb-2'>PEN {Number(coach.price).toFixed(2)}</h3>
-          <p className='mb-2'>
-            <i className='fas fa-globe-americas w-6'></i>
-            <b>Nacionalidad</b>: {country.name} - {coach.city}
-          </p>
-          <p className='mb-2'>
-            <i className='fas fa-flag w-6'></i>
-            <b>Experiencia</b>: {coach.experience > 0 ? <>{coach.experience} años</> : <i>Sin experiencia</i>}
-          </p>
-          <p className='mb-2'>
-            <i className='fas fa-file-alt w-6'></i>
-            <b>Resumen</b>: {coach.summary}
-          </p>
-          <button type="button" class="focus:outline-none text-white bg-[#ff5b5b] hover:bg-[#ff5b5bbb] focus:ring-4 focus:ring-[#ff5b5bdd] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
-            Quiero mi coach
-            <i className='fab fa-whatsapp ms-2'></i>
-          </button>
-        </div>
-      </div>
-    </section>
+      </section>
+      <section className='p-[5%]'>
+        <h3 className='text-2xl font-bold mb-[2.5%]'>Otros Coaches</h3>
+        <p className='mb-[5%]'>Sus enfoques personalizados y estratégicos son la fórmula secreta detrás de innumerables historias de triunfo.</p>
+        <section className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8'>
+          {coaches.map((coach, i) => {
+            const country = countries.find((x) => x.id == coach.country)
+            return <CoachCard key={i} {...coach} country={country} />;
+          })}
+        </section>
+      </section>
+    </>
   );
 }
 

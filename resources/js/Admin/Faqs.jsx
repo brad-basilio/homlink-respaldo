@@ -9,6 +9,7 @@ import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import FaqsRest from '@Rest/Admin/FaqsRest';
+import Swal from 'sweetalert2';
 
 const faqsRest = new FaqsRest()
 

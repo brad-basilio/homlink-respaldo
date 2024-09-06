@@ -6,6 +6,7 @@ import Table from '../Components/Table';
 import DxButton from '../Components/dx/DxButton';
 import SubscriptionsRest from '@Rest/Admin/SubscriptionsRest';
 import ReactAppend from '../Utils/ReactAppend';
+import Swal from 'sweetalert2';
 
 const subscriptionsRest = new SubscriptionsRest()
 

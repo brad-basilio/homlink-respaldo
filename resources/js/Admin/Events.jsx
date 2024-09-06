@@ -10,6 +10,7 @@ import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import ImageFormGroup from '@Adminto/form/ImageFormGroup';
 import EventsRest from '@Rest/Admin/EventsRest';
+import Swal from 'sweetalert2';
 
 const eventsRest = new EventsRest()
 

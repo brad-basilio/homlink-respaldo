@@ -13,6 +13,7 @@ import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 import SelectFormGroup from '../Components/form/SelectFormGroup';
 import TestimoniesRest from '../Actions/Admin/TestimoniesRest';
 import DxBox from '../Components/Adminto/Dx/DxBox';
+import Swal from 'sweetalert2';
 
 const testimoniesRest = new TestimoniesRest()
 

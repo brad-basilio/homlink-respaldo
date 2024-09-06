@@ -1,30 +1,26 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '@Utils/CreateReactScript';
 import Table from '../Components/Table';
 import DxButton from '../Components/dx/DxButton';
-import SubscriptionsRest from '@Rest/Admin/SubscriptionsRest';
 import ReactAppend from '@Utils/ReactAppend';
 import MessagesRest from '@Rest/Admin/MessagesRest';
-import { renderToString } from 'react-dom/server';
+import Modal from '@Adminto/Modal';
+import Swal from 'sweetalert2';
 
-const subscriptionsRest = new SubscriptionsRest()
 const messagesRest = new MessagesRest()
 
 const Messages = () => {
   const gridRef = useRef()
+  const modalRef = useRef()
 
-  const onStatusChange = async ({ id, status }) => {
-    const result = await messagesRest.status({ id, status })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
+  const [dataLoaded, setDataLoaded] = useState(null)
 
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar subscripcion',
-      text: '¿Estas seguro de eliminar esta subscripcion?',
+      title: 'Eliminar mensaje',
+      text: '¿Estas seguro de eliminar este mensaje?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Si, eliminar',
@@ -34,6 +30,19 @@ const Messages = () => {
     const result = await messagesRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
+  const onModalOpen = (data) => {
+    if (!data.seen) {
+      messagesRest.boolean({
+        id: data,
+        field: 'seen',
+        value: true
+      })
+      $(gridRef.current).dxDataGrid('instance').refresh()
+    }
+    setDataLoaded(data)
+    $(modalRef.current).modal('show');
   }
 
   return (<>
@@ -57,12 +66,19 @@ const Messages = () => {
         {
           dataField: 'name',
           caption: 'Nombre',
-          cellTemplate: (container, {data}) => {
-            if (!container.seen) {
-              container.html(renderToString(<b>{data.name}</b>))
-            } else {
-              container.text(data.name)
-            }
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <span style={{
+              width: '100%',
+              fontWeight: data.seen ? 'lighter' : 'bold',
+              cursor: 'pointer'
+            }} onClick={() => onModalOpen(data)}>
+              {data.name}
+            </span>)
+            // if (!container.seen) {
+            //   container.html(renderToString(<b>{data.name}</b>))
+            // } else {
+            //   container.text(data.name)
+            // }
           }
         },
         {
@@ -85,16 +101,10 @@ const Messages = () => {
           caption: 'Estado',
           dataType: 'boolean',
           cellTemplate: (container, { data }) => {
-            switch (data.status) {
-              case 1:
-                ReactAppend(container, <span className='badge bg-success rounded-pill'>Activo</span>)
-                break
-              case 0:
-                ReactAppend(container, <span className='badge bg-danger rounded-pill'>Inactivo</span>)
-                break
-              default:
-                ReactAppend(container, <span className='badge bg-dark rounded-pill'>Eliminado</span>)
-                break
+            if (data.seen) {
+              ReactAppend(container, <span className='badge bg-success rounded-pill'>Leído</span>)
+            } else {
+              ReactAppend(container, <span className='badge bg-danger rounded-pill'>No leído</span>)
             }
           }
         },
@@ -102,11 +112,17 @@ const Messages = () => {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
             container.append(DxButton({
-              className: 'btn btn-xs btn-light',
-              title: data.status === null ? 'Restaurar' : 'Cambiar estado',
-              icon: data.status === 1 ? 'fa fa-toggle-on text-success' : data.status === 0 ? 'fa fa-toggle-off text-danger' : 'fas fa-trash-restore',
-              onClick: () => onStatusChange(data)
+              className: 'btn btn-xs btn-soft-dark',
+              title: 'Ver mensaje',
+              icon: 'fa fa-eye',
+              onClick: () => onModalOpen(data)
             }))
+            // container.append(DxButton({
+            //   className: 'btn btn-xs btn-light',
+            //   title: data.status === null ? 'Restaurar' : 'Cambiar estado',
+            //   icon: data.status === 1 ? 'fa fa-toggle-on text-success' : data.status === 0 ? 'fa fa-toggle-off text-danger' : 'fas fa-trash-restore',
+            //   onClick: () => onStatusChange(data)
+            // }))
             container.append(DxButton({
               className: 'btn btn-xs btn-soft-danger',
               title: 'Eliminar',
@@ -118,6 +134,28 @@ const Messages = () => {
           allowExporting: false
         }
       ]} />
+    <Modal modalRef={modalRef} title='Mensaje' hideFooter >
+      <p>
+        <b>Nombre</b>:
+        <span className='ms-1'>{dataLoaded?.name}</span>
+      </p>
+      <p>
+        <b>Teléfono</b>:
+        <span className='ms-1'>{dataLoaded?.phone}</span>
+      </p>
+      <p>
+        <b>Correo</b>:
+        <span className='ms-1'>{dataLoaded?.email || <i className='text-muted'>- Sin correo -</i>}</span>
+      </p>
+      <p>
+        <b>Asunto</b>:
+        <span className='ms-1'>{dataLoaded?.subject}</span>
+      </p>
+      <p>
+        <b>Mensaje</b>:
+        <span className='ms-1'>{dataLoaded?.description}</span>
+      </p>
+    </Modal>
   </>
   )
 }

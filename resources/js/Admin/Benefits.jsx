@@ -13,6 +13,7 @@ import TextareaFormGroup from '../Components/Adminto/form/TextareaFormGroup';
 import { renderToString } from 'react-dom/server';
 import SwitchFormGroup from '../Components/Adminto/form/SwitchFormGroup';
 import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
+import Swal from 'sweetalert2';
 
 const benefitsRest = new BenefitsRest()
 
