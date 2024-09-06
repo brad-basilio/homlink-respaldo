@@ -17,13 +17,13 @@ const Base = ({ children, summary, session }) => {
       ref: '/coaches'
     },
     {
+      label: 'Blog',
+      ref: '/resources'
+    },
+    {
       label: 'Eventos',
       ref: '/events'
     },
-    {
-      label: 'Blog',
-      ref: '/resources'
-    }
   ];
   return <>
     <Header items={menuItems} session={session} />

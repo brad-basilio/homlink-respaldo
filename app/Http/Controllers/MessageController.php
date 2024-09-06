@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Message;
+use Illuminate\Http\Request;
+
+class MessageController extends BasicController
+{
+    public $model = Message::class;
+    
+    public function beforeSave(Request $request) :array
+    {
+        $messages = [
+            'name.required' => 'El nombre es obligatorio.',
+            'name.string' => 'El nombre debe ser una cadena de texto.',
+            'phone.required' => 'El teléfono es obligatorio.',
+            'phone.numeric' => 'El teléfono debe contener solo números.',
+            'phone.max_digits' => 'El teléfono no debe exceder los 15 caracteres.',
+            'email.email' => 'El correo electrónico debe tener el formato user@domain.com.',
+            'email.max' => 'El correo electrónico no debe exceder los 320 caracteres.',
+            'subject.required' => 'El asunto es obligatorio.',
+            'subject.string' => 'El asunto debe ser una cadena de texto.',
+            'description.required' => 'El mensaje es obligatorio.',
+            'description.string' => 'El mensaje debe ser una cadena de texto.'
+        ];
+
+        // Validación de los datos
+        $validatedData = $request->validate([
+            'name' => 'required|string',
+            'phone' => 'required|numeric|max_digits:15',
+            'email' => 'nullable|email|max:320',
+            'subject' => 'required|string',
+            'description' => 'required|string',
+        ], $messages);
+
+        return $validatedData;
+    }
+}

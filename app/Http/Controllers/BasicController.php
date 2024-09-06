@@ -97,17 +97,19 @@ class BasicController extends Controller
         });
       }
 
-      if ($request->sort != null) {
-        foreach ($request->sort as $sorting) {
-          // $selector = \str_replace('.', '__', $sorting['selector']);
-          $selector = $sorting['selector'];
-          $instance->orderBy(
-            $selector,
-            $sorting['desc'] ? 'DESC' : 'ASC'
-          );
+      if ($request->group == null) {
+        if ($request->sort != null) {
+          foreach ($request->sort as $sorting) {
+            // $selector = \str_replace('.', '__', $sorting['selector']);
+            $selector = $sorting['selector'];
+            $instance->orderBy(
+              $selector,
+              $sorting['desc'] ? 'DESC' : 'ASC'
+            );
+          }
+        } else {
+          $instance->orderBy('id', 'DESC');
         }
-      } else {
-        $instance->orderBy('id', 'DESC');
       }
 
       $totalCount = 0;

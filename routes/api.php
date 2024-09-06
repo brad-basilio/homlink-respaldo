@@ -1,23 +1,33 @@
 <?php
 
-use App\Http\Controllers\AccountController;
+use Illuminate\Support\Facades\Route;
+
+// Admin
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
+use App\Http\Controllers\Admin\MessageController as AdminMessageController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
+
+// Coach
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
+
+// Public
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ResourceController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +55,9 @@ Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 Route::post('/coaches/paginate', [CoachController::class, 'paginate']);
 Route::post('/resources/paginate', [ResourceController::class, 'paginate']);
 
+Route::post('/messages', [MessageController::class, 'save']);
+Route::post('/subscriptions', [SubscriptionController::class, 'save']);
+
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
         ->name('logout');
@@ -58,6 +71,16 @@ Route::middleware('auth')->group(function () {
         Route::post('/resources/paginate', [AdminResourceController::class, 'paginate']);
         Route::patch('/resources/status', [AdminResourceController::class, 'status']);
         Route::delete('/resources/{id}', [AdminResourceController::class, 'delete']);
+
+        Route::post('/messages', [AdminMessageController::class, 'save']);
+        Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);
+        Route::patch('/messages/status', [AdminMessageController::class, 'status']);
+        Route::patch('/messages/{field}', [AdminMessageController::class, 'boolean']);
+        Route::delete('/messages/{id}', [AdminMessageController::class, 'delete']);
+
+        Route::post('/subscriptions/paginate', [AdminSubscriptionController::class, 'paginate']);
+        Route::patch('/subscriptions/status', [AdminSubscriptionController::class, 'status']);
+        Route::delete('/subscriptions/{id}', [AdminSubscriptionController::class, 'delete']);
 
         Route::post('/aboutus', [AdminAboutusController::class, 'save']);
         Route::post('/aboutus/paginate', [AdminAboutusController::class, 'paginate']);

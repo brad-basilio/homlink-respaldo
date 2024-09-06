@@ -75,6 +75,8 @@ const Menu = ({ session, hasRole }) => {
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
               <MenuItem href="/admin/coaches" icon='mdi mdi-account-group'>Coaches</MenuItem>
               <MenuItem href="/admin/resources" icon='mdi mdi-cube'>Recursos</MenuItem>
+              <MenuItem href="/admin/messages" icon='mdi mdi-message-text'>Mensajes</MenuItem>
+              <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Suscripciones</MenuItem>
               <li className="menu-title">Landing Page</li>
               <MenuItem href="/admin/about" icon='mdi mdi-briefcase'>Nosotros</MenuItem>
               <MenuItem href="/admin/indicators" icon='mdi mdi-dots-grid'>Indicadores</MenuItem>

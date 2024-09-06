@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AboutusController;
+use Illuminate\Support\Facades\Route;
+
+// Admin
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
 use App\Http\Controllers\Admin\CoachController as AdminCoachController;
@@ -12,15 +13,21 @@ use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\ResourceController as AdminResourceController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
+use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
+
+// Coach
 use App\Http\Controllers\Coach\HomeController as CoachHomeController;
 use App\Http\Controllers\Coach\ProfileController as CoachProfileController;
-use App\Http\Controllers\CoachController;
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
+
+// Public 
+use App\Http\Controllers\CoachController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AboutusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +73,8 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/home', [AdminHomeController::class, 'reactView'])->name('Admin/Home.jsx');
     Route::get('/coaches', [AdminCoachController::class, 'reactView'])->name('Admin/Coaches.jsx');
     Route::get('/resources', [AdminResourceController::class, 'reactView'])->name('Admin/Resources.jsx');
-    Route::get('/profile', [CoachProfileController::class, 'reactView'])->name('Admin/Profile.jsx');
+    Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
+    Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
 
     Route::get('/about', [AdminAboutusController::class, 'reactView'])->name('Admin/About.jsx');
     Route::get('/indicators', [AdminIndicatorController::class, 'reactView'])->name('Admin/Indicators.jsx');
@@ -75,4 +83,6 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/testimonies', [AdminTestimonyController::class, 'reactView'])->name('Admin/Testimonies.jsx');
     Route::get('/events', [AdminEventController::class, 'reactView'])->name('Admin/Events.jsx');
     Route::get('/faqs', [AdminFaqController::class, 'reactView'])->name('Admin/Faqs.jsx');
+
+    Route::get('/profile', [CoachProfileController::class, 'reactView'])->name('Admin/Profile.jsx');
 });
