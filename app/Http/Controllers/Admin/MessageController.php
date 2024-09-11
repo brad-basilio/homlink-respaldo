@@ -9,4 +9,9 @@ class MessageController extends BasicController
 {
    public $model = Message::class;
    public $reactView = 'Admin/Messages';
+
+   public function setPaginationInstance(string $model)
+   {
+      return $model::where('status', true);
+   }
 }

@@ -17,9 +17,6 @@
   <link href="/lte/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  
-  <link href="/lte/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
-  <link href="/lte/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
 
   <style>
     * {
@@ -29,6 +26,11 @@
 
   @vite(['resources/css/app.css', 'resources/js/' . Route::currentRouteName()])
   @inertiaHead
+
+  @if ($component = 'Profile.jsx')
+    <link href="/lte/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+    <link href="/lte/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+  @endif
 </head>
 
 <body>

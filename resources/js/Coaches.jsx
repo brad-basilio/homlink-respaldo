@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CreateReactScript from './Utils/CreateReactScript';
 import { createRoot } from 'react-dom/client';
-import Base from '@Tailwind/Base';
+import TailwindBase from '@Tailwind/Base';
 import Header from './Components/Coaches/Header';
 import Content from './Components/Coaches/Content';
 import Events from './Components/Coaches/Events';
@@ -24,7 +24,7 @@ function Coaches({ specialties, countries, events, faqs }) {
 }
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<Base {...properties}>
+  createRoot(el).render(<TailwindBase {...properties}>
     <Coaches {...properties} />
-  </Base>);
+  </TailwindBase>);
 })

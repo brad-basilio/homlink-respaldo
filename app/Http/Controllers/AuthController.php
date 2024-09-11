@@ -38,8 +38,8 @@ class AuthController extends Controller
         case 'Coach':
           return redirect('/coach/home');
           break;
-        case 'Coaching':
-          return redirect('/coaching/home');
+        case 'Coachee':
+          return redirect('/coachee/home');
           break;
 
         default:

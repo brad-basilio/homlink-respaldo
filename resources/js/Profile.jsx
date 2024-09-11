@@ -1,12 +1,65 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from './Utils/CreateReactScript';
 import 'tippy.js/dist/tippy.css';
 import TailwindBase from './Components/Tailwind/Base';
 import HtmlContent from './Utils/HtmlContent';
 import CoachCard from './Components/Coaches/CoachCard';
+import html2string from './Utils/html2string';
+import Tippy from '@tippyjs/react';
+import Swal from 'sweetalert2';
 
-const Profile = ({ coach, country, countries, resources, coaches }) => {
+const Profile = ({ coach, country, countries, resources, coaches, session, hasRole }) => {
+
+  let btnCTA = <Fragment>
+    Iniciar sesion para ver opciones
+    <i className='ms-1 mdi mdi-arrow-top-right'></i>
+  </Fragment>
+  let actionCTA = () => location.href = '/login'
+
+  if (session) {
+    if (hasRole('Admin')) {
+      btnCTA = <Fragment>
+        Ver solicitudes de {coach.name.split(' ')[0]}
+        <i className='ms-1 mdi mdi-file-document-edit'></i>
+      </Fragment>
+      actionCTA = () => location.href = '/admin/solicitudes'
+    } else if (session.id === coach.id) {
+      btnCTA = <Fragment>
+        Editar perfil
+        <i className='ms-1 mdi mdi-account-edit'></i>
+      </Fragment>
+      actionCTA = () => location.href = '/coach/profile'
+    } else if (hasRole('Coach')) {
+      btnCTA = <Fragment>
+        Ver recursos de {coach.name.split(' ')[0]}
+        <i className='ms-1 mdi mdi-cube'></i>
+      </Fragment>
+      actionCTA = () => {
+        const element = document.getElementById('resources')
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }
+    } else if (hasRole('Coachee')) {
+      btnCTA = <Fragment>
+        Quiero mi coach
+        <i className='ms-1 mdi mdi-whatsapp'></i>
+      </Fragment>
+      actionCTA = async () => {
+        const {isConfirmed} = await Swal.fire({
+          title: '¡Solicita tu coach!',
+          text: '¿Deseas contactarte con este coach a través de WhatsApp?',
+          icon: 'question',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, quiero contactarlo',
+          cancelButtonText: 'No, gracias'
+        })
+        if (!isConfirmed) return 
+        window.open(`https://wa.me/${coach.phone_prefix || 51}${coach.phone}`, '_blank')
+      }
+    }
+  }
 
   return (
     <>
@@ -38,37 +91,70 @@ const Profile = ({ coach, country, countries, resources, coaches }) => {
                 </div>
               </div>
             </div>
-            <div className="prose">
+            <div className="prose ql-editor" style={{all: 'revert'}}>
               <HtmlContent html={coach.description} />
             </div>
+
+            <div id='resources' className='scroll-mt-16'></div>
 
             <h3 className='text-lg font-bold mt-[5%] mb-[2.5%]'>Contenidos y temas</h3>
 
 
-            <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-gray-500 dark:text-gray-400" data-inactive-classes="text-gray-500 dark:text-gray-400">
-              {
-                resources.map((resource, i) => {
-                  return <>
-                    <h2 id={`accordion-heading-${i}`}>
-                      <button type="button" className="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200  dark:text-gray-400 gap-3" data-accordion-target={`#accordion-${i}`} aria-expanded="true" aria-controls={`accordion-${i}`}>
-                        <span>{resource.name}</span>
-                        <i data-accordion-icon className='text-lg rotate-180 shrink-0 fas fa-angle-down'></i>
-                      </button>
-                    </h2>
-                    <div id={`accordion-${i}`} className="hidden" aria-labelledby={`accordion-heading-${i}`}>
-                      <div className="py-5 border-b border-gray-200 prose">
-                        <HtmlContent html={resource.description} />
-                      </div>
-                    </div>
-                  </>
-                })
-              }
+            {
+              resources.length > 0 &&
+              <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-gray-500 dark:text-gray-400" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                {
+                  resources.map((resource, i) => {
+                    const isOpen = i === 0; // Set the first accordion to be open
 
-            </div>
+                    return (
+                      <Fragment key={i}>
+                        <h2 id={`accordion-heading-${i}`}>
+                          <button
+                            type="button"
+                            className="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:text-gray-400 gap-3"
+                            data-accordion-target={`#accordion-${i}`}
+                            aria-expanded={isOpen ? "true" : "false"}
+                            aria-controls={`accordion-${i}`}
+                          >
+                            <span className='text-left'>
+                              {resource.name}
+                              <Tippy content="Ver recurso">
+                                <a
+                                  href={`/resources/${resource.id}`}
+                                  className="py-1 px-3 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100"
+                                >
+                                  <i className="mdi mdi-arrow-top-right"></i>
+                                </a>
+                              </Tippy>
+                            </span>
+                            <i
+                              data-accordion-icon
+                              className={`text-lg ${isOpen ? "rotate-180" : ""} shrink-0 fas fa-angle-down`}
+                            ></i>
+                          </button>
+                        </h2>
+                        <div
+                          id={`accordion-${i}`}
+                          className={`${isOpen ? "" : "hidden"}`}
+                          aria-labelledby={`accordion-heading-${i}`}
+                        >
+                          <div className="py-5 border-b border-gray-200">
+                            <p className='line-clamp-4 text-ellipsis'>
+                              {html2string(resource.description)}
+                            </p>
+                          </div>
+                        </div>
+                      </Fragment>
+                    );
+                  })
+                }
+              </div>
+            }
 
           </div>
           <div className="md:w-1/3 block md:sticky top-[15%] h-max">
-            <h2 className='text-2xl mb-2 text-red-500 font-bold'>S/. {Number(coach.price).toFixed(2)}</h2>
+            <h2 className='text-2xl mb-4 font-bold'>S/. {Number(coach.price).toFixed(2)}</h2>
             <p className='mb-2'>
               <i className='fas fa-globe-americas w-6'></i>
               <b>Nacionalidad</b>: {country.name} - {coach.city}
@@ -81,23 +167,26 @@ const Profile = ({ coach, country, countries, resources, coaches }) => {
               <i className='fas fa-file-alt w-6'></i>
               <b>Resumen</b>: {coach.summary}
             </p>
-            <button type="button" class="focus:outline-none text-white bg-[#ff5b5b] hover:bg-[#ff5b5bbb] focus:ring-4 focus:ring-[#ff5b5bdd] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">
-              Quiero mi coach
-              <i className='fab fa-whatsapp ms-2'></i>
+
+            <button type="button" className="focus:outline-none text-white bg-[#ff5b5b] hover:bg-[#ff5b5bbb] focus:ring-4 focus:ring-[#ff5b5bdd] font-medium rounded-lg text-sm px-5 py-2.5 me-2 mt-4 " onClick={actionCTA}>
+              {btnCTA}
             </button>
           </div>
         </div>
       </section>
-      <section className='p-[5%]'>
-        <h3 className='text-2xl font-bold mb-[2.5%]'>Otros Coaches</h3>
-        <p className='mb-[5%]'>Sus enfoques personalizados y estratégicos son la fórmula secreta detrás de innumerables historias de triunfo.</p>
-        <section className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8'>
-          {coaches.map((coach, i) => {
-            const country = countries.find((x) => x.id == coach.country)
-            return <CoachCard key={i} {...coach} country={country} />;
-          })}
+      {
+        coaches.length > 0 &&
+        <section className='p-[5%]'>
+          <h3 className='text-2xl font-bold mb-[2.5%]'>Otros Coaches</h3>
+          <p className='mb-[5%]'>Sus enfoques personalizados y estratégicos son la fórmula secreta detrás de innumerables historias de triunfo.</p>
+          <section className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8'>
+            {coaches.sort((a, b) => a.price - b.price).map((coach, i) => {
+              const country = countries.find((x) => x.id == coach.country)
+              return <CoachCard key={i} {...coach} country={country} />;
+            })}
+          </section>
         </section>
-      </section>
+      }
     </>
   );
 }

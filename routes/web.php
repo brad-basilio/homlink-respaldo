@@ -28,6 +28,7 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutusController;
+use App\Http\Controllers\Coachee\HomeController as CoacheeHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,9 @@ Route::get('/confirmation/{token}', [AuthController::class, 'loginView']);
 
 
 
+Route::middleware(['can:Coachee', 'auth'])->prefix('coachee')->group(function () {
+    Route::get('/home', [CoacheeHomeController::class, 'reactView'])->name('Coachee/Home.jsx');
+});
 
 Route::middleware(['can:Coach', 'auth'])->prefix('coach')->group(function () {
     Route::get('/home', [CoachHomeController::class, 'reactView'])->name('Coach/Home.jsx');

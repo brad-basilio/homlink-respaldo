@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aboutus;
+use App\Models\Faq;
 use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,9 +76,12 @@ class ResourceController extends BasicController
 
         $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
 
+        $faqs = Faq::where('visible', true)->where('visible', true)->get();
+
         return Inertia::render('ResourceDetails', [
             'session' => Auth::user(),
             'summary' => $summaryJpa->description,
+            'faqs' => $faqs,
             'global' => [
                 'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
                 'APP_NAME' => env('APP_NAME'),

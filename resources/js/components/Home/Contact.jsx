@@ -16,7 +16,7 @@ const Contact = () => {
   const inputFields = [
     { label: 'Nombre completo', placeholder: 'Nombre y apellido', type: 'text', required: true, ref: nameRef },
     { label: 'WhatsApp', placeholder: '+51 999 999 999', type: 'tel', required: true, ref: phoneRef },
-    { label: 'Correo electrónico', placeholder: 'hola@mail.com', type: 'email', required: false, ref: emailRef },
+    { label: 'Correo electrónico', placeholder: 'hola@mail.com', type: 'email', required: true, ref: emailRef },
     { label: 'Asunto', placeholder: 'Asunto', type: 'text', required: true, ref: subjectRef },
   ];
 

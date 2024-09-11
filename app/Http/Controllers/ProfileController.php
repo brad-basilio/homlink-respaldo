@@ -26,7 +26,7 @@ class ProfileController extends BasicController
   public function setReactViewProperties(Request $request)
   {
     $coach = User::with(['specialties'])
-    ->where('uuid', $request->coach)
+      ->where('uuid', $request->coach)
       ->where('status', true)
       ->first();
 
@@ -36,29 +36,33 @@ class ProfileController extends BasicController
 
     // Traer 4 coaches con precio mayor que el del coach principal o sin especialidades
     $coachesAbove = User::with(['specialties'])
-    ->where(function ($query) use ($specialtyIds) {
-      $query->whereHas('specialties', function ($query) use ($specialtyIds) {
-        $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+      ->where(function ($query) use ($specialtyIds) {
+        $query->whereHas('specialties', function ($query) use ($specialtyIds) {
+          $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+        })
+          ->orDoesntHave('specialties');  // Coaches sin especialidades
       })
-        ->orDoesntHave('specialties');  // Coaches sin especialidades
-    })
-      ->where('price', '>', $coach->price)  // Coaches con precio mayor que el del coach principal
+      ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
+      ->where('price', '>=', $coach->price)  // Coaches con precio mayor que el del coach principal
       ->where('status', true)
       ->where('id', '<>', $coach->id)
+      ->where('mhr.role_id', 2)
       ->take(4)  // Traer 4 de una sola vez
       ->get();
 
     // Traer 4 coaches con precio menor o igual que el del coach principal o sin especialidades
     $coachesBelow = User::with(['specialties'])
-    ->where(function ($query) use ($specialtyIds) {
-      $query->whereHas('specialties', function ($query) use ($specialtyIds) {
-        $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+      ->where(function ($query) use ($specialtyIds) {
+        $query->whereHas('specialties', function ($query) use ($specialtyIds) {
+          $query->whereIn('specialties.id', $specialtyIds);  // Coaches con alguna especialidad en común
+        })
+          ->orDoesntHave('specialties');  // Coaches sin especialidades
       })
-        ->orDoesntHave('specialties');  // Coaches sin especialidades
-    })
+      ->join('model_has_roles AS mhr', 'mhr.model_id', 'users.id')
       ->where('price', '<=', $coach->price)  // Coaches con precio menor o igual que el del coach principal
       ->where('status', true)
       ->where('id', '<>', $coach->id)
+      ->where('mhr.role_id', 2)
       ->take(4)  // Traer 4 de una sola vez
       ->get();
 

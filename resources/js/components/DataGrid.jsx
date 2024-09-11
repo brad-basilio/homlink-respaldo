@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { Local } from 'sode-extend-react'
 
 const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, filterValue }) => {
   useEffect(() => {

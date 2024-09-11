@@ -24,7 +24,7 @@ const Resources = ({ specialties, archive }) => {
 };
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<TailwindBase>
+  createRoot(el).render(<TailwindBase {...properties}>
     <Resources {...properties} />
   </TailwindBase>);
 })

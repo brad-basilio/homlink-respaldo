@@ -1,25 +1,6 @@
 import React from "react"
 
 const Blogs = ({ resources }) => {
-
-  const blogPosts = [
-    {
-      imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/883fd36e282a92503d603f7d417ce763e22ff6ba1d0b1014cd6c72fa038f2c70?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731",
-      title: "Cómo Maximizar tu Desarrollo y bienestar en el Entorno Laboral",
-      description: "Explorar estrategias y consejos para impulsar el crecimiento personal en el lugar de trabajo."
-    },
-    {
-      imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/f7352f0e2c26487a87af289d3b44b21a43becc44b75516feea0bfb20d575862e?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731",
-      title: "La Transformación Digital y el Coaching: Una Combinación Ganadora",
-      description: "Examina cómo el coaching puede ayudar a profesionales y empresas a adaptarse y prosperar en la era digital."
-    },
-    {
-      imageSrc: "https://cdn.builder.io/api/v1/image/assets/TEMP/00f7c61d364129e120feefd81aff53ca87df93918009b06443de2b46b1943b04?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731",
-      title: "Historias de Éxito: Cómo el Coaching Cambió la Vida de Nuestros Clientes",
-      description: "Explora casos reales de personas que experimentaron transformaciones significativas en sus vidas."
-    }
-  ];
-
   return <>
     <section className="p-[5%]">
       <div className="flex flex-col">
@@ -48,8 +29,8 @@ const Blogs = ({ resources }) => {
                 const doc = parser.parseFromString(resource.description, 'text/html');
                 const plainText = doc.body.textContent || "";
                 return (
-                  <a href={`/resources/${resource.id}`}>
-                    <article key={index} className="flex flex-col w-full shadow-xl rounded-md">
+                  <a key={`resource-${index}`} href={`/resources/${resource.id}`}>
+                    <article className="flex flex-col w-full shadow-xl rounded-md">
                       <div className="flex flex-col max-w-full rounded">
                         <img loading="lazy" src={`https://i.ytimg.com/vi/${resource.media_id}/hqdefault.jpg`} alt={resource.name} className="object-cover object-center w-full rounded-t-md aspect-video" onError={e => e.target.src = '/api/cover/null'} />
                       </div>
