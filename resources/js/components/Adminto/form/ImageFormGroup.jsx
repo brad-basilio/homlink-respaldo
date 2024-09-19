@@ -19,7 +19,7 @@ const ImageFormGroup = ({ id, col, label, eRef, required = false, onChange = () 
   }, [null])
 
   return <div className={`form-group ${col} mb-2`}>
-    <label htmlFor={id}>
+    <label htmlFor={id} className="mb-1">
       {label} {required && <b className="text-danger">*</b>}
     </label>
     <label htmlFor={id} style={{width: '100%'}}>

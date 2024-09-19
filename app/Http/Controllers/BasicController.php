@@ -47,6 +47,10 @@ class BasicController extends Controller
     return $model::select();
   }
 
+  public function setPaginationSummary(string $model) {
+    return [];
+  }
+
   public function setReactViewProperties(Request $request)
   {
     return [];
@@ -133,6 +137,7 @@ class BasicController extends Controller
       $response->status = 200;
       $response->message = 'Operación correcta';
       $response->data = $jpas;
+      $response->summary = $this->setPaginationSummary($this->model);
       $response->totalCount = $totalCount;
     } catch (\Throwable $th) {
       $response->status = 400;

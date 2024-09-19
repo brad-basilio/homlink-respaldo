@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Local } from 'sode-extend-react'
 
-const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, filterValue }) => {
+const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, filterValue, onRefresh = () => { } }) => {
   useEffect(() => {
     DevExpress.localization.locale(navigator.language);
     $(dataGridRef.current).dxDataGrid({
@@ -9,9 +9,10 @@ const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, 
       dataSource: {
         load: async (params) => {
           const data = await rest.paginate({
-            ...params, 
+            ...params,
             // _token: $('[name="csrf_token"]').attr('content')
           })
+          onRefresh(data)
           return data
         },
       },

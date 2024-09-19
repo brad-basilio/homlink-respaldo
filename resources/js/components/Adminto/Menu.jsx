@@ -93,14 +93,24 @@ const Menu = ({ session, hasRole }) => {
 
               <MenuItemContainer title='Procesos' icon='mdi mdi-file-document'>
                 <MenuItem href='/coach/requests' icon='mdi mdi-file-download'>Solicitudes</MenuItem>
-                <MenuItem href='/coach/agreements' icon='mdi mdi-handshake'>Acuerdos realizados</MenuItem>
-                <MenuItem href='/coach/approved-agreements' icon='mdi mdi-handshake-outline'>Acuerdos aprobados</MenuItem>
+                <MenuItem href='/coach/agreements' icon='mdi mdi-handshake-outline'>Acuerdos</MenuItem>
                 <MenuItem href='/coach/sessions' icon='mdi mdi-playlist-play'>Sesiones</MenuItem>
               </MenuItemContainer>
 
               <MenuItem href="/coach/calendar" icon='mdi mdi-calendar'>Calendario</MenuItem>
               <MenuItem href="/coach/resources" icon='mdi mdi-cube'>Recursos</MenuItem>
               <MenuItem href="/coach/payments" icon='mdi mdi-currency-usd'>Pagos</MenuItem>
+            </>
+          }
+          {
+            hasRole('Coachee') && <>
+              <MenuItem href="/coachee/home" icon='mdi mdi-home'>Dashboard</MenuItem>
+
+              <MenuItemContainer title='Procesos' icon='mdi mdi-file-document'>
+                <MenuItem href='/coachee/requests' icon='mdi mdi-file-download'>Solicitudes</MenuItem>
+                <MenuItem href='/coachee/agreements' icon='mdi mdi-handshake'>Acuerdos</MenuItem>
+                <MenuItem href='/coachee/sessions' icon='mdi mdi-playlist-play'>Sesiones</MenuItem>
+              </MenuItemContainer>
             </>
           }
 

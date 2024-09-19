@@ -8,6 +8,9 @@ import CoachCard from './Components/Coaches/CoachCard';
 import html2string from './Utils/html2string';
 import Tippy from '@tippyjs/react';
 import Swal from 'sweetalert2';
+import RequestsRest from './Actions/RequestsRest';
+
+const requestsRest = new RequestsRest();
 
 const Profile = ({ coach, country, countries, resources, coaches, session, hasRole }) => {
 
@@ -47,7 +50,7 @@ const Profile = ({ coach, country, countries, resources, coaches, session, hasRo
         <i className='ms-1 mdi mdi-whatsapp'></i>
       </Fragment>
       actionCTA = async () => {
-        const {isConfirmed} = await Swal.fire({
+        const { isConfirmed } = await Swal.fire({
           title: '¡Solicita tu coach!',
           text: '¿Deseas contactarte con este coach a través de WhatsApp?',
           icon: 'question',
@@ -55,8 +58,18 @@ const Profile = ({ coach, country, countries, resources, coaches, session, hasRo
           confirmButtonText: 'Sí, quiero contactarlo',
           cancelButtonText: 'No, gracias'
         })
-        if (!isConfirmed) return 
-        window.open(`https://wa.me/${coach.phone_prefix || 51}${coach.phone}`, '_blank')
+        if (!isConfirmed) return
+
+        const result = await requestsRest.save({
+          coach_id: coach.id
+        });
+        if (!result) return
+
+        if (coach.phone) {
+          window.open(`https://wa.me/${coach.phone_prefix || 51}${coach.phone}`, '_blank')
+        } else {
+          location.href = '/coachee/requests'
+        }
       }
     }
   }
@@ -91,7 +104,7 @@ const Profile = ({ coach, country, countries, resources, coaches, session, hasRo
                 </div>
               </div>
             </div>
-            <div className="prose ql-editor" style={{all: 'revert'}}>
+            <div className="prose ql-editor" style={{ all: 'revert' }}>
               <HtmlContent html={coach.description} />
             </div>
 

@@ -15,7 +15,7 @@ const QuillFormGroup = ({ col, label, eRef, value, required = false, rows = 3, t
   }, [null])
 
   return <div className={`form-group ${col} mb-2`} style={{ height: 'max-content' }}>
-    <label htmlFor=''>
+    <label htmlFor='' className="mb-1">
       {label} {required && <b className="text-danger">*</b>}
     </label>
     <div ref={quillRef} style={{height}}></div>

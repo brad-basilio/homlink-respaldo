@@ -3,64 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Request;
-use App\Http\Requests\StoreRequestRequest;
-use App\Http\Requests\UpdateRequestRequest;
+use Exception;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Auth;
 
-class RequestController extends Controller
+class RequestController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public $model = Request::class;
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function beforeSave(HttpRequest $request)
     {
-        //
-    }
+        $coach_id = $request->coach_id;
+        $coachee_id = Auth::user()->id;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreRequestRequest $request)
-    {
-        //
-    }
+        $data = [
+            'coach_id' => $coach_id,
+            'coachee_id' => $coachee_id
+        ];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Request $request)
-    {
-        //
-    }
+        $requestJpa = Request::select()
+            ->where('coach_id', $coach_id)
+            ->where('coachee_id', $coachee_id)
+            ->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request)
-    {
-        //
-    }
+        if ($requestJpa && $requestJpa->status === 0) {
+            throw new Exception('Ya tienes una solicitud pendiente');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateRequestRequest $request, Request $request)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        //
+        return $data;
     }
 }

@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react"
 
-const SelectFormGroup = ({ col, label, eRef, required = false, children, dropdownParent, multiple = false, disabled = false, onChange = () => { },
+const SelectFormGroup = ({ id, col, label, eRef, required = false, children, dropdownParent, multiple = false, disabled = false, onChange = () => { },
   templateResult,
   templateSelection
 }) => {
 
   if (!eRef) eRef = useRef()
+  if (!id) id = `select-${crypto.randomUUID()}`
 
   useEffect(() => {
     $(eRef.current).select2({
@@ -17,10 +18,10 @@ const SelectFormGroup = ({ col, label, eRef, required = false, children, dropdow
   }, [dropdownParent])
 
   return <div className={`form-group ${col} mb-2`}>
-    <label htmlFor=''>
+    <label htmlFor={id} className="mb-1">
       {label} {(label && required) && <b className="text-danger">*</b>}
     </label>
-    <select ref={eRef} required={required} className='form-control' style={{ width: '100%' }} disabled={disabled} multiple={multiple}>
+    <select ref={eRef} id={id} required={required} className='form-control' style={{ width: '100%' }} disabled={disabled} multiple={multiple}>
       {children}
     </select>
   </div>

@@ -14,7 +14,7 @@ const SwitchFormGroup = ({ id, col, eRef, label, required = false, onChange, dis
 
   return <>
     <div className={`form-group ${col} mb-2`}>
-      <label htmlFor={id}>
+      <label htmlFor={id} className="mb-1">
         {label} {required && <b className="text-danger">*</b>}
       </label>
       <input ref={eRef} id={id} type="checkbox" data-plugin="switchery" required={required} disabled={disabled} defaultChecked={checked}/>

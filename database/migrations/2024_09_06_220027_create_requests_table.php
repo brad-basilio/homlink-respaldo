@@ -14,10 +14,13 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->char('coach_id', 36)->index();
-            $table->char('coachee_id', 36)->index();
+            $table->unsignedBigInteger('coach_id');
+            $table->unsignedBigInteger('coachee_id');
             $table->boolean('status')->default(false)->nullable();
             $table->timestamps();
+
+            $table->foreign('coach_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('coachee_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

@@ -17,15 +17,23 @@ use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionContro
 
 // Coach
 use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
+use App\Http\Controllers\Coach\RequestController as CoachRequestController;
+use App\Http\Controllers\Coach\AgreementController as CoachAgreementController;
+
+// Coachee
+use App\Http\Controllers\Coachee\RequestController as CoacheeRequestController;
+use App\Http\Controllers\Coachee\AgreementController as CoacheeAgreementController;
 
 // Public
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Coach\ScheduleController as CoachScheduleController;
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SubscriptionController;
 
@@ -57,6 +65,7 @@ Route::post('/resources/paginate', [ResourceController::class, 'paginate']);
 
 Route::post('/messages', [MessageController::class, 'save']);
 Route::post('/subscriptions', [SubscriptionController::class, 'save']);
+Route::post('/requests', [RequestController::class, 'save']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
@@ -130,6 +139,24 @@ Route::middleware('auth')->group(function () {
         Route::post('/resources/paginate', [CoachResourceController::class, 'paginate']);
         Route::patch('/resources/status', [CoachResourceController::class, 'status']);
         Route::delete('/resources/{id}', [CoachResourceController::class, 'delete']);
+
+        Route::post('/requests', [CoachRequestController::class, 'save']);
+        Route::post('/requests/paginate', [CoachRequestController::class, 'paginate']);
+        Route::delete('/requests/{id}', [CoachRequestController::class, 'delete']);
+
+        Route::post('/agreements', [CoachAgreementController::class, 'save']);
+        Route::post('/agreements/paginate', [CoachAgreementController::class, 'paginate']);
+        Route::patch('/agreements/status', [CoachAgreementController::class, 'status']);
+        Route::delete('/agreements/{id}', [CoachAgreementController::class, 'delete']);
+
+        Route::post('/schedules', [CoachScheduleController::class, 'save']);
+        Route::post('/schedules/paginate', [CoachScheduleController::class, 'paginate']);
+        Route::patch('/schedules/status', [CoachScheduleController::class, 'status']);
+        Route::delete('/schedules/{id}', [CoachScheduleController::class, 'delete']);
+    });
+
+    Route::middleware('can:Coachee')->prefix('coachee')->group(function () {
+        Route::post('/requests/paginate', [CoacheeRequestController::class, 'paginate']);
     });
 
     Route::post('/profile', [ProfileController::class, 'saveProfile']);
