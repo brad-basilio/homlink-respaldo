@@ -125,10 +125,6 @@ const Requests = () => {
           }
         });
       }}
-      onRefresh={({ summary }) => {
-        if (!summary?.contract_number) return
-        setContractNumber(summary.contract_number)
-      }}
       columns={[
         {
           dataField: 'id',
@@ -196,9 +192,8 @@ const Requests = () => {
                 className: 'btn btn-xs btn-soft-primary',
                 title: 'Redactar acuerdo',
                 icon: 'fa fas fa-file-signature',
-                onClick: () => onModalOpen({
-                  request_id: data.id,
-                  contract_number: contractNumber
+                onClick: () => setDataLoaded({
+                  request_id: data.id
                 })
               }))
               container.append(DxButton({
@@ -213,7 +208,7 @@ const Requests = () => {
           allowExporting: false
         }
       ]} />
-    <Modal dataLoaded={dataLoaded} setDataLoaded={setDataLoaded} onSave={() => $(gridRef.current).dxDataGrid('instance').refresh()}/>
+    <Modal dataLoaded={dataLoaded} setDataLoaded={setDataLoaded} onSave={() => $(gridRef.current).dxDataGrid('instance').refresh()} />
   </>
   )
 }

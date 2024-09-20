@@ -31,6 +31,6 @@
         "slick-carousel": "^1.8.1",
         "sode-extend-react": "^1.1.111",
         "sweetalert2": "^11.11.1",
-        "swiper": "^11.1.12"
+        "swiper": "^11.1.14"
     }
 }

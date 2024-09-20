@@ -2,35 +2,13 @@ import React from "react"
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Base = ({ children, summary, session, faqs }) => {
-  const menuItems = [
-    {
-      label: 'Inicio',
-      ref: '/'
-    },
-    {
-      label: 'Nosotros',
-      ref: '/about'
-    },
-    {
-      label: 'Coaches',
-      ref: '/coaches'
-    },
-    {
-      label: 'Blog',
-      ref: '/resources'
-    },
-    {
-      label: 'Eventos',
-      ref: '/events'
-    },
-  ];
+const Base = ({ children, summary, faqs }) => {
   return <>
-    <Header items={menuItems} session={session} />
-    <main>
+    <Header />
+    <main className="overflow-hidden">
       {children}
     </main>
-    <Footer items={menuItems} summary={summary} faqs={faqs} />
+    <Footer summary={summary} faqs={faqs} />
   </>
 }
 

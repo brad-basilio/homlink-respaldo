@@ -11,8 +11,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Net Coaching</title>
-  <link rel="shortcut icon" href="/assets/img/favicon.ico" type="image/png">
+  <title>{{ env('APP_NAME', 'Kaori') }}</title>
+  <link rel="shortcut icon" href="/assets/img/icon.svg" type="image/svg+xml">
 
   <link href="/lte/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
@@ -21,6 +21,7 @@
   <style>
     * {
       font-family: Poppins;
+      box-sizing: border-box;
     }
   </style>
 

@@ -1,8 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 import InputFormGroup from '@Adminto/form/InputFormGroup';
 import SelectFormGroup from '@Adminto/form/SelectFormGroup';
+import AdmintoModal from '../../../Components/Modal';
+import Swal from "sweetalert2";
+import AgreementsRest from "@Rest/Coach/AgreementsRest";
 
-const Modal = ({ dataLoaded, onSave = () => { } }) => {
+const agreementsRest = new AgreementsRest()
+
+const Modal = ({ dataLoaded, setDataLoaded, onSave = () => { } }) => {
 
   const modalRef = useRef()
 
@@ -27,6 +32,10 @@ const Modal = ({ dataLoaded, onSave = () => { } }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
+    $(modalRef.current).on('hidden.bs.modal', () => setDataLoaded(null))
+  }, [null])
+
+  useEffect(() => {
     if (!dataLoaded) return
 
     onModalOpen(dataLoaded)
@@ -36,9 +45,9 @@ const Modal = ({ dataLoaded, onSave = () => { } }) => {
     if (data?.id) setIsEditing(true)
     else setIsEditing(false)
 
-    idRef.current.value = data.id || null
+    idRef.current.value = data?.id || null
     requestIdRef.current.value = data?.request_id || null;
-    contractNumberRef.current.value = data?.contract_number || 'C001';
+    contractNumberRef.current.value = data?.contract_number ? 'C' + String(data?.contract_number).padStart(3, '0') : 'C-001';
     sessionsRef.current.value = data?.sessions || null;
     $(processTypeRef.current).val(data?.process_type || 'coaching').trigger('change');
     processTopicRef.current.value = data?.process_topic || null;
@@ -97,7 +106,8 @@ const Modal = ({ dataLoaded, onSave = () => { } }) => {
     $(modalRef.current).modal('hide')
   }
 
-  return <Modal modalRef={modalRef} title={isEditing ? 'Modificar acuerdo' : 'Redactar acuerdo'} onSubmit={onModalSubmit} size='full-width' isStatic>
+  return <AdmintoModal modalRef={modalRef} title={isEditing ? `Modificar acuerdo - C${String(dataLoaded?.contract_number).padStart(3, '0')}` : 'Redactar acuerdo'} onSubmit={onModalSubmit} size='full-width' isStatic>
+    <input ref={idRef} type="hidden" />
     <input ref={requestIdRef} type="hidden" />
     <div className="row">
       <h5 className="text-info">Datos del acuerdo</h5>
@@ -238,7 +248,7 @@ const Modal = ({ dataLoaded, onSave = () => { } }) => {
         </p>
       </div>
     </div>
-  </Modal>
+  </AdmintoModal>
 }
 
 export default Modal

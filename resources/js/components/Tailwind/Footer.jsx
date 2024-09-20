@@ -20,29 +20,18 @@ const Footer = ({ items, summary, faqs }) => {
       modalContent: (
         <div>
           <div className="flex flex-col gap-6 mt-4">
-            {faqs.map((item, index) => (
+            {/* {faqs.map((item, index) => (
               <FAQItem
-                key={index}
+              
                 question={item.name}
                 answer={item.description}
                 isOpen={index === 0}
               />
-            ))}
+            ))} */}
           </div>
         </div>
       ),
     },
-  ];
-
-  const contactInfo = [
-    { type: 'phone', value: '+51 948 681 429' },
-    { type: 'email', value: 'info@netcoaching.services' }
-  ];
-
-  const socialIcons = [
-    { icon: 'fab fa-facebook-f', label: 'Facebook' },
-    { icon: 'fab fa-twitter', label: 'Twitter' },
-    { icon: 'fab fa-instagram', label: 'Instagram' }
   ];
 
   const openModal = (index) => setModalOpen(index);
@@ -50,98 +39,58 @@ const Footer = ({ items, summary, faqs }) => {
 
   return (
     <>
-      <footer className="flex flex-col p-[5%] bg-cyan-900 max-md:px-5">
-        <div className="flex flex-wrap gap-10 justify-between items-center w-full text-gray-50 max-md:max-w-full">
-          <div className="flex flex-col text-sm leading-5 min-w-[240px] w-[326px] max-sm:m-auto">
-            <img
-              loading="lazy"
-              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a57e7c90e6798f74c1c4ffc59e953c34bd50720aa58f80aad6af19bc11334c86?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-              alt="Net Coaching Logo"
-              className="object-contain max-w-full aspect-[8.93] w-[214px] max-sm:mx-auto"
-            />
-            {summary && (
-              <p className="mt-4 max-sm:mx-auto text-center md:text-start">
-                {summary}
-              </p>
-            )}
+      <footer className=" p-[5%] pt-[calc(5%+64px)] bg-[#747D84] text-white">
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="flex flex-col gap-4 items-start justify-start">
+            <img src="/assets/img/logo.svg" alt="" className="h-8" />
+            <p className="text-sm max-w-md">
+              Donec ac sapien bibendum, fringilla erat ut, elementum est. Sed condimentum leo lacus, in maximus dui pulvinar vel.
+            </p>
           </div>
-          <div className="flex flex-wrap gap-10 justify-center md:justify-between items-start min-w-[240px] w-[560px] max-md:max-w-full max-sm:mx-auto">
-            <nav className="flex flex-col w-40 text-center md:text-start">
-              <h2 className="text-base font-bold leading-tight">Menú</h2>
-              <ul className="flex flex-col mt-4 w-full text-sm leading-snug">
-                {items.map((item, i) => (
-                  <li key={`item-${i}`} className={i > 0 ? 'mt-1' : ''}>
-                    <a href={item.ref} className="hover:underline">
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <section className="flex flex-col w-40 text-center md:text-start">
-              <h2 className="text-base font-bold leading-tight">Políticas</h2>
-              <ul className="flex flex-col mt-4 w-full text-sm leading-snug">
-                {policyItems.map((item, index) => (
-                  <li key={index} className={index > 0 ? 'mt-1' : ''}>
-                    <button
-                      className="hover:underline"
-                      onClick={() => openModal(index)}
-                    >
-                      {item.title}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
-            <section className="flex flex-col w-40 text-center md:text-start">
-              <h2 className="text-base font-bold leading-tight">Contacto</h2>
-              <ul className="flex flex-col mt-4 w-full text-sm leading-snug">
-                {contactInfo.map((info, index) => (
-                  <li key={index} className={index > 0 ? 'mt-1' : ''}>
-                    {info.type === 'phone' ? (
-                      <a
-                        href={`tel:${info.value.replace(/\s/g, '')}`}
-                        className="hover:underline"
-                      >
-                        {info.value}
-                      </a>
-                    ) : (
-                      <a href={`mailto:${info.value}`} className="hover:underline text-wrap">
-                        {info.value}
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="flex flex-col gap-2">
+              <a href="/">Inicio</a>
+              <a href="/courses">Cursos y Talleres</a>
+              <a href="/about">Nosotros</a>
+              <a href="/blogs">Blog</a>
+              <a href="/contact">Contacto</a>
+            </div>
+            <div className="flex flex-col gap-4 text-sm">
+              <div className="flex flex-col gap-2">
+                <p>+51 945 622 983</p>
+                <p>soporte@trasciende.com</p>
+                <p>De lunes a viernes - 10 am a 7pm</p>
+                <div>
+                  <p>Calle Nicanor Rocca de Vergallo</p>
+                  <p>493 Magdalena del Mar</p>
+                  <p>Lima - Perú</p>
+                </div>
+              </div>
+              <div className="flex flex-wrap">
+                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+              </div>
+            </div>
           </div>
-        </div>
-        <hr className="mt-10 w-full border-gray-50 max-md:max-w-full" />
-        <div className="flex flex-wrap gap-10 justify-between items-center mt-5 w-full max-md:max-w-full">
-          <p className="self-stretch my-auto text-sm font-medium leading-tight text-gray-50 max-sm:mx-auto text-center">
-            Copyright © {new Date().getFullYear()} <b>{Global.APP_NAME}</b>. Todos los derechos reservados. Powered by{' '}
-            <a href="//mundoweb.pe" className="font-bold cursor-pointer" target="_blank">
-              Mundo Web
-            </a>
+        </section>
+        <hr className="my-[5%]" />
+        <section className="flex flex-col lg:flex-row gap-4 justify-between text-center lg:text-start">
+          <p>
+            Copyright © 2023 Trasciende. Reservados todos los derechos.
           </p>
-          <div className="flex gap-4 items-start self-stretch my-auto max-sm:mx-auto">
-            {socialIcons.map((icon, index) => (
-              <a
-                href="#"
-                key={index}
-                className="focus:outline-none focus:ring-2 focus:ring-gray-50 rounded-full p-2"
-                aria-label={icon.label}
-              >
-                <i className={`${icon.icon} text-gray-50 w-6 h-6`} />
-              </a>
-            ))}
+          <div className="flex flex-col justify-center lg:justify-between md:flex-row gap-4">
+            <a>Terminos de servicios</a>
+            <a>Políticas de privacidad</a>
           </div>
-        </div>
+        </section>
       </footer>
 
       {policyItems.map((item, index) => (
         <ReactModal
-          key={index}
+
           isOpen={modalOpen === index}
           onRequestClose={closeModal}
           contentLabel={item.title}
