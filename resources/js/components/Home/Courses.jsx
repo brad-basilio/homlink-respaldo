@@ -40,7 +40,7 @@ const Courses = () => {
 
   const VerticalTitle = ({ title }) => (
     <div className="hidden md:flex flex-col items-center overflow-hidden h-full">
-      <div className="transform rotate-[270deg] origin-center whitespace-nowrap overflow-hidden text-ellipsis max-w-[300px]">
+      <div className="origin-center whitespace-nowrap overflow-hidden text-ellipsis max-w-[300px] [writing-mode:vertical-lr]">
         {title}
       </div>
     </div>
@@ -59,7 +59,7 @@ const Courses = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row w-full bg-[#F8B62C]">
+    <div className="flex flex-col md:flex-row w-full bg-[#F8B62C] snap-start h-max md:h-[calc(100vh-64px)]">
       <div className="flex flex-col md:flex-row w-full">
         {courses.map((course, index) => (
           <div
@@ -73,7 +73,7 @@ const Courses = () => {
             {titleContainer({ index, title: course.title })}
 
             {activeCourse === course.id && (
-              <div className="flex flex-col bg-white p-[5%] w-full transition-all duration-300">
+              <div className="flex flex-col bg-white p-[5%] w-full transition-all duration-300 overflow-x-auto">
                 <div className="text-lg font-semibold">
                   {index + 1}. {course.title}
                 </div>

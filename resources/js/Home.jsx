@@ -10,6 +10,7 @@ import Courses from './Components/Home/Courses';
 import MoreCourses from './Components/Home/MoreCourses';
 import Testimonies from './Components/Home/Testimonies';
 import News from './Components/Home/News';
+import Subscribe from './Components/Home/Subscribe';
 
 const Home = ({ sliders = [], benefits, resources, testimonies }) => {
   return (

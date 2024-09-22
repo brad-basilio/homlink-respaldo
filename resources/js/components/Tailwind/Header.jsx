@@ -9,7 +9,7 @@ const Header = ({ ...props }) => {
 
   return (
     <header className="fixed w-full z-40">
-      <div className={`flex justify-between items-center bg-gray-600 ${!isOpen && 'bg-opacity-80'} text-white ps-[5%] border-b`}>
+      <div className={`flex justify-between items-center bg-gray-600 ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white ps-[5%] border-b`}>
         <div className="py-4">
           <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8" />
         </div>

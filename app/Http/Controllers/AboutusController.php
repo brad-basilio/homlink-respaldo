@@ -14,16 +14,16 @@ class AboutusController extends BasicController
     public $reactView = 'About';
     public $reactRootView = 'public';
 
-    public function setReactViewProperties(Request $request)
-    {
-        $aboutus = Aboutus::all();
-        $indicators = Indicator::select(['name', 'symbol', 'description'])
-            ->where('status', true)
-            ->where('visible', true)
-            ->get();
-        return [
-            'aboutus' => $aboutus,
-            'indicators' => $indicators
-        ];
-    }
+    // public function setReactViewProperties(Request $request)
+    // {
+    //     $aboutus = Aboutus::all();
+    //     $indicators = Indicator::select(['name', 'symbol', 'description'])
+    //         ->where('status', true)
+    //         ->where('visible', true)
+    //         ->get();
+    //     return [
+    //         'aboutus' => $aboutus,
+    //         'indicators' => $indicators
+    //     ];
+    // }
 }

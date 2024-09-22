@@ -9,7 +9,6 @@ import SelectFormGroup from './Components/form/SelectFormGroup'
 import Modal from './Components/Modal'
 import HtmlContent from './Utils/HtmlContent'
 import Swal from 'sweetalert2'
-import logo from './Svg/logo.svg'
 
 const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos y condiciones', roles = [], specialties }) => {
 
@@ -101,7 +100,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
           <div className="col-md-8 col-lg-6 col-xl-4">
             <div className="text-center">
               <a href="/">
-                <img src={logo} alt="" className="mx-auto" style={{ height: '40px' }} />
+                <img src='/assets/img/logo.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
               </a>
               <p className="text-muted mt-2 mb-4">Bienvenido a Net Coaching</p>
             </div>

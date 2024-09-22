@@ -1,14 +1,14 @@
 import React, { useState } from "react"
-import Global from "../../Utils/Global";
 import ReactModal from "react-modal";
-import FAQItem from "../Coaches/FAQItem";
+
+import bgFooter from './images/footer.png'
 
 const Footer = ({ items, summary, faqs }) => {
   const [modalOpen, setModalOpen] = useState(null);
 
   const policyItems = [
     {
-      title: 'Políticas de uso',
+      title: 'Términos y condiciones',
       modalContent: <p>Contenido sobre las políticas de uso...</p>,
     },
     {
@@ -39,7 +39,22 @@ const Footer = ({ items, summary, faqs }) => {
 
   return (
     <>
-      <footer className=" p-[5%] pt-[calc(5%+64px)] bg-[#747D84] text-white">
+      <img src={bgFooter} alt="" className="aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1] object-cover object-center w-full" />
+      <footer className=" p-[5%] pt-[calc(5%+64px)] bg-[#747D84] text-white relative">
+        <form class="absolute left-1/4 right-[5%] bottom-[calc(100%-64px)] p-[5%] bg-amber-400 text-[color:var(--Woodsmoke-900,#2B384F)]">
+          <div className="grid md:grid-cols-2 items-end gap-4">
+            <h1 className="text-xl md:text-2xl">
+              Mantente siempre <b>Informado</b> con nuestra newsletter
+            </h1>
+            <div>
+              <input type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" />
+              <button className="mt-4 px-3 py-2 ">
+                Enviar
+                <i className="mdi mdi-arrow-top-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </form>
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="flex flex-col gap-4 items-start justify-start">
             <img src="/assets/img/logo.svg" alt="" className="h-8" />
@@ -82,8 +97,8 @@ const Footer = ({ items, summary, faqs }) => {
             Copyright © 2023 Trasciende. Reservados todos los derechos.
           </p>
           <div className="flex flex-col justify-center lg:justify-between md:flex-row gap-4">
-            <a>Terminos de servicios</a>
-            <a>Políticas de privacidad</a>
+            <button onClick={() => openModal(0)}>Terminos de servicios</button>
+            <button onClick={() => openModal(1)}>Políticas de privacidad</button>
           </div>
         </section>
       </footer>
