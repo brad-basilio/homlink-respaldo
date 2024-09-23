@@ -67,7 +67,7 @@ const Footer = ({ items, summary, faqs }) => {
               <a href="/">Inicio</a>
               <a href="/courses">Cursos y Talleres</a>
               <a href="/about">Nosotros</a>
-              <a href="/blogs">Blog</a>
+              <a href="/blog">Blog</a>
               <a href="/contact">Contacto</a>
             </div>
             <div className="flex flex-col gap-4 text-sm">

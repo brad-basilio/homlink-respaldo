@@ -15,18 +15,6 @@ use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 
-// Coach
-use App\Http\Controllers\Coach\HomeController as CoachHomeController;
-use App\Http\Controllers\Coach\ProfileController as CoachProfileController;
-use App\Http\Controllers\Coach\RequestController as CoachRequestController;
-use App\Http\Controllers\Coach\ResourceController as CoachResourceController;
-use App\Http\Controllers\Coach\AgreementController as CoachAgreementController;
-use App\Http\Controllers\Coach\ScheduleController as CoachScheduleController;
-
-// Coachee
-use App\Http\Controllers\Coachee\HomeController as CoacheeHomeController;
-use App\Http\Controllers\Coachee\RequestController as CoacheeRequestController;
-
 // Public 
 use App\Http\Controllers\CoachController;
 use App\Http\Controllers\EventController;
@@ -34,7 +22,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AboutusController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,13 +38,9 @@ use App\Http\Controllers\AboutusController;
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/resources', [ResourceController::class, 'reactView'])->name('Resources.jsx');
-Route::get('/resources/{resourceId}', [ResourceController::class, 'get'])->name('ResourceDetails.jsx');
-Route::get('/about', [AboutusController::class, 'reactView'])->name('About.jsx');
-Route::get('/coaches', [CoachController::class, 'reactView'])->name('Coaches.jsx');
-Route::get('/events', [EventController::class, 'reactView'])->name('Events.jsx');
+Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
+Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 
-Route::get('/profile/{coach}', [ProfileController::class, 'reactView'])->name('Profile.jsx');
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
 Route::get('/register', [AuthController::class, 'registerView'])->name('Register.jsx');
 Route::get('/confirm-email/{token}', [AuthController::class, 'confirmEmailView'])->name('ConfirmEmail.jsx');

@@ -1,10 +1,9 @@
-'use client'
-
 import React, { useState } from "react"
+import testimonieImage from './images/testimonieImage.png'
 
 const TestimonyImage = ({ image, aspectRatio, className, onClick, isActive }) => (
   <div
-    className={`relative flex ${className} cursor-pointer transition-transform duration-300 ${isActive ? 'scale-110' : 'hover:scale-105'}`}
+    className={`relative flex ${className} rounded-full cursor-pointer transition-transform duration-300 ${isActive ? 'scale-110 border-2 border-b-[#db2777] border-r-[#db2777]' : 'hover:scale-105'}`}
     onClick={onClick}
   >
     <img
@@ -22,7 +21,7 @@ const testimonies = [
     content: "Nunc dapibus hendrerit neque, tempor consequat nulla malesuada quis. Suspendisse pretium pharetra mi, a porttitor tellus varius vitae.",
     name: "Alejandra Neyra",
     location: "Lima - Perú",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/08dd36ede6e779ba0fa3354ea2dbdbde96e19c583251e93923393cf62cf4293c?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
+    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/0bc41c3afc761ff00a5050feba2f2a6263a1f7cf2c1dd8951a98411edea641f9?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
   },
   {
     id: 2,
@@ -40,15 +39,15 @@ const testimonies = [
   }
 ]
 
-export default function Testimonies() {
+const Testimonies=({background = 'amber-400'}) =>{
   const [currentTestimony, setCurrentTestimony] = useState(testimonies[0])
 
   return (
-    <section className="grid md:grid-cols-5 gap-8 bg-amber-400">
-      <div className="col-span-2 w-full flex items-center justify-center">
-        <div className="relative flex grow md:justify-start justify-center">
+    <section className={`grid md:grid-cols-5 gap-8 bg-${background}`}>
+      <div className="col-span-full md:col-span-2 w-full flex items-center justify-center order-last md:order-first">
+        <div className="relative flex grow justify-center md:justify-start p-[5%]">
           <img
-            src={'https://cdn.builder.io/api/v1/image/assets/TEMP/56c54c29ec1910aadaef0eb4659f772f18ec26150c604d776e293cbeb6d0d73a?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731'}
+            src={testimonieImage}
             alt="testimony"
             className="object-contain object-center w-full max-w-md"
             style={{ aspectRatio: 1.125 }}
@@ -56,7 +55,7 @@ export default function Testimonies() {
         </div>
       </div>
 
-      <div className="col-span-3 p-[5%] w-full flex flex-col items-center">
+      <div className="col-span-full md:col-span-3 p-[5%] w-full flex flex-col items-center order-first md:order-last">
         <div className="flex flex-col justify-center items-center max-w-full text-center md:text-left">
           <div className="text-2xl font-semibold tracking-tight leading-snug text-gray-900">
             Lo que dicen nuestros alumnos
@@ -67,7 +66,7 @@ export default function Testimonies() {
           </div>
         </div>
 
-        <div className="self-stretch mt-8 text-4xl font-medium tracking-tighter leading-10 text-center text-pink-600">
+        <div className="self-stretch mt-8 text-2xl md:text-4xl font-medium tracking-tighter text-center text-pink-600">
           {currentTestimony.content}
         </div>
 
@@ -94,3 +93,5 @@ export default function Testimonies() {
     </section>
   )
 }
+
+export default Testimonies

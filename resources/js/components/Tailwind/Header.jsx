@@ -5,10 +5,8 @@ const Header = ({ ...props }) => {
 
   const toggleMenu = () => setIsOpen(!isOpen)
 
-  const menuItems = ['Inicio', 'Cursos y Talleres', 'Nosotros', 'Blog', 'Contacto']
-
   return (
-    <header className="fixed w-full z-40">
+    <header className="fixed w-screen z-40">
       <div className={`flex justify-between items-center bg-gray-600 ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white ps-[5%] border-b`}>
         <div className="py-4">
           <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8" />
@@ -45,7 +43,7 @@ const Header = ({ ...props }) => {
               </a>
             </div>
             <div className="flex flex-col">
-              <a href="/blogs" className="text-lg font-bold mb-4 hover:text-[#F8B62C]">
+              <a href="/blog" className="text-lg font-bold mb-4 hover:text-[#F8B62C]">
                 Blog
               </a>
               <a href="/contact" className="text-lg font-bold mb-4 hover:text-[#F8B62C]">
