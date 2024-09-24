@@ -10,8 +10,8 @@ const Home = ({ session }) => {
         <div className='text-center'>
           <h1>Hola {session.name} {session.lastname}</h1>
           <div className='d-flex justify-content-center gap-2'>
-          <a href='/admin/coaches' className='btn btn-primary'>Coaches</a>
-          <a href='/admin/resources' className='btn btn-primary'>Recursos</a>
+          <a href='/admin/courses' className='btn btn-primary'>Ver cursos</a>
+          <a href='/admin/posts' className='btn btn-primary'>Ver posts</a>
           </div>
         </div>
       </main>

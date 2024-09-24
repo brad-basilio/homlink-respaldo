@@ -6,6 +6,8 @@ use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
 use App\Models\Faq;
+use App\Models\General;
+use App\Models\Social;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -61,18 +63,25 @@ class BasicController extends Controller
   public function reactView(Request $request)
   {
     $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
-    // $faqs = Faq::where('visible', true)->where('visible', true)->get();
+    $socials = Social::where('visible', true)->where('status', true)->get();
+    $generals = General::select(['correlative', 'description'])
+      ->whereIn('correlative', ['terms_conditions', 'privacy_policy', 'support_phone', 'support_email', 'address', 'opening_hours'])
+      ->get();
+
     if (Auth::check()) Auth::user()->getAllPermissions();
+
     $properties = [
       'session' => Auth::user(),
       'summary' => $summaryJpa->description,
-      // 'faqs' => $faqs,
+      'socials' => $socials,
+      'generals' => $generals,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
         'APP_DOMAIN' => env('APP_DOMAIN'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
+        'GMAPS_API_KEY' => env('GMAPS_API_KEY')
       ],
     ];
     foreach ($this->setReactViewProperties($request) as $key => $value) {

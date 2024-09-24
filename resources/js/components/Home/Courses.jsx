@@ -1,37 +1,7 @@
 import React, { useState } from "react";
 
-const Courses = () => {
-  const [activeCourse, setActiveCourse] = useState(0);
-
-  const courses = [
-    {
-      id: 0,
-      title: "Curso Nunc tempus, ipsum nec ",
-      sessions: "12 aulas 100% presencial",
-      certificate: "Físico y virtual PDF",
-      duration: "8h 23m",
-      description:
-        "Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce non nibh ac lacus laoreet iaculis vel eu metus. Fusce a magna nec diam blandit hendrerit.",
-    },
-    {
-      id: 1,
-      title: "Sed commodo turpis et",
-      sessions: "8 aulas online",
-      certificate: "Solo PDF",
-      duration: "6h",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.",
-    },
-    {
-      id: 2,
-      title: "Nunc suscipit leo orci, ac blandit enim aliquet non",
-      sessions: "10 aulas mixtas",
-      certificate: "Certificado físico",
-      duration: "7h",
-      description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-  ];
+const Courses = ({ courses }) => {
+  const [activeCourse, setActiveCourse] = useState(courses[0].id);
 
   const toggleCourse = (id) => {
     if (id === activeCourse) return;
@@ -50,7 +20,7 @@ const Courses = () => {
     <div
       className={`flex flex-col items-center justify-start p-4 w-full md:w-20 md:h-[300px]`}
     >
-      <p className="text-lg mb-2">{index + 1}.</p>
+      <p className="text-2xl mb-4 font-bold">{String(index + 1).padStart(2, '0')}.</p>
       <div className="md:hidden truncate max-w-full">
         <p className="text-xs font-bold truncate">{title}</p>
       </div>
@@ -59,38 +29,49 @@ const Courses = () => {
   );
 
   return (
-    <div className="flex flex-col md:flex-row w-full bg-[#F8B62C] snap-start h-max md:h-[calc(100vh-64px)]">
+    <div className="flex flex-col md:flex-row w-full bg-[#F8B62C] snap-start h-max">
       <div className="flex flex-col md:flex-row w-full">
         {courses.map((course, index) => (
           <div
             key={course.id}
             className={`md:flex cursor-pointer transition-all duration-300 ${activeCourse === course.id
-                ? "w-full"
-                : "w-full md:w-20 h-full md:h-auto"
+              ? "w-full"
+              : "w-full md:w-20 h-full md:h-auto"
               }`}
             onClick={() => toggleCourse(course.id)}
           >
-            {titleContainer({ index, title: course.title })}
+            {titleContainer({ index, title: course.name })}
 
             {activeCourse === course.id && (
-              <div className="flex flex-col bg-white p-[5%] w-full transition-all duration-300 overflow-x-auto">
-                <div className="text-lg font-semibold">
-                  {index + 1}. {course.title}
+              <div className="flex flex-col bg-white w-full transition-all duration-300 overflow-x-auto">
+                <div className="p-[5%]">
+
+                  <div className="text-lg font-semibold">
+                    <span className="font-bold">{String(index + 1).padStart(2, '0')}.</span> {course.name}
+                  </div>
+                  <div>
+                    <div className="flex flex-wrap gap-16 mx-auto my-8">
+                      <div className="flex flex-col space-y-1">
+                        <h3 className="text-xs font-medium text-pink-500">Sesiones</h3>
+                        <p className="text-base font-semibold text-blue-900">{course.sessions}</p>
+                      </div>
+                      <div className="flex flex-col space-y-1">
+                        <h3 className="text-xs font-medium text-pink-500">Certificado</h3>
+                        <p className="text-base font-semibold text-blue-900">{course.certificate}</p>
+                      </div>
+                      <div className="flex flex-col space-y-1">
+                        <h3 className="text-xs font-medium text-pink-500">Duración</h3>
+                        <p className="text-base font-semibold text-blue-900">{course.duration}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="mt-4 text-sm">{course.summary}</p>
                 </div>
-                <div className="mt-4 text-sm">
-                  <strong>Sesiones:</strong> {course.sessions}
-                </div>
-                <div className="mt-2 text-sm">
-                  <strong>Certificado:</strong> {course.certificate}
-                </div>
-                <div className="mt-2 text-sm">
-                  <strong>Duración:</strong> {course.duration}
-                </div>
-                <p className="mt-4 text-sm">{course.description}</p>
                 <img
                   className="aspect-[8/3] w-full object-cover object-center mt-4"
-                  src="https://placehold.co/600x400"
+                  src={`/api/courses/media/${course.image}`}
                   alt=""
+                  onError={e => e.target.src = `https://placehold.co/600x400?text=${course.name}`}
                 />
               </div>
             )}

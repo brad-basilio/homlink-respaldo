@@ -74,16 +74,7 @@ const Messages = () => {
             }} onClick={() => onModalOpen(data)}>
               {data.name}
             </span>)
-            // if (!container.seen) {
-            //   container.html(renderToString(<b>{data.name}</b>))
-            // } else {
-            //   container.text(data.name)
-            // }
           }
-        },
-        {
-          dataField: 'phone',
-          caption: 'Telefono',
         },
         {
           dataField: 'email',
@@ -138,10 +129,6 @@ const Messages = () => {
       <p>
         <b>Nombre</b>:
         <span className='ms-1'>{dataLoaded?.name}</span>
-      </p>
-      <p>
-        <b>Teléfono</b>:
-        <span className='ms-1'>{dataLoaded?.phone}</span>
       </p>
       <p>
         <b>Correo</b>:

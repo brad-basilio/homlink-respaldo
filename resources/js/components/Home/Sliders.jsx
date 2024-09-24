@@ -28,6 +28,7 @@ const Sliders = ({ sliders }) => {
         className="absolute top-0 left-0 w-full h-full object-cover"
         src={`/api/sliders/media/${slider.bg_image}`}
         alt={slider.name}
+        onError={e => e.target.src = `https://placehold.co/600x400?text=${slider.name}`}
       />
       <div className="absolute bottom-0 w-full bg-black bg-opacity-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 justify-between items-center p-[5%] md:py-[2.5%]">

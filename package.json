@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@inertiajs/react": "^1.1.0",
+        "@react-google-maps/api": "^2.19.3",
         "@tippyjs/react": "^4.2.6",
         "chart.js": "^4.4.3",
         "framer-motion": "^11.5.6",

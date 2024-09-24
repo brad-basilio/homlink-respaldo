@@ -11,7 +11,7 @@ const Menu = ({ session, hasRole }) => {
   return (<div className="left-side-menu">
     <div className="h-100" data-simplebar>
       <div className="user-box text-center">
-        <img src={`/api/profile/thumbnail/${session.uuid}?v=${new Date(session.updated_at).getTime()}`} alt={session.name} title={session.name}
+        <img src={`/api/admin/profile/thumbnail/${session.relative_id}?v=${new Date(session.updated_at).getTime()}`} alt={session.name} title={session.name}
           className="rounded-circle img-thumbnail avatar-md" style={{ backgroundColor: 'unset', borderColor: '#98a6ad', objectFit: 'cover', objectPosition: 'center' }} onError={e => e.target.src = `https://ui-avatars.com/api/?name=${session.name}+${session.lastname}&color=7F9CF5&background=EBF4FF`}/>
         <div className="dropdown">
           <a href="#" className="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"
@@ -73,26 +73,25 @@ const Menu = ({ session, hasRole }) => {
           {
             hasRole('Admin') && <>
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
-              <MenuItem href="/admin/coaches" icon='mdi mdi-account-group'>Coaches</MenuItem>
               <MenuItem href="/admin/posts" icon='mdi mdi-post'>Posts</MenuItem>
+              <MenuItem href="/admin/courses" icon='mdi mdi-bookshelf'>Cursos</MenuItem>
               <MenuItem href="/admin/messages" icon='mdi mdi-message-text'>Mensajes</MenuItem>
               <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Suscripciones</MenuItem>
               <li className="menu-title">Landing Page</li>
               <MenuItem href="/admin/about" icon='mdi mdi-briefcase'>Nosotros</MenuItem>
               <MenuItem href="/admin/indicators" icon='mdi mdi-dots-grid'>Indicadores</MenuItem>
               <MenuItem href="/admin/sliders" icon='mdi mdi-page-layout-body'>Sliders</MenuItem>
-              <MenuItem href="/admin/benefits" icon='mdi mdi-cube-outline'>Beneficios</MenuItem>
               <MenuItem href="/admin/strengths" icon='mdi mdi-arm-flex'>Fortalezas</MenuItem>
               <MenuItem href="/admin/testimonies" icon='mdi mdi-forum'>Testimonios</MenuItem>
-              <MenuItem href="/admin/events" icon='mdi mdi-calendar'>Programas y Eventos</MenuItem>
-              <MenuItem href="/admin/faqs" icon='mdi mdi-head-question'>FAQs</MenuItem>
-              <MenuItem href="/admin/categories" icon='mdi mdi-list-box'>Categorías</MenuItem>
+              <MenuItem href="/admin/categories" icon='mdi mdi-layers-outline'>Categorías</MenuItem>
+              <MenuItem href="/admin/socials" icon='mdi mdi-web'>Redes Sociales</MenuItem>
+              <li className="menu-title">Configuraciones</li>
+              <MenuItem href="/admin/generals" icon='mdi mdi-credit-card-settings'>Datos Generales</MenuItem>
+              <MenuItem href="/admin/profile" icon='mdi mdi-account-box'>Mi perfil</MenuItem>
+              <MenuItem href="/admin/account" icon='mdi mdi-account-key'>Mi cuenta</MenuItem>
             </>
           }
 
-          <li className="menu-title">Configuraciones</li>
-          <MenuItem href="/coach/profile" icon='mdi mdi-account-box'>Mi perfil</MenuItem>
-          <MenuItem href="/coach/bank-accounts" icon='mdi mdi-credit-card-settings'>Cuentas bancarias</MenuItem>
 
         </ul>
 

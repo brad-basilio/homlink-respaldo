@@ -2,13 +2,13 @@ import React from "react"
 import Header from "./Header";
 import Footer from "./Footer";
 
-const Base = ({ children, summary, faqs }) => {
+const Base = ({ children, summary, socials, generals }) => {
   return <>
-    <Header />
+    <Header socials={socials} generals={generals} />
     <main className="overflow-hidden min-h-[360px]">
       {children}
     </main>
-    <Footer summary={summary} faqs={faqs} />
+    <Footer summary={summary} socials={socials} generals={generals} />
   </>
 }
 

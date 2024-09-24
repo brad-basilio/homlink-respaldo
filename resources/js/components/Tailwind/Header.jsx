@@ -1,6 +1,7 @@
+import Tippy from "@tippyjs/react";
 import React, { useState } from "react"
 
-const Header = ({ ...props }) => {
+const Header = ({ socials, generals }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -51,21 +52,24 @@ const Header = ({ ...props }) => {
           </div>
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-x-8">
             <div>
-              <p className="mb-4 text-lg">+51 945 622 983</p>
-              <p className="mb-4 text-lg">soporte@trasciende.com</p>
-              <p className="mb-4 text-lg">De lunes a viernes - 10 am a 7pm</p>
+              <p className="mb-4 text-lg">{generals.find(x => x.correlative == 'support_phone')?.description}</p>
+              <p className="mb-4 text-lg">{generals.find(x => x.correlative == 'support_email')?.description}</p>
+              <p className="mb-4 text-lg">{generals.find(x => x.correlative == 'opening_hours')?.description}</p>
             </div>
             <div>
               <p className="mb-4">
-                Calle Nicanor Rocca de Vergallo
-                493 Magdalena del Mar
-                Lima -Perú
+                {generals.find(x => x.correlative == 'address')?.description}
               </p>
-              <div className="flex space-x-4 mt-4">
-                <i className="fab fa-instagram text-2xl"></i>
-                <i className="fab fa-facebook text-2xl"></i>
-                <i className="fab fa-linkedin text-2xl"></i>
-                <i className="fab fa-whatsapp text-2xl"></i>
+              <div className="flex gap-4 mt-4">
+                {
+                  socials.map((item, index) => {
+                    return <Tippy key={index} content={`Ver ${item.name} en ${item.description}`}>
+                      <a href={item.link} className="text-2xl">
+                        <i className={`fab ${item.icon}`}></i>
+                      </a>
+                    </Tippy>
+                  })
+                }
               </div>
             </div>
           </div>

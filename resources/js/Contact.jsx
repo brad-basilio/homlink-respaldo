@@ -5,9 +5,9 @@ import Base from "./Components/Tailwind/Base";
 import Address from "./Components/Contact/Address";
 import ContactForm from "./Components/Contact/ContactForm";
 
-const Contact = () => {
+const Contact = ({generals}) => {
   return <>
-    <Address />
+    <Address generals={generals} />
     <ContactForm />
   </>
 }

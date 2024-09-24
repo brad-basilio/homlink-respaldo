@@ -8,23 +8,24 @@ import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import FaqsRest from '@Rest/Admin/FaqsRest';
 import Swal from 'sweetalert2';
 import InputFormGroup from '../Components/form/InputFormGroup';
-import CategoriesRest from '../Actions/Admin/CategoriesRest';
+import SocialsRest from '../Actions/Admin/SocialsRest';
+import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
+import { renderToString } from 'react-dom/server';
 
-const faqsRest = new FaqsRest()
-const categoriesRest = new CategoriesRest()
+const socialsRest = new SocialsRest()
 
-const Socials = () => {
-
+const Socials = ({ icons }) => {
   const gridRef = useRef()
   const modalRef = useRef()
 
   // Form elements ref
   const idRef = useRef()
+  const iconRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
+  const linkRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -33,8 +34,10 @@ const Socials = () => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
+    $(iconRef.current).val(data?.icon ?? null);
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
+    linkRef.current.value = data?.link ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -44,11 +47,13 @@ const Socials = () => {
 
     const request = {
       id: idRef.current.value || undefined,
+      icon: iconRef.current.value,
       name: nameRef.current.value,
       description: descriptionRef.current.value,
+      ink: linkRef.current.value,
     }
 
-    const result = await categoriesRest.save(request)
+    const result = await socialsRest.save(request)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
@@ -56,7 +61,7 @@ const Socials = () => {
   }
 
   const onVisibleChange = async ({ id, value }) => {
-    const result = await categoriesRest.boolean({ id, field: 'visible', value })
+    const result = await socialsRest.boolean({ id, field: 'visible', value })
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
@@ -71,13 +76,13 @@ const Socials = () => {
       cancelButtonText: 'Cancelar'
     })
     if (!isConfirmed) return
-    const result = await categoriesRest.delete(id)
+    const result = await socialsRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   return (<>
-    <Table gridRef={gridRef} title='Redes Sociales' rest={categoriesRest}
+    <Table gridRef={gridRef} title='Redes Sociales' rest={socialsRest}
       toolBar={(container) => {
         container.unshift({
           widget: 'dxButton', location: 'after',
@@ -105,13 +110,21 @@ const Socials = () => {
         },
         {
           dataField: 'name',
-          caption: 'Categoría',
-          width: '30%',
+          caption: 'Usuario',
         },
         {
           dataField: 'description',
-          caption: 'Descripción',
-          width: '50%',
+          caption: 'Red Social',
+          cellTemplate: (container, { data }) => {
+            container.html(renderToString(<>
+            <i className={`fab ${data.icon} me-1`}></i>
+            {data.description}
+            </>))
+          }
+        },
+        {
+          dataField: 'link',
+          caption: 'Link',
         },
         {
           dataField: 'visible',
@@ -147,10 +160,16 @@ const Socials = () => {
         }
       ]} />
     <Modal modalRef={modalRef} title={isEditing ? 'Editar categoría' : 'Agregar categoría'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='faqs-container'>
+      <div className='row' id='socials-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Categoría' col='col-12' required />
-        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
+        <SelectFormGroup eRef={iconRef} label='Ícono' dropdownParent='#socials-container' >
+          {icons.filter(x => x.id.startsWith('fab')).map((icon, index) => {
+            return <option key={index} value={icon.id}>{icon.value}</option>
+          })}
+        </SelectFormGroup>
+        <InputFormGroup eRef={nameRef} label='Usuario' col='col-12' required />
+        <InputFormGroup eRef={descriptionRef} label='Red social' col='col-12' required />
+        <TextareaFormGroup eRef={linkRef} label='Enlace (https://...)' col='col-12' rows={2} required />
       </div>
     </Modal>
   </>

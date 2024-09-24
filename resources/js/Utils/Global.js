@@ -7,6 +7,7 @@ class Global {
   static APP_DOMAIN = null;
   static APP_NAME = null;
   static APP_CORRELATIVE = null;
+  static GMAPS_API_KEY = null;
 
   static set = (name, value) => {
     Global[name] = value;

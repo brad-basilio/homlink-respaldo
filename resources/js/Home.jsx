@@ -17,8 +17,8 @@ const Home = ({ sliders, indicators, weare, courses, testimonies, articles }) =>
       <Sliders sliders={sliders} />
       <Indicators indicators={indicators} />
       <Weare weare={weare} />
-      <Courses courses={courses} />
-      <MoreCourses />
+      <Courses courses={courses.slice(0, 3)} />
+      <MoreCourses courses={courses.slice(3, 7)} />
       <Testimonies testimonies={testimonies} />
       <Articles articles={articles} />
     </>

@@ -25,6 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
+        'relative_id',
         'name',
         'lastname',
         'email',
@@ -72,17 +73,9 @@ class User extends Authenticatable
         return $this->hasRole('Admin');
     }
 
-    public function person()
-    {
-        return $this->belongsTo(Person::class, 'person_id');
-    }
 
     public function getRole()
     {
         return $this->getRoleNames()[0];
-    }
-
-    public function specialties () {
-        return $this->hasManyThrough(Specialty::class, SpecialtiesByUser::class, 'user_id', 'id', 'id', 'specialty_id');
     }
 }

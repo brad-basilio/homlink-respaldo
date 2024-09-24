@@ -1,45 +1,23 @@
 import React from "react";
 
-const CourseCard = ({ title, description, imageUrl }) => (
+const CourseCard = ({ name, summary, image }) => (
   <div className="flex flex-col w-full mb-8">
-    <h3 className="text-xl md:text-2xl font-semibold tracking-tight line-clamp-2 text-ellipsis text-[#2B384F]">
-      {title}
+    <h3 className="text-xl md:text-2xl font-semibold tracking-tight line-clamp-2 h-16 text-ellipsis text-[#2B384F]">
+      {name}
     </h3>
-    <p className="mt-3 md:mt-5 text-sm line-clamp-3 text-ellipsis text-[#2E405E]">
-      {description}
+    <p className="mt-3 md:mt-5 text-sm line-clamp-3 text-ellipsis text-[#2E405E] h-[60px]">
+      {summary}
     </p>
     <img
-      src={imageUrl}
-      alt={title}
+      src={`/api/courses/media/${image}`}
+      alt={name}
       className="mt-6 md:mt-10 w-full object-cover aspect-[0.952]"
+      onError={e => e.target.src = `https://placehold.co/600x400?text=${name}`}
     />
   </div>
 );
 
-const MoreCourses = () => {
-  const courses = [
-    {
-      title: "Duis ut metus egestas felis pretium venenatis sit amet",
-      description: "Aenean eget luctus diam, rhoncus condimentum dui. Donec tellus ex, dapibus id libero eu, iaculis viverra lorem. Curabitur pretium volutpat elit id varius.",
-      imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/3f3dee07d62e6695e1e14fa0427ca56d209c9e0fa745b9f4350964583d4fdd03?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-    },
-    {
-      title: "Quisque tincidunt, nulla eget pharetra ultrices",
-      description: "Donec ac sapien bibendum, fringilla erat ut, elementum est. Sed condimentum leo lacus, in maximus dui pulvinar vel.",
-      imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/1388f1eb4687cac9997d539468c85ee6120d33bb502936938a7e98fa94d0d1cb?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-    },
-    {
-      title: "Proin dapibus in mauris ac imperdiet",
-      description: "Aenean eget luctus diam, rhoncus condimentum dui. Donec tellus ex, dapibus id libero eu, iaculis viverra lorem. Curabitur pretium volutpat elit id varius.",
-      imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/61826b646e733a932c2dfd6977604fb5f6930c3b88f983698e92481985afbb61?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-    },
-    {
-      title: "Vestibulum ante ipsum primis in faucibus",
-      description: "Nullam consequat purus vel lorem sagittis, at tincidunt nunc efficitur. Suspendisse potenti. Sed auctor, nunc nec ultricies lacinia, nunc nisl aliquam nisl.",
-      imageUrl: "https://cdn.builder.io/api/v1/image/assets/TEMP/3f3dee07d62e6695e1e14fa0427ca56d209c9e0fa745b9f4350964583d4fdd03?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-    }
-  ];
-
+const MoreCourses = ({ courses }) => {
   return (
     <div className="p-[5%] flex flex-col justify-center bg-white">
       <h2 className="text-3xl md:text-4xl font-medium tracking-tighter leading-tight">
@@ -54,14 +32,10 @@ const MoreCourses = () => {
         ))}
       </div>
 
-      <button className="flex gap-2 justify-center items-center self-center md:self-end px-6 py-4 mt-8 md:mt-14 text-base font-medium tracking-normal leading-none text-white uppercase rounded-3xl bg-[#2E405E] hover:bg-[#1E2A3E] transition-colors duration-300">
+      <a href="/courses" className="flex gap-2 justify-center items-center self-center md:self-end px-6 py-4 mt-8 md:mt-14 text-base font-medium tracking-normal leading-none text-white uppercase rounded-3xl bg-[#2E405E] hover:bg-[#1E2A3E] transition-colors duration-300">
         <span>ver todos los cursos y diplomados</span>
-        <img
-          src="https://cdn.builder.io/api/v1/image/assets/TEMP/643ea0f33a8db17dee52456c11a9c641829b71963f029874b2d0f5223c7c6c18?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-          alt="Arrow outward"
-          className="w-6 h-6"
-        />
-      </button>
+        <i className="mdi mdi-arrow-top-right"></i>
+      </a>
     </div>
   );
 };

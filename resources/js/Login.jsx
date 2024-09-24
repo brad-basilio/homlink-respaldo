@@ -93,14 +93,14 @@ const Login = ({ }) => {
                   </form>
                 </div>
               </div>
-              <div className="row mt-3">
+              {/* <div className="row mt-3">
                 <div className="col-12 text-center">
                   <p> <Link href="/recovery" className="text-muted ms-1"><i
                     className="fa fa-lock me-1"></i>Olvidaste tu contraseña?</Link></p>
                   <p className="text-muted">No tienes una cuenta aun? <Link href="/register"
                     className="text-white ms-1"><b>Registrate</b></Link></p>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

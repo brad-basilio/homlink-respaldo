@@ -5,10 +5,12 @@ import bgFooter from './images/footer.png'
 import SubscriptionsRest from "../../Actions/SubscriptionsRest";
 import Swal from "sweetalert2";
 import Global from "../../Utils/Global";
+import Tippy from "@tippyjs/react";
+import HtmlContent from "../../Utils/HtmlContent";
 
 const subscriptionsRest = new SubscriptionsRest();
 
-const Footer = ({ items, summary, faqs }) => {
+const Footer = ({ socials, summary, generals }) => {
 
   const emailRef = useRef()
 
@@ -18,28 +20,11 @@ const Footer = ({ items, summary, faqs }) => {
   const policyItems = [
     {
       title: 'Términos y condiciones',
-      modalContent: <p>Contenido sobre las políticas de uso...</p>,
+      modalContent: generals.find(x => x.correlative == 'terms_conditions')?.description ,
     },
     {
       title: 'Políticas de privacidad',
-      modalContent: <p>Contenido sobre las políticas de privacidad...</p>,
-    },
-    {
-      title: 'Preguntas frecuentes',
-      modalContent: (
-        <div>
-          <div className="flex flex-col gap-6 mt-4">
-            {/* {faqs.map((item, index) => (
-              <FAQItem
-              
-                question={item.name}
-                answer={item.description}
-                isOpen={index === 0}
-              />
-            ))} */}
-          </div>
-        </div>
-      ),
+      modalContent: generals.find(x => x.correlative == 'privacy_policy')?.description,
     },
   ];
 
@@ -80,7 +65,7 @@ const Footer = ({ items, summary, faqs }) => {
               Mantente siempre <b>Informado</b> con nuestra newsletter
             </h1>
             <div>
-              <input ref={emailRef} type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" disabled={saving} required/>
+              <input ref={emailRef} type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" disabled={saving} required />
               <button className="mt-4 px-3 py-2 " disabled={saving}>
                 Enviar
                 <i className="mdi mdi-arrow-top-right ms-1"></i>
@@ -105,21 +90,23 @@ const Footer = ({ items, summary, faqs }) => {
             </div>
             <div className="flex flex-col gap-4 text-sm">
               <div className="flex flex-col gap-2">
-                <p>+51 945 622 983</p>
-                <p>soporte@trasciende.com</p>
-                <p>De lunes a viernes - 10 am a 7pm</p>
+                <p>{generals.find(x => x.correlative == 'support_phone')?.description}</p>
+                <p>{generals.find(x => x.correlative == 'support_email')?.description}</p>
+                <p>{generals.find(x => x.correlative == 'opening_hours')?.description}</p>
                 <div>
-                  <p>Calle Nicanor Rocca de Vergallo</p>
-                  <p>493 Magdalena del Mar</p>
-                  <p>Lima - Perú</p>
+                  {generals.find(x => x.correlative == 'address')?.description}
                 </div>
               </div>
-              <div className="flex flex-wrap">
-                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
-                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
-                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
-                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
-                <a href="" className="me-2 text-4xl"><i className="fab fa-instagram"></i></a>
+              <div className="flex flex-wrap gap-4">
+                {
+                  socials.map((item, index) => {
+                    return <Tippy key={index} content={`Ver ${item.name} en ${item.description}`}>
+                      <a href={item.link} className="text-2xl">
+                        <i className={`fab ${item.icon}`}></i>
+                      </a>
+                    </Tippy>
+                  })
+                }
               </div>
             </div>
           </div>
@@ -138,7 +125,7 @@ const Footer = ({ items, summary, faqs }) => {
 
       {policyItems.map((item, index) => (
         <ReactModal
-
+          key={index}
           isOpen={modalOpen === index}
           onRequestClose={closeModal}
           contentLabel={item.title}
@@ -149,7 +136,7 @@ const Footer = ({ items, summary, faqs }) => {
             Cerrar
           </button>
           <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
-          <div>{item.modalContent}</div>
+          <HtmlContent className='prose' html={item.modalContent}/>
         </ReactModal>
       ))}
     </>
