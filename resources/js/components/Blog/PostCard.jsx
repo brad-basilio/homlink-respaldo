@@ -1,7 +1,7 @@
 import React from "react"
 import HtmlContent from "../../Utils/HtmlContent"
 
-const PostCard = ({ name, summary, category, image, post_date, firstImage = false }) => {
+const PostCard = ({id, name, summary, category, image, post_date, firstImage = false }) => {
   return <div className="flex flex-col self-stretch my-auto w-full mt-6">
     <div className={`flex flex-col gap-4 ${firstImage && 'flex-col-reverse'}`}>
       <div className="flex flex-col w-full">
@@ -17,7 +17,7 @@ const PostCard = ({ name, summary, category, image, post_date, firstImage = fals
       </div>
     </div>
     <div className="flex justify-between items-center mt-4 sm:mt-5 md:mt-6 w-full gap-4">
-      <a href="" className="flex gap-2 items-center text-sm sm:text-base font-semibold leading-snug text-[#2B384F]">
+      <a href={`/blog/${id}`} className="flex gap-2 items-center text-sm sm:text-base font-semibold leading-snug text-[#2B384F]">
         <span>{category?.name || 'Sin categoría'}</span>
         <i className="mdi mdi-arrow-top-right"></i>
       </a>

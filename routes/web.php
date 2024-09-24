@@ -26,6 +26,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemDetailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ use App\Http\Controllers\ItemController;
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/courses', [ItemController::class, 'reactView'])->name('Courses.jsx');
+Route::get('/courses/{courseId}', [ItemDetailController::class, 'reactView'])->name('CourseDetails.jsx');
 Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');

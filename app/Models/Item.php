@@ -33,4 +33,9 @@ class Item extends Model
         'visible',
         'status',
     ];
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
 }

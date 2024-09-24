@@ -12,6 +12,7 @@ class ItemController extends BasicController
     public $model = Item::class;
     public $reactView = 'Courses';
     public $reactRootView = 'public';
+    public $prefix4filter = 'items';
 
     public function setReactViewProperties(Request $request)
     {
@@ -26,5 +27,14 @@ class ItemController extends BasicController
         return [
             'categories' => $categories
         ];
+    }
+
+    public function setPaginationInstance(string $model)
+    {
+        return $model::select(['items.*'])
+            ->with('category')
+            ->join('categories AS category', 'category.id', 'items.category_id')
+            ->where('items.status', true)
+            ->where('category.status', true);
     }
 }
