@@ -1,43 +1,50 @@
 import React from "react"
 
-const Filter = () => {
+const Filter = ({ categories, filter, setFilter }) => {
   return <section className="p-[5%]">
-    <div class="flex flex-wrap gap-10 justify-between items-center w-full">
-      <div
-        class="self-stretch my-auto text-4xl not-italic tracking-tighter leading-10 text-[color:var(--Cerise-600,#EC008C)] w-[559px] max-md:max-w-full"
-      >
-        <span class=" text-slate-700">Todas las </span>{" "}
-        <span class="font-bold text-pink-600">Publicaciones</span>
-        <br />
-        <span class=" text-slate-700">de nuestra newletter</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-8 items-center">
+      <div className="col-span-1 md:col-span-2 lg:col-span-4 text-center lg:text-left">
+        <h2 className="text-3xl md:text-4xl tracking-tighter">
+          <span className="text-slate-700">Todas las </span>
+          <span className="font-bold text-pink-600">Publicaciones</span>
+          <br />
+          <span className="text-slate-700">de nuestra newsletter</span>
+        </h2>
       </div>
-      <div class="flex gap-2 justify-center items-center self-stretch px-6 py-4 my-auto text-base tracking-normal leading-none uppercase rounded-3xl bg-slate-100 text-[color:var(--Woodsmoke-950,#07090D)] max-md:px-5">
-        <div class="self-stretch my-auto not-italic">
-          Ordenar por Mes
-        </div>
-        <i className="mdi mdi-swap-vertical"></i>
-      </div>
-    </div>
-    <div className="flex flex-wrap gap-10 justify-between items-center mt-[5%] w-full text-base font-medium">
-      <label htmlFor="txt-search" className="px-6 py-4 flex justify-between gap-4 items-center self-stretch my-auto rounded-3xl bg-slate-100  text-neutral-800 ">
-        <i className="fa fa-search"></i>
+
+      <button className="col-span-1 md:col-span-1 lg:col-span-2 px-6 py-4 text-base uppercase rounded-3xl bg-slate-100 text-slate-900 flex items-center justify-center transition-all" onClick={() => setFilter(old => ({
+        ...old,
+        sortOrder: old.sortOrder == 'desc' ? 'asc' : 'desc'
+      }))}>
+        Ordenar por Mes
+        <i className={`ml-2 mdi ${filter.sortOrder == 'asc' ? 'mdi-arrow-down' : 'mdi-arrow-up'}`}></i>
+      </button>
+
+      <label htmlFor="txt-search" className="col-span-1 md:col-span-1 lg:col-span-2 px-6 py-4 flex items-center rounded-3xl bg-slate-100">
+        <i className="fas fa-search text-slate-500 mr-2"></i>
         <input
           id="txt-search"
           type="text"
           placeholder="Buscar publicación"
-          className=" flex-1 bg-transparent border-none outline-none text-neutral-800"
+          className="w-full bg-transparent border-none outline-none text-slate-800"
+          onChange={(e) => setFilter(old => ({
+            ...old,
+            search: e.target.value
+          }))}
         />
       </label>
-      <div className="flex flex-wrap gap-3 items-center self-stretch my-auto uppercase min-w-[240px] text-slate-900 max-md:max-w-full">
-        <button className="flex justify-center items-center px-6 py-4 my-auto rounded-3xl bg-slate-100 max-md:px-5">
-          Categoría 1
-        </button>
-        <button className="flex justify-center items-center px-6 py-4 my-auto rounded-3xl bg-[color:var(--Woodsmoke-600,#405D89)] text-slate-100 max-md:px-5">
-          Categoría 2
-        </button>
-        <button className="flex justify-center items-center px-6 py-4 my-auto rounded-3xl bg-slate-100 max-md:px-5">
-          Categoría 3
-        </button>
+
+      <div className="col-span-1 md:col-span-2 lg:col-span-4 flex flex-wrap gap-3 justify-center lg:justify-start">
+        {
+          categories.map((item, index) => {
+            return <button key={index} className={`transition-all px-6 py-4 rounded-3xl ${item.id == filter.category ? 'bg-blue-800 text-slate-100' : 'bg-slate-100 text-slate-900'} uppercase`} onClick={() => setFilter(old => ({
+              ...old,
+              category: item.id == filter.category ? null : item.id
+            }))}>
+              {item.name}
+            </button>
+          })
+        }
       </div>
     </div>
   </section>

@@ -1,0 +1,1 @@
+var i=Object.defineProperty;var o=(e,s,a)=>s in e?i(e,s,{enumerable:!0,configurable:!0,writable:!0,value:a}):e[s]=a;var t=(e,s,a)=>(o(e,typeof s!="symbol"?s+"":s,a),a);import{B as r}from"./Results-9uBmKgby.js";class p extends r{constructor(){super(...arguments);t(this,"path","admin/categories")}}export{p as C};

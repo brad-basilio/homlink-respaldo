@@ -2,34 +2,30 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
-    //relación uno a muchos inversa
+    public $incrementing = false;
+    protected $keyType = 'string';
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = [
+        'name',
+        'summary',
+        'category_id',
+        'description',
+        'tags',
+        'image',
+        'post_date',
+        'status',
+    ];
 
-    public function category(){
-        return $this->belongsTo(Category::class);
-    }
-
-
-    //Relación muchos a muchos
-
-    public function tags(){
-        return $this->belongsToMany(Tag::class);
-    }
-
-    //Relación uno a una polimorfica
-
-    public function image(){
-        return $this->morphOne(Image::class, 'imageable');
-
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'category_id');
     }
 }

@@ -16,15 +16,18 @@ class TestimonySeeder extends Seeder
         $testimonies = [
             [
                 'name' => 'Leslie Alexander',
-                'country' => 'South Africa'
+                'country' => 'South Africa',
+                'description' => 'Gracias a los cursos de Transciende, *he aprendido a superar mis barreras y a alcanzar metas* que antes parecían imposibles. El acompañamiento ha sido fundamental en mi desarrollo tanto personal como profesional.'
             ],
             [
                 'name' => 'Guy Hawkins',
-                'country' => 'UK'
+                'country' => 'UK',
+                'description' => 'La experiencia en Transciende ha sido transformadora. No solo he aprendido nuevas habilidades, sino que también *he descubierto mi verdadero potencial*. Los talleres me dieron herramientas prácticas que utilizo a diario.'
             ],
             [
                 'name' => 'Wade Warren',
-                'country' => 'Australia'
+                'country' => 'Australia',
+                'description' => 'Transciende me ayudó a mejorar mi enfoque y encontrar claridad en mi vida profesional. *Los cursos están llenos de contenido valioso* que realmente marca una diferencia.'
             ],
         ];
 
@@ -33,7 +36,7 @@ class TestimonySeeder extends Seeder
                 ['name' => $testimony['name']],
                 [
                     'country' => $testimony['country'],
-                    'description' => 'Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed que, Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed.'
+                    'description' => $testimony['description']
                 ]
             );
         }

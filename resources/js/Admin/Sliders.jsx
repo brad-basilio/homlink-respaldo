@@ -8,7 +8,6 @@ import InputFormGroup from '../Components/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
-import { renderToString } from 'react-dom/server';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import SlidersRest from '../Actions/Admin/SlidersRest';
 import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
@@ -25,9 +24,9 @@ const Sliders = () => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const imageRef = useRef()
-  const primarybtnTextRef = useRef()
-  const primarybtnUrlRef = useRef()
+  const bgImageRef = useRef()
+  const buttonTextRef = useRef()
+  const buttonLinkRef = useRef()
   const secondarybtnTextRef = useRef()
   const secondarybtnUrlRef = useRef()
 
@@ -40,11 +39,10 @@ const Sliders = () => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    imageRef.image.src = `/api/sliders/media/${data?.image}`
-    primarybtnTextRef.current.value = data?.primarybtn_text ?? ''
-    primarybtnUrlRef.current.value = data?.primarybtn_url ?? ''
-    secondarybtnTextRef.current.value = data?.secondarybtn_text
-    secondarybtnUrlRef.current.value = data?.secondarybtn_url
+    bgImageRef.current.value = null
+    bgImageRef.image.src = `/api/sliders/media/${data?.bg_image}`
+    buttonTextRef.current.value = data?.button_text ?? ''
+    buttonLinkRef.current.value = data?.button_link ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -52,24 +50,21 @@ const Sliders = () => {
   const onModalSubmit = async (e) => {
     e.preventDefault()
 
-    const file = imageRef.current.files[0]
-    const { full, type } = await File.compress(file, { square: false })
-
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
       description: descriptionRef.current.value,
-      primarybtn_text: primarybtnTextRef.current.value,
-      primarybtn_url: primarybtnUrlRef.current.value,
-      secondarybtn_text: secondarybtnTextRef.current.value,
-      secondarybtn_url: secondarybtnUrlRef.current.value,
+      button_text: buttonTextRef.current.value,
+      button_link: buttonLinkRef.current.value,
     }
 
     const formData = new FormData()
     for (const key in request) {
       formData.append(key, request[key])
     }
-    formData.append('image', await File.fromURL(`data:${type};base64,${full}`))
+
+    const file = bgImageRef.current.files[0]
+    formData.append('bg_image', file)
 
     const result = await slidersRest.save(formData)
     if (!result) return
@@ -138,11 +133,11 @@ const Sliders = () => {
           width: '75%',
         },
         {
-          dataField: 'image',
+          dataField: 'bg_image',
           caption: 'Imagen',
           width: '90px',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/sliders/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
+            ReactAppend(container, <img src={`/api/sliders/media/${data.bg_image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
           }
         },
         {
@@ -178,6 +173,7 @@ const Sliders = () => {
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
+            container.css('text-overflow', 'unset')
             container.append(DxButton({
               className: 'btn btn-xs btn-soft-primary',
               title: 'Editar',
@@ -198,13 +194,11 @@ const Sliders = () => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar slider' : 'Agregar slider'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='sliders-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-12' />
+        <ImageFormGroup eRef={bgImageRef} label='Imagen' col='col-12' />
         <TextareaFormGroup eRef={nameRef} label='Titulo' col='col-12' rows={2} required />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
-        <InputFormGroup eRef={primarybtnTextRef} label='Texto botón primario' col='col-sm-6' required />
-        <InputFormGroup eRef={primarybtnUrlRef} label='URL botón primario' col='col-sm-6' required />
-        <InputFormGroup eRef={secondarybtnTextRef} label='Texto botón secundario' col='col-sm-6' />
-        <InputFormGroup eRef={secondarybtnUrlRef} label='URL botón secundario' col='col-sm-6' />
+        <InputFormGroup eRef={buttonTextRef} label='Texto botón primario' col='col-sm-6' required />
+        <InputFormGroup eRef={buttonLinkRef} label='URL botón primario' col='col-sm-6' required />
       </div>
     </Modal>
   </>

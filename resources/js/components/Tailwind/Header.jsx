@@ -26,9 +26,7 @@ const Header = ({ ...props }) => {
         </div>
       </div>
       <div
-        className={`fixed inset-0 bg-gray-600 text-white z-40 transform ${isOpen ? 'translate-y-16' : '-translate-y-full'
-          } transition-transform duration-300 ease-in-out border-t p-[5%] h-[calc(100vh-64px)] md:h-max overflow-y-auto`}
-      >
+        className={`fixed inset-0 bg-gray-600 text-white z-40 transform ${isOpen ? 'translate-y-16' : '-translate-y-full'} transition-transform duration-300 ease-in-out border-t p-[5%] h-[calc(100vh-64px)] md:h-max overflow-y-auto`}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-x-8">
             <div className="flex flex-col">

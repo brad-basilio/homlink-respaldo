@@ -18,7 +18,7 @@ const QuillFormGroup = ({ col, label, eRef, value, required = false, rows = 3, t
     <label htmlFor='' className="mb-1">
       {label} {required && <b className="text-danger">*</b>}
     </label>
-    <div ref={quillRef} style={{height}}></div>
+    <div ref={quillRef} style={{ minHeight: height, fieldSizing: 'content', maxHeight: `calc(${height}*3)`, overflowY: 'auto' }}></div>
     <input ref={eRef} type="hidden" required={required} rows={rows} />
   </div>
 }

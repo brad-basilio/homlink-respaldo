@@ -1,10 +1,19 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import ReactModal from "react-modal";
 
 import bgFooter from './images/footer.png'
+import SubscriptionsRest from "../../Actions/SubscriptionsRest";
+import Swal from "sweetalert2";
+import Global from "../../Utils/Global";
+
+const subscriptionsRest = new SubscriptionsRest();
 
 const Footer = ({ items, summary, faqs }) => {
+
+  const emailRef = useRef()
+
   const [modalOpen, setModalOpen] = useState(null);
+  const [saving, setSaving] = useState()
 
   const policyItems = [
     {
@@ -37,18 +46,42 @@ const Footer = ({ items, summary, faqs }) => {
   const openModal = (index) => setModalOpen(index);
   const closeModal = () => setModalOpen(null);
 
+
+  const onEmailSubmit = async (e) => {
+    e.preventDefault()
+    setSaving(true)
+
+    const request = {
+      email: emailRef.current.value
+    }
+    const result = await subscriptionsRest.save(request);
+    setSaving(false)
+
+    if (!result) return
+
+    Swal.fire({
+      title: '¡Éxito!',
+      text: `Te has suscrito correctamente al blog de ${Global.APP_NAME}.`,
+      icon: 'success',
+      confirmButtonText: 'Ok'
+    })
+
+    emailRef.current.value = null
+  }
+
   return (
     <>
       <img src={bgFooter} alt="" className="aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1] object-cover object-center w-full" />
       <footer className=" p-[5%] pt-[calc(5%+64px)] bg-[#747D84] text-white relative">
-        <form class="absolute left-1/4 right-[5%] bottom-[calc(100%-64px)] p-[5%] bg-amber-400 text-[color:var(--Woodsmoke-900,#2B384F)]">
+        <form className="absolute left-1/4 right-[5%] bottom-[calc(100%-64px)] p-[5%] bg-amber-400 text-[color:var(--Woodsmoke-900,#2B384F)]"
+          onSubmit={onEmailSubmit}>
           <div className="grid md:grid-cols-2 items-end gap-4">
             <h1 className="text-xl md:text-2xl">
               Mantente siempre <b>Informado</b> con nuestra newsletter
             </h1>
             <div>
-              <input type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" />
-              <button className="mt-4 px-3 py-2 ">
+              <input ref={emailRef} type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" disabled={saving} required/>
+              <button className="mt-4 px-3 py-2 " disabled={saving}>
                 Enviar
                 <i className="mdi mdi-arrow-top-right ms-1"></i>
               </button>
@@ -59,7 +92,7 @@ const Footer = ({ items, summary, faqs }) => {
           <div className="flex flex-col gap-4 items-start justify-start">
             <img src="/assets/img/logo.svg" alt="" className="h-8" />
             <p className="text-sm max-w-md">
-              Donec ac sapien bibendum, fringilla erat ut, elementum est. Sed condimentum leo lacus, in maximus dui pulvinar vel.
+              {summary}
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

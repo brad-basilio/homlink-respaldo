@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use SoDe\Extend\JSON;
+use SoDe\Extend\Text;
 
 class dxDataGrid
 {
-    static function filter(Builder $builder, array $dxFilter, bool $flat = true)
+    static function filter(Builder $builder, array $dxFilter, bool $flat = true, $prefix4undotted = null, $ignorePrefix = [])
     {
         if (\count($dxFilter) == 0) return;
         $hasArray = JSON::find($dxFilter, function ($x) {
@@ -16,8 +17,8 @@ class dxDataGrid
         if ($hasArray) {
             if ($dxFilter[0] == '!') {
                 $filtering = $dxFilter[1];
-                $builder->whereNot(function ($query) use ($filtering, $flat) {
-                    dxDataGrid::filter($query, $filtering, $flat);
+                $builder->whereNot(function ($query) use ($filtering, $flat, $prefix4undotted, $ignorePrefix) {
+                    dxDataGrid::filter($query, $filtering, $flat, $prefix4undotted, $ignorePrefix);
                 });
             } else {
                 $isAnd = JSON::find($dxFilter, function ($x) {
@@ -28,18 +29,23 @@ class dxDataGrid
                 });
                 foreach ($dxFilter as $filtering) {
                     if ($isAnd) {
-                        $builder->where(function ($query) use ($filtering, $flat) {
-                            dxDataGrid::filter($query, $filtering, $flat);
+                        $builder->where(function ($query) use ($filtering, $flat, $prefix4undotted, $ignorePrefix) {
+                            dxDataGrid::filter($query, $filtering, $flat, $prefix4undotted, $ignorePrefix);
                         });
                     } else {
-                        $builder->orWhere(function ($query) use ($filtering, $flat) {
-                            dxDataGrid::filter($query, $filtering, $flat);
+                        $builder->orWhere(function ($query) use ($filtering, $flat, $prefix4undotted, $ignorePrefix) {
+                            dxDataGrid::filter($query, $filtering, $flat, $prefix4undotted, $ignorePrefix);
                         });
                     }
                 }
             }
         } else {
             $selector = $dxFilter[0];
+            if (!str_contains($selector, '.') && $prefix4undotted && !Text::startsWith($selector, '!') && !in_array($selector, $ignorePrefix)) {
+                $selector = "{$prefix4undotted}.{$selector}";
+            } else {
+                $selector = str_replace('!', '', $selector);
+            }
             if ($flat) $selector = \str_replace('.', '__', $dxFilter[0]);
             switch ($dxFilter[1]) {
                 case 'contains':

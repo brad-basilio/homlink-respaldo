@@ -7,12 +7,15 @@ import Testimonies from './Components/Home/Testimonies';
 import History from './Components/About/History';
 import Strengths from './Components/About/Strengths';
 
-function About() {
+const About = ({ testimonies, summary, aboutus, strengths }) => {
+  const history = aboutus.find(x => x.name == 'Historia')?.description ?? 'Sin historia';
+  const strength = aboutus.find(x => x.name == 'Fortaleza')?.description ?? 'Sin descripción';
+
   return <>
-    <AboutHeader />
-    <History />
-    <Testimonies background='[#f5f7fa]' />
-    <Strengths />
+    <AboutHeader summary={summary} />
+    <History history={history}/>
+    <Testimonies testimonies={testimonies} background='gray-100' />
+    <Strengths strength={strength} strengths={strengths} />
   </>
 }
 

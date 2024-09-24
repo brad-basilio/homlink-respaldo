@@ -14,9 +14,9 @@ class IndicatorSeeder extends Seeder
     public function run(): void
     {
         $indicators = [
-            ['symbol' => 'k', 'name' => '10', 'description' => '10K de usuarios activos'],
-            ['symbol' => '+', 'name' => '20', 'description' => 'Neque porro quisquam est voluptatem'],
-            ['symbol' => '+', 'name' => '10', 'description' => 'Neque porro quisquam est voluptatem'],
+            ['symbol' => 'k', 'name' => '42', 'description' => 'Profesionales capacitados'],
+            ['symbol' => '%', 'name' => '99', 'description' => 'Retorno de inversión'],
+            ['symbol' => '+', 'name' => '36', 'description' => 'Empresas que confían'],
         ];
 
         Indicator::where('status', true)->delete();

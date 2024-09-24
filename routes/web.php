@@ -23,7 +23,15 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\StrengthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +48,8 @@ use App\Http\Controllers\BlogController;
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
+Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');
+Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.jsx');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
 Route::get('/register', [AuthController::class, 'registerView'])->name('Register.jsx');
@@ -52,7 +62,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/', fn() => redirect('Admin/Home.jsx'));
     Route::get('/home', [AdminHomeController::class, 'reactView'])->name('Admin/Home.jsx');
     Route::get('/coaches', [AdminCoachController::class, 'reactView'])->name('Admin/Coaches.jsx');
-    Route::get('/resources', [AdminResourceController::class, 'reactView'])->name('Admin/Resources.jsx');
+    Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');
     Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
 
@@ -63,29 +73,8 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/testimonies', [AdminTestimonyController::class, 'reactView'])->name('Admin/Testimonies.jsx');
     Route::get('/events', [AdminEventController::class, 'reactView'])->name('Admin/Events.jsx');
     Route::get('/faqs', [AdminFaqController::class, 'reactView'])->name('Admin/Faqs.jsx');
+    Route::get('/categories', [AdminCategoryController::class, 'reactView'])->name('Admin/Categories.jsx');
+    Route::get('/strengths', [AdminStrengthController::class, 'reactView'])->name('Admin/Strengths.jsx');
 
     Route::get('/profile', [CoachProfileController::class, 'reactView'])->name('Admin/Profile.jsx');
-});
-
-// Coach routes
-Route::middleware(['can:Coach', 'auth'])->prefix('coach')->group(function () {
-    Route::get('/', fn() => redirect(route('Coach/Home.jsx')));
-    Route::get('/home', [CoachHomeController::class, 'reactView'])->name('Coach/Home.jsx');
-    Route::get('/resources', [CoachResourceController::class, 'reactView'])->name('Coach/Resources.jsx');
-    Route::get('/requests', [CoachRequestController::class, 'reactView'])->name('Coach/Requests.jsx');
-
-    Route::get('/agreements', [CoachAgreementController::class, 'reactView'])->name('Coach/Agreements.jsx');
-    Route::get('/schedules', [CoachScheduleController::class, 'reactView'])->name('Coach/Schedules.jsx');
-
-    // Route::get('/coaches', [CoachController::class, 'reactView'])->name('Coach/Home.jsx');
-    // Route::get('/businesses', [BusinessController::class, 'reactView'])->name('Businesses.jsx');
-    // Route::get('/services', [ServiceController::class, 'reactView'])->name('Services.jsx');
-
-    Route::get('/profile', [CoachProfileController::class, 'reactView'])->name('Coach/Profile.jsx');
-});
-
-// Coachee routes
-Route::middleware(['can:Coachee', 'auth'])->prefix('coachee')->group(function () {
-    Route::get('/home', [CoacheeHomeController::class, 'reactView'])->name('Coachee/Home.jsx');
-    Route::get('/requests', [CoacheeRequestController::class, 'reactView'])->name('Coachee/Requests.jsx');
 });

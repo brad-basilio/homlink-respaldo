@@ -6,13 +6,14 @@ import AuthRest from './actions/AuthRest'
 import { Link } from '@inertiajs/react'
 import Swal from 'sweetalert2'
 import { GET } from 'sode-extend-react'
+import Global from './Utils/Global'
 
-const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
+const Login = ({ }) => {
 
-  document.title = 'Login | NetCoaching'
+  document.title = `Login | ${Global.APP_NAME}`
 
   const jsEncrypt = new JSEncrypt()
-  jsEncrypt.setPublicKey(PUBLIC_RSA_KEY)
+  jsEncrypt.setPublicKey(Global.PUBLIC_RSA_KEY)
 
   // Estados
   const [loading, setLoading] = useState(true)
@@ -42,8 +43,7 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
 
     const request = {
       email: jsEncrypt.encrypt(email),
-      password: jsEncrypt.encrypt(password),
-      _token: token
+      password: jsEncrypt.encrypt(password)
     }
     const result = await AuthRest.login(request)
 
@@ -63,7 +63,7 @@ const Login = ({ PUBLIC_RSA_KEY, token, APP_DOMAIN, APP_PROTOCOL }) => {
                 <Link href="/">
                   <img src='/assets/img/logo.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
                 </Link>
-                <p className="text-muted mt-2 mb-4">Bienvenido a Net Coaching</p>
+                <p className="text-muted mt-2 mb-4">Bienvenido a {Global.APP_NAME}</p>
               </div>
               <div className="card">
                 <div className="card-body p-4">

@@ -25,6 +25,7 @@ class BasicController extends Controller
   public $reactView = 'Home';
   public $reactRootView = 'admin';
   public $imageFields = [];
+  public $prefix4filter = null;
 
   public function media(Request $request, string $uuid)
   {
@@ -47,7 +48,8 @@ class BasicController extends Controller
     return $model::select();
   }
 
-  public function setPaginationSummary(string $model) {
+  public function setPaginationSummary(string $model)
+  {
     return [];
   }
 
@@ -58,16 +60,16 @@ class BasicController extends Controller
 
   public function reactView(Request $request)
   {
-    // $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
+    $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
     // $faqs = Faq::where('visible', true)->where('visible', true)->get();
     if (Auth::check()) Auth::user()->getAllPermissions();
     $properties = [
       'session' => Auth::user(),
-      // 'summary' => $summaryJpa->description,
+      'summary' => $summaryJpa->description,
       // 'faqs' => $faqs,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
-        'APP_NAME' => env('APP_NAME'),
+        'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
         'APP_DOMAIN' => env('APP_DOMAIN'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
@@ -95,13 +97,13 @@ class BasicController extends Controller
           ->groupBy($selector);
       }
 
-      // if (!Auth::user()->can('general.root')) {
-      //   $instance->whereNotNull('status');
-      // }
+      if (Auth::check()) {
+        $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');
+      }
 
       if ($request->filter) {
         $instance->where(function ($query) use ($request) {
-          dxDataGrid::filter($query, $request->filter ?? [], false);
+          dxDataGrid::filter($query, $request->filter ?? [], false, $this->prefix4filter);
         });
       }
 
@@ -116,7 +118,7 @@ class BasicController extends Controller
             );
           }
         } else {
-          $instance->orderBy('id', 'DESC');
+          $instance->orderBy($this->prefix4filter ? $this->prefix4filter . '.id' : 'id', 'DESC');
         }
       }
 
@@ -124,7 +126,11 @@ class BasicController extends Controller
       if ($request->requireTotalCount) {
         $instance4count = clone $instance;
         $instance4count->getQuery()->groups = null;
-        $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(id)) as total_count'))->value('total_count');
+        if ($this->prefix4filter) {
+          $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(' . $this->prefix4filter . '.id)) as total_count'))->value('total_count');
+        } else {
+          $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(id)) as total_count'))->value('total_count');
+        }
       }
 
       $jpas = $request->isLoadingAll

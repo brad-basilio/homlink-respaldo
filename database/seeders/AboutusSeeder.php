@@ -15,12 +15,20 @@ class AboutusSeeder extends Seeder
     {
         $aboutuses = [
             [
+                'name' => 'Somos',
+                'description' => 'Somos Trasciende,... Sed commodo turpis et lorem fermentum, pulvinar laoreet arcu condimentum. *Nam pharetra, magna a sollicitudin dictum*, urna felis euismod nulla, sit amet rhoncus sapien enim in lectus. Fusce tristique a nunc vel dapibus. In hac habitasse platea dictumst.',
+            ],
+            [
                 'name' => 'Resúmen',
-                'description' => 'NetCoaching te acompaña en cada paso hacia el éxito personal y profesional, ofreciéndote herramientas efectivas para el desarrollo y el crecimiento a través de sesiones personalizadas con expertos.',
+                'description' => 'En Transciende, te guiamos en el camino hacia el crecimiento personal y profesional. Nuestro enfoque en el desarrollo integral te permitirá alcanzar tus metas, superar tus límites y transformar tu vida en la mejor versión de ti mismo.',
             ],
             [
                 'name' => 'Historia',
-                'description' => 'Las memorias de nuestra CEO y Fundadora narran un viaje de pasión y visión. En 2017, después de completar un programa de formación como coach, nació su deseo de contribuir al bienestar humano, fusionando las nuevas habilidades adquiridas con su experiencia como Ingeniera de Sistemas. A pesar de que continuó trabajando en su especialidad, la intuición llegó en 2019: era hora de comenzar. Convocó a coaches de Latinoamérica y comenzó a explorar sus necesidades y las del mercado. A pesar de los desafíos provocados por la pandemia, en 2020 logró desarrollar la primera versión de la Plataforma. En 2021, con la pandemia generando una creciente necesidad de formación en liderazgo y habilidades blandas en las empresas, fue entonces que nuestra estrategia evolucionó. Concretándose la primera experiencia corporativa, Laive.',
+                'description' => 'Trasciende nació hace diez años con la misión de ayudar a las personas a descubrir su máximo potencial. Un pequeño grupo de profesionales creó programas de coaching enfocados en el desarrollo personal y profesional, integrando habilidades técnicas y autoconocimiento para transformar vidas.\nHoy, Trasciende es un referente en crecimiento integral, habiendo impactado a miles de personas a través de sus cursos y talleres. Su enfoque sigue siendo ayudar a cada individuo a alcanzar su mejor versión, expandiéndose a plataformas digitales para llegar a un público global.',
+            ],
+            [
+                'name' => 'Fortaleza',
+                'description' => 'En Trasciende, estamos comprometidos en inspirar hábitos saludables tanto física como mentalmente, empoderando a las personas para que adopten prácticas que mejoren su bienestar. Creemos que pequeños cambios consistentes pueden llevar a grandes transformaciones, y nos enfocamos en brindar las herramientas necesarias para fomentar el crecimiento y la resiliencia en cada etapa de la vida.'
             ],
             [
                 'name' => 'Misión',
@@ -33,7 +41,7 @@ class AboutusSeeder extends Seeder
         ];
 
         foreach ($aboutuses as $aboutus) {
-            Aboutus::updateOrCreate(['name' => $aboutus['name']],[
+            Aboutus::updateOrCreate(['name' => $aboutus['name']], [
                 'description' => $aboutus['description']
             ]);
         }

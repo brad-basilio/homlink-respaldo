@@ -93,10 +93,14 @@ class AuthController extends Controller
     }
 
     return Inertia::render('Login', [
-      'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
-      'APP_DOMAIN' => env('APP_DOMAIN'),
-      'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
-      'message' => $message ?? null
+      'message' => $message ?? null,
+      'global' => [
+        'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
+        'APP_NAME' => env('APP_NAME', 'Trasciende'),
+        'APP_URL' => env('APP_URL'),
+        'APP_DOMAIN' => env('APP_DOMAIN'),
+        'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
+      ],
     ])->rootView('auth');
   }
 

@@ -5,22 +5,22 @@ import CreateReactScript from './Utils/CreateReactScript';
 
 import Sliders from './Components/Home/Sliders';
 import Indicators from './Components/Home/Indicators';
-import Aboutus from './Components/Home/Aboutus';
+import Weare from './Components/Home/Weare';
 import Courses from './Components/Home/Courses';
 import MoreCourses from './Components/Home/MoreCourses';
 import Testimonies from './Components/Home/Testimonies';
-import News from './Components/Home/News';
+import Articles from './Components/Home/Articles';
 
-const Home = ({}) => {
+const Home = ({ sliders, indicators, weare, courses, testimonies, articles }) => {
   return (
     <>
-      <Sliders />
-      <Indicators />
-      <Aboutus />
-      <Courses />
+      <Sliders sliders={sliders} />
+      <Indicators indicators={indicators} />
+      <Weare weare={weare} />
+      <Courses courses={courses} />
       <MoreCourses />
-      <Testimonies />
-      <News />
+      <Testimonies testimonies={testimonies} />
+      <Articles articles={articles} />
     </>
   );
 };

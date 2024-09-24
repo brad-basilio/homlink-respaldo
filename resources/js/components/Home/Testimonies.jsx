@@ -1,55 +1,18 @@
 import React, { useState } from "react"
 import testimonieImage from './images/testimonieImage.png'
+import HtmlContent from "../../Utils/HtmlContent"
 
-const TestimonyImage = ({ image, aspectRatio, className, onClick, isActive }) => (
-  <div
-    className={`relative flex ${className} rounded-full cursor-pointer transition-transform duration-300 ${isActive ? 'scale-110 border-2 border-b-[#db2777] border-r-[#db2777]' : 'hover:scale-105'}`}
-    onClick={onClick}
-  >
-    <img
-      src={image}
-      alt="testimony"
-      className="object-cover object-center rounded-full"
-      style={{ aspectRatio }}
-    />
-  </div>
-)
-
-const testimonies = [
-  {
-    id: 1,
-    content: "Nunc dapibus hendrerit neque, tempor consequat nulla malesuada quis. Suspendisse pretium pharetra mi, a porttitor tellus varius vitae.",
-    name: "Alejandra Neyra",
-    location: "Lima - Perú",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/0bc41c3afc761ff00a5050feba2f2a6263a1f7cf2c1dd8951a98411edea641f9?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-  },
-  {
-    id: 2,
-    content: "Vivamus auctor, magna in feugiat condimentum, odio nisi faucibus nunc, eu tincidunt nulla nunc a dolor. Sed euismod, nunc ut aliquam tincidunt.",
-    name: "Carlos Rodríguez",
-    location: "Bogotá - Colombia",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/02ace234f9a6f645de29ed2cae12a6b580a053c63d28a5a4a295c18779d67b6e?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-  },
-  {
-    id: 3,
-    content: "Fusce vehicula dolor arcu, sit amet blandit dolor mollis nec. Donec viverra eleifend lacus, vitae ullamcorper metus. Sed sollicitudin ipsum quis nunc sollicitudin ultrices.",
-    name: "María Gómez",
-    location: "Buenos Aires - Argentina",
-    image: "https://cdn.builder.io/api/v1/image/assets/TEMP/0bc41c3afc761ff00a5050feba2f2a6263a1f7cf2c1dd8951a98411edea641f9?placeholderIfAbsent=true&apiKey=5cee531c8862493aa6f0e0854aa64731"
-  }
-]
-
-const Testimonies=({background = 'amber-400'}) =>{
+const Testimonies = ({ testimonies, background = 'amber-400' }) => {
   const [currentTestimony, setCurrentTestimony] = useState(testimonies[0])
 
   return (
     <section className={`grid md:grid-cols-5 gap-8 bg-${background}`}>
       <div className="col-span-full md:col-span-2 w-full flex items-center justify-center order-last md:order-first">
-        <div className="relative flex grow justify-center md:justify-start p-[5%]">
+        <div className="relative flex grow justify-center md:justify-start p-[5%] pb-0 md:p-0 md:px-[5%]  md:h-[calc(100%+64px)] md:-mt-16">
           <img
             src={testimonieImage}
             alt="testimony"
-            className="object-contain object-center w-full max-w-md"
+            className="object-contain md:object-cover object-center w-full max-w-md"
             style={{ aspectRatio: 1.125 }}
           />
         </div>
@@ -60,32 +23,36 @@ const Testimonies=({background = 'amber-400'}) =>{
           <div className="text-2xl font-semibold tracking-tight leading-snug text-gray-900">
             Lo que dicen nuestros alumnos
           </div>
-          <div className="mt-2 text-sm leading-5 text-center md:text-left text-gray-700">
-            Sed condimentum leo lacus, in maximus dui pulvinar vel. Curabitur
-            est leo, ac, feugiat commodo orci. Phasellus sed sapien urna.
+          <div className="mt-2 text-sm leading-5 text-center text-gray-700">
+            Conoce las experiencias de quienes han confiado en Trasciende. Sus testimonios muestran cómo lograron superar retos y alcanzar sus metas con nuestra guía.
           </div>
         </div>
 
-        <div className="self-stretch mt-8 text-2xl md:text-4xl font-medium tracking-tighter text-center text-pink-600">
-          {currentTestimony.content}
+        <div className="self-stretch mt-8 text-xl md:text-2xl font-medium tracking-tighter text-center text-gray-900">
+          <HtmlContent html={currentTestimony.description.replace(/\*(.*?)\*/g, '<span class="font-bold text-pink-500">$1</span>')} />
         </div>
 
         <div className="flex flex-col mt-8 w-64 max-w-full items-center md:items-start">
-          <div className="text-base font-semibold leading-6 text-center text-gray-900">
+          <div className="text-base font-semibold leading-6 text-center w-full text-gray-900">
             <span className="text-pink-600">{currentTestimony.name},</span>{" "}
-            <span>{currentTestimony.location}</span>
+            <span>{currentTestimony.country}</span>
           </div>
 
           <div className="flex gap-8 items-center mt-16 max-md:mt-10">
-            {testimonies.map((testimony) => (
-              <TestimonyImage
-                key={testimony.id}
-                image={testimony.image}
-                aspectRatio={1}
-                className={`w-[${testimony.id === currentTestimony.id ? '72px' : '60px'}]`}
+            {testimonies.map((testimony, index) => (
+              <div
+                key={index}
+                className={`relative flex ${`w-[${testimony.id === currentTestimony.id ? '72px' : '60px'}]`} rounded-full cursor-pointer transition-transform duration-300 ${testimony.id === currentTestimony.id ? 'scale-110 border-4 border-b-[#db2777] border-r-[#db2777]' : 'hover:scale-105'}`}
                 onClick={() => setCurrentTestimony(testimony)}
-                isActive={testimony.id === currentTestimony.id}
-              />
+              >
+                <img
+                  src={`/api/testimonies/media/${testimony.image}`}
+                  alt="testimony"
+                  className="object-cover object-center rounded-full p-1"
+                  style={{ aspectRatio: 1 }}
+                  onError={e => e.target.src = `https://ui-avatars.com/api/?name=${testimony.name}&color=7F9CF5&background=EBF4FF`}
+                />
+              </div>
             ))}
           </div>
         </div>
