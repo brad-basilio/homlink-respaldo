@@ -55,8 +55,8 @@ const Courses = ({ icons }) => {
     descriptionRef.editor.root.innerHTML = data?.description ?? ''
     sessionsRef.current.value = data?.sessions ?? 0
     typeRef.current.value = data?.type ?? 'Presencial'
-    certificateRef.current.checked = data?.certificate ?? false
-    sessionDurationRef.current.value = data?.duration ?? ''
+    certificateRef.current.value = data?.certificate ?? false
+    sessionDurationRef.current.value = data?.session_duration ?? ''
     longDurationRef.current.value = data?.long_duration ?? ''
     priceRef.current.value = data?.price ?? ''
     discountRef.current.value = data?.discount ?? ''
@@ -81,7 +81,7 @@ const Courses = ({ icons }) => {
       description: descriptionRef.current.value,
       sessions: sessionsRef.current.value,
       type: typeRef.current.value,
-      certificate: certificateRef.current.checked,
+      certificate: certificateRef.current.value,
       session_duration: sessionDurationRef.current.value,
       long_duration: longDurationRef.current.value,
       price: priceRef.current.value,
