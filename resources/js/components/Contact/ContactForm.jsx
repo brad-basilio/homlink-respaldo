@@ -60,6 +60,7 @@ const ContactForm = ({ }) => {
                 placeholder="Nombre completo"
                 className="flex-grow p-4 outline-none w-full"
                 disabled={sending}
+                required
               />
             </div>
             <div className="flex items-center bg-white rounded w-full">
@@ -70,6 +71,7 @@ const ContactForm = ({ }) => {
                 placeholder="Correo electrónico"
                 className="flex-grow p-4 outline-none w-full"
                 disabled={sending}
+                required
               />
             </div>
           </div>
@@ -81,6 +83,7 @@ const ContactForm = ({ }) => {
               placeholder="Asunto"
               className="flex-grow p-4 outline-none w-full"
               disabled={sending}
+              required
             />
           </div>
           <div className="flex items-start bg-white rounded w-full">
@@ -91,10 +94,11 @@ const ContactForm = ({ }) => {
               className="flex-grow p-4 outline-none w-full min-h-[100px]"
               style={{ fieldSizing: 'content' }}
               disabled={sending}
+              required
             />
           </div>
         </div>
-        <button className="flex items-center justify-center gap-2 mt-8 px-6 py-4 text-base font-medium text-white uppercase rounded-full bg-[#2E405E] hover:bg-[#3A516E] transition-colors duration-300 w-max" disabled={sending}>
+        <button className="flex items-center justify-center gap-2 mt-8 px-6 py-4 text-base font-medium text-white uppercase rounded-full bg-[#2E405E] hover:bg-[#3A516E] transition-colors duration-300 w-max disabled:cursor-not-allowed disabled:opacity-50" disabled={sending}>
           <span>enviar mensaje</span>
           <ArrowUpRight size={20} />
         </button>

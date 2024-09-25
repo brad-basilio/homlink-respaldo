@@ -30,8 +30,9 @@ const Courses = ({ icons }) => {
   const summaryRef = useRef()
   const descriptionRef = useRef()
   const sessionsRef = useRef()
+  const typeRef = useRef()
   const certificateRef = useRef()
-  const durationRef = useRef()
+  const sessionDurationRef = useRef()
   const longDurationRef = useRef()
   const priceRef = useRef()
   const discountRef = useRef()
@@ -52,9 +53,10 @@ const Courses = ({ icons }) => {
     nameRef.current.value = data?.name ?? ''
     summaryRef.current.value = data?.summary ?? ''
     descriptionRef.editor.root.innerHTML = data?.description ?? ''
-    sessionsRef.current.value = data?.sessions ?? ''
+    sessionsRef.current.value = data?.sessions ?? 0
+    typeRef.current.value = data?.type ?? 'Presencial'
     certificateRef.current.checked = data?.certificate ?? false
-    durationRef.current.value = data?.duration ?? ''
+    sessionDurationRef.current.value = data?.duration ?? ''
     longDurationRef.current.value = data?.long_duration ?? ''
     priceRef.current.value = data?.price ?? ''
     discountRef.current.value = data?.discount ?? ''
@@ -78,8 +80,9 @@ const Courses = ({ icons }) => {
       summary: summaryRef.current.value,
       description: descriptionRef.current.value,
       sessions: sessionsRef.current.value,
+      type: typeRef.current.value,
       certificate: certificateRef.current.checked,
-      duration: durationRef.current.value,
+      session_duration: sessionDurationRef.current.value,
       long_duration: longDurationRef.current.value,
       price: priceRef.current.value,
       discount: discountRef.current.value,
@@ -160,7 +163,7 @@ const Courses = ({ icons }) => {
   const iconTemplate = (e) => {
     return $(renderToString(<span>
       <i className={`${e.id} me-1`}></i>
-      {e.text}
+      {/* {e.text} */}
     </span>))
   }
 
@@ -240,6 +243,7 @@ const Courses = ({ icons }) => {
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
+            container.css('text-overflow', 'unset')
             container.append(DxButton({
               className: 'btn btn-xs btn-soft-primary',
               title: 'Editar',
@@ -258,7 +262,7 @@ const Courses = ({ icons }) => {
         }
       ]} />
     <Modal modalRef={modalRef} title={isEditing ? 'Editar curso' : 'Agregar curso'} onSubmit={onModalSubmit} size='lg'>
-      <div className='row'>
+      <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
         <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-6' aspect={1} />
         <div className="col-md-6">
@@ -266,9 +270,14 @@ const Courses = ({ icons }) => {
           <TextareaFormGroup eRef={summaryRef} label='Resumen' rows={3} required />
           <div className="row">
             <InputFormGroup eRef={priceRef} label='Precio' type='number' col='col-sm-6' step='0.01' required />
-            <InputFormGroup eRef={discountRef} label='Descuento' type='number' col='col-sm-6' step='0.01' required/>
-            <InputFormGroup eRef={sessionsRef} label='Sesiones' placeholder='12 aulas 100% presencial' col='col-md-8' required />
-            <InputFormGroup eRef={durationRef} label='Duración' placeholder='8h 30m' col='col-md-4' required/>
+            <InputFormGroup eRef={discountRef} label='Descuento' type='number' col='col-sm-6' step='0.01' required />
+            <InputFormGroup eRef={sessionsRef} label='Sesiones' type='number' placeholder='12' col='col-md-3' required />
+            <SelectFormGroup eRef={typeRef} label='Tipo' col='col-md-5' dropdownParent='#principal-container'>
+              <option>Presencial</option>
+              <option>Semipresencial</option>
+              <option>Virtual</option>
+            </SelectFormGroup>
+            <InputFormGroup eRef={sessionDurationRef} label='Duración' type='number' placeholder='8h 30m' col='col-md-4' required />
           </div>
         </div>
       </div>

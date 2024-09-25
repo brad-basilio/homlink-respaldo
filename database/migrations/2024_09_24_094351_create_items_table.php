@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('name');
             $table->longText('summary')->nullable();
             $table->longText('description')->nullable();
-            $table->string('sessions')->nullable();
+            $table->integer('sessions')->nullable();
+            $table->string('type')->default('Presencial');
             $table->string('certificate')->default('Físico y Virtual PDF');
-            $table->string('duration')->nullable();
-            $table->string('long_duration')->nullable();
+            $table->integer('session_duration')->nullable();
+            $table->integer('long_duration')->nullable();
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('discount', 10, 2)->default(0.00)->nullable();
             $table->integer('students')->default(0);

@@ -9,9 +9,9 @@ import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
-import InputFormGroup from '../Components/form/InputFormGroup';
+import InputFormGroup from '@Adminto/form/InputFormGroup';
 import SocialsRest from '../Actions/Admin/SocialsRest';
-import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
+import SelectFormGroup from '@Adminto/form/SelectFormGroup';
 import { renderToString } from 'react-dom/server';
 
 const socialsRest = new SocialsRest()
@@ -79,6 +79,13 @@ const Socials = ({ icons }) => {
     const result = await socialsRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
+  const iconTemplate = (e) => {
+    return $(renderToString(<span>
+      <i className={`${e.id} me-1`}></i>
+      {e.text.replace('fab fa-', '')}
+    </span>))
   }
 
   return (<>
@@ -162,13 +169,13 @@ const Socials = ({ icons }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar categoría' : 'Agregar categoría'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='socials-container'>
         <input ref={idRef} type='hidden' />
-        <SelectFormGroup eRef={iconRef} label='Ícono' dropdownParent='#socials-container' >
+        <SelectFormGroup eRef={iconRef} label='Ícono' dropdownParent='#socials-container' col='col-md-4' templateResult={iconTemplate} templateSelection={iconTemplate} >
           {icons.filter(x => x.id.startsWith('fab')).map((icon, index) => {
             return <option key={index} value={icon.id}>{icon.value}</option>
           })}
         </SelectFormGroup>
+        <InputFormGroup eRef={descriptionRef} label='Red social' col='col-md-8' required />
         <InputFormGroup eRef={nameRef} label='Usuario' col='col-12' required />
-        <InputFormGroup eRef={descriptionRef} label='Red social' col='col-12' required />
         <TextareaFormGroup eRef={linkRef} label='Enlace (https://...)' col='col-12' rows={2} required />
       </div>
     </Modal>
