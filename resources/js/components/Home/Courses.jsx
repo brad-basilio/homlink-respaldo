@@ -50,10 +50,10 @@ const Courses = ({ courses }) => {
                     <span className="font-bold">{String(index + 1).padStart(2, '0')}.</span> {course.name}
                   </div>
                   <div>
-                    <div className="flex flex-wrap gap-16 mx-auto my-8">
+                    <div className="flex flex-wrap gap-16 mx-auto w-full pt-[5%]">
                       <div className="flex flex-col space-y-1">
                         <h3 className="text-xs font-medium text-pink-500">Sesiones</h3>
-                        <p className="text-base font-semibold text-blue-900">{course.sessions}</p>
+                        <p className="text-base font-semibold text-blue-900">{course.sessions} sesiones - {course.type}</p>
                       </div>
                       <div className="flex flex-col space-y-1">
                         <h3 className="text-xs font-medium text-pink-500">Certificado</h3>
@@ -61,7 +61,7 @@ const Courses = ({ courses }) => {
                       </div>
                       <div className="flex flex-col space-y-1">
                         <h3 className="text-xs font-medium text-pink-500">Duración</h3>
-                        <p className="text-base font-semibold text-blue-900">{course.duration}</p>
+                        <p className="text-base font-semibold text-blue-900">{course.session_duration}h por sesión</p>
                       </div>
                     </div>
                   </div>
