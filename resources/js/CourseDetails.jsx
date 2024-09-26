@@ -160,12 +160,12 @@ const CourseDetails = ({ course }) => {
           </div>
 
           <div className="flex flex-col justify-center py-6 w-full text-base font-medium tracking-normal leading-none text-white uppercase">
-            <div className="flex gap-2 justify-center items-center px-6 py-4 w-full rounded-3xl bg-[#2E405E] max-md:px-5">
+          <a href={`//wa.me/51945622983?text=${encodeURIComponent(`Estoy interesado en este curso:\n- ${course.name}`)}`} className="flex gap-2 justify-center items-center px-6 py-4 w-full rounded-3xl bg-[#2E405E] max-md:px-5">
               <div className="self-stretch my-auto">
                 Quiero el curso
               </div>
               <i className="mdi mdi-arrow-top-right"></i>
-            </div>
+            </a>
           </div>
 
           <div className="flex flex-col pt-6 pb-8 w-full">
