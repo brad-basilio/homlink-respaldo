@@ -92,16 +92,15 @@ class BasicController extends Controller
 
   public function paginate(Request $request): HttpResponse|ResponseFactory
   {
-    $response =  new dxResponse();
+    $response = new dxResponse();
     try {
       $instance = $this->setPaginationInstance($this->model);
 
       if ($request->group != null) {
         [$grouping] = $request->group;
-        // $selector = str_replace('.', '__', $grouping['selector']);
         $selector = $grouping['selector'];
         $instance = $this->model::select([
-          "{$selector} AS key"
+          DB::raw("{$selector} AS key")
         ])
           ->groupBy($selector);
       }
@@ -119,7 +118,6 @@ class BasicController extends Controller
       if ($request->group == null) {
         if ($request->sort != null) {
           foreach ($request->sort as $sorting) {
-            // $selector = \str_replace('.', '__', $sorting['selector']);
             $selector = $sorting['selector'];
             $instance->orderBy(
               $selector,
@@ -135,10 +133,16 @@ class BasicController extends Controller
       if ($request->requireTotalCount) {
         $instance4count = clone $instance;
         $instance4count->getQuery()->groups = null;
-        if ($this->prefix4filter) {
-          $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(' . $this->prefix4filter . '.id)) as total_count'))->value('total_count');
+        if ($request->group != null) {
+          // When grouping, count distinct groups
+          $totalCount = $instance4count->distinct()->count(DB::raw($selector));
         } else {
-          $totalCount = $instance4count->select(DB::raw('COUNT(DISTINCT(id)) as total_count'))->value('total_count');
+          // When not grouping, use the original count logic
+          if ($this->prefix4filter) {
+            $totalCount = $instance4count->distinct()->count($this->prefix4filter . '.id');
+          } else {
+            $totalCount = $instance4count->distinct()->count('id');
+          }
         }
       }
 
