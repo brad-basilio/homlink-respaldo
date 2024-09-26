@@ -56,7 +56,7 @@ const CourseDetails = ({ course }) => {
     <section className="relative p-[5%] max-w-6xl mx-auto max-md:flex max-md:flex-col-reverse md:grid md:grid-cols-2 lg:grid-cols-3 gap-[5%]">
       <div className="lg:col-span-2 w-full">
         <img
-          className="w-full aspect-video rounded-lg"
+          className="w-full aspect-video rounded-lg object-cover object-center"
           src={`/api/courses/media/${course.image}`}
           alt={course.name}
           onError={e => e.target.src = `https://placehold.co/?text=${slider.name}`}
