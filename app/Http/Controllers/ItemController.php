@@ -33,7 +33,7 @@ class ItemController extends BasicController
     {
         return $model::select(['items.*'])
             ->with('category')
-            ->join('categories AS category', 'category.id', 'items.category_id')
+            ->leftJoin('categories AS category', 'category.id', 'items.category_id')
             ->where('items.status', true)
             ->where('category.status', true);
     }
