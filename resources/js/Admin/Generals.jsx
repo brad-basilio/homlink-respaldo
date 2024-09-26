@@ -83,10 +83,10 @@ const Generals = ({ generals }) => {
         { correlative: 'terms_conditions', name: 'Términos y condiciones', description: formData.termsConditions },
         { correlative: 'location', name: 'Ubicación', description: `${formData.location.lat},${formData.location.lng}` }
       ]);
-      alert('Datos guardados exitosamente');
+      // alert('Datos guardados exitosamente');
     } catch (error) {
       console.error('Error al guardar los datos:', error);
-      alert('Error al guardar los datos');
+      // alert('Error al guardar los datos');
     }
   };
 
