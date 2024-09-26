@@ -55,7 +55,7 @@ const Courses = ({ icons }) => {
     descriptionRef.editor.root.innerHTML = data?.description ?? ''
     sessionsRef.current.value = data?.sessions ?? 0
     typeRef.current.value = data?.type ?? 'Presencial'
-    certificateRef.current.value = data?.certificate ?? false
+    certificateRef.current.value = data?.certificate ?? ''
     sessionDurationRef.current.value = data?.session_duration ?? ''
     longDurationRef.current.value = data?.long_duration ?? ''
     priceRef.current.value = data?.price ?? ''
@@ -270,7 +270,7 @@ const Courses = ({ icons }) => {
           <TextareaFormGroup eRef={summaryRef} label='Resumen' rows={3} required />
           <div className="row">
             <InputFormGroup eRef={priceRef} label='Precio' type='number' col='col-sm-6' step='0.01' required />
-            <InputFormGroup eRef={discountRef} label='Descuento' type='number' col='col-sm-6' step='0.01' required />
+            <InputFormGroup eRef={discountRef} label='Descuento' type='number' col='col-sm-6' step='0.01' />
             <InputFormGroup eRef={sessionsRef} label='Sesiones' type='number' placeholder='12' col='col-md-3' required />
             <SelectFormGroup eRef={typeRef} label='Tipo' col='col-md-5' dropdownParent='#principal-container'>
               <option>Presencial</option>
