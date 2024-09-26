@@ -46,12 +46,13 @@
       "tippy.css"
     ]
   },
-  "_CourseCard-CEYwMt53.js": {
-    "file": "assets/CourseCard-CEYwMt53.js",
+  "_CourseCard-BX3udr4q.js": {
+    "file": "assets/CourseCard-BX3udr4q.js",
     "name": "CourseCard",
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
-      "_index-RYns6xqu.js"
+      "_index-RYns6xqu.js",
+      "_Number2Currency-e57Tgsuk.js"
     ]
   },
   "_CreateReactScript-BERtc5uF.js": {
@@ -109,6 +110,10 @@
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-RYns6xqu.js"
     ]
+  },
+  "_Number2Currency-e57Tgsuk.js": {
+    "file": "assets/Number2Currency-e57Tgsuk.js",
+    "name": "Number2Currency"
   },
   "_PostCard-bwlJag86.js": {
     "file": "assets/PostCard-bwlJag86.js",
@@ -934,7 +939,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-CeKzIQaI.js",
+    "file": "assets/CheckboxFormGroup-B_CKjPyD.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -984,7 +989,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
+    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1016,7 +1021,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-CeKzIQaI.js",
+    "file": "assets/TextareaFormGroup-B_CKjPyD.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1422,7 +1427,7 @@
     "isEntry": true
   },
   "resources/js/Components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B_CKjPyD.js",
+    "file": "assets/CheckboxFormGroup-CeKzIQaI.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -1462,7 +1467,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
+    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1484,7 +1489,7 @@
     ]
   },
   "resources/js/Components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B_CKjPyD.js",
+    "file": "assets/TextareaFormGroup-CeKzIQaI.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1551,7 +1556,7 @@
     ]
   },
   "resources/js/CourseDetails.jsx": {
-    "file": "assets/CourseDetails-D_QDgWMP.js",
+    "file": "assets/CourseDetails-WdUATeCh.js",
     "name": "CourseDetails",
     "src": "resources/js/CourseDetails.jsx",
     "isEntry": true,
@@ -1563,6 +1568,7 @@
       "_Base-BLkCR72Z.js",
       "_HtmlContent-Ca-OCC2e.js",
       "_main-BjVPLcVK.js",
+      "_Number2Currency-e57Tgsuk.js",
       "_proxy-Nlf73AMv.js",
       "_index-CXU7o9CY.js",
       "_index.esm-Bla6j_hB.js",
@@ -1579,7 +1585,7 @@
     ]
   },
   "resources/js/Courses.jsx": {
-    "file": "assets/Courses-DL2plcXD.js",
+    "file": "assets/Courses-BikYmPoa.js",
     "name": "Courses",
     "src": "resources/js/Courses.jsx",
     "isEntry": true,
@@ -1590,7 +1596,7 @@
       "_CreateReactScript-BERtc5uF.js",
       "_Base-BLkCR72Z.js",
       "_ArrayJoin-bqGYcnH1.js",
-      "_CourseCard-CEYwMt53.js",
+      "_CourseCard-BX3udr4q.js",
       "resources/js/Components/Blog/Results.jsx",
       "_createLucideIcon-D_WcjKff.js",
       "_index-CXU7o9CY.js",
@@ -1601,7 +1607,8 @@
       "resources/js/Components/Tailwind/Base.jsx",
       "_sweetalert2.all-DJo0UVK6.js",
       "_index-DNUR7M9R.js",
-      "_HtmlContent-Ca-OCC2e.js"
+      "_HtmlContent-Ca-OCC2e.js",
+      "_Number2Currency-e57Tgsuk.js"
     ],
     "css": [
       "swiper.css",
@@ -1609,7 +1616,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-DlYaUnDi.js",
+    "file": "assets/Home-BXtBZ5Qk.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1620,7 +1627,7 @@
       "_Base-BLkCR72Z.js",
       "_CreateReactScript-BERtc5uF.js",
       "_HtmlContent-Ca-OCC2e.js",
-      "_CourseCard-CEYwMt53.js",
+      "_CourseCard-BX3udr4q.js",
       "_pagination-BMx3CoSe.js",
       "resources/js/Components/About/Strengths.jsx",
       "resources/js/Components/Home/Articles.jsx",
@@ -1633,7 +1640,8 @@
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "_index-DNUR7M9R.js",
-      "_index.esm-Bla6j_hB.js"
+      "_index.esm-Bla6j_hB.js",
+      "_Number2Currency-e57Tgsuk.js"
     ],
     "css": [
       "swiper.css",

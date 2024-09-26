@@ -5,6 +5,7 @@ import Base from "./Components/Tailwind/Base";
 import { motion } from 'framer-motion';
 import HtmlContent from "./Utils/HtmlContent";
 import { JSON } from "sode-extend-react";
+import Number2Currency from "./Utils/Number2Currency";
 
 const CourseDetails = ({ course }) => {
   const content = []
@@ -126,7 +127,7 @@ const CourseDetails = ({ course }) => {
         <div className="sticky top-2 h-max rounded bg-slate-100 w-full px-6 max-md:px-5">
           <div className="flex gap-10 justify-between items-center pt-8 pb-6 w-full font-medium leading-none uppercase border-b border-solid border-b-[#CFD8E8]">
             <div className="self-stretch my-auto text-2xl not-italic tracking-wide text-[#2B384F]">
-              S/.{Number(course.price).toFixed(2)}
+              S/.{Number2Currency(course.price)}
             </div>
             <div className="flex gap-2.5 justify-center items-center self-stretch px-3 py-2 my-auto text-sm not-italic whitespace-nowrap rounded-3xl bg-[#FFF0FA] text-[#FF27B9]">
               OFERTA
@@ -160,7 +161,7 @@ const CourseDetails = ({ course }) => {
           </div>
 
           <div className="flex flex-col justify-center py-6 w-full text-base font-medium tracking-normal leading-none text-white uppercase">
-          <a href={`//wa.me/51945622983?text=${encodeURIComponent(`Estoy interesado en este curso:\n- ${course.name}`)}`} className="flex gap-2 justify-center items-center px-6 py-4 w-full rounded-3xl bg-[#2E405E] max-md:px-5">
+          <a href={`//wa.me/51945622983?text=${encodeURIComponent(`Estoy interesado en este curso:\n- ${course.name}`)}`} className="flex gap-2 justify-center items-center px-6 py-4 w-full rounded-3xl bg-[#2E405E] max-md:px-5" target="_blank">
               <div className="self-stretch my-auto">
                 Quiero el curso
               </div>
