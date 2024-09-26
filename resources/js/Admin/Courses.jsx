@@ -14,18 +14,17 @@ import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
 import Swal from 'sweetalert2';
 import CoursesRest from '../Actions/Admin/CoursesRest';
 import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
-import html2string from '../Utils/html2string';
-import SetSelectValue from '../Utils/SetSelectValue';
 import { renderToString } from 'react-dom/server';
 
 const coursesRest = new CoursesRest()
 
-const Courses = ({ icons }) => {
+const Courses = ({ icons, categories }) => {
   const gridRef = useRef()
   const modalRef = useRef()
 
   // Form elements ref
   const idRef = useRef()
+  const categoryRef = useRef()
   const nameRef = useRef()
   const summaryRef = useRef()
   const descriptionRef = useRef()
@@ -50,6 +49,7 @@ const Courses = ({ icons }) => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
+    $(categoryRef.current).val(data?.category_id ?? null).trigger('change')
     nameRef.current.value = data?.name ?? ''
     summaryRef.current.value = data?.summary ?? ''
     descriptionRef.editor.root.innerHTML = data?.description ?? ''
@@ -76,6 +76,7 @@ const Courses = ({ icons }) => {
 
     const request = {
       id: idRef.current.value || undefined,
+      category_id: categoryRef.current.value,
       name: nameRef.current.value,
       summary: summaryRef.current.value,
       description: descriptionRef.current.value,
@@ -266,6 +267,11 @@ const Courses = ({ icons }) => {
         <input ref={idRef} type='hidden' />
         <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-6' aspect={1} />
         <div className="col-md-6">
+          <SelectFormGroup eRef={categoryRef} label='Categoría' required>
+            {
+              categories.map((item, index) => (<option key={index} value={item.id}>{item.name}</option>))
+            }
+          </SelectFormGroup>
           <InputFormGroup eRef={nameRef} label='Nombre del curso' required />
           <TextareaFormGroup eRef={summaryRef} label='Resumen' rows={3} required />
           <div className="row">
