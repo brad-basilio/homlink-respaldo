@@ -267,7 +267,7 @@ const Courses = ({ icons, categories }) => {
         <input ref={idRef} type='hidden' />
         <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-6' aspect={1} />
         <div className="col-md-6">
-          <SelectFormGroup eRef={categoryRef} label='Categoría' required>
+          <SelectFormGroup eRef={categoryRef} label='Categoría' required dropdownParent='#principal-container'>
             {
               categories.map((item, index) => (<option key={index} value={item.id}>{item.name}</option>))
             }
