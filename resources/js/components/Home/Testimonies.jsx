@@ -12,7 +12,7 @@ const Testimonies = ({ testimonies, background = 'amber-400' }) => {
           <img
             src={testimonieImage}
             alt="testimony"
-            className="object-contain md:object-cover object-center w-full max-w-md"
+            className="object-contain md:object-cover object-right-bottom w-full max-w-md"
             style={{ aspectRatio: 1.125 }}
           />
         </div>

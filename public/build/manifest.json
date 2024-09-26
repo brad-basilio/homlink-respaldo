@@ -216,8 +216,8 @@
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js"
     ]
   },
-  "_pagination-CeniONAx.js": {
-    "file": "assets/pagination-CeniONAx.js",
+  "_pagination-BMx3CoSe.js": {
+    "file": "assets/pagination-BMx3CoSe.js",
     "name": "pagination",
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
@@ -266,7 +266,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-CQGgHEfm.js",
+    "file": "assets/About-BFXo7bP_.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -276,7 +276,7 @@
       "_CreateReactScript-BERtc5uF.js",
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-BLkCR72Z.js",
-      "_pagination-CeniONAx.js",
+      "_pagination-BMx3CoSe.js",
       "_HtmlContent-Ca-OCC2e.js",
       "resources/js/Components/About/Strengths.jsx",
       "_index.esm-Bla6j_hB.js",
@@ -964,7 +964,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-CeKzIQaI.js",
+    "file": "assets/PasswordFormGroup-B_CKjPyD.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -974,7 +974,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-CeKzIQaI.js",
+    "file": "assets/QuillFormGroup-B_CKjPyD.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1053,7 +1053,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-CeKzIQaI.js",
+    "file": "assets/Filter-B_CKjPyD.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1133,7 +1133,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-B_CKjPyD.js",
+    "file": "assets/Filter-CeKzIQaI.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1442,7 +1442,7 @@
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B_CKjPyD.js",
+    "file": "assets/PasswordFormGroup-CeKzIQaI.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1452,7 +1452,7 @@
     ]
   },
   "resources/js/Components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B_CKjPyD.js",
+    "file": "assets/QuillFormGroup-CeKzIQaI.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1609,7 +1609,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-6Ob-hU4e.js",
+    "file": "assets/Home-BalPJATa.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1621,7 +1621,7 @@
       "_CreateReactScript-BERtc5uF.js",
       "_HtmlContent-Ca-OCC2e.js",
       "_CourseCard-BrffN-aQ.js",
-      "_pagination-CeniONAx.js",
+      "_pagination-BMx3CoSe.js",
       "resources/js/Components/About/Strengths.jsx",
       "resources/js/Components/Home/Articles.jsx",
       "_PostCard-bwlJag86.js",
