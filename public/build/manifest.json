@@ -46,8 +46,8 @@
       "tippy.css"
     ]
   },
-  "_CourseCard-BrffN-aQ.js": {
-    "file": "assets/CourseCard-BrffN-aQ.js",
+  "_CourseCard-g7ug3hxp.js": {
+    "file": "assets/CourseCard-g7ug3hxp.js",
     "name": "CourseCard",
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
@@ -996,7 +996,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-CeKzIQaI.js",
+    "file": "assets/SelectFormGroup-B_CKjPyD.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1474,7 +1474,7 @@
     ]
   },
   "resources/js/Components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-B_CKjPyD.js",
+    "file": "assets/SelectFormGroup-CeKzIQaI.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1579,7 +1579,7 @@
     ]
   },
   "resources/js/Courses.jsx": {
-    "file": "assets/Courses-DvC7-shG.js",
+    "file": "assets/Courses-C0De7E6e.js",
     "name": "Courses",
     "src": "resources/js/Courses.jsx",
     "isEntry": true,
@@ -1590,7 +1590,7 @@
       "_CreateReactScript-BERtc5uF.js",
       "_Base-BLkCR72Z.js",
       "_ArrayJoin-bqGYcnH1.js",
-      "_CourseCard-BrffN-aQ.js",
+      "_CourseCard-g7ug3hxp.js",
       "resources/js/Components/Blog/Results.jsx",
       "_createLucideIcon-D_WcjKff.js",
       "_index-CXU7o9CY.js",
@@ -1609,7 +1609,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-BwZT6g18.js",
+    "file": "assets/Home-CEK9Y2EY.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1620,7 +1620,7 @@
       "_Base-BLkCR72Z.js",
       "_CreateReactScript-BERtc5uF.js",
       "_HtmlContent-Ca-OCC2e.js",
-      "_CourseCard-BrffN-aQ.js",
+      "_CourseCard-g7ug3hxp.js",
       "_pagination-BMx3CoSe.js",
       "resources/js/Components/About/Strengths.jsx",
       "resources/js/Components/Home/Articles.jsx",

@@ -104,7 +104,7 @@ export default function Results({ categories, filter, setFilter }) {
       <div className="w-full sm:w-1/2 md:w-1/2 lg:w-2/3 xl:w-3/4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8">
           {results.map((item, index) => (
-            <CourseCard key={index} {...item} firstImage showPrice clickable/>
+            <CourseCard key={index} {...item} firstImage showPrice clickable showCategory/>
           ))}
         </div>
         <div className="p-[5%]">

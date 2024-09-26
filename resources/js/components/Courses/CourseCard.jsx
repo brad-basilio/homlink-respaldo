@@ -1,6 +1,6 @@
 import React from "react";
 
-const CourseCard = ({id, name, category, created_at, summary, image, price, firstImage = false, showPrice = false, clickable = false }) => (
+const CourseCard = ({id, name, category, created_at, summary, image, price, firstImage = false, showPrice = false, clickable = false, showCategory = false }) => (
   <div className={`flex flex-col ${firstImage && 'flex-col-reverse'} w-full gap-4`}>
     <div>
       {
