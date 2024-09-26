@@ -15,10 +15,14 @@ export default function Results({ categories, filter, setFilter }) {
   const [showCategories, setShowCategories] = useState(true)
 
   useEffect(() => {
-    const filter2search = [
-      ['name', 'contains', filter.search || ''],
-      ['summary', 'contains', filter.search || ''],
-    ]
+    const filter2search = []
+
+    if (filter.search) {
+      filter2search.push(
+        ['name', 'contains', filter.search || ''],
+        ['summary', 'contains', filter.search || ''],
+      )
+    }
 
     // Filtrar por categorías si están definidas
     if (filter.categories) {
@@ -99,12 +103,12 @@ export default function Results({ categories, filter, setFilter }) {
             </div>
           )}
         </div>
-        <PriceFilter filter={filter} setFilter={setFilter}/>
+        <PriceFilter filter={filter} setFilter={setFilter} />
       </div>
       <div className="w-full sm:w-1/2 md:w-1/2 lg:w-2/3 xl:w-3/4">
         <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 items-start">
           {results.map((item, index) => (
-            <CourseCard key={index} {...item} firstImage showPrice clickable showCategory/>
+            <CourseCard key={index} {...item} firstImage showPrice clickable showCategory />
           ))}
         </div>
         <div className="p-[5%]">
