@@ -46,7 +46,7 @@ export default function Results({ categories, filter, setFilter }) {
     coursesRest.paginate({
       filter: ArrayJoin(filter2search, 'and'),
       requireTotalCount: true,
-      skip: 12 * (currentPage - 1),
+      skip: 12 * (currentPage - 1) < 0 ? 0 : 12 * (currentPage - 1),
       sort: [{ selector: 'price', desc: filter.sortOrder === 'desc' }],
       take: 12,
     })
