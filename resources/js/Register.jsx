@@ -102,7 +102,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
               <a href="/">
                 <img src='/assets/img/logo.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
               </a>
-              <p className="text-muted mt-2 mb-4">Bienvenido a Net Coaching</p>
+              <p className="text-muted mt-2 mb-4">Bienvenido a Trasciende</p>
             </div>
             <div className="card">
               <div className="card-body p-4">
