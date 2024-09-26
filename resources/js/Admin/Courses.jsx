@@ -277,14 +277,14 @@ const Courses = ({ icons }) => {
               <option>Semipresencial</option>
               <option>Virtual</option>
             </SelectFormGroup>
-            <InputFormGroup eRef={sessionDurationRef} label='Duración' type='number' placeholder='8h 30m' col='col-md-4' required />
+            <InputFormGroup eRef={sessionDurationRef} label='Duración (horas)' type='number' placeholder='2' col='col-md-4' required />
           </div>
         </div>
       </div>
       <div className="row" id='courses-container'>
         <InputFormGroup eRef={certificateRef} label='Tipo certificado' col='col-md-6' placeholder='Físico y Virtual PDF' required />
         <InputFormGroup eRef={studentsRef} label='Estudiantes' type='number' col='col-md-2' required />
-        <InputFormGroup eRef={longDurationRef} label='Duración total' placeholder='1 - 3 meses' col='col-md-4' required />
+        <InputFormGroup eRef={longDurationRef} label='Duración total (días)' placeholder='30' col='col-md-4' required />
         <QuillFormGroup eRef={descriptionRef} label='Descripción' />
 
 
