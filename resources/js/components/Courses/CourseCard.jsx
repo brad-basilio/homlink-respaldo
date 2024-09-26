@@ -13,7 +13,7 @@ const CourseCard = ({id, name, category, created_at, summary, image, price, firs
         {summary}
       </p>
       {
-        clickable && <div className="flex justify-between items-center mt-4 sm:mt-5 md:mt-6 w-full gap-4">
+        (clickable && showCategory) && <div className="flex justify-between items-center mt-4 sm:mt-5 md:mt-6 w-full gap-4">
           <a href={`/courses/${id}`} className="flex gap-2 items-center text-sm sm:text-base font-semibold leading-snug text-[#2B384F]">
             <span>{category?.name || 'Sin categoría'}</span>
             <i className="mdi mdi-arrow-top-right"></i>
