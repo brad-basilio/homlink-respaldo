@@ -43,11 +43,15 @@ const Courses = ({ courses }) => {
             {titleContainer({ index, title: course.name })}
 
             {activeCourse === course.id && (
-              <div className="flex flex-col bg-white w-full transition-all duration-300 overflow-x-auto">
+              <div className="flex flex-col bg-white w-full transition-all duration-300 overflow-x-auto cursor-default">
                 <div className="p-[5%]">
 
                   <div className="text-lg font-semibold">
-                    <span className="font-bold">{String(index + 1).padStart(2, '0')}.</span> {course.name}
+                    <span className="font-bold">{String(index + 1).padStart(2, '0')}.</span>
+                    <a href={`/courses/${course.id}`} className="ms-1">
+                      {course.name}
+                      <i className="mdi mdi-arrow-top-right ms-1"></i>
+                    </a>
                   </div>
                   <div>
                     <div className="flex flex-wrap gap-16 mx-auto w-full pt-[5%]">
