@@ -21,8 +21,10 @@ class ItemController extends BasicController
             'categories.name'
         ])
             ->join('items', 'items.category_id', 'categories.id')
-            ->where('categories.visible', true)
             ->where('categories.status', true)
+            ->where('categories.visible', true)
+            ->where('items.status', true)
+            ->where('items.visible', true)
             ->get();
         return [
             'categories' => $categories
