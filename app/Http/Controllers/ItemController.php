@@ -35,6 +35,8 @@ class ItemController extends BasicController
             ->with(['category'])
             ->leftJoin('categories AS category', 'category.id', 'items.category_id')
             ->where('items.status', true)
-            ->where('category.status', true);
+            ->where('items.visible', true)
+            ->where('category.status', true)
+            ->where('category.visible', true);
     }
 }
