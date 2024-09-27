@@ -87,7 +87,7 @@ class AuthController extends Controller
         return redirect('/login?message=' . $message);
       } catch (\Throwable $th) {
         $userJpa->delete();
-        dump($th);
+        // dump($th);
         // return redirect('/login');
       }
     }

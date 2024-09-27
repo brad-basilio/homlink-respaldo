@@ -4,23 +4,17 @@ import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
 import Table from '../Components/Table';
 import Modal from '../Components/Modal';
-import InputFormGroup from '../Components/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
-import SelectFormGroup from '../Components/form/SelectFormGroup';
 import Swal from 'sweetalert2';
-import PostsRest from '../Actions/Admin/PostsRest';
-import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
-import SelectAPIFormGroup from '../Components/Adminto/form/SelectAPIFormGroup';
-import html2string from '../Utils/html2string';
-import SetSelectValue from '../Utils/SetSelectValue';
+import InputFormGroup from '../Components/form/InputFormGroup';
+import TagsRest from '../Actions/Admin/TagsRets';
 
-const postsRest = new PostsRest()
+const tagsRest = new TagsRest()
 
-const Posts = ({ }) => {
+const Tags = () => {
 
   const gridRef = useRef()
   const modalRef = useRef()
@@ -28,11 +22,7 @@ const Posts = ({ }) => {
   // Form elements ref
   const idRef = useRef()
   const nameRef = useRef()
-  const categoryRef = useRef()
   const descriptionRef = useRef()
-  const tagsRef = useRef()
-  const imageRef = useRef()
-  const postDateRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -42,12 +32,7 @@ const Posts = ({ }) => {
 
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
-    SetSelectValue(categoryRef.current, data?.category?.id, data?.category?.name);
-    descriptionRef.editor.root.innerHTML = data?.description ?? ''
-    imageRef.image.src = `/api/posts/media/${data?.image}`
-    imageRef.current.value = null
-    tagsRef.current.value = data?.tags ?? ''
-    postDateRef.current.value = data?.post_date ?? moment().format('YYYY-MM-DD')
+    descriptionRef.current.value = data?.description ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -58,23 +43,10 @@ const Posts = ({ }) => {
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
-      category_id: categoryRef.current.value,
-      summary: html2string(descriptionRef.current.value),
       description: descriptionRef.current.value,
-      tags: $(tagsRef.current).val(),
-      post_date: postDateRef.current.value
     }
 
-    const formData = new FormData()
-    for (const key in request) {
-      formData.append(key, request[key])
-    }
-    const file = imageRef.current.files[0]
-    if (file) {
-      formData.append('image', file)
-    }
-
-    const result = await postsRest.save(formData)
+    const result = await tagsRest.save(request)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
@@ -82,7 +54,7 @@ const Posts = ({ }) => {
   }
 
   const onVisibleChange = async ({ id, value }) => {
-    const result = await postsRest.boolean({ id, field: 'visible', value })
+    const result = await tagsRest.boolean({ id, field: 'visible', value })
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
@@ -97,13 +69,13 @@ const Posts = ({ }) => {
       cancelButtonText: 'Cancelar'
     })
     if (!isConfirmed) return
-    const result = await postsRest.delete(id)
+    const result = await tagsRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   return (<>
-    <Table gridRef={gridRef} title='Posts' rest={postsRest}
+    <Table gridRef={gridRef} title='Etiquetas' rest={tagsRest}
       toolBar={(container) => {
         container.unshift({
           widget: 'dxButton', location: 'after',
@@ -130,30 +102,31 @@ const Posts = ({ }) => {
           visible: false
         },
         {
-          dataField: 'category.name',
-          caption: 'Categoría',
-        },
-        {
           dataField: 'name',
-          caption: 'Título',
-          cellTemplate: (container, {data}) => {
-            ReactAppend(container, <>
-              {data.name}<br/>
-              {data.tags?.map((tag, index) => <span key={index} className='badge badge-soft-success me-1'>{tag.name}</span>)}
-            </>)
-          }
+          caption: 'Etiqueta',
+          width: '30%',
         },
         {
-          dataField: 'image',
-          caption: 'Imagen',
-          width: '90px',
+          dataField: 'description',
+          caption: 'Descripción',
+          width: '50%',
+        },
+        {
+          dataField: 'visible',
+          caption: 'Visible',
+          dataType: 'boolean',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/sliders/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
+            $(container).empty()
+            ReactAppend(container, <SwitchFormGroup checked={data.visible == 1} onChange={() => onVisibleChange({
+              id: data.id,
+              value: !data.visible
+            })} />)
           }
         },
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
+            container.css('text-overflow', 'unset')
             container.append(DxButton({
               className: 'btn btn-xs btn-soft-primary',
               title: 'Editar',
@@ -171,17 +144,11 @@ const Posts = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar post' : 'Agregar post'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='posts-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar etiqueta' : 'Agregar etiqueta'} onSubmit={onModalSubmit} size='sm'>
+      <div className='row' id='faqs-container'>
         <input ref={idRef} type='hidden' />
-
-        <ImageFormGroup eRef={imageRef} label='Imagen' />
-        <SelectAPIFormGroup eRef={categoryRef} searchAPI='/api/admin/categories/paginate' searchBy='name' label='Categoría' required dropdownParent='#posts-container' />
-        <InputFormGroup eRef={nameRef} label='Título' rows={2} required />
-        <QuillFormGroup eRef={descriptionRef} label='Contenido' />
-        {/* <TextareaFormGroup eRef={tagsRef} label='Tags (Separado por comas)' rows={1} /> */}
-        <SelectAPIFormGroup id='tags' eRef={tagsRef} searchAPI={'/api/admin/tags/paginate'} searchBy='name' label='Tags' dropdownParent='#posts-container' tags multiple/>
-        <InputFormGroup eRef={postDateRef} label='Fecha de publicación' type='date' required />
+        <InputFormGroup eRef={nameRef} label='Etiqueta' col='col-12' required />
+        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
       </div>
     </Modal>
   </>
@@ -190,7 +157,7 @@ const Posts = ({ }) => {
 
 CreateReactScript((el, properties) => {
 
-  createRoot(el).render(<BaseAdminto {...properties} title='Posts'>
-    <Posts {...properties} />
+  createRoot(el).render(<BaseAdminto {...properties} title='Etiquetas'>
+    <Tags {...properties} />
   </BaseAdminto>);
 })

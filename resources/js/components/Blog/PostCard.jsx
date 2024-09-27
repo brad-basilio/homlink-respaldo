@@ -5,10 +5,10 @@ const PostCard = ({id, name, summary, category, image, post_date, firstImage = f
   return <div className="flex flex-col self-stretch my-auto w-full mt-6">
     <div className={`flex flex-col gap-4 ${firstImage && 'flex-col-reverse'}`}>
       <div className="flex flex-col w-full">
-        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold  text-[#2B384F] line-clamp-2 text-justify">
+        <h3 className="text-lg sm:text-xl md:text-2xl font-semibold  text-[#2B384F] line-clamp-2 text-justify h-16">
           <HtmlContent html={(name || 'Sin titulo').replace(/\*(.*?)\*/g, '<span class="font-bold text-pink-500">$1</span>')} />
         </h3>
-        <p className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base leading-snug sm:leading-normal md:leading-relaxed text-[#2E405E] line-clamp-4 text-justify">
+        <p className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base text-[#2E405E] line-clamp-4 text-justify h-24">
           {summary || 'Sin descripción'}
         </p>
       </div>

@@ -18,7 +18,6 @@ class Post extends Model
         'summary',
         'category_id',
         'description',
-        'tags',
         'image',
         'post_date',
         'status',
@@ -27,5 +26,9 @@ class Post extends Model
     public function category()
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function tags() {
+        return $this->hasManyThrough(Tag::class, PostTag::class, 'post_id', 'id', 'id', 'tag_id');
     }
 }

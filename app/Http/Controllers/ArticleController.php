@@ -14,7 +14,7 @@ class ArticleController extends BasicController
     {
         if (!$request->articleId) return redirect()->route('Blog.jsx');
 
-        $currentArticle = Post::with(['category'])->find($request->articleId);
+        $currentArticle = Post::with(['category', 'tags'])->find($request->articleId);
 
         $nextArticle = Post::select(['name', 'id'])
             ->where('post_date', '>', $currentArticle->post_date)

@@ -8,12 +8,10 @@ import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import FaqsRest from '@Rest/Admin/FaqsRest';
 import Swal from 'sweetalert2';
 import InputFormGroup from '../Components/form/InputFormGroup';
 import CategoriesRest from '../Actions/Admin/CategoriesRest';
 
-const faqsRest = new FaqsRest()
 const categoriesRest = new CategoriesRest()
 
 const Categories = () => {

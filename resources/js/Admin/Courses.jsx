@@ -205,7 +205,8 @@ const Courses = ({ icons, categories }) => {
           // width: '50%',
           cellTemplate: (container, { data }) => {
             container.html(renderToString(<>
-              <b>{data.name}</b><br />
+              {data.name}
+              {/* <b>{data.name}</b><br /> */}
               {/* <span className='truncate'>{data.summary}</span> */}
             </>))
           }

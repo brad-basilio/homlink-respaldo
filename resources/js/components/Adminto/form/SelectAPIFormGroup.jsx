@@ -1,16 +1,19 @@
 import React, { useEffect, useRef } from "react"
 import { Cookies, JSON } from "sode-extend-react"
 
-const SelectAPIFormGroup = ({ col, label, eRef, required = false, dropdownParent, searchAPI, searchBy, multiple = false, filter = null, onChange = () => { },
+const SelectAPIFormGroup = ({ id, col, label, eRef, required = false, dropdownParent, searchAPI, searchBy, multiple = false, filter = null, onChange = () => { },
   templateResult,
-  templateSelection
+  templateSelection,
+  tags
 }) => {
   if (!eRef) eRef = useRef()
+    if (!id) id = `select-${crypto.randomUUID()}`;
 
   useEffect(() => {
     $(eRef.current).select2({
       dropdownParent,
       minimumInputLength: 0,
+      tags,
       ajax: {
         url: searchAPI,
         headers: {
@@ -69,10 +72,10 @@ const SelectAPIFormGroup = ({ col, label, eRef, required = false, dropdownParent
   }, [filter])
 
   return <div className={`form-group ${col} mb-2`}>
-    <label htmlFor='' className="mb-1">
+    <label htmlFor={id} className="mb-1">
       {label} {required && <b className="text-danger">*</b>}
     </label>
-    <select ref={eRef} required={required} className='form-control' style={{ width: '100%' }} multiple={multiple}></select>
+    <select ref={eRef} id={id} required={required} className='form-control' style={{ width: '100%' }} multiple={multiple}></select>
   </div>
 }
 

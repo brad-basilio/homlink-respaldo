@@ -84,6 +84,7 @@ const Menu = ({ session, hasRole }) => {
               <MenuItem href="/admin/strengths" icon='mdi mdi-arm-flex'>Fortalezas</MenuItem>
               <MenuItem href="/admin/testimonies" icon='mdi mdi-forum'>Testimonios</MenuItem>
               <MenuItem href="/admin/categories" icon='mdi mdi-layers-outline'>Categorías</MenuItem>
+              <MenuItem href="/admin/tags" icon='mdi mdi-tag'>Etiquetas</MenuItem>
               <MenuItem href="/admin/socials" icon='mdi mdi-web'>Redes Sociales</MenuItem>
               <li className="menu-title">Configuraciones</li>
               <MenuItem href="/admin/generals" icon='mdi mdi-credit-card-settings'>Datos Generales</MenuItem>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class PostTag extends Model
 {
     use HasFactory, HasUuids;
 
@@ -14,9 +14,7 @@ class Tag extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'name',
-        'description',
-        'visible',
-        'status',
+        'post_id',
+        'tag_id',
     ];
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
+use App\Http\Controllers\Admin\TagController as AdminTagController;
 
 // Public
 use App\Http\Controllers\AuthController;
@@ -110,6 +111,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/status', [AdminCategoryController::class, 'status']);
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
+
+        Route::post('/tags', [AdminTagController::class, 'save']);
+        Route::post('/tags/paginate', [AdminTagController::class, 'paginate']);
+        Route::patch('/tags/status', [AdminTagController::class, 'status']);
+        Route::patch('/tags/{field}', [AdminTagController::class, 'boolean']);
+        Route::delete('/tags/{id}', [AdminTagController::class, 'delete']);
 
         Route::post('/strengths', [AdminStrengthController::class, 'save']);
         Route::post('/strengths/paginate', [AdminStrengthController::class, 'paginate']);
