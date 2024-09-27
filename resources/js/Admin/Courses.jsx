@@ -198,6 +198,7 @@ const Courses = ({ icons, categories }) => {
         {
           dataField: 'name',
           caption: 'Nombre',
+          width: '50%',
           cellTemplate: (container, { data }) => {
             container.html(renderToString(<>
               <b>{data.name}</b><br />
