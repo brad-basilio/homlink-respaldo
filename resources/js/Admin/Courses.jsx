@@ -196,13 +196,17 @@ const Courses = ({ icons, categories }) => {
           visible: false
         },
         {
+          dataField: 'category.name',
+          caption: 'Categoría',
+        },
+        {
           dataField: 'name',
           caption: 'Nombre',
-          width: '50%',
+          // width: '50%',
           cellTemplate: (container, { data }) => {
             container.html(renderToString(<>
               <b>{data.name}</b><br />
-              <span className='truncate'>{data.summary}</span>
+              {/* <span className='truncate'>{data.summary}</span> */}
             </>))
           }
         },
