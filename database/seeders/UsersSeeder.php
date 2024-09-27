@@ -20,5 +20,12 @@ class UsersSeeder extends Seeder
             'lastname' => 'Admin',
             'password' => 'r00tme'
         ])->assignRole('Admin');
+        User::updateOrCreate([
+            'email' => 'admin@escuelatrasciende.com'
+        ], [
+            'name' => 'Admin',
+            'lastname' => 'Trasciende',
+            'password' => 'K@0r1_admin'
+        ])->assignRole('Admin');
     }
 }
