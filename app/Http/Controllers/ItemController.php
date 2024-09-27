@@ -32,7 +32,7 @@ class ItemController extends BasicController
     public function setPaginationInstance(string $model)
     {
         return $model::select(['items.*'])
-            ->with('category')
+            ->with(['category'])
             ->leftJoin('categories AS category', 'category.id', 'items.category_id')
             ->where('items.status', true)
             ->where('category.status', true);
