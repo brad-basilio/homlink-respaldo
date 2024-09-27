@@ -42,7 +42,7 @@ const Header = ({ socials, generals }) => {
           >
             <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
           </button>
-          <button className="hidden md:block bg-[#F8B62C] text-black px-8 font-bold">
+          <button className="hidden md:block bg-[#F8B62C] text-black px-8 font-bold" onClick={e => location.href = '/contact'}>
             CONVERSEMOS
             <i className="fa fa-arrow-right ms-2"></i>
           </button>
@@ -97,7 +97,7 @@ const Header = ({ socials, generals }) => {
             </div>
           </div>
         </div>
-        <button className="bg-[#F8B62C] text-black px-4 py-2 rounded mt-8 font-bold block md:hidden" onClick={() => setIsOpen(false)}>
+        <button className="bg-[#F8B62C] text-black px-4 py-2 rounded mt-8 font-bold block md:hidden" onClick={() => location.href = '/contact'}>
           CONVERSEMOS
           <i className="fa fa-arrow-right ms-2"></i>
         </button>
