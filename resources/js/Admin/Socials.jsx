@@ -50,7 +50,7 @@ const Socials = ({ icons }) => {
       icon: iconRef.current.value,
       name: nameRef.current.value,
       description: descriptionRef.current.value,
-      ink: linkRef.current.value,
+      link: linkRef.current.value,
     }
 
     const result = await socialsRest.save(request)
@@ -166,7 +166,7 @@ const Socials = ({ icons }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar categoría' : 'Agregar categoría'} onSubmit={onModalSubmit} size='md'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar red social' : 'Agregar red social'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='socials-container'>
         <input ref={idRef} type='hidden' />
         <SelectFormGroup eRef={iconRef} label='Ícono' dropdownParent='#socials-container' col='col-md-4' templateResult={iconTemplate} templateSelection={iconTemplate} >
