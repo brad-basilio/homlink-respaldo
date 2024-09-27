@@ -173,7 +173,7 @@ const Posts = ({ }) => {
         <SelectAPIFormGroup eRef={categoryRef} searchAPI='/api/admin/categories/paginate' searchBy='name' label='Categoría' required dropdownParent='#posts-container' />
         <InputFormGroup eRef={nameRef} label='Título' rows={2} required />
         <QuillFormGroup eRef={descriptionRef} label='Contenido' />
-        <TextareaFormGroup eRef={tagsRef} label='Tags' rows={1} />
+        <TextareaFormGroup eRef={tagsRef} label='Tags (Separado por comas)' rows={1} />
         <InputFormGroup eRef={postDateRef} label='Fecha de publicación' type='date' required />
       </div>
     </Modal>
