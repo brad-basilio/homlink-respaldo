@@ -72,7 +72,7 @@ const Courses = ({ courses }) => {
                   <p className="mt-4 text-sm">{course.summary}</p>
                 </div>
                 <img
-                  className="aspect-[8/3] w-full object-cover object-center mt-4"
+                  className="aspect-[8/3] w-full object-cover object-left-top mt-4"
                   src={`/api/courses/media/${course.image}`}
                   alt=""
                   onError={e => e.target.src = `https://placehold.co/600x400?text=${course.name}`}
