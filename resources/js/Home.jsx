@@ -15,12 +15,27 @@ const Home = ({ sliders, indicators, weare, courses, testimonies, articles }) =>
   return (
     <>
       <Sliders sliders={sliders} />
-      <Indicators indicators={indicators} />
+      {
+        indicators.length > 0 &&
+        <Indicators indicators={indicators} />
+      }
       <Weare weare={weare} />
-      <Courses courses={courses.slice(0, 3)} />
-      <MoreCourses courses={courses.slice(3, 7)} />
-      <Testimonies testimonies={testimonies} />
-      <Articles articles={articles} />
+      {
+        courses.length > 0 &&
+        <Courses courses={courses.slice(0, 3)} />
+      }
+      {
+        courses.slice(3, 7) > 0 &&
+        <MoreCourses courses={courses.slice(3, 7)} />
+      }
+      {
+        testimonies.length > 0 &&
+        <Testimonies testimonies={testimonies} />
+      }
+      {
+        articles.length > 0 &&
+        <Articles articles={articles} />
+      }
     </>
   );
 };
