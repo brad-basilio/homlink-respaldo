@@ -289,8 +289,8 @@ const Courses = ({ icons, categories }) => {
       </div>
       <div className="row" id='courses-container'>
         <InputFormGroup eRef={certificateRef} label='Tipo certificado' col='col-md-6' placeholder='Físico y Virtual PDF' required />
-        <InputFormGroup eRef={studentsRef} label='Estudiantes' type='number' col='col-md-2' required />
-        <InputFormGroup eRef={longDurationRef} label='Duración total (días)' placeholder='30' col='col-md-4' required />
+        <InputFormGroup eRef={studentsRef} label='Estudiantes' type='number' col='col-md-2'  />
+        <InputFormGroup eRef={longDurationRef} label='Duración total (días)' placeholder='30' col='col-md-4'  />
         <QuillFormGroup eRef={descriptionRef} label='Descripción' />
 
 
