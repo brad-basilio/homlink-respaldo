@@ -7,15 +7,21 @@ import Banner from './Components/Home/Banner';
 import Highlights from './Components/Home/Highlights';
 import HowItWorks from './Components/Home/HowItWorks';
 import Routine from './Components/Home/Routine';
+import Highlights2 from './Components/Home/Highlights2';
+import Supplies from './Components/Home/Supplies';
+import Testimonies from './Components/Home/Testimonies';
 
 const Home = () => {
   return (
     <>
-      <Banner/>
-      <hr className='h-4 bg-transparent border-none'/>
-      <Highlights/>
-      <HowItWorks/>
-      <Routine/>
+      <Banner />
+      <hr className='h-4 bg-transparent border-none' />
+      <Highlights />
+      <HowItWorks />
+      <Routine />
+      <Highlights2 />
+      <Supplies />
+      <Testimonies />
     </>
   );
 };

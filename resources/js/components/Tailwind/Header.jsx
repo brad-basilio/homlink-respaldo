@@ -33,7 +33,7 @@ const Header = ({ socials, generals }) => {
           A TODO LIMA METROPOLITANA!</b>
       </div>
       <header className="sticky top-0 w-screen z-40">
-        <div className={`flex justify-between items-center bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%]`}>
+        <div className={`flex justify-between items-center bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg`}>
           <div className="flex items-center">
             <button
               onClick={toggleMenu}

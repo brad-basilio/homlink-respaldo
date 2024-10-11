@@ -56,7 +56,7 @@ const Footer = ({ generals }) => {
 
   return (
     <>
-      <footer className=" p-[5%] bg-transparent text-white relative grid grid-cols-3 gap-x-4 gap-y-6 text-sm">
+      <footer className="px-[5%] py-[10%] bg-transparent text-white relative grid grid-cols-3 gap-x-4 gap-y-6 text-sm">
         <div className="col-span-2">
           <ul className="flex flex-col gap-2">
             <li><a href="">Conversemos</a></li>
