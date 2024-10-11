@@ -10,7 +10,7 @@ import HtmlContent from "../../Utils/HtmlContent";
 
 const subscriptionsRest = new SubscriptionsRest();
 
-const Footer = ({ socials, summary, generals }) => {
+const Footer = ({ generals }) => {
 
   const emailRef = useRef()
 
@@ -20,7 +20,7 @@ const Footer = ({ socials, summary, generals }) => {
   const policyItems = [
     {
       title: 'Términos y condiciones',
-      modalContent: generals.find(x => x.correlative == 'terms_conditions')?.description ,
+      modalContent: generals.find(x => x.correlative == 'terms_conditions')?.description,
     },
     {
       title: 'Políticas de privacidad',
@@ -56,71 +56,30 @@ const Footer = ({ socials, summary, generals }) => {
 
   return (
     <>
-      <img src={bgFooter} alt="" className="aspect-[2/1] md:aspect-[3/1] lg:aspect-[4/1] object-cover object-center w-full" />
-      <footer className=" p-[5%] pt-[calc(5%+64px)] bg-[#747D84] text-white relative">
-        <form className="absolute left-1/4 right-[5%] bottom-[calc(100%-64px)] p-[5%] bg-amber-400 text-[color:var(--Woodsmoke-900,#2B384F)]"
-          onSubmit={onEmailSubmit}>
-          <div className="grid md:grid-cols-2 items-end gap-4">
-            <h1 className="text-xl md:text-2xl">
-              Mantente siempre <b>Informado</b> con nuestra newsletter
-            </h1>
-            <div>
-              <input ref={emailRef} type="email" className="bg-transparent border-b border-b-[color:var(--Woodsmoke-900,#2B384F)] outline-none px-3 py-2 w-full placeholder-[color:var(--Woodsmoke-900,#2B384F)]" placeholder="Correo electrónico" disabled={saving} required />
-              <button className="mt-4 px-3 py-2 " disabled={saving}>
-                Enviar
-                <i className="mdi mdi-arrow-top-right ms-1"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex flex-col gap-4 items-start justify-start">
-            <img src="/assets/img/logo.svg" alt="" className="h-8" />
-            <p className="text-sm max-w-md">
-              {summary}
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="flex flex-col gap-2">
-              <a href="/">Inicio</a>
-              <a href="/courses">Cursos y Talleres</a>
-              <a href="/about">Nosotros</a>
-              <a href="/blog">Blog</a>
-              <a href="/contact">Contacto</a>
-            </div>
-            <div className="flex flex-col gap-4 text-sm">
-              <div className="flex flex-col gap-2">
-                <p>{generals.find(x => x.correlative == 'support_phone')?.description}</p>
-                <p>{generals.find(x => x.correlative == 'support_email')?.description}</p>
-                <p>{generals.find(x => x.correlative == 'opening_hours')?.description}</p>
-                <div>
-                  {generals.find(x => x.correlative == 'address')?.description}
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                {
-                  socials.map((item, index) => {
-                    return <Tippy key={index} content={`Ver ${item.name} en ${item.description}`}>
-                      <a href={item.link} className="text-2xl">
-                        <i className={`fab ${item.icon}`}></i>
-                      </a>
-                    </Tippy>
-                  })
-                }
-              </div>
-            </div>
-          </div>
-        </section>
-        <hr className="my-[5%]" />
-        <section className="flex flex-col lg:flex-row gap-4 justify-between text-center lg:text-start">
-          <p>
-            Copyright © 2023 Trasciende. Reservados todos los derechos.
-          </p>
-          <div className="flex flex-col justify-center lg:justify-between md:flex-row gap-4">
-            <button onClick={() => openModal(0)}>Terminos de servicios</button>
-            <button onClick={() => openModal(1)}>Políticas de privacidad</button>
-          </div>
-        </section>
+      <footer className=" p-[5%] bg-transparent text-white relative grid grid-cols-3 gap-x-4 gap-y-6 text-sm">
+        <div className="col-span-2">
+          <ul className="flex flex-col gap-2">
+            <li><a href="">Conversemos</a></li>
+            <li><a href="">Preguntas frecuentes</a></li>
+            <li><a href="">Terminos y condiciones</a></li>
+            <li><a href="">Libro de reclamaciones</a></li>
+          </ul>
+        </div>
+        <div className="col-span-1">
+          <ul className="flex flex-col gap-2">
+            <li><a href="">Telefono</a></li>
+            <li><a href="">Mail</a></li>
+            <li><a href="">WhatsApp</a></li>
+          </ul>
+        </div>
+        <div className="col-span-2">
+          <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8" />
+        </div>
+        <div className="col-span-1 flex items-end justify-start gap-2">
+          <i className="text-xl bg-white text-[#f1d7c1] fab fa-instagram w-8 h-8 pt-0.5 text-center rounded-full"></i>
+          <i className="text-xl bg-white text-[#f1d7c1] fab fa-facebook-f w-8 h-8 pt-0.5 text-center rounded-full"></i>
+          <i className="text-xl bg-white text-[#f1d7c1] fab fa-whatsapp w-8 h-8 pt-0.5 text-center rounded-full"></i>
+        </div>
       </footer>
 
       {policyItems.map((item, index) => (
@@ -136,7 +95,7 @@ const Footer = ({ socials, summary, generals }) => {
             Cerrar
           </button>
           <h2 className="text-2xl font-bold mb-4">{item.title}</h2>
-          <HtmlContent className='prose' html={item.modalContent}/>
+          <HtmlContent className='prose' html={item.modalContent} />
         </ReactModal>
       ))}
     </>

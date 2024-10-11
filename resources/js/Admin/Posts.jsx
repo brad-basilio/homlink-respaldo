@@ -46,7 +46,7 @@ const Posts = ({ }) => {
     descriptionRef.editor.root.innerHTML = data?.description ?? ''
     imageRef.image.src = `/api/posts/media/${data?.image}`
     imageRef.current.value = null
-    tagsRef.current.value = data?.tags ?? ''
+    SetSelectValue(tagsRef.current, data?.tags ?? [], 'id', 'name')
     postDateRef.current.value = data?.post_date ?? moment().format('YYYY-MM-DD')
 
     $(modalRef.current).modal('show')
