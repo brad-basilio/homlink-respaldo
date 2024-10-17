@@ -7,12 +7,12 @@ import vegan from './images/vegan.svg'
 import crueltyFree from './images/cruelty-free.svg'
 
 const Highlights2 = () => {
-  return <div className="p-[10%] bg-[#FBF5F1]" style={{
+  return <div className="p-[10%] bg-[#FBF5F1] md:py-[7.5%] lg:py-[5%]" style={{
     backgroundImage: 'url(/assets/img/highlights/background.png)',
     backgroundPosition: 'center',
     backgroundSize: 'cover'
   }}>
-    <div className=" text-white">
+    <div className=" text-white md:w-2/3 lg:w-1/2">
       <h1 className="text-4xl mb-4">Hacemos alquimia</h1>
       <p className="mb-4 text-sm">Nuestro equipo de científicos identificó la proporción perfecta de ingredientes naturales para el bienestar de tu cabello.</p>
       <table className="w-full mb-4">

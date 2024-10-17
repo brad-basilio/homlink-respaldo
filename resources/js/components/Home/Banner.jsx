@@ -1,10 +1,10 @@
 import React from "react"
 
 const Banner = () => {
-  return <section className='bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9]' >
-    <div className='w-full  px-[5%] py-[25%]' style={{
+  return <section className='bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] md:px-[10%] md:py-[2.5%]' >
+    <div className='w-full px-[5%] py-[25%] md:px-[7.5%] md:py-[10%] [background-position:left] md:[background-position:center] md:rounded-3xl' style={{
       backgroundImage: 'url(/assets/img/background-animated.gif)',
-      backgroundPosition: 'left',
+      // backgroundPosition: 'left',
       backgroundSize: 'cover'
     }}>
       <h1 className='text-2xl text-white w-2/3'>

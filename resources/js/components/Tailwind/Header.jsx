@@ -33,11 +33,11 @@ const Header = ({ socials, generals }) => {
           A TODO LIMA METROPOLITANA!</b>
       </div>
       <header className="sticky top-0 w-screen z-40">
-        <div className={`flex justify-between items-center bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg`}>
-          <div className="flex items-center">
+        <div className={`flex justify-between items-center bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg lg:shadow-none`}>
+          <div className="flex items-center md:px-[5%]">
             <button
               onClick={toggleMenu}
-              className="text-white h-16 w-16 px-6 menu-toggle"
+              className="text-white h-16 w-16 px-6 menu-toggle lg:hidden"
               aria-label="Toggle menu"
             >
               <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
@@ -46,7 +46,15 @@ const Header = ({ socials, generals }) => {
               <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 -mt-3.5" />
             </a>
           </div>
-          <div className="py-6 flex gap-2">
+          <div className="py-6 flex gap-2 md:gap-4">
+
+            <ul className="hidden lg:flex gap-8 me-4">
+              <li><a href="/about" className="block py-2">NOSOTROS</a></li>
+              <li><a href="/supplies" className="block py-2">NUESTROS INGREDIENTES</a></li>
+              <li><a href="/subscribe" className="block py-2">SUSCRIPCIÓN</a></li>
+              <li><a href="/faqs" className="block py-2">Q&A</a></li>
+            </ul>
+
             <button className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FORMULA</button>
             <button>
               <i className="text-xl fa fa-user"></i>
