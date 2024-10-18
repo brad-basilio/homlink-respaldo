@@ -28,7 +28,9 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemDetailController;
+use App\Http\Controllers\SupplieController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,8 +45,8 @@ use App\Http\Controllers\TagController;
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/courses', [ItemController::class, 'reactView'])->name('Courses.jsx');
-Route::get('/courses/{courseId}', [ItemDetailController::class, 'reactView'])->name('CourseDetails.jsx');
+Route::get('/supplies', [SupplieController::class, 'reactView'])->name('Supplies.jsx');
+Route::get('/test', [TestController::class, 'reactView'])->name('Test.jsx');
 Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');

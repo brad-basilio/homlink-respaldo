@@ -56,29 +56,28 @@ const Footer = ({ generals }) => {
 
   return (
     <>
-      <footer className="px-[5%] py-[10%] bg-transparent text-white relative grid grid-cols-3 gap-x-4 gap-y-6 text-sm">
-        <div className="col-span-2">
+      <footer className="px-[5%] py-[10%] md:px-[10%] md:py-[7.5%] lg:py-[5%] bg-transparent text-white relative grid grid-cols-3 md:grid-cols-2 gap-x-4 gap-y-6 text-sm">
+        <div className="col-span-2 flex flex-col gap-4 md:flex-row-reverse items-start justify-evenly md:col-span-1">
           <ul className="flex flex-col gap-2">
             <li><a href="">Conversemos</a></li>
             <li><a href="">Preguntas frecuentes</a></li>
             <li><a href="">Terminos y condiciones</a></li>
             <li><a href="">Libro de reclamaciones</a></li>
           </ul>
+          <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 w-max" />
         </div>
-        <div className="col-span-1">
+        <div className="col-span-1 flex flex-col gap-4 md:flex-row items-start justify-evenly md:col-span-1">
           <ul className="flex flex-col gap-2">
             <li><a href="">Telefono</a></li>
             <li><a href="">Mail</a></li>
             <li><a href="">WhatsApp</a></li>
+            <li><a href="">‎</a></li>
           </ul>
-        </div>
-        <div className="col-span-2">
-          <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8" />
-        </div>
-        <div className="col-span-1 flex items-end justify-start gap-2">
-          <i className="text-xl bg-white text-[#f1d7c1] fab fa-instagram w-8 h-8 pt-0.5 text-center rounded-full"></i>
-          <i className="text-xl bg-white text-[#f1d7c1] fab fa-facebook-f w-8 h-8 pt-0.5 text-center rounded-full"></i>
-          <i className="text-xl bg-white text-[#f1d7c1] fab fa-whatsapp w-8 h-8 pt-0.5 text-center rounded-full"></i>
+          <div className="flex items-end justify-start gap-2">
+            <i className="text-xl bg-white text-[#f1d7c1] fab fa-instagram w-8 h-8 pt-0.5 text-center rounded-full"></i>
+            <i className="text-xl bg-white text-[#f1d7c1] fab fa-facebook-f w-8 h-8 pt-0.5 text-center rounded-full"></i>
+            <i className="text-xl bg-white text-[#f1d7c1] fab fa-whatsapp w-8 h-8 pt-0.5 text-center rounded-full"></i>
+          </div>
         </div>
       </footer>
 

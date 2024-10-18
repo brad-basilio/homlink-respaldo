@@ -10,6 +10,7 @@ import Routine from './Components/Home/Routine';
 import Highlights2 from './Components/Home/Highlights2';
 import Supplies from './Components/Home/Supplies';
 import Testimonies from './Components/Home/Testimonies';
+import CallToAction from './Components/Home/CallToAction';
 
 const Home = () => {
   return (
@@ -22,6 +23,7 @@ const Home = () => {
       <Highlights2 />
       <Supplies />
       <Testimonies />
+      <CallToAction/>
     </>
   );
 };

@@ -55,7 +55,7 @@ const Header = ({ socials, generals }) => {
               <li><a href="/faqs" className="block py-2">Q&A</a></li>
             </ul>
 
-            <button className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FORMULA</button>
+            <button href="/test" className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FORMULA</button>
             <button>
               <i className="text-xl fa fa-user"></i>
             </button>
