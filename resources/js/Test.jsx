@@ -59,12 +59,18 @@ const Test = () => {
     Local.set('vua_test', test)
   }, [test])
 
+  const percent = (getCurrentPageIndex() / pageOrder.length) * 100
+
   return (
     <>
       {
         getCurrentPageIndex() > 0 &&
         <div className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pt-[5%]'>
-          <hr className='h-4 max-w-md bg-[#9577B9] rounded-full mx-auto' />
+          <div className='h-2 bg-[#EFEAE5] max-w-md rounded-full mx-auto'>
+            <hr className={`h-2 bg-[#F7C2C6] rounded-full`} style={{
+              width: `${percent}%`
+            }} />
+          </div>
         </div>
       }
       {getCurrentPage()}
