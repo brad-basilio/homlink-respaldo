@@ -68,7 +68,8 @@ const Test = () => {
         <div className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pt-[5%]'>
           <div className='h-2 bg-[#EFEAE5] max-w-md rounded-full mx-auto'>
             <hr className={`h-2 bg-[#F7C2C6] rounded-full`} style={{
-              width: `${percent}%`
+              width: `${percent}%`,
+              transition: 'all .25s'
             }} />
           </div>
         </div>
