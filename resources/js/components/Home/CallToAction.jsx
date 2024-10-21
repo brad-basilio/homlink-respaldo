@@ -10,7 +10,7 @@ const CallToAction = () => {
         <img className="h-auto items-center" src="/assets/img/calltoaction/banner.png" alt="" />
       </div>
     </div>
-    <button className='bg-[#8998DA] text-white text-sm px-4 py-3 rounded border border-white w-max mx-auto md:mx-[12.5%]'>TE CONTAMOS MAS AQUI</button>
+    <button href='/plans' className='bg-[#8998DA] text-white text-sm px-4 py-3 rounded border border-white w-max mx-auto md:mx-[12.5%]'>TE CONTAMOS MAS AQUI</button>
   </section>
 }
 

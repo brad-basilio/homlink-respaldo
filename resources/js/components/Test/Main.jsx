@@ -1,8 +1,13 @@
 import React from "react"
 
-const Main = ({ test, setTest }) => {
-  const onStartTestClicked = () => {
-    setTest(old => ({ ...old, has_started: true }))
+const Main = ({ test, setTest, setFirstTime }) => {
+  const onStartTestClicked = (refresh) => {
+    setFirstTime(false)
+    if (refresh) {
+      setTest({ has_started: true })
+    } else {
+      setTest(old => ({ ...old, has_started: true }))
+    }
   }
 
   return <section className='p-[5%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-white text-center'
@@ -19,7 +24,17 @@ const Main = ({ test, setTest }) => {
       <p className='my-[5%] text-sm'>
         Danos dos minutos de tu tiempo y formularemos una rutina de cuidado del cabello única solo para ti.
       </p>
-      <button className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded border border-white w-max mx-auto md:mx-[12.5%]' onClick={onStartTestClicked}>¡EMPIEZA AHORA!</button>
+      <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%]">
+        <button className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded border border-white w-max  text-nowrap' onClick={() => onStartTestClicked(false)}>{
+          test.has_started
+            ? 'CONTINUAR TEST'
+            : '¡EMPIEZA AHORA!'
+        }</button>
+        {
+          test.has_started &&
+          <button className='bg-white text-[#9577B9] text-sm px-8 py-3 rounded border border-white w-max text-nowrap' onClick={() => onStartTestClicked(true)}>REINICIAR TEST</button>
+        }
+      </div>
       <figure className='h-[50vh]'></figure>
     </div>
   </section>

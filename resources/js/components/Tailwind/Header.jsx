@@ -1,7 +1,7 @@
 import Tippy from "@tippyjs/react";
 import React, { useState, useEffect, useRef } from "react"
 
-const Header = ({ socials, generals }) => {
+const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd }) => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
 
@@ -28,12 +28,18 @@ const Header = ({ socials, generals }) => {
 
   return (
     <>
-      <div className="text-center px-[5%] py-4 bg-[#A191B8] text-white text-sm">
-        ¡SUSCRÍBETE A CLUB VUÁ Y OBTÉN <b>ENVÍO GRATIS<br className="md:hidden" />
-          A TODO LIMA METROPOLITANA!</b>
-      </div>
+      {
+        showSlogan &&
+        <div className="text-center px-[5%] py-4 bg-[#A191B8] text-white text-sm">
+          ¡SUSCRÍBETE A CLUB VUÁ Y OBTÉN <b>ENVÍO GRATIS<br className="md:hidden" />
+            A TODO LIMA METROPOLITANA!</b>
+        </div>
+      }
       <header className="sticky top-0 w-screen z-40">
-        <div className={`flex justify-between items-center bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg lg:shadow-none`}>
+        <div className={`flex justify-between items-center ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg lg:shadow-none`}
+        style={{
+          backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
+        }}>
           <div className="flex items-center md:px-[5%]">
             <button
               onClick={toggleMenu}
@@ -67,7 +73,10 @@ const Header = ({ socials, generals }) => {
         </div>
         <div
           ref={menuRef}
-          className={`absolute top-full inset-0 bg-gradient-to-r from-[#c4b8d3] to-[#dbc8c9] text-white z-40 transform ${isOpen ? 'opacity-1' : 'hidden opacity-0'} transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto`}>
+          className={`absolute top-full inset-0 text-white z-40 transform ${isOpen ? 'opacity-1' : 'hidden opacity-0'} transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto`}
+          style={{
+            backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
+          }}>
           <ul className="flex flex-col gap-4 items-center justify-center">
             <li>
               <a href="/about">NOSOTROS</a>

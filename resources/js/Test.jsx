@@ -10,13 +10,15 @@ import ScalpType from './Components/Test/ScalpType';
 import HairGoals from './Components/Test/HairGoals';
 import Fragrance from './Components/Test/Fragrance';
 import Email from './Components/Test/Email';
+import ProgressBar from './Components/Test/components/ProgressBar';
 
 const Test = () => {
+  const [firstTime, setFirstTime] = useState(true);
   const [test, setTest] = useState(Local.get('vua_test') ?? {});
 
   // Páginas
   const pages = {
-    'has_started': <Main test={test} setTest={setTest} />,
+    'has_started': <Main test={test} setTest={setTest} setFirstTime={setFirstTime} />,
     'has_treatment': <Treatment test={test} setTest={setTest} />,
     'scalp_type': <ScalpType test={test} setTest={setTest} />,
     'hair_type': <HairType test={test} setTest={setTest} />,
@@ -25,9 +27,10 @@ const Test = () => {
     'email': <Email test={test} setTest={setTest} />
   };
 
-  const pageOrder = ['has_started', 'has_treatment', 'scalp_type', 'hair_type', 'hair_goals', 'fragrance', 'email'];
+  const pageOrder = Object.keys(pages);
 
   const getCurrentPageIndex = () => {
+    if (firstTime) return 0
     for (let i = 0; i < pageOrder.length; i++) {
       if (test[pageOrder[i]] === null || typeof test[pageOrder[i]] === 'undefined') {
         return i;
@@ -66,12 +69,7 @@ const Test = () => {
       {
         getCurrentPageIndex() > 0 &&
         <div className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pt-[5%]'>
-          <div className='h-2 bg-[#EFEAE5] max-w-md rounded-full mx-auto'>
-            <hr className={`h-2 bg-[#F7C2C6] rounded-full`} style={{
-              width: `${percent}%`,
-              transition: 'all .25s'
-            }} />
-          </div>
+            <ProgressBar width={`${percent}%`}/>
         </div>
       }
       {getCurrentPage()}
