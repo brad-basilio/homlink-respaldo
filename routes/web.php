@@ -32,6 +32,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\SupplieController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestResultController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,7 @@ Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/plans', [PlanController::class, 'reactView'])->name('Plans.jsx');
 Route::get('/supplies', [SupplieController::class, 'reactView'])->name('Supplies.jsx');
 Route::get('/test', [TestController::class, 'reactView'])->name('Test.jsx');
+Route::get('/test/result', [TestResultController::class, 'reactView'])->name('TestResult.jsx');
 Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');

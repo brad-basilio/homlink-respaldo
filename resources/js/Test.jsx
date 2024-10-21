@@ -43,7 +43,7 @@ const Test = () => {
     const currentPageIndex = getCurrentPageIndex();
     if (currentPageIndex === 0 && !test.has_started) return pages.has_started;
     if (currentPageIndex < pageOrder.length) return pages[pageOrder[currentPageIndex]];
-    return <div>Test completado</div>;
+    return location.href = '/test/result';
   };
 
   const handleBack = () => {
@@ -67,14 +67,14 @@ const Test = () => {
   return (
     <>
       {
-        getCurrentPageIndex() > 0 &&
+        (getCurrentPageIndex() > 0 && getCurrentPageIndex() != pageOrder.length) &&
         <div className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pt-[5%]'>
             <ProgressBar width={`${percent}%`}/>
         </div>
       }
       {getCurrentPage()}
       {
-        getCurrentPageIndex() > 0 &&
+        (getCurrentPageIndex() > 0 && getCurrentPageIndex() != pageOrder.length) &&
         <section className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pb-[5%]'>
           <button
             className='h-10 w-10 bg-[#DBCEEB] text-white rounded-full'
