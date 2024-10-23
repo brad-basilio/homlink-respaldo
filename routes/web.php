@@ -26,9 +26,14 @@ use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemDetailController;
+use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PopupController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterVuaController;
 use App\Http\Controllers\SupplieController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TestController;
@@ -55,6 +60,12 @@ Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.jsx');
+
+// Vistas maquetadas finalizadas
+Route::get('/products', [ProductController::class, 'reactView'])->name('Products.jsx');
+Route::get('/loginvua', [LoginVuaController::class, 'reactView'])->name('LoginVua.jsx');
+Route::get('/dashboard', [DashboardController::class, 'reactView'])->name('Dashboard.jsx');
+Route::get('/popup', [PopupController::class, 'reactView'])->name('Popup.jsx');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
 
