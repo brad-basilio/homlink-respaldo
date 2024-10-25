@@ -57,7 +57,7 @@ const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd 
             <ul className="hidden lg:flex gap-8 me-4">
               <li><a href="/about" className="block py-2">NOSOTROS</a></li>
               <li><a href="/supplies" className="block py-2">NUESTROS INGREDIENTES</a></li>
-              <li><a href="/subscribe" className="block py-2">SUSCRIPCIÓN</a></li>
+              <li><a href="/plans" className="block py-2">SUSCRIPCIÓN</a></li>
               <li><a href="/faqs" className="block py-2">Q&A</a></li>
             </ul>
 
@@ -85,7 +85,7 @@ const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd 
               <a href="/supplies">NUESTROS INGREDIENTES</a>
             </li>
             <li>
-              <a href="/subscribe">SUBSCRIPCION</a>
+              <a href="/plans">SUBSCRIPCION</a>
             </li>
             <li>
               <a href="/faqs">Q&A</a>

@@ -15,29 +15,41 @@ class TestimonySeeder extends Seeder
     {
         $testimonies = [
             [
-                'name' => 'Leslie Alexander',
-                'country' => 'South Africa',
-                'description' => 'Gracias a los cursos de Transciende, *he aprendido a superar mis barreras y a alcanzar metas* que antes parecían imposibles. El acompañamiento ha sido fundamental en mi desarrollo tanto personal como profesional.'
+                'description' => 'Este champú ha transformado por completo mi cabello, ahora se ve más saludable y brillante.',
+                'name' => 'María López',
+                'correlative' => 'maria_healthyhair'
             ],
             [
-                'name' => 'Guy Hawkins',
-                'country' => 'UK',
-                'description' => 'La experiencia en Transciende ha sido transformadora. No solo he aprendido nuevas habilidades, sino que también *he descubierto mi verdadero potencial*. Los talleres me dieron herramientas prácticas que utilizo a diario.'
+                'description' => 'Llevo usando este champú por un mes y el crecimiento de mi cabello es increíble. ¡Lo recomiendo 100%!',
+                'name' => 'Carlos Ramírez',
+                'correlative' => 'carlos_hairgrowth'
             ],
             [
-                'name' => 'Wade Warren',
-                'country' => 'Australia',
-                'description' => 'Transciende me ayudó a mejorar mi enfoque y encontrar claridad en mi vida profesional. *Los cursos están llenos de contenido valioso* que realmente marca una diferencia.'
+                'description' => 'He probado muchos productos, pero este champú es el único que realmente combate la caspa y deja mi cuero cabelludo limpio.',
+                'name' => 'Ana Torres',
+                'correlative' => 'ana_anticaspa'
             ],
+            [
+                'description' => 'Mi cabello solía estar seco y sin vida, pero este champú lo ha revitalizado completamente.',
+                'name' => 'Lucía Fernández',
+                'correlative' => 'lucia_haircare'
+            ],
+            [
+                'description' => 'El aroma de este champú es increíble y me deja el cabello suave y manejable todo el día.',
+                'name' => 'Diego Pérez',
+                'correlative' => 'diego_softshine'
+            ],
+            [
+                'description' => 'Este champú ha sido una salvación para mi cabello teñido, mantiene el color vibrante por más tiempo.',
+                'name' => 'Sofía García',
+                'correlative' => 'sofia_colortreated'
+            ]
         ];
 
         foreach ($testimonies as $testimony) {
             Testimony::updateOrCreate(
                 ['name' => $testimony['name']],
-                [
-                    'country' => $testimony['country'],
-                    'description' => $testimony['description']
-                ]
+                $testimony
             );
         }
     }

@@ -9,15 +9,12 @@ import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
-import SelectFormGroup from '../Components/form/SelectFormGroup';
 import TestimoniesRest from '../Actions/Admin/TestimoniesRest';
-import DxBox from '../Components/Adminto/Dx/DxBox';
 import Swal from 'sweetalert2';
 
 const testimoniesRest = new TestimoniesRest()
 
-const Testimonies = ({ countries }) => {
+const Testimonies = ({ }) => {
 
   const gridRef = useRef()
   const modalRef = useRef()
@@ -25,9 +22,8 @@ const Testimonies = ({ countries }) => {
   // Form elements ref
   const idRef = useRef()
   const nameRef = useRef()
+  const correlativeRef= useRef()
   const descriptionRef = useRef()
-  const imageRef = useRef()
-  const countryRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -37,10 +33,8 @@ const Testimonies = ({ countries }) => {
 
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
-    $(countryRef.current).val(data?.country_id ?? '89').trigger('change');
+    correlativeRef.current.value = data?.correlative ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    imageRef.image.src = `/api/testimonies/media/${data?.image}`
-    imageRef.current.value = null
 
     $(modalRef.current).modal('show')
   }
@@ -50,23 +44,12 @@ const Testimonies = ({ countries }) => {
 
     const request = {
       id: idRef.current.value || undefined,
-      country_id: $(countryRef.current).val(),
-      country: $(countryRef.current).find('option:selected').text(),
       name: nameRef.current.value,
+      correlative: correlativeRef.current.value,
       description: descriptionRef.current.value,
     }
 
-    const formData = new FormData()
-    for (const key in request) {
-      formData.append(key, request[key])
-    }
-    const file = imageRef.current.files[0]
-    if (file) {
-      const { thumbnail, type, ...rest } = await File.compress(file, { square: false })
-      formData.append('image', await File.fromURL(`data:${type};base64,${thumbnail}`))
-    }
-
-    const result = await testimoniesRest.save(formData)
+    const result = await testimoniesRest.save(request)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
@@ -124,20 +107,18 @@ const Testimonies = ({ countries }) => {
         {
           dataField: 'name',
           caption: 'Autor',
+          width: '100px',
           cellTemplate: (container, { data }) => {
-            container.append(DxBox([
-              <img
-                className='avatar-xs rounded-circle'
-                src={`/api/testimonies/media/${data.image}`}
-                alt={data.name}
-              />,
-              <p className='mb-0' style={{ fontSize: "14px" }}>{data.name}</p>
-            ], false))
+            ReactAppend(container, <p className='mb-0' style={{ width: '100%' }}>
+              <b className='d-block'>{data.name}</b>
+              <small className='text-nowrap text-muted truncate'>@{data.correlative}</small>
+            </p>)
           }
         },
         {
-          dataField: 'country',
-          caption: 'Pais',
+          dataField: 'description',
+          caption: 'Testimonio',
+          width: '50%'
         },
         {
           dataField: 'visible',
@@ -171,20 +152,11 @@ const Testimonies = ({ countries }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar testimonio' : 'Agregar testimonio'} onSubmit={onModalSubmit} size='md'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar testimonio' : 'Agregar testimonio'} onSubmit={onModalSubmit} size='sm'>
       <div className='row' id='testimony-container'>
         <input ref={idRef} type='hidden' />
-        <div className='col-12'>
-          <div className='row'>
-            <ImageFormGroup eRef={imageRef} label='Imagen' col='col-sm-4 col-xs-12' aspect={1}/>
-            <div className='col-sm-8 col-xs-12'>
-              <InputFormGroup eRef={nameRef} label='Autor' rows={2} required />
-              <SelectFormGroup eRef={countryRef} label='Pais' required dropdownParent='#testimony-container'>
-                {countries.map((country, i) => <option key={`country-${i}`} value={country.id} >{country.name}</option>)}
-              </SelectFormGroup>
-            </div>
-          </div>
-        </div>
+        <InputFormGroup eRef={nameRef} label='Nombre' rows={2} required />
+        <InputFormGroup eRef={correlativeRef} label='Usuario' required />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} required />
       </div>
     </Modal>

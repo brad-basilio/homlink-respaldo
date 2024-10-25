@@ -12,17 +12,17 @@ import Supplies from './Components/Home/Supplies';
 import Testimonies from './Components/Home/Testimonies';
 import CallToAction from './Components/Home/CallToAction';
 
-const Home = () => {
+const Home = ({items, testimonies}) => {
   return (
     <>
       <Banner />
       <hr className='h-4 bg-transparent border-none' />
       <Highlights />
       <HowItWorks />
-      <Routine />
+      <Routine items={items} />
       <Highlights2 />
       <Supplies />
-      <Testimonies />
+      <Testimonies testimonies={testimonies} />
       <CallToAction/>
     </>
   );

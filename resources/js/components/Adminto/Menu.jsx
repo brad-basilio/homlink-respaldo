@@ -74,7 +74,8 @@ const Menu = ({ session, hasRole }) => {
             hasRole('Admin') && <>
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
               <MenuItem href="/admin/posts" icon='mdi mdi-post'>Posts</MenuItem>
-              <MenuItem href="/admin/courses" icon='mdi mdi-bookshelf'>Cursos</MenuItem>
+              <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
+              <MenuItem href="/admin/supplies" icon='mdi mdi-flask'>Ingredientes</MenuItem>
               <MenuItem href="/admin/messages" icon='mdi mdi-message-text'>Mensajes</MenuItem>
               <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Suscripciones</MenuItem>
               <li className="menu-title">Landing Page</li>

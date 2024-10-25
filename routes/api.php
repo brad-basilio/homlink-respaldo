@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
+use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 
 // Public
@@ -26,6 +27,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\SupplyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,10 +45,11 @@ Route::post('/signup', [AuthController::class, 'signup']);
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
 Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
-Route::get('/courses/media/{uuid}', [AdminItemController::class, 'media']);
+Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
-Route::post('/courses/paginate', [ItemController::class, 'paginate']);
+Route::post('/items/paginate', [ItemController::class, 'paginate']);
+Route::post('/supplies/paginate', [SupplyController::class, 'paginate']);
 
 Route::post('/messages', [MessageController::class, 'save']);
 Route::post('/subscriptions', [SubscriptionController::class, 'save']);
@@ -66,11 +69,17 @@ Route::middleware('auth')->group(function () {
         Route::patch('/posts/{field}', [AdminPostController::class, 'boolean']);
         Route::delete('/posts/{id}', [AdminPostController::class, 'delete']);
 
-        Route::post('/courses', [AdminItemController::class, 'save']);
-        Route::post('/courses/paginate', [AdminItemController::class, 'paginate']);
-        Route::patch('/courses/status', [AdminItemController::class, 'status']);
-        Route::patch('/courses/{field}', [AdminItemController::class, 'boolean']);
-        Route::delete('/courses/{id}', [AdminItemController::class, 'delete']);
+        Route::post('/items', [AdminItemController::class, 'save']);
+        Route::post('/items/paginate', [AdminItemController::class, 'paginate']);
+        Route::patch('/items/status', [AdminItemController::class, 'status']);
+        Route::patch('/items/{field}', [AdminItemController::class, 'boolean']);
+        Route::delete('/items/{id}', [AdminItemController::class, 'delete']);
+
+        Route::post('/supplies', [AdminSupplyController::class, 'save']);
+        Route::post('/supplies/paginate', [AdminSupplyController::class, 'paginate']);
+        Route::patch('/supplies/status', [AdminSupplyController::class, 'status']);
+        Route::patch('/supplies/{field}', [AdminSupplyController::class, 'boolean']);
+        Route::delete('/supplies/{id}', [AdminSupplyController::class, 'delete']);
 
         Route::post('/messages', [AdminMessageController::class, 'save']);
         Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);

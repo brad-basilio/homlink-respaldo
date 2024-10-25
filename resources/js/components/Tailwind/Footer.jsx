@@ -10,7 +10,7 @@ import HtmlContent from "../../Utils/HtmlContent";
 
 const subscriptionsRest = new SubscriptionsRest();
 
-const Footer = ({ generals }) => {
+const Footer = ({ socials, generals }) => {
 
   const emailRef = useRef()
 
@@ -74,9 +74,11 @@ const Footer = ({ generals }) => {
             <li><a href="">‎</a></li>
           </ul>
           <div className="flex items-end justify-start gap-2">
-            <i className="text-xl bg-white text-[#f1d7c1] fab fa-instagram w-8 h-8 pt-0.5 text-center rounded-full"></i>
-            <i className="text-xl bg-white text-[#f1d7c1] fab fa-facebook-f w-8 h-8 pt-0.5 text-center rounded-full"></i>
-            <i className="text-xl bg-white text-[#f1d7c1] fab fa-whatsapp w-8 h-8 pt-0.5 text-center rounded-full"></i>
+            {
+              socials.map((social, index) => {
+                return <a href={social.link} className={`text-xl bg-white text-[#f1d7c1] ${social.icon} w-8 h-8 pt-0.5 text-center rounded-full`}></a>
+              })
+            }
           </div>
         </div>
       </footer>

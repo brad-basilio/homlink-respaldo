@@ -22,20 +22,17 @@ use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ItemController;
-use App\Http\Controllers\ItemDetailController;
 use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RegisterVuaController;
-use App\Http\Controllers\SupplieController;
-use App\Http\Controllers\TagController;
+use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
 
@@ -53,7 +50,7 @@ use App\Http\Controllers\TestResultController;
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/plans', [PlanController::class, 'reactView'])->name('Plans.jsx');
-Route::get('/supplies', [SupplieController::class, 'reactView'])->name('Supplies.jsx');
+Route::get('/supplies', [SupplyController::class, 'reactView'])->name('Supplies.jsx');
 Route::get('/test', [TestController::class, 'reactView'])->name('Test.jsx');
 Route::get('/test/result', [TestResultController::class, 'reactView'])->name('TestResult.jsx');
 Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
@@ -74,7 +71,8 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/', fn() => redirect('Admin/Home.jsx'));
     Route::get('/home', [AdminHomeController::class, 'reactView'])->name('Admin/Home.jsx');
     Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');
-    Route::get('/courses', [AdminItemController::class, 'reactView'])->name('Admin/Courses.jsx');
+    Route::get('/items', [AdminItemController::class, 'reactView'])->name('Admin/Items.jsx');
+    Route::get('/supplies', [AdminSupplyController::class, 'reactView'])->name('Admin/Supplies.jsx');
     Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
 

@@ -15,28 +15,22 @@ class SocialSeeder extends Seeder
     {
         $socials = [
             [
-                'name' => 'Kaori',
+                'name' => 'Vuá® Perú',
+                'description' => 'Instagram',
+                'icon' => 'fab fa-instagram',
+                'link' => 'https://www.instagram.com/vua.peru/'
+            ],
+            [
+                'name' => 'Vua Perú',
                 'description' => 'Facebook',
                 'icon' => 'fab fa-facebook-f',
-                'link' => 'https://facebook.com'
+                'link' => 'https://www.facebook.com/vua.peru'
             ],
             [
                 'name' => 'Kaori',
                 'description' => 'WhatsApp',
                 'icon' => 'fab fa-whatsapp',
-                'link' => 'https://whatsapp.com'
-            ],
-            [
-                'name' => 'Kaori',
-                'description' => 'Instagram',
-                'icon' => 'fab fa-instagram',
-                'link' => 'https://instagram.com'
-            ],
-            [
-                'name' => 'Kaori',
-                'description' => 'LinkedIn',
-                'icon' => 'fab fa-linkedin-in',
-                'link' => 'https://linkedin.com'
+                'link' => 'https://api.whatsapp.com/send?phone=+5114605000&text=' . urlencode('¡Hola! Quisiera que me informe sobre los producto de Vuá.')
             ],
         ];
 

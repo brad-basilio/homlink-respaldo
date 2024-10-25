@@ -22,7 +22,7 @@ class HomeController extends BasicController
         $weareJpa = Aboutus::where('name', 'Somos')->first();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
         $articles = Post::with(['category'])->where('status', true)->orderBy('post_date', 'desc')->take(6)->get();
-        $courses = Item::where('featured', true)->where('status', true)->take(7)->get();
+        $items = Item::where('visible', true)->where('status', true)->get();
 
         return [
             'sliders' => $sliders,
@@ -30,7 +30,7 @@ class HomeController extends BasicController
             'weare' => $weareJpa->description,
             'testimonies' => $testimonies,
             'articles' => $articles,
-            'courses' => $courses,
+            'items' => $items,
         ];
     }
 }

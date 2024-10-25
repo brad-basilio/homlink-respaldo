@@ -28,6 +28,7 @@ class BasicController extends Controller
   public $reactRootView = 'admin';
   public $imageFields = [];
   public $prefix4filter = null;
+  public $throwMediaError = false;
 
   public function media(Request $request, string $uuid)
   {
@@ -39,7 +40,9 @@ class BasicController extends Controller
       ]);
     } catch (\Throwable $th) {
       $content = Storage::get('utils/cover-404.svg');
-      return response($content, 200, [
+      $status = 200;
+      if ($this->throwMediaError) return null;
+      return response($content, $status, [
         'Content-Type' => 'image/svg+xml'
       ]);
     }

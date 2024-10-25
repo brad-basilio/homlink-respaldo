@@ -132,6 +132,7 @@ const Socials = ({ icons }) => {
         {
           dataField: 'link',
           caption: 'Link',
+          width: '400px'
         },
         {
           dataField: 'visible',

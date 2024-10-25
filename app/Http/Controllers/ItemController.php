@@ -13,6 +13,7 @@ class ItemController extends BasicController
     public $reactView = 'Courses';
     public $reactRootView = 'public';
     public $prefix4filter = 'items';
+    public $throwMediaError = true;
 
     public function setReactViewProperties(Request $request)
     {

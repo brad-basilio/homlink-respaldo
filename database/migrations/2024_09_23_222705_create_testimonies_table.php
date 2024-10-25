@@ -14,10 +14,8 @@ return new class extends Migration
     {
         Schema::create('testimonies', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->string('image')->nullable();
             $table->string('name');
-            $table->string('country_id')->nullable();
-            $table->string('country')->default('Peru')->nullable();
+            $table->string('correlative');
             $table->longText('description');
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();

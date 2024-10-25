@@ -25,11 +25,4 @@ class ItemController extends BasicController
             'categories' => $categories,
         ];
     }
-
-    public function setPaginationInstance(string $model)
-    {
-        return $model::select(['items.*'])
-            ->with(['category'])
-            ->leftJoin('categories AS category', 'category.id', 'items.category_id');
-    }
 }
