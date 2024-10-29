@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             SocialSeeder::class,
             GeneralSeeder::class,
             ItemSeeder::class,
+            SupplySeeder::class,
+            FormulaSeeder::class,
+            FormulaHasSupplySeeder::class,
+            ColorSeeder::class,
         ]);
     }
 }

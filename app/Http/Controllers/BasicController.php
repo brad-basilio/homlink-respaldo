@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
+use SoDe\Extend\Text;
 
 class BasicController extends Controller
 {
@@ -33,7 +34,11 @@ class BasicController extends Controller
   public function media(Request $request, string $uuid)
   {
     try {
-      $content = Storage::get('images/' . $uuid . '.img');
+      if (Text::has($uuid, '.')) {
+        $content = Storage::get('images/' . $uuid);
+      } else {
+        $content = Storage::get('images/' . $uuid . '.img');
+      }
       if (!$content) throw new Exception('Imagen no encontrado');
       return response($content, 200, [
         'Content-Type' => 'application/octet-stream'
@@ -103,7 +108,7 @@ class BasicController extends Controller
         [$grouping] = $request->group;
         $selector = $grouping['selector'];
         $instance = $this->model::select([
-          DB::raw("{$selector} AS key")
+          DB::raw("{$selector} AS 'key'")
         ])
           ->groupBy($selector);
       }

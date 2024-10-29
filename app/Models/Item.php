@@ -14,23 +14,11 @@ class Item extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'category_id',
         'name',
-        'summary',
         'description',
-        'sessions',
-        'type',
-        'certificate',
-        'session_duration',
-        'long_duration',
         'price',
         'discount',
-        'students',
         'image',
-        'audience',
-        'requirements',
-        'objectives',
-        'content',
         'featured',
         'visible',
         'status',

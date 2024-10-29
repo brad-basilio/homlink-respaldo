@@ -73,19 +73,15 @@ const Menu = ({ session, hasRole }) => {
           {
             hasRole('Admin') && <>
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
-              <MenuItem href="/admin/posts" icon='mdi mdi-post'>Posts</MenuItem>
               <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
-              <MenuItem href="/admin/supplies" icon='mdi mdi-flask'>Ingredientes</MenuItem>
-              <MenuItem href="/admin/messages" icon='mdi mdi-message-text'>Mensajes</MenuItem>
-              <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Suscripciones</MenuItem>
+              <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
+              <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
+              <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>
+              <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Subscripciones</MenuItem>
               <li className="menu-title">Landing Page</li>
               <MenuItem href="/admin/about" icon='mdi mdi-briefcase'>Nosotros</MenuItem>
-              <MenuItem href="/admin/indicators" icon='mdi mdi-dots-grid'>Indicadores</MenuItem>
-              <MenuItem href="/admin/sliders" icon='mdi mdi-page-layout-body'>Sliders</MenuItem>
-              <MenuItem href="/admin/strengths" icon='mdi mdi-arm-flex'>Fortalezas</MenuItem>
               <MenuItem href="/admin/testimonies" icon='mdi mdi-forum'>Testimonios</MenuItem>
-              <MenuItem href="/admin/categories" icon='mdi mdi-layers-outline'>Categorías</MenuItem>
-              <MenuItem href="/admin/tags" icon='mdi mdi-tag'>Etiquetas</MenuItem>
+              <MenuItem href="/admin/faqs" icon='mdi mdi-frequently-asked-questions'>FAQs</MenuItem>
               <MenuItem href="/admin/socials" icon='mdi mdi-web'>Redes Sociales</MenuItem>
               <li className="menu-title">Configuraciones</li>
               <MenuItem href="/admin/generals" icon='mdi mdi-credit-card-settings'>Datos Generales</MenuItem>

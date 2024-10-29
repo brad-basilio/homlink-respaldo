@@ -2,65 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Formula;
-use App\Http\Requests\StoreFormulaRequest;
-use App\Http\Requests\UpdateFormulaRequest;
+use App\Models\Color;
+use App\Models\Item;
+use App\Models\UserFormulas;
+use Illuminate\Http\Request;
 
-class FormulaController extends Controller
+class FormulaController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public $reactView = 'Formula';
+    public $reactRootView = 'public';
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function setReactViewProperties(Request $request)
     {
-        //
-    }
+        $userFormulaJpa = UserFormulas::find($request->formula);
+        if (!$userFormulaJpa) return redirect('/');
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreFormulaRequest $request)
-    {
-        //
-    }
+        $itemsJpa = Item::select()
+            ->where('visible', true)
+            ->where('status', true)
+            ->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Formula $formula)
-    {
-        //
-    }
+        $colorsJpa = Color::select()
+            ->where('status', true)
+            ->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Formula $formula)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFormulaRequest $request, Formula $formula)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Formula $formula)
-    {
-        //
+        return [
+            'user_formula' => $userFormulaJpa,
+            'items' => $itemsJpa,
+            'colors' => $colorsJpa
+        ];
     }
 }

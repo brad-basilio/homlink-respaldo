@@ -16,18 +16,22 @@ use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
+use App\Http\Controllers\Admin\ColorController as AdminColorController;
+use App\Http\Controllers\Admin\FaqController as AdminFaqController;
+use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
-use App\Http\Controllers\Admin\TagController as AdminTagController;
 
 // Public
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
+use App\Http\Controllers\UserFormulasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +50,8 @@ Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
 Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
+Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
+Route::get('/colors/media/{uuid}', [ColorController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);
@@ -56,6 +62,9 @@ Route::post('/subscriptions', [SubscriptionController::class, 'save']);
 
 Route::get('/cover/{uuid}', [CoverController::class, 'full']);
 Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
+
+Route::post('/user-formulas', [UserFormulasController::class, 'save']);
+
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
@@ -75,11 +84,23 @@ Route::middleware('auth')->group(function () {
         Route::patch('/items/{field}', [AdminItemController::class, 'boolean']);
         Route::delete('/items/{id}', [AdminItemController::class, 'delete']);
 
+        Route::post('/colors', [AdminColorController::class, 'save']);
+        Route::post('/colors/paginate', [AdminColorController::class, 'paginate']);
+        Route::patch('/colors/status', [AdminColorController::class, 'status']);
+        Route::patch('/colors/{field}', [AdminColorController::class, 'boolean']);
+        Route::delete('/colors/{id}', [AdminColorController::class, 'delete']);
+
         Route::post('/supplies', [AdminSupplyController::class, 'save']);
         Route::post('/supplies/paginate', [AdminSupplyController::class, 'paginate']);
         Route::patch('/supplies/status', [AdminSupplyController::class, 'status']);
         Route::patch('/supplies/{field}', [AdminSupplyController::class, 'boolean']);
         Route::delete('/supplies/{id}', [AdminSupplyController::class, 'delete']);
+
+        Route::post('/formulas', [AdminFormulaController::class, 'save']);
+        Route::post('/formulas/paginate', [AdminFormulaController::class, 'paginate']);
+        Route::patch('/formulas/status', [AdminFormulaController::class, 'status']);
+        Route::patch('/formulas/{field}', [AdminFormulaController::class, 'boolean']);
+        Route::delete('/formulas/{id}', [AdminFormulaController::class, 'delete']);
 
         Route::post('/messages', [AdminMessageController::class, 'save']);
         Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);
@@ -121,11 +142,11 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
 
-        Route::post('/tags', [AdminTagController::class, 'save']);
-        Route::post('/tags/paginate', [AdminTagController::class, 'paginate']);
-        Route::patch('/tags/status', [AdminTagController::class, 'status']);
-        Route::patch('/tags/{field}', [AdminTagController::class, 'boolean']);
-        Route::delete('/tags/{id}', [AdminTagController::class, 'delete']);
+        Route::post('/faqs', [AdminFaqController::class, 'save']);
+        Route::post('/faqs/paginate', [AdminFaqController::class, 'paginate']);
+        Route::patch('/faqs/status', [AdminFaqController::class, 'status']);
+        Route::patch('/faqs/{field}', [AdminFaqController::class, 'boolean']);
+        Route::delete('/faqs/{id}', [AdminFaqController::class, 'delete']);
 
         Route::post('/strengths', [AdminStrengthController::class, 'save']);
         Route::post('/strengths/paginate', [AdminStrengthController::class, 'paginate']);

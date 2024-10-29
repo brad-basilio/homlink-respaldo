@@ -76,7 +76,7 @@ const Footer = ({ socials, generals }) => {
           <div className="flex items-end justify-start gap-2">
             {
               socials.map((social, index) => {
-                return <a href={social.link} className={`text-xl bg-white text-[#f1d7c1] ${social.icon} w-8 h-8 pt-0.5 text-center rounded-full`}></a>
+                return <a key={index} href={social.link} className={`text-xl bg-white text-[#f1d7c1] ${social.icon} w-8 h-8 pt-0.5 text-center rounded-full`}></a>
               })
             }
           </div>

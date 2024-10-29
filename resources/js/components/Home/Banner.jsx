@@ -14,7 +14,7 @@ const Banner = () => {
         tuya es <span className='font-bold'>única</span>.
       </h1>
       <p className='text-white py-4 w-2/3'>Rutina capilar hecha solo para ti</p>
-      <button className='bg-[#DAAD9A] text-white text-sm px-4 py-3 rounded border border-white'>HAZ EL TEST Y CREA TU FORMULA</button>
+      <button href='/test' className='bg-[#DAAD9A] text-white text-sm px-4 py-3 rounded border border-white'>HAZ EL TEST Y CREA TU FORMULA</button>
     </div>
   </section>
 }

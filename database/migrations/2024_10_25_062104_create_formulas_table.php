@@ -21,6 +21,8 @@ return new class extends Migration
                 'hair_goals'
             ]);
             $table->string('description')->nullable();
+            $table->string('correlative')->nullable();
+            $table->boolean('status')->default(true)->nullable();
             $table->timestamps();
         });
     }

@@ -7,7 +7,6 @@ import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
-import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 import Swal from 'sweetalert2';
@@ -23,7 +22,6 @@ const Supplies = ({ }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const priceRef = useRef()
   const imageRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
@@ -35,8 +33,7 @@ const Supplies = ({ }) => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    priceRef.current.value = data?.price ?? ''
-    imageRef.image.src = `/api/items/media/${data?.image}`
+    imageRef.image.src = `/api/supplies/media/${data?.image}`
     imageRef.current.value = null
 
     $(modalRef.current).modal('show')
@@ -48,7 +45,6 @@ const Supplies = ({ }) => {
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
-      price: priceRef.current.value,
       description: descriptionRef.current.value,
     }
 
@@ -104,8 +100,8 @@ const Supplies = ({ }) => {
           widget: 'dxButton', location: 'after',
           options: {
             icon: 'plus',
-            text: 'Nuevo item',
-            hint: 'Nuevo item',
+            text: 'Nuevo ingrediente',
+            hint: 'Nuevo ingrediente',
             onClick: () => onModalOpen()
           }
         });
@@ -122,7 +118,7 @@ const Supplies = ({ }) => {
         },
         {
           dataField: 'description',
-          caption: '¿Para que sirve?',
+          caption: 'Sirve para...',
         },
         {
           dataField: 'image',
@@ -166,11 +162,10 @@ const Supplies = ({ }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar ingrediente' : 'Agregar ingrediente'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={3 / 4} onError='/assets/img/routine/conditioner.png' />
+        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={5 / 4} onError='/assets/img/supplies/acido-salicilico.png' />
         <div className="col-md-8">
           <InputFormGroup eRef={nameRef} label='Nombre' required />
-          <InputFormGroup eRef={priceRef} label='Precio' type='number' step={0.01} required />
-          <TextareaFormGroup eRef={descriptionRef} label='Resumen' rows={3} required />
+          <InputFormGroup eRef={descriptionRef} label='Sirve para...' type='number' step={0.01} required />
         </div>
       </div>
     </Modal>
