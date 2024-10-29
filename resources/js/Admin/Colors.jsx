@@ -23,7 +23,6 @@ const Colors = ({ }) => {
   const nameRef = useRef()
   const colorRef = useRef()
   const descriptionRef = useRef()
-  const imageRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -35,8 +34,6 @@ const Colors = ({ }) => {
     nameRef.current.value = data?.name ?? ''
     colorRef.current.value = data?.hex ?? '#fff'
     descriptionRef.current.value = data?.description ?? ''
-    imageRef.image.src = `/api/colors/media/${data?.image}`
-    imageRef.current.value = null
 
     $(modalRef.current).modal('show')
   }
@@ -51,26 +48,11 @@ const Colors = ({ }) => {
       description: descriptionRef.current.value,
     }
 
-    const formData = new FormData()
-    for (const key in request) {
-      formData.append(key, request[key])
-    }
-    const file = imageRef.current.files[0]
-    if (file) {
-      formData.append('image', file)
-    }
-
-    const result = await colorsRest.save(formData)
+    const result = await colorsRest.save(request)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
     $(modalRef.current).modal('hide')
-  }
-
-  const onVisibleChange = async ({ id, value }) => {
-    const result = await colorsRest.boolean({ id, field: 'visible', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   const onDeleteClicked = async (id) => {
@@ -123,24 +105,14 @@ const Colors = ({ }) => {
             ReactAppend(container, <p className='mb-0' style={{ width: '100%' }}>
               <b className='d-block'>
                 <i className='mdi mdi-circle me-1' style={{ color: data.hex, textShadow: '0 0 2.5px rgba(0, 0, 0, .5)' }}></i>
-                {data.name}              </b>
-              <small className='text-wrap text-muted' style={{
-                overflow: 'hidden',
-                display: '-webkit-box',
-                WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: 2,
-              }}>{data.description}</small>
+                {data.name}
+              </b>
             </p>)
           }
         },
         {
-          dataField: 'image',
-          caption: 'Imagen',
-          width: '60px',
-          allowFiltering: false,
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/colors/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
-          }
+          dataField: 'description',
+          caption: 'Descripción'
         },
         {
           caption: 'Acciones',
@@ -163,15 +135,12 @@ const Colors = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar color' : 'Agregar color'} onSubmit={onModalSubmit} size='md'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar color' : 'Agregar color'} onSubmit={onModalSubmit} size='sm'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={3 / 4} onError='/assets/img/routine/conditioner.png' />
-        <div className="col-md-8">
-          <InputFormGroup eRef={nameRef} label='Nombre' required />
-          <InputFormGroup eRef={colorRef} label='Color' type='color' required />
-          <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} required />
-        </div>
+        <InputFormGroup eRef={nameRef} label='Nombre' required />
+        <InputFormGroup eRef={colorRef} label='Color' type='color' required />
+        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} required />
       </div>
     </Modal>
   </>

@@ -1,11 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Autoplay } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/autoplay"
 import Number2Currency from "../../Utils/Number2Currency"
+import Aos from "aos"
 
 const Routine = ({ items }) => {
+
+  useEffect(() => {
+    Aos.init()
+  }, [null])
+
   return <section className="bg-white p-[5%] text-center md:p-[10%] md:pt-[5%] lg:px-[20%]">
     <h1 className="text-2xl text-center text-[#404040] font-bold">
       Rutina capilar personalizada
@@ -28,7 +34,7 @@ const Routine = ({ items }) => {
     >
       {
         items.map((item, index) => <SwiperSlide>
-          <article className="bg-[#FBF5F1] rounded-lg">
+          <article className="bg-[#FBF5F1] rounded-lg" data-aos="fade-up">
             <img src={`/api/items/media/${item.image}`} className="aspect-[3/4] object-cover object-center bg-[#d0cddc] rounded-t-xl" onError={(e) => e.target.src = "/assets/img/routine/conditioner.png"} alt="Shampoo" />
             <div className="p-2">
               <h1 className="text-lg font-bold">{item.name}</h1>

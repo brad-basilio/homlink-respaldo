@@ -104,10 +104,12 @@ const Faqs = ({ }) => {
         {
           dataField: 'name',
           caption: 'Pregunta',
+          width: '40%'
         },
         {
           dataField: 'description',
           caption: 'Respuesta',
+          width: '50%'
         },
         {
           dataField: 'visible',
@@ -124,6 +126,7 @@ const Faqs = ({ }) => {
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {
+            container.css('text-overflow', 'unset')
             container.append(DxButton({
               className: 'btn btn-xs btn-soft-primary',
               title: 'Editar',

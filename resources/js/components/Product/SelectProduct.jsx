@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import Number2Currency from "../../Utils/Number2Currency";
 import { Local } from "sode-extend-react";
+import Aos from "aos";
 
 const SelectProduct = ({ goToNextPage, items = [] }) => {
 
@@ -47,6 +48,10 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
     Local.set('vua_cart', cart)
   }, [cart])
 
+  useEffect(() => {
+    Aos.init()
+  }, [null])
+
   return <form className='px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center text-[#404040]'>
     <div className='max-w-2xl mx-auto '>
       <h1 className="text-2xl font-bold mb-2">¡Selecciona tus productos personalizados!</h1>
@@ -59,7 +64,7 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
           items.map((item, index) => {
             const selected = cart.find(x => x.id == item.id)
             const quantity = selected?.quantity ?? 0
-            return <div key={index} className="flex flex-col w-[180px] whitespace-nowrap">
+            return <div key={index} className="flex flex-col w-[180px] whitespace-nowrap" data-aos="fade-up">
               <input type="checkbox" name="" id={`item-${item.id}`} className="peer hidden" onChange={(e) => handleCheckbox(e, item)} checked={!!selected} required />
               <label htmlFor={`item-${item.id}`} className="flex overflow-hidden flex-col tracking-normal leading-none text-center bg-white rounded-xl border peer-checked:border-[#808080] peer-checked:shadow-md text-[#404040] cursor-pointer mb-3 transition-all">
                 <img loading="lazy" src={`/api/items/media/${item.image}`} className="object-cover object-center aspect-[3/4] w-full border-b" alt="Shampoo product image" onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />
@@ -82,7 +87,7 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
         Descubre cómo ahorrar aún más al final 👀
       </p>
 
-      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-[#EFBEC1] text-white rounded-3xl mt-4 py-4 px-[5%] font-extrabold">
+      <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-[#EFBEC1] text-white rounded-3xl mt-4 py-4 px-[5%] font-extrabold shadow-lg">
         <span className="text-xl">Elegiste 3 productos</span>
         <div className="flex flex-row text-white items-center gap-4">
           <p className="text-sm font-light line-through">Antes: S/{Number2Currency(totalPrice)}</p>

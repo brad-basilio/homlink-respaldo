@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { Local } from "sode-extend-react"
 import ItemContainer from "./components/ItemContainer"
+import Tippy from "@tippyjs/react"
+import Aos from "aos"
 
 const SelectColor = ({ goToNextPage, colors = [] }) => {
   const [cart, setCart] = useState(Local.get('vua_cart') ?? [])
@@ -32,6 +34,10 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
     Local.set('vua_cart', cart)
   }, [cart])
 
+  useEffect(() => {
+    Aos.init()
+  }, [null])
+
   return <section className='px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center text-[#404040]'>
 
     <div className='max-w-2xl mx-auto '>
@@ -44,10 +50,10 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
       {
         cart.map((item, i) => {
           return item.colors?.map((existence, j) => {
-            return <div key={`existence-${i}-${j}`} className="overflow-hidden w-full bg-white rounded-2xl ">
+            return <div key={`existence-${i}-${j}`} className="overflow-hidden w-full bg-white rounded-2xl shadow-md" data-aos='fade-down'>
               <div className="flex flex-row gap-2 items-center p-2">
                 <div className="">
-                  <ItemContainer color={existence.hex}/>
+                  <ItemContainer color={existence.hex} />
                   {/* <img className="h-[120px] aspect-[3/4] object-cover object-center rounded-md" src='/assets/img/container.svg' alt={item.name}
                     style={{
                       fill: existence.color
@@ -62,9 +68,11 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
                         {
                           colors.map((color, index) => {
                             const isSelected = existence.id == color.id
-                            return <button key={index} className={`flex shrink-0 w-8 aspect-square rounded-full border ${isSelected ? 'shadow-md border-[#000000]' : ''}`} style={{
-                              backgroundColor: color.hex || '#fff'
-                            }} onClick={() => onSelectColor(item.id, j, color)} />
+                            return <Tippy content={color.name}>
+                              <button key={index} className={`flex shrink-0 w-8 aspect-square rounded-full border ${isSelected ? 'shadow-md border-[#000000]' : ''}`} style={{
+                                backgroundColor: color.hex || '#fff'
+                              }} onClick={() => onSelectColor(item.id, j, color)} />
+                            </Tippy>
                           })
                         }
                       </div>

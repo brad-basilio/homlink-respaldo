@@ -5,62 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Faq;
 use App\Http\Requests\StoreFaqRequest;
 use App\Http\Requests\UpdateFaqRequest;
+use Illuminate\Http\Request;
 
-class FaqController extends Controller
+class FaqController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public $reactView = 'FAQs';
+    public $reactRootView = 'public';
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function setReactViewProperties(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreFaqRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Faq $faq)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Faq $faq)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateFaqRequest $request, Faq $faq)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Faq $faq)
-    {
-        //
+        $faqsJpa = Faq::select()
+            ->where('visible', true)
+            ->where('status', true)
+            ->get();
+        return [
+            'faqs' => $faqsJpa
+        ];
     }
 }
