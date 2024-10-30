@@ -12,7 +12,8 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
       return old.map(item => {
         const currentColors = item.colors ?? []
         const quantity = item.quantity
-        const leftColor = new Array(quantity - currentColors.length).fill(colors[0])
+        const leftColorsCount = quantity - currentColors.length
+        const leftColor = new Array(leftColorsCount > 0 ? leftColorsCount : 0).fill(colors[0])
 
         if (currentColors.length < quantity) item.colors = [...currentColors, ...leftColor]
         else item.colors = currentColors.slice(0, quantity)

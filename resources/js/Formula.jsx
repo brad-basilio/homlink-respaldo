@@ -6,10 +6,10 @@ import CreateReactScript from './Utils/CreateReactScript';
 import SelectProduct from './Components/Product/SelectProduct';
 import SelectColor from './Components/Product/SelectColor';
 import SelectPlan from './Components/Product/SelectPlan';
-import Thankyu from './Components/Product/Thankyu';
+import Checkout from './Components/Product/Checkout';
 
 
-const Formula = ({ items, colors }) => {
+const Formula = ({ items, colors, publicKey }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const goToNextPage = () => {
@@ -23,7 +23,7 @@ const Formula = ({ items, colors }) => {
     { component: <SelectProduct items={items} goToNextPage={goToNextPage} />, name: 'Select Product' },
     { component: <SelectColor colors={colors} goToNextPage={goToNextPage} />, name: 'Select Color' },
     { component: <SelectPlan goToNextPage={goToNextPage} />, name: 'Select Plan' },
-    { component: <Thankyu goToNextPage={goToNextPage} />, name: 'Thank You' }
+    { component: <Checkout publicKey={publicKey} goToNextPage={goToNextPage} />, name: 'Checkout' }
   ];
 
   const CurrentPageComponent = pages[currentPageIndex].component;

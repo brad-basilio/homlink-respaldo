@@ -26,6 +26,10 @@
     }
   </style>
 
+  @if ($component == 'Formula.jsx')
+    <script type="application/javascript" src="https://checkout.culqi.com/js/v4"></script>
+  @endif
+
   @vite(['resources/css/app.css', 'resources/js/' . Route::currentRouteName()])
   @inertiaHead
 

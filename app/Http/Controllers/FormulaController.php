@@ -29,7 +29,8 @@ class FormulaController extends BasicController
         return [
             'user_formula' => $userFormulaJpa,
             'items' => $itemsJpa,
-            'colors' => $colorsJpa
+            'colors' => $colorsJpa,
+            'publicKey' => env('CULQI_PUBLIC_KEY')
         ];
     }
 }

@@ -221,9 +221,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{02c}~.js": {
+  "_swiper-!~{02d}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{02c}~.js"
+    "src": "_swiper-!~{02d}~.js"
   },
   "_swiper-react-CDWi4Odf.js": {
     "file": "assets/swiper-react-CDWi4Odf.js",
@@ -232,9 +232,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_tippy-!~{027}~.js": {
+  "_tippy-!~{028}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{027}~.js"
+    "src": "_tippy-!~{028}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -1067,7 +1067,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-CeKzIQaI.js",
+    "file": "assets/InputFormGroup-B_CKjPyD.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -1087,7 +1087,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-CeKzIQaI.js",
+    "file": "assets/QuillFormGroup-B_CKjPyD.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1097,7 +1097,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
+    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1166,7 +1166,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-CeKzIQaI.js",
+    "file": "assets/Filter-B_CKjPyD.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1246,7 +1246,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-B_CKjPyD.js",
+    "file": "assets/Filter-CeKzIQaI.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1480,6 +1480,18 @@
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/Components/Product/Checkout.jsx": {
+    "file": "assets/Checkout-DYKugbDi.js",
+    "name": "Checkout",
+    "src": "resources/js/Components/Product/Checkout.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/AboutHeader.jsx",
+      "_index-RYns6xqu.js",
+      "_main-BjVPLcVK.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js"
     ]
   },
   "resources/js/Components/Product/SelectColor.jsx": {
@@ -1775,7 +1787,7 @@
     ]
   },
   "resources/js/Components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B_CKjPyD.js",
+    "file": "assets/InputFormGroup-CeKzIQaI.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -1795,7 +1807,7 @@
     ]
   },
   "resources/js/Components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B_CKjPyD.js",
+    "file": "assets/QuillFormGroup-CeKzIQaI.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1805,7 +1817,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
+    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1974,7 +1986,7 @@
     ]
   },
   "resources/js/Formula.jsx": {
-    "file": "assets/Formula-CnsBXEia.js",
+    "file": "assets/Formula-4-uE4hxi.js",
     "name": "Formula",
     "src": "resources/js/Formula.jsx",
     "isEntry": true,
@@ -1988,6 +2000,7 @@
       "_main-BjVPLcVK.js",
       "resources/js/Components/Home/Banner.jsx",
       "_tippy-react.esm-DYFqe69e.js",
+      "_createLucideIcon-D_WcjKff.js",
       "_index-CXU7o9CY.js",
       "_index-SDlHnhXR.js",
       "_index-DNUR7M9R.js",

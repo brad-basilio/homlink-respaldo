@@ -1,5 +1,5 @@
 const ItemContainer = ({ color = '#d9d9d9' }) => {
-  return <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="90px" height="120px" viewBox="0 0 90 119" version="1.1">
+  return <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="90px" height="120px" viewBox="0 0 90 119" version="1.1">
     <g id="surface1">
       <rect x="0" y="0" width="90" height="119" fill="#ffffff" fillOpacity={1} stroke="none" />
       <path d="M 41.828125 18.882812 L 48.179688 18.882812 L 48.179688 30.605469 L 41.828125 30.605469 Z M 41.828125 18.882812 " stroke="none" fillRule="evenodd" fill="#ffffff" fillOpacity={1} />

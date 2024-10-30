@@ -92,7 +92,7 @@ const SelectPlan = ({ goToNextPage }) => {
     </div>
 
     <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%] mt-5 sm:mt-10">
-      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>AGREGAR AL CARRITO</button>
+      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>PROCEDER A LA COMPRA</button>
     </div>
 
   </section>

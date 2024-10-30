@@ -71,9 +71,9 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
                 <h2 className="self-center px-4 py-3">{item.name}</h2>
               </label>
               <div className="flex gap-5 justify-between items-center self-center py-1 text-sm bg-transparent rounded-lg border border-[#808080] w-[70%] px-4 font-bold">
-                <button className="disabled:cursor-not-allowed" onClick={() => onMinusClicked(item)} disabled={quantity <= 0}>-</button>
+                <button type="button" className="disabled:cursor-not-allowed" onClick={() => onMinusClicked(item)} disabled={quantity <= 0}>-</button>
                 <span>{quantity}</span>
-                <button className="disabled:cursor-not-allowed" onClick={() => onPlusClicked(item)}>+</button>
+                <button type="button" className="disabled:cursor-not-allowed" onClick={() => onPlusClicked(item)}>+</button>
               </div>
             </div>
           })
