@@ -26,6 +26,8 @@ use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CoverController;
+use App\Http\Controllers\CulqiController;
+use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
@@ -52,6 +54,7 @@ Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
 Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
 Route::get('/colors/media/{uuid}', [ColorController::class, 'media']);
+Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);
@@ -64,6 +67,8 @@ Route::get('/cover/{uuid}', [CoverController::class, 'full']);
 Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 
 Route::post('/user-formulas', [UserFormulasController::class, 'save']);
+
+Route::post('/culqi/order', [CulqiController::class, 'order']);
 
 
 Route::middleware('auth')->group(function () {

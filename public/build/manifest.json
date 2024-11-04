@@ -221,9 +221,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{02d}~.js": {
+  "_swiper-!~{02e}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{02d}~.js"
+    "src": "_swiper-!~{02e}~.js"
   },
   "_swiper-react-CDWi4Odf.js": {
     "file": "assets/swiper-react-CDWi4Odf.js",
@@ -232,9 +232,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_tippy-!~{028}~.js": {
+  "_tippy-!~{029}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{028}~.js"
+    "src": "_tippy-!~{029}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -431,6 +431,36 @@
       "_Modal-HDEzC3Rq.js",
       "_InputFormGroup-CLeK_lOM.js",
       "_TextareaFormGroup-soTxV26S.js",
+      "_ImageFormGroup-NAPwWWo4.js",
+      "_sweetalert2.all-DJo0UVK6.js",
+      "resources/js/Components/Blog/Results.jsx",
+      "_index-CXU7o9CY.js",
+      "_tippy-react.esm-DYFqe69e.js",
+      "_main-BjVPLcVK.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
+      "_index.esm-Bla6j_hB.js"
+    ],
+    "css": [
+      "tippy.css",
+      "swiper.css"
+    ]
+  },
+  "resources/js/Admin/Fragrances.jsx": {
+    "file": "assets/Fragrances-DDkvQujs.js",
+    "name": "Fragrances",
+    "src": "resources/js/Admin/Fragrances.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/AboutHeader.jsx",
+      "_index-RYns6xqu.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_Base-DL7OTEk6.js",
+      "_CreateReactScript-BERtc5uF.js",
+      "_ReactAppend-CDWOQzm8.js",
+      "_Modal-HDEzC3Rq.js",
+      "_InputFormGroup-CLeK_lOM.js",
+      "_TextareaFormGroup-soTxV26S.js",
+      "_SwitchFormGroup-XpIpamlZ.js",
       "_ImageFormGroup-NAPwWWo4.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "resources/js/Components/Blog/Results.jsx",
@@ -1001,7 +1031,7 @@
     ]
   },
   "resources/js/Components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-CeKzIQaI.js",
+    "file": "assets/Modal-B_CKjPyD.js",
     "name": "Modal",
     "src": "resources/js/Components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -1097,7 +1127,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
+    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1109,7 +1139,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-CeKzIQaI.js",
+    "file": "assets/SelectFormGroup-B_CKjPyD.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1166,7 +1196,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-B_CKjPyD.js",
+    "file": "assets/Filter-CeKzIQaI.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1246,7 +1276,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-CeKzIQaI.js",
+    "file": "assets/Filter-B_CKjPyD.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1473,7 +1503,7 @@
     ]
   },
   "resources/js/Components/Modal.jsx": {
-    "file": "assets/Modal-B_CKjPyD.js",
+    "file": "assets/Modal-CeKzIQaI.js",
     "name": "Modal",
     "src": "resources/js/Components/Modal.jsx",
     "isEntry": true,
@@ -1528,16 +1558,6 @@
       "_main-BjVPLcVK.js",
       "resources/js/Components/Home/Banner.jsx",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js"
-    ]
-  },
-  "resources/js/Components/Product/Thankyu.jsx": {
-    "file": "assets/Thankyu-B_CKjPyD.js",
-    "name": "Thankyu",
-    "src": "resources/js/Components/Product/Thankyu.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Components/About/AboutHeader.jsx",
-      "_index-RYns6xqu.js"
     ]
   },
   "resources/js/Components/Product/components/ItemContainer.jsx": {
@@ -1817,7 +1837,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
+    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1829,7 +1849,7 @@
     ]
   },
   "resources/js/Components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-B_CKjPyD.js",
+    "file": "assets/SelectFormGroup-CeKzIQaI.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1986,7 +2006,7 @@
     ]
   },
   "resources/js/Formula.jsx": {
-    "file": "assets/Formula-4-uE4hxi.js",
+    "file": "assets/Formula-Byj50IA-.js",
     "name": "Formula",
     "src": "resources/js/Formula.jsx",
     "isEntry": true,
@@ -2255,7 +2275,7 @@
     ]
   },
   "resources/js/Test.jsx": {
-    "file": "assets/Test-QOrev2z3.js",
+    "file": "assets/Test-DOOuwRoa.js",
     "name": "Test",
     "src": "resources/js/Test.jsx",
     "isEntry": true,
@@ -2303,6 +2323,32 @@
       "_sweetalert2.all-DJo0UVK6.js",
       "_HtmlContent-Ca-OCC2e.js",
       "_index.esm-Bla6j_hB.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
+    ]
+  },
+  "resources/js/Thanks.jsx": {
+    "file": "assets/Thanks-BhAJ8uAX.js",
+    "name": "Thanks",
+    "src": "resources/js/Thanks.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/AboutHeader.jsx",
+      "_index-RYns6xqu.js",
+      "_CreateReactScript-BERtc5uF.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_Base-DpX_xNPQ.js",
+      "_index.esm-Bla6j_hB.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
+      "_main-BjVPLcVK.js",
+      "_index-CXU7o9CY.js",
+      "_index-SDlHnhXR.js",
+      "_index-DNUR7M9R.js",
+      "resources/js/Components/Blog/Results.jsx",
+      "_sweetalert2.all-DJo0UVK6.js",
+      "_HtmlContent-Ca-OCC2e.js"
     ],
     "css": [
       "swiper.css",

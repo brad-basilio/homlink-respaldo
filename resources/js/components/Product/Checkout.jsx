@@ -1,19 +1,20 @@
-import { useState } from 'react'
-import { ShieldCheck, HeadphonesIcon, CreditCard, X } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { ShieldCheck, HeadphonesIcon, CreditCard } from 'lucide-react'
 import { Local } from 'sode-extend-react';
 import Number2Currency from '../../Utils/Number2Currency';
 import Global from '../../Utils/Global';
+import CulqiRest from '../../Actions/CulqiRest';
 
-const Checkout = ({ publicKey }) => {
+const Checkout = ({ formula, publicKey }) => {
   Culqi.publicKey = publicKey
   Culqi.options({
     paymentMethods: {
       tarjeta: true,
       yape: true,
-      billetera: false,
+      billetera: true,
       bancaMovil: true,
       agente: true,
-      cuotealo: true,
+      cuotealo: false,
     },
     installments: true,
     style: {
@@ -24,34 +25,82 @@ const Checkout = ({ publicKey }) => {
 
   const cart = Local.get('vua_cart')
 
-  const [email, setEmail] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [country, setCountry] = useState('Perú')
-  const [province, setProvince] = useState('')
-  const [district, setDistrict] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [address, setAddress] = useState('')
-  const [apartment, setApartment] = useState('')
-  const [phone, setPhone] = useState('')
+  const [sale, setSale] = useState({
+    name: null,
+    lastname: null,
+    email: null,
+    phone: null,
+    country: 'Perú',
+    department: null,
+    province: null,
+    district: null,
+    zip_code: null,
+    address: null,
+    number: null,
+    reference: null,
+    comment: null,
+  });
+  const [loading, isLoading] = useState(false);
   const [coupon, setCoupon] = useState('')
-  const [orderNotes, setOrderNotes] = useState('')
 
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-  const onCulqiOpen = () => {
+  const getSale = () => {
+    let department = 'Lima';
+    let province = 'Lima'
+    let district = null
+
+    if (sale.province == 'Lima metropolitana') {
+      province = 'Lima metropolitana'
+      district = null
+    }
+    if (sale.province == 'Distritos de Lima') {
+      province = sale.district
+    }
+    if (sale.province == 'Otros departamentos') {
+      department = sale.district
+      province = null
+    }
+
+    return {
+      ...sale,
+      department, province, district
+    }
+  }
+
+  const onCulqiOpen = async (e) => {
+    e.preventDefault()
+    if (loading) return
+    isLoading(true)
+    let order_number = null
+    if (totalPrice > 6) {
+      const resCQ = await CulqiRest.order({ ...getSale(), user_formula_id: formula.id }, cart);
+      if (resCQ) order_number = resCQ.data.id
+    }
+    isLoading(false)
     Culqi.settings({
       title: Global.APP_NAME,
       currency: 'PEN',
       amount: Math.ceil(totalPrice * 100),
-      email: 'holamundo@gmail.com'
+      order: order_number
     })
-
     Culqi.open();
   }
 
   window.culqi = () => {
-    console.log(e, Culqi)
+    if (Culqi.token) {
+      console.log(Culqi.token)
+    } else if (Culqi.order) {
+      console.log(Culqi.order)
+      redirectOnClose()
+    }
+  }
+
+  const redirectOnClose = () => {
+    setInterval(() => {
+      if (Culqi.isOpen) return
+      location.href = '/thanks'
+    }, 500)
   }
 
   return (
@@ -72,86 +121,90 @@ const Checkout = ({ publicKey }) => {
               <span>Pago online</span>
             </div>
           </div>
-          <div className="w-full rounded-lg bg-white p-8 shadow-lg">
+          <form className="w-full rounded-lg bg-white p-8 shadow-lg" onSubmit={onCulqiOpen}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 relative">
               <div className='lg:col-span-3'>
                 <h2 className="mb-4 text-xl font-semibold">Información del cliente</h2>
                 <div className="mb-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="email">
-                    Dirección de correo electrónico *
+                    Dirección de correo electrónico <b className='text-red-500'>*</b>
                   </label>
                   <input
                     type="email"
                     id="email"
                     className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                    value={email}
+                    value={sale.email}
                     placeholder='Dirección de correo electrónico'
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setSale(old => ({ ...old, email: e.target.value }))}
+                    required
                   />
                 </div>
                 <h2 className="mb-4 text-xl font-semibold">Detalles de facturación</h2>
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
                     <label className="mb-1 block text-sm font-medium " htmlFor="firstName">
-                      Nombre *
+                      Nombre <b className='text-red-500'>*</b>
                     </label>
                     <input
                       type="text"
                       id="firstName"
                       className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      value={sale.name}
+                      onChange={(e) => setSale(old => ({ ...old, name: e.target.value }))}
+                      required
                     />
                   </div>
                   <div>
                     <label className="mb-1 block text-sm font-medium " htmlFor="lastName">
-                      Apellidos *
+                      Apellidos <b className='text-red-500'>*</b>
                     </label>
                     <input
                       type="text"
                       id="lastName"
                       className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      value={sale.lastname}
+                      onChange={(e) => setSale(old => ({ ...old, lastname: e.target.value }))}
+                      required
                     />
                   </div>
                 </div>
                 <div className="mt-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="country">
-                    País / Región *
+                    País / Región <b className='text-red-500'>*</b>
                   </label>
                   <input
                     type="text"
                     id="country"
                     className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                    value={country}
+                    value={sale.country}
                     disabled
-                    onChange={(e) => setCountry(e.target.value)}
+                    required
                   />
                 </div>
                 <div className="mt-4 grid gap-4 md:grid-cols-5">
                   <div className='md:col-span-2'>
                     <label className="mb-1 block text-sm font-medium " htmlFor="province">
-                      Región / Provincia *
+                      Región / Provincia <b className='text-red-500'>*</b>
                     </label>
                     <select
                       id="province"
                       className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                      value={province}
-                      onChange={(e) => setProvince(e.target.value)}
+                      value={sale.province}
+                      onChange={(e) => setSale(old => ({ ...old, province: e.target.value }))}
+                      required
                     >
                       <option value=''>Elige una opción</option>
-                      <option value='lima-metropolitana'>Lima metropolitana</option>
-                      <option value='lima-provincia'>Distritos de Lima</option>
-                      <option value='otros'>Otros departamentos</option>
+                      <option>Lima metropolitana</option>
+                      <option>Distritos de Lima</option>
+                      <option>Otros departamentos</option>
                     </select>
                   </div>
                   {
-                    (province == 'lima-provincia' || province == 'otros') && <>
+                    (sale.province == 'Distritos de Lima' || sale.province == 'Otros departamentos') && <>
                       <div className='md:col-span-2'>
                         <label className="mb-1 block text-sm font-medium " htmlFor="district">
                           {
-                            province == 'lima-provincia'
+                            sale.province == 'Distritos de Lima'
                               ? 'Distrito'
                               : 'Departamento'
                           }
@@ -160,8 +213,8 @@ const Checkout = ({ publicKey }) => {
                           type="text"
                           id="district"
                           className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                          value={district}
-                          onChange={(e) => setDistrict(e.target.value)}
+                          value={sale.district}
+                          onChange={(e) => setSale(old => ({ ...old, district: e.target.value }))}
                         />
                       </div>
                       <div>
@@ -172,25 +225,44 @@ const Checkout = ({ publicKey }) => {
                           type="text"
                           id="postalCode"
                           className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                          value={postalCode}
-                          onChange={(e) => setPostalCode(e.target.value)}
+                          value={sale.zip_code}
+                          onChange={(e) => setSale(old => ({ ...old, zip_code: e.target.value }))}
                         />
                       </div>
                     </>
                   }
                 </div>
                 <div className="mt-4">
-                  <label className="mb-1 block text-sm font-medium " htmlFor="address">
-                    Dirección de la calle *
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                    value={address}
-                    placeholder='Nombre de la calle y número de la calle'
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
+                  <div className="mt-4 grid gap-4 md:grid-cols-5 lg:grid-cols-3">
+                    <div className='md:col-span-3 lg:col-span-2'>
+                      <label className="mb-1 block text-sm font-medium " htmlFor="address">
+                        Dirección de la calle <b className='text-red-500'>*</b>
+                      </label>
+                      <input
+                        type="text"
+                        id="address"
+                        className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                        value={sale.address}
+                        placeholder='Nombre de la calle y número de la calle'
+                        onChange={(e) => setSale(old => ({ ...old, address: e.target.value }))}
+                        required
+                      />
+                    </div>
+                    <div className='md:col-span-2 lg:col-span-1'>
+                      <label className="mb-1 block text-sm font-medium " htmlFor="number">
+                        Número <b className='text-red-500'>*</b>
+                      </label>
+                      <input
+                        type="text"
+                        id="number"
+                        className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                        value={sale.number}
+                        placeholder='Nombre de la calle y número de la calle'
+                        onChange={(e) => setSale(old => ({ ...old, number: e.target.value }))}
+                        required
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="apartment">
@@ -200,20 +272,21 @@ const Checkout = ({ publicKey }) => {
                     type="text"
                     id="apartment"
                     className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                    value={apartment}
-                    onChange={(e) => setApartment(e.target.value)}
+                    value={sale.reference}
+                    onChange={(e) => setSale(old => ({ ...old, reference: e.target.value }))}
                   />
                 </div>
                 <div className="mt-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="phone">
-                    Teléfono/Celular *
+                    Teléfono/Celular <b className='text-red-500'>*</b>
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
+                    value={sale.phone}
+                    onChange={(e) => setSale(old => ({ ...old, phone: e.target.value }))}
+                    required
                   />
                 </div>
                 <div className="mt-4">
@@ -225,8 +298,8 @@ const Checkout = ({ publicKey }) => {
                     className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
                     rows={3}
                     placeholder="Notas sobre tu pedido, por ejemplo, notas especiales para la entrega."
-                    value={orderNotes}
-                    onChange={(e) => setOrderNotes(e.target.value)}
+                    value={sale.comment}
+                    onChange={(e) => setSale(old => ({ ...old, comment: e.target.value }))}
                     style={{
                       minHeight: 81,
                       fieldSizing: 'content'
@@ -296,12 +369,12 @@ const Checkout = ({ publicKey }) => {
                       <span>S/ {Number2Currency(totalPrice)}</span>
                     </div>
                     {
-                      province &&
+                      sale.province &&
                       <div className="mb-4 flex justify-between text-sm border-b pb-2">
                         <span className='font-bold'>Envío</span>
                         <span>
                           {
-                            province == 'lima-metropolitana'
+                            sale.province == 'lima-metropolitana'
                               ? 'Gratis'
                               : 'Envío por Shalóm'
                           }
@@ -321,20 +394,24 @@ const Checkout = ({ publicKey }) => {
                       value={coupon}
                       onChange={(e) => setCoupon(e.target.value)}
                     />
-                    <button className="rounded-r-md bg-[#C5B8D4] px-4 py-2 text-sm text-white">
+                    <button className="rounded-r-md bg-[#C5B8D4] px-4 py-2 text-sm text-white" type='button'>
                       Aplicar
                     </button>
                   </div>
 
-                  <button className="mt-6 w-full rounded-md bg-[#C5B8D4] py-3 text-white" onClick={onCulqiOpen}>
-                    <i className='mdi mdi-lock me-1'></i>
-                    Pagar Ahora 
+                  <button type='submit' className="mt-6 w-full rounded-md bg-[#C5B8D4] py-3 text-white disabled:cursor-not-allowed" disabled={loading}>
+                    {
+                      loading
+                        ? <i className='fa fa-spinner fa-spin me-1'></i>
+                        : <i className='mdi mdi-lock me-1'></i>
+                    }
+                    Pagar Ahora
                     <small className='ms-1'>(S/ {Number2Currency(totalPrice)})</small>
                   </button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </section>
     </>

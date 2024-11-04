@@ -12,18 +12,25 @@ import Fragrance from './Components/Test/Fragrance';
 import Email from './Components/Test/Email';
 import ProgressBar from './Components/Test/components/ProgressBar';
 
-const Test = () => {
+const Test = ({ hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
+
+  const vuaTest = Local.get('vua_test') ?? {}
+  if (!scalpType.find(x => x.id == vuaTest.scalp_type)) vuaTest.scalp_type = null
+  if (!hairType.find(x => x.id == vuaTest.hair_type)) vuaTest.hair_type = null
+  if (!hairGoals.find(x => vuaTest.hairGoals?.some(item => item == x.id))) vuaTest.hairGoals = null
+  if (!fragrances.find(x => x.id == vuaTest.fragrance)) vuaTest.fragrance = null
+
+  const [test, setTest] = useState(vuaTest);
   const [firstTime, setFirstTime] = useState(true);
-  const [test, setTest] = useState(Local.get('vua_test') ?? {});
 
   // Páginas
   const pages = {
     'has_started': <Main test={test} setTest={setTest} setFirstTime={setFirstTime} />,
-    'has_treatment': <Treatment test={test} setTest={setTest} />,
-    'scalp_type': <ScalpType test={test} setTest={setTest} />,
-    'hair_type': <HairType test={test} setTest={setTest} />,
-    'hair_goals': <HairGoals test={test} setTest={setTest} />,
-    'fragrance': <Fragrance test={test} setTest={setTest} />,
+    'has_treatment': <Treatment test={test} setTest={setTest} values={hasTreatment} />,
+    'scalp_type': <ScalpType test={test} setTest={setTest} values={scalpType}/>,
+    'hair_type': <HairType test={test} setTest={setTest} values={hairType}/>,
+    'hair_goals': <HairGoals test={test} setTest={setTest} values={hairGoals} />,
+    'fragrance': <Fragrance test={test} setTest={setTest} values={fragrances}/>,
     'email': <Email test={test} setTest={setTest} />
   };
 
@@ -69,7 +76,7 @@ const Test = () => {
       {
         (getCurrentPageIndex() > 0 && getCurrentPageIndex() != pageOrder.length) &&
         <div className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pt-[5%]'>
-            <ProgressBar width={`${percent}%`}/>
+          <ProgressBar width={`${percent}%`} />
         </div>
       }
       {getCurrentPage()}

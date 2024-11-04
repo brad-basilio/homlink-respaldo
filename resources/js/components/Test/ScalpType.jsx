@@ -3,7 +3,7 @@ import ReactModal from "react-modal"
 
 ReactModal.setAppElement('#app');
 
-const ScalpType = ({ test, setTest }) => {
+const ScalpType = ({ test, setTest, values }) => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -11,23 +11,25 @@ const ScalpType = ({ test, setTest }) => {
     setTest(old => ({ ...old, scalp_type }))
   }
 
+  const fragrances = {
+    dry: '🍂',
+    normal: '🍃',
+    oily: '💧'
+  }
+
   return <>
     <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
       <div className="max-w-md mx-auto">
         <h1 className="text-2xl mb-4">Tu <b>cuero cabelludo</b> es:</h1>
-        <div className="flex justify-evenly text-sm w-full mb-4">
-          <figure className="flex flex-col gap-4">
-            <button className="w-28 py-2 rounded border border-1-[#C5B8D4] bg-[#C5B8D4] text-white font-bold" onClick={() => onTypeClicked('dry')}>Seco</button>
-            <span className="text-4xl">🍂</span>
-          </figure>
-          <figure className="flex flex-col gap-4">
-            <button className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] font-bold" onClick={() => onTypeClicked('normal')}>Normal</button>
-            <span className="text-4xl">🍃</span>
-          </figure>
-          <figure className="flex flex-col gap-4">
-            <button className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] font-bold" onClick={() => onTypeClicked('oily')}>Graso</button>
-            <span className="text-4xl">💧</span>
-          </figure>
+        <div className="flex justify-evenly text-sm w-full mb-4 gap-2 h-32">
+          {
+            values.map((value, index) => {
+              return <figure key={index} className="flex flex-col gap-4 text-4xl hover:text-5xl transition-all">
+                <button className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] hover:border-1-[#C5B8D4] hover:bg-[#C5B8D4] hover:text-white font-bold text-base" onClick={() => onTypeClicked(value.id)}>{value.description}</button>
+                <span>{fragrances[value.correlative]}</span>
+              </figure>
+            })
+          }
         </div>
         <p className="text-sm mb-4">Conoce tu tipo de cuero cabelludo <button className="underline" onClick={() => setModalOpen(true)}>aquí </button></p>
       </div>
@@ -82,18 +84,18 @@ const ScalpType = ({ test, setTest }) => {
           <img className="p-[2.5%] md:p-[5%] aspect-square rounded-full" src="/assets/img/test/oily.png" alt="" />
           <span className="block my-2 w-max mx-auto px-3 py-1.5 rounded-full border text-sm">Graso</span>
           <ul className="text-[8px] text-start">
-           <li className="flex gap-1">
-            <i className="mdi mdi-circle-small font-bold"></i>
-            Después del lavado, la grasa aparece enseguida.</li>
-           <li className="flex gap-1">
-            <i className="mdi mdi-circle-small font-bold"></i>
-            No presenta el brillo.</li>
-           <li className="flex gap-1">
-            <i className="mdi mdi-circle-small font-bold"></i>
-            Se ve sin firmeza y no tiene volumen.</li>
-           <li className="flex gap-1">
-            <i className="mdi mdi-circle-small font-bold"></i>
-            Se pega al cuero cabelludo y tiende a que se adhiera con mayor facilidad el polvo.</li>
+            <li className="flex gap-1">
+              <i className="mdi mdi-circle-small font-bold"></i>
+              Después del lavado, la grasa aparece enseguida.</li>
+            <li className="flex gap-1">
+              <i className="mdi mdi-circle-small font-bold"></i>
+              No presenta el brillo.</li>
+            <li className="flex gap-1">
+              <i className="mdi mdi-circle-small font-bold"></i>
+              Se ve sin firmeza y no tiene volumen.</li>
+            <li className="flex gap-1">
+              <i className="mdi mdi-circle-small font-bold"></i>
+              Se pega al cuero cabelludo y tiende a que se adhiera con mayor facilidad el polvo.</li>
           </ul>
         </div>
       </div>

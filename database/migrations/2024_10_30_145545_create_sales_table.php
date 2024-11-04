@@ -14,10 +14,32 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
+            $table->string('code')->unique();
             $table->char('user_formula_id')->index();
-            $table->char('user_id')->index();
-            $table->
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('name');
+            $table->string('lastname');
+            $table->longText('email');
+            $table->string('phone');
+
+            $table->longText('country');
+            $table->longText('department');
+            $table->longText('province')->nullable();
+            $table->longText('district')->nullable();
+            $table->longText('zip_code')->nullable();
+            $table->longText('address');
+            $table->longText('number');
+            $table->longText('reference')->nullable();
+
+            $table->longText('comment')->nullable();
+
+            $table->decimal('amount', 10);
+            $table->decimal('delivery', 10);
+
             $table->timestamps();
+
+            $table->foreign('user_formula_id')->references('id')->on('user_formulas')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
     }
 

@@ -3,7 +3,7 @@ import ReactModal from "react-modal"
 
 ReactModal.setAppElement('#app');
 
-const HairType = ({ test, setTest }) => {
+const HairType = ({ test, setTest, values }) => {
 
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -15,22 +15,16 @@ const HairType = ({ test, setTest }) => {
     <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
       <div className="max-w-md mx-auto">
         <h1 className="text-2xl mb-4">Naturalmente, ¿Cuál es tu <br /><b>tipo de cabello?</b></h1>
-        <div className="flex justify-evenly text-sm w-full mb-4 gap-2">
-          <button className="border border-1-[#C5B8D4] rounded-lg bg-[#C5B8D4] text-white font-bold w-32"
-            onClick={() => onTypeClicked('coily')}>
-            <img className="aspect-[4/3] rounded" src="/assets/img/test/coily.png" alt="Crespo" />
-            <p className="p-2">CRESPO</p>
-          </button>
-          <button className="border border-1-[#9577B9] rounded-lg bg-white text-[#9577B9] font-bold w-32"
-            onClick={() => onTypeClicked('wavy')}>
-            <img className="aspect-[4/3] rounded" src="/assets/img/test/wavy.png" alt="Ondulado" />
-            <p className="p-2">ONDULADO</p>
-          </button>
-          <button className="border border-1-[#9577B9] rounded-lg bg-white text-[#9577B9] font-bold w-32"
-            onClick={() => onTypeClicked('straight')}>
-            <img className="aspect-[4/3] rounded" src="/assets/img/test/straight.png" alt="Lacio" />
-            <p className="p-2">LACIO</p>
-          </button>
+        <div className="flex flex-wrap justify-evenly text-sm w-full mb-4 gap-2">
+          {
+            values.map((value, index) => {
+              return <button key={index} className="border border-1-[#9577B9] rounded-lg bg-white text-[#9577B9] hover:border-1-[#C5B8D4]  hover:bg-[#C5B8D4] hover:text-white font-bold w-32 min-w-32 transition-all"
+                onClick={() => onTypeClicked(value.id)}>
+                <img className="aspect-[4/3] rounded hover:scale-105 transition-all" src={`/assets/img/test/${value.correlative}.png`} alt="Crespo" />
+                <p className="p-2">{value.description}</p>
+              </button>
+            })
+          }
         </div>
         <p className="text-sm mb-4">Conoce tu tipo de cabello <button className="underline" onClick={() => setModalOpen(true)}>aquí </button></p>
       </div>

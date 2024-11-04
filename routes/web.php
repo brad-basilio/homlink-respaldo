@@ -40,6 +40,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
+use App\Http\Controllers\ThankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,7 @@ Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.j
 
 // Vistas maquetadas finalizadas
 Route::get('/formula/{formula}', [FormulaController::class, 'reactView'])->name('Formula.jsx');
+Route::get('/thanks', [ThankController::class, 'reactView'])->name('Thanks.jsx');
 Route::get('/loginvua', [LoginVuaController::class, 'reactView'])->name('LoginVua.jsx');
 Route::get('/dashboard', [DashboardController::class, 'reactView'])->name('Dashboard.jsx');
 Route::get('/popup', [PopupController::class, 'reactView'])->name('Popup.jsx');

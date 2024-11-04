@@ -1,6 +1,6 @@
 import React from "react"
 
-const Treatment = ({ test, setTest }) => {
+const Treatment = ({ test, setTest, values }) => {
 
   const onTreatmentConfirm = (has_treatment) => {
     setTest(old => ({ ...old, has_treatment }))
@@ -11,9 +11,13 @@ const Treatment = ({ test, setTest }) => {
       <figure className="text-6xl mb-4">💁‍♀️</figure>
       <h1 className="text-2xl mb-4">¿Tu cabello ha recibido algún <br className="hidden md:block" /><b>tipo de tratamiento?</b></h1>
       <p className="text-sm mb-4">(Es decir, ¿en los últimos 3 meses, te has teñido, laceado, hecho la queratina, etc.?)</p>
-      <div className="flex justify-evenly text-sm">
-        <button className="w-28 py-2 rounded border border-1-[#C5B8D4] bg-[#C5B8D4] text-white font-bold" onClick={() => onTreatmentConfirm(true)}>SI</button>
-        <button className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] font-bold" onClick={() => onTreatmentConfirm(false)}>NO</button>
+      <div className="flex justify-evenly text-sm gap-2">
+        {
+          values.map((value, index) => {
+            return <button key={index} className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] hover:border-1-[#C5B8D4] hover:bg-[#C5B8D4] hover:text-white font-bold transition-all" onClick={() => onTreatmentConfirm(value.id)}>{value.description}</button>
+          })
+          
+        }
       </div>
     </div>
   </section>

@@ -16,11 +16,11 @@ return new class extends Migration
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->longText('email');
-            $table->char('has_treatment', 36)->nullable();
-            $table->char('scalp_type', 36)->nullable();
-            $table->char('hair_type', 36)->nullable();
+            $table->char('has_treatment', 36)->index()->nullable();
+            $table->char('scalp_type', 36)->index()->nullable();
+            $table->char('hair_type', 36)->index()->nullable();
             $table->json('hair_goals')->nullable();
-            $table->string('fragrance')->nullable();
+            $table->char('fragrance_id', 36)->index()->nullable();
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();
 
@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('has_treatment')->references('id')->on('formulas')->nullOnDelete();
             $table->foreign('scalp_type')->references('id')->on('formulas')->nullOnDelete();
             $table->foreign('hair_type')->references('id')->on('formulas')->nullOnDelete();
+            $table->foreign('fragrance_id')->references('id')->on('fragrances')->nullOnDelete();
         });
     }
 

@@ -1,44 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const HairGoals = ({ test, setTest }) => {
-  const goals = [
-    {
-      "value": "deep-hydration",
-      "name": "Hidratación profunda"
-    },
-    {
-      "value": "anti-frizz",
-      "name": "Antifrizz"
-    },
-    {
-      "value": "volume",
-      "name": "Volumen"
-    },
-    {
-      "value": "anti-dandruff",
-      "name": "Anticaspa"
-    },
-    {
-      "value": "smoothing",
-      "name": "Alisado"
-    },
-    {
-      "value": "split-ends-repair",
-      "name": "Reparación puntas abiertas"
-    },
-    {
-      "value": "defined-curls",
-      "name": "Rizos definidos"
-    },
-    {
-      "value": "extreme-shine",
-      "name": "Brillo extremo"
-    },
-    {
-      "value": "strengthening",
-      "name": "Fortalecimiento"
-    }
-  ]
+const HairGoals = ({ test, setTest, values }) => {
 
   const [selectedGoals, setSelectedGoals] = useState([]);
 
@@ -64,22 +26,22 @@ const HairGoals = ({ test, setTest }) => {
         <h1 className="text-2xl mb-4">¿Qué <b>quieres lograr</b> con tu cabello</h1>
         <p className="text-sm mb-4">Selecciona 3 objetivos para tu fórmula</p>
         <div className="flex flex-wrap justify-evenly text-sm w-full mb-4 gap-2">
-          {goals.map((goal, index) => (
+          {values.map((value, index) => (
             <div key={index} className="relative">
               <input
                 type="checkbox"
                 id={`goal-${index}`}
-                value={goal.value}
-                checked={selectedGoals.includes(goal.value)}
-                onChange={() => handleCheckboxChange(goal.value)}
-                disabled={!selectedGoals.includes(goal.value) && selectedGoals.length >= 3}
+                value={value.id}
+                checked={selectedGoals.includes(value.id)}
+                onChange={() => handleCheckboxChange(value.id)}
+                disabled={!selectedGoals.includes(value.id) && selectedGoals.length >= 3}
                 className="peer sr-only"
               />
               <label
                 htmlFor={`goal-${index}`}
                 className="flex items-center justify-center rounded border border-[#C5B8D4] h-12 w-36 px-2 font-bold leading-tight text-[#9577B9] cursor-pointer transition-colors duration-200 peer-checked:bg-[#C5B8D4] peer-checked:text-white hover:bg-[#9577B9]/10 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed uppercase"
               >
-                {goal.name}
+                {value.description}
               </label>
             </div>
           ))}

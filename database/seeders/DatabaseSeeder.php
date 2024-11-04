@@ -28,7 +28,8 @@ class DatabaseSeeder extends Seeder
             FormulaSeeder::class,
             FormulaHasSupplySeeder::class,
             ColorSeeder::class,
-            FaqSeeder::class
+            FaqSeeder::class,
+            FragranceSeeder::class,
         ]);
     }
 }
