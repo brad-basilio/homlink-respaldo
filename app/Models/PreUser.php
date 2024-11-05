@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class PreUser extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'lastname',
+        'email',
+        'password',
+        'confirmation_token',
+        'token',
+        'role',
+    ];
 }

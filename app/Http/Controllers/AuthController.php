@@ -35,11 +35,8 @@ class AuthController extends Controller
         case 'Admin':
           return redirect('/admin/home');
           break;
-        case 'Coach':
-          return redirect('/coach/home');
-          break;
-        case 'Coachee':
-          return redirect('/coachee/home');
+        case 'Customer':
+          return redirect('/my-account');
           break;
 
         default:
@@ -72,14 +69,6 @@ class AuthController extends Controller
           'birthdate' => $preUserJpa->birthdate,
           'status' => false
         ])->assignRole($roleJpa->name);
-
-        $specialties = JSON::parse($preUserJpa->specialties);
-        foreach ($specialties as $specialty) {
-          SpecialtiesByUser::create([
-            'user_id' => $userJpa->id,
-            'specialty_id' => $specialty
-          ]);
-        }
 
         $message = 'La confirmacion se ha realizado con exito';
 
@@ -181,21 +170,16 @@ class AuthController extends Controller
         'name' => $body['name'],
         'lastname' => $body['lastname'],
         'email' => $body['email'],
-        'role' => $roleJpa->id,
+        'role' => $roleJpa->relative_id,
         'password' => Controller::decode($body['password']),
         'confirmation_token' => Crypto::randomUUID(),
         'token' => Crypto::randomUUID(),
       ]);
 
-      $content = Constant::value('confirm-email');
-      $content = str_replace('{URL_CONFIRM}', env('APP_URL') . '/confirmation/' . $preUserJpa->confirmation_token, $content);
-
-      $mailer = EmailConfig::config();
-      $mailer->Subject = 'Confirmacion - ' . env('APP_NAME');
-      $mailer->Body = $content;
-      $mailer->addAddress($preUserJpa->email);
-      $mailer->isHTML(true);
-      $mailer->send();
+      MailingController::simpleNotify('mailing.confirm-email', $preUserJpa->email, [
+        'title' => 'Confirmacion - ' . env('APP_NAME'),
+        'preUser' => $preUserJpa->toArray()
+      ]);
 
       $response->status = 200;
       $response->message = 'Operacion correcta';

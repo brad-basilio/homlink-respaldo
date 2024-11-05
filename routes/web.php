@@ -41,6 +41,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\ThankController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +75,12 @@ Route::get('/popup', [PopupController::class, 'reactView'])->name('Popup.jsx');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
 Route::get('/register', [AuthController::class, 'registerView'])->name('Register.jsx');
+Route::get('/confirm-email/{token}', [AuthController::class, 'confirmEmailView'])->name('ConfirmEmail.jsx');
+Route::get('/confirmation/{token}', [AuthController::class, 'loginView'])->name('confirmation');
 
+Route::middleware(['can:Customer','auth'])->group(function() {
+    Route::get('/my-account', [DashboardController::class, 'reactView'])->name('MyAccount.jsx');
+});
 // Admin routes
 Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/', fn() => redirect('Admin/Home.jsx'));

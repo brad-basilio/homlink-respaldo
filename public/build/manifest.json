@@ -213,9 +213,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{02e}~.js": {
+  "_swiper-!~{02f}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{02e}~.js"
+    "src": "_swiper-!~{02f}~.js"
   },
   "_swiper-react-CDWi4Odf.js": {
     "file": "assets/swiper-react-CDWi4Odf.js",
@@ -224,9 +224,9 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_tippy-!~{029}~.js": {
+  "_tippy-!~{02a}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{029}~.js"
+    "src": "_tippy-!~{02a}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -1088,7 +1088,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-CeKzIQaI.js",
+    "file": "assets/InputFormGroup-B_CKjPyD.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -1098,7 +1098,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-CeKzIQaI.js",
+    "file": "assets/PasswordFormGroup-B_CKjPyD.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1108,7 +1108,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-CeKzIQaI.js",
+    "file": "assets/QuillFormGroup-B_CKjPyD.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1118,7 +1118,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
+    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1150,7 +1150,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-CeKzIQaI.js",
+    "file": "assets/TextareaFormGroup-B_CKjPyD.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1187,7 +1187,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-CeKzIQaI.js",
+    "file": "assets/Filter-B_CKjPyD.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1267,7 +1267,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-B_CKjPyD.js",
+    "file": "assets/Filter-CeKzIQaI.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1798,7 +1798,7 @@
     ]
   },
   "resources/js/Components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B_CKjPyD.js",
+    "file": "assets/InputFormGroup-CeKzIQaI.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -1808,7 +1808,7 @@
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B_CKjPyD.js",
+    "file": "assets/PasswordFormGroup-CeKzIQaI.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1818,7 +1818,7 @@
     ]
   },
   "resources/js/Components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B_CKjPyD.js",
+    "file": "assets/QuillFormGroup-CeKzIQaI.js",
     "name": "QuillFormGroup",
     "src": "resources/js/Components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -1828,7 +1828,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-D_Fb_wbA.js",
+    "file": "assets/SelectAPIFormGroup-DYKugbDi.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1850,7 +1850,7 @@
     ]
   },
   "resources/js/Components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B_CKjPyD.js",
+    "file": "assets/TextareaFormGroup-CeKzIQaI.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1886,6 +1886,26 @@
     ],
     "css": [
       "WhatsAppModal.css"
+    ]
+  },
+  "resources/js/ConfirmEmail.jsx": {
+    "file": "assets/ConfirmEmail-C8yDhbQN.js",
+    "name": "ConfirmEmail",
+    "src": "resources/js/ConfirmEmail.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/AboutHeader.jsx",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_index-RYns6xqu.js",
+      "_CreateReactScript-BERtc5uF.js",
+      "_index.esm-Bla6j_hB.js",
+      "_index-CXU7o9CY.js",
+      "_main-BjVPLcVK.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
     ]
   },
   "resources/js/Contact.jsx": {
@@ -1937,32 +1957,6 @@
       "_index-DNUR7M9R.js",
       "resources/js/Components/Blog/Results.jsx",
       "_sweetalert2.all-DJo0UVK6.js"
-    ],
-    "css": [
-      "swiper.css",
-      "tippy.css"
-    ]
-  },
-  "resources/js/Dashboard.jsx": {
-    "file": "assets/Dashboard-Bv-igrxc.js",
-    "name": "Dashboard",
-    "src": "resources/js/Dashboard.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Components/About/AboutHeader.jsx",
-      "_index-RYns6xqu.js",
-      "resources/js/Utils/ReactAppend.jsx",
-      "_Base-G15aGPjj.js",
-      "_CreateReactScript-BERtc5uF.js",
-      "_index-CXU7o9CY.js",
-      "_tippy-react.esm-DYFqe69e.js",
-      "_index-SDlHnhXR.js",
-      "_index-DNUR7M9R.js",
-      "resources/js/Components/Blog/Results.jsx",
-      "_main-BjVPLcVK.js",
-      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
-      "_sweetalert2.all-DJo0UVK6.js",
-      "_index.esm-Bla6j_hB.js"
     ],
     "css": [
       "swiper.css",
@@ -2092,6 +2086,32 @@
     "file": "assets/LoginVua-CB3DquND.js",
     "name": "LoginVua",
     "src": "resources/js/LoginVua.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Components/About/AboutHeader.jsx",
+      "_index-RYns6xqu.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_Base-G15aGPjj.js",
+      "_CreateReactScript-BERtc5uF.js",
+      "_index-CXU7o9CY.js",
+      "_tippy-react.esm-DYFqe69e.js",
+      "_index-SDlHnhXR.js",
+      "_index-DNUR7M9R.js",
+      "resources/js/Components/Blog/Results.jsx",
+      "_main-BjVPLcVK.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
+      "_sweetalert2.all-DJo0UVK6.js",
+      "_index.esm-Bla6j_hB.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
+    ]
+  },
+  "resources/js/MyAccount.jsx": {
+    "file": "assets/MyAccount-Bv-igrxc.js",
+    "name": "MyAccount",
+    "src": "resources/js/MyAccount.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
