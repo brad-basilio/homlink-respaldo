@@ -14,10 +14,13 @@ import ProgressBar from './Components/Test/components/ProgressBar';
 
 const Test = ({ hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
 
+  console.log(hasTreatment)
+
   const vuaTest = Local.get('vua_test') ?? {}
+  if (!hasTreatment.find(x => x.id == vuaTest.has_treatment)) vuaTest.has_treatment = null
   if (!scalpType.find(x => x.id == vuaTest.scalp_type)) vuaTest.scalp_type = null
   if (!hairType.find(x => x.id == vuaTest.hair_type)) vuaTest.hair_type = null
-  if (!hairGoals.find(x => vuaTest.hairGoals?.some(item => item == x.id))) vuaTest.hairGoals = null
+  if (!hairGoals.find(x => vuaTest.hair_goals?.some(item => item == x.id))) vuaTest.hair_goals = null
   if (!fragrances.find(x => x.id == vuaTest.fragrance)) vuaTest.fragrance = null
 
   const [test, setTest] = useState(vuaTest);

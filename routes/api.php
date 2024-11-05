@@ -69,6 +69,7 @@ Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 Route::post('/user-formulas', [UserFormulasController::class, 'save']);
 
 Route::post('/culqi/order', [CulqiController::class, 'order']);
+Route::post('/culqi/token', [CulqiController::class, 'token']);
 
 
 Route::middleware('auth')->group(function () {

@@ -59,18 +59,23 @@ const Login = ({ }) => {
 
           <div className="row justify-content-center">
             <div className="col-md-8 col-lg-6 col-xl-4">
-              <div className="text-center">
-                <Link href="/">
-                  <img src='/assets/img/logo.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
+              <div className="text-center mb-4">
+                <Link href="/" className='d-block mb-2'>
+                  <img src='/assets/img/logo-dark.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
                 </Link>
-                <p className="text-muted mt-2 mb-4">Bienvenido a {Global.APP_NAME}</p>
+                <b className='mb-4' style={{color: '#404040', fontSize: 'x-large'}}>¡Ahora puedes ser una Vuá lover!</b>
+                <ul className='d-flex flex-wrap justify-content-center gap-x-4 gap-y-0 text-sm'>
+                  <li><i className='mdi mdi-circle-small'></i> Guarda tus fórmulas únicas</li>
+                  <li><i className='mdi mdi-circle-small'></i> Beneficios en tu cumpleaños</li>
+                  <li><i className='mdi mdi-circle-small'></i> Recibe las promos del mes primero</li>
+                </ul>
               </div>
               <div className="card">
                 <div className="card-body p-4">
                   <div className="text-center mb-4">
                     <h4 className="text-uppercase mt-0 font-bold">Inicia Sesión</h4>
                   </div>
-                  <form onSubmit={onLoginSubmit}>
+                  <form onSubmit={onLoginSubmit} autoComplete='off'>
                     <div className="mb-3">
                       <label htmlFor="email" className="form-label">Correo o Usuario</label>
                       <input ref={emailRef} className="form-control" type="email" id="email" required
@@ -81,26 +86,26 @@ const Login = ({ }) => {
                       <input ref={passwordRef} className="form-control" type="password" required id="password"
                         placeholder="Ingrese su contraseña" />
                     </div>
-                    <div className="mb-3">
+                    {/* <div className="mb-3">
                       <div className="form-check">
                         <input ref={rememberRef} type="checkbox" className="form-check-input" id="checkbox-signin" defaultChecked style={{ cursor: 'pointer' }} />
                         <label className="form-check-label" htmlFor="checkbox-signin" style={{ cursor: 'pointer' }}>Recuerdame</label>
                       </div>
-                    </div>
+                    </div> */}
                     <div className="mb-3 d-grid text-center">
-                      <button className="btn btn-primary" type="submit"> Iniciar Sesión </button>
+                      <button className="btn btn-pink" type="submit" style={{ backgroundColor: '#A191B8', borderColor: '#A191B8'}}> Iniciar Sesión </button>
                     </div>
                   </form>
                 </div>
               </div>
-              {/* <div className="row mt-3">
+              <div className="row mt-3">
                 <div className="col-12 text-center">
-                  <p> <Link href="/recovery" className="text-muted ms-1"><i
-                    className="fa fa-lock me-1"></i>Olvidaste tu contraseña?</Link></p>
-                  <p className="text-muted">No tienes una cuenta aun? <Link href="/register"
-                    className="text-white ms-1"><b>Registrate</b></Link></p>
+                  {/* <p> <Link href="/recovery" className="text-muted ms-1"><i
+                    className="fa fa-lock me-1"></i>Olvidaste tu contraseña?</Link></p> */}
+                  <p className="">No tienes una cuenta aun? <Link href="/register"
+                    className=" ms-1"><b>Registrate</b></Link></p>
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>

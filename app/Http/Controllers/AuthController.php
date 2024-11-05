@@ -109,15 +109,12 @@ class AuthController extends Controller
     if (Auth::check()) return redirect('/home');
 
     $roles = Role::where('public', true)->get();
-    $specialties = Specialty::all();
 
     return Inertia::render('Register', [
       'roles' => $roles,
       'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
       'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
       'RECAPTCHA_SITE_KEY' => env('RECAPTCHA_SITE_KEY'),
-      'terms' => Constant::value('terms'),
-      'specialties' => $specialties
     ])->rootView('auth');
   }
 
@@ -165,8 +162,6 @@ class AuthController extends Controller
         'password' => 'required|string',
         'confirmation' => 'required|string',
         'captcha' => 'required|string',
-        'terms' => 'required|accepted',
-        'specialties' => 'required|array'
       ]);
 
       $body = $request->all();
@@ -176,9 +171,9 @@ class AuthController extends Controller
 
       if (!ReCaptchaService::verify($request->captcha)) throw new Exception('Captcha invalido. Seguro que no eres un robot?');
 
-      $roleExists = Role::where('relative_id', $body['role'])->exists();
+      $roleJpa = Role::where('name', 'Customer')->first();
 
-      if (!$roleExists) throw new Exception('El rol que ingresaste no existe, que intentas hacer?');
+      if (!$roleJpa) throw new Exception('El rol que ingresaste no existe, que intentas hacer?');
 
       $preUserJpa = PreUser::updateOrCreate([
         'email' => $body['email']
@@ -186,11 +181,10 @@ class AuthController extends Controller
         'name' => $body['name'],
         'lastname' => $body['lastname'],
         'email' => $body['email'],
-        'role' => $body['role'],
+        'role' => $roleJpa->id,
         'password' => Controller::decode($body['password']),
         'confirmation_token' => Crypto::randomUUID(),
         'token' => Crypto::randomUUID(),
-        'specialties' => JSON::stringify($body['specialties'])
       ]);
 
       $content = Constant::value('confirm-email');

@@ -1,7 +1,7 @@
 import Tippy from "@tippyjs/react";
 import React, { useState, useEffect, useRef } from "react"
 
-const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd }) => {
+const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
 
@@ -37,9 +37,9 @@ const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd 
       }
       <header className="sticky top-0 w-screen z-40">
         <div className={`flex justify-between items-center ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg lg:shadow-none`}
-        style={{
-          backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
-        }}>
+          style={{
+            backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
+          }}>
           <div className="flex items-center md:px-[5%]">
             <button
               onClick={toggleMenu}
@@ -52,7 +52,7 @@ const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd 
               <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 -mt-3.5" />
             </a>
           </div>
-          <div className="py-6 flex gap-2 md:gap-4">
+          <div className="py-6 flex gap-2 md:gap-4 items-center">
 
             <ul className="hidden lg:flex gap-8 me-4">
               <li><a href="/about" className="block py-2">NOSOTROS</a></li>
@@ -62,12 +62,18 @@ const Header = ({ socials, generals, showSlogan, gradientStart, menuGradientEnd 
             </ul>
 
             <button href="/test" className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FORMULA</button>
-            <button>
-              <i className="text-xl fa fa-user"></i>
-            </button>
-            <button>
+            <Tippy content={session ? `Perfil de ${session.name}` : 'Iniciar sesión'}>
+              <a className="relative block" href='/login'>
+                {
+                  session &&
+                  <span className="w-2 h-2 bg-green-600 rounded-full font-bold absolute top-1 -right-1"></span>
+                }
+                <i className="text-xl fa fa-user"></i>
+              </a>
+            </Tippy>
+            {/* <button>
               <i className="text-xl fas fa-shopping-cart"></i>
-            </button>
+            </button> */}
           </div>
 
         </div>

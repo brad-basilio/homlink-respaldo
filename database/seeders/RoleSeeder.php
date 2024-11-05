@@ -16,11 +16,15 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $adminJpa = Role::updateOrCreate(['name' => 'Admin'], [
-            'name' => 'Admin',
+            'relative_id' => Crypto::randomUUID()
+        ]);
+        $customerJpa = Role::updateOrCreate(['name' => 'Customer'], [
             'relative_id' => Crypto::randomUUID()
         ]);
 
-        Permission::updateOrCreate(['name' => 'Admin'], ['name' => 'Admin'])
-        ->syncRoles([$adminJpa]);
+        Permission::updateOrCreate(['name' => 'Admin'])
+            ->syncRoles([$adminJpa]);
+        Permission::updateOrCreate(['name' => 'Customer'])
+            ->syncRoles([$customerJpa]);
     }
 }

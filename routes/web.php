@@ -73,6 +73,7 @@ Route::get('/dashboard', [DashboardController::class, 'reactView'])->name('Dashb
 Route::get('/popup', [PopupController::class, 'reactView'])->name('Popup.jsx');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
+Route::get('/register', [AuthController::class, 'registerView'])->name('Register.jsx');
 
 // Admin routes
 Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {

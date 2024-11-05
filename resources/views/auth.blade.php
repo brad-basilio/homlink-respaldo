@@ -31,9 +31,15 @@
 
   @vite(['resources/css/app.css', 'resources/js/' . Route::currentRouteName()])
   @inertiaHead
+
+  <style>
+    * {
+      font-family: 'poppins', sans-serif;
+    }
+  </style>
 </head>
 
-<body class="loading authentication-bg-pattern" style="background-color: #05455A">
+<body class="loading authentication-bg-pattern" style="background-color: #FBF5F0">
   @inertia
 
   <script src="/lte/assets/js/vendor.min.js"></script>

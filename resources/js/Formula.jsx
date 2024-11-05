@@ -9,7 +9,7 @@ import SelectPlan from './Components/Product/SelectPlan';
 import Checkout from './Components/Product/Checkout';
 
 
-const Formula = ({ user_formula, items, colors, publicKey }) => {
+const Formula = ({ user_formula, items, colors, publicKey, session }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const goToNextPage = () => {
@@ -23,7 +23,7 @@ const Formula = ({ user_formula, items, colors, publicKey }) => {
     { component: <SelectProduct items={items} goToNextPage={goToNextPage} />, name: 'Select Product' },
     { component: <SelectColor colors={colors} goToNextPage={goToNextPage} />, name: 'Select Color' },
     { component: <SelectPlan goToNextPage={goToNextPage} />, name: 'Select Plan' },
-    { component: <Checkout formula={user_formula} publicKey={publicKey} goToNextPage={goToNextPage} />, name: 'Checkout' }
+    { component: <Checkout formula={user_formula} publicKey={publicKey} goToNextPage={goToNextPage} session={session}/>, name: 'Checkout' }
   ];
 
   const CurrentPageComponent = pages[currentPageIndex].component;

@@ -20,7 +20,7 @@ class UserFormulas extends Model
         'scalp_type',
         'hair_type',
         'hair_goals',
-        'fragrance',
+        'fragrance_id',
         'status',
     ];
 

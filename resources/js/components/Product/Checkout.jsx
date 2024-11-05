@@ -5,7 +5,7 @@ import Number2Currency from '../../Utils/Number2Currency';
 import Global from '../../Utils/Global';
 import CulqiRest from '../../Actions/CulqiRest';
 
-const Checkout = ({ formula, publicKey }) => {
+const Checkout = ({ formula, publicKey, session }) => {
   Culqi.publicKey = publicKey
   Culqi.options({
     paymentMethods: {
@@ -26,10 +26,10 @@ const Checkout = ({ formula, publicKey }) => {
   const cart = Local.get('vua_cart')
 
   const [sale, setSale] = useState({
-    name: null,
-    lastname: null,
-    email: null,
-    phone: null,
+    name: session?.name || null,
+    lastname: session?.lastname || null,
+    email: formula.email,
+    phone: session?.phone || null,
     country: 'Perú',
     department: null,
     province: null,
@@ -74,8 +74,11 @@ const Checkout = ({ formula, publicKey }) => {
     isLoading(true)
     let order_number = null
     if (totalPrice > 6) {
-      const resCQ = await CulqiRest.order({ ...getSale(), user_formula_id: formula.id }, cart);
-      if (resCQ) order_number = resCQ.data.id
+      const resCQ = await CulqiRest.order({ ...getSale(), order_number: Culqi.order_number, user_formula_id: formula.id }, cart);
+      if (resCQ) {
+        order_number = resCQ.data.id
+        Culqi.order_number = resCQ.data.order_number
+      }
     }
     isLoading(false)
     Culqi.settings({
@@ -87,9 +90,10 @@ const Checkout = ({ formula, publicKey }) => {
     Culqi.open();
   }
 
-  window.culqi = () => {
+  window.culqi = async () => {
     if (Culqi.token) {
-      console.log(Culqi.token)
+      const resCQ = await CulqiRest.token({ ...getSale(), order_number: Culqi.order_number, user_formula_id: formula.id }, cart)
+      if (resCQ) location.href = '/thanks'
     } else if (Culqi.order) {
       console.log(Culqi.order)
       redirectOnClose()

@@ -10,7 +10,7 @@ import Modal from './Components/Modal'
 import HtmlContent from './Utils/HtmlContent'
 import Swal from 'sweetalert2'
 
-const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos y condiciones', roles = [], specialties }) => {
+const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
 
   document.title = 'Registro | NetCoaching'
 
@@ -71,15 +71,12 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
     // })
 
     const request = {
-      role: $(roleRef.current).val(),
       name: nameRef.current.value,
       lastname: lastnameRef.current.value,
       email: emailRef.current.value,
       password: jsEncrypt.encrypt(password),
       confirmation: jsEncrypt.encrypt(confirmation),
-      terms: termsRef.current.checked,
       captcha: captchaValue,
-      specialties: $(specialtyRef.current).val()
     }
     const result = await AuthRest.signup(request)
     if (!result) return setLoading(false)
@@ -98,11 +95,16 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-8 col-lg-6 col-xl-4">
-            <div className="text-center">
-              <a href="/">
-                <img src='/assets/img/logo.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
-              </a>
-              <p className="text-muted mt-2 mb-4">Bienvenido a Trasciende</p>
+            <div className="text-center mb-4">
+              <Link href="/" className='d-block mb-2'>
+                <img src='/assets/img/logo-dark.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
+              </Link>
+              <b className='mb-4' style={{ color: '#404040', fontSize: 'x-large' }}>¡Ahora puedes ser una Vuá lover!</b>
+              <ul className='d-flex flex-wrap justify-content-center gap-x-4 gap-y-0 text-sm'>
+                <li><i className='mdi mdi-circle-small'></i> Guarda tus fórmulas únicas</li>
+                <li><i className='mdi mdi-circle-small'></i> Beneficios en tu cumpleaños</li>
+                <li><i className='mdi mdi-circle-small'></i> Recibe las promos del mes primero</li>
+              </ul>
             </div>
             <div className="card">
               <div className="card-body p-4">
@@ -110,29 +112,6 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
                   <h4 className="text-uppercase mt-0 font-bold">Registrate</h4>
                 </div>
                 <form onSubmit={onRegisterSubmit} className='row'>
-                  <div className="col-12">
-                    <div className="row justify-content-center">
-                      <div className="col-sm-6 mb-2">
-                        <label htmlFor="role" className="form-label">Tipo de usuario <b className="text-danger">*</b></label>
-                        <SelectFormGroup eRef={roleRef} onChange={onDocumentTypeChange} required>
-                          {
-                            roles.map((role, i) => {
-                              return <option value={role.relative_id}>{role.name}</option>
-                            })
-                          }
-                        </SelectFormGroup>
-                      </div>
-                    </div>
-                  </div>
-
-                  <SelectFormGroup label='Especialidad' eRef={specialtyRef} required multiple>
-                    {
-                      specialties.map((specialty, i) => {
-                        return <option key={`specialty-${i}`} value={specialty.id}>{specialty.name}</option>
-                      })
-                    }
-                  </SelectFormGroup>
-
                   <div className="col-sm-6 mb-2">
                     <label htmlFor="name" className="form-label">Nombres <b className="text-danger">*</b></label>
                     <input ref={nameRef} className="form-control" type="text" id="name" placeholder="Ingrese su nombre"
@@ -158,21 +137,9 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
                     <input ref={confirmationRef} className="form-control" type="password" required id="confirmation"
                       placeholder="Confirme su contraseña" />
                   </div>
-                  <div className="col-12 mb-3">
-                    <div className="form-check mx-auto" style={{ width: 'max-content' }}>
-                      <input ref={termsRef} type="checkbox" className="form-check-input" id="checkbox-signup" required />
-                      <label className="form-check-label" htmlFor="checkbox-signup">
-                        Acepto los
-                        <a
-                          href="#terms" className="ms-1 text-blue" onClick={() => $(termsModalRef.current).modal('show')}>
-                          terminos y condiciones
-                        </a>
-                      </label>
-                    </div>
-                  </div>
                   <ReCAPTCHA className='m-auto mb-3' sitekey={RECAPTCHA_SITE_KEY} onChange={setCaptchaValue} style={{ display: "block", width: 'max-content' }} />
                   <div className="mb-0 text-center d-grid">
-                    <button className="btn btn-primary" type="submit" disabled={loading}>
+                    <button className="btn btn-pink" type="submit" disabled={loading} style={{ backgroundColor: '#A191B8', borderColor: '#A191B8' }}>
                       {loading ? <>
                         <i className='fa fa-spinner fa-spin'></i> Verificando
                       </> : 'Registrarme'}
@@ -183,17 +150,14 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY, token, terms = 'Terminos
             </div>
             <div className="row mt-3">
               <div className="col-12 text-center">
-                <p className="text-muted">Ya tienes una cuenta? <Link href="/login"
-                  className="text-white ms-1"><b>Iniciar sesion</b></Link></p>
+                <p className="">Ya tienes una cuenta? <Link href="/login"
+                  className="ms-1"><b>Iniciar sesion</b></Link></p>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <Modal modalRef={termsModalRef} title='Terminos y condiciones' size='lg' hideFooter>
-      <HtmlContent html={terms} />
-    </Modal>
   </>)
 };
 

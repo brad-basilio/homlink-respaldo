@@ -13,7 +13,7 @@ const HairGoals = ({ test, setTest, values }) => {
   };
 
   const onNextClicked = () => {
-    setTest(old => ({ ...old, hair_goals: selectedGoals.length >= 3 ? selectedGoals : null }))
+    setTest(old => ({ ...old, hair_goals: selectedGoals.length >= 3 ? selectedGoals.sort((a, b) => b > a ? -1 : 1) : null }))
   }
 
   useEffect(() => {
