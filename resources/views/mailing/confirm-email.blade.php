@@ -20,7 +20,7 @@
 <body
   style="background-image: url('{{ asset('assets/mailing/background.png') }}'); background-repeat: no-repeat; background-size: cover; min-height: 100vh; background-position: center;">
   <img src="{{ asset('assets/img/logo.svg') }}" alt="Vuá" style="width: 100px; display: block; margin: 2.5% auto;">
-  <main
+  <div
     style="background-image: url('{{ asset('assets/mailing/background-2.png') }}'); background-repeat: no-repeat; background-size: cover; height: max-content; background-position: top center;">
     <div style="max-width: 600px; width: 100%; margin: auto; text-align: center; padding: 7.5%;">
       <h1 style="font-size: 48px; font-weight: bold; margin-bottom: 20px;">Bien!</h1>
@@ -30,16 +30,17 @@
         <li>Beneficios en tu cumpleaños</li>
         <li>Recibe las promos del mes primero</li>
       </ul>
-      <a href="{{route('confirmation', $preUser['confirmation_token'])}}"
+      <a href="{{ route('confirmation', $preUser['confirmation_token']) }}"
         style="display: block; padding: 12px 24px; border-radius: 990px; background-color: #A191B8; border: none; width: max-content; margin: auto;">CONFIRMAR
         CORREO</a>
     </div>
-  </main>
-  <footer style="padding: 2.5%; margin: auto">
+  </div>
+  <div style="padding: 2.5%; margin: auto">
     @foreach ($socials as $social)
-      <span class="{{ $social['icon'] }}" style="display: block, width: 20px; height: 20px"></span>
+      <a href="{{ $social->link }}" class="{{ $social['icon'] }}"
+        style="display: block, width: 20px; height: 20px">{{ $social->name }}</a>
     @endforeach
-  </footer>
+  </div>
 </body>
 
 </html>
