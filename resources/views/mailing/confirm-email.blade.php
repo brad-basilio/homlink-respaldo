@@ -31,14 +31,14 @@
         <li>Recibe las promos del mes primero</li>
       </ul>
       <a href="{{ route('confirmation', $preUser['confirmation_token']) }}"
-        style="display: block; padding: 12px 24px; border-radius: 990px; background-color: #A191B8; border: none; width: max-content; margin: auto;">CONFIRMAR
+        style="display: block; padding: 12px 24px; border-radius: 990px; background-color: #A191B8; border: none; width: max-content; margin: auto; color: #fff; text-decoration: none; font-weight: bold">CONFIRMAR
         CORREO</a>
     </div>
   </div>
-  <div style="padding: 2.5%; margin: auto">
+  <div style="padding: 2.5%; margin: auto; width: max-content">
     @foreach ($socials as $social)
       <a href="{{ $social->link }}" class="{{ $social['icon'] }}"
-        style="display: block, width: 20px; height: 20px">{{ $social->name }}</a>
+        style="display: block, width: 20px; height: 20px; background-color: #fff; border-radius: 990px">{{ $social->name }}</a>
     @endforeach
   </div>
 </body>
