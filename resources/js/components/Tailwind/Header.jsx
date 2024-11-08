@@ -66,7 +66,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
               <a className="relative block" href='/login'>
                 {
                   session &&
-                  <span className="w-2 h-2 bg-green-600 rounded-full font-bold absolute top-1 -right-1"></span>
+                  <span className="w-2 h-2 bg-green-500 rounded-full font-bold absolute bottom-0 -right-1"></span>
                 }
                 <i className="text-xl fa fa-user"></i>
               </a>

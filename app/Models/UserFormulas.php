@@ -40,4 +40,8 @@ class UserFormulas extends Model
     {
         return $this->hasOne(Formula::class, 'id', 'hair_type');
     }
+    public function fragrance()
+    {
+        return $this->hasOne(Fragrance::class, 'id', 'fragrance_id');
+    }
 }

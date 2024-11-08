@@ -27,5 +27,13 @@ class UsersSeeder extends Seeder
             'lastname' => 'Vuá',
             'password' => 'Vu4Pun70p3'
         ])->assignRole('Admin');
+
+        User::updateOrCreate([
+            'email' => 'customer@mundoweb.pe'
+        ], [
+            'name' => 'Usuario',
+            'lastname' => 'Customer',
+            'password' => 'abcd1234'
+        ])->assignRole('Customer');
     }
 }

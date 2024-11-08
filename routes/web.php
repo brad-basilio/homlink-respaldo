@@ -34,6 +34,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\LoginVuaController;
+use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\ProductController;
@@ -70,7 +71,6 @@ Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.j
 Route::get('/formula/{formula}', [FormulaController::class, 'reactView'])->name('Formula.jsx');
 Route::get('/thanks', [ThankController::class, 'reactView'])->name('Thanks.jsx');
 Route::get('/loginvua', [LoginVuaController::class, 'reactView'])->name('LoginVua.jsx');
-Route::get('/dashboard', [DashboardController::class, 'reactView'])->name('Dashboard.jsx');
 Route::get('/popup', [PopupController::class, 'reactView'])->name('Popup.jsx');
 
 Route::get('/login', [AuthController::class, 'loginView'])->name('Login.jsx');
@@ -79,7 +79,7 @@ Route::get('/confirm-email/{token}', [AuthController::class, 'confirmEmailView']
 Route::get('/confirmation/{token}', [AuthController::class, 'loginView'])->name('confirmation');
 
 Route::middleware(['can:Customer','auth'])->group(function() {
-    Route::get('/my-account', [DashboardController::class, 'reactView'])->name('MyAccount.jsx');
+    Route::get('/my-account', [MyAccountController::class, 'reactView'])->name('MyAccount.jsx');
 });
 // Admin routes
 Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {

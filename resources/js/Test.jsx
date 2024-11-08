@@ -12,9 +12,7 @@ import Fragrance from './Components/Test/Fragrance';
 import Email from './Components/Test/Email';
 import ProgressBar from './Components/Test/components/ProgressBar';
 
-const Test = ({ hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
-
-  console.log(hasTreatment)
+const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
 
   const vuaTest = Local.get('vua_test') ?? {}
   if (!hasTreatment.find(x => x.id == vuaTest.has_treatment)) vuaTest.has_treatment = null
@@ -34,7 +32,7 @@ const Test = ({ hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
     'hair_type': <HairType test={test} setTest={setTest} values={hairType}/>,
     'hair_goals': <HairGoals test={test} setTest={setTest} values={hairGoals} />,
     'fragrance': <Fragrance test={test} setTest={setTest} values={fragrances}/>,
-    'email': <Email test={test} setTest={setTest} />
+    'email': <Email test={test} setTest={setTest} session={session} />
   };
 
   const pageOrder = Object.keys(pages);
