@@ -13,10 +13,9 @@ import Testimonies from './Components/Home/Testimonies';
 import CallToAction from './Components/Home/CallToAction';
 import Popups from './Components/Home/Popups';
 
-const Home = ({ items, supplies, testimonies, popups }) => {
-  console.log(popups)
+const Home = ({ sliders, items, supplies, testimonies, popups }) => {
   return (<>
-    <Banner />
+    <Banner sliders={sliders}/>
     <hr className='h-4 bg-transparent border-none' />
     <Highlights />
     <HowItWorks />

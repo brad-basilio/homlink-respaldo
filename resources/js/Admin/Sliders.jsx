@@ -27,8 +27,6 @@ const Sliders = () => {
   const bgImageRef = useRef()
   const buttonTextRef = useRef()
   const buttonLinkRef = useRef()
-  const secondarybtnTextRef = useRef()
-  const secondarybtnUrlRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -40,7 +38,7 @@ const Sliders = () => {
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
     bgImageRef.current.value = null
-    bgImageRef.image.src = `/api/sliders/media/${data?.bg_image}`
+    bgImageRef.image.src = `/api/sliders/media/${data?.image}`
     buttonTextRef.current.value = data?.button_text ?? ''
     buttonLinkRef.current.value = data?.button_link ?? ''
 
@@ -64,19 +62,15 @@ const Sliders = () => {
     }
 
     const file = bgImageRef.current.files[0]
-    formData.append('bg_image', file)
+    if (file) {
+      formData.append('image', file)
+    }
 
     const result = await slidersRest.save(formData)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
     $(modalRef.current).modal('hide')
-  }
-
-  const onStatusChange = async ({ id, status }) => {
-    const result = await slidersRest.status({ id, status })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
   const onVisibleChange = async ({ id, value }) => {
@@ -131,13 +125,27 @@ const Sliders = () => {
           dataField: 'name',
           caption: 'Titulo',
           width: '75%',
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, (data.name || data.description)
+              ? <p className='mb-0' style={{ width: '100%' }}>
+                <b className='d-block'>{data.name}</b>
+                <small className='text-wrap text-muted' style={{
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitBoxOrient: 'vertical',
+                  WebkitLineClamp: 2,
+                }}>{data.description}</small>
+              </p>
+              : <i className='text-muted'>- Sin contenido textual -</i>
+            )
+          }
         },
         {
-          dataField: 'bg_image',
+          dataField: 'image',
           caption: 'Imagen',
           width: '90px',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/sliders/media/${data.bg_image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
+            ReactAppend(container, <img src={`/api/sliders/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
           }
         },
         {

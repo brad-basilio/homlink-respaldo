@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->string('bg_image')->nullable();
+            $table->string('image')->nullable();
             $table->string('button_text')->nullable();
             $table->string('button_link')->nullable();
             $table->boolean('visible')->default(true);
