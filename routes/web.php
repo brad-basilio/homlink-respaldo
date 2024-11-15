@@ -27,12 +27,16 @@ use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdController;
+use App\Http\Controllers\Admin\AdController as AdminAdController;
+use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
+use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
@@ -90,6 +94,8 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/colors', [AdminColorController::class, 'reactView'])->name('Admin/Colors.jsx');
     Route::get('/supplies', [AdminSupplyController::class, 'reactView'])->name('Admin/Supplies.jsx');
     Route::get('/formulas', [AdminFormulaController::class, 'reactView'])->name('Admin/Formulas.jsx');
+    Route::get('/fragrances', [AdminFragranceController::class, 'reactView'])->name('Admin/Fragrances.jsx');
+    Route::get('/ads', [AdminAdController::class, 'reactView'])->name('Admin/Ads.jsx');
     Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
 

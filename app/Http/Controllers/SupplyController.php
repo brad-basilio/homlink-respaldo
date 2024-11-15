@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class SupplyController extends BasicController
 {
+    public $model = Supply::class;
     public $reactView = 'Supplies';
     public $reactRootView = 'public';
     public $throwMediaError = true;

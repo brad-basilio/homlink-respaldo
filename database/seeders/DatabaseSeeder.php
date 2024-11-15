@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             ColorSeeder::class,
             FaqSeeder::class,
             FragranceSeeder::class,
+            AdSeeder::class,
         ]);
     }
 }

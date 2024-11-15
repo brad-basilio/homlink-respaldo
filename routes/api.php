@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -16,9 +17,11 @@ use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
+use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\ColorController as AdminColorController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
+use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 
@@ -55,6 +58,7 @@ Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
 Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
 Route::get('/colors/media/{uuid}', [ColorController::class, 'media']);
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
+Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);
@@ -107,6 +111,18 @@ Route::middleware('auth')->group(function () {
         Route::patch('/formulas/status', [AdminFormulaController::class, 'status']);
         Route::patch('/formulas/{field}', [AdminFormulaController::class, 'boolean']);
         Route::delete('/formulas/{id}', [AdminFormulaController::class, 'delete']);
+
+        Route::post('/fragrances', [AdminFragranceController::class, 'save']);
+        Route::post('/fragrances/paginate', [AdminFragranceController::class, 'paginate']);
+        Route::patch('/fragrances/status', [AdminFragranceController::class, 'status']);
+        Route::patch('/fragrances/{field}', [AdminFragranceController::class, 'boolean']);
+        Route::delete('/fragrances/{id}', [AdminFragranceController::class, 'delete']);
+
+        Route::post('/ads', [AdminAdController::class, 'save']);
+        Route::post('/ads/paginate', [AdminAdController::class, 'paginate']);
+        Route::patch('/ads/status', [AdminAdController::class, 'status']);
+        Route::patch('/ads/{field}', [AdminAdController::class, 'boolean']);
+        Route::delete('/ads/{id}', [AdminAdController::class, 'delete']);
 
         Route::post('/messages', [AdminMessageController::class, 'save']);
         Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);

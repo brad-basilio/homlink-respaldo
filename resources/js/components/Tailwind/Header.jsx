@@ -31,7 +31,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
       {
         showSlogan &&
         <div className="text-center px-[5%] py-4 bg-[#A191B8] text-white text-sm">
-          ¡SUSCRÍBETE A CLUB VUÁ Y OBTÉN <b>ENVÍO GRATIS<br className="md:hidden" />
+          ¡SUSCRÍBETE A CLUB VUÁ Y OBTÉN <b>ENVÍO GRATIS <br className="md:hidden" />
             A TODO LIMA METROPOLITANA!</b>
         </div>
       }

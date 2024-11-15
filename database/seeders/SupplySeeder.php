@@ -57,7 +57,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'romero.png',
                 'name' => 'Romero',
-                'description' => 'Purificante'
+                'description' => 'Purificante',
+                'featured' => true
             ],
             [
                 'image' => 'manzanilla.png',
@@ -122,7 +123,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'manteca-karite.png',
                 'name' => 'Manteca de Karité',
-                'description' => 'Cabello sano'
+                'description' => 'Cabello sano',
+                'featured' => true
             ],
             [
                 'image' => 'aceite-argon.png',
@@ -132,7 +134,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'aceite-coco.png',
                 'name' => 'Aceite de coco',
-                'description' => 'Restaura'
+                'description' => 'Restaura',
+                'featured' => true
             ],
             [
                 'image' => 'tomillo.png',
@@ -142,7 +145,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'acido-salicilico.png',
                 'name' => 'Ácido salicílico',
-                'description' => 'Nutrición'
+                'description' => 'Nutrición',
+                'featured' => true
             ],
             [
                 'image' => 'sauce.png',
@@ -177,7 +181,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'calendula.png',
                 'name' => 'Caléndula',
-                'description' => 'Anticaspa'
+                'description' => 'Anticaspa',
+                'featured' => true
             ],
             [
                 'image' => 'papaya.png',
@@ -202,7 +207,8 @@ class SupplySeeder extends Seeder
             [
                 'image' => 'biotina.png',
                 'name' => 'Biotina',
-                'description' => 'Crecimiento'
+                'description' => 'Crecimiento',
+                'featured' => true
             ],
             [
                 'image' => 'tara.png',

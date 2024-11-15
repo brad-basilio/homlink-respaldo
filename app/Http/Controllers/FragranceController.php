@@ -8,5 +8,5 @@ use App\Http\Requests\UpdateFragranceRequest;
 
 class FragranceController extends BasicController
 {
-    
+    public $model = Fragrance::class;
 }

@@ -5,7 +5,8 @@ import Aos from "aos";
 
 const SelectProduct = ({ goToNextPage, items = [] }) => {
 
-  const [cart, setCart] = useState(Local.get('vua_cart').filter(x => !!items.find(y => x.id == y.id)) ?? []);
+  const vua_cart = Local.get('vua_cart') ?? []
+  const [cart, setCart] = useState(vua_cart.filter(x => !!items.find(y => x.id == y.id)) ?? []);
 
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -19,6 +20,8 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
       })
     }
   }
+
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const onPlusClicked = (item) => {
     if (cart.find(x => x.id == item.id)) {
@@ -88,7 +91,7 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-[#EFBEC1] text-white rounded-3xl mt-4 py-4 px-[5%] font-extrabold shadow-lg">
-        <span className="text-xl">Elegiste 3 productos</span>
+        <span className="text-xl">Elegiste {totalQuantity} productos</span>
         <div className="flex flex-row text-white items-center gap-4">
           <p className="text-sm font-light line-through">Antes: S/{Number2Currency(totalPrice)}</p>
           <h2 className="text-xl">S/{Number2Currency(totalPrice)}</h2>

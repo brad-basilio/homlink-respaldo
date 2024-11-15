@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
-import { ShieldCheck, HeadphonesIcon, CreditCard } from 'lucide-react'
+import { CreditCard, HeadphonesIcon, ShieldCheck } from 'lucide-react';
+import { useState } from 'react';
 import { Local } from 'sode-extend-react';
-import Number2Currency from '../../Utils/Number2Currency';
-import Global from '../../Utils/Global';
 import CulqiRest from '../../Actions/CulqiRest';
+import Global from '../../Utils/Global';
+import Number2Currency from '../../Utils/Number2Currency';
 
 const Checkout = ({ formula, publicKey, session }) => {
   Culqi.publicKey = publicKey
@@ -54,10 +54,10 @@ const Checkout = ({ formula, publicKey, session }) => {
       province = 'Lima metropolitana'
       district = null
     }
-    if (sale.province == 'Distritos de Lima') {
+    if (sale.province == 'Lima Alrededores') {
       province = sale.district
     }
-    if (sale.province == 'Otros departamentos') {
+    if (sale.province == 'Provincias') {
       department = sale.district
       province = null
     }
@@ -378,9 +378,9 @@ const Checkout = ({ formula, publicKey, session }) => {
                         <span className='font-bold'>Envío</span>
                         <span>
                           {
-                            sale.province == 'lima-metropolitana'
+                            sale.province == 'Lima metropolitana'
                               ? 'Gratis'
-                              : 'Envío por Shalóm'
+                              : 'Por Shalom - Pago en destino'
                           }
                         </span>
                       </div>

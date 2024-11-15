@@ -7,7 +7,7 @@ import "swiper/css/autoplay"
 const Testimonies = ({ testimonies }) => {
 
   return (
-    <section className="p-[5%] py-[10%] md:pt-0 text-[#404040] bg-white">
+    <section className="p-[5%] py-[10%] md:pt-[2.5%] text-[#404040] bg-white">
       <Swiper
         modules={[Autoplay]}
         loop={true}

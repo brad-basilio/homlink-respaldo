@@ -23,7 +23,6 @@ const Fragrances = ({ }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const priceRef = useRef()
   const imageRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
@@ -35,8 +34,7 @@ const Fragrances = ({ }) => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    priceRef.current.value = data?.price ?? ''
-    imageRef.image.src = `/api/items/media/${data?.image}`
+    imageRef.image.src = `/api/fragrances/media/${data?.image}`
     imageRef.current.value = null
 
     $(modalRef.current).modal('show')
@@ -48,7 +46,6 @@ const Fragrances = ({ }) => {
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
-      price: priceRef.current.value,
       description: descriptionRef.current.value,
     }
 
@@ -76,8 +73,8 @@ const Fragrances = ({ }) => {
 
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar item',
-      text: '¿Estás seguro de eliminar este item?',
+      title: 'Eliminar fragancia',
+      text: '¿Estás seguro de eliminar esta fragancia?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
@@ -90,7 +87,7 @@ const Fragrances = ({ }) => {
   }
 
   return (<>
-    <Table gridRef={gridRef} title='Items' rest={fragrancesRest}
+    <Table gridRef={gridRef} title='Fragancias' rest={fragrancesRest}
       toolBar={(container) => {
         container.unshift({
           widget: 'dxButton', location: 'after',
@@ -104,8 +101,8 @@ const Fragrances = ({ }) => {
           widget: 'dxButton', location: 'after',
           options: {
             icon: 'plus',
-            text: 'Nuevo item',
-            hint: 'Nuevo item',
+            text: 'Nueva fragancia',
+            hint: 'Nueva fragancia',
             onClick: () => onModalOpen()
           }
         });
@@ -133,21 +130,12 @@ const Fragrances = ({ }) => {
           }
         },
         {
-          dataField: 'price',
-          caption: 'Precio',
-          dataType: 'number',
-          width: '100px',
-          cellTemplate: (container, { data }) => {
-            container.text(`S/.${Number(data.price).toFixed(2)}`)
-          }
-        },
-        {
           dataField: 'image',
           caption: 'Imagen',
-          width: '60px',
+          width: '80px',
           allowFiltering: false,
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/items/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
+            ReactAppend(container, <img src={`/api/fragrances/media/${data.image}`} style={{ height: '40px', aspectRatio: 5 / 3, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/fragrances/media/fragrance-sin-fragancia.png'} />)
           }
         },
         {
@@ -180,14 +168,13 @@ const Fragrances = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar item' : 'Agregar item'} onSubmit={onModalSubmit} size='md'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar fragancia' : 'Agregar fragancia'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={3 / 4} onError='/assets/img/routine/conditioner.png' />
+        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
         <div className="col-md-8">
           <InputFormGroup eRef={nameRef} label='Nombre' required />
-          <InputFormGroup eRef={priceRef} label='Precio' type='number' step={0.01} required />
-          <TextareaFormGroup eRef={descriptionRef} label='Resumen' rows={3} required />
+          <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
         </div>
       </div>
     </Modal>

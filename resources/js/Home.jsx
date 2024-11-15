@@ -11,21 +11,22 @@ import Highlights2 from './Components/Home/Highlights2';
 import Supplies from './Components/Home/Supplies';
 import Testimonies from './Components/Home/Testimonies';
 import CallToAction from './Components/Home/CallToAction';
+import Popups from './Components/Home/Popups';
 
-const Home = ({items, testimonies}) => {
-  return (
-    <>
-      <Banner />
-      <hr className='h-4 bg-transparent border-none' />
-      <Highlights />
-      <HowItWorks />
-      <Routine items={items} />
-      <Highlights2 />
-      <Supplies />
-      <Testimonies testimonies={testimonies} />
-      <CallToAction/>
-    </>
-  );
+const Home = ({ items, supplies, testimonies, popups }) => {
+  console.log(popups)
+  return (<>
+    <Banner />
+    <hr className='h-4 bg-transparent border-none' />
+    <Highlights />
+    <HowItWorks />
+    <Routine items={items} />
+    <Highlights2 />
+    <Supplies supplies={supplies} />
+    <Testimonies testimonies={testimonies} />
+    <CallToAction />
+   <Popups popups={popups}/> 
+  </>);
 };
 
 CreateReactScript((el, properties) => {

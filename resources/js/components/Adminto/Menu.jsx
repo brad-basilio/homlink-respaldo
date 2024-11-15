@@ -77,8 +77,11 @@ const Menu = ({ session, hasRole }) => {
               <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
               <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
               <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>
+              <MenuItem href="/admin/fragrances" icon='mdi mdi-fleur-de-lis'>Fragancias</MenuItem>
               <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Subscripciones</MenuItem>
               <li className="menu-title">Landing Page</li>
+              <MenuItem href="/admin/ads" icon='mdi mdi-google-ads'>Pop-ups</MenuItem>
+              <MenuItem href="/admin/sliders" icon='mdi mdi-google-ads'>Sliders</MenuItem>
               <MenuItem href="/admin/about" icon='mdi mdi-briefcase'>Nosotros</MenuItem>
               <MenuItem href="/admin/testimonies" icon='mdi mdi-forum'>Testimonios</MenuItem>
               <MenuItem href="/admin/faqs" icon='mdi mdi-frequently-asked-questions'>FAQs</MenuItem>

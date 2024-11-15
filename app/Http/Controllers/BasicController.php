@@ -34,11 +34,13 @@ class BasicController extends Controller
   public function media(Request $request, string $uuid)
   {
     try {
+      $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
       if (Text::has($uuid, '.')) {
-        $content = Storage::get('images/' . $uuid);
+        $route = "images/{$snake_case}/{$uuid}";
       } else {
-        $content = Storage::get('images/' . $uuid . '.img');
+        $route = "images/{$snake_case}/{$uuid}.img";
       }
+      $content = Storage::get($route);
       if (!$content) throw new Exception('Imagen no encontrado');
       return response($content, 200, [
         'Content-Type' => 'application/octet-stream'
@@ -189,11 +191,12 @@ class BasicController extends Controller
 
       $body = $this->beforeSave($request);
 
+      $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
       foreach ($this->imageFields as $field) {
         if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
         $uuid = Crypto::randomUUID();
-        $path = 'images/' . $uuid . '.img';
+        $path = "images/{$snake_case}/{$uuid}.img";
         Storage::put($path, file_get_contents($full));
         $body[$field] = $uuid;
       }

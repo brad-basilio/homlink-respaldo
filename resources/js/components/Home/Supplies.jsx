@@ -5,17 +5,7 @@ import "swiper/css"
 import "swiper/css/autoplay"
 import SupplieCard from "../Supplies/components/SupplieCard"
 
-const Supplies = () => {
-
-  const supplies = [
-    { image: 'hyaluronic-acid.png', title: 'Ácido hialurónico', description: 'Hidratación' },
-    { image: 'rosemary-oil.png', title: 'Aceite de Romero', description: 'Crecimiento' },
-    { image: 'biotin.png', title: 'Biotina', description: 'Fortaleza' },
-    { image: 'calendula.png', title: 'Caléndula', description: 'Anticaspa' },
-    { image: 'shea-butter.png', title: 'Manteca de Karite', description: 'Cabello Sano' },
-    { image: 'coconut-oil.png', title: 'Aceite de coco', description: 'Restaura' },
-  ];
-
+const Supplies = ({ supplies = [] }) => {
 
   return <section className="px-[5%] py-[10%] md:p-[7.5%] lg:py-[5%] bg-[#FBF5F1] md:bg-white text-[#404040] text-center lg:text-start">
     <div className="bg-[#FBF5F1] md:p-[5%] rounded-2xl">
@@ -46,11 +36,11 @@ const Supplies = () => {
           },
         }}
       >
-        {supplies.map((supplie, index) => (
-          <SwiperSlide key={index} className="py-4">
+        {supplies.map((supplie, index) => {
+          return <SwiperSlide key={index} className="py-4">
             <SupplieCard {...supplie} />
           </SwiperSlide>
-        ))}
+        })}
       </Swiper>
       <div className="lg:text-end">
         <a href="/supplies" className="underline text-sm">Ver más ingredientes</a>

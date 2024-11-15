@@ -64,6 +64,12 @@ const Supplies = ({ }) => {
     $(modalRef.current).modal('hide')
   }
 
+  const onFeaturedChange = async ({ id, value }) => {
+    const result = await suppliesRest.boolean({ id, field: 'featured', value })
+    if (!result) return
+    $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
   const onVisibleChange = async ({ id, value }) => {
     const result = await suppliesRest.boolean({ id, field: 'visible', value })
     if (!result) return
@@ -127,6 +133,15 @@ const Supplies = ({ }) => {
           allowFiltering: false,
           cellTemplate: (container, { data }) => {
             ReactAppend(container, <img src={`/api/supplies/media/${data.image}`} style={{ width: '40px', aspectRatio: 5 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/supplies/acido-salicilico.png'} />)
+          }
+        },
+        {
+          dataField: 'featured',
+          caption: 'Destacado',
+          dataType: 'boolean',
+          width: '120px',
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <SwitchFormGroup checked={data.featured} onChange={(e) => onFeaturedChange({ id: data.id, value: e.target.checked })} />)
           }
         },
         {
