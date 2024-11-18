@@ -1,8 +1,8 @@
 import React from 'react';
 
-const HtmlContent = ({ html, properties }) => {
+const HtmlContent = ({ className, html, properties }) => {
   return (
-    <div dangerouslySetInnerHTML={{ __html: html }} {...properties} />
+    <div className={className} dangerouslySetInnerHTML={{ __html: html }} {...properties} />
   );
 };
 

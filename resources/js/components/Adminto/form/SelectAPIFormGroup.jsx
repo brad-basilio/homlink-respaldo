@@ -1,7 +1,8 @@
+import Tippy from "@tippyjs/react";
 import React, { useEffect, useRef } from "react"
 import { Cookies, JSON } from "sode-extend-react"
 
-const SelectAPIFormGroup = ({ id, col, label, eRef, required = false, dropdownParent, searchAPI, searchBy, multiple = false, filter = null, onChange = () => { },
+const SelectAPIFormGroup = ({ id, col, label, specification, eRef, required = false, dropdownParent, searchAPI, searchBy, multiple = false, filter = null, onChange = () => { },
   templateResult,
   templateSelection,
   tags
@@ -72,8 +73,17 @@ const SelectAPIFormGroup = ({ id, col, label, eRef, required = false, dropdownPa
   }, [filter])
 
   return <div className={`form-group ${col} mb-2`}>
-    <label htmlFor={id} className="mb-1">
-      {label} {required && <b className="text-danger">*</b>}
+    <label htmlFor={id} className="form-label mb-1">
+      {
+        label &&
+        <>
+          {label} {required && <b className="text-danger">*</b>}
+          {specification && <Tippy content={specification}>
+            <small className="ms-1 fa fa-question-circle text-muted"></small>
+          </Tippy>
+          }
+        </>
+      }
     </label>
     <select ref={eRef} id={id} required={required} className='form-control' style={{ width: '100%' }} multiple={multiple}></select>
   </div>

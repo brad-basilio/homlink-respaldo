@@ -31,7 +31,7 @@ const Generals = ({ generals }) => {
     }
   });
 
-  const [activeTab, setActiveTab] = useState('contact');
+  const [activeTab, setActiveTab] = useState('policies');
 
   const handleInputChange = (e, index, field) => {
     const { value } = e.target;
@@ -94,7 +94,7 @@ const Generals = ({ generals }) => {
     <div className="card">
       <form className='card-body' onSubmit={handleSubmit}>
         <ul className="nav nav-tabs" id="contactTabs" role="tablist">
-          <li className="nav-item" role="presentation">
+          <li className="nav-item" role="presentation" hidden> {/* Quitar el hidden para que se muestren las opciones */}
             <button className={`nav-link ${activeTab === 'contact' ? 'active' : ''}`} onClick={() => setActiveTab('contact')} type="button" role="tab">
               Información de Contacto
             </button>
@@ -104,7 +104,7 @@ const Generals = ({ generals }) => {
               Políticas y Términos
             </button>
           </li>
-          <li className="nav-item" role="presentation">
+          <li className="nav-item" role="presentation" hidden> {/* Quitar el hidden para que se muestren las opciones */}
             <button className={`nav-link ${activeTab === 'location' ? 'active' : ''}`} onClick={() => setActiveTab('location')} type="button" role="tab">
               Ubicación
             </button>
@@ -195,7 +195,7 @@ const Generals = ({ generals }) => {
           </div>
 
           <div className={`tab-pane fade ${activeTab === 'policies' ? 'show active' : ''}`} role="tabpanel">
-            <div className="mb-3">
+            <div className="mb-3" hidden>
               <QuillFormGroup label='Política de privacidad' value={formData.privacyPolicy} onChange={(value) => setFormData({ ...formData, privacyPolicy: value })} />
             </div>
             <div className="mb-3">

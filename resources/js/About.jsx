@@ -8,8 +8,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/autoplay"
+import em from './Utils/em';
 
-const About = ({ }) => {
+const About = ({ about }) => {
   return <section className='bg-white p-[5%] md:px-[7.5%] lg:px-[10%]'>
     <div className='mx-auto w-max'>
       <p className='hidden md:block'>Nosotros:</p>
@@ -19,9 +20,9 @@ const About = ({ }) => {
       <div className='my-[10%] px-[10%] md:col-span-2'>
         <img className='w-full' src="/assets/img/about/table-alchemy.png" alt="" />
       </div>
-      <p className='text-justify text-sm md:col-span-3'>
-        Nos enfocamos en valorar y personalizar la experiencia del auto cuidado y del cuidado del medio ambiente. Creemos que se puede generar bienestar en las personas mostrándoles la mejor versión de cada un@ y empoderándol@s. Es por eso que apostamos por crear fórmulas únicas a través de experiencias digitales de personalización. Creando productos orgánicos, libre de parabenos, sulfatos y libres de maltrato animal. De las miles de combinaciones que existen, la tuya es única, abrázala.
-      </p>
+      <div className='text-justify text-sm md:col-span-3'>
+        {em(about.description)}
+      </div>
     </div>
 
     {/* Swiper para las imágenes */}

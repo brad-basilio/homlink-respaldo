@@ -24,9 +24,14 @@ const ScalpType = ({ test, setTest, values }) => {
         <div className="flex justify-evenly text-sm w-full mb-4 gap-2 h-32">
           {
             values.map((value, index) => {
-              return <figure key={index} className="flex flex-col gap-4 text-4xl hover:text-5xl transition-all">
-                <button className="w-28 py-2 rounded border border-1-[#9577B9] text-[#9577B9] hover:border-1-[#C5B8D4] hover:bg-[#C5B8D4] hover:text-white font-bold text-base" onClick={() => onTypeClicked(value.id)}>{value.description}</button>
-                <span>{fragrances[value.correlative]}</span>
+              return <figure key={index} className="flex flex-col gap-4 text-4xl transition-all group">
+                <button className="w-28 py-2 rounded border border-[#9577B9] text-[#9577B9] hover:border-[#C5B8D4] hover:bg-[#C5B8D4] hover:text-white font-bold text-base" onClick={() => onTypeClicked(value.id)}>
+                  {value.description}
+                </button>
+                <img
+                  className="w-10 h-auto mx-auto transform transition-all duration-300 group-hover:w-12"
+                  src={`/assets/img/scalp_types/${value.correlative}.png`}
+                />
               </figure>
             })
           }

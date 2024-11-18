@@ -9,8 +9,9 @@ import SelectPlan from './Components/Product/SelectPlan';
 import Checkout from './Components/Product/Checkout';
 
 
-const Formula = ({ user_formula, items, colors, publicKey, session }) => {
+const Formula = ({ user_formula, items, colors, publicKey, session, bundles, planes }) => {
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
+  const [selectedPlan, setSelectedPlan] = useState(null)
 
   const goToNextPage = () => {
     if (currentPageIndex < pages.length - 1) {
@@ -20,10 +21,10 @@ const Formula = ({ user_formula, items, colors, publicKey, session }) => {
 
   // Páginas
   const pages = [
-    { component: <SelectProduct items={items} goToNextPage={goToNextPage} />, name: 'Select Product' },
+    { component: <SelectProduct items={items} goToNextPage={goToNextPage} bundles={bundles} />, name: 'Select Product' },
     { component: <SelectColor colors={colors} goToNextPage={goToNextPage} />, name: 'Select Color' },
-    { component: <SelectPlan goToNextPage={goToNextPage} />, name: 'Select Plan' },
-    { component: <Checkout formula={user_formula} publicKey={publicKey} goToNextPage={goToNextPage} session={session}/>, name: 'Checkout' }
+    { component: <SelectPlan goToNextPage={goToNextPage} setSelectedPlan={setSelectedPlan} bundles={bundles} planes={planes} />, name: 'Select Plan' },
+    { component: <Checkout formula={user_formula} publicKey={publicKey} selectedPlan={selectedPlan} goToNextPage={goToNextPage} bundles={bundles} planes={planes} session={session} />, name: 'Checkout' }
   ];
 
   const CurrentPageComponent = pages[currentPageIndex].component;

@@ -3,7 +3,8 @@ import { createRoot } from 'react-dom/client';
 import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
-const Plans = () => {
+const Plans = ({ renewals }) => {
+  console.log(renewals)
   return (
     <>
       <span className='h-10 bg-[#f3a3d3] block absolute -left-32 md:-left-60 bottom-0 rotate-45 w-full p-2 z-10'>
@@ -35,38 +36,23 @@ const Plans = () => {
                 <b>+ Envío gratis a Lima Metropolitana</b>
               </p>
               <ul className='flex flex-col gap-4 text-center mb-4 justify-center md:justify-start'>
-                <li className='border border-white bg-[rgba(255,255,255,.1)] rounded-lg p-4 w-full max-w-[300px] mx-auto'>
-                  <h4 className='text-lg uppercase font-bold mb-2'>Renueva <span className='text-[#E2F57F]'>cada mes</span> con</h4>
-                  <span className='font-bold grid grid-cols-2 w-max mx-auto ps-4'>
-                    <span className='text-6xl'>20</span>
-                    <span className='flex flex-col text-start'>
-                      <span className='text-3xl'>%</span>
-                      <span className='text-xl font-light -mt-1.5'>DSCT</span>
-                    </span>
-                  </span>
-                </li>
-                <li className='border border-white bg-[rgba(255,255,255,.1)] rounded-lg p-4 w-full max-w-[300px] mx-auto'>
-                  <h4 className='text-lg uppercase font-bold mb-2'>Renueva <span className='text-[#E2F57F]'>cada 2 meses</span> con</h4>
-                  <span className='font-bold grid grid-cols-2 w-max mx-auto ps-4'>
-                    <span className='text-6xl'>15</span>
-                    <span className='flex flex-col text-start'>
-                      <span className='text-3xl'>%</span>
-                      <span className='text-xl font-light -mt-1.5'>DSCT</span>
-                    </span>
-                  </span>
-                </li>
-                <li className='border border-white bg-[rgba(255,255,255,.1)] rounded-lg p-4 w-full max-w-[300px] mx-auto'>
-                  <h4 className='text-lg uppercase font-bold mb-2'>Renueva <span className='text-[#E2F57F]'>cada 3 meses</span> con</h4>
-                  <span className='font-bold grid grid-cols-2 w-max mx-auto ps-4'>
-                    <span className='text-6xl'>10</span>
-                    <span className='flex flex-col text-start'>
-                      <span className='text-3xl'>%</span>
-                      <span className='text-xl font-light -mt-1.5'>DSCT</span>
-                    </span>
-                  </span>
-                </li>
+                {
+                  renewals.map((renewal, index) => {
+                    const percentage = renewal.percentage * 100
+                    return <li key={index} className='border border-white bg-[rgba(255,255,255,.1)] rounded-lg p-4 w-full max-w-[300px] mx-auto'>
+                      <h4 className='text-lg uppercase font-bold mb-2'>Renueva <span className='text-[#E2F57F]'>{renewal.name}</span> con</h4>
+                      <span className='font-bold grid grid-cols-2 w-max mx-auto ps-4'>
+                        <span className='text-6xl'>{percentage}</span>
+                        <span className='flex flex-col text-start'>
+                          <span className='text-3xl'>%</span>
+                          <span className='text-xl font-light -mt-1.5'>DSCT</span>
+                        </span>
+                      </span>
+                    </li>
+                  })
+                }
               </ul>
-              <button className='bg-[#8998DA] text-white text-sm px-8 py-3 rounded border border-white mx-auto block'>QUIERO SUSCRIBIRME</button>
+              <button href='/test' className='bg-[#8998DA] text-white text-sm px-8 py-3 rounded border border-white mx-auto block'>QUIERO SUSCRIBIRME</button>
             </div>
             <div className='col-span-1 lg:col-span-3 relative'>
               <div className='relative'>

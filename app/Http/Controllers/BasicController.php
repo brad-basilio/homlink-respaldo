@@ -72,19 +72,17 @@ class BasicController extends Controller
 
   public function reactView(Request $request)
   {
-    $summaryJpa = Aboutus::where('name', 'Resúmen')->first();
     $socials = Social::where('visible', true)->where('status', true)->get();
-    $generals = General::select(['correlative', 'description'])
-      ->whereIn('correlative', ['terms_conditions', 'privacy_policy', 'support_phone', 'support_email', 'address', 'opening_hours'])
-      ->get();
+    $terms = General::select(['description'])->where('correlative', 'terms_conditions')->first();
+    $footerLinks = Aboutus::whereIn('correlative', ['phone', 'email', 'whatsapp', 'customer-complaints'])->get();
 
     if (Auth::check()) Auth::user()->getAllPermissions();
 
     $properties = [
       'session' => Auth::user(),
-      'summary' => $summaryJpa->description,
       'socials' => $socials,
-      'generals' => $generals,
+      'terms' => $terms,
+      'footerLinks' => $footerLinks,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
@@ -94,8 +92,13 @@ class BasicController extends Controller
         'GMAPS_API_KEY' => env('GMAPS_API_KEY')
       ],
     ];
-    foreach ($this->setReactViewProperties($request) as $key => $value) {
-      $properties[$key] = $value;
+    $reactViewProperties = $this->setReactViewProperties($request);
+    if (\is_array($reactViewProperties)) {
+      foreach ($this->setReactViewProperties($request) as $key => $value) {
+        $properties[$key] = $value;
+      }
+    } else {
+      return $reactViewProperties;
     }
     return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView);
   }

@@ -10,7 +10,6 @@ import DxButton from '../Components/dx/DxButton';
 import InputFormGroup from '../Components/form/InputFormGroup';
 import CreateReactScript from '../Utils/CreateReactScript';
 import ReactAppend from '../Utils/ReactAppend';
-import Swal from 'sweetalert2';
 
 const aboutusRest = new AboutusRest()
 
@@ -61,21 +60,6 @@ const About = () => {
 
   const onVisibleChange = async ({ id, value }) => {
     const result = await aboutusRest.boolean({ id, field: 'visible', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const onDeleteClicked = async (id) => {
-    const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar recurso',
-      text: '¿Estas seguro de eliminar este about?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Si, eliminar',
-      cancelButtonText: 'Cancelar'
-    })
-    if (!isConfirmed) return
-    const result = await aboutusRest.delete(id)
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }

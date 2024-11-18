@@ -16,13 +16,13 @@ class AboutController extends BasicController
     public function setReactViewProperties(Request $request)
     {
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
-        $aboutus = Aboutus::all();
+        $about = Aboutus::where('correlative', 'about-us')->first();
         $strengths = Strength::where('status', true)->where('visible', true)->get();
 
 
         return [
             'testimonies' => $testimonies,
-            'aboutus' => $aboutus,
+            'about' => $about,
             'strengths' => $strengths
         ];
     }

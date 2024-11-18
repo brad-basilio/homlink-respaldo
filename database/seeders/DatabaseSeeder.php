@@ -31,6 +31,8 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             FragranceSeeder::class,
             AdSeeder::class,
+            RenewalSeeder::class,
+            BundleSeeder::class,
         ]);
     }
 }

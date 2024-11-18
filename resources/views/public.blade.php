@@ -33,24 +33,22 @@
   @vite(['resources/css/app.css', 'resources/js/' . Route::currentRouteName()])
   @inertiaHead
 
-  @if ($component == 'BlogArticle.jsx')
-    <link href="/lte/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
-    <link href="/lte/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
-    <style>
-      .ql-editor blockquote {
-        border-left: 4px solid #f8b62c;
-        padding-left: 16px;
-      }
+  <link href="/lte/assets/libs/quill/quill.snow.css" rel="stylesheet" type="text/css" />
+  <link href="/lte/assets/libs/quill/quill.bubble.css" rel="stylesheet" type="text/css" />
+  <style>
+    .ql-editor blockquote {
+      border-left: 4px solid #f8b62c;
+      padding-left: 16px;
+    }
 
-      .ql-editor * {
-        color: #475569;
-      }
+    .ql-editor * {
+      color: #475569;
+    }
 
-      .ql-editor img {
-        border-radius: 8px;
-      }
-    </style>
-  @endif
+    .ql-editor img {
+      border-radius: 8px;
+    }
+  </style>
 </head>
 
 <body>

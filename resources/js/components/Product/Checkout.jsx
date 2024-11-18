@@ -5,7 +5,7 @@ import CulqiRest from '../../Actions/CulqiRest';
 import Global from '../../Utils/Global';
 import Number2Currency from '../../Utils/Number2Currency';
 
-const Checkout = ({ formula, publicKey, session }) => {
+const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }) => {
   Culqi.publicKey = publicKey
   Culqi.options({
     paymentMethods: {
@@ -44,6 +44,23 @@ const Checkout = ({ formula, publicKey, session }) => {
   const [coupon, setCoupon] = useState('')
 
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
+  const restBundles = bundles.filter(x => {
+    switch (x.comparator) {
+      case '<':
+        return totalQuantity < x.items_quantity
+      case '>':
+        return totalQuantity > x.items_quantity
+      default:
+        return totalQuantity == x.items_quantity
+    }
+  }).sort((a, b) => b.percentage - a.percentage)
+
+  const bundle = restBundles?.[0] ?? null
+  const bundleDiscount = totalPrice * (bundle.percentage || 0)
+
+  const plan = planes.find(x => x.id == selectedPlan)
+  const planDiscount = totalPrice * (plan.percentage || 0)
 
   const getSale = () => {
     let department = 'Lima';
@@ -348,6 +365,7 @@ const Checkout = ({ formula, publicKey, session }) => {
                       <span className="">Producto</span>
                       <span className="">Subtotal</span>
                     </div>
+                    <div className='mb-2'>
                     {
                       cart.map((item, index) => {
                         return <div key={index} className="mb-1 flex items-center justify-between text-sm">
@@ -368,10 +386,31 @@ const Checkout = ({ formula, publicKey, session }) => {
                         </div>
                       })
                     }
+                    </div>
                     <div className="mb-2 mt-4 flex justify-between border-b pb-2 text-sm font-bold">
                       <span>Subtotal</span>
                       <span>S/ {Number2Currency(totalPrice)}</span>
                     </div>
+                    {
+                      bundle &&
+                      <div className="mb-2 mt-2 flex justify-between items-center border-b pb-2 text-sm font-bold">
+                        <span>
+                          Descuento x paquete
+                            <small className='block text-xs font-light'>Elegiste {bundle.name} (-{Math.round(bundle.percentage * 10000) / 100}%)</small>
+                        </span>
+                        <span>S/ -{Number2Currency(bundleDiscount)}</span>
+                      </div>
+                    }
+                    {
+                      plan &&
+                      <div className="mb-2 mt-2 flex justify-between items-center border-b pb-2 text-sm font-bold">
+                        <span>
+                          Subscripción
+                          <small className='block text-xs font-light'>{plan.name} (-{Math.round(plan.percentage * 10000) / 100}%)</small>
+                        </span>
+                        <span>S/ -{Number2Currency(planDiscount)}</span>
+                      </div>
+                    }
                     {
                       sale.province &&
                       <div className="mb-4 flex justify-between text-sm border-b pb-2">
@@ -387,7 +426,7 @@ const Checkout = ({ formula, publicKey, session }) => {
                     }
                     <div className="flex justify-between text-lg font-semibold">
                       <span>Total</span>
-                      <span>S/ {Number2Currency(totalPrice)}</span>
+                      <span>S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount)}</span>
                     </div>
                   </div>
                   <div className="mt-6 flex">
@@ -410,7 +449,7 @@ const Checkout = ({ formula, publicKey, session }) => {
                         : <i className='mdi mdi-lock me-1'></i>
                     }
                     Pagar Ahora
-                    <small className='ms-1'>(S/ {Number2Currency(totalPrice)})</small>
+                    <small className='ms-1'>(S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount)})</small>
                   </button>
                 </div>
               </div>

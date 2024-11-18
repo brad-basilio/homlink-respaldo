@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\General;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use SoDe\Extend\File;
 
 class GeneralSeeder extends Seeder
 {
@@ -52,7 +53,7 @@ class GeneralSeeder extends Seeder
             [
                 'correlative' => 'terms_conditions',
                 'name' => 'Términos y condiciones',
-                'description' => 'Al usar nuestros servicios, usted acepta los siguientes términos y condiciones...'
+                'description' => File::get('./storage/app/utils/terms.html')
             ],
             [
                 'correlative' => 'location',

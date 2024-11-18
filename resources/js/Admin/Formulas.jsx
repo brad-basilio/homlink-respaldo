@@ -7,11 +7,10 @@ import Modal from '../Components/Modal';
 import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
-import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
-import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
-import Swal from 'sweetalert2';
 import FormulasRest from '../Actions/Admin/FormulasRest';
+import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
+import SelectAPIFormGroup from '../Components/Adminto/form/SelectAPIFormGroup';
+import SetSelectValue from '../Utils/SetSelectValue';
 
 const formulasRest = new FormulasRest()
 
@@ -23,9 +22,7 @@ const Formulas = ({ }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const priceRef = useRef()
-  const imageRef = useRef()
-
+  const suppliesRef = useRef()
   const [isEditing, setIsEditing] = useState(false)
 
   const onModalOpen = (data) => {
@@ -35,9 +32,7 @@ const Formulas = ({ }) => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    priceRef.current.value = data?.price ?? ''
-    imageRef.image.src = `/api/items/media/${data?.image}`
-    imageRef.current.value = null
+    SetSelectValue(suppliesRef.current, data?.supplies, 'id', 'name')
 
     $(modalRef.current).modal('show')
   }
@@ -48,46 +43,23 @@ const Formulas = ({ }) => {
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
-      price: priceRef.current.value,
       description: descriptionRef.current.value,
+      supplies: $(suppliesRef.current).val()
     }
 
-    const formData = new FormData()
-    for (const key in request) {
-      formData.append(key, request[key])
-    }
-    const file = imageRef.current.files[0]
-    if (file) {
-      formData.append('image', file)
-    }
-
-    const result = await formulasRest.save(formData)
+    const result = await formulasRest.save(request)
     if (!result) return
 
     $(gridRef.current).dxDataGrid('instance').refresh()
     $(modalRef.current).modal('hide')
   }
 
-  const onVisibleChange = async ({ id, value }) => {
-    const result = await formulasRest.boolean({ id, field: 'visible', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const onDeleteClicked = async (id) => {
-    const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar item',
-      text: '¿Estás seguro de eliminar este item?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    })
-    if (!isConfirmed) return
-    const result = await formulasRest.delete(id)
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
+  const names = [
+    { id: 'has_treatment', name: 'Recibió tratamiento' },
+    { id: 'scalp_type', name: 'Tipo de cuero cabelludo' },
+    { id: 'hair_type', name: 'Tipo de cabello' },
+    { id: 'hair_goals', name: 'Objetivos' }
+  ]
 
   return (<>
     <Table gridRef={gridRef} title='Fórmulas' rest={formulasRest}
@@ -100,15 +72,6 @@ const Formulas = ({ }) => {
             onClick: () => $(gridRef.current).dxDataGrid('instance').refresh()
           }
         });
-        // container.unshift({
-        //   widget: 'dxButton', location: 'after',
-        //   options: {
-        //     icon: 'plus',
-        //     text: 'Nuevo item',
-        //     hint: 'Nuevo item',
-        //     onClick: () => onModalOpen()
-        //   }
-        // });
       }}
       columns={[
         {
@@ -121,12 +84,7 @@ const Formulas = ({ }) => {
           caption: 'Step',
           width: '150px',
           lookup: {
-            dataSource: [
-              { id: 'has_treatment', name: 'Recibió tratamiento' },
-              { id: 'scalp_type', name: 'Tipo de cuero cabelludo' },
-              { id: 'hair_type', name: 'Tipo de cabello' },
-              { id: 'hair_goals', name: 'Objetivos' }
-            ],
+            dataSource: names,
             valueExpr: "id",
             displayExpr: "name"
           }
@@ -137,8 +95,8 @@ const Formulas = ({ }) => {
           width: '200px',
         },
         {
-          dataField: 'image',
-          caption: 'Imagen',
+          dataField: 'supplies.name',
+          caption: 'Ingredientes',
           allowFiltering: false,
           cellTemplate: (container, { data }) => {
             ReactAppend(container, <div className='d-flex gap-1'>
@@ -183,15 +141,18 @@ const Formulas = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar item' : 'Agregar item'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='principal-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar fórmula' : 'Agregar fórmula'} onSubmit={onModalSubmit} size='md'>
+      <div id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={3 / 4} onError='/assets/img/routine/conditioner.png' />
-        <div className="col-md-8">
-          <InputFormGroup eRef={nameRef} label='Nombre' required />
-          <InputFormGroup eRef={priceRef} label='Precio' type='number' step={0.01} required />
-          <TextareaFormGroup eRef={descriptionRef} label='Resumen' rows={3} required />
-        </div>
+        <SelectFormGroup eRef={nameRef} label='Step' required dropdownParent='#principal-container' col='col-12' disabled={isEditing}>
+          {
+            names.map((name, index) => {
+              return <option key={index} value={name.id}>{name.name}</option>
+            })
+          }
+        </SelectFormGroup>
+        <InputFormGroup eRef={descriptionRef} label='Respuesta' required disabled/>
+        <SelectAPIFormGroup eRef={suppliesRef} label='Ingredientes' searchAPI='/api/admin/supplies/paginate' searchBy='name' required dropdownParent='#principal-container' col='col-12' multiple />
       </div>
     </Modal>
   </>

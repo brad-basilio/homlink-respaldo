@@ -27,7 +27,7 @@ class SocialSeeder extends Seeder
                 'link' => 'https://www.facebook.com/vua.peru'
             ],
             [
-                'name' => 'Kaori',
+                'name' => 'Vuá',
                 'description' => 'WhatsApp',
                 'icon' => 'fab fa-whatsapp',
                 'link' => 'https://api.whatsapp.com/send?phone=+5114605000&text=' . urlencode('¡Hola! Quisiera que me informe sobre los producto de Vuá.')

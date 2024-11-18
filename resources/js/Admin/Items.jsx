@@ -68,6 +68,12 @@ const Items = ({ }) => {
     $(modalRef.current).modal('hide')
   }
 
+  const onFeaturedChange = async ({ id, value }) => {
+    const result = await itemsRest.boolean({ id, field: 'featured', value })
+    if (!result) return
+    $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
   const onVisibleChange = async ({ id, value }) => {
     const result = await itemsRest.boolean({ id, field: 'visible', value })
     if (!result) return
@@ -148,6 +154,15 @@ const Items = ({ }) => {
           allowFiltering: false,
           cellTemplate: (container, { data }) => {
             ReactAppend(container, <img src={`/api/items/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
+          }
+        },
+        {
+          dataField: 'featured',
+          caption: 'Destacado',
+          dataType: 'boolean',
+          width: '120px',
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <SwitchFormGroup checked={data.featured} onChange={(e) => onFeaturedChange({ id: data.id, value: e.target.checked })} />)
           }
         },
         {

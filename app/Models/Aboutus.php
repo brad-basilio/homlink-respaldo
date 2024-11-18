@@ -14,6 +14,7 @@ class Aboutus extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'correlative',
         'name',
         'description',
         'visible',

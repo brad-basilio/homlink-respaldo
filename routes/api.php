@@ -18,11 +18,13 @@ use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
+use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ColorController as AdminColorController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
+use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 
 // Public
@@ -123,6 +125,18 @@ Route::middleware('auth')->group(function () {
         Route::patch('/ads/status', [AdminAdController::class, 'status']);
         Route::patch('/ads/{field}', [AdminAdController::class, 'boolean']);
         Route::delete('/ads/{id}', [AdminAdController::class, 'delete']);
+
+        Route::post('/renewals', [AdminRenewalController::class, 'save']);
+        Route::post('/renewals/paginate', [AdminRenewalController::class, 'paginate']);
+        Route::patch('/renewals/status', [AdminRenewalController::class, 'status']);
+        Route::patch('/renewals/{field}', [AdminRenewalController::class, 'boolean']);
+        Route::delete('/renewals/{id}', [AdminRenewalController::class, 'delete']);
+
+        Route::post('/bundles', [AdminBundleController::class, 'save']);
+        Route::post('/bundles/paginate', [AdminBundleController::class, 'paginate']);
+        Route::patch('/bundles/status', [AdminBundleController::class, 'status']);
+        Route::patch('/bundles/{field}', [AdminBundleController::class, 'boolean']);
+        Route::delete('/bundles/{id}', [AdminBundleController::class, 'delete']);
 
         Route::post('/messages', [AdminMessageController::class, 'save']);
         Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);

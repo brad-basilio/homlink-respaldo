@@ -3,7 +3,7 @@ import Number2Currency from "../../Utils/Number2Currency";
 import { Local } from "sode-extend-react";
 import Aos from "aos";
 
-const SelectProduct = ({ goToNextPage, items = [] }) => {
+const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
 
   const vua_cart = Local.get('vua_cart') ?? []
   const [cart, setCart] = useState(vua_cart.filter(x => !!items.find(y => x.id == y.id)) ?? []);
@@ -21,7 +21,21 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
     }
   }
 
-  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
+  const restBundles = bundles.filter(x => {
+    switch (x.comparator) {
+      case '<':
+        return totalQuantity < x.items_quantity
+      case '>':
+        return totalQuantity > x.items_quantity
+      default:
+        return totalQuantity == x.items_quantity
+    }
+  }).sort((a, b) => b.percentage - a.percentage)
+
+  const bundle = restBundles?.[0] ?? null
+
+  const finalPrice = totalPrice * (1 - (bundle?.percentage || 0))
 
   const onPlusClicked = (item) => {
     if (cart.find(x => x.id == item.id)) {
@@ -91,16 +105,26 @@ const SelectProduct = ({ goToNextPage, items = [] }) => {
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-[#EFBEC1] text-white rounded-3xl mt-4 py-4 px-[5%] font-extrabold shadow-lg">
-        <span className="text-xl">Elegiste {totalQuantity} productos</span>
+        <div className="text-xl text-start">
+          Elegiste {
+            bundle
+              ? bundle.name
+              : <>{totalQuantity} {totalQuantity == 1 ? 'producto' : 'productos'}</>
+          }
+          {bundle && <span className="block text-xs font-light">{bundle.description}</span>}
+        </div>
         <div className="flex flex-row text-white items-center gap-4">
-          <p className="text-sm font-light line-through">Antes: S/{Number2Currency(totalPrice)}</p>
-          <h2 className="text-xl">S/{Number2Currency(totalPrice)}</h2>
+          {
+            totalPrice != finalPrice &&
+            <p className="text-sm font-light line-through">Antes: S/{Number2Currency(totalPrice)}</p>
+          }
+          <h2 className="text-xl">S/{Number2Currency(finalPrice)}</h2>
         </div>
       </div>
     </div>
 
     <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%] mt-5 sm:mt-10">
-      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>SIGUIENTE</button>
+      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4 disabled:cursor-not-allowed' disabled={totalQuantity == 0}>SIGUIENTE</button>
     </div>
 
   </form>

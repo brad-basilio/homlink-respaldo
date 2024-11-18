@@ -19,6 +19,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2)->default(0.00);
             $table->decimal('discount', 10, 2)->default(0.00)->nullable();
             $table->string('image')->nullable();
+            $table->boolean('featured')->default(false);
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();
