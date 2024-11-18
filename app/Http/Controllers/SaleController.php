@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Sale;
 use App\Http\Requests\StoreSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Bundle;
+use App\Models\Coupon;
 use App\Models\Item;
+use App\Models\Renewal;
 use App\Models\SaleDetail;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Trace;
@@ -49,10 +52,42 @@ class SaleController extends Controller
             $saleJpa->comment = $sale['comment'];
 
             // Sale Header
-            $saleJpa->amount = array_sum(array_map(
+            $totalPrice = array_sum(array_map(
                 fn($item) => $item['final_price'] * $item['quantity'],
                 $itemsJpa->toArray()
             ));
+
+            $totalItems = array_sum(array_map(fn($item) => $item['quantity'], $itemsJpa->toArray()));
+
+            $bundleJpa = Bundle::where('status', true)
+                ->whereRaw("
+                    CASE 
+                        WHEN comparator = '<' THEN ? < items_quantity
+                        WHEN comparator = '>' THEN ? > items_quantity 
+                        ELSE ? = items_quantity
+                    END
+                ", [$totalItems, $totalItems, $totalItems])
+                ->orderBy('percentage', 'desc')
+                ->first();
+
+            if ($bundleJpa) {
+                $saleJpa->bundle_id = $bundleJpa->id;
+                $saleJpa->bundle_discount = $totalPrice * $bundleJpa->percentage;
+            }
+
+            $renewalJpa = Renewal::find($sale['renewal_id'] ?? null);
+            if ($renewalJpa) {
+                $saleJpa->renewal_id = $renewalJpa->id;
+                $saleJpa->renewal_discount = $totalPrice * $renewalJpa->percentage;
+            }
+
+            $couponJpa = Coupon::find($sale['coupon_id'] ?? null);
+            if ($couponJpa) {
+                $saleJpa->coupon_id = $couponJpa->id;
+                $saleJpa->coupon_discount = $totalPrice * $couponJpa->amount;
+            }
+
+            $saleJpa->amount = $totalPrice;
             $saleJpa->delivery = 0; // Agregar lógica si es que se tiene precio por envío
             $saleJpa->save();
 

@@ -20,8 +20,14 @@ class CulqiController extends Controller
 
       if (!$status) throw new Exception($sale['error']);
 
+      $amount = $sale['amount'];
+
+      if (isset($sale['bundle_discount'])) $amount -= $sale['bundle_discount'];
+      if (isset($sale['renewal_discount'])) $amount -= $sale['renewal_discount'];
+      if (isset($sale['coupon_discount'])) $amount -= $sale['coupon_discount'];
+
       $config = [
-        "amount" => Math::ceil(($sale['amount'] * 100)),
+        "amount" => Math::ceil(($amount * 100)),
         "currency_code" => 'PEN',
         "description" => "Compra en " . env('APP_NAME'),
         "order_number" => '#' . env('APP_CORRELATIVE') . '-' . $sale['code'],
@@ -42,7 +48,7 @@ class CulqiController extends Controller
         throw new Exception($res['user_message']);
       }
       return \array_merge((array) $charge, [
-        'amount' => Math::ceil($sale['amount'], 2),
+        'amount' => Math::ceil($amount, 2),
         'delivery' => $sale['delivery'],
       ]);
     });

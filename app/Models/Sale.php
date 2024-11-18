@@ -31,5 +31,11 @@ class Sale extends Model
         'reference',
         'amount',
         'delivery',
+        'bundle_discount',
+        'bundle_id',
+        'renewal_discount',
+        'renewal_id',
+        'coupon_discount',
+        'coupon_id',
     ];
 }

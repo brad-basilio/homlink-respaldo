@@ -57,10 +57,10 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
   }).sort((a, b) => b.percentage - a.percentage)
 
   const bundle = restBundles?.[0] ?? null
-  const bundleDiscount = totalPrice * (bundle.percentage || 0)
+  const bundleDiscount = totalPrice * (bundle?.percentage || 0)
 
   const plan = planes.find(x => x.id == selectedPlan)
-  const planDiscount = totalPrice * (plan.percentage || 0)
+  const planDiscount = totalPrice * (plan?.percentage || 0)
 
   const getSale = () => {
     let department = 'Lima';
@@ -91,7 +91,13 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     isLoading(true)
     let order_number = null
     if (totalPrice > 6) {
-      const resCQ = await CulqiRest.order({ ...getSale(), order_number: Culqi.order_number, user_formula_id: formula.id }, cart);
+      const resCQ = await CulqiRest.order({
+        ...getSale(),
+        order_number: Culqi.order_number,
+        user_formula_id: formula.id,
+        renewal_id: selectedPlan,
+        coupon_id: null
+      }, cart);
       if (resCQ) {
         order_number = resCQ.data.id
         Culqi.order_number = resCQ.data.order_number
@@ -101,7 +107,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     Culqi.settings({
       title: Global.APP_NAME,
       currency: 'PEN',
-      amount: Math.ceil(totalPrice * 100),
+      amount: Math.ceil((totalPrice - bundleDiscount - planDiscount) * 100),
       order: order_number
     })
     Culqi.open();
@@ -366,26 +372,26 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       <span className="">Subtotal</span>
                     </div>
                     <div className='mb-2'>
-                    {
-                      cart.map((item, index) => {
-                        return <div key={index} className="mb-1 flex items-center justify-between text-sm">
-                          <div>
-                            <p>{item.name}</p>
-                            <small className="text-xs text-gray-500">
-                              <span className='w-6 inline-block text-nowrap'>
-                                × {item.quantity}
-                              </span>
-                              <div className='inline-flex flex-wrap gap-1'>
-                                {item.colors.map((color, jndex) => {
-                                  return <i className='mdi mdi-circle' style={{ color: color.hex, WebkitTextStroke: '1px #808080' }}></i>
-                                })}
-                              </div>
-                            </small>
+                      {
+                        cart.map((item, index) => {
+                          return <div key={index} className="mb-1 flex items-center justify-between text-sm">
+                            <div>
+                              <p>{item.name}</p>
+                              <small className="text-xs text-gray-500">
+                                <span className='w-6 inline-block text-nowrap'>
+                                  × {item.quantity}
+                                </span>
+                                <div className='inline-flex flex-wrap gap-1'>
+                                  {item.colors.map((color, jndex) => {
+                                    return <i className='mdi mdi-circle' style={{ color: color.hex, WebkitTextStroke: '1px #808080' }}></i>
+                                  })}
+                                </div>
+                              </small>
+                            </div>
+                            <span className=''>S/ {Number2Currency(item.price * item.quantity)}</span>
                           </div>
-                          <span className=''>S/ {Number2Currency(item.price * item.quantity)}</span>
-                        </div>
-                      })
-                    }
+                        })
+                      }
                     </div>
                     <div className="mb-2 mt-4 flex justify-between border-b pb-2 text-sm font-bold">
                       <span>Subtotal</span>
@@ -396,7 +402,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       <div className="mb-2 mt-2 flex justify-between items-center border-b pb-2 text-sm font-bold">
                         <span>
                           Descuento x paquete
-                            <small className='block text-xs font-light'>Elegiste {bundle.name} (-{Math.round(bundle.percentage * 10000) / 100}%)</small>
+                          <small className='block text-xs font-light'>Elegiste {bundle.name} (-{Math.round(bundle.percentage * 10000) / 100}%)</small>
                         </span>
                         <span>S/ -{Number2Currency(bundleDiscount)}</span>
                       </div>
