@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 import { Local } from 'sode-extend-react';
-import Main from './Components/Test/Main';
-import Treatment from './Components/Test/Treatment';
-import HairType from './Components/Test/HairType';
-import ScalpType from './Components/Test/ScalpType';
-import HairGoals from './Components/Test/HairGoals';
-import Fragrance from './Components/Test/Fragrance';
-import Email from './Components/Test/Email';
+// import Email from './Components/Test/Email';
 import ProgressBar from './Components/Test/components/ProgressBar';
+
+const Main = React.lazy(() => import('./Components/Test/Main'));
+const Treatment = React.lazy(() => import('./Components/Test/Treatment'));
+const HairType = React.lazy(() => import('./Components/Test/HairType'));
+const Email = React.lazy(() => import('./Components/Test/Email'));
+const ScalpType = React.lazy(() => import('./Components/Test/ScalpType'));
+const HairGoals = React.lazy(() => import('./Components/Test/HairGoals'));
+const Fragrance = React.lazy(() => import('./Components/Test/Fragrance'));
 
 const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
 
@@ -28,10 +30,10 @@ const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrance
   const pages = {
     'has_started': <Main test={test} setTest={setTest} setFirstTime={setFirstTime} />,
     'has_treatment': <Treatment test={test} setTest={setTest} values={hasTreatment} />,
-    'scalp_type': <ScalpType test={test} setTest={setTest} values={scalpType}/>,
-    'hair_type': <HairType test={test} setTest={setTest} values={hairType}/>,
+    'scalp_type': <ScalpType test={test} setTest={setTest} values={scalpType} />,
+    'hair_type': <HairType test={test} setTest={setTest} values={hairType} />,
     'hair_goals': <HairGoals test={test} setTest={setTest} values={hairGoals} />,
-    'fragrance': <Fragrance test={test} setTest={setTest} values={fragrances}/>,
+    'fragrance': <Fragrance test={test} setTest={setTest} values={fragrances} />,
     'email': <Email test={test} setTest={setTest} session={session} />
   };
 
@@ -80,7 +82,9 @@ const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrance
           <ProgressBar width={`${percent}%`} />
         </div>
       }
-      {getCurrentPage()}
+      <Suspense fallback={<div className='h-[50vh] flex items-center justify-center bg-white'>Cargando...</div>}>
+        {getCurrentPage()}
+      </Suspense>
       {
         (getCurrentPageIndex() > 0 && getCurrentPageIndex() != pageOrder.length) &&
         <section className='bg-white px-[5%] md:px-[7.5%] lg:px-[10%] pb-[5%]'>
