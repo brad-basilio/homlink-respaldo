@@ -20,11 +20,8 @@ class HomeController extends BasicController
     public function setReactViewProperties(Request $request)
     {
         $sliders = Slider::where('status', true)->where('visible', true)->get();
-        $indicators = Indicator::where('status', true)->where('visible', true)->get();
-        $weareJpa = Aboutus::where('name', 'Somos')->first();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
-        $articles = Post::with(['category'])->where('status', true)->orderBy('post_date', 'desc')->take(6)->get();
-        $items = Item::where('visible', true)->where('status', true)->get();
+        $items = Item::where('featured', true)->where('visible', true)->where('status', true)->get();
         $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
         $popups = Ad::today();
 

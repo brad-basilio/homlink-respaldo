@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->enum('type', ['percentage', 'fixed_amount'])->default('percentage');
-            $table->decimal('amount', 10, 2);
+            $table->decimal('/* The `amount` column in the `coupons` table is a decimal field with a
+            precision of 10 digits and a scale of 2. This means that it can store a
+            numeric value with up to 10 total digits, with 2 digits after the
+            decimal point. It is likely used to store the value of the coupon,
+            whether it is a fixed amount or a percentage discount. */
+            amount', 10, 2);
             $table->decimal('sale_amount', 10, 2);
             $table->integer('stock');
             $table->date('date_begin')->nullable();
