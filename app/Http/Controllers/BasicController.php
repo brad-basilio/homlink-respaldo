@@ -35,6 +35,7 @@ class BasicController extends Controller
   {
     try {
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      dump($snake_case);
       if (Text::has($uuid, '.')) {
         $route = "images/{$snake_case}/{$uuid}";
       } else {
