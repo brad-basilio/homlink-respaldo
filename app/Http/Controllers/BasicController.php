@@ -46,7 +46,6 @@ class BasicController extends Controller
         'Content-Type' => 'application/octet-stream'
       ]);
     } catch (\Throwable $th) {
-      dump($th);
       $content = Storage::get('utils/cover-404.svg');
       $status = 200;
       if ($this->throwMediaError) return null;
