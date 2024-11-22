@@ -37,6 +37,13 @@ class ItemSeeder extends Seeder
                 'image' => 'leave-in-cream.png',
                 'featured' => true,
             ],
+            [
+                'name' => 'Óleo de puntas',
+                'description' => 'Nutre, repara y sella las puntas abiertas, reduciendo el frizz y aportando brillo sin enjuague.',
+                'price' => 39.9,
+                'discount' => 0,
+                'image' => 'hair-oil.webp',
+            ],
         ];
 
         foreach ($items as $item) {
