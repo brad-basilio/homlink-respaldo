@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('seconds')->default(0);
             $table->date('date_begin')->nullable();
             $table->date('date_end')->nullable();
+            $table->boolean('invasivo')->default(false);
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();

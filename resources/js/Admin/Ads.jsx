@@ -29,6 +29,7 @@ const Ads = ({ }) => {
   const dateEndRef = useRef()
   const secondsRef = useRef()
   const linkRef = useRef()
+  const invasivoRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -45,7 +46,11 @@ const Ads = ({ }) => {
     dateEndRef.current.value = data?.date_end ?? ''
     secondsRef.current.value = data?.seconds ?? 0
     linkRef.current.value = data?.link ?? ''
-
+    if (data?.invasivo) {
+      $(invasivoRef.current).prop('checked', false).trigger('click')
+    } else {
+      $(invasivoRef.current).prop('checked', true).trigger('click')
+    }
     $(modalRef.current).modal('show')
   }
 
@@ -59,7 +64,8 @@ const Ads = ({ }) => {
       date_begin: dateBeginRef.current.value,
       date_end: dateEndRef.current.value,
       seconds: secondsRef.current.value || 0,
-      link: linkRef.current.value
+      link: linkRef.current.value,
+      invasivo: invasivoRef.current.checked ? 1 : 0
     }
 
     const formData = new FormData()
@@ -167,15 +173,16 @@ const Ads = ({ }) => {
                   </>
                   : <p className='mb-0'><b>Visible:</b> Siempre</p>
               }
-              {
-                <p className='mb-0'>
-                  <b>Se muestra:</b> {
-                    data.seconds > 0
-                      ? <>Después de {data.seconds}s</>
-                      : <>Al cargar la página</>
-                  }
-                </p>
-              }
+              <p className='mb-0'>
+                <b>Se muestra:</b> {
+                  data.seconds > 0
+                    ? <>Después de {data.seconds}s</>
+                    : <>Al cargar la página</>
+                }
+              </p>
+              <p className='mb-0'>
+                <b>Invasivo:</b> {data.invasivo ? 'Si' : 'No'}
+              </p>
             </>))
           }
         },
@@ -225,6 +232,7 @@ const Ads = ({ }) => {
         <input ref={idRef} type='hidden' />
         <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={1} fit='contain' required />
         <div className="col-md-8">
+          <SwitchFormGroup eRef={invasivoRef} label='¿El anuncio es invasivo?' specification='Solo se mostrará este anuncio y no los demás' />
           <TextareaFormGroup eRef={nameRef} label='Título' rows={1} />
           <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={2} />
         </div>

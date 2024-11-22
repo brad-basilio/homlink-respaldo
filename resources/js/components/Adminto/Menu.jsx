@@ -12,7 +12,7 @@ const Menu = ({ session, hasRole }) => {
     <div className="h-100" data-simplebar>
       <div className="user-box text-center">
         <img src={`/api/admin/profile/thumbnail/${session.relative_id}?v=${new Date(session.updated_at).getTime()}`} alt={session.name} title={session.name}
-          className="rounded-circle img-thumbnail avatar-md" style={{ backgroundColor: 'unset', borderColor: '#98a6ad', objectFit: 'cover', objectPosition: 'center' }} onError={e => e.target.src = `https://ui-avatars.com/api/?name=${session.name}+${session.lastname}&color=7F9CF5&background=EBF4FF`}/>
+          className="rounded-circle img-thumbnail avatar-md" style={{ backgroundColor: 'unset', borderColor: '#98a6ad', objectFit: 'cover', objectPosition: 'center' }} onError={e => e.target.src = `https://ui-avatars.com/api/?name=${session.name}+${session.lastname}&color=7F9CF5&background=EBF4FF`} />
         <div className="dropdown">
           <a href="#" className="user-name dropdown-toggle h5 mt-2 mb-1 d-block" data-bs-toggle="dropdown"
             aria-expanded="false">{session.name.split(' ')[0]} {session.lastname.split(' ')[0]}</a>
@@ -73,13 +73,21 @@ const Menu = ({ session, hasRole }) => {
           {
             hasRole('Admin') && <>
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
-              <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
-              <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
-              <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
-              <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>
-              <MenuItem href="/admin/fragrances" icon='mdi mdi-fleur-de-lis'>Fragancias</MenuItem>
-              <MenuItem href="/admin/renewals" icon='mdi mdi-calendar-month'>Renovaciones</MenuItem>
-              <MenuItem href="/admin/bundles" icon='mdi mdi-package-variant'>Paquetes</MenuItem>
+              <MenuItem href="/admin/sales" icon='mdi mdi-cart-outline'>Pedidos</MenuItem>
+              <MenuItemContainer title='Productos y colores' icon='mdi mdi-cube'>
+                <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
+                <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
+              </MenuItemContainer>
+              <MenuItemContainer title='Características' icon='mdi mdi-flask-round-bottom'>
+                <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
+                <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>
+                <MenuItem href="/admin/fragrances" icon='mdi mdi-fleur-de-lis'>Fragancias</MenuItem>
+              </MenuItemContainer>
+              <MenuItemContainer title='Ventas' icon='mdi mdi-cash-register'>
+                <MenuItem href="/admin/renewals" icon='mdi mdi-calendar-month'>Renovaciones</MenuItem>
+                <MenuItem href="/admin/bundles" icon='mdi mdi-package-variant'>Paquetes</MenuItem>
+                <MenuItem href="/admin/coupons" icon='mdi mdi-ticket-percent'>Cupones</MenuItem>
+              </MenuItemContainer>
               <li className="menu-title">Landing Page</li>
               <MenuItem href="/admin/subscriptions" icon='mdi mdi-email-multiple'>Subscripciones</MenuItem>
               <MenuItem href="/admin/ads" icon='mdi mdi-google-ads'>Pop-ups</MenuItem>

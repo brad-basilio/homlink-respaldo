@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -20,6 +19,7 @@ use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ColorController as AdminColorController;
+use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
@@ -137,6 +137,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/bundles/status', [AdminBundleController::class, 'status']);
         Route::patch('/bundles/{field}', [AdminBundleController::class, 'boolean']);
         Route::delete('/bundles/{id}', [AdminBundleController::class, 'delete']);
+
+        Route::post('/coupons', [AdminCouponController::class, 'save']);
+        Route::post('/coupons/paginate', [AdminCouponController::class, 'paginate']);
+        Route::patch('/coupons/status', [AdminCouponController::class, 'status']);
+        Route::patch('/coupons/{field}', [AdminCouponController::class, 'boolean']);
+        Route::delete('/coupons/{id}', [AdminCouponController::class, 'delete']);
 
         Route::post('/messages', [AdminMessageController::class, 'save']);
         Route::post('/messages/paginate', [AdminMessageController::class, 'paginate']);

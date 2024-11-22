@@ -25,15 +25,15 @@ use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
+use App\Http\Controllers\Admin\BundleController as AdminBundleController;
+use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 
 // Public 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\BundleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
@@ -96,7 +96,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/ads', [AdminAdController::class, 'reactView'])->name('Admin/Ads.jsx');
     Route::get('/renewals', [AdminRenewalController::class, 'reactView'])->name('Admin/Renewals.jsx');
     Route::get('/bundles', [AdminBundleController::class, 'reactView'])->name('Admin/Bundles.jsx');
-
+    Route::get('/coupons', [AdminCouponController::class, 'reactView'])->name('Admin/Coupons.jsx');
     Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
     Route::get('/about', [AdminAboutusController::class, 'reactView'])->name('Admin/About.jsx');

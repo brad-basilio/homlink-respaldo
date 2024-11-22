@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             AdSeeder::class,
             RenewalSeeder::class,
             BundleSeeder::class,
+            CouponSeeder::class,
         ]);
     }
 }

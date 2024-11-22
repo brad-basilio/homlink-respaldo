@@ -17,7 +17,7 @@ class AdSeeder extends Seeder
             'id' => '9be7db9b-0945-4977-95d8-a0bc7be723fc'
         ], [
             'image' => '10p-off.png',
-            'link' => '/plans',
+            'link' => '/test?coupon=1ER_VUA',
             'seconds' => 5
         ]);
     }

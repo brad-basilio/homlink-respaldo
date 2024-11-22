@@ -23,20 +23,39 @@ class Ad extends Model
         'date_begin',
         'date_end',
         'visible',
+        'invasivo',
         'status',
     ];
 
     public static function today()
     {
-        return Ad::where('status', true)
+        // Primero verificamos si hay anuncios invasivos activos
+        $invasivos = self::where('status', true)
             ->where('visible', true)
+            ->where('invasivo', true)
             ->where(function ($query) {
-                $query
-                    ->whereNull('date_begin')
+                $query->whereNull('date_begin')
                     ->whereNull('date_end')
                     ->orWhere(function ($query) {
-                        $query
-                            ->where('date_begin', '<=', Carbon::now())
+                        $query->where('date_begin', '<=', Carbon::now())
+                            ->where('date_end', '>=', Carbon::now());
+                    });
+            })
+            ->get();
+
+        // Si hay anuncios invasivos, retornamos solo esos
+        if ($invasivos->count() > 0) {
+            return $invasivos;
+        }
+
+        // Si no hay invasivos, seguimos con la lógica original
+        return self::where('status', true)
+            ->where('visible', true)
+            ->where(function ($query) {
+                $query->whereNull('date_begin')
+                    ->whereNull('date_end')
+                    ->orWhere(function ($query) {
+                        $query->where('date_begin', '<=', Carbon::now())
                             ->where('date_end', '>=', Carbon::now());
                     });
             })
