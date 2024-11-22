@@ -1,4 +1,4 @@
 /profile
 !.gitignore
-!/images
+/images
 /cover
