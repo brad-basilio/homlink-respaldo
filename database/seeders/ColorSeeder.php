@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Color;
+use App\Models\Item;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use SoDe\Extend\Text;
 
 class ColorSeeder extends Seeder
 {
@@ -13,31 +15,20 @@ class ColorSeeder extends Seeder
      */
     public function run(): void
     {
-        $colors = [
-            [
-                'name' => 'Blanco',
-                'hex' => '#ffffff',
-            ],
-            [
-                'name' => 'Celeste',
-                'hex' => '#bae6ed',
-            ],
-            [
-                'name' => 'Rosa',
-                'hex' => '#fecaca',
-            ],
-            [
-                'name' => 'Naranja',
-                'hex' => '#fed7aa',
-            ],
-            [
-                'name' => 'Limón',
-                'hex' => '#ecfccb',
-            ],
-        ];
+        $items = Item::select('id')
+            ->where('featured', true)
+            ->get();
+        $colors = ['Amarillo', 'Blanco', 'Celeste', 'Lila', 'Naranja', 'Rosado', 'Verde'];
 
-        foreach ($colors as $color) {
-            Color::updateOrCreate(['name' => $color['name']], $color);
+        foreach ($items as $item) {
+            foreach ($colors as $color) {
+                Color::updateOrCreate([
+                    'item_id' => $item->id,
+                    'name' => $color
+                ], [
+                    'image' => strtolower($color) . ".png"
+                ]);
+            }
         }
     }
 }

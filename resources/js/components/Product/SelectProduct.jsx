@@ -75,7 +75,7 @@ const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
       <p className="mb-8 text-sm font-extralight">Para mejores resultados arma una rutina completa ✨</p>
     </div>
 
-    <div className="max-w-2xl mx-auto mb-8">
+    <div className="max-w-4xl mx-auto mb-8">
       <div className="flex flex-wrap items-center justify-center gap-4">
         {
           items.map((item, index) => {

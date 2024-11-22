@@ -15,8 +15,10 @@ class Color extends Model
 
     protected $fillable = [
         'name',
-        'hex',
         'description',
-        'visible'
+        'image',
+        'item_id',
+        'visible',
+        'status',
     ];
 }
