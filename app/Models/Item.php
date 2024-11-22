@@ -28,4 +28,9 @@ class Item extends Model
     {
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
+
+    public function colors()
+    {
+        return $this->hasMany(Color::class);
+    }
 }

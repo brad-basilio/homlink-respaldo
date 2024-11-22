@@ -19,12 +19,8 @@ class FormulaController extends BasicController
         $userFormulaJpa = UserFormulas::find($request->formula);
         if (!$userFormulaJpa) return redirect()->route('Test.jsx');
 
-        $itemsJpa = Item::select()
+        $itemsJpa = Item::with('colors')
             ->where('visible', true)
-            ->where('status', true)
-            ->get();
-
-        $colorsJpa = Color::select()
             ->where('status', true)
             ->get();
 
@@ -40,7 +36,6 @@ class FormulaController extends BasicController
         return [
             'user_formula' => $userFormulaJpa,
             'items' => $itemsJpa,
-            'colors' => $colorsJpa,
             'bundles' => $bundlesJpa,
             'planes' => $planesJpa,
             'publicKey' => env('CULQI_PUBLIC_KEY')

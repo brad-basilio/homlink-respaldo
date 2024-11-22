@@ -29,10 +29,13 @@ const Coupons = ({ }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const itemsRef = useRef()
-  const percentageRef = useRef()
-  const itemsQuantityRef = useRef()
-  const comparatorRef = useRef()
+  const typeRef = useRef()
+  const amountRef = useRef()
+  const saleAmountRef = useRef()
+  const initialStockRef = useRef()
+  const dateBeginRef = useRef()
+  const dateEndRef = useRef()
+  const oneTimeUseRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -43,10 +46,13 @@ const Coupons = ({ }) => {
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
-    SetSelectValue(itemsRef.current, data?.items, 'id', 'name')
-    percentageRef.current.value = (data?.percentage ?? 0) * 100
-    itemsQuantityRef.current.value = data?.items_quantity ?? ''
-    $(comparatorRef.current).val(data?.comparator ?? '=').trigger('change')
+    $(typeRef.current).val(data?.type ?? 'percentage').trigger('change')
+    amountRef.current.value = data?.amount ?? 0
+    saleAmountRef.current.value = data?.sale_amount ?? 0
+    initialStockRef.current.value = data?.initial_stock ?? ''
+    dateBeginRef.current.value = data?.date_begin ?? ''
+    dateEndRef.current.value = data?.date_end ?? ''
+    oneTimeUseRef.current.value = data?.one_time_use ?? false
 
     $(modalRef.current).modal('show')
   }
@@ -57,11 +63,14 @@ const Coupons = ({ }) => {
     const request = {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
-      percentage: (percentageRef.current.value || 0) / 100,
-      items: $(itemsRef.current).val(),
+      type: typeRef.current.value,
+      amount: amountRef.current.value,
+      sale_amount: saleAmountRef.current.value,
+      initial_stock: initialStockRef.current.value,
+      date_begin: dateBeginRef.current.value,
+      date_end: dateEndRef.current.value,
+      one_time_use: oneTimeUseRef.current.value,
       description: descriptionRef.current.value,
-      items_quantity: itemsQuantityRef.current.value,
-      comparator: comparatorRef.current.value
     }
 
     const result = await couponsRest.save(request)
@@ -192,16 +201,18 @@ const Coupons = ({ }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar cupón' : 'Agregar cupón'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Nombre' required />
+        <InputFormGroup eRef={nameRef} label='Código' required />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={2} required />
-        <InputFormGroup eRef={percentageRef} label='Descuento' type='number' step={0.01} col='col-md-4' required />
-        <SelectFormGroup eRef={comparatorRef} label='Comparador' col='col-md-4 col-sm-6' dropdownParent='#principal-container' required>
-          <option value="<">Menor que</option>
-          <option value="=">Igual que</option>
-          <option value=">">Mayor que</option>
-        </SelectFormGroup>
-        <InputFormGroup eRef={itemsQuantityRef} label='Items' type='number' col='col-md-4 col-sm-6' required />
-        <SelectAPIFormGroup eRef={itemsRef} label='Items incluidos' specification='Deje en blanco para incluir todos los items' searchAPI='/api/admin/items/paginate' searchBy='name' dropdownParent='#principal-container' multiple />
+        <SelectFormGroup eRef={typeRef} label='Tipo' col='col-md-4 col-sm-6' dropdownParent='#principal-container' required>
+          <option value='percentage'>Porcentaje</option>
+          <option value='fixed_amount'>Monto fijo</option>
+        </SelectFormGroup>  
+        <InputFormGroup eRef={amountRef} label='Descuento' type='number' step={0.01} col='col-md-4' required />
+        <InputFormGroup eRef={saleAmountRef} label='Monto de venta' specification='Monto mínimo de compra para aplicar el descuento' type='number' step={0.01} col='col-md-4' required />
+        <InputFormGroup eRef={initialStockRef} label='Cantidad' type='number' col='col-md-4 col-sm-6' required />
+        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' required />
+        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' required />
+        <SwitchFormGroup eRef={oneTimeUseRef} label='De uso único' col='col-md-4 col-sm-6' />
       </div>
     </Modal>
   </>

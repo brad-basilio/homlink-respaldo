@@ -14,7 +14,7 @@ const Fragrance = ({ test, setTest, values }) => {
             return <button key={index} className="border border-1-[#C5B8D4] rounded-lg bg-white text-[#9577B9] font-bold w-36"
               onClick={() => onFragranceClicked(value.id)}>
               <img className="aspect-[5/3] rounded w-full object-cover object-center hover:scale-105 transition-all" src={`/api/fragrances/media/${value.image}`} alt="Crespo" />
-              <p className="p-2 truncate">{value.name}</p>
+              <p className="p-2 truncate uppercase">{value.name}</p>
             </button>
           })
         }

@@ -4,19 +4,20 @@ import ItemContainer from "./components/ItemContainer"
 import Tippy from "@tippyjs/react"
 import Aos from "aos"
 
-const SelectColor = ({ goToNextPage, colors = [] }) => {
+const SelectColor = ({ goToNextPage, items = [] }) => {
   const [cart, setCart] = useState(Local.get('vua_cart') ?? [])
 
   useEffect(() => {
     setCart(old => {
       return old.map(item => {
+        const colors = items.find(x => x.id == item.id)?.colors ?? []
         const currentColors = item.colors ?? []
         const quantity = item.quantity
         const leftColorsCount = quantity - currentColors.length
-        const leftColor = new Array(leftColorsCount > 0 ? leftColorsCount : 0).fill(colors[0])
+        const leftColor = new Array(leftColorsCount > 0 ? leftColorsCount : 0).fill(colors?.[0] ?? null)
 
-        if (currentColors.length < quantity) item.colors = [...currentColors, ...leftColor]
-        else item.colors = currentColors.slice(0, quantity)
+        if (currentColors.length < quantity) item.colors = [...currentColors, ...leftColor].filter(Boolean)
+        else item.colors = currentColors.slice(0, quantity).filter(Boolean)
         return item
       })
     })
@@ -50,15 +51,16 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
 
       {
         cart.map((item, i) => {
+          const colors = items.find(x => x.id == item.id)?.colors ?? []
+          if (colors.length == 0) return null
+          console.log(item.colors)
           return item.colors?.map((existence, j) => {
+            console.log(existence)
             return <div key={`existence-${i}-${j}`} className="overflow-hidden w-full bg-white rounded-2xl shadow-md" data-aos='fade-down'>
               <div className="flex flex-row gap-2 items-center p-2">
                 <div className="">
-                  <ItemContainer color={existence.hex} />
-                  {/* <img className="h-[120px] aspect-[3/4] object-cover object-center rounded-md" src='/assets/img/container.svg' alt={item.name}
-                    style={{
-                      fill: existence.color
-                    }} /> */}
+                  {/* <ItemContainer color={existence.hex} /> */}
+                  <img className="h-[120px] aspect-[3/4] object-cover object-center rounded-md" src={`/api/colors/media/${existence?.image}`} alt={item.name}/>
                 </div>
                 <div className="">
                   <div className="flex flex-wrap gap-3 items-end self-stretch my-auto ">
@@ -68,7 +70,7 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
                       <div className="flex gap-2 flex-wrap">
                         {
                           colors.map((color, index) => {
-                            const isSelected = existence.id == color.id
+                            const isSelected = existence?.id == color.id
                             return <Tippy content={color.name}>
                               <button key={index} className={`flex shrink-0 w-8 aspect-square rounded-full border ${isSelected ? 'shadow-md border-[#000000]' : ''}`} style={{
                                 backgroundColor: color.hex || '#fff'
@@ -83,7 +85,7 @@ const SelectColor = ({ goToNextPage, colors = [] }) => {
               </div>
             </div>
           })
-        })
+        }).filter(Boolean)
       }
     </div>
 

@@ -4,6 +4,7 @@ import { Local } from 'sode-extend-react';
 import CulqiRest from '../../Actions/CulqiRest';
 import Global from '../../Utils/Global';
 import Number2Currency from '../../Utils/Number2Currency';
+import Tippy from '@tippyjs/react';
 
 const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }) => {
   Culqi.publicKey = publicKey
@@ -375,18 +376,38 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       {
                         cart.map((item, index) => {
                           return <div key={index} className="mb-1 flex items-center justify-between text-sm">
-                            <div>
-                              <p>{item.name}</p>
-                              <small className="text-xs text-gray-500">
-                                <span className='w-6 inline-block text-nowrap'>
-                                  × {item.quantity}
-                                </span>
-                                <div className='inline-flex flex-wrap gap-1'>
-                                  {item.colors.map((color, jndex) => {
-                                    return <i className='mdi mdi-circle' style={{ color: color.hex, WebkitTextStroke: '1px #808080' }}></i>
-                                  })}
-                                </div>
-                              </small>
+                            <div className='flex gap-2'>
+                              <div className='h-10 aspect-[3/4] relative'>
+                                {
+                                  item.colors.length > 1 ?
+                                    <Tippy content={<div className='flex flex-wrap gap-1.5'>
+                                      {
+                                      item.colors.map(x => <img className='h-10 bg-white aspect-[3/4] object-contain object-center rounded-md border' src={`/api/colors/media/${x.image}`} alt={x.name} />)
+                                      }
+                                    </div>
+                                    }>
+                                      <div>
+                                        <img className="h-10 aspect-[3/4] object-contain object-center rounded-md border" src={`/api/colors/media/${item.colors[0]?.image}`} alt={item.name} onError={e => e.target.src = `/api/items/media/${item.image}`} />
+                                        <span className='absolute block bottom-1 left-1/2 -translate-x-1/2 text-xs text-white bg-[rgba(0,0,0,0.75)] px-1 rounded-sm'>+{item.colors.length - 1}</span>
+                                      </div>
+                                    </Tippy>
+                                    :
+                                    <img className="h-10 aspect-[3/4] object-contain object-center rounded-md border" src={`/api/colors/media/${item.colors[0]?.image}`} alt={item.name} onError={e => e.target.src = `/api/items/media/${item.image}`} />
+                                }
+                              </div>
+                              <div>
+                                <p>{item.name}</p>
+                                <small className="text-xs text-gray-500">
+                                  <span className='w-6 inline-block text-nowrap'>
+                                    × {item.quantity}
+                                  </span>
+                                  <div className='inline-flex flex-wrap gap-1'>
+                                    {item.colors.map((color, jndex) => {
+                                      return <i className='mdi mdi-circle' style={{ color: color?.hex ?? '#000', WebkitTextStroke: '1px #808080' }}></i>
+                                    })}
+                                  </div>
+                                </small>
+                              </div>
                             </div>
                             <span className=''>S/ {Number2Currency(item.price * item.quantity)}</span>
                           </div>

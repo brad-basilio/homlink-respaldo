@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('hex')->nullable();
             $table->foreignUuid('item_id')->constrained('items')->cascadeOnDelete();
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();

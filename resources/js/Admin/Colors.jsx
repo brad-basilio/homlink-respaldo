@@ -8,6 +8,7 @@ import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
+import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 import Swal from 'sweetalert2';
 import ColorsRest from '../Actions/Admin/ColorsRest';
@@ -55,6 +56,13 @@ const Colors = ({ }) => {
     $(modalRef.current).modal('hide')
   }
 
+  const onVisibleChange = async ({ id, value }) => {
+    const result = await colorsRest.boolean({ id, field: 'visible', value })
+    if (!result) return
+    $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
+
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
       title: 'Eliminar color',
@@ -98,9 +106,12 @@ const Colors = ({ }) => {
           visible: false
         },
         {
+          dataField: 'item.name',
+          caption: 'Item'
+        },
+        {
           dataField: 'name',
-          caption: 'Nombre',
-          width: '50%',
+          caption: 'Color',
           cellTemplate: (container, { data }) => {
             ReactAppend(container, <p className='mb-0' style={{ width: '100%' }}>
               <b className='d-block'>
@@ -111,8 +122,22 @@ const Colors = ({ }) => {
           }
         },
         {
-          dataField: 'description',
-          caption: 'Descripción'
+          dataField: 'image',
+          caption: 'Imagen',
+          width: '60px',
+          allowFiltering: false,
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <img src={`/api/colors/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
+          }
+        },
+        {
+          dataField: 'visible',
+          caption: 'Visible',
+          dataType: 'boolean',
+          width: '120px',
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <SwitchFormGroup checked={data.visible} onChange={(e) => onVisibleChange({ id: data.id, value: e.target.checked })} />)
+          }
         },
         {
           caption: 'Acciones',
@@ -140,7 +165,7 @@ const Colors = ({ }) => {
         <input ref={idRef} type='hidden' />
         <InputFormGroup eRef={nameRef} label='Nombre' required />
         <InputFormGroup eRef={colorRef} label='Color' type='color' required />
-        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} required />
+        <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />
       </div>
     </Modal>
   </>

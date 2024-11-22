@@ -30,6 +30,7 @@ class BasicController extends Controller
   public $imageFields = [];
   public $prefix4filter = null;
   public $throwMediaError = false;
+  public $ignorePrefix = [];
 
   public function media(Request $request, string $uuid)
   {
@@ -111,11 +112,13 @@ class BasicController extends Controller
 
       if ($request->group != null) {
         [$grouping] = $request->group;
+        // $selector = str_replace('.', '__', $grouping['selector']);
         $selector = $grouping['selector'];
-        $instance = $this->model::select([
-          DB::raw("{$selector} AS 'key'")
-        ])
-          ->groupBy($selector);
+        if (!str_contains($selector, '.') && $this->prefix4filter && !Text::startsWith($selector, '!') && !in_array($selector, $this->ignorePrefix)) {
+          $selector = "{$this->prefix4filter}.{$selector}";
+        }
+        $instance = $instance->select(DB::raw("{$selector} AS `key`"))
+          ->groupBy(str_replace('!', '', $selector));
       }
 
       if (Auth::check()) {
