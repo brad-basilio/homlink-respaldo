@@ -9,7 +9,7 @@ import Formulas from './Components/Dashboard/Formulas';
 import Logout from './Actions/Logout';
 
 
-const MyAccount = ({ session, formulas }) => {
+const MyAccount = ({ session, formulas, sales }) => {
   const [activeComponent, setActiveComponent] = useState('formulas');
 
   const renderComponent = () => {
@@ -17,7 +17,7 @@ const MyAccount = ({ session, formulas }) => {
       case 'formulas':
         return <Formulas items={formulas} />;
       case 'sales':
-        return <Sales />;
+        return <Sales items={sales} />;
       case 'informacion':
         return <Information />;
       default:

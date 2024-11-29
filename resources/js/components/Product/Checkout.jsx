@@ -4,7 +4,12 @@ import { Local } from 'sode-extend-react';
 import CulqiRest from '../../Actions/CulqiRest';
 import Global from '../../Utils/Global';
 import Number2Currency from '../../Utils/Number2Currency';
-import Tippy from '@tippyjs/react';
+
+const places = {
+  'metropolitana': 'Lima Metropolitana',
+  'alrededores': 'Lima Alrededores',
+  'provincias': 'Provincias'
+}
 
 const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }) => {
   Culqi.publicKey = publicKey
@@ -222,17 +227,17 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       required
                     >
                       <option value=''>Elige una opción</option>
-                      <option>Lima metropolitana</option>
-                      <option>Distritos de Lima</option>
-                      <option>Otros departamentos</option>
+                      <option>Lima Metropolitana</option>
+                      <option>Lima Alrededores</option>
+                      <option>Otras Provincias</option>
                     </select>
                   </div>
                   {
-                    (sale.province == 'Distritos de Lima' || sale.province == 'Otros departamentos') && <>
+                    (sale.province == 'Lima Alrededores' || sale.province == 'Otras Provincias') && <>
                       <div className='md:col-span-2'>
                         <label className="mb-1 block text-sm font-medium " htmlFor="district">
                           {
-                            sale.province == 'Distritos de Lima'
+                            sale.province == 'Lima Alrededores'
                               ? 'Distrito'
                               : 'Departamento'
                           }
@@ -294,7 +299,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                 </div>
                 <div className="mt-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="apartment">
-                    Apartamento, habitación, escalera, etc. (opcional)
+                    Apartamento, habitación, piso, etc. (opcional)
                   </label>
                   <input
                     type="text"
@@ -378,22 +383,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                           return <div key={index} className="mb-1 flex items-center justify-between text-sm">
                             <div className='flex gap-2'>
                               <div className='h-10 aspect-[3/4] relative'>
-                                {
-                                  item.colors.length > 1 ?
-                                    <Tippy content={<div className='flex flex-wrap gap-1.5'>
-                                      {
-                                      item.colors.map(x => <img className='h-10 bg-white aspect-[3/4] object-contain object-center rounded-md border' src={`/api/colors/media/${x.image}`} alt={x.name} />)
-                                      }
-                                    </div>
-                                    }>
-                                      <div>
-                                        <img className="h-10 aspect-[3/4] object-contain object-center rounded-md border" src={`/api/colors/media/${item.colors[0]?.image}`} alt={item.name} onError={e => e.target.src = `/api/items/media/${item.image}`} />
-                                        <span className='absolute block bottom-1 left-1/2 -translate-x-1/2 text-xs text-white bg-[rgba(0,0,0,0.75)] px-1 rounded-sm'>+{item.colors.length - 1}</span>
-                                      </div>
-                                    </Tippy>
-                                    :
-                                    <img className="h-10 aspect-[3/4] object-contain object-center rounded-md border" src={`/api/colors/media/${item.colors[0]?.image}`} alt={item.name} onError={e => e.target.src = `/api/items/media/${item.image}`} />
-                                }
+                                <img className="h-10 aspect-[3/4] object-contain object-center rounded-md border" src={`/api/colors/media/${item.colors[0]?.image}`} alt={item.name} onError={e => e.target.src = `/api/items/media/${item.image}`} />
                               </div>
                               <div>
                                 <p>{item.name}</p>
@@ -444,7 +434,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                         <span className='font-bold'>Envío</span>
                         <span>
                           {
-                            sale.province == 'Lima metropolitana'
+                            sale.province == 'Lima Metropolitana'
                               ? 'Gratis'
                               : 'Por Shalom - Pago en destino'
                           }

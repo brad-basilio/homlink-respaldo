@@ -1,59 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import FormulaCard from './Components/FormulaCard';
 
-const Formulas = ({ items }) => (
-  <div>
-    <h2 className='text-xl border-b pb-2 mb-4 font-bold'>
-      Tus fórmulas 🫧
-    </h2>
+const Formulas = ({ items }) => {
+  
+  return (
+    <div>
+      <h2 className='text-xl border-b pb-2 mb-4 font-bold'>
+        Tus fórmulas 🫧
+      </h2>
 
-    <div className='flex flex-col gap-12 pb-4 items-center relative'>
-      {
-        items.length == 0 && <div className='mx-auto text-center'>
-          <h1 className='text-2xl font-bold mb-4'>Ups!</h1>
-          <p className='text-sm mb-4'>Al parecer no tienes formulas</p>
-          <button href="/test" className='rounded-full px-3 py-2 text-white bg-[#A191B8] text-sm'>CREA TU FORMULA</button>
-        </div>
-      }
-      {
-        items.map((item, index) => {
-          return <div className='relative w-full'>
-            <div className='relative bg-[#F7F7E7] p-4 rounded-xl w-full pb-8'>
-              <div className='flex flex-wrap items-center justify-between gap-2'>
-                <span className='text-lg font-bold'>Fórmula {index + 1}</span>
-                <small>Creado el {moment(item.created_at).format('ll')}</small>
-              </div>
-              <div className='text-sm mt-2'>
-                <div>
-                  <b>🧐 Tratamiento</b>:{' '}
-                  {item.has_treatment.description}
-                </div>
-                <div>
-                  <b>👀 Cuero cabelludo</b>: {' '}
-                  {item.scalp_type.description}
-                </div>
-                <div>
-                  <b>✅ Tipo de cabello</b>:{' '}
-                  {item.hair_type.description}
-                </div>
-                <div>
-                  <b>💡 Objetivos</b>:{' '}
-                  {item.hair_goals.map(x => x.description).join(', ')}
-                </div>
-                <div>
-                  <b>🫙 Fragancia</b>:{' '}
-                  {item.fragrance.name}
-                </div>
-              </div>
-              <button
-                className='absolute -bottom-4 bg-[#A191B8] text-sm text-white px-4 py-2 rounded-full'>
-                VOLVER A COMPRAR <i className='mdi mdi-arrow-top-right'></i>
-              </button>
-            </div>
+      <div className='flex flex-col gap-12 pb-4 items-center relative'>
+        {
+          items.length == 0 && <div className='mx-auto text-center'>
+            <h1 className='text-2xl font-bold mb-4'>Ups!</h1>
+            <p className='text-sm mb-4'>Al parecer no tienes formulas</p>
+            <button href="/test" className='rounded-full px-3 py-2 text-white bg-[#A191B8] text-sm'>CREA TU FORMULA</button>
           </div>
-        })
-      }
+        }
+        {
+          items.map((item, index) => {
+            return <FormulaCard key={index} {...item} index={index} />
+          })
+        }
 
-      {/* <div className='flex flex-col lg:flex-row gap-4 md:gap-2 lg:gap-5 bg-[#F7F7E7] p-[6%] md:p-[3%] rounded-2xl relative pb-10 '>
+        {/* <div className='flex flex-col lg:flex-row gap-4 md:gap-2 lg:gap-5 bg-[#F7F7E7] p-[6%] md:p-[3%] rounded-2xl relative pb-10 '>
         <div className='flex flex-col gap-1 w-full md:w-3/4 items-start justify-center'>
           <h2 className='text-xl'>
             <b>Tripack personalizado:</b>
@@ -146,8 +116,9 @@ const Formulas = ({ items }) => (
           <a>VOLVER A COMPRAR</a></div>
       </div> */}
 
+      </div>
     </div>
-  </div>
-);
+  );
+}
 
 export default Formulas;

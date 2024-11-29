@@ -28,8 +28,10 @@ class MyAccountController extends BasicController
             $hair_goals = Formula::whereIn('id', $formulaJpa->hair_goals)->get();
             $formulas[] = \array_merge($formulaJpa->toArray(), ['hair_goals' => $hair_goals]);
         }
+        $sales = [];
         return [
-            'formulas' => $formulas
+            'formulas' => $formulas,
+            'sales' => $sales
         ];
     }
 }

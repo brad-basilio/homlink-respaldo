@@ -21,31 +21,31 @@ class ColorSeeder extends Seeder
         $colors = [
             [
                 'name' => 'Amarillo',
-                'hex' => '#FFD700'
+                'hex' => '#F9E8AF'
             ],
             [
                 'name' => 'Blanco',
-                'hex' => '#FFFFFF'
+                'hex' => '#F5F0ED'
             ],
             [
                 'name' => 'Celeste',
-                'hex' => '#00FFFF'
+                'hex' => '#B2E3ED'
             ],
             [
                 'name' => 'Lila',
-                'hex' => '#800080'
+                'hex' => '#E3D0F2'
             ],
             [
                 'name' => 'Naranja',
-                'hex' => '#FFA500'
+                'hex' => '#F9CCA5'
             ],
             [
                 'name' => 'Rosado',
-                'hex' => '#FFC0CB'
+                'hex' => '#F7C2C6'
             ],
             [
                 'name' => 'Verde',
-                'hex' => '#00FF00'
+                'hex' => '#DCF0BA'
             ]
         ];
 
