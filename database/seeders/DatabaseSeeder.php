@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             RenewalSeeder::class,
             BundleSeeder::class,
             CouponSeeder::class,
+            StatusSeeder::class,
         ]);
     }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->string('code')->unique();
-            $table->char('user_formula_id')->index();
+            $table->foreignUuid('user_formula_id')->constrained('user_formulas')->cascadeOnDelete();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('lastname');
@@ -36,9 +36,10 @@ return new class extends Migration
             $table->decimal('amount', 10);
             $table->decimal('delivery', 10);
 
+            $table->foreignUuid('status_id')->nullable()->constrained('statuses')->nullOnDelete();
+
             $table->timestamps();
 
-            $table->foreign('user_formula_id')->references('id')->on('user_formulas')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
     }
