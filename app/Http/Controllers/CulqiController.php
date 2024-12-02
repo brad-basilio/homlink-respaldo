@@ -29,6 +29,7 @@ class CulqiController extends Controller
 
       $amount = $sale['amount'];
 
+      if (isset($sale['delivery'])) $amount += $sale['delivery'];
       if (isset($sale['bundle_discount'])) $amount -= $sale['bundle_discount'];
       if (isset($sale['renewal_discount'])) $amount -= $sale['renewal_discount'];
       if (isset($sale['coupon_discount'])) $amount -= $sale['coupon_discount'];
@@ -71,6 +72,7 @@ class CulqiController extends Controller
       $sale = Sale::where('code', $order_number)->first();
 
       $amount = $sale->amount;
+      if (isset($sale->delivery)) $amount += $sale->delivery;
       if (isset($sale->bundle_discount)) $amount -= $sale->bundle_discount;
       if (isset($sale->renewal_discount)) $amount -= $sale->renewal_discount;
       if (isset($sale->coupon_discount)) $amount -= $sale->coupon_discount;
