@@ -28,11 +28,11 @@ class CulqiRest {
     }
   }
 
-  static token = async (sale, details) => {
+  static token = async (request) => {
     try {
       const { status, result } = await Fetch(`/api/culqi/token`, {
         method: 'POST',
-        body: JSON.stringify({ sale, details })
+        body: JSON.stringify(request)
       })
 
       if (!status) throw new Error(result?.message || 'Ocurrio un error inesperado')

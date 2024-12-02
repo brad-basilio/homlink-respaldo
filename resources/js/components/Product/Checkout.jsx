@@ -1,9 +1,11 @@
 import { CreditCard, HeadphonesIcon, ShieldCheck } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Local } from 'sode-extend-react';
 import CulqiRest from '../../Actions/CulqiRest';
 import Global from '../../Utils/Global';
 import Number2Currency from '../../Utils/Number2Currency';
+import CouponsRest from '../../Actions/CouponsRest';
+import Tippy from '@tippyjs/react';
 
 const places = {
   'metropolitana': 'Lima Metropolitana',
@@ -11,7 +13,12 @@ const places = {
   'provincias': 'Provincias'
 }
 
+const couponRest = new CouponsRest()
+
 const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }) => {
+
+  const couponRef = useRef(null)
+
   Culqi.publicKey = publicKey
   Culqi.options({
     paymentMethods: {
@@ -47,7 +54,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     comment: null,
   });
   const [loading, isLoading] = useState(false);
-  const [coupon, setCoupon] = useState('')
+  const [coupon, setCoupon] = useState(null)
 
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0)
@@ -66,7 +73,9 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
   const bundleDiscount = totalPrice * (bundle?.percentage || 0)
 
   const plan = planes.find(x => x.id == selectedPlan)
-  const planDiscount = totalPrice * (plan?.percentage || 0)
+  const planDiscount = (totalPrice - bundleDiscount) * (plan?.percentage || 0)
+
+  const couponDiscount = (totalPrice - bundleDiscount - planDiscount) * (coupon?.amount || 0) / 100
 
   const getSale = () => {
     let department = 'Lima';
@@ -102,7 +111,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
         order_number: Culqi.order_number,
         user_formula_id: formula.id,
         renewal_id: selectedPlan,
-        coupon_id: null
+        coupon: coupon?.name ?? null
       }, cart);
       if (resCQ) {
         order_number = resCQ.data.id
@@ -113,7 +122,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     Culqi.settings({
       title: Global.APP_NAME,
       currency: 'PEN',
-      amount: Math.ceil((totalPrice - bundleDiscount - planDiscount) * 100),
+      amount: Math.ceil((totalPrice - bundleDiscount - planDiscount - couponDiscount) * 100),
       order: order_number
     })
     Culqi.open();
@@ -121,10 +130,9 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
 
   window.culqi = async () => {
     if (Culqi.token) {
-      const resCQ = await CulqiRest.token({ ...getSale(), order_number: Culqi.order_number, user_formula_id: formula.id }, cart)
+      const resCQ = await CulqiRest.token({ order: Culqi.order_number, token: Culqi.token })
       if (resCQ) location.href = '/thanks'
     } else if (Culqi.order) {
-      console.log(Culqi.order)
       redirectOnClose()
     }
   }
@@ -135,6 +143,27 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
       location.href = '/thanks'
     }, 500)
   }
+
+  const onCouponApply = (e) => {
+    e.preventDefault()
+    const coupon = (couponRef.current.value || '').trim().toUpperCase()
+    if (!coupon) return
+    couponRest.save({ coupon, amount: totalPrice, email: formula.email }).then(result => {
+      if (result) setCoupon(result.data)
+      else setCoupon(null)
+    })
+  }
+
+  const onCouponKeyDown = (e) => {
+    if (e.key == 'Enter') onCouponApply(e)
+  }
+
+  useEffect(() => {
+    couponRest.isFirst(formula.email).then(result => {
+      if (result) setCoupon(result)
+      else setCoupon(null)
+    })
+  }, [null])
 
   return (
     <>
@@ -154,7 +183,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
               <span>Pago online</span>
             </div>
           </div>
-          <form className="w-full rounded-lg bg-white p-8 shadow-lg" onSubmit={onCulqiOpen}>
+          <form className="w-full rounded-lg bg-white p-8 shadow-lg" onSubmit={onCulqiOpen} disabled={loading}>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5 relative">
               <div className='lg:col-span-3'>
                 <h2 className="mb-4 text-xl font-semibold">Información del cliente</h2>
@@ -170,6 +199,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                     placeholder='Dirección de correo electrónico'
                     onChange={(e) => setSale(old => ({ ...old, email: e.target.value }))}
                     required
+                    disabled
                   />
                 </div>
                 <h2 className="mb-4 text-xl font-semibold">Detalles de facturación</h2>
@@ -429,6 +459,20 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       </div>
                     }
                     {
+                      coupon &&
+                      <div className="mb-2 mt-2 flex justify-between items-center border-b pb-2 text-sm font-bold">
+                        <span>
+                          Cupón aplicado <Tippy content='Eliminar'>
+                            <i className='mdi mdi-close text-red-500 cursor-pointer' onClick={() => setCoupon(null)}></i>
+                          </Tippy>
+                          <small className='block text-xs font-light'>{coupon.name} <Tippy content={coupon.description}>
+                            <i className='mdi mdi-information-outline ms-1'></i>
+                          </Tippy> (-{Math.round(coupon.amount * 100) / 100}%)</small>
+                        </span>
+                        <span>S/ -{Number2Currency(couponDiscount)}</span>
+                      </div>
+                    }
+                    {
                       sale.province &&
                       <div className="mb-4 flex justify-between text-sm border-b pb-2">
                         <span className='font-bold'>Envío</span>
@@ -443,28 +487,28 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                     }
                     <div className="flex justify-between text-lg font-semibold">
                       <span>Total</span>
-                      <span>S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount)}</span>
+                      <span>S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount - couponDiscount)}</span>
                     </div>
                   </div>
-                  <div className="mt-6 flex">
-                    <input
-                      type="text"
-                      placeholder="Código de cupón"
-                      className="w-full rounded-l-md border border-gray-300 p-2 text-sm outline-none"
-                      value={coupon}
-                      onChange={(e) => setCoupon(e.target.value)}
-                    />
-                    <button className="rounded-r-md bg-[#C5B8D4] px-4 py-2 text-sm text-white" type='button'>
-                      Aplicar
-                    </button>
-                  </div>
-
+                  {
+                    !coupon &&
+                    <div className="mt-6 flex">
+                      <input
+                        ref={couponRef}
+                        type="text"
+                        placeholder="Código de cupón"
+                        className="w-full rounded-l-md border border-gray-300 p-2 px-4 text-sm outline-none uppercase focus:border-[#C5B8D4]"
+                        value={coupon?.name}
+                        onKeyDown={onCouponKeyDown}
+                        disabled={loading}
+                      />
+                      <button className="rounded-r-md bg-[#C5B8D4] px-4 py-2 text-sm text-white" type='button' onClick={onCouponApply} disabled={loading}>
+                        Aplicar
+                      </button>
+                    </div>
+                  }
                   <button type='submit' className="mt-6 w-full rounded-md bg-[#C5B8D4] py-3 text-white disabled:cursor-not-allowed" disabled={loading}>
-                    {
-                      loading
-                        ? <i className='fa fa-spinner fa-spin me-1'></i>
-                        : <i className='mdi mdi-lock me-1'></i>
-                    }
+                    <i className='mdi mdi-lock me-1'></i>
                     Pagar Ahora
                     <small className='ms-1'>(S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount)})</small>
                   </button>

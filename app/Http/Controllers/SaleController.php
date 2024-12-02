@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
-use App\Http\Requests\StoreSaleRequest;
-use App\Http\Requests\UpdateSaleRequest;
 use App\Models\Bundle;
-use App\Models\Coupon;
 use App\Models\Item;
 use App\Models\Renewal;
 use App\Models\SaleDetail;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Trace;
 use SoDe\Extend\Array2;
@@ -71,21 +69,36 @@ class SaleController extends Controller
                 ->orderBy('percentage', 'desc')
                 ->first();
 
+            $bundle = 0;
             if ($bundleJpa) {
                 $saleJpa->bundle_id = $bundleJpa->id;
-                $saleJpa->bundle_discount = $totalPrice * $bundleJpa->percentage;
+                $bundle = $totalPrice * $bundleJpa->percentage;
+                $saleJpa->bundle_discount = $bundle;
             }
 
             $renewalJpa = Renewal::find($sale['renewal_id'] ?? null);
+            $renewal = 0;
             if ($renewalJpa) {
                 $saleJpa->renewal_id = $renewalJpa->id;
-                $saleJpa->renewal_discount = $totalPrice * $renewalJpa->percentage;
+                $renewal = ($totalPrice - $bundle) * $renewalJpa->percentage;
+                $saleJpa->renewal_discount = $renewal;
             }
 
-            $couponJpa = Coupon::find($sale['coupon_id'] ?? null);
-            if ($couponJpa) {
+            if (isset($sale['coupon']) && $sale['coupon']) {
+                [$couponStatus, $couponJpa] = CouponController::verify(
+                    $sale['coupon'],
+                    $totalPrice,
+                    $sale['email']
+                );
+
+                if (!$couponStatus) throw new Exception($couponJpa);
+
                 $saleJpa->coupon_id = $couponJpa->id;
-                $saleJpa->coupon_discount = $totalPrice * $couponJpa->amount;
+                if ($couponJpa->type == 'percentage') {
+                    $saleJpa->coupon_discount = ($totalPrice - $bundle - $renewal) * ($couponJpa->amount / 100);
+                } else {
+                    $saleJpa->coupon_discount = $couponJpa->amount;
+                }
             }
 
             $saleJpa->amount = $totalPrice;

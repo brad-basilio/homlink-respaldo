@@ -51,7 +51,7 @@ const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [] }
       </div>
 
       {
-        planes.map((plan, index) => {
+        planes.sort((a, b) => b.percentage - a.percentage).map((plan, index) => {
           const price = finalPrice - (totalPrice * plan.percentage)
           return <div key={index}
             className={`cursor-pointer p-6 bg-white transition-all rounded-2xl grid grid-cols-2 items-center justify-between gap-4 shadow-md h-full hover:bg-[#EFBEC1] hover:text-white peer-checked:bg-[#EFBEC1] peer-checked:text-white group`}
@@ -78,7 +78,8 @@ const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [] }
           peer-checked:text-[#EEA9D2] peer-checked:bg-white
         `}
               >
-                -{plan.percentage * 100}%OFF 🔥
+                -{plan.percentage * 100}%OFF
+                <img className="w-3 inline-block ms-1" src="/assets/img/emojis/fire.png" alt="-{plan.percentage * 100}%OFF" />
               </span>
               <span className="ms-auto text-4xl text-[#C0AFD4] font-bold group-checked:text-white group-hover:text-white">
                 S/{Number2Currency(price)}

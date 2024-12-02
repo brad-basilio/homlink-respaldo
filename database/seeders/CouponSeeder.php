@@ -14,6 +14,7 @@ class CouponSeeder extends Seeder
     public function run(): void
     {
         $coupon = [
+            'id' => '3731a0e9-921f-4b25-8bdb-f887cba960e5',
             'name' => '1ER_VUA',
             'description' => 'Cupón de descuento para la primera compra',
             'type' => 'percentage',

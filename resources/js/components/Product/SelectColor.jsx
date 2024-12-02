@@ -44,7 +44,10 @@ const SelectColor = ({ goToNextPage, items = [] }) => {
 
     <div className='max-w-2xl mx-auto '>
       <h1 className="text-2xl font-bold mb-2">¡Ahora selecciona el color!</h1>
-      <p className="mb-8 text-sm font-extralight">Elije tus colores favoritos para tu rutina ✨</p>
+      <p className="mb-8 text-sm font-extralight">
+        <span>Elije tus colores favoritos para tu rutina</span>
+        <img className="w-4 inline-block ms-2" src="/assets/img/emojis/stars.png" alt="Elije tus colores favoritos para tu rutina" />
+      </p>
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 sm:mt-8 lg:mt-10">
@@ -53,9 +56,7 @@ const SelectColor = ({ goToNextPage, items = [] }) => {
         cart.map((item, i) => {
           const colors = items.find(x => x.id == item.id)?.colors ?? []
           if (colors.length == 0) return null
-          console.log(item.colors)
           return item.colors?.map((existence, j) => {
-            console.log(existence)
             return <div key={`existence-${i}-${j}`} className="overflow-hidden w-full bg-white rounded-2xl shadow-md" data-aos='fade-down'>
               <div className="flex flex-row gap-2 items-center p-2">
                 <div className="">
@@ -71,8 +72,8 @@ const SelectColor = ({ goToNextPage, items = [] }) => {
                         {
                           colors.map((color, index) => {
                             const isSelected = existence?.id == color.id
-                            return <Tippy content={color.name}>
-                              <button key={index} className={`flex shrink-0 w-8 aspect-square rounded-full border ${isSelected ? 'shadow-md border-[#000000]' : ''}`} style={{
+                            return <Tippy key={index} content={color.name}>
+                              <button className={`flex shrink-0 w-8 aspect-square rounded-full border ${isSelected ? 'shadow-md border-[#000000]' : ''}`} style={{
                                 backgroundColor: color.hex || '#fff'
                               }} onClick={() => onSelectColor(item.id, j, color)} />
                             </Tippy>

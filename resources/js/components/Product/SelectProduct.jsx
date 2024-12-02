@@ -72,7 +72,10 @@ const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
   return <form className='px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center text-[#404040]'>
     <div className='max-w-2xl mx-auto '>
       <h1 className="text-2xl font-bold mb-2">¡Selecciona tus productos personalizados!</h1>
-      <p className="mb-8 text-sm font-extralight">Para mejores resultados arma una rutina completa ✨</p>
+      <p className="mb-8 text-sm font-extralight">
+        <span>Para mejores resultados arma una rutina completa</span>
+        <img className="w-4 inline-block ms-2" src="/assets/img/emojis/stars.png" alt="Para mejores resultados arma una rutina completa" />
+      </p>
     </div>
 
     <div className="max-w-4xl mx-auto mb-8">

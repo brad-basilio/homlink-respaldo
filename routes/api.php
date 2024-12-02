@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 // Public
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
@@ -76,8 +77,10 @@ Route::post('/user-formulas', [UserFormulasController::class, 'save']);
 
 Route::post('/culqi/order', [CulqiController::class, 'order']);
 Route::post('/culqi/token', [CulqiController::class, 'token']);
+Route::post('/culqi/webhook', [CulqiController::class, 'webhook']);
 
-
+Route::post('/coupons', [CouponController::class, 'save']);
+Route::post('/coupons/is-first', [CouponController::class, 'isFirst']);
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
         ->name('logout');

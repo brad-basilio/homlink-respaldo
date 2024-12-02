@@ -9,11 +9,7 @@ import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
 import Swal from 'sweetalert2';
-import BundlesRest from '../Actions/Admin/BundlesRest';
-import SelectAPIFormGroup from '../Components/Adminto/form/SelectAPIFormGroup';
-import SetSelectValue from '../Utils/SetSelectValue';
 import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
 import CouponsRest from '../Actions/Admin/CouponsRest';
 import Number2Currency from '../Utils/Number2Currency';
@@ -44,14 +40,14 @@ const Coupons = ({ }) => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
-    nameRef.current.value = data?.name ?? ''
+    nameRef.current.value = (data?.name ?? '').toUpperCase()
     descriptionRef.current.value = data?.description ?? ''
     $(typeRef.current).val(data?.type ?? 'percentage').trigger('change')
     amountRef.current.value = data?.amount ?? 0
     saleAmountRef.current.value = data?.sale_amount ?? 0
-    initialStockRef.current.value = data?.initial_stock ?? ''
-    dateBeginRef.current.value = data?.date_begin ?? ''
-    dateEndRef.current.value = data?.date_end ?? ''
+    initialStockRef.current.value = data?.initial_stock ?? null
+    dateBeginRef.current.value = data?.date_begin ?? null
+    dateEndRef.current.value = data?.date_end ?? null
     oneTimeUseRef.current.value = data?.one_time_use ?? false
 
     $(modalRef.current).modal('show')
@@ -69,7 +65,7 @@ const Coupons = ({ }) => {
       initial_stock: initialStockRef.current.value,
       date_begin: dateBeginRef.current.value,
       date_end: dateEndRef.current.value,
-      one_time_use: oneTimeUseRef.current.value,
+      one_time_use: oneTimeUseRef.current.checked ?? false,
       description: descriptionRef.current.value,
     }
 
@@ -201,17 +197,17 @@ const Coupons = ({ }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar cupón' : 'Agregar cupón'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={nameRef} label='Código' required />
+        <InputFormGroup eRef={nameRef} label='Código' required uppercase />
         <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={2} required />
         <SelectFormGroup eRef={typeRef} label='Tipo' col='col-md-4 col-sm-6' dropdownParent='#principal-container' required>
           <option value='percentage'>Porcentaje</option>
           <option value='fixed_amount'>Monto fijo</option>
         </SelectFormGroup>  
         <InputFormGroup eRef={amountRef} label='Descuento' type='number' step={0.01} col='col-md-4' required />
-        <InputFormGroup eRef={saleAmountRef} label='Monto de venta' specification='Monto mínimo de compra para aplicar el descuento' type='number' step={0.01} col='col-md-4' required />
-        <InputFormGroup eRef={initialStockRef} label='Cantidad' type='number' col='col-md-4 col-sm-6' required />
-        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' required />
-        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' required />
+        <InputFormGroup eRef={saleAmountRef} label='Monto de venta' specification='Monto mínimo de compra para aplicar el descuento' type='number' step={0.01} col='col-md-4' />
+        <InputFormGroup eRef={initialStockRef} label='Cantidad' type='number' col='col-md-4 col-sm-6' />
+        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' />
+        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' />
         <SwitchFormGroup eRef={oneTimeUseRef} label='De uso único' col='col-md-4 col-sm-6' />
       </div>
     </Modal>

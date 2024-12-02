@@ -19,11 +19,11 @@ class StatusSeeder extends Seeder
                 'name' => 'Pendiente'
             ],
             [
-                'id' => Crypto::randomUUID(),
+                'id' => '312f9a91-d3f2-4672-a6bf-678967616cac',
                 'name' => 'Pagado'
             ],
             [
-                'id' => Crypto::randomUUID(),
+                'id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c',
                 'name' => 'Rechazado'
             ],
             [

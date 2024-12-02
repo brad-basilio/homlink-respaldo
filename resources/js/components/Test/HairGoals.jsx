@@ -22,10 +22,10 @@ const HairGoals = ({ test, setTest, values }) => {
 
   return <>
     <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
-      <div className="max-w-md mx-auto">
+      <div className="max-w-xl mx-auto">
         <h1 className="text-2xl mb-4">¿Qué <b>quieres lograr</b> con tu cabello</h1>
         <p className="text-sm mb-4">Selecciona 3 objetivos para tu fórmula</p>
-        <div className="flex flex-wrap justify-evenly text-sm w-full mb-4 gap-2">
+        <div className="flex flex-wrap justify-center text-sm w-full mb-4 gap-2">
           {values.map((value, index) => (
             <div key={index} className="relative">
               <input
@@ -39,7 +39,7 @@ const HairGoals = ({ test, setTest, values }) => {
               />
               <label
                 htmlFor={`goal-${index}`}
-                className="flex items-center justify-center rounded border border-[#C5B8D4] h-12 w-36 px-2 font-bold leading-tight text-[#9577B9] cursor-pointer transition-colors duration-200 peer-checked:bg-[#C5B8D4] peer-checked:text-white hover:bg-[#9577B9]/10 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed uppercase"
+                className="flex items-center justify-center rounded border border-[#C5B8D4] h-12 w-44 px-2 font-bold leading-tight text-[#9577B9] cursor-pointer transition-colors duration-200 peer-checked:bg-[#C5B8D4] peer-checked:text-white hover:bg-[#9577B9]/10 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed uppercase tracking-widest"
               >
                 {value.description}
               </label>
