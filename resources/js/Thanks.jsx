@@ -5,7 +5,7 @@ import Base from "./Components/Tailwind/Base";
 
 const Thanks = ({}) => {
 
-  // history.replaceState(null, '', '/');
+  history.replaceState(null, '', '/');
 
   return <div>
     <section className='px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center'>

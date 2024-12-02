@@ -16,7 +16,6 @@ class CouponController extends BasicController
 
     static function verify($couponStr, $amount, $email)
     {
-        \dump($couponStr, $amount, $email);
         $coupon = $couponStr;
         $coupon = Coupon::select()
             ->where('name', $coupon)
