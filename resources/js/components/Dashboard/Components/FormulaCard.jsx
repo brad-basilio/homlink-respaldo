@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const FormulaCard = ({ name, created_at, has_treatment, scalp_type, hair_type, hair_goals, fragrance, index }) => {
+const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_type, hair_goals, fragrance, index }) => {
 
   const [nameEditing, setNameEditing] = useState(false);
 
@@ -39,7 +39,7 @@ const FormulaCard = ({ name, created_at, has_treatment, scalp_type, hair_type, h
         </div>
       </div>
       <button
-        className='absolute -bottom-4 bg-[#A191B8] text-sm text-white px-4 py-2 rounded-full'>
+        className='absolute -bottom-4 bg-[#A191B8] text-sm text-white px-4 py-2 rounded-full' href={`/test/result/${id}`}>
         VOLVER A COMPRAR <i className='mdi mdi-arrow-top-right'></i>
       </button>
     </div>

@@ -1,11 +1,15 @@
-import React from "react"
+import React, { useEffect } from "react"
 import CreateReactScript from "./Utils/CreateReactScript";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
+import { Local } from "sode-extend-react";
 
 const Thanks = ({}) => {
-
-  history.replaceState(null, '', '/');
+  useEffect(() => {
+    history.replaceState(null, '', '/');
+    Local.delete('vua_cart');
+    Local.delete('vua_test');
+  }, [null])
 
   return <div>
     <section className='px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center'>
