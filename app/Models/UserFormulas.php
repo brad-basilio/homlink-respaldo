@@ -14,6 +14,7 @@ class UserFormulas extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'name',
         'user_id',
         'email',
         'has_treatment',

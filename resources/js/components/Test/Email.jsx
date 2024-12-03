@@ -50,7 +50,7 @@ const Email = ({ test, setTest, session }) => {
       <form className="relative" onSubmit={onEmailSubmit}>
         <input ref={emailRef} className="border text-center border-[#9577B9] text-[#9577B9] bg-white text-sm rounded-full w-full px-5 py-2.5 outline-none" type="email" placeholder="ESCRIBE AQUÍ" defaultValue={session?.email} required disabled={sending} />
         <button className="absolute top-1/2 -translate-y-1/2 right-3 w-6 h-6 bg-[#A191B8] text-white font-bold rounded-full" type="submit" disabled={sending}>
-          <i className={`mdi ${sending ? 'mdi-loading fa-spin' : 'mdi-arrow-right'}`}></i>
+          <i className={`mdi ${sending ? 'mdi-loading mdi-spin' : 'mdi-arrow-right'}`}></i>
         </button>
       </form>
     </div>

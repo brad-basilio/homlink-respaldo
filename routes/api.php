@@ -25,7 +25,12 @@ use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
+use App\Http\Controllers\Admin\SaleController as AdminSaleController;
+use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
+
+// Customer
+use App\Http\Controllers\Customer\UserFormulasController as CustomerUserFormulasController;
 
 // Public
 use App\Http\Controllers\AuthController;
@@ -86,6 +91,15 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 
     Route::middleware('can:Admin')->prefix('admin')->group(function () {
+
+        Route::get('/sales/{id}', [AdminSaleController::class, 'get']);
+        Route::post('/sales', [AdminSaleController::class, 'save']);
+        Route::post('/sales/paginate', [AdminSaleController::class, 'paginate']);
+        Route::patch('/sales/status', [AdminSaleController::class, 'status']);
+        Route::patch('/sales/{field}', [AdminSaleController::class, 'boolean']);
+        Route::delete('/sales/{id}', [AdminSaleController::class, 'delete']);
+
+        Route::get('/sale-statuses/by-sale/{id}', [AdminSaleStatusController::class, 'bySale']);
 
         Route::post('/posts', [AdminPostController::class, 'save']);
         Route::post('/posts/paginate', [AdminPostController::class, 'paginate']);
@@ -218,5 +232,9 @@ Route::middleware('auth')->group(function () {
 
         Route::patch('/account/email', [AdminAccountController::class, 'email']);
         Route::patch('/account/password', [AdminAccountController::class, 'password']);
+    });
+
+    Route::middleware('can:Customer')->prefix('customer')->group(function () {
+        Route::post('/user-formulas', [CustomerUserFormulasController::class, 'save']);
     });
 });

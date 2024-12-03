@@ -58,7 +58,7 @@ const Coupons = ({ }) => {
 
     const request = {
       id: idRef.current.value || undefined,
-      name: nameRef.current.value,
+      name: nameRef.current.value.toUpperCase(),
       type: typeRef.current.value,
       amount: amountRef.current.value,
       sale_amount: saleAmountRef.current.value,

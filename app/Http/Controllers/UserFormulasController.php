@@ -30,7 +30,7 @@ class UserFormulasController extends BasicController
             ->where('has_treatment', $body['has_treatment'])
             ->where('scalp_type', $body['scalp_type'])
             ->where('hair_type', $body['hair_type'])
-            ->where('hair_goals', $body['hair_goals'])
+            ->whereRaw('JSON_CONTAINS(hair_goals, ?)', [json_encode($body['hair_goals'])])
             ->where('fragrance_id', $body['fragrance_id'])
             ->where('email', $body['email'])
             ->first();

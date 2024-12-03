@@ -7,6 +7,7 @@ use App\Models\Aboutus;
 use App\Models\dxDataGrid;
 use App\Models\Faq;
 use App\Models\General;
+use App\Models\Sale;
 use App\Models\Social;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,7 @@ use Inertia\Inertia;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 use SoDe\Extend\Text;
+use Illuminate\Support\Facades\Schema;
 
 class BasicController extends Controller
 {
@@ -31,6 +33,17 @@ class BasicController extends Controller
   public $prefix4filter = null;
   public $throwMediaError = false;
   public $ignorePrefix = [];
+  public $with4get = [];
+
+  public function get(Request $request, string $id)
+  {
+    $response = Response::simpleTryCatch(function () use ($id) {
+      $jpa  = $this->model::with($this->with4get)->find($id);
+      if (!$jpa) throw new Exception('El pedido que buscas no existe');
+      return $jpa;
+    });
+    return \response($response->toArray(), $response->status);
+  }
 
   public function media(Request $request, string $uuid)
   {
@@ -88,6 +101,7 @@ class BasicController extends Controller
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
+        'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
         'APP_DOMAIN' => env('APP_DOMAIN'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
         'GMAPS_API_KEY' => env('GMAPS_API_KEY')
@@ -122,7 +136,10 @@ class BasicController extends Controller
       }
 
       if (Auth::check()) {
-        $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');
+        $table = $this->prefix4filter ? $this->prefix4filter : (new $this->model)->getTable();
+        if (Schema::hasColumn($table, 'status')) {
+          $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');
+        }
       }
 
       if ($request->filter) {

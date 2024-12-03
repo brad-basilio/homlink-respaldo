@@ -8,9 +8,66 @@ import CouponsRest from '../../Actions/CouponsRest';
 import Tippy from '@tippyjs/react';
 
 const places = {
-  'metropolitana': 'Lima Metropolitana',
-  'alrededores': 'Lima Alrededores',
-  'provincias': 'Provincias'
+  'metropolitana': {
+    name: 'Lima Metropolitana',
+    delivery: 'Gratis',
+    items: [
+      'Ate',
+      'Barranco',
+      'Breña',
+      'Cercado de Lima',
+      'Chorrillos',
+      'Comas',
+      'El Agustino',
+      'Independencia',
+      'Jesús María',
+      'La Molina',
+      'La Victoria',
+      'Lince',
+      'Los Olivos',
+      'Magdalena del Mar',
+      'Miraflores',
+      'Pueblo Libre',
+      'Rímac',
+      'San Borja',
+      'San Isidro',
+      'San Juan de Lurigancho',
+      'San Juan de Miraflores',
+      'San Luis',
+      'San Martin de Porres',
+      'San Miguel',
+      'Santa Anita',
+      'Santiago de Surco',
+      'Surquillo',
+      'Villa el Salvador',
+      'Villa Maria del Triunfo'
+    ],
+  },
+  'alrededores': {
+    name: 'Lima Alrededores',
+    delivery: 'Por Shalom - Pago en destino',
+    items: [
+      'Ancón',
+      'Carabayllo',
+      'Chaclacayo',
+      'Cieneguilla',
+      'Lurín',
+      'Pachacámac',
+      'Pucusana',
+      'Puente Piedra',
+      'Punta Hermosa',
+      'Punta Negra',
+      'San Bartolo',
+      'Lurigancho (Chosica)',
+      'Santa María del Mar',
+      'Santa Rosa'
+    ],
+  },
+  'provincias': {
+    name: 'Provincias',
+    delivery: 'Por Shalom - Pago en destino',
+    items: '',
+  }
 }
 
 const couponRest = new CouponsRest()
@@ -82,16 +139,14 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     let province = 'Lima'
     let district = null
 
-    if (sale.province == 'Lima metropolitana') {
-      province = 'Lima metropolitana'
+    if (Array.isArray(places[sale.department].items)) {
+      department = places[sale.department].name
+      province = sale.province
       district = null
-    }
-    if (sale.province == 'Lima Alrededores') {
-      province = sale.district
-    }
-    if (sale.province == 'Provincias') {
-      department = sale.district
+    } else {
+      department = sale.province
       province = null
+      district = sale.district
     }
 
     return {
@@ -245,56 +300,107 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                   />
                 </div>
                 <div className="mt-4 grid gap-4 md:grid-cols-5">
-                  <div className='md:col-span-2'>
-                    <label className="mb-1 block text-sm font-medium " htmlFor="province">
+                  <div className='md:col-span-3'>
+                    <label className="mb-1 block text-sm font-medium " htmlFor="department">
                       Región / Provincia <b className='text-red-500'>*</b>
                     </label>
                     <select
-                      id="province"
+                      id="department"
                       className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                      value={sale.province}
-                      onChange={(e) => setSale(old => ({ ...old, province: e.target.value }))}
+                      value={sale.department}
+                      onChange={(e) => setSale(old => ({ ...old, department: e.target.value }))}
                       required
                     >
                       <option value=''>Elige una opción</option>
-                      <option>Lima Metropolitana</option>
-                      <option>Lima Alrededores</option>
-                      <option>Otras Provincias</option>
+                      {
+                        Object.keys(places).map((key, index) => {
+                          return <option key={index} value={key}>{places[key].name}</option>
+                        })
+                      }
                     </select>
                   </div>
-                  {
-                    (sale.province == 'Lima Alrededores' || sale.province == 'Otras Provincias') && <>
-                      <div className='md:col-span-2'>
-                        <label className="mb-1 block text-sm font-medium " htmlFor="district">
-                          {
-                            sale.province == 'Lima Alrededores'
-                              ? 'Distrito'
-                              : 'Departamento'
-                          }
-                        </label>
-                        <input
-                          type="text"
-                          id="district"
-                          className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                          value={sale.district}
-                          onChange={(e) => setSale(old => ({ ...old, district: e.target.value }))}
-                        />
-                      </div>
-                      <div>
-                        <label className="mb-1 block text-sm font-medium  truncate text-ellipsis" htmlFor="postalCode" title='Código postal'>
-                          Código postal
-                        </label>
-                        <input
-                          type="text"
-                          id="postalCode"
-                          className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
-                          value={sale.zip_code}
-                          onChange={(e) => setSale(old => ({ ...old, zip_code: e.target.value }))}
-                        />
-                      </div>
-                    </>
-                  }
                 </div>
+                {
+                  places[sale.department] &&
+                  <div className="mt-4 grid gap-4 md:grid-cols-5">
+                    {
+                      Array.isArray(places[sale.department].items)
+                        ? <>
+                          <div className='md:col-span-3'>
+                            <label className="mb-1 block text-sm font-medium " htmlFor="district">
+                              Provincia <b className='text-red-500'>*</b>
+                            </label>
+                            <select
+                              id="province"
+                              className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                              value={sale.province}
+                              onChange={(e) => setSale(old => ({ ...old, province: e.target.value }))}
+                              required
+                            >
+                              <option value=''>Elige una opción</option>
+                              {
+                                places[sale.department].items.map((province, index) => {
+                                  return <option key={index} value={province}>{province}</option>
+                                })
+                              }
+                            </select>
+                          </div>
+                          <div className='md:col-span-2'>
+                            <label className="mb-1 block text-sm font-medium  truncate text-ellipsis" htmlFor="postalCode" title='Código postal'>
+                              Código postal
+                            </label>
+                            <input
+                              type="text"
+                              id="postalCode"
+                              className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                              value={sale.zip_code}
+                              onChange={(e) => setSale(old => ({ ...old, zip_code: e.target.value }))}
+                            />
+                          </div>
+                        </>
+                        : <>
+                          <div className='md:col-span-2'>
+                            <label className="mb-1 block text-sm font-medium  truncate text-ellipsis" htmlFor="postalCode" title='Código postal'>
+                              Departamento <b className='text-red-500'>*</b>
+                            </label>
+                            <input
+                              type="text"
+                              id="postalCode"
+                              className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                              value={sale.province}
+                              onChange={(e) => setSale(old => ({ ...old, province: e.target.value }))}
+                              required
+                            />
+                          </div>
+                          <div className='md:col-span-2'>
+                            <label className="mb-1 block text-sm font-medium  truncate text-ellipsis" htmlFor="postalCode" title='Código postal'>
+                              Distrito <b className='text-red-500'>*</b>
+                            </label>
+                            <input
+                              type="text"
+                              id="postalCode"
+                              className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                              value={sale.district}
+                              onChange={(e) => setSale(old => ({ ...old, district: e.target.value }))}
+                              required
+                            />
+                          </div>
+                          <div>
+                            <label className="mb-1 block text-sm font-medium  truncate text-ellipsis" htmlFor="postalCode" title='Código postal'>
+                              Código postal
+                            </label>
+                            <input
+                              type="text"
+                              id="postalCode"
+                              className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                              value={sale.zip_code}
+                              onChange={(e) => setSale(old => ({ ...old, zip_code: e.target.value }))}
+                            />
+                          </div>
+                        </>
+                    }
+                  </div>
+                }
                 <div className="mt-4">
                   <div className="mt-4 grid gap-4 md:grid-cols-5 lg:grid-cols-3">
                     <div className='md:col-span-3 lg:col-span-2'>
@@ -473,14 +579,12 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                       </div>
                     }
                     {
-                      sale.province &&
+                      sale.department &&
                       <div className="mb-4 flex justify-between text-sm border-b pb-2">
                         <span className='font-bold'>Envío</span>
                         <span>
                           {
-                            sale.province == 'Lima Metropolitana'
-                              ? 'Gratis'
-                              : 'Por Shalom - Pago en destino'
+                            places?.[sale.department]?.delivery
                           }
                         </span>
                       </div>
@@ -510,7 +614,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                   <button type='submit' className="mt-6 w-full rounded-md bg-[#C5B8D4] py-3 text-white disabled:cursor-not-allowed" disabled={loading}>
                     <i className='mdi mdi-lock me-1'></i>
                     Pagar Ahora
-                    <small className='ms-1'>(S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount)})</small>
+                    <small className='ms-1'>(S/ {Number2Currency(totalPrice - bundleDiscount - planDiscount - couponDiscount)})</small>
                   </button>
                 </div>
               </div>

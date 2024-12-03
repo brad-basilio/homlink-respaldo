@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\SaleDetail;
 use Culqi\Culqi;
 use Exception;
 use Illuminate\Http\Request;
@@ -45,8 +46,8 @@ class CulqiController extends Controller
           "email" => $sale['email'],
           "phone_number" => $sale['phone'],
         ),
-        // "expiration_date" => time() + (24 * 60 * 60),
-        "expiration_date" => time() + (60),
+        "expiration_date" => time() + (24 * 60 * 60),
+        // "expiration_date" => time() + (60),
         "confirm" => false
       ];
 
@@ -100,16 +101,21 @@ class CulqiController extends Controller
 
       if (gettype($charge) == 'string') {
         $res = JSON::parse((string) $charge);
-        $sale->status_id = 'd3a77651-15df-4fdc-a3db-91d6a8f4247c';
+        $sale->update([
+          'status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c'
+        ]);
         throw new Exception($res['user_message']);
       }
 
-      $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $sale->update([
+        'status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac'
+      ]);
     });
     return response($response->toArray(), $response->status);
   }
 
-  public function webhook(Request $request) {
+  public function webhook(Request $request)
+  {
     dump($request);
     return \response('OK');
   }

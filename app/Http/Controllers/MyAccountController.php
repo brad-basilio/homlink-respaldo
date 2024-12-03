@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Formula;
+use App\Models\Sale;
 use App\Models\UserFormulas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,14 +22,16 @@ class MyAccountController extends BasicController
             'hairType',
             'fragrance',
         ])
-        ->where('email', $user->email)
-        ->get();
+            ->where('email', $user->email)
+            ->get();
         $formulas = [];
         foreach ($formulasJpa as $formulaJpa) {
             $hair_goals = Formula::whereIn('id', $formulaJpa->hair_goals)->get();
             $formulas[] = \array_merge($formulaJpa->toArray(), ['hair_goals' => $hair_goals]);
         }
-        $sales = [];
+        $sales = Sale::with(['status', 'details', 'renewal', 'bundle', 'coupon'])
+        ->where('email', Auth::user()->email)
+        ->get();
         return [
             'formulas' => $formulas,
             'sales' => $sales

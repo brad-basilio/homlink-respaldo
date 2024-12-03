@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import UserFormulasRest from '../../../Actions/Customer/UserFormulasRest';
 
+const userFormulasRest = new UserFormulasRest()
 const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_type, hair_goals, fragrance, index }) => {
 
   const [nameEditing, setNameEditing] = useState(false);
+  const nameRef = useRef()
+
+  const onNameChange = async (e) => {
+    if (name == nameRef.current.value) return setNameEditing(false)
+    const result = await userFormulasRest.save({
+      id,
+      name: nameRef.current.value
+    })
+    if (!result) return
+    setNameEditing(false)
+  }
+
 
   return <div className='relative w-full'>
     <div className='relative bg-[#F7F7E7] p-4 rounded-xl w-full pb-8'>
@@ -10,8 +24,8 @@ const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_typ
         <div>
           {
             nameEditing
-              ? <input type="text" className='w-full outline-none px-3 py-1 rounded-md' defaultValue={name} onBlur={() => setNameEditing(false)} autoFocus />
-              : <span className='text-lg font-bold' onClick={() => setNameEditing(true)}>Fórmula {index + 1}</span>
+              ? <input ref={nameRef} type="text" className='w-full outline-none px-3 py-1 rounded-md' defaultValue={name} onBlur={onNameChange} autoFocus />
+              : <span className='text-lg font-bold' onClick={() => setNameEditing(true)}>{name || <>Fórmula {index + 1}</>}</span>
           }
         </div>
         <small>Creado el {moment(created_at).format('ll')}</small>

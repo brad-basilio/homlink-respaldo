@@ -7,6 +7,7 @@ use App\Models\Bundle;
 use App\Models\Item;
 use App\Models\Renewal;
 use App\Models\SaleDetail;
+use App\Models\SaleStatus;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Trace;
