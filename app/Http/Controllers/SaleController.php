@@ -7,7 +7,7 @@ use App\Models\Bundle;
 use App\Models\Item;
 use App\Models\Renewal;
 use App\Models\SaleDetail;
-use App\Models\SaleStatus;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Trace;
@@ -41,8 +41,8 @@ class SaleController extends Controller
             $saleJpa->status_id = 'f13fa605-72dd-4729-beaa-ee14c9bbc47b';
 
             // Address info
-            $saleJpa->country = $sale['country'];
-            $saleJpa->department = $sale['department'];
+            $saleJpa->country = $sale['country']; 
+            $saleJpa->department = $sale['department'];   
             $saleJpa->province = $sale['province'];
             $saleJpa->district = $sale['district'];
             $saleJpa->zip_code = $sale['zip_code'];
@@ -50,6 +50,20 @@ class SaleController extends Controller
             $saleJpa->number = $sale['number'];
             $saleJpa->reference = $sale['reference'];
             $saleJpa->comment = $sale['comment'];
+
+            if (Auth::check()) {
+                $userJpa = User::find(Auth::user()->id);
+                $userJpa->phone = $sale['phone'];
+                $userJpa->country = $sale['country'];
+                $userJpa->department = $sale['department'];
+                $userJpa->province = $sale['province'];
+                $userJpa->district = $sale['district'];
+                $userJpa->zip_code = $sale['zip_code'];
+                $userJpa->address = $sale['address'];
+                $userJpa->address_number = $sale['number'];
+                $userJpa->address_reference = $sale['reference'];
+                $userJpa->save();
+            }
 
             // Sale Header
             $totalPrice = array_sum(array_map(
@@ -120,10 +134,9 @@ class SaleController extends Controller
                 $detailsJpa[] = $detailJpa->toArray();
             }
 
-            return [true, array_merge(
-                $saleJpa->toArray(),
-                ['details' => $detailsJpa]
-            )];
+            $saleToReturn = Sale::with(['renewal', 'details'])->find($saleJpa->id);
+
+            return [true, $saleToReturn];
         } catch (\Throwable $th) {
             return [false, [
                 'error' => $th->getMessage(),

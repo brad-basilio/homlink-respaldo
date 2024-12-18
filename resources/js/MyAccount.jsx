@@ -19,7 +19,7 @@ const MyAccount = ({ session, formulas, sales }) => {
       case 'sales':
         return <Sales items={sales} />;
       case 'informacion':
-        return <Information />;
+        return <Information session={session}/>;
       default:
         return <Formulas />;
     }

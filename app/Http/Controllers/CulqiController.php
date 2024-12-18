@@ -7,17 +7,22 @@ use App\Models\SaleDetail;
 use Culqi\Culqi;
 use Exception;
 use Illuminate\Http\Request;
+use SoDe\Extend\Crypto;
+use SoDe\Extend\Fetch;
 use SoDe\Extend\JSON;
 use SoDe\Extend\Math;
 use SoDe\Extend\Response;
+use Illuminate\Support\Str;
 
 class CulqiController extends Controller
 {
   private $culqi = null;
+  private $url = null;
 
   public function __construct()
   {
-    $this->culqi = new Culqi(['api_key' => env('CULQI_PRIVATE_KEY')]);;
+    $this->culqi = new Culqi(['api_key' => env('CULQI_PRIVATE_KEY')]);
+    $this->url = env('CULQI_API');
   }
 
   public function order(Request $request)
@@ -27,6 +32,8 @@ class CulqiController extends Controller
       [$status, $sale] = SaleController::create($request->sale, $request->details);
 
       if (!$status) throw new Exception($sale['error']);
+
+      if ($sale->renewal_id) $this->createPlan($sale);
 
       $amount = $sale['amount'];
 
@@ -112,6 +119,50 @@ class CulqiController extends Controller
       ]);
     });
     return response($response->toArray(), $response->status);
+  }
+
+  private function createPlan(Sale $sale)
+  {
+    try {
+      if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
+
+      $name = $sale->renewal->name . ' - ' . $sale->name . ' ' . $sale->lastname;
+      $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
+      
+      $amount = $normalAmount / $sale->renewal->months;
+
+      $discount = $normalAmount - $sale->coupon_discount;
+
+      $res = new Fetch($this->url . '/plans/create', [
+        'method' => 'POST',
+        'headers' => [
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+        ],
+        'body' => [
+          "name" => $name,
+          "short_name" => Str::slug($name) . '-' . Crypto::short(),
+          "description" => 'Plan ' . $name,
+          "amount" => Math::ceil($amount * 100),
+          "currency" => "PEN",
+          "interval_unit_time" => 3, // 3 = Mensual
+          "interval_count" => 0, // Ilimitado
+          "initial_cycles" => [
+            "count" => 1, // Solo primer mes
+            "has_initial_charge" => $discount != 0,
+            "amount" => Math::ceil($discount * 100),
+            "interval_unit_time" => 3
+          ],
+          "metadata" => [
+            "DNI" => 123456782
+          ]
+        ]
+      ]);
+
+      $data = $res->json();
+    } catch (\Throwable $th) {
+      return null;
+    }
   }
 
   public function webhook(Request $request)

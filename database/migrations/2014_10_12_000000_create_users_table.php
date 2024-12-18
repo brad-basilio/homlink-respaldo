@@ -22,13 +22,14 @@ return new class extends Migration
             $table->string('password');
             $table->string('dni')->nullable();
             $table->string('phone')->nullable();
-            $table->string('video')->nullable();
-            $table->string('title')->nullable();
             $table->string('country')->nullable();
-            $table->string('city')->nullable();
+            $table->string('department')->nullable();
+            $table->string('province')->nullable();
+            $table->string('district')->nullable();
+            $table->string('zip_code')->nullable();
             $table->text('address')->nullable();
-            $table->longText('summary')->nullable();
-            $table->longText('description')->nullable();
+            $table->text('address_number')->nullable();
+            $table->text('address_reference')->nullable();
             $table->boolean('status')->nullable()->default(true);
 
             $table->rememberToken();

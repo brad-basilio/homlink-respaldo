@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 
 // Customer
 use App\Http\Controllers\Customer\UserFormulasController as CustomerUserFormulasController;
+use App\Http\Controllers\Customer\ProfileController as CustomerProfileController;
 
 // Public
 use App\Http\Controllers\AuthController;
@@ -236,5 +237,6 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('can:Customer')->prefix('customer')->group(function () {
         Route::post('/user-formulas', [CustomerUserFormulasController::class, 'save']);
+        Route::patch('/profile', [CustomerProfileController::class, 'save']);
     });
 });

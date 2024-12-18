@@ -25,7 +25,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'uuid',
-        'relative_id',
         'name',
         'lastname',
         'email',
@@ -33,13 +32,14 @@ class User extends Authenticatable
         'password',
         'dni',
         'phone',
-        'video',
-        'title',
         'country',
-        'city',
+        'department',
+        'province',
+        'district',
+        'zip_code',
         'address',
-        'summary',
-        'description',
+        'address_number',
+        'address_reference',
         'status',
     ];
 
