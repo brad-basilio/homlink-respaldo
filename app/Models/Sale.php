@@ -22,6 +22,7 @@ class Sale extends Model
         'user_id',
         'name',
         'lastname',
+        'fullname',
         'email',
         'phone',
         'country',
@@ -40,8 +41,14 @@ class Sale extends Model
         'renewal_id',
         'coupon_discount',
         'coupon_id',
+        'total_amount',
         'status_id',
     ];
+
+    public function formula(): BelongsTo
+    {
+        return $this->belongsTo(UserFormulas::class, 'user_formula_id', 'id');
+    }
 
     public function status(): BelongsTo
     {

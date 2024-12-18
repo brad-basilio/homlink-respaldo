@@ -128,12 +128,12 @@ class CulqiController extends Controller
 
       $name = $sale->renewal->name . ' - ' . $sale->name . ' ' . $sale->lastname;
       $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
-      
+
       $amount = $normalAmount / $sale->renewal->months;
 
       $discount = $normalAmount - $sale->coupon_discount;
 
-      $res = new Fetch($this->url . '/plans/create', [
+      $res = new Fetch($this->url . '/recurrent/plans/create', [
         'method' => 'POST',
         'headers' => [
           'Content-Type' => 'application/json',
@@ -167,7 +167,27 @@ class CulqiController extends Controller
 
   public function webhook(Request $request)
   {
-    dump($request);
-    return \response('OK');
+    $response = Response::simpleTryCatch(function () use ($request) {
+      $res = new Fetch($this->url . '/orders/' . $request->id, [
+        'headers' => [
+          'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+        ]
+      ]);
+
+      if (!$res->ok) throw new Exception("Ocurrio un error al verificar la orden de pago");
+
+      $data = $res->json();
+
+      if ($data['state'] != 'paid') return;
+
+      $saleJpa = Sale::select(['id', 'status_id'])
+        ->where('code', \str_replace('#vua-', '', $data['order_number']))
+        ->first();
+
+      $saleJpa->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $saleJpa->save();
+    });
+
+    return response($response->toArray(), $response->status);
   }
 }

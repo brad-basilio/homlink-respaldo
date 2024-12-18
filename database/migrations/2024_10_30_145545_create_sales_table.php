@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('lastname');
+            $table->longText('fullname')->nullable();
             $table->longText('email');
             $table->string('phone');
 

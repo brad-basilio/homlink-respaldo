@@ -349,7 +349,7 @@ const Sales = ({ statuses }) => {
                       transform: 'translateY(-50%)'
                     }}></i>
                     <b style={{ color: ss.status.color || '#333' }}>{ss?.status?.name}</b>
-                    <small className='d-block'>{ss?.user?.name} {ss?.user?.lastname}</small>
+                    <small className='d-block text-truncate'>{ss?.user?.name} {ss?.user?.lastname}</small>
                     <small className='d-block text-muted'>{moment(ss.created_at).format('YYYY-MM-DD HH:mm')}</small>
                   </article>
                 })

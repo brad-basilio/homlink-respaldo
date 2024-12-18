@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import ProfileRest from '../../Actions/Customer/ProfileRest';
 import Swal from 'sweetalert2';
@@ -37,6 +37,17 @@ const Information = ({ session }) => {
     location.reload()
   }
 
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [modalOpen]);
+
   return <>
     <div>
       <h2 className='text-xl border-b pb-2 mb-4 font-bold'>
@@ -71,7 +82,7 @@ const Information = ({ session }) => {
 
     <ReactModal isOpen={modalOpen}
       onRequestClose={() => setModalOpen(false)}
-      className='absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white p-10 rounded-2xl shadow-lg w-[95%] max-w-lg '
+      className='absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 bg-white p-10 rounded-2xl shadow-lg w-[95%] max-w-lg max-h-[95vh] overflow-y-auto'
       overlayClassName={'fixed inset-0 bg-black bg-opacity-50 z-50'}>
       <form onSubmit={onModalSubmit}>
         <div class="grid gap-6 mb-6 md:grid-cols-6">

@@ -33,7 +33,7 @@ class StatusSeeder extends Seeder
                 'editable' => false
             ],
             [
-                'id' => Crypto::randomUUID(),
+                'id' => 'c063efb2-1e9b-4a43-8991-b444c14d30dd',
                 'name' => 'Anulado',
                 'color' => '#323a46',
                 'reversible' => false

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->decimal('bundle_discount', 10, 2)->default(0);
             $table->decimal('renewal_discount', 10, 2)->default(0);
             $table->decimal('coupon_discount', 10, 2)->default(0);
+
+            $table->decimal('total_amount', 10, 2)->default(0);
         });
     }
 

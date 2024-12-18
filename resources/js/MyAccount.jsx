@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
-import Sales from './Components/Dashboard/Sales';
+import Purchases from './Components/Dashboard/Purchases';
 import Information from './Components/Dashboard/Information';
 import Formulas from './Components/Dashboard/Formulas';
 import Logout from './Actions/Logout';
@@ -16,8 +16,8 @@ const MyAccount = ({ session, formulas, sales }) => {
     switch (activeComponent) {
       case 'formulas':
         return <Formulas items={formulas} />;
-      case 'sales':
-        return <Sales items={sales} />;
+      case 'purchases':
+        return <Purchases items={sales} />;
       case 'informacion':
         return <Information session={session}/>;
       default:
@@ -44,8 +44,8 @@ const MyAccount = ({ session, formulas, sales }) => {
               <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'formulas' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
                 onClick={() => setActiveComponent('formulas')} >Fórmulas creadas</li>
 
-              <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'sales' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
-                onClick={() => setActiveComponent('sales')} >Mis compras</li>
+              <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'purchases' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
+                onClick={() => setActiveComponent('purchases')} >Mis compras</li>
 
               <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'informacion' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
                 onClick={() => setActiveComponent('informacion')} >Información personal</li>

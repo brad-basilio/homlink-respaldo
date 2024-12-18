@@ -17,6 +17,7 @@ return new class extends Migration
             $table->char('uuid', 36)->default(DB::raw('(UUID())'));
             $table->string('name');
             $table->string('lastname');
+            $table->longText('fullname')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
