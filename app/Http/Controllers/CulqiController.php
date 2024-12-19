@@ -304,7 +304,7 @@ class CulqiController extends Controller
       if ($data['state'] == 'expired') {
         Sale::where('code', $code)
           ->where('status_id', 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
-          ->update(['status_id', 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
+          ->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
         return;
       }
 
@@ -312,9 +312,7 @@ class CulqiController extends Controller
 
       Sale::select(['id', 'status_id'])
         ->where('code', $code)
-        ->update([
-          'status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac'
-        ]);
+        ->update(['status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac']);
     });
 
     return response($response->toArray(), $response->status);
