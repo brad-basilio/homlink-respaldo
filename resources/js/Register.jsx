@@ -5,14 +5,12 @@ import CreateReactScript from './Utils/CreateReactScript'
 import AuthRest from './actions/AuthRest'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { Link } from '@inertiajs/react'
-import SelectFormGroup from './Components/form/SelectFormGroup'
-import Modal from './Components/Modal'
-import HtmlContent from './Utils/HtmlContent'
 import Swal from 'sweetalert2'
+import Global from './Utils/Global'
 
 const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
 
-  document.title = 'Registro | NetCoaching'
+  document.title = `Registro | ${Global.APP_NAME}`
 
   const jsEncrypt = new JSEncrypt()
   jsEncrypt.setPublicKey(PUBLIC_RSA_KEY)
