@@ -80,13 +80,13 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
   Culqi.options({
     paymentMethods: {
       tarjeta: true,
-      yape: true,
-      billetera: true,
-      bancaMovil: true,
-      agente: true,
+      yape: !selectedPlan,
+      billetera: !selectedPlan,
+      bancaMovil: !selectedPlan,
+      agente: !selectedPlan,
       cuotealo: false,
     },
-    installments: true,
+    installments: !selectedPlan,
     style: {
       logo: `${location.origin}/assets/img/icon-purple.svg`,
       bannerColor: '#A191B8'
@@ -101,7 +101,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     email: formula.email,
     phone: session?.phone || null,
     country: 'Perú',
-    department: session?.department || null,
+    department: Object.keys(places).find(x => places[x].name == session?.department) || null,
     province: session?.province || null,
     district: session?.district || null,
     zip_code: session?.zip_code || null,
@@ -175,7 +175,7 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     }
     isLoading(false)
     Culqi.settings({
-      title: Global.APP_NAME,
+      title: `${Global.APP_NAME} ${selectedPlan ? '(Suscripción)' : ''}`.trim(),
       currency: 'PEN',
       amount: Math.ceil((totalPrice - bundleDiscount - planDiscount - couponDiscount) * 100),
       order: order_number

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CulqiSubscription;
 use App\Models\Sale;
-use App\Models\SaleDetail;
+use App\Models\User;
 use Culqi\Culqi;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Fetch;
 use SoDe\Extend\JSON;
@@ -53,8 +55,8 @@ class CulqiController extends Controller
           "email" => $sale['email'],
           "phone_number" => $sale['phone'],
         ),
-        "expiration_date" => time() + (24 * 60 * 60),
-        // "expiration_date" => time() + (60),
+        // "expiration_date" => time() + (24 * 60 * 60),
+        "expiration_date" => time() + (60),
         "confirm" => false
       ];
 
@@ -76,93 +78,211 @@ class CulqiController extends Controller
 
   public function token(Request $request)
   {
-    $response = Response::simpleTryCatch(function () use ($request) {
-      $order_number = \str_replace('#' . env('APP_CORRELATIVE') . '-', '', $request->order);
-      $sale = Sale::where('code', $order_number)->first();
+    $order_number = \str_replace('#' . env('APP_CORRELATIVE') . '-', '', $request->order);
+    $sale = Sale::where('code', $order_number)->first();
 
-      $amount = $sale->amount;
-      if (isset($sale->delivery)) $amount += $sale->delivery;
-      if (isset($sale->bundle_discount)) $amount -= $sale->bundle_discount;
-      if (isset($sale->renewal_discount)) $amount -= $sale->renewal_discount;
-      if (isset($sale->coupon_discount)) $amount -= $sale->coupon_discount;
+    $response = Response::simpleTryCatch(function () use ($request, $sale) {
 
-      $config = [
-        "amount" => Math::ceil(($amount * 100)),
-        "capture" => true,
-        "currency_code" => "PEN",
-        "description" => "Compra en " . env('APP_NAME'),
-        "email" => $request->token['email'] ?? $sale->email,
-        "installments" => 0,
-        "antifraud_details" => [
-          "address" => $sale->address,
-          "address_city" => $sale->district ?? 'Lima',
-          "country_code" => "PE",
-          "first_name" => $sale->name,
-          "last_name" => $sale->lastname,
-          "phone_number" => $sale->phone,
-        ],
-        "source_id" => $request->token['id']
-      ];
+      if ($sale->renewal_id) {
+        $cq_cus_id = $this->createClient();
+        $cq_crd_id = $this->createCard($cq_cus_id, $request->token['id']);
+        $cq_pln_id = $this->createPlan($sale);
+        $cq_sxn_id = $this->subscribe($cq_crd_id, $cq_pln_id, $sale);
 
-      $charge = $this->culqi->Charges->create($config);
-
-      if (gettype($charge) == 'string') {
-        $res = JSON::parse((string) $charge);
-        $sale->update([
-          'status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c'
+        CulqiSubscription::create([
+          'renewal_id' => $sale->renewal_id,
+          'user_id' => Auth::user()->id,
+          'cq_crd_id' => $cq_crd_id,
+          'cq_pln_id' => $cq_pln_id,
+          'cq_sxn_id' => $cq_sxn_id
         ]);
-        throw new Exception($res['user_message']);
+      } else {
+        $this->createCharge($request->token, $sale);
       }
 
-      $sale->update([
-        'status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac'
-      ]);
+      $sale->update(['status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac']);
+    }, function () use ($sale) {
+      $sale->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
     });
     return response($response->toArray(), $response->status);
   }
 
+  private function createCharge($token, $sale): void
+  {
+    $amount = $sale->amount;
+    if (isset($sale->delivery)) $amount += $sale->delivery;
+    if (isset($sale->bundle_discount)) $amount -= $sale->bundle_discount;
+    if (isset($sale->renewal_discount)) $amount -= $sale->renewal_discount;
+    if (isset($sale->coupon_discount)) $amount -= $sale->coupon_discount;
+
+    $config = [
+      "amount" => Math::ceil(($amount * 100)),
+      "capture" => true,
+      "currency_code" => "PEN",
+      "description" => "Compra en " . env('APP_NAME'),
+      "email" => $token['email'] ?? $sale->email,
+      "installments" => 0,
+      "antifraud_details" => [
+        "address" => $sale->address,
+        "address_city" => $sale->district ?? 'Lima',
+        "country_code" => "PE",
+        "first_name" => $sale->name,
+        "last_name" => $sale->lastname,
+        "phone_number" => $sale->phone,
+      ],
+      "source_id" => $token['id']
+    ];
+
+    $charge = $this->culqi->Charges->create($config);
+
+    if (gettype($charge) == 'string') {
+      $res = JSON::parse((string) $charge);
+      throw new Exception($res['user_message']);
+    }
+  }
+
+  private function createClient(): string
+  {
+    $user = Auth::user();
+
+    $resGet = new Fetch($this->url . '/customers?email=' . $user->email, [
+      'headers' => ['Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')]
+    ]);
+
+    if (!$resGet->ok) throw new Exception('Ocurrio un error al consultar clientes en Culqi');
+
+    $dataGet = $resGet->json();
+
+    if (count($dataGet['data']) > 0) {
+      $cq_cus_id = $dataGet['data'][0]['id'];
+      User::where('id', $user->id)->update(['cq_cus_id' => $cq_cus_id]);
+      return $cq_cus_id;
+    }
+
+    $res = new Fetch($this->url . '/customers', [
+      'method' => 'POST',
+      'headers' => [
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ],
+      'body' => [
+        "first_name" => $user->name,
+        "last_name" => $user->lastname,
+        "email" => $user->email,
+        "address" => $user->address . ' ' . $user->address_number,
+        "address_city" => $user->district ?? $user->province,
+        "country_code" => "PE",
+        "phone_number" => $user->phone
+      ]
+    ]);
+
+    if (!$res->ok) throw new Exception('Ocurrio un error al crear el cliente en Culqi');
+    $data = $res->json();
+    User::where('id', $user->id)
+      ->update(['cq_cus_id' => $data['id']]);
+    return $data['id'];
+  }
+
+  private function createCard($cq_cus_id, $token): string
+  {
+    $res = new Fetch($this->url . '/cards', [
+      'method' => 'POST',
+      'headers' => [
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ],
+      'body' => [
+        "customer_id" => $cq_cus_id,
+        "token_id" => $token,
+        "validate" => true,
+        "metadata" => [
+          "marca_tarjeta" => "VISA"
+        ]
+      ]
+    ]);
+    if (!$res->ok) throw new Exception('Ocurrio un error al crear la tarjeta en Culqi');
+    $data = $res->json();
+    return $data['id'];
+  }
+
   private function createPlan(Sale $sale)
   {
-    try {
-      if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
+    if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
 
-      $name = $sale->renewal->name . ' - ' . $sale->name . ' ' . $sale->lastname;
-      $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
+    $name = $sale->renewal->name
+      . ' - ' . $sale->name
+      . ' ' . $sale->lastname
+      . ' ' . Crypto::short();
+    $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
 
-      $amount = $normalAmount / $sale->renewal->months;
+    $amount = $normalAmount / $sale->renewal->months;
 
-      $discount = $normalAmount - $sale->coupon_discount;
+    $discount = $normalAmount - $sale->coupon_discount;
 
-      $res = new Fetch($this->url . '/recurrent/plans/create', [
-        'method' => 'POST',
-        'headers' => [
-          'Content-Type' => 'application/json',
-          'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
-        ],
-        'body' => [
-          "name" => $name,
-          "short_name" => Str::slug($name) . '-' . Crypto::short(),
-          "description" => 'Plan ' . $name,
-          "amount" => Math::ceil($amount * 100),
-          "currency" => "PEN",
-          "interval_unit_time" => 3, // 3 = Mensual
-          "interval_count" => 0, // Ilimitado
-          "initial_cycles" => [
-            "count" => 1, // Solo primer mes
-            "has_initial_charge" => $discount != 0,
-            "amount" => Math::ceil($discount * 100),
-            "interval_unit_time" => 3
-          ],
-          "metadata" => [
-            "DNI" => 123456782
-          ]
-        ]
-      ]);
+    $body = [
+      "name" => $name,
+      "short_name" => Str::slug($name),
+      "description" => 'Plan ' . $name,
+      "amount" => Math::ceil($amount * 100),
+      "currency" => "PEN",
+      "interval_unit_time" => 3,
+      "interval_count" => 0,
+    ];
 
-      $data = $res->json();
-    } catch (\Throwable $th) {
-      return null;
+    if ($amount != $discount) {
+      $body["initial_cycles"] = [
+        "count" => 1, // Solo primer mes
+        "has_initial_charge" => $discount != 0,
+        "amount" => Math::ceil($discount * 100),
+        "interval_unit_time" => 3
+      ];
+    } else {
+      $body["initial_cycles"] = [
+        "count" => 0, // Solo primer mes
+        "has_initial_charge" => false,
+        "amount" => 0,
+        "interval_unit_time" => 3
+      ];
     }
+
+    $res = new Fetch($this->url . '/recurrent/plans/create', [
+      'method' => 'POST',
+      'headers' => [
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ],
+      'body' => $body
+    ]);
+
+    if (!$res->ok) throw new Exception('Ocurrio un error al crear el plan en Culqi');
+
+    $data = $res->json();
+
+    return $data['id'];
+  }
+
+  private function subscribe($cq_crd_id, $cq_pln_id, $sale)
+  {
+    $res = new Fetch($this->url . '/recurrent/subscriptions/create', [
+      'method' => 'POST',
+      'headers' => [
+        'Content-Type' => 'application/json',
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ],
+      'body' => [
+        "card_id" => $cq_crd_id,
+        "plan_id" => $cq_pln_id,
+        "tyc" => true,
+        "metadata" => [
+          'user_id' => Auth::user()->id,
+          'sale_id' => $sale->id
+        ]
+      ]
+    ]);
+
+    if (!$res->ok) throw new Exception('Ocurrio un error al crear la subscripcion');
+    $data = $res->json();
+    return $data['id'];
   }
 
   public function webhook(Request $request)
@@ -178,14 +298,22 @@ class CulqiController extends Controller
 
       $data = $res->json();
 
+      $code = str_replace('#' . env('APP_CORRELATIVE') . '-', '', $data['order_number']);
+
+      if ($data['state'] == 'expired') {
+        Sale::where('code', $code)
+          ->where('status_id', 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
+          ->update(['status_id', 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
+        return;
+      }
+
       if ($data['state'] != 'paid') return;
 
-      $saleJpa = Sale::select(['id', 'status_id'])
-        ->where('code', \str_replace('#vua-', '', $data['order_number']))
-        ->first();
-
-      $saleJpa->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
-      $saleJpa->save();
+      Sale::select(['id', 'status_id'])
+        ->where('code', $code)
+        ->update([
+          'status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac'
+        ]);
     });
 
     return response($response->toArray(), $response->status);

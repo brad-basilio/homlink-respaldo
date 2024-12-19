@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import UserFormulasRest from '../../../Actions/Customer/UserFormulasRest';
 
 const userFormulasRest = new UserFormulasRest()
-const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_type, hair_goals, fragrance, index }) => {
+const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_type, hair_goals, fragrance, index, setFormulas }) => {
 
   const [nameEditing, setNameEditing] = useState(false);
   const nameRef = useRef()
@@ -14,6 +14,14 @@ const FormulaCard = ({ id, name, created_at, has_treatment, scalp_type, hair_typ
       name: nameRef.current.value
     })
     if (!result) return
+
+    setFormulas(old => old.map(x => {
+      if (x.id == result.data.id) {
+        x.name = result.data.name
+      }
+      return x
+    }))
+
     setNameEditing(false)
   }
 

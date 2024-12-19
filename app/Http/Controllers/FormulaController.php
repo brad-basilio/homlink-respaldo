@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Renewal;
 use App\Models\UserFormulas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FormulaController extends BasicController
 {
@@ -28,10 +29,13 @@ class FormulaController extends BasicController
             ->where('status', true)
             ->get();
 
-        $planesJpa = Renewal::today()
-            ->where('status', true)
-            ->where('visible', true)
-            ->get();
+        $planesJpa = [];
+        if (Auth::check()) {
+            $planesJpa = Renewal::today()
+                ->where('status', true)
+                ->where('visible', true)
+                ->get();
+        }
 
         return [
             'user_formula' => $userFormulaJpa,

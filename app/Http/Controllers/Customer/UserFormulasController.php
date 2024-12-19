@@ -10,4 +10,9 @@ use Illuminate\Http\Request;
 class UserFormulasController extends BasicController
 {
     public $model = UserFormulas::class;
+
+    public function afterSave(Request $request, object $jpa)
+    {
+        return $jpa;
+    }
 }
