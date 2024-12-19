@@ -288,7 +288,7 @@ class CulqiController extends Controller
   public function webhook(Request $request)
   {
     $response = Response::simpleTryCatch(function () use ($request) {
-      $res = new Fetch($this->url . '/orders/' . $request->id, [
+      $res = new Fetch($this->url . '/orders/' . $request->data['id'], [
         'headers' => [
           'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
         ]
