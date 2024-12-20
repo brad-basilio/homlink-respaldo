@@ -28,10 +28,6 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const confirmationRef = useRef()
-  const termsRef = useRef()
-  const specialtyRef = useRef()
-
-  const termsModalRef = useRef();
 
   useEffect(() => {
     setLoading(false)

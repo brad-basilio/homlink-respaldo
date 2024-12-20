@@ -213,12 +213,12 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
     if (e.key == 'Enter') onCouponApply(e)
   }
 
-  useEffect(() => {
-    couponRest.isFirst(formula.email).then(result => {
-      if (result) setCoupon(result)
-      else setCoupon(null)
-    })
-  }, [null])
+  // useEffect(() => {
+  //   couponRest.isFirst(formula.email).then(result => {
+  //     if (result) setCoupon(result)
+  //     else setCoupon(null)
+  //   })
+  // }, [null])
 
   return (
     <>
