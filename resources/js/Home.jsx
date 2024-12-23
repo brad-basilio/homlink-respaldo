@@ -18,11 +18,7 @@ const Home = ({ sliders, items, supplies, testimonies, popups }) => {
   const tipoSlider = 'vua';
 
   return (<>
-  {
-    tipoSlider == 'vua' ?
-    <Banner sliders={sliders}/>
-    : <Banner sliders={sliders}/>
-  }
+    <Banner sliders={sliders} />
     <hr className='h-4 bg-transparent border-none' />
     <Highlights />
     <HowItWorks />
@@ -31,7 +27,7 @@ const Home = ({ sliders, items, supplies, testimonies, popups }) => {
     <Supplies supplies={supplies} />
     <Testimonies testimonies={testimonies} />
     <CallToAction />
-   <Popups popups={popups}/> 
+    <Popups popups={popups} />
   </>);
 };
 
