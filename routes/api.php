@@ -82,12 +82,15 @@ Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
 
 Route::post('/user-formulas', [UserFormulasController::class, 'save']);
 
-Route::post('/culqi/order', [CulqiController::class, 'order']);
-Route::post('/culqi/token', [CulqiController::class, 'token']);
-Route::post('/culqi/webhook', [CulqiController::class, 'webhook']);
-
 Route::post('/coupons', [CouponController::class, 'save']);
 Route::post('/coupons/is-first', [CouponController::class, 'isFirst']);
+
+Route::prefix('/culqi')->group(function () {
+    Route::post('/order', [CulqiController::class, 'order']);
+    Route::post('/token', [CulqiController::class, 'token']);
+    Route::post('/webhook', [CulqiController::class, 'webhook']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])
         ->name('logout');
