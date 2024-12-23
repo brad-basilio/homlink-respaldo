@@ -7,7 +7,7 @@ const SupplieCard = ({...supplie}) => {
     </div>
     <div className="h-12 line-clamp-3 text-start">
       <h4 className="text-xs font-bold">{supplie.name}</h4>
-      <p className="text-xs">{supplie.description}</p>
+      <p className="text-xs font-extralight">{supplie.description}</p>
     </div>
   </article>
 }

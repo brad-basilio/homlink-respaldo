@@ -141,8 +141,8 @@
       "_main-B2CtU6ez.js"
     ]
   },
-  "_SupplieCard-DRKOIjnn.js": {
-    "file": "assets/SupplieCard-DRKOIjnn.js",
+  "_SupplieCard-DdOcLO1D.js": {
+    "file": "assets/SupplieCard-DdOcLO1D.js",
     "name": "SupplieCard",
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
@@ -1323,7 +1323,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-ClxeGkIS.js",
+    "file": "assets/CheckboxFormGroup-uOWZuDyS.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -1373,7 +1373,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
+    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1442,7 +1442,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-ClxeGkIS.js",
+    "file": "assets/Filter-uOWZuDyS.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1522,7 +1522,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-uOWZuDyS.js",
+    "file": "assets/Filter-ClxeGkIS.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1948,10 +1948,10 @@
     ]
   },
   "resources/js/Components/Test/Email.jsx": {
-    "file": "assets/Email-CvbRQhCn.js",
+    "file": "assets/Email-BlS74Y2H.js",
     "name": "Email",
     "src": "resources/js/Components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -1982,10 +1982,10 @@
     ]
   },
   "resources/js/Components/Test/HairType.jsx": {
-    "file": "assets/HairType-DhY7fDbP.js",
+    "file": "assets/HairType-CpPx52vs.js",
     "name": "HairType",
     "src": "resources/js/Components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2116,7 +2116,7 @@
     "isEntry": true
   },
   "resources/js/Components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-uOWZuDyS.js",
+    "file": "assets/CheckboxFormGroup-ClxeGkIS.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -2156,7 +2156,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
+    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -2347,7 +2347,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-Kgj55HJt.js",
+    "file": "assets/Home-CB3fppby.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -2364,7 +2364,7 @@
       "resources/js/Components/Home/Banner.jsx",
       "resources/js/Components/Home/Supplies.jsx",
       "_Number2Currency-e57Tgsuk.js",
-      "_SupplieCard-DRKOIjnn.js",
+      "_SupplieCard-DdOcLO1D.js",
       "_index-B1nVdsa0.js",
       "_index-DO3Aws4m.js",
       "_tippy-react.esm-CHhA99mn.js",
@@ -2585,7 +2585,7 @@
     ]
   },
   "resources/js/Supplies.jsx": {
-    "file": "assets/Supplies-YhJVzLq-.js",
+    "file": "assets/Supplies-D6S9ZqzK.js",
     "name": "Supplies",
     "src": "resources/js/Supplies.jsx",
     "isEntry": true,
@@ -2595,7 +2595,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_CreateReactScript-B4L7iD9b.js",
       "_Base-C8pp5Bpj.js",
-      "_SupplieCard-DRKOIjnn.js",
+      "_SupplieCard-DdOcLO1D.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
@@ -2646,7 +2646,7 @@
     ]
   },
   "resources/js/TestResult.jsx": {
-    "file": "assets/TestResult-EGjZS9D4.js",
+    "file": "assets/TestResult-Ca8DTC4Z.js",
     "name": "TestResult",
     "src": "resources/js/TestResult.jsx",
     "isEntry": true,
@@ -2656,7 +2656,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-C8pp5Bpj.js",
       "_CreateReactScript-B4L7iD9b.js",
-      "_SupplieCard-DRKOIjnn.js",
+      "_SupplieCard-DdOcLO1D.js",
       "_ProgressBar-cOY9uk2D.js",
       "_main-B2CtU6ez.js",
       "_index-DO3Aws4m.js",
