@@ -22,7 +22,7 @@ class PostController extends BasicController
         return $model::with(['category', 'tags']);
     }
 
-    public function afterSave(Request $request, object $jpa)
+    public function afterSave(Request $request, object $jpa, bool $isNew)
     {
         $tags = \explode(',', $request->tags ?? '');
 

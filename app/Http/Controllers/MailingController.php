@@ -43,7 +43,7 @@ class MailingController extends Controller
 
             $socials = Social::where('visible', true)->where('status', true)->get();
             $data =  \array_merge(
-                ['socials' => $socials],
+                ['socials' => $socials->toArray()],
                 $data
             );
             $content = View::make($view, $data)->render();

@@ -1,10 +1,10 @@
 import React from "react"
-import organic from './images/organic.svg'
+import crueltyFree from './images/cruelty-free.svg'
+import customizable from './images/customizable.svg'
 import noParabens from './images/no-parabens.svg'
 import noSulfates from './images/no-sulfates.svg'
-import customizable from './images/customizable.svg'
+import organic from './images/organic.svg'
 import vegan from './images/vegan.svg'
-import crueltyFree from './images/cruelty-free.svg'
 
 const Highlights2 = () => {
   return <div className="p-[10%] bg-[#FBF5F1] md:py-[7.5%] lg:py-[5%]" style={{
@@ -47,7 +47,7 @@ const Highlights2 = () => {
           </tr>
         </tbody>
       </table>
-      <button className='bg-[rgba(197,184,212,.50)] text-white text-sm px-4 py-3 rounded border border-white'>TE CONTAMOS MAS AQUI</button>
+      <button className='bg-[rgba(197,184,212,.50)] text-white text-sm px-4 py-3 rounded border border-white'>TE CONTAMOS MÁS AQUÍ</button>
     </div>
   </div>
 }

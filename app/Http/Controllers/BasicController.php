@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
-use App\Models\Faq;
 use App\Models\General;
-use App\Models\Sale;
 use App\Models\Social;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -89,8 +87,6 @@ class BasicController extends Controller
     $socials = Social::where('visible', true)->where('status', true)->get();
     $terms = General::select(['description'])->where('correlative', 'terms_conditions')->first();
     $footerLinks = Aboutus::whereIn('correlative', ['phone', 'email', 'whatsapp', 'customer-complaints'])->get();
-
-    if (Auth::check()) Auth::user()->getAllPermissions();
 
     $properties = [
       'session' => Auth::user(),
@@ -228,11 +224,13 @@ class BasicController extends Controller
 
       if (!$jpa) {
         $jpa = $this->model::create($body);
+        $isNew = true;
       } else {
         $jpa->update($body);
+        $isNew = false;
       }
 
-      $data = $this->afterSave($request, $jpa);
+      $data = $this->afterSave($request, $jpa, $isNew);
       if ($data) {
         $response->data = $data;
       }
@@ -250,7 +248,7 @@ class BasicController extends Controller
     }
   }
 
-  public function afterSave(Request $request, object $jpa)
+  public function afterSave(Request $request, object $jpa, bool $isNew)
   {
     return null;
   }

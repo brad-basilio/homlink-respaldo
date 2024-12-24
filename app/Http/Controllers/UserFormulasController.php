@@ -25,7 +25,7 @@ class UserFormulasController extends BasicController
 
         $body = $request->all();
         $body['fragrance_id'] = $body['fragrance'];
-        
+
         $jpa = UserFormulas::select()
             ->where('has_treatment', $body['has_treatment'])
             ->where('scalp_type', $body['scalp_type'])
@@ -42,8 +42,13 @@ class UserFormulasController extends BasicController
 
         return $body;
     }
-    public function afterSave(Request $request, object $jpa)
+    public function afterSave(Request $request, object $jpa, bool $isNew)
     {
+        if (!$isNew) {
+            MailingController::simpleNotify('mailing.new-formula', $jpa->email, [
+                'title' => 'Formula lista - ' . \env('APP_NAME')
+            ]);
+        }
         return $jpa;
     }
 }

@@ -37,8 +37,8 @@
   </div>
   <div style="padding: 2.5%; margin: auto; width: max-content">
     @foreach ($socials as $social)
-      <a href="{{ $social->link }}" class="{{ $social['icon'] }}"
-        style="display: block, width: 20px; height: 20px; background-color: #fff; border-radius: 990px">{{ $social->name }}</a>
+      <a href="{{ $social['link'] }}" class="{{ $social['icon'] }}"
+        style="display: block, width: 20px; height: 20px; background-color: #fff; border-radius: 990px">{{ $social['name'] }}</a>
     @endforeach
   </div>
 </body>
