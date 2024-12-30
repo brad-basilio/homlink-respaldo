@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react"
 const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef(null)
+  const btnToggleRef = useRef(null);
 
   const toggleMenu = (event) => {
     if (event.target.closest('.menu-toggle')) {
@@ -15,6 +16,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
+      if (btnToggleRef.current == event.target || btnToggleRef.current.contains(event.target)) return
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false)
       }
@@ -42,6 +44,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
           }}>
           <div className="flex items-center md:px-[5%]">
             <button
+              ref={btnToggleRef}
               onClick={toggleMenu}
               className="text-white h-16 w-16 px-6 menu-toggle lg:hidden"
               aria-label="Toggle menu"
