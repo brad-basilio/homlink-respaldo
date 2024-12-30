@@ -38,7 +38,7 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
       <section className='bg-[#FBF5F1] px-[5%] md:px-[7.5%] lg:px-[10%] pb-[5%] text-[#404040]'>
         <div className='p-[5%] py-[15%] md:py-[10%] lg:py-[5%] text-center '>
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-2xl mb-2">¡<b>Tu fórmula única</b> está lista!</h1>
+            <h1 className="text-2xl mb-2">¡<b className='font-bold text-[#303030]'>Tu fórmula única</b> está lista!</h1>
             <p className="mb-4 text-sm font-extralight">Conoce tus resultados y análisis de tu cabello</p>
             <div className='flex flex-wrap items-center justify-center gap-2'>
               {
@@ -83,7 +83,7 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
               }
             </div>
             <div className='text-center'>
-              <button href={`/formula/${user_formula.id}`} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>COMPRAR</button>
+              <button href={`/formula/${user_formula.id}`} className='bg-[#C5B8D4] text-white text-sm px-16 py-3 rounded mt-4 tracking-widest'>COMPRAR</button>
             </div>
           </div>
         </div>

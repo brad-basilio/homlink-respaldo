@@ -14,7 +14,7 @@ const HairType = ({ test, setTest, values }) => {
   return <>
     <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
       <div className="max-w-md mx-auto">
-        <h1 className="text-2xl mb-4">Naturalmente, ¿Cuál es tu <br /><b>tipo de cabello?</b></h1>
+        <h1 className="text-2xl mb-4">Naturalmente, ¿Cuál es tu <br /><b className="font-bold text-[#303030]">tipo de cabello?</b></h1>
         <div className="flex flex-wrap justify-evenly text-sm w-full mb-4 gap-2">
           {
             values.map((value, index) => {

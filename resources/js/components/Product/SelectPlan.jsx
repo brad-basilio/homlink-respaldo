@@ -40,11 +40,11 @@ const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [] }
       <div className={`transition-all cursor-pointer p-6 bg-white group hover:bg-[#EFBEC1] hover:text-white rounded-2xl grid grid-cols-2 items-center justify-between gap-4 shadow-md h-full`}
         onClick={() => onSelectPlan(null)}>
         <div className="text-start">
-          <span className="block">Comprar por</span>
-          <span className="block font-bold mb-2 -mt-1">1 sola vez</span>
+          <span className="block font-extralight">Comprar por</span>
+          <span className="block font-bold mb-2 -mt-1 text-[#303030]">1 sola vez</span>
         </div>
         <div className="flex flex-col gap-2 text-end">
-          <span className="ms-auto text-4xl text-[#C0AFD4] group-hover:text-white font-bold">
+          <span className="ms-auto text-4xl text-[#C0AFD4] group-hover:text-white font-extrabold tracking-tighter">
             S/{Number2Currency(finalPrice)}
           </span>
         </div>

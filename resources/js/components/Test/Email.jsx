@@ -44,7 +44,7 @@ const Email = ({ test, setTest, session }) => {
 
   return <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
     <div className="max-w-md mx-auto">
-      <h1 className="text-2xl mb-4">¡Por último, para enviárte tu fórmula <br /> personalizada déjanos <b>tu correo!</b></h1>
+      <h1 className="text-2xl mb-4">¡Por último, para enviárte tu fórmula <br /> personalizada déjanos <b className="font-bold text-[#303030]">tu correo!</b></h1>
       {/* <p className="mb-4">y recibe 10% off con un código exclusivo para ti 🤫</p> */}
       <p className="mb-4">y entérate de nuestras novedades</p>
       <form className="relative" onSubmit={onEmailSubmit}>

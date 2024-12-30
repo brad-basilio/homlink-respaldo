@@ -10,7 +10,7 @@ const Treatment = ({ test, setTest, values }) => {
     <div className="max-w-md mx-auto">
       {/* <figure className="text-6xl mb-4">💁‍♀️</figure> */}
       <img className="w-16 mx-auto mb-4" src="/assets/img/emojis/girl.png" alt="¿Tu cabello ha recibido algún tipo de tratamiento?" />
-      <h1 className="text-2xl mb-4">¿Tu cabello ha recibido algún <br className="hidden md:block" /><b>tipo de tratamiento?</b></h1>
+      <h1 className="text-2xl mb-4">¿Tu cabello ha recibido algún <br className="hidden md:block" /><b className="font-bold text-[#303030]">tipo de tratamiento?</b></h1>
       <p className="text-sm mb-4">(Es decir, ¿en los últimos 3 meses, te has teñido, laceado, hecho la queratina, etc.?)</p>
       <div className="flex justify-evenly text-sm gap-2">
         {

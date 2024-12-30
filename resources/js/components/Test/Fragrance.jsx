@@ -7,7 +7,7 @@ const Fragrance = ({ test, setTest, values }) => {
 
   return <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
     <div className="max-w-6xl mx-auto">
-      <h1 className="text-2xl mb-8">Elige la <b>fragancia</b> de tu rutina</h1>
+      <h1 className="text-2xl mb-8">Elige la <b className="font-bold text-[#303030]">fragancia</b> de tu rutina</h1>
       <div className="flex flex-wrap justify-center text-sm w-full mb-4 gap-4">
         {
           values.map((value, index) => {

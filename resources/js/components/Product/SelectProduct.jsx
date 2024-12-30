@@ -127,7 +127,7 @@ const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
     </div>
 
     <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%] mt-5 sm:mt-10">
-      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4 disabled:cursor-not-allowed' disabled={totalQuantity == 0}>SIGUIENTE</button>
+      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-16 py-3 tracking-widest rounded mt-4 disabled:cursor-not-allowed leadin' disabled={totalQuantity == 0}>SIGUIENTE</button>
     </div>
 
   </form>

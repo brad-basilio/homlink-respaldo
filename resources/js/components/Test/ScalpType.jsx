@@ -20,7 +20,7 @@ const ScalpType = ({ test, setTest, values }) => {
   return <>
     <section className="p-[5%] py-[15%] md:py-[10%] lg:py-[5%] bg-white text-center text-[#404040]">
       <div className="max-w-md mx-auto">
-        <h1 className="text-2xl mb-4">Tu <b>cuero cabelludo</b> es:</h1>
+        <h1 className="text-2xl mb-4 font-light">Tu <b className="font-bold text-[#303030]">cuero cabelludo</b> es:</h1>
         <div className="flex justify-evenly text-sm w-full mb-4 gap-2 h-32">
           {
             values.map((value, index) => {

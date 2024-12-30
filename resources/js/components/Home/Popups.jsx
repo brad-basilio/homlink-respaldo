@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Autoplay } from "swiper/modules"
 import "swiper/css/autoplay"
+import Tippy from "@tippyjs/react";
 
 const Popups = ({ popups }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -73,7 +74,11 @@ const Popups = ({ popups }) => {
       >
         {currentPopups.map((popup, index) => (
           <SwiperSlide key={index} className="flex items-center justify-center h-max relative">
-            <button className="absolute top-4 right-4 mdi mdi-close text-2xl text-white z-10" onClick={() => setIsOpen(false)}></button>
+            <Tippy content="Cerrar popup">
+            <button className="absolute top-4 right-4 mdi mdi-close text-2xl text-white z-10" onClick={() => setIsOpen(false)} style={{
+              textShadow: '0 0 10px rgba(0,0,0,.5)'
+            }}></button>
+            </Tippy>
             <a
               className="block w-full h-full"
               href={popup.link}
