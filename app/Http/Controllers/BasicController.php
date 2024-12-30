@@ -20,6 +20,7 @@ use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 use SoDe\Extend\Text;
 use Illuminate\Support\Facades\Schema;
+use Intervention\Image\Facades\Image;
 
 class BasicController extends Controller
 {
@@ -215,9 +216,19 @@ class BasicController extends Controller
         if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
         $uuid = Crypto::randomUUID();
-        $path = "images/{$snake_case}/{$uuid}.img";
-        Storage::put($path, file_get_contents($full));
-        $body[$field] = $uuid;
+        $ext = $full->getClientOriginalExtension();
+        $path = \storage_path("app/images/{$snake_case}/{$uuid}.{$ext}");
+
+        $image = Image::make($full);
+        if ($image->width() > 1000 || $image->height() > 1000) {
+          $image->resize(1000, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize(); // No permite aumentar el tamaño
+          });
+        }
+        $image->save($path); // Guarda la imagen redimensionada
+
+        $body[$field] = "{$uuid}.{$ext}";
       }
 
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
