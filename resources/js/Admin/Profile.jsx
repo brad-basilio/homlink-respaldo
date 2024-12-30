@@ -1,12 +1,12 @@
+import Tippy from '@tippyjs/react';
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 import { Cookies, JSON, Notify } from 'sode-extend-react';
-import CreateReactScript from '../Utils/CreateReactScript';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
-import BaseAdminto from '../Components/Adminto/Base';
+import 'tippy.js/dist/tippy.css';
 import ProfileRest from '../Actions/Admin/ProfileRest';
+import BaseAdminto from '../Components/Adminto/Base';
+import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
+import CreateReactScript from '../Utils/CreateReactScript';
 
 const Profile = (props) => {
   const nameRef = useRef()
@@ -61,14 +61,14 @@ const Profile = (props) => {
       setSession(newSession)
 
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Correcto',
         body: 'La imagen de perfil se actualizo correctamente',
         type: 'success'
       })
     } catch (error) {
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Error',
         body: error.message,
         type: 'danger'
@@ -77,38 +77,38 @@ const Profile = (props) => {
   }
 
   return <div className='row justify-content-center align-items-center' style={{ height: 'calc(100vh - 135px)' }}>
-      <div className='col-xl-3 col-lg-4 col-md-6 col-sm-8 col-xs-12'>
-        <form className='card' onSubmit={onFormSubmit}>
-          <div className='card-header'>
-            <h4 className='card-title mb-0'>Perfil</h4>
+    <div className='col-xl-3 col-lg-4 col-md-6 col-sm-8 col-xs-12'>
+      <form className='card' onSubmit={onFormSubmit}>
+        <div className='card-header'>
+          <h4 className='card-title mb-0'>Perfil</h4>
+        </div>
+        <div className='card-body'>
+          <Tippy content='Cambiar foto de perfil' arrow={true}>
+            <label htmlFor='avatar' className='rounded-circle mx-auto d-block' style={{ cursor: 'pointer', width: 'max-content' }}>
+              <input className='d-none' type='file' name='avatar' id='avatar' accept='image/*' onChange={onProfileChange} />
+              <img className='avatar-xl rounded-circle' src={`/api/admin/profile/${session.relative_id}?v=${crypto.randomUUID()}`} alt={`Perfil de ${session.name} ${session.lastname}`} style={{ objectFit: 'cover', objectPosition: 'center' }} />
+            </label>
+          </Tippy>
+          <hr className='mt-3 mb-2' />
+          <InputFormGroup eRef={nameRef} label='Nombres' value={session.name} required />
+          <InputFormGroup eRef={lastnameRef} label='Apellidos' value={session.lastname} required />
+          <div className='text-center'>
+            <button className='btn btn-primary btn-block' type='submit'>
+              <i className='fa fa-save'></i> Actualizar
+            </button>
           </div>
-          <div className='card-body'>
-            <Tippy content='Cambiar foto de perfil' arrow={true}>
-              <label htmlFor='avatar' className='rounded-circle mx-auto d-block' style={{ cursor: 'pointer', width: 'max-content' }}>
-                <input className='d-none' type='file' name='avatar' id='avatar' accept='image/*' onChange={onProfileChange} />
-                <img className='avatar-xl rounded-circle' src={`/api/admin/profile/${session.relative_id}?v=${crypto.randomUUID()}`} alt={`Perfil de ${session.name} ${session.lastname}`} style={{ objectFit: 'cover', objectPosition: 'center' }} />
-              </label>
-            </Tippy>
-            <hr className='mt-3 mb-2' />
-            <InputFormGroup eRef={nameRef} label='Nombres' value={session.name} required />
-            <InputFormGroup eRef={lastnameRef} label='Apellidos' value={session.lastname} required />
-            <div className='text-center'>
-              <button className='btn btn-primary btn-block' type='submit'>
-                <i className='fa fa-save'></i> Actualizar
-              </button>
-            </div>
-            <hr className='mt-3 mb-2' />
-            <p className='card-text text-center'>
-              <small className='text-muted'>Ultima actualizacion {moment(session.updated_at).fromNow()}</small>
-            </p>
-          </div>
-        </form>
-      </div>
+          <hr className='mt-3 mb-2' />
+          <p className='card-text text-center'>
+            <small className='text-muted'>Ultima actualizacion {moment(session.updated_at).fromNow()}</small>
+          </p>
+        </div>
+      </form>
     </div>
+  </div>
 }
 
 CreateReactScript((el, properties) => {
   createRoot(el).render(<BaseAdminto {...properties} title='Perfil de usuario' >
-    <Profile {...properties}/>
+    <Profile {...properties} />
   </BaseAdminto>);
 })

@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>{{ env('APP_NAME', 'Kaori') }}</title>
-  <link rel="shortcut icon" href="/assets/img/icon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
 
   <link href="/lte/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
   <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>

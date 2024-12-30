@@ -11,7 +11,7 @@ class CulqiRest {
       if (!status) throw new Error(result?.message || 'Ocurrio un error inesperado')
 
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Correcto',
         body: result.message,
         type: 'success'
@@ -19,7 +19,7 @@ class CulqiRest {
       return result
     } catch (error) {
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Error',
         body: error.message,
         type: 'danger'
@@ -38,7 +38,7 @@ class CulqiRest {
       if (!status) throw new Error(result?.message || 'Ocurrio un error inesperado')
 
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Correcto',
         body: result.message,
         type: 'success'
@@ -46,7 +46,7 @@ class CulqiRest {
       return result
     } catch (error) {
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Error',
         body: error.message,
         type: 'danger'

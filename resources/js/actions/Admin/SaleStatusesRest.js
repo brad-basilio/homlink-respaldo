@@ -11,7 +11,7 @@ class SaleStatusesRest extends BasicRest {
       return result.data
     } catch (error) {
       Notify.add({
-        icon: '/assets/img/icon.svg',
+        icon: '/assets/img/favicon.png',
         title: 'Error',
         body: error.message,
         type: 'danger'
