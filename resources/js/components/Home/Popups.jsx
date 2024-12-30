@@ -22,6 +22,21 @@ const Popups = ({ popups }) => {
     }
   }, [popups]);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (currentPopups.length === 0) return null;
 
   return (
@@ -54,10 +69,11 @@ const Popups = ({ popups }) => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        className="w-full h-full"
+        className="w-max max-w-full h-max max-h-full"
       >
         {currentPopups.map((popup, index) => (
-          <SwiperSlide key={index} className="flex items-center justify-center">
+          <SwiperSlide key={index} className="flex items-center justify-center h-max relative">
+            <button className="absolute top-4 right-4 mdi mdi-close text-2xl text-white z-10" onClick={() => setIsOpen(false)}></button>
             <a
               className="block w-full h-full"
               href={popup.link}
