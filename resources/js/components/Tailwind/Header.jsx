@@ -91,7 +91,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
               <a href="/supplies">NUESTROS INGREDIENTES</a>
             </li>
             <li>
-              <a href="/plans">SUBSCRIPCION</a>
+              <a href="/plans">SUSCRIPCIÓN</a>
             </li>
             <li>
               <a href="/faqs">Q&A</a>
