@@ -14,7 +14,7 @@ const ScalpType = React.lazy(() => import('./Components/Test/ScalpType'));
 const HairGoals = React.lazy(() => import('./Components/Test/HairGoals'));
 const Fragrance = React.lazy(() => import('./Components/Test/Fragrance'));
 
-const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrances }) => {
+const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrances, userFormulasCount = 0 }) => {
 
   const vuaTest = Local.get('vua_test') ?? {}
   if (!hasTreatment.find(x => x.id == vuaTest.has_treatment)) vuaTest.has_treatment = null
@@ -28,7 +28,7 @@ const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrance
 
   // Páginas
   const pages = {
-    'has_started': <Main test={test} setTest={setTest} setFirstTime={setFirstTime} />,
+    'has_started': <Main test={test} setTest={setTest} setFirstTime={setFirstTime} userFormulasCount={userFormulasCount} />,
     'has_treatment': <Treatment test={test} setTest={setTest} values={hasTreatment} />,
     'scalp_type': <ScalpType test={test} setTest={setTest} values={scalpType} />,
     'hair_type': <HairType test={test} setTest={setTest} values={hairType} />,

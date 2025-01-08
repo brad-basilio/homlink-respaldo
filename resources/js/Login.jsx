@@ -63,7 +63,7 @@ const Login = ({ }) => {
                 <Link href="/" className='d-block mb-2'>
                   <img src='/assets/img/logo-dark.svg' alt="" className="mx-auto" style={{ height: '40px' }} />
                 </Link>
-                <b className='mb-4' style={{color: '#404040', fontSize: 'x-large'}}>¡Ahora puedes ser una Vuá lover!</b>
+                <b className='mb-4' style={{ color: '#404040', fontSize: 'x-large' }}>¡Ahora puedes ser una Vuá lover!</b>
                 <ul className='d-flex flex-wrap justify-content-center gap-x-4 gap-y-0 text-sm'>
                   <li><i className='mdi mdi-circle-small'></i> Guarda tus fórmulas únicas</li>
                   <li><i className='mdi mdi-circle-small'></i> Beneficios en tu cumpleaños</li>
@@ -72,8 +72,13 @@ const Login = ({ }) => {
               </div>
               <div className="card">
                 <div className="card-body p-4">
-                  <div className="text-center mb-4">
-                    <h4 className="text-uppercase mt-0 font-bold">Inicia Sesión</h4>
+                  <div className="text-center mb-4 d-flex align-items-center justify-content-evenly gap-1 border p-1" style={{
+                    borderRadius: '8px'
+                  }}>
+                    <h4 className='btn btn-pink text-uppercase mt-0 font-bold w-100 d-block' style={{ backgroundColor: '#F1CACD', border: 'none' }}>INICIA SESIÓN</h4>
+                    <a href='/register' className='btn btn-white text-uppercase mt-0 font-bold w-100 d-block' style={{
+                      border: 'none'
+                    }}>REGÍSTRATE</a>
                   </div>
                   <form onSubmit={onLoginSubmit} autoComplete='off'>
                     <div className="mb-3">
@@ -93,7 +98,7 @@ const Login = ({ }) => {
                       </div>
                     </div> */}
                     <div className="mb-3 d-grid text-center">
-                      <button className="btn btn-pink" type="submit" style={{ backgroundColor: '#A191B8', borderColor: '#A191B8'}}> Iniciar Sesión </button>
+                      <button className="btn btn-pink rounded-pill w-max mx-auto px-4" type="submit" style={{ backgroundColor: '#A191B8', borderColor: '#A191B8' }}> INGRESAR </button>
                     </div>
                   </form>
                 </div>

@@ -31,6 +31,7 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
 
   useEffect(() => {
     Local.delete('vua_test')
+    Local.delete('vua_cart')
   }, [null])
 
   return (

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Formula;
 use App\Models\Fragrance;
+use App\Models\UserFormulas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TestController extends BasicController
 {
@@ -21,12 +23,19 @@ class TestController extends BasicController
             ->where('visible', true)
             ->where('status', true)
             ->get();
+
+        $userFormulasCount = 0;
+        if (Auth::check()) {
+            $userFormulasCount = UserFormulas::where('user_id', Auth::user()->id)->count();
+        }
+
         return [
             'hasTreatment' => $has_treatment,
             'scalpType' => $scalp_type,
             'hairType' => $hair_type,
             'hairGoals' => $hair_goals,
-            'fragrances' => $fragrances
+            'fragrances' => $fragrances,
+            'userFormulasCount' => $userFormulasCount
         ];
     }
 }

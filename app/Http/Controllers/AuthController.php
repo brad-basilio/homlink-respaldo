@@ -96,6 +96,12 @@ class AuthController extends Controller
       'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
       'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
       'RECAPTCHA_SITE_KEY' => env('RECAPTCHA_SITE_KEY'),
+      'global' => [
+        'APP_NAME' => env('APP_NAME', 'Trasciende'),
+        'APP_URL' => env('APP_URL'),
+        'APP_DOMAIN' => env('APP_DOMAIN'),
+        'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
+      ]
     ])->rootView('auth');
   }
 
@@ -107,7 +113,13 @@ class AuthController extends Controller
     if (!$preUserJpa) return redirect('/login');
 
     return Inertia::render('ConfirmEmail', [
-      'email' => $preUserJpa->email
+      'email' => $preUserJpa->email,
+      'global' => [
+        'APP_NAME' => env('APP_NAME', 'Trasciende'),
+        'APP_URL' => env('APP_URL'),
+        'APP_DOMAIN' => env('APP_DOMAIN'),
+        'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
+      ]
     ])->rootView('auth');
   }
 

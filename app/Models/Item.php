@@ -19,6 +19,7 @@ class Item extends Model
         'price',
         'discount',
         'image',
+        'is_default',
         'featured',
         'visible',
         'status',

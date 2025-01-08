@@ -5,7 +5,13 @@ import Aos from "aos";
 
 const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
 
-  const vua_cart = Local.get('vua_cart') ?? []
+  console.log(items)
+
+  const vua_cart = Local.get('vua_cart') ?? items.map(x => {
+    if (!x.is_default) return
+    x.quantity = 1;
+    return x;
+  }).filter(Boolean)
   const [cart, setCart] = useState(vua_cart.filter(x => !!items.find(y => x.id == y.id)) ?? []);
 
   const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);

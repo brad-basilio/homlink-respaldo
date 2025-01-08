@@ -102,8 +102,13 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
             </div>
             <div className="card">
               <div className="card-body p-4">
-                <div className="text-center mb-4">
-                  <h4 className="text-uppercase mt-0 font-bold">Registrate</h4>
+                <div className="text-center mb-4 d-flex align-items-center justify-content-evenly gap-1 border p-1" style={{
+                  borderRadius: '8px'
+                }}>
+                  <a href='/login' className='btn btn-white text-uppercase mt-0 font-bold w-100 d-block' style={{
+                    border: 'none'
+                  }}>INICIA SESIÓN</a>
+                  <h4 className='btn btn-pink text-uppercase mt-0 font-bold w-100 d-block' style={{ backgroundColor: '#F1CACD', border: 'none' }}>REGÍSTRATE</h4>
                 </div>
                 <form onSubmit={onRegisterSubmit} className='row'>
                   <div className="col-sm-6 mb-2">

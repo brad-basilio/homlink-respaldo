@@ -74,6 +74,12 @@ const Items = ({ }) => {
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
+  const onIsDefaultChange = async ({ id, value }) => {
+    const result = await itemsRest.boolean({ id, field: 'is_default', value })
+    if (!result) return
+    $(gridRef.current).dxDataGrid('instance').refresh()
+  }
+
   const onVisibleChange = async ({ id, value }) => {
     const result = await itemsRest.boolean({ id, field: 'visible', value })
     if (!result) return
@@ -154,6 +160,15 @@ const Items = ({ }) => {
           allowFiltering: false,
           cellTemplate: (container, { data }) => {
             ReactAppend(container, <img src={`/api/items/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
+          }
+        },
+        {
+          dataField: 'is_default',
+          caption: 'Preseleccionar',
+          dataType: 'boolean',
+          width: '120px',
+          cellTemplate: (container, { data }) => {
+            ReactAppend(container, <SwitchFormGroup checked={data.is_default} onChange={(e) => onIsDefaultChange({ id: data.id, value: e.target.checked })} />)
           }
         },
         {

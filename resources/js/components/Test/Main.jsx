@@ -1,6 +1,6 @@
 import React from "react"
 
-const Main = ({ test, setTest, setFirstTime }) => {
+const Main = ({ test, setTest, setFirstTime, userFormulasCount }) => {
   const onStartTestClicked = (refresh) => {
     setFirstTime(false)
     if (refresh) {
@@ -33,6 +33,16 @@ const Main = ({ test, setTest, setFirstTime }) => {
         {
           test.has_started &&
           <button className='bg-white text-[#9577B9] text-sm px-8 py-3 rounded border border-white w-max text-nowrap' onClick={() => onStartTestClicked(true)}>REINICIAR TEST</button>
+        }
+
+        {
+          userFormulasCount > 0 &&
+          <button
+            href='/my-account'
+            className='bg-white text-[#9577B9] text-sm px-8 py-3 rounded border border-white w-max text-nowrap'>
+            MIS FÓRMULAS
+            <i className="ms-1 mdi mdi-arrow-top-right"></i>
+          </button>
         }
       </div>
       <figure className='h-[50vh]'></figure>
