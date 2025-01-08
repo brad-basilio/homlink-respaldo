@@ -27,6 +27,8 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
   const roleRef = useRef()
   const nameRef = useRef()
   const lastnameRef = useRef()
+  const monthRef = useRef()
+  const dayRef = useRef()
   const emailRef = useRef()
   const passwordRef = useRef()
   const confirmationRef = useRef()
@@ -69,6 +71,8 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
     const request = {
       name: nameRef.current.value,
       lastname: lastnameRef.current.value,
+      month: monthRef.current.value,
+      day: dayRef.current.value,
       email: emailRef.current.value,
       password: jsEncrypt.encrypt(password),
       confirmation: jsEncrypt.encrypt(confirmation),
@@ -134,12 +138,12 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                       required />
                   </div>
                   <div class="mb-2">
-                    <label for="password" class="form-label">Cumpleaños</label>
+                    <label for="password" class="form-label">Cumpleaños <b className="text-danger">*</b></label>
                     <div class="input-group input-group-merge">
                       <div class="input-group-text" data-password="false">
                         <span class="mdi mdi-cake-variant"></span>
                       </div>
-                      <select id='birth-month' class="form-select" onChange={(e) => setMonth(e.target.value)} defaultValue={month} value={month}>
+                      <select ref={monthRef} id='birth-month' class="form-select" onChange={(e) => setMonth(e.target.value)} defaultValue={month} value={month}>
                         <option value="01" data-days={31}>Enero</option>
                         <option value="02" data-days={29}>Febrero</option>
                         <option value="03" data-days={31}>Marzo</option>
@@ -153,7 +157,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                         <option value="11" data-days={30}>Noviembre</option>
                         <option value="12" data-days={31}>Diciembre</option>
                       </select>
-                      <select id="birth-day" className="form-select">
+                      <select ref={dayRef} id="birth-day" className="form-select">
                         {
                           arrayDays.map((day) => {
                             return <option key={day} value={day}>{day}</option>
