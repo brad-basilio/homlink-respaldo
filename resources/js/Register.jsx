@@ -1,12 +1,12 @@
-import { createRoot } from 'react-dom/client'
-import React, { useEffect, useRef, useState } from 'react'
-import JSEncrypt from 'jsencrypt'
-import CreateReactScript from './Utils/CreateReactScript'
-import AuthRest from './actions/AuthRest'
-import ReCAPTCHA from 'react-google-recaptcha'
 import { Link } from '@inertiajs/react'
+import JSEncrypt from 'jsencrypt'
+import React, { useEffect, useRef, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+import ReCAPTCHA from 'react-google-recaptcha'
 import Swal from 'sweetalert2'
+import CreateReactScript from './Utils/CreateReactScript'
 import Global from './Utils/Global'
+import AuthRest from './actions/AuthRest'
 
 const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
 
@@ -19,6 +19,8 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
   const [loading, setLoading] = useState(true)
   const [captchaValue, setCaptchaValue] = useState(null)
   const [found, setFound] = useState(false)
+  const [month, setMonth] = useState('01')
+  const [days, setDays] = useState(31)
 
   // const documentTypeRef = useRef()
   // const documentNumberRef = useRef()
@@ -84,6 +86,16 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
     setFound(false)
   }
 
+  useEffect(() => {
+    const nro = document.querySelector(`#birth-month option[value="${month}"]`)?.getAttribute('data-days')
+    setDays(nro)
+  }, [month])
+
+  const arrayDays = []
+  for (let index = 1; index <= days; index++) {
+    arrayDays.push(String(index).padStart(2, '0'))
+  }
+
   return (<>
     <div className="account-pages mt-5 mb-5">
       <div className="container">
@@ -121,6 +133,35 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                     <input ref={lastnameRef} className="form-control" type="text" id="lastname" placeholder="Ingrese sus apellidos"
                       required />
                   </div>
+                  <div class="mb-2">
+                    <label for="password" class="form-label">Cumpleaños</label>
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-text" data-password="false">
+                        <span class="mdi mdi-cake-variant"></span>
+                      </div>
+                      <select id='birth-month' class="form-select" onChange={(e) => setMonth(e.target.value)} defaultValue={month} value={month}>
+                        <option value="01" data-days={31}>Enero</option>
+                        <option value="02" data-days={29}>Febrero</option>
+                        <option value="03" data-days={31}>Marzo</option>
+                        <option value="04" data-days={30}>Abril</option>
+                        <option value="05" data-days={31}>Mayo</option>
+                        <option value="06" data-days={30}>Junio</option>
+                        <option value="07" data-days={31}>Julio</option>
+                        <option value="08" data-days={31}>Agosto</option>
+                        <option value="09" data-days={30}>Septiembre</option>
+                        <option value="10" data-days={31}>Octubre</option>
+                        <option value="11" data-days={30}>Noviembre</option>
+                        <option value="12" data-days={31}>Diciembre</option>
+                      </select>
+                      <select id="birth-day" className="form-select">
+                        {
+                          arrayDays.map((day) => {
+                            return <option key={day} value={day}>{day}</option>
+                          })
+                        }
+                      </select>
+                    </div>
+                  </div>
                   <div className="col-12 mb-2">
                     <label htmlFor="email" className="form-label">Correo electronico <b className="text-danger">*</b></label>
                     <input ref={emailRef} className="form-control" type="email" id="email" required
@@ -138,10 +179,10 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                   </div>
                   <ReCAPTCHA className='m-auto mb-3' sitekey={RECAPTCHA_SITE_KEY} onChange={setCaptchaValue} style={{ display: "block", width: 'max-content' }} />
                   <div className="mb-0 text-center d-grid">
-                    <button className="btn btn-pink" type="submit" disabled={loading} style={{ backgroundColor: '#A191B8', borderColor: '#A191B8' }}>
+                    <button className="btn btn-pink rounded-pill w-max mx-auto px-4" type="submit" disabled={loading} style={{ backgroundColor: '#A191B8', borderColor: '#A191B8' }}>
                       {loading ? <>
-                        <i className='fa fa-spinner fa-spin'></i> Verificando
-                      </> : 'Registrarme'}
+                        <i className='fa fa-spinner fa-spin'></i> VERIFICANDO
+                      </> : '¡SER VUÁ LOVER!'}
                     </button>
                   </div>
                 </form>
