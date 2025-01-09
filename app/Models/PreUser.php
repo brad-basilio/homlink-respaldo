@@ -13,6 +13,8 @@ class PreUser extends Model
         'name',
         'lastname',
         'email',
+        'birth_day',
+        'birth_month',
         'password',
         'confirmation_token',
         'token',

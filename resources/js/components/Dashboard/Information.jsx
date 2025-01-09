@@ -53,7 +53,7 @@ const Information = ({ session }) => {
       <h2 className='text-xl border-b pb-2 mb-4 font-bold'>
         Tu informacion personal
       </h2>
-      <div className='flex flex-col gap-6 p-6 pb-10 items-start relative border bg-[#F7F7E7] rounded-3xl'>
+      <div className='flex flex-col gap-6 p-6 pb-10 mb-4 items-start relative border bg-[#F7F7E7] rounded-3xl'>
         <div>
           <b>Nombres y apellidos:</b>
           <p>{session.name} {session.lastname}</p>

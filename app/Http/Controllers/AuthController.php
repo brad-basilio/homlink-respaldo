@@ -56,6 +56,8 @@ class AuthController extends Controller
           'name' => $preUserJpa->name,
           'lastname' => $preUserJpa->lastname,
           'email' => $preUserJpa->email,
+          'birth_day' => $preUserJpa->birth_day,
+          'birth_month' => $preUserJpa->birth_month,
           'email_verified_at' => Trace::getDate('mysql'),
           'password' => $preUserJpa->password,
           'birthdate' => $preUserJpa->birthdate,
@@ -173,6 +175,8 @@ class AuthController extends Controller
       ], [
         'name' => $body['name'],
         'lastname' => $body['lastname'],
+        'birth_day' => $body['day'],
+        'birth_month' => $body['month'],
         'email' => $body['email'],
         'role' => $roleJpa->relative_id,
         'password' => Controller::decode($body['password']),
