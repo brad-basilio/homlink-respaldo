@@ -17,6 +17,7 @@ class SaleController extends BasicController
         return $model::select('sales.*')
             ->with('status', 'formula', 'bundle')
             ->join('statuses AS status', 'status.id', 'sales.status_id')
-            ->where('email', Auth::user()->email);
+            ->where('email', Auth::user()->email)
+            ->orWhere('user_id', Auth::user()->id);
     }
 }

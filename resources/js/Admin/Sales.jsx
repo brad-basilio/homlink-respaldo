@@ -12,6 +12,7 @@ import Number2Currency from '../Utils/Number2Currency';
 import Modal from '../Components/Modal';
 import Tippy from '@tippyjs/react';
 import SaleStatusesRest from '../Actions/Admin/SaleStatusesRest';
+import { renderToString } from 'react-dom/server';
 
 const salesRest = new SalesRest()
 const saleStatusesRest = new SaleStatusesRest()
@@ -113,7 +114,10 @@ const Sales = ({ statuses }) => {
           dataType: 'date',
           sortOrder: 'desc',
           cellTemplate: (container, { data }) => {
-            container.text(moment(data.created_at).fromNow())
+            container.html(renderToString(<>
+              <span className='d-block'>{moment(data.created_at).fromNow()}</span>
+              <small className='d-block text-muted'>{moment(data.created_at).format('lll')}</small>
+            </>))
           }
         },
         {

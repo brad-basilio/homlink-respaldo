@@ -32,7 +32,7 @@ const DataGrid = ({ gridRef: dataGridRef, rest, columns, toolBar, masterDetail, 
       selection: selectable ? {
         mode: 'multiple',
         selectAllMode: 'page'
-      }: null,
+      }: undefined,
       onExporting: function (e) {
         var workbook = new ExcelJS.Workbook();
         var worksheet = workbook.addWorksheet('Main sheet');

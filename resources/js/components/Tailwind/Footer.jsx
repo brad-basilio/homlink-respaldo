@@ -28,7 +28,7 @@ const Footer = ({ socials, terms, footerLinks = [] }) => {
                 Términos y condiciones
               </span>
             </li>
-            {links['customer-complaints'] && <li><a href={links['customer-complaints']}>Libro de reclamaciones</a></li>}
+            {links['customer-complaints'] && <li><a href={links['customer-complaints']} target="_blank">Libro de reclamaciones</a></li>}
           </ul>
           <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 w-max" />
         </div>

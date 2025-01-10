@@ -25,8 +25,10 @@ class TestController extends BasicController
             ->get();
 
         $userFormulasCount = 0;
-        if (Auth::check()) {
-            $userFormulasCount = UserFormulas::where('user_id', Auth::user()->id)->count();
+        if (Auth::check() && Auth::user()->hasRole('Customer')) {
+            $userFormulasCount = UserFormulas::where('user_id', Auth::user()->id)
+            ->orWhere('email', Auth::user()->email)
+            ->count();
         }
 
         return [

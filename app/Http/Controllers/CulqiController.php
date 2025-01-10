@@ -55,8 +55,8 @@ class CulqiController extends Controller
           "email" => $sale['email'],
           "phone_number" => $sale['phone'],
         ),
-        // "expiration_date" => time() + (24 * 60 * 60),
-        "expiration_date" => time() + (60),
+        "expiration_date" => time() + (24 * 60 * 60), // produccion
+        // "expiration_date" => time() + (60), // desarrollo
         "confirm" => false
       ];
 
