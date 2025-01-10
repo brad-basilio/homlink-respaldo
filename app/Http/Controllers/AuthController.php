@@ -60,7 +60,7 @@ class AuthController extends Controller
           'birth_month' => $preUserJpa->birth_month,
           'email_verified_at' => Trace::getDate('mysql'),
           'password' => $preUserJpa->password,
-          'birthdate' => $preUserJpa->birthdate,
+          'notify_me' => $preUserJpa->notify_me,
           'status' => false
         ])->assignRole($roleJpa->name);
 
@@ -181,6 +181,7 @@ class AuthController extends Controller
         'role' => $roleJpa->relative_id,
         'password' => Controller::decode($body['password']),
         'confirmation_token' => Crypto::randomUUID(),
+        'notify_me' => $body['notify_me'],
         'token' => Crypto::randomUUID(),
       ]);
 

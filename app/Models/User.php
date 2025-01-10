@@ -33,6 +33,7 @@ class User extends Authenticatable
         'birth_month',
         'email_verified_at',
         'password',
+        'notify_me',
         'dni',
         'phone',
         'country',

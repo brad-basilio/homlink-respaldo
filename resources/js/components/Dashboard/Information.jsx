@@ -98,6 +98,13 @@ const Information = ({ session }) => {
             <input ref={lastnameRef} type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#F7C2C6] focus:border-[#F7C2C6] block w-full p-2.5 outline-none" required
               defaultValue={session.lastname} />
           </div>
+          <div className='md:col-span-3'>
+            <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">
+              Dia de cumplea;os
+            </label>
+            <input ref={lastnameRef} type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#F7C2C6] focus:border-[#F7C2C6] block w-full p-2.5 outline-none" required
+              defaultValue={session.lastname} />
+          </div>
           <div className='col-span-6'>
             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900">
               Correo

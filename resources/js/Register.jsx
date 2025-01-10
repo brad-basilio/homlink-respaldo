@@ -32,6 +32,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const confirmationRef = useRef()
+  const notifyMeRef = useRef()
 
   useEffect(() => {
     setLoading(false)
@@ -77,6 +78,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
       password: jsEncrypt.encrypt(password),
       confirmation: jsEncrypt.encrypt(confirmation),
       captcha: captchaValue,
+      notify_me: notifyMeRef.current.checked
     }
     const result = await AuthRest.signup(request)
     if (!result) return setLoading(false)
@@ -176,10 +178,23 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                     <input ref={passwordRef} className="form-control" type="password" required id="password"
                       placeholder="Ingrese su contraseña" />
                   </div>
-                  <div className="col-sm-6 mb-3">
+                  <div className="col-sm-6 mb-2">
                     <label htmlFor="confirmation" className="form-label">Confirmacion <b className="text-danger">*</b></label>
                     <input ref={confirmationRef} className="form-control" type="password" required id="confirmation"
                       placeholder="Confirme su contraseña" />
+                  </div>
+                  <div className="col-12 mb-3">
+                    <div class="form-check mx-auto text-center">
+                      <label class="form-check-label mb-0" style={{
+                        userSelect: 'none',
+                        cursor: 'pointer'
+                      }}>
+                        <input ref={notifyMeRef} type="checkbox" class="form-check-input" style={{
+                          cursor: 'pointer'
+                        }} />
+                        Quiero recibir ofertas exclusivas y novedades de vuá
+                      </label>
+                    </div>
                   </div>
                   <ReCAPTCHA className='m-auto mb-3' sitekey={RECAPTCHA_SITE_KEY} onChange={setCaptchaValue} style={{ display: "block", width: 'max-content' }} />
                   <div className="mb-0 text-center d-grid">

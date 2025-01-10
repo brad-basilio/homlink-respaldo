@@ -19,5 +19,6 @@ class PreUser extends Model
         'confirmation_token',
         'token',
         'role',
+        'notify_me',
     ];
 }
