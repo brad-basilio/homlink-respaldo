@@ -22,7 +22,7 @@ const Main = ({ test, setTest, setFirstTime, userFormulasCount }) => {
         Test para <b>crear tu fórmula única.</b>
       </h1>
       <p className='my-[5%] text-sm'>
-        Danos dos minutos de tu tiempo y formularemos una rutina de cuidado del cabello única solo para ti.
+        En  menos de dos minutos, creemos juntos una fórmula única para el cuidado de tu cabello.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%]">
         <button className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded border border-white w-max  text-nowrap' onClick={() => onStartTestClicked(false)}>{

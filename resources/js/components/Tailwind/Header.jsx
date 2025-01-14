@@ -64,7 +64,7 @@ const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
               <li><a href="/faqs" className="block py-2">Q&A</a></li>
             </ul>
 
-            <button href="/test" className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FORMULA</button>
+            <button href="/test" className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FÓRMULA</button>
             <Tippy content={session ? `Perfil de ${session.name}` : 'Iniciar sesión'}>
               <a className="relative block" href='/login'>
                 {

@@ -5,8 +5,6 @@ import Aos from "aos";
 
 const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
 
-  console.log(items)
-
   const vua_cart = Local.get('vua_cart') ?? items.map(x => {
     if (!x.is_default) return
     x.quantity = 1;

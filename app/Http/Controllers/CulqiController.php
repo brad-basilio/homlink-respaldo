@@ -210,8 +210,8 @@ class CulqiController extends Controller
     if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
 
     $name = $sale->renewal->name
-      . ' - ' . $sale->name
-      . ' ' . $sale->lastname
+      . ' - ' . explode(' ', $sale->name)[0]
+      . ' ' . explode(' ', $sale->lastname)[0]
       . ' ' . Crypto::short();
     $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
 

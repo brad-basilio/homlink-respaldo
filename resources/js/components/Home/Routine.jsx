@@ -1,16 +1,18 @@
+import Aos from "aos"
 import React, { useEffect } from "react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay } from "swiper/modules"
 import "swiper/css"
 import "swiper/css/autoplay"
+import { Autoplay } from "swiper/modules"
+import { Swiper, SwiperSlide } from "swiper/react"
 import Number2Currency from "../../Utils/Number2Currency"
-import Aos from "aos"
 
 const Routine = ({ items }) => {
 
   useEffect(() => {
     Aos.init()
   }, [null])
+
+  const spv = Math.min(items.length, 4)
 
   return <section className="bg-white p-[5%] text-center md:p-[10%] md:pt-[5%] lg:px-[20%]">
     <h1 className="text-2xl text-center text-[#404040] font-bold">
@@ -21,7 +23,7 @@ const Routine = ({ items }) => {
       slidesPerView={2} // Muestra 2 slides en móvil
       breakpoints={{
         1024: {
-          slidesPerView: 3, // Muestra 3 slides en escritorio
+          slidesPerView: spv, // Muestra 3 slides en escritorio
         },
       }}
       modules={[Autoplay]}

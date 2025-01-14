@@ -4,7 +4,6 @@ import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
 const Plans = ({ renewals }) => {
-  console.log(renewals)
   return (
     <>
       <span className='h-10 bg-[#f3a3d3] block absolute -left-32 md:-left-60 bottom-0 rotate-45 w-full p-2 z-10'>

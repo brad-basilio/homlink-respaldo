@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import { Local } from "sode-extend-react";
 
-const Thanks = ({}) => {
+const Thanks = ({ session }) => {
   useEffect(() => {
     history.replaceState(null, '', '/');
     Local.delete('vua_cart');
@@ -22,6 +22,15 @@ const Thanks = ({}) => {
           La tendrás en tus manos en un rango de 2 a 4 días hábiles.
         </p>
       </div>
+      {
+        session?.id &&
+        <button
+          href='/my-account'
+          className='mt-[15%] md:mt-[10%] lg:mt-[5%] bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded border border-white w-max  text-nowrap'>
+          MIS FÓRMULAS
+          <i className="ms-1 mdi mdi-arrow-top-right"></i>
+        </button>
+      }
     </section>
 
     <section className='p-[5%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-white text-center'

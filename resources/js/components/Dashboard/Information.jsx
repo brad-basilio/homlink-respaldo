@@ -7,8 +7,6 @@ ReactModal.setAppElement('#app');
 
 const Information = ({ session }) => {
 
-  console.log(session)
-
   const [modalOpen, setModalOpen] = useState(false)
   const [month, setMonth] = useState(session.birth_month ?? '01')
   const [days, setDays] = useState(31)
@@ -55,9 +53,7 @@ const Information = ({ session }) => {
   }, [modalOpen]);
 
   useEffect(() => {
-    console.log(month)
     const nro = document.querySelector(`#birth-month option[value="${month}"]`)?.getAttribute('data-days')
-    console.log(nro)
     setDays(nro)
   }, [month])
 

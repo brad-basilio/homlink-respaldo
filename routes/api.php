@@ -61,14 +61,14 @@ use App\Http\Controllers\UserFormulasController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
-Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
-Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
-Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
-Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
-Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
-Route::get('/colors/media/{uuid}', [ColorController::class, 'media']);
-Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
-Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media']);
+Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/items/media/{uuid}', [ItemController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media'])->withoutMiddleware('throttle');
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);

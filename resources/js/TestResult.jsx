@@ -50,7 +50,7 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
             </div>
           </div>
         </div>
-        <div className='px-[5%] text-start'>
+        <div className='px-[5%] pb-[15%] md:pb-[10%] lg:pb-[5%] text-start'>
           <div className='max-w-3xl mx-auto'>
 
             <div className='mb-2 flex justify-between text-sm'>
@@ -71,6 +71,9 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
             </div>
             <ProgressBar className='w-full h-3' width={heat_damage.percent} color='#C5B8D4' />
           </div>
+        </div>
+        <div className='text-center'>
+          <button href={`/formula/${user_formula.id}`} className='bg-[#C5B8D4] text-white text-sm px-16 py-3 rounded mt-4 tracking-widest'>COMPRAR</button>
         </div>
         <div className='p-[5%] py-[15%] md:py-[10%] lg:py-[5%] text-start '>
           <div className="max-w-3xl mx-auto">
