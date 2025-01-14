@@ -5,8 +5,10 @@ import Logout from '../../Actions/Logout'
 import MenuItem from '../MenuItem'
 import MenuItemContainer from '../MenuItemContainer'
 
-const Menu = ({ session, hasRole }) => {
+const Menu = ({ session, hasRole, salesCount }) => {
   const mainRole = session.roles[0]
+
+  console.log(salesCount)
 
   return (<div className="left-side-menu">
     <div className="h-100" data-simplebar>
@@ -73,11 +75,18 @@ const Menu = ({ session, hasRole }) => {
           {
             hasRole('Admin') && <>
               <MenuItem href="/admin/home" icon='mdi mdi-home'>Dashboard</MenuItem>
-              <MenuItem href="/admin/sales" icon='mdi mdi-cart-outline'>Pedidos</MenuItem>
+              <MenuItem href="/admin/sales" icon='mdi mdi-cart-outline'>
+                <span className="badge bg-primary float-end">{salesCount}</span>
+                Pedidos
+              </MenuItem>
               <MenuItemContainer title='Productos y colores' icon='mdi mdi-cube'>
                 <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
                 <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
               </MenuItemContainer>
+              <MenuItem href='/admin/gifts' icon='mdi mdi-gift' badge >
+                <span className="badge bg-primary float-end">Nuevo</span>
+                Gifts
+              </MenuItem>
               <MenuItemContainer title='Características' icon='mdi mdi-flask-round-bottom'>
                 <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
                 <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>

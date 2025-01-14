@@ -107,8 +107,8 @@ const SelectProduct = ({ goToNextPage, items = [], bundles = [] }) => {
 
     <div className='max-w-2xl mx-auto mt-5 sm:mt-8 lg:mt-10 px-[3%]'>
 
-      <p className='text-sm'>
-        Descubre cómo ahorrar aún más al final 👀
+      <p className='text-md'>
+        Agrega más de un producto y <b>obtén nuestros descuentos</b> por packs.
       </p>
 
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-center bg-[#EFBEC1] text-white rounded-3xl mt-4 py-4 px-[5%] font-extrabold shadow-lg">

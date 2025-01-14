@@ -9,7 +9,10 @@ import Formulas from './Components/Dashboard/Formulas';
 import Logout from './Actions/Logout';
 
 
-const MyAccount = ({ session, formulas, sales }) => {
+const MyAccount = ({ session, formulas, gifts }) => {
+
+  console.log(gifts)
+
   const [activeComponent, setActiveComponent] = useState('formulas');
 
   const renderComponent = () => {
@@ -17,11 +20,13 @@ const MyAccount = ({ session, formulas, sales }) => {
       case 'formulas':
         return <Formulas items={formulas} />;
       case 'purchases':
-        return <Purchases items={sales} />;
+        return <Purchases />;
+      case 'gift':
+        return <Purchases />;
       case 'informacion':
-        return <Information session={session}/>;
+        return <Information session={session} />;
       default:
-        return <Formulas />;
+        return <Formulas items={formulas} />;
     }
   };
 
@@ -42,15 +47,34 @@ const MyAccount = ({ session, formulas, sales }) => {
           <div className='w-full md:w-1/3 lg:w-1/4 md:bg-[#EFBEC1] rounded-xl'>
             <ul className='text-center md:text-start text-[#404040] md:text-white grid sm:grid-cols-2 md:flex md:flex-col gap-2 text-sm font-light tracking-wider md:p-4'>
               <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'formulas' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
-                onClick={() => setActiveComponent('formulas')} >Fórmulas creadas</li>
+                onClick={() => setActiveComponent('formulas')} >
+                <i className='mdi mdi-flask me-1'></i>
+                Fórmulas creadas
+              </li>
 
               <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'purchases' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
-                onClick={() => setActiveComponent('purchases')} >Mis compras</li>
-
+                onClick={() => setActiveComponent('purchases')} >
+                <i className='mdi mdi-cart-outline me-1'></i>
+                Mis compras
+              </li>
+              {
+                gifts.length > 0 &&
+                <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'gift' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
+                  onClick={() => setActiveComponent('gift')} >
+                  <i className='mdi mdi-gift-outline me-1'></i>
+                  Regala un Vuá
+                </li>
+              }
               <li className={`px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer ${activeComponent === 'informacion' && 'bg-[#EFBEC1] md:bg-[#ffffff33] text-white'}`}
-                onClick={() => setActiveComponent('informacion')} >Información personal</li>
+                onClick={() => setActiveComponent('informacion')} >
+                <i className='mdi mdi-account me-1'></i>
+                Información personal
+              </li>
 
-              <li className='px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer' onClick={Logout}>Cerrar sesión</li>
+              <li className='px-4 py-2 border-[#404040] border md:border-none hover:bg-[#EFBEC1] md:hover:bg-[#ffffff33] rounded cursor-pointer' onClick={Logout}>
+                <i className='mdi mdi-close me-1'></i>
+                Cerrar sesión
+              </li>
             </ul>
           </div>
 

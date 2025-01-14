@@ -325,7 +325,7 @@ const Sales = ({ statuses }) => {
                 <select className="form-select" id="statusSelect" value={saleLoaded?.status_id} onChange={onStatusChange} disabled={!saleLoaded?.status?.reversible}>
                   {
                     statuses.map((status, index) => {
-                      return <option value={status.id}>{status.name}</option>
+                      return <option key={index} value={status.id}>{status.name}</option>
                     })
                   }
                 </select>

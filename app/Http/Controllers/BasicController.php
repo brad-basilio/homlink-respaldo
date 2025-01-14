@@ -6,6 +6,7 @@ use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
 use App\Models\General;
+use App\Models\Sale;
 use App\Models\Social;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -89,11 +90,17 @@ class BasicController extends Controller
     $terms = General::select(['description'])->where('correlative', 'terms_conditions')->first();
     $footerLinks = Aboutus::whereIn('correlative', ['phone', 'email', 'whatsapp', 'customer-complaints'])->get();
 
+    $salesCount = null;
+    if (Auth::check() && Auth::user()->hasRole('Admin')) {
+      $salesCount = Sale::where('status_id', '312f9a91-d3f2-4672-a6bf-678967616cac')->count();
+    }
+
     $properties = [
       'session' => Auth::user(),
       'socials' => $socials,
       'terms' => $terms,
       'footerLinks' => $footerLinks,
+      'salesCount' => $salesCount,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),

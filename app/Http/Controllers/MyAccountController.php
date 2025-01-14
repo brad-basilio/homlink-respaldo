@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Formula;
+use App\Models\Gift;
 use App\Models\Sale;
 use App\Models\UserFormulas;
 use Illuminate\Http\Request;
@@ -29,12 +30,12 @@ class MyAccountController extends BasicController
             $hair_goals = Formula::whereIn('id', $formulaJpa->hair_goals)->get();
             $formulas[] = \array_merge($formulaJpa->toArray(), ['hair_goals' => $hair_goals]);
         }
-        $sales = Sale::with(['status', 'details', 'renewal', 'bundle', 'coupon'])
-        ->where('email', Auth::user()->email)
-        ->get();
+        $gifts = Gift::with(['items'])
+            ->get();
+            
         return [
             'formulas' => $formulas,
-            'sales' => $sales
+            'gifts' => $gifts
         ];
     }
 }

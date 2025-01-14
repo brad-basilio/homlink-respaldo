@@ -8,7 +8,7 @@ import Number2Currency from '../../Utils/Number2Currency';
 
 const salesRest = new SalesRest()
 
-const Sales = ({ items }) => {
+const Sales = ({ }) => {
 
   const gridRef = useRef()
 
