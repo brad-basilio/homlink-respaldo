@@ -35,7 +35,7 @@ const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [], 
       <p className="mb-8 text-sm font-extralight">Conoce de qué manera puedes ahorrar en tu rutina</p>
     </div>
 
-    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 sm:mt-8 lg:mt-10 items-center">
+    <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 sm:mt-8 lg:mt-10 items-center justify-center">
 
       <div className={`transition-all cursor-pointer p-6 bg-white group hover:bg-[#EFBEC1] hover:text-white rounded-2xl grid grid-cols-2 items-center justify-between gap-4 shadow-md h-full`}
         onClick={() => onSelectPlan(null)}>
