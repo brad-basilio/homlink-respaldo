@@ -23,7 +23,7 @@ const Formula = ({ user_formula, items, colors, publicKey, session, bundles, pla
   const pages = [
     { component: <SelectProduct items={items} goToNextPage={goToNextPage} bundles={bundles} />, name: 'Select Product' },
     { component: <SelectColor items={items} goToNextPage={goToNextPage} />, name: 'Select Color' },
-    { component: <SelectPlan goToNextPage={goToNextPage} setSelectedPlan={setSelectedPlan} bundles={bundles} planes={planes} />, name: 'Select Plan' },
+    { component: <SelectPlan goToNextPage={goToNextPage} setSelectedPlan={setSelectedPlan} session={session} bundles={bundles} planes={planes} />, name: 'Select Plan' },
     { component: <Checkout formula={user_formula} publicKey={publicKey} selectedPlan={selectedPlan} goToNextPage={goToNextPage} bundles={bundles} planes={planes} session={session} />, name: 'Checkout' }
   ];
 

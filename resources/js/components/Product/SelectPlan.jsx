@@ -2,7 +2,7 @@ import React from "react"
 import { Local } from "sode-extend-react"
 import Number2Currency from "../../Utils/Number2Currency";
 
-const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [] }) => {
+const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [], session }) => {
 
   const cart = Local.get('vua_cart') ?? []
 
@@ -51,7 +51,7 @@ const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [] }
       </div>
 
       {
-        planes.length == 0 ?
+        !session?.id && planes.length > 0 ?
           <div className="p-4 text-center flex flex-col gap-2 items-center">
             <span>
               o inicia sesion para acceder a <br />
