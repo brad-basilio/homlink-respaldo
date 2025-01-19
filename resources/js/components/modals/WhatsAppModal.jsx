@@ -4,23 +4,23 @@ import '../../../css/qr-code.css'
 import Swal from "sweetalert2";
 import Tippy from "@tippyjs/react";
 import { Notify } from "sode-extend-react";
+import Global from "../../Utils/Global";
 
-const WhatsAppModal = ({ status: whatsappStatus, setStatus, WA_URL, APP_URL }) => {
+const WhatsAppModal = ({ status: whatsappStatus, setStatus }) => {
   const qrRef = useRef()
   const phoneRef = useRef()
 
-  const { color, icon, text } = WhatsAppStatuses[whatsappStatus]
+  const { color, icon, text } = WhatsAppStatuses[whatsappStatus] ?? {}
   const [percent, setPercent] = useState(0)
   const [sessionInfo, setSessionInfo] = useState({})
 
   useEffect(() => {
     if (whatsappStatus == 'verifying') {
       const searchParams = new URLSearchParams({
-        session: 'atalaya',
-        redirect_to: APP_URL
+        session: Global.APP_CORRELATIVE
       })
 
-      let eventSource = new EventSource(`${WA_URL}/api/session/verify?${searchParams}`)
+      let eventSource = new EventSource(`${Global.WA_URL}/api/session/verify?${searchParams}`)
       eventSource.onmessage = ({ data }) => {
         if (data == 'ping') return console.log('Realtime active')
         const { status, qr, percent, info } = JSON.parse(data)
@@ -80,7 +80,7 @@ const WhatsAppModal = ({ status: whatsappStatus, setStatus, WA_URL, APP_URL }) =
       cancelButtonText: `Cancelar`
     })
     if (!isConfirmed) return
-    await fetch(`${WA_URL}/api/session/atalaya`, {
+    await fetch(`${Global.WA_URL}/api/session/atalaya`, {
       method: 'DELETE'
     })
     Notify.add({
@@ -94,13 +94,13 @@ const WhatsAppModal = ({ status: whatsappStatus, setStatus, WA_URL, APP_URL }) =
 
   const onPingClicked = async () => {
     try {
-      const res = await fetch(`${WA_URL}/api/send`, {
+      const res = await fetch(`${Global.WA_URL}/api/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          from: 'atalaya',
+          from: Global.APP_CORRELATIVE,
           to: [phoneRef.current.value],
           content: 'Ping!\n> Mensaje automatico',
         })

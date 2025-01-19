@@ -1,8 +1,11 @@
 import React, { useEffect } from "react"
 import Logout from "../../Actions/Logout"
 import Global from "../../Utils/Global"
+import WhatsAppStatuses from "../../Reutilizables/WhatsApp/WhatsAppStatuses"
 
-const NavBar = ({ session = {}, title = 'Pagina' }) => {
+const NavBar = ({ session = {}, title = 'Pagina', whatsappStatus }) => {
+
+  const { color } = WhatsAppStatuses[whatsappStatus]
 
   useEffect(() => {
     document.title = `${title} | ${Global.APP_NAME}`
@@ -11,6 +14,19 @@ const NavBar = ({ session = {}, title = 'Pagina' }) => {
   return (
     <div className="navbar-custom">
       <ul className="list-unstyled topnav-menu float-end mb-0">
+
+        <li className="notification-list topbar-dropdown d-none d-lg-block">
+          <a className="nav-link waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#whatsapp-modal">
+            <span className="position-relative">
+              <i className="mdi mdi-whatsapp noti-icon"></i>
+              <span className={`position-absolute top-0 start-100 translate-middle p-1 bg-${color} rounded-circle`}>
+                <span className="visually-hidden">New alerts</span>
+              </span>
+
+            </span>
+          </a>
+        </li>
+
         <li className="dropdown notification-list topbar-dropdown">
           <a className="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown"
             href="#" role="button" aria-haspopup="false" aria-expanded="false">

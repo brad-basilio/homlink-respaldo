@@ -105,6 +105,7 @@ class BasicController extends Controller
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
+        'WA_URL' => env('WA_URL'),
         'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
         'APP_DOMAIN' => env('APP_DOMAIN'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
