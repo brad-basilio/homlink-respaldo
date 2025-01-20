@@ -28,7 +28,7 @@
       style="background-color: #fff; padding: 20px; border-radius: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
       <p>
         <b>
-          <img src="/public/assets/img/emojis/face-glass.png" alt=""
+          <img src="https://vua.pe/assets/img/emojis/face-glass.png" alt=""
             style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
           ¿Tu cabello recibió tratamiento?
         </b>
