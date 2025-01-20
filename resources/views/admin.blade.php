@@ -66,6 +66,7 @@
   <!-- Extends js -->
   <script src="/assets/js/file.extend.js"></script>
   <script src="/assets/js/storage.extend.js"></script>
+  <script src="/assets/js/clipboard.extend.js"></script>
 
   <!-- Vendor js -->
   <script src="/lte/assets/js/vendor.min.js"></script>
@@ -87,6 +88,21 @@
   <script src="/lte/assets/libs/moment/min/moment.min.js"></script>
   <script src="/lte/assets/libs/moment/moment-timezone.js"></script>
   <script src="/lte/assets/libs/moment/locale/es.js"></script>
+  <script>
+    document.addEventListener('click', function(event) {
+      const target = event.target;
+
+      if (target.tagName === 'BUTTON' && target.hasAttribute('copy')) {
+        let copy = target.getAttribute('copy')
+        if (target.hasAttribute('copy-selector')) {
+          copy = document.querySelector(target.getAttribute('copy-selector')).textContent
+        }
+        Clipboard.copy(copy, () => {
+          console.log('Copiado correctamente')
+        })
+      }
+    });
+  </script>
 </body>
 
 </html>

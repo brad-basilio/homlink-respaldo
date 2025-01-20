@@ -91,6 +91,11 @@ const Sales = ({ statuses }) => {
           visible: false
         },
         {
+          dataField: 'code',
+          caption: 'Numero de orden',
+          visible: false
+        },
+        {
           dataField: 'name',
           caption: 'Orden',
           width: '250px',
@@ -176,7 +181,7 @@ const Sales = ({ statuses }) => {
               <h5 className="card-title mb-0">Detalles de Venta</h5>
             </div>
             <div className="card-body p-2">
-              <table className="table table-borderless table-sm mb-0">
+              <table id='table-info' className="table table-borderless table-sm">
                 <tbody>
                   <tr>
                     <th>Nombres:</th>
@@ -212,6 +217,10 @@ const Sales = ({ statuses }) => {
                   }
                 </tbody>
               </table>
+              <button className='btn btn-xs btn-dark' type='button' copy={`Nombres: ${saleLoaded?.fullname}\nEmail: ${saleLoaded?.email}\nTeléfono: ${saleLoaded?.phone}\nDirección: ${saleLoaded?.address} ${saleLoaded?.number}\n_${saleLoaded?.province ?? saleLoaded?.district}, ${saleLoaded?.department}, ${saleLoaded?.country} ${saleLoaded?.zip_code ? `- ${saleLoaded?.zip_code}` : ''}_`}>
+                <i className='mdi mdi-content-copy me-1'></i>
+                Copiar
+              </button>
             </div>
           </div>
 
@@ -325,7 +334,7 @@ const Sales = ({ statuses }) => {
             <div className="card-body p-2">
               <div>
                 <b>🧐 Tratamiento</b>:{' '}
-                {saleLoaded?.formula.has_treatment?.description}
+                {saleLoaded?.formula?.has_treatment?.description}
               </div>
               <div>
                 <b>👀 Cuero cabelludo</b>: {' '}
@@ -347,6 +356,22 @@ const Sales = ({ statuses }) => {
                 <b>🫙 Fragancia</b>:{' '}
                 {saleLoaded?.formula?.fragrance?.name}
               </div>
+              <div>
+                <b>🎨 Colores:</b>
+                <ul>
+                  {
+                    saleLoaded?.details?.map((detail, index) => <li key={index}>
+                      {detail.name}: {
+                        detail?.colors?.map(color => color.name).join(', ')
+                      }
+                    </li>)
+                  }
+                </ul>
+              </div>
+              <button className='btn btn-xs btn-dark' type='button' copy={`*Formula ${saleLoaded?.name}*\n\n🧐 Tratamiento: ${saleLoaded?.formula.has_treatment?.description}\n👀 Cuero cabelludo: ${saleLoaded?.formula?.scalp_type?.description}\n✅ Tipo de cabello: ${saleLoaded?.formula?.hair_type?.description}\n💡 Objetivos:\n${saleLoaded?.formula?.hair_goals_list?.map(x => `- ${x.description}`).join('\n')}\n🫙 Fragancia: ${saleLoaded?.formula?.fragrance?.name}\n🎨 Colores:\n${saleLoaded?.details?.map(detail => `- ${detail.name}: ${detail?.colors?.map(color => color.name).join(', ')}`).join('\n')}`}>
+                <i className='mdi mdi-content-copy me-1'></i>
+                Copiar
+              </button>
             </div>
           </div>
           <div className="card">
@@ -371,7 +396,10 @@ const Sales = ({ statuses }) => {
             <div className="card-header p-2">
               <h5 className="card-title mb-0">Cambios de Estado</h5>
             </div>
-            <div className="card-body p-2 d-flex flex-column gap-1">
+            <div className="card-body p-2 d-flex flex-column gap-1" style={{
+              maxHeight: '300px',
+              overflowY: 'auto'
+            }}>
               {
                 saleStatuses?.map((ss, index) => {
                   return <article key={index} class="border py-1 px-2 ms-3" style={{

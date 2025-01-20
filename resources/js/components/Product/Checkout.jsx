@@ -449,14 +449,18 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                   <label className="mb-1 block text-sm font-medium " htmlFor="phone">
                     Teléfono/Celular <b className='text-red-500'>*</b>
                   </label>
+                  <div className='flex border rounded-md border-gray-300'>
+                    <span className='py-2 px-3 border-e'>+51</span>
                   <input
                     type="tel"
                     id="phone"
-                    className="w-full rounded-md border border-gray-300 p-2 text-sm outline-none"
+                    className="w-full p-2 text-sm outline-none"
                     value={sale.phone}
                     onChange={(e) => setSale(old => ({ ...old, phone: e.target.value }))}
+                    placeholder='900000000'
                     required
                   />
+                  </div>
                 </div>
                 <div className="mt-4">
                   <label className="mb-1 block text-sm font-medium " htmlFor="orderNotes">
