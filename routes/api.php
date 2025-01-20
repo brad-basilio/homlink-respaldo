@@ -44,6 +44,7 @@ use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\UserFormulasController;
@@ -90,6 +91,8 @@ Route::prefix('/culqi')->group(function () {
     Route::post('/token', [CulqiController::class, 'token']);
     Route::post('/webhook', [CulqiController::class, 'webhook']);
 });
+
+Route::get('/sales/notify/{code}', [SaleController::class, 'notify']);
 
 Route::middleware('auth')->group(function () {
     Route::delete('logout', [AuthController::class, 'destroy'])

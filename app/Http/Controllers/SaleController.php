@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendSaleWhatsApp;
 use App\Models\Sale;
 use App\Models\Bundle;
 use App\Models\Item;
@@ -9,9 +10,11 @@ use App\Models\Renewal;
 use App\Models\SaleDetail;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Trace;
 use SoDe\Extend\Array2;
+use SoDe\Extend\Response;
 
 class SaleController extends Controller
 {
@@ -41,8 +44,8 @@ class SaleController extends Controller
             $saleJpa->status_id = 'f13fa605-72dd-4729-beaa-ee14c9bbc47b';
 
             // Address info
-            $saleJpa->country = $sale['country']; 
-            $saleJpa->department = $sale['department'];   
+            $saleJpa->country = $sale['country'];
+            $saleJpa->department = $sale['department'];
             $saleJpa->province = $sale['province'];
             $saleJpa->district = $sale['district'];
             $saleJpa->zip_code = $sale['zip_code'];
@@ -144,5 +147,16 @@ class SaleController extends Controller
                 'line' => $th->getLine()
             ]];
         }
+    }
+
+
+    public function notify(Request $request)
+    {
+        $response = Response::simpleTryCatch(function () use ($request) {
+            $sale = Sale::where('code', $request->code)->first();
+            if (!$request->code) throw new Exception('No existe la venta');
+            SendSaleWhatsApp::dispatchAfterResponse($sale, true, false);
+        });
+        return response($response->toArray(), $response->status);
     }
 }

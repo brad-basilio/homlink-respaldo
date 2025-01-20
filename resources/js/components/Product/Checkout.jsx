@@ -195,7 +195,11 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
   const redirectOnClose = () => {
     setInterval(() => {
       if (Culqi.isOpen) return
-      location.href = `/thanks?code2send=${Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')}`
+      const order_number = Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')
+      fetch(`/api/sales/notify/${order_number}`)
+      .then(res => {
+        location.href = `/thanks`
+      })
     }, 500)
   }
 
