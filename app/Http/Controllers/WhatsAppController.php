@@ -39,7 +39,7 @@ class WhatsAppController extends Controller
             $onlyName = \explode(' ', $sale->name)[0];
             $address = ($sale->province ?? $sale->district) . ", {$sale->department}, {$sale->country}" . ($sale->zip_code ? ' - ' . $sale->zip_code : '');
             try {
-                if ($send2client)
+                if ($send2client) {
                     new Fetch(env('WA_URL') . '/api/send', [
                         'method' => 'POST',
                         'headers' => [
@@ -52,18 +52,20 @@ class WhatsAppController extends Controller
                             'html' => $content
                         ]
                     ]);
-                if ($sale->status_id == 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
-                    new Fetch(env('WA_URL') . '/api/send', [
-                        'method' => 'POST',
-                        'headers' => [
-                            'Content-Type' => 'application/json'
-                        ],
-                        'body' => [
-                            'from' => env('APP_CORRELATIVE'),
-                            'to' => ['51' . Text::keep($sale->phone, '0123456789')],
-                            'content' => 'Deseas realizar el pago por yape, plin o tarjeta?'
-                        ]
-                    ]);
+                    if ($sale->status_id == 'f13fa605-72dd-4729-beaa-ee14c9bbc47b') {
+                        new Fetch(env('WA_URL') . '/api/send', [
+                            'method' => 'POST',
+                            'headers' => [
+                                'Content-Type' => 'application/json'
+                            ],
+                            'body' => [
+                                'from' => env('APP_CORRELATIVE'),
+                                'to' => ['51' . Text::keep($sale->phone, '0123456789')],
+                                'content' => 'Deseas realizar el pago por yape, plin o tarjeta?'
+                            ]
+                        ]);
+                    }
+                }
             } catch (\Throwable $th) {
             }
             try {

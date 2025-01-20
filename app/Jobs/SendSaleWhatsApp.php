@@ -14,17 +14,23 @@ class SendSaleWhatsApp implements ShouldQueue
   use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
   private $data;
+  private $send2client;
+  private $send2group;
 
-  public function __construct($data)
+  public function __construct($data, bool $send2client = true, bool $send2group = true)
   {
     $this->data = $data;
+    $this->send2client = $send2client;
+    $this->send2group = $send2group;
   }
 
   public function handle()
   {
     $data = $this->data;
+    $send2client = $this->send2client;
+    $send2group = $this->send2group;
     try {
-      WhatsAppController::sendSale($data);
+      WhatsAppController::sendSale($data, $send2client, $send2group);
     } catch (\Throwable $th) {
       // dump($th->getMessage());
     }

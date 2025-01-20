@@ -74,6 +74,9 @@
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <p>
           <b>Status:</b>
+          @if ($sale->status_id == '')
+              
+          @endif
           {{ $sale->status->name }}
         </p>
         <p>
