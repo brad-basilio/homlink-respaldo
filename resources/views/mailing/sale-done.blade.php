@@ -74,8 +74,10 @@
       <div style="display: flex; flex-direction: column; gap: 10px;">
         <p>
           <b>Status:</b>
-          @if ($sale->status_id == '')
-              
+          @if ($sale->status_id == 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
+              <span style="background-color: rgba(255,91,91,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #ff5b5b; border: 1px solid #ff5b5b;">✗</span>
+          @else
+            <span style="background-color: rgba(16,196,105,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #10c469; border: 1px solid #10c469;">✗</span>
           @endif
           {{ $sale->status->name }}
         </p>
