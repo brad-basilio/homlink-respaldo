@@ -16,10 +16,10 @@
 
 <body>
   <div
-    style="background: linear-gradient(to bottom right, #C3B9D2, #EACCB0); font-family: Roboto,sans-serif;padding: 40px; width: 680px;">
+    style="background: linear-gradient(to bottom right, #C3B9D2, #EACCB0); font-family: Verdana, Geneva, Tahoma, sans-serif; padding: 40px; width: 680px;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
       <h2 style="color: #fff; padding: 10px 20px; border: 1px solid #fff; border-radius: 16px;">
-        Tu formula unica, {{ explode(' ', $sale->name)[0] }}:
+        Tu fórmula única, {{ explode(' ', $sale->name)[0] }}:
       </h2>
       <img src="https://vua.pe/assets/img/logo.svg" alt="Vua" style="height: 40px; margin-top: -15px;">
     </div>
