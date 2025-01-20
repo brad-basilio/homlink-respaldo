@@ -26,25 +26,45 @@
     <div
       style="background-color: #fff; padding: 20px; border-radius: 16px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
       <p>
-        <b>¿Tu cabello recibió tratamiento?</b>
+        <b>
+          <img src="/public/assets/img/emojis/face-glass.png" alt=""
+            style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
+          ¿Tu cabello recibió tratamiento?
+        </b>
         {{ $sale->formula->hasTreatment->description }}
       </p>
       <p>
-        <b>Tipo de cabello</b>
+        <b>
+          <img src="https://vua.pe/assets/img/emojis/eyes.png" alt=""
+            style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
+          Tipo de cabello
+        </b>
         {{ $sale->formula->scalpType->description }}
       </p>
       <p>
-        <b>Cuero cabelludo</b>
+        <b>
+          <img src="https://vua.pe/assets/img/emojis/check.png" alt=""
+            style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
+          Cuero cabelludo
+        </b>
         {{ $sale->formula->hairType->description }}
       </p>
       <p>
-        <b>Objetivos</b>
+        <b>
+          <img src="https://vua.pe/assets/img/emojis/bulb.png" alt=""
+            style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
+          Objetivos
+        </b>
         @foreach ($sale->formula->hair_goals_list as $goal)
           {{ $goal->description }},
         @endforeach
       </p>
       <p>
-        <b>Fragancia</b>
+        <b>
+          <img src="https://vua.pe/assets/img/emojis/flower.png" alt=""
+            style="height: 18px; width: 18px; object-fit: contain; object-position: center; padding-top: 5px;">
+          Fragancia
+        </b>
         {{ $sale->formula->fragrance->name }}
       </p>
     </div>
@@ -54,7 +74,7 @@
     <div style="display: flex; gap: 5px; margin-bottom: 10px;">
       @foreach ($sale->details as $detail)
         <div style="width: 146.25px; background-color: #fff; border-radius: 16px;">
-          <img src="http://vua.pe/api/items/media/{{ $detail->item->image }}" alt="{{ $detail->name }}"
+          <img src="https://vua.pe/api/items/media/{{ $detail->item->image }}" alt="{{ $detail->name }}"
             style="width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: center;">
           <div
             style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 5px; gap: 5px;">
@@ -75,9 +95,11 @@
         <p>
           <b>Status:</b>
           @if ($sale->status_id == 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
-              <span style="background-color: rgba(255,91,91,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #ff5b5b; border: 1px solid #ff5b5b;">✗</span>
+            <span
+              style="background-color: rgba(255,91,91,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #ff5b5b; border: 1px solid #ff5b5b;">✗</span>
           @else
-            <span style="background-color: rgba(16,196,105,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #10c469; border: 1px solid #10c469;">✗</span>
+            <span
+              style="background-color: rgba(16,196,105,.18); width: 22px; height: 22px; display: inline-block; text-align: center; border-radius: 50%; color: #10c469; border: 1px solid #10c469;">✗</span>
           @endif
           {{ $sale->status->name }}
         </p>
