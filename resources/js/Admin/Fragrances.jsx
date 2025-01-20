@@ -182,7 +182,7 @@ const Fragrances = ({ }) => {
         <input ref={idRef} type='hidden' />
         <div className="col-md-4">
           <ImageFormGroup eRef={imageRef} label='Imagen' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
-          <ImageFormGroup eRef={noteRef} label='Nota de olor' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
+          <ImageFormGroup eRef={noteRef} label='Nota de olor' aspect={3 / 5} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
         </div>
         <div className="col-md-8">
           <InputFormGroup eRef={nameRef} label='Nombre' required />
