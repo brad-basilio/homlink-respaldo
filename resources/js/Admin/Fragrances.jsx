@@ -24,6 +24,7 @@ const Fragrances = ({ }) => {
   const nameRef = useRef()
   const descriptionRef = useRef()
   const imageRef = useRef()
+  const noteRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -36,6 +37,8 @@ const Fragrances = ({ }) => {
     descriptionRef.current.value = data?.description ?? ''
     imageRef.image.src = `/api/fragrances/media/${data?.image}`
     imageRef.current.value = null
+    noteRef.image.src = `/api/fragrances/media/${data?.note}`
+    noteRef.current.value = null
 
     $(modalRef.current).modal('show')
   }
@@ -53,9 +56,15 @@ const Fragrances = ({ }) => {
     for (const key in request) {
       formData.append(key, request[key])
     }
+
     const file = imageRef.current.files[0]
     if (file) {
       formData.append('image', file)
+    }
+
+    const noteFile = noteRef.current.files[0]
+    if (noteFile) {
+      formData.append('note', noteFile)
     }
 
     const result = await fragrancesRest.save(formData)
@@ -171,7 +180,10 @@ const Fragrances = ({ }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar fragancia' : 'Agregar fragancia'} onSubmit={onModalSubmit} size='md'>
       <div className='row' id='principal-container'>
         <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
+        <div className="col-md-4">
+          <ImageFormGroup eRef={imageRef} label='Imagen' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
+          <ImageFormGroup eRef={noteRef} label='Nota de olor' aspect={5 / 3} onError='/api/fragrances/media/fragrance-sin-fragancia.png' />
+        </div>
         <div className="col-md-8">
           <InputFormGroup eRef={nameRef} label='Nombre' required />
           <TextareaFormGroup eRef={descriptionRef} label='Descripción' rows={3} />

@@ -17,6 +17,7 @@ class Fragrance extends Model
         'name',
         'description',
         'image',
+        'note',
         'visible',
         'status',
     ];
