@@ -11,4 +11,5 @@ class FragranceController extends BasicController
 {
     public $model = Fragrance::class;
     public $reactView = 'Admin/Fragrance';
+    public $imageFields = ['image', 'note'];
 }
