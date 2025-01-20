@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
 use App\Http\Controllers\Controller;
+use App\Models\Formula;
 use App\Models\Sale;
 use App\Models\Status;
 use Exception;
@@ -15,7 +16,30 @@ class SaleController extends BasicController
     public $model = Sale::class;
     public $reactView = 'Admin/Sales';
     public $prefix4filter = 'sales';
-    public $with4get = ['status', 'details', 'renewal', 'bundle', 'coupon'];
+    public $with4get = [
+        'formula',
+        'formula.hasTreatment',
+        'formula.scalpType',
+        'formula.hairType',
+        'formula.fragrance',
+        'status',
+        'details',
+        'renewal',
+        'bundle',
+        'coupon'
+    ];
+
+    public function get(Request $request, string $id)
+    {
+        $response = Response::simpleTryCatch(function () use ($id) {
+            $jpa  = $this->model::with($this->with4get)->find($id);
+            if (!$jpa) throw new Exception('El pedido que buscas no existe');
+            $hairGoals = Formula::whereIn('id', $jpa->formula->hair_goals)->get();
+            $jpa->formula->hair_goals_list = $hairGoals;
+            return $jpa;
+        });
+        return \response($response->toArray(), $response->status);
+    }
 
     public function setReactViewProperties(Request $request)
     {
@@ -37,7 +61,7 @@ class SaleController extends BasicController
             ]);
 
         return $model::select('sales.*')
-            ->with('status')
+            ->with(['status'])
             ->join('statuses AS status', 'status.id', 'sales.status_id');
     }
 

@@ -50,6 +50,7 @@ const Sales = ({ statuses }) => {
   }
 
   const onModalOpen = async (saleId) => {
+    setSaleStatuses([])
     const newSale = await salesRest.get(saleId)
     setSaleLoaded(newSale)
     $(modalRef.current).modal('show');
@@ -68,6 +69,8 @@ const Sales = ({ statuses }) => {
     - Number(saleLoaded?.bundle_discount)
     - Number(saleLoaded?.renewal_discount)
     - Number(saleLoaded?.coupon_discount)
+
+  console.log(saleLoaded)
 
   return (<>
     <Table gridRef={gridRef} title='Pedidos' rest={salesRest}
@@ -315,6 +318,37 @@ const Sales = ({ statuses }) => {
         </div>
 
         <div className="col-md-4">
+          <div className="card">
+            <div className="card-header p-2">
+              <h5 className="card-title mb-0">Formula</h5>
+            </div>
+            <div className="card-body p-2">
+              <div>
+                <b>🧐 Tratamiento</b>:{' '}
+                {saleLoaded?.formula.has_treatment?.description}
+              </div>
+              <div>
+                <b>👀 Cuero cabelludo</b>: {' '}
+                {saleLoaded?.formula?.scalp_type?.description}
+              </div>
+              <div>
+                <b>✅ Tipo de cabello</b>:{' '}
+                {saleLoaded?.formula?.hair_type?.description}
+              </div>
+              <div>
+                <b>💡 Objetivos</b>:{' '}
+                <ul className='mb-0'>
+                  {
+                    saleLoaded?.formula?.hair_goals_list?.map(x => <li key={x.id}>{x.description}</li>)
+                  }
+                </ul>
+              </div>
+              <div>
+                <b>🫙 Fragancia</b>:{' '}
+                {saleLoaded?.formula?.fragrance?.name}
+              </div>
+            </div>
+          </div>
           <div className="card">
             <div className="card-header p-2">
               <h5 className="card-title mb-0">Estado</h5>
