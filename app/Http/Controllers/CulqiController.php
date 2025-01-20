@@ -313,7 +313,7 @@ class CulqiController extends Controller
 
       if ($data['state'] != 'paid') return;
 
-      Sale::select(['id', 'status_id'])
+      $sale = Sale::select(['id', 'status_id'])
         ->where('code', $code)
         ->update(['status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac']);
 
