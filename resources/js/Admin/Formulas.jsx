@@ -151,7 +151,7 @@ const Formulas = ({ }) => {
             })
           }
         </SelectFormGroup>
-        <InputFormGroup eRef={descriptionRef} label='Respuesta' required disabled/>
+        <InputFormGroup eRef={descriptionRef} label='Respuesta' required/>
         <SelectAPIFormGroup eRef={suppliesRef} label='Ingredientes' searchAPI='/api/admin/supplies/paginate' searchBy='name' required dropdownParent='#principal-container' col='col-12' multiple />
       </div>
     </Modal>
