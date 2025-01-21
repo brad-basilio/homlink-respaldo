@@ -78,7 +78,7 @@ class WhatsAppController extends Controller
                         'body' => [
                             'from' => env('APP_CORRELATIVE'),
                             'to' => [env('WAGROUP_VENTAS_ID')],
-                            'content' => "Pedido `{$sale->code}`\n\n*Nombre*: {$sale->name} {$sale->lastname}\n*Dirección*: {$sale->address} {$sale->number}, {$address}\n*Correo electrónico*: {$sale->email}\n*Teléfono*: {$sale->phone}\n> " . $sale->created_at->format('Y-m-d H:i:s'),
+                            'content' => "Pedido `{$sale->code}`\n\n*Nombre*: {$sale->name} {$sale->lastname}\n*Dirección*: {$sale->address} {$sale->number}, {$address}\n*Correo electrónico*: {$sale->email}\n*Teléfono*: {$sale->phone}\n\n> " . $sale->created_at->format('Y-m-d H:i:s'),
                             'html' => $content
                         ]
                     ]);
