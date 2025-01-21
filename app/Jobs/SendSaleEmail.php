@@ -76,13 +76,19 @@ class SendSaleEmail implements ShouldQueue
       file_put_contents($path, $binary);
 
       if ($send2client) {
-        MailingController::simpleNotify('mailing.sale-done-mail', $jpa->email, ['image' => $imageName], $send2group ? [
+        MailingController::simpleNotify('mailing.sale-done-mail', $jpa->email, [
+          'title' => 'Resumen de tu pedido',
+          'image' => $imageName
+        ], $send2group ? [
           'pedidos@vua.pe'
         ] : []);
         $send2group = false;
       }
       if ($send2group) {
-        MailingController::simpleNotify('mailing.sale-done', 'pedidos@vua.pe', ['image' => $imageName]);
+        MailingController::simpleNotify('mailing.sale-done', 'pedidos@vua.pe', [
+          'title' => 'Resumen de tu pedido',
+          'image' => $imageName
+        ]);
       }
     } catch (\Throwable $th) {
       // dump($th->getMessage());
