@@ -61,9 +61,9 @@ const TestResult = ({ user_formula, hair_goals, supplies }) => {
 
             <div className='mb-2 flex justify-between text-sm'>
               <span>Tu nivel de daño químico en el cabello:</span>
-              <span className='font-bold'>{has_treatment == 'yes' ? 'ALTO' : 'MODERADO'}</span>
+              <span className='font-bold'>{has_treatment == 'true' ? 'ALTO' : 'MODERADO'}</span>
             </div>
-            <ProgressBar className='w-full h-3 mb-6' width={has_treatment == 'yes' ? '95%' : '55%'} color='#C5B8D4' />
+            <ProgressBar className='w-full h-3 mb-6' width={has_treatment == 'true' ? '95%' : '55%'} color='#C5B8D4' />
 
             <div className='mb-2 flex justify-between text-sm'>
               <span>Tu nivel de daño por calor en el cabello:</span>

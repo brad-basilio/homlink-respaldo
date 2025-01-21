@@ -36,7 +36,7 @@
           <tr>
             <td align="center" style="padding: 40px 20px 20px;">
               <h1 style="color: #404040; margin: 0; font-size: 24px; font-weight: normal;">
-                Hola {{ explode(' ', $formula?->user?->name ?? 'Vua lover')[0] }}!
+                Hola {{ explode(' ', $formula?->user?->name)[0] ?? 'amig@' }}!
               </h1>
               <h2 style="color: #404040; margin: 10px 0; font-size: 28px;">¡Tu fórmula única está lista!</h2>
             </td>
@@ -47,12 +47,14 @@
             <td align="center" style="padding: 0 20px 30px;">
               <table role="presentation" border="0" cellspacing="0" cellpadding="0">
                 <tr>
-                  <td align="center">
-                    @foreach ($hair_goals as $goal)
-                      <span
-                        style="display: inline-block; background-color: #F7C2C6; color: #404040; padding: 8px 20px; border-radius: 20px; margin: 2.5px; font-weight: bold">{{ $goal->description }}
-                        profunda</span>
-                    @endforeach
+                  <td>
+                    <span
+                      style="display: inline-block; background-color: #F7C2C6; color: #404040; padding: 8px 20px; border-radius: 20px; margin: 0 5px; font-weight: bold">Hidratación
+                      profunda</span>
+                    <span
+                      style="display: inline-block; background-color: #F7C2C6; color: #404040; padding: 8px 20px; border-radius: 20px; margin: 0 5px; font-weight: bold">Anticaspa</span>
+                    <span
+                      style="display: inline-block; background-color: #F7C2C6; color: #404040; padding: 8px 20px; border-radius: 20px; margin: 0 5px; font-weight: bold">Antifrizz</span>
                   </td>
                 </tr>
               </table>
@@ -65,63 +67,32 @@
               <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="padding: 10px 0;">
-                    @php
-                      $hydration = [
-                          'oily' => ['percent' => '25%', 'label' => 'BAJO'],
-                          'normal' => ['percent' => '55%', 'label' => 'MODERADO'],
-                          'dry' => ['percent' => '95%', 'label' => 'ALTO'],
-                      ];
-                    @endphp
                     <p style="margin: 0 0 5px; color: #404040;">Tu falta de hidratación en el cabello:</p>
                     <div style="background-color: #EFEAE5; height: 10px; border-radius: 10px; width: 100%;">
-                      <div
-                        style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: {{ $hydration[$formula->scalpType->correlative]['percent'] }};">
-                        &nbsp;
+                      <div style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: 80%;">&nbsp;
                       </div>
                     </div>
-                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">
-                      {{ $hydration[$formula->scalpType->correlative]['label'] }}
-                    </p>
+                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">ALTO</p>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0;">
                     <p style="margin: 0 0 5px; color: #404040;">Tu nivel de daño químico en el cabello:</p>
                     <div style="background-color: #EFEAE5; height: 10px; border-radius: 10px; width: 100%;">
-                      <div
-                        style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: {{ $formula->hasTreatment->correlative == 'true' ? '95%' : '55%' }};">
-                        &nbsp;
+                      <div style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: 30%;">&nbsp;
                       </div>
                     </div>
-                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">
-                      {{ $formula->hasTreatment->correlative == 'true' ? 'ALTO' : 'MODERADO' }}
-                    </p>
+                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">BAJO</p>
                   </td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0;">
-                    @php
-                      $heat_damage = ['percent' => '25%', 'label' => 'BAJO'];
-                      if ($formula->hasTreatment->correlative == 'true') {
-                          if ($formula->scalpType->correlative == 'normal') {
-                              $heat_damage['percent'] = '55%';
-                              $heat_damage['label'] = 'MODERADO';
-                          }
-                          if ($formula->scalpType->correlative == 'dry') {
-                              $heat_damage['percent'] = '95%';
-                              $heat_damage['label'] = 'ALTO';
-                          }
-                      }
-                    @endphp
                     <p style="margin: 0 0 5px; color: #404040;">Tu nivel de daño por calor en el cabello:</p>
                     <div style="background-color: #EFEAE5; height: 10px; border-radius: 10px; width: 100%;">
-                      <div
-                        style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: {{ $heat_damage['percent'] }};">
-                        &nbsp;
+                      <div style="background-color: #C5B8D4; height: 10px; border-radius: 10px; width: 60%;">&nbsp;
                       </div>
                     </div>
-                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">
-                      {{ $heat_damage['label'] }}</p>
+                    <p style="margin: 5px 0 0; text-align: right; color: #404040; font-weight: bold">MODERADO</p>
                   </td>
                 </tr>
               </table>
@@ -138,8 +109,8 @@
 
               <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
                 @foreach ($supplies as $index => $supply)
-                  @if ($index % 2 == 0)
-                    <tr>
+                @if ($index % 2 == 0)
+                <tr>
                   @endif
                   <td width="50%" style="padding: 10px;">
                     <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -147,8 +118,7 @@
                       <tr>
                         <td style="padding: 15px;">
                           <img src="https://vua.pe/api/supplies/media/{{ $supply->image }}"
-                            style="width: 100%; object-fit: contain; object-position: center; aspect-ratio: 1;"
-                            alt="">
+                            style="width: 100%; object-fit: contain; object-position: center; aspect-ratio: 1;" alt="">
                           <h3 style="margin: 0; color: #404040; font-size: 18px;">{{ $supply->name }}</h3>
                           <p style="margin: 5px 0 0; color: #404040;">{{ $supply->description }}</p>
                         </td>
@@ -156,25 +126,26 @@
                     </table>
                   </td>
                   @if ($index % 2 == 1 || $loop->last)
+                </tr>
+                @endif
+                @endforeach
+              </table>
+            </td>
           </tr>
-          @endif
-          @endforeach
+          <tr>
+            <td align="center" style="padding: 20px 0px; background-color: #C5B8D4; border-radius: 0 0 8px 8px">
+              <div style="padding: 2.5%; margin: auto; width: max-content">
+                @foreach ($socials as $social)
+                <a href="{{ $social['link'] }}" class="{{ $social['icon'] }}"
+                  style="display: block; width: 40px; height: 40px; background-color: #fff; border-radius: 990px">{{
+                  $social['name'] }}</a>
+                @endforeach
+              </div>
+            </td>
+          </tr>
         </table>
       </td>
     </tr>
-    <tr>
-      <td align="center" style="padding: 20px 0px; background-color: #C5B8D4; border-radius: 0 0 8px 8px">
-        <div style="padding: 2.5%; margin: auto; width: max-content">
-          @foreach ($socials as $social)
-            <a href="{{ $social['link'] }}" class="{{ $social['icon'] }}"
-              style="display: block; width: 40px; height: 40px; background-color: #fff; border-radius: 990px">{{ $social['name'] }}</a>
-          @endforeach
-        </div>
-      </td>
-    </tr>
-  </table>
-  </td>
-  </tr>
   </table>
 </body>
 

@@ -6,7 +6,10 @@ use App\Models\UserFormulas;
 use App\Http\Requests\StoreUserFormulasRequest;
 use App\Http\Requests\UpdateUserFormulasRequest;
 use App\Models\Formula;
+use App\Models\FormulaHasSupply;
 use App\Models\Subscription;
+use App\Models\Supply;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use SoDe\Extend\Text;
@@ -38,33 +41,63 @@ class UserFormulasController extends BasicController
             ->first();
         if ($jpa) $body['id'] = $jpa->id;
 
+        $userJpa = User::where('email', $body['email'])->first();
+
         if (Auth::check()) {
             $body['user_id'] = Auth::user()->id;
+        } else if ($userJpa) {
+            $body['user_id'] = $userJpa->id;
         }
 
         return $body;
     }
     public function afterSave(Request $request, object $jpa, bool $isNew)
     {
-        if (!$isNew) {
+        try {
             Subscription::updateOrCreate([
                 'description' => $jpa->email
             ], [
                 'name' => Text::getEmailProvider($jpa->email),
             ]);
+        } catch (\Throwable $th) {
+        }
+        if ($isNew) {
+            try {
+                $userFormulaJpa = UserFormulas::with([
+                    'hasTreatment',
+                    'scalpType',
+                    'hairType',
+                    'fragrance',
+                    'user'
+                ])->find($jpa->id);
 
-            $formula = UserFormulas::with([
-                'hasTreatment',
-                'scalpType',
-                'hairType',
-                'fragrance',
-                'user'
-            ])->find($jpa->id);
+                $hairGoalsJpa = Formula::whereIn('id', $userFormulaJpa->hair_goals)->get();
 
-            MailingController::simpleNotify('mailing.new-formula', $jpa->email, [
-                'formula' => $formula,
-                'title' => 'Formula lista - ' . \env('APP_NAME')
-            ]);
+                $formulaIds = array_merge(
+                    $userFormulaJpa->hair_goals,
+                    [
+                        $userFormulaJpa->has_treatment,
+                        $userFormulaJpa->scalp_type,
+                        $userFormulaJpa->hair_type,
+                    ]
+                );
+
+                $fhsJpa = FormulaHasSupply::select('supply_id')
+                    ->whereIn('formula_id', $formulaIds)
+                    ->get();
+
+                $suppliesJpa = Supply::select()
+                    ->whereIn('id', array_map(fn($item) => $item['supply_id'], $fhsJpa->toArray()))
+                    ->get();
+
+                MailingController::simpleNotify('mailing.new-formula', $jpa->email, [
+                    'formula' => $userFormulaJpa,
+                    'supplies' => $suppliesJpa,
+                    'hair_goals' => $hairGoalsJpa,
+                    'title' => 'Formula lista - ' . \env('APP_NAME')
+                ]);
+            } catch (\Throwable $th) {
+            }
         }
         return $jpa;
     }
