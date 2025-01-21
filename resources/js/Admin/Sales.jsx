@@ -132,10 +132,13 @@ const Sales = ({ statuses }) => {
           dataField: 'status.name',
           caption: 'Estado',
           cellTemplate: (container, { data }) => {
-            ReactAppend(container, <span className='badge rounded-pill' style={{
-              backgroundColor: data.status.color ? `${data.status.color}2e` : '#3333332e',
-              color: data.status.color ?? '#333'
-            }}>{data.status.name}</span>)
+            ReactAppend(container, <>
+              <span className='badge rounded-pill' style={{
+                backgroundColor: data.status.color ? `${data.status.color}2e` : '#3333332e',
+                color: data.status.color ?? '#333'
+              }}>{data.status.name}</span>
+              <small className='d-block'>{data.status.description}</small>
+            </>)
           }
         },
         {
