@@ -5,7 +5,7 @@ import NavBar from './NavBar'
 import RigthBar from './RightBar'
 import WhatsAppModal from '../modals/WhatsAppModal'
 
-moment.tz.setDefault('UTC');
+moment.tz.setDefault('America/Lima');
 
 const Base = ({ children, title, ...props }) => {
 
