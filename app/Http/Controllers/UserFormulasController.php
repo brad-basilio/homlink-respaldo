@@ -52,7 +52,17 @@ class UserFormulasController extends BasicController
             ], [
                 'name' => Text::getEmailProvider($jpa->email),
             ]);
+
+            $formula = UserFormulas::with([
+                'hasTreatment',
+                'scalpType',
+                'hairType',
+                'fragrance',
+                'user'
+            ])->find($jpa->id);
+
             MailingController::simpleNotify('mailing.new-formula', $jpa->email, [
+                'formula' => $formula,
                 'title' => 'Formula lista - ' . \env('APP_NAME')
             ]);
         }

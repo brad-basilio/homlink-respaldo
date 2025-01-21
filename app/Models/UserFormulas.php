@@ -29,6 +29,11 @@ class UserFormulas extends Model
         'hair_goals' => 'array',
     ];
 
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
     public function hasTreatment()
     {
         return $this->hasOne(Formula::class, 'id', 'has_treatment');

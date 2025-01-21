@@ -21,7 +21,9 @@
           </tr>
           <tr>
             <td align="center" style="padding: 40px 20px 20px;">
-              <h1 style="color: #404040; margin: 0; font-size: 24px; font-weight: normal;">Hola, Fabiana</h1>
+              <h1 style="color: #404040; margin: 0; font-size: 24px; font-weight: normal;">
+                Hola {{ explode(' ', $formula->user->name)[0] ?? 'amig@' }}!
+              </h1>
               <h2 style="color: #404040; margin: 10px 0; font-size: 28px;">¡Tu fórmula única está lista!</h2>
             </td>
           </tr>
@@ -171,8 +173,8 @@
             <td align="center" style="padding: 20px 0px; background-color: #C5B8D4; border-radius: 0 0 8px 8px">
               <div style="padding: 2.5%; margin: auto; width: max-content">
                 @foreach ($socials as $social)
-                <a href="{{ $social['link'] }}" class="{{ $social['icon'] }}"
-                  style="display: block, width: 40px; height: 40px; background-color: #fff; border-radius: 990px">{{ $social['name'] }}</a>
+                  <a href="{{ $social['link'] }}" class="{{ $social['icon'] }}"
+                    style="display: block, width: 40px; height: 40px; background-color: #fff; border-radius: 990px">{{ $social['name'] }}</a>
                 @endforeach
               </div>
             </td>
