@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendSaleEmail;
 use App\Jobs\SendSaleWhatsApp;
 use App\Models\Sale;
 use App\Models\Bundle;
@@ -156,6 +157,7 @@ class SaleController extends Controller
             $sale = Sale::where('code', $request->code)->first();
             if (!$request->code) throw new Exception('No existe la venta');
             SendSaleWhatsApp::dispatchAfterResponse($sale, true, false);
+            SendSaleEmail::dispatchAfterResponse($sale, true, false);
         });
         return response($response->toArray(), $response->status);
     }

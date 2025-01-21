@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendSaleEmail;
 use App\Jobs\SendSaleWhatsApp;
 use App\Models\CulqiSubscription;
 use App\Models\Sale;
@@ -105,6 +106,7 @@ class CulqiController extends Controller
       $sale->save();
 
       SendSaleWhatsApp::dispatchAfterResponse($sale);
+      SendSaleEmail::dispatchAfterResponse($sale);
     }, function () use ($sale) {
       $sale->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
     });
@@ -319,6 +321,7 @@ class CulqiController extends Controller
       $sale->save();
 
       SendSaleWhatsApp::dispatchAfterResponse($sale);
+      SendSaleEmail::dispatchAfterResponse($sale);
     });
 
     return response($response->toArray(), $response->status);

@@ -42,6 +42,7 @@ use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MailingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
@@ -70,6 +71,7 @@ Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media'])->withou
 Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/mailing/media/{uuid}', [MailingController::class, 'media'])->withoutMiddleware('throttle');
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);

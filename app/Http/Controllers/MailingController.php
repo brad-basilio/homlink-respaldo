@@ -12,8 +12,9 @@ use SoDe\Extend\JSON;
 use SoDe\Extend\Text;
 use Illuminate\Support\Facades\View;
 
-class MailingController extends Controller
+class MailingController extends BasicController
 {
+    public $model = 'Mailing';
     static function notifyContact(Message $messageJpa)
     {
         try {
@@ -37,7 +38,7 @@ class MailingController extends Controller
         }
     }
 
-    static function simpleNotify(string $view, string $email, array $data)
+    static function simpleNotify(string $view, string $email, array $data, array $ccs = [])
     {
         try {
 
@@ -53,6 +54,9 @@ class MailingController extends Controller
             $mail->isHTML(true);
             $mail->Body = $content;
             $mail->addAddress($email);
+            foreach ($ccs as $cc) {
+                $mail->addCC($cc);
+            }
             $mail->send();
         } catch (\Throwable $th) {
             if (\env('APP_ENV') == 'local') {
