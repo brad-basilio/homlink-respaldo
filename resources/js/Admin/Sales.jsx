@@ -137,7 +137,7 @@ const Sales = ({ statuses }) => {
                 backgroundColor: data.status.color ? `${data.status.color}2e` : '#3333332e',
                 color: data.status.color ?? '#333'
               }}>{data.status.name}</span>
-              <small className='d-block'>{data.status.description}</small>
+              <small className='d-block text-muted'>{data.status.description}</small>
             </>)
           }
         },
