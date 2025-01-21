@@ -123,7 +123,7 @@ const Sales = ({ statuses }) => {
           sortOrder: 'desc',
           cellTemplate: (container, { data }) => {
             container.html(renderToString(<>
-              <span className='d-block'>{moment(data.created_at).fromNow()}</span>
+              <span className='d-block'>{moment(data.created_at.replace('Z', '-05:00')).fromNow()}</span>
               <small className='d-block text-muted'>{moment(data.created_at).format('lll')}</small>
             </>))
           }
