@@ -81,7 +81,7 @@
         <div style="width: 146.25px; background-color: #fff; border-radius: 16px; position: relative;">
           @if ($detail->quantity > 1)
             <span
-              style="display: block; position: absolute; background-color: #9577B9; padding: 2px 10px; color: #fff; border-radius: 25px; right: 8px; top: 8px;">×{{ $detail->quantity }}</span>
+              style="display: block; position: absolute; background-color: #9577B9; padding: 2px 10px; color: #fff; border-radius: 25px; right: 8px; top: 8px;">×{{ round($detail->quantity) }}</span>
           @endif
           @if (isset($detail->colors) && count($detail->colors) > 0)
             <img src="https://vua.pe/api/colors/media/{{ $detail->colors[0]['image'] }}" alt="{{ $detail->name }}"
