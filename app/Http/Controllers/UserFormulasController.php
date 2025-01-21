@@ -6,8 +6,10 @@ use App\Models\UserFormulas;
 use App\Http\Requests\StoreUserFormulasRequest;
 use App\Http\Requests\UpdateUserFormulasRequest;
 use App\Models\Formula;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use SoDe\Extend\Text;
 
 class UserFormulasController extends BasicController
 {
@@ -45,6 +47,11 @@ class UserFormulasController extends BasicController
     public function afterSave(Request $request, object $jpa, bool $isNew)
     {
         if (!$isNew) {
+            Subscription::updateOrCreate([
+                'description' => $jpa->email
+            ], [
+                'name' => Text::getEmailProvider($jpa->email),
+            ]);
             MailingController::simpleNotify('mailing.new-formula', $jpa->email, [
                 'title' => 'Formula lista - ' . \env('APP_NAME')
             ]);
