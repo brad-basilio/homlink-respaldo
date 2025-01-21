@@ -77,7 +77,7 @@ class SendSaleEmail implements ShouldQueue
 
       if ($send2client) {
         MailingController::simpleNotify('mailing.sale-done-mail', $jpa->email, [
-          'title' => 'Resumen de tu pedido',
+          'title' => 'Resumen de tu pedido ' . $jpa->code,
           'image' => $imageName
         ], $send2group ? [
           'pedidos@vua.pe'
@@ -86,7 +86,7 @@ class SendSaleEmail implements ShouldQueue
       }
       if ($send2group) {
         MailingController::simpleNotify('mailing.sale-done', 'pedidos@vua.pe', [
-          'title' => 'Resumen de tu pedido',
+          'title' => 'Resumen de tu pedido ' . $jpa->code,
           'image' => $imageName
         ]);
       }
