@@ -101,7 +101,8 @@ class CulqiController extends Controller
         $this->createCharge($request->token, $sale);
       }
 
-      $sale->update(['status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac']);
+      $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $sale->save();
 
       SendSaleWhatsApp::dispatchAfterResponse($sale);
     }, function () use ($sale) {
