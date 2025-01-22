@@ -83,10 +83,10 @@ const Menu = ({ session, hasRole, salesCount }) => {
                 <MenuItem href="/admin/items" icon='mdi mdi-cube-send'>Items</MenuItem>
                 <MenuItem href="/admin/colors" icon='mdi mdi-palette-outline'>Colores</MenuItem>
               </MenuItemContainer>
-              <MenuItem href='/admin/gifts' icon='mdi mdi-gift' badge >
+              {/* <MenuItem href='/admin/gifts' icon='mdi mdi-gift' badge >
                 <span className="badge bg-primary float-end">Nuevo</span>
                 Gifts
-              </MenuItem>
+              </MenuItem> */}
               <MenuItemContainer title='Características' icon='mdi mdi-flask-round-bottom'>
                 <MenuItem href="/admin/supplies" icon='mdi mdi-flask-round-bottom'>Ingredientes</MenuItem>
                 <MenuItem href="/admin/formulas" icon='mdi mdi-flask'>Fórmulas</MenuItem>
