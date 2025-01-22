@@ -2,7 +2,7 @@ import React from "react"
 import { Local } from "sode-extend-react"
 import Number2Currency from "../../Utils/Number2Currency";
 
-const SelectPlan = ({ goToNextPage, setSelectedPlan, bundles = [], planes = [], session }) => {
+const SelectPlan = ({ goToNextPage, goToPrevPage, setSelectedPlan, bundles = [], planes = [], session }) => {
 
   const cart = Local.get('vua_cart') ?? []
 
