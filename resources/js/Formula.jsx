@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Base from './Components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
-import SelectProduct from './Components/Product/SelectProduct';
+import Checkout from './Components/Product/Checkout';
 import SelectColor from './Components/Product/SelectColor';
 import SelectPlan from './Components/Product/SelectPlan';
-import Checkout from './Components/Product/Checkout';
+import SelectProduct from './Components/Product/SelectProduct';
 
 
 const Formula = ({ user_formula, items, colors, publicKey, session, bundles, planes }) => {
@@ -19,11 +19,17 @@ const Formula = ({ user_formula, items, colors, publicKey, session, bundles, pla
     }
   };
 
+  const goToPrevPage = () => {
+    if (currentPageIndex > 0) {
+      setCurrentPageIndex(currentPageIndex - 1);
+    }
+  };
+
   // Páginas
   const pages = [
     { component: <SelectProduct items={items} goToNextPage={goToNextPage} bundles={bundles} />, name: 'Select Product' },
-    { component: <SelectColor items={items} goToNextPage={goToNextPage} />, name: 'Select Color' },
-    { component: <SelectPlan goToNextPage={goToNextPage} setSelectedPlan={setSelectedPlan} session={session} bundles={bundles} planes={planes} />, name: 'Select Plan' },
+    { component: <SelectColor items={items} goToNextPage={goToNextPage} goToPrevPage={goToPrevPage} />, name: 'Select Color' },
+    { component: <SelectPlan goToNextPage={goToNextPage} goToPrevPage={goToPrevPage} setSelectedPlan={setSelectedPlan} session={session} bundles={bundles} planes={planes} />, name: 'Select Plan' },
     { component: <Checkout formula={user_formula} publicKey={publicKey} selectedPlan={selectedPlan} goToNextPage={goToNextPage} bundles={bundles} planes={planes} session={session} />, name: 'Checkout' }
   ];
 

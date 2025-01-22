@@ -1326,7 +1326,7 @@
     ]
   },
   "resources/js/Components/Adminto/Dx/DxButton.jsx": {
-    "file": "assets/DxButton-l0sNRNKZ.js",
+    "file": "assets/DxButton-DP2rzg_V.js",
     "name": "DxButton",
     "src": "resources/js/Components/Adminto/Dx/DxButton.jsx",
     "isEntry": true
@@ -1404,7 +1404,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-ClxeGkIS.js",
+    "file": "assets/CheckboxFormGroup-uOWZuDyS.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -1434,7 +1434,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
+    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1454,7 +1454,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
+    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -1466,7 +1466,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-ClxeGkIS.js",
+    "file": "assets/SelectFormGroup-uOWZuDyS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1486,7 +1486,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-ClxeGkIS.js",
+    "file": "assets/TextareaFormGroup-uOWZuDyS.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1962,7 +1962,7 @@
     ]
   },
   "resources/js/Components/Table.jsx": {
-    "file": "assets/Table-uOWZuDyS.js",
+    "file": "assets/Table-ClxeGkIS.js",
     "name": "Table",
     "src": "resources/js/Components/Table.jsx",
     "isEntry": true,
@@ -2019,7 +2019,7 @@
     ]
   },
   "resources/js/Components/Tailwind/Table.jsx": {
-    "file": "assets/Table-ClxeGkIS.js",
+    "file": "assets/Table-uOWZuDyS.js",
     "name": "Table",
     "src": "resources/js/Components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -2029,10 +2029,10 @@
     ]
   },
   "resources/js/Components/Test/Email.jsx": {
-    "file": "assets/Email-DnUtVnbq.js",
+    "file": "assets/Email-dm8Qjre6.js",
     "name": "Email",
     "src": "resources/js/Components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2063,10 +2063,10 @@
     ]
   },
   "resources/js/Components/Test/HairType.jsx": {
-    "file": "assets/HairType-CpPx52vs.js",
+    "file": "assets/HairType-D4XKIVGc.js",
     "name": "HairType",
     "src": "resources/js/Components/Test/HairType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2099,10 +2099,10 @@
     ]
   },
   "resources/js/Components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-BibphYyi.js",
+    "file": "assets/Treatment-uOWZuDyS.js",
     "name": "Treatment",
     "src": "resources/js/Components/Test/Treatment.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js"
@@ -2191,13 +2191,13 @@
     ]
   },
   "resources/js/Components/dx/DxButton.jsx": {
-    "file": "assets/DxButton-DP2rzg_V.js",
+    "file": "assets/DxButton-l0sNRNKZ.js",
     "name": "DxButton",
     "src": "resources/js/Components/dx/DxButton.jsx",
     "isEntry": true
   },
   "resources/js/Components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-uOWZuDyS.js",
+    "file": "assets/CheckboxFormGroup-ClxeGkIS.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/Components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -2217,7 +2217,7 @@
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
+    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -2237,7 +2237,7 @@
     ]
   },
   "resources/js/Components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
+    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/Components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -2249,7 +2249,7 @@
     ]
   },
   "resources/js/Components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-uOWZuDyS.js",
+    "file": "assets/SelectFormGroup-ClxeGkIS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -2259,7 +2259,7 @@
     ]
   },
   "resources/js/Components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-uOWZuDyS.js",
+    "file": "assets/TextareaFormGroup-ClxeGkIS.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -2399,7 +2399,7 @@
     ]
   },
   "resources/js/Formula.jsx": {
-    "file": "assets/Formula-Bgiz3bkQ.js",
+    "file": "assets/Formula-CDlW0D6o.js",
     "name": "Formula",
     "src": "resources/js/Formula.jsx",
     "isEntry": true,
@@ -2409,12 +2409,12 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-XuIhqtsd.js",
       "_CreateReactScript-BTmFJSrT.js",
-      "_Number2Currency-e57Tgsuk.js",
       "_main-B2CtU6ez.js",
-      "resources/js/Components/Home/CallToAction.jsx",
-      "_tippy-react.esm-CHhA99mn.js",
+      "_Number2Currency-e57Tgsuk.js",
       "resources/js/Components/Blog/Results.jsx",
+      "_tippy-react.esm-CHhA99mn.js",
       "_createLucideIcon-Cx5eUsrb.js",
+      "resources/js/Components/Home/CallToAction.jsx",
       "_index-DO3Aws4m.js",
       "resources/js/Components/Tailwind/Base.jsx",
       "_index-B1nVdsa0.js",

@@ -4,7 +4,7 @@ import ItemContainer from "./components/ItemContainer"
 import Tippy from "@tippyjs/react"
 import Aos from "aos"
 
-const SelectColor = ({ goToNextPage, items = [] }) => {
+const SelectColor = ({ goToNextPage, goToPrevPage, items = [] }) => {
   const [cart, setCart] = useState(Local.get('vua_cart') ?? [])
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const SelectColor = ({ goToNextPage, items = [] }) => {
               <div className="flex flex-row gap-2 items-center p-2">
                 <div className="">
                   {/* <ItemContainer color={existence.hex} /> */}
-                  <img className="h-[120px] aspect-[3/4] object-cover object-center rounded-md" src={`/api/colors/media/${existence?.image}`} alt={item.name}/>
+                  <img className="h-[120px] aspect-[3/4] object-cover object-center rounded-md" src={`/api/colors/media/${existence?.image}`} alt={item.name} />
                 </div>
                 <div className="">
                   <div className="flex flex-wrap gap-3 items-end self-stretch my-auto ">
@@ -92,7 +92,14 @@ const SelectColor = ({ goToNextPage, items = [] }) => {
 
 
     <div className="flex flex-wrap items-center justify-center gap-2 mx-auto md:mx-[12.5%] mt-5 sm:mt-10">
-      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>SIGUIENTE</button>
+      <button onClick={goToPrevPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>
+        <i className="mdi mdi-arrow-left me-1"></i>
+        VOLVER
+      </button>
+      <button onClick={goToNextPage} className='bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded mt-4'>
+        SIGUIENTE
+        <i className="mdi mdi-arrow-right ms-1"></i>
+      </button>
     </div>
 
   </section>
