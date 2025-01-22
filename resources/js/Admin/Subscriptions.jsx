@@ -46,6 +46,7 @@ const Subscriptions = () => {
           }
         });
       }}
+      pageSize={25}
       columns={[
         {
           dataField: 'id',
