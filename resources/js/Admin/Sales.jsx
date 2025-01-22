@@ -70,8 +70,6 @@ const Sales = ({ statuses }) => {
     - Number(saleLoaded?.renewal_discount)
     - Number(saleLoaded?.coupon_discount)
 
-  console.log(saleLoaded)
-
   return (<>
     <Table gridRef={gridRef} title='Pedidos' rest={salesRest}
       toolBar={(container) => {
@@ -84,6 +82,7 @@ const Sales = ({ statuses }) => {
           }
         });
       }}
+      pageSize={25}
       columns={[
         {
           dataField: 'id',
