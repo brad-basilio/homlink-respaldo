@@ -3,7 +3,7 @@ import { Local } from 'sode-extend-react'
 
 const RigthBar = () => {
 
-  const settings = Local.get('adminto_settings') ?? {}
+  const settings = Local.get('adminto_settings') ?? { menuColor: 'gradient' }
 
   // Theme
   const bsLight = document.getElementById('bs-default-stylesheet')
@@ -122,7 +122,7 @@ const RigthBar = () => {
 
             <div className="form-check form-switch mb-1">
               <input type="radio" className="form-check-input" name="leftsidebar-size" value="condensed"
-                id="condensed-check" defaultChecked={settings.menuSize == 'condensed'}/>
+                id="condensed-check" defaultChecked={settings.menuSize == 'condensed'} />
               <label className="form-check-label" htmlFor="condensed-check">Condensado <small>(Tamaño extra pequeño)</small></label>
             </div>
 
