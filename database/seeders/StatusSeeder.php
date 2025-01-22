@@ -39,15 +39,15 @@ class StatusSeeder extends Seeder
                 'reversible' => false
             ],
             [
-                'id' => Crypto::randomUUID(),
-                'name' => 'Procesando',
+                'id' => 'a8903cd5-e91d-47d2-93ee-e0fca3845ecc',
+                'name' => 'En producción',
             ],
             [
-                'id' => Crypto::randomUUID(),
+                'id' => 'ad509181-6701-4fa1-a990-6bcb103254af',
                 'name' => 'Enviado'
             ],
             [
-                'id' => Crypto::randomUUID(),
+                'id' => 'bc012ef5-96e8-4bbb-867b-061c4090d9d2',
                 'name' => 'Entregado',
                 'color' => '#10c469',
                 'reversible' => false

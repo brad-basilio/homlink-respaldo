@@ -46,6 +46,7 @@ const Subscriptions = () => {
           }
         });
       }}
+      exportable={true}
       pageSize={25}
       columns={[
         {
