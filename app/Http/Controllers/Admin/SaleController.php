@@ -60,8 +60,8 @@ class SaleController extends BasicController
                 'status_id' => 'c063efb2-1e9b-4a43-8991-b444c14d30dd'
             ]);
 
-        $model::where('updated_at', '<=', now()->subDays(3))
-            ->where('status_id', 'ad509181-6701-4fa1-a990-6bcb103254af')
+        $model::where('updated_at', '<=', now()->subDays(5))
+            ->where('status_id', 'a8903cd5-e91d-47d2-93ee-e0fca3845ecc')
             ->update([
                 'status_id' => 'bc012ef5-96e8-4bbb-867b-061c4090d9d2'
             ]);
