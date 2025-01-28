@@ -189,17 +189,19 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
       if (resCQ) location.href = '/thanks'
     } else if (Culqi.order) {
       redirectOnClose()
+      const order_number = Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')
+      fetch(`/api/sales/notify/${order_number}`)
     }
   }
 
   const redirectOnClose = () => {
     setInterval(() => {
       if (Culqi.isOpen) return
-      const order_number = Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')
-      fetch(`/api/sales/notify/${order_number}`)
-      .then(res => {
-        location.href = `/thanks`
-      })
+      // const order_number = Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')
+      // fetch(`/api/sales/notify/${order_number}`)
+      // .then(res => {
+      location.href = `/thanks`
+      // })
     }, 500)
   }
 
@@ -455,15 +457,15 @@ const Checkout = ({ formula, publicKey, selectedPlan, bundles, planes, session }
                   </label>
                   <div className='flex border rounded-md border-gray-300'>
                     <span className='py-2 px-3 border-e'>+51</span>
-                  <input
-                    type="tel"
-                    id="phone"
-                    className="w-full p-2 text-sm outline-none"
-                    value={sale.phone}
-                    onChange={(e) => setSale(old => ({ ...old, phone: e.target.value }))}
-                    placeholder='900000000'
-                    required
-                  />
+                    <input
+                      type="tel"
+                      id="phone"
+                      className="w-full p-2 text-sm outline-none"
+                      value={sale.phone}
+                      onChange={(e) => setSale(old => ({ ...old, phone: e.target.value }))}
+                      placeholder='900000000'
+                      required
+                    />
                   </div>
                 </div>
                 <div className="mt-4">
