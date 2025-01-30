@@ -1326,7 +1326,7 @@
     ]
   },
   "resources/js/Components/Adminto/Dx/DxButton.jsx": {
-    "file": "assets/DxButton-l0sNRNKZ.js",
+    "file": "assets/DxButton-DP2rzg_V.js",
     "name": "DxButton",
     "src": "resources/js/Components/Adminto/Dx/DxButton.jsx",
     "isEntry": true
@@ -1424,7 +1424,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-ClxeGkIS.js",
+    "file": "assets/InputFormGroup-uOWZuDyS.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -1434,7 +1434,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
+    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -1466,7 +1466,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-ClxeGkIS.js",
+    "file": "assets/SelectFormGroup-uOWZuDyS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -1486,7 +1486,7 @@
     ]
   },
   "resources/js/Components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-ClxeGkIS.js",
+    "file": "assets/TextareaFormGroup-uOWZuDyS.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -1523,7 +1523,7 @@
     ]
   },
   "resources/js/Components/Blog/Filter.jsx": {
-    "file": "assets/Filter-ClxeGkIS.js",
+    "file": "assets/Filter-uOWZuDyS.js",
     "name": "Filter",
     "src": "resources/js/Components/Blog/Filter.jsx",
     "isEntry": true,
@@ -1603,7 +1603,7 @@
     ]
   },
   "resources/js/Components/Courses/Filter.jsx": {
-    "file": "assets/Filter-uOWZuDyS.js",
+    "file": "assets/Filter-ClxeGkIS.js",
     "name": "Filter",
     "src": "resources/js/Components/Courses/Filter.jsx",
     "isEntry": true,
@@ -1962,7 +1962,7 @@
     ]
   },
   "resources/js/Components/Table.jsx": {
-    "file": "assets/Table-ClxeGkIS.js",
+    "file": "assets/Table-uOWZuDyS.js",
     "name": "Table",
     "src": "resources/js/Components/Table.jsx",
     "isEntry": true,
@@ -2019,7 +2019,7 @@
     ]
   },
   "resources/js/Components/Tailwind/Table.jsx": {
-    "file": "assets/Table-uOWZuDyS.js",
+    "file": "assets/Table-ClxeGkIS.js",
     "name": "Table",
     "src": "resources/js/Components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -2029,10 +2029,10 @@
     ]
   },
   "resources/js/Components/Test/Email.jsx": {
-    "file": "assets/Email-DnUtVnbq.js",
+    "file": "assets/Email-dm8Qjre6.js",
     "name": "Email",
     "src": "resources/js/Components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2043,15 +2043,13 @@
     ]
   },
   "resources/js/Components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-DH-RYrC3.js",
+    "file": "assets/Fragrance-uOWZuDyS.js",
     "name": "Fragrance",
     "src": "resources/js/Components/Test/Fragrance.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
-      "_tippy-react.esm-CHhA99mn.js",
-      "_index-B80Lgev0.js",
-      "_index-DO3Aws4m.js"
+      "_index-B80Lgev0.js"
     ]
   },
   "resources/js/Components/Test/HairGoals.jsx": {
@@ -2088,10 +2086,10 @@
     ]
   },
   "resources/js/Components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-CQfzk1X8.js",
+    "file": "assets/ScalpType-CpPx52vs.js",
     "name": "ScalpType",
     "src": "resources/js/Components/Test/ScalpType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2193,7 +2191,7 @@
     ]
   },
   "resources/js/Components/dx/DxButton.jsx": {
-    "file": "assets/DxButton-DP2rzg_V.js",
+    "file": "assets/DxButton-l0sNRNKZ.js",
     "name": "DxButton",
     "src": "resources/js/Components/dx/DxButton.jsx",
     "isEntry": true
@@ -2209,7 +2207,7 @@
     ]
   },
   "resources/js/Components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-uOWZuDyS.js",
+    "file": "assets/InputFormGroup-ClxeGkIS.js",
     "name": "InputFormGroup",
     "src": "resources/js/Components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -2219,7 +2217,7 @@
     ]
   },
   "resources/js/Components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
+    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/Components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -2251,7 +2249,7 @@
     ]
   },
   "resources/js/Components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-uOWZuDyS.js",
+    "file": "assets/SelectFormGroup-ClxeGkIS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/Components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -2261,7 +2259,7 @@
     ]
   },
   "resources/js/Components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-uOWZuDyS.js",
+    "file": "assets/TextareaFormGroup-ClxeGkIS.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/Components/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -2756,7 +2754,7 @@
     ]
   },
   "resources/js/Thanks.jsx": {
-    "file": "assets/Thanks-CFoCyHPh.js",
+    "file": "assets/Thanks-uqXqJ5nc.js",
     "name": "Thanks",
     "src": "resources/js/Thanks.jsx",
     "isEntry": true,

@@ -6,7 +6,7 @@ import { Local } from "sode-extend-react";
 
 const Thanks = ({ session }) => {
   useEffect(() => {
-    history.replaceState(null, '', '/');
+    history.replaceState(null, '', '/thanks');
     Local.delete('vua_cart');
     Local.delete('vua_test');
   }, [null])
