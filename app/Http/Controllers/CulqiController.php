@@ -125,6 +125,7 @@ class CulqiController extends Controller
       "amount" => Math::ceil(($amount * 100)),
       "capture" => true,
       "currency_code" => "PEN",
+      "order_number" => '#' . env('APP_CORRELATIVE') . '-' . $sale->code,
       "description" => "Compra en " . env('APP_NAME'),
       "email" => $token['email'] ?? $sale->email,
       "installments" => 0,
