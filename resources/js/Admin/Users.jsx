@@ -21,10 +21,10 @@ const Users = ({ }) => {
 
   // Form elements ref
   const idRef = useRef()
-  const iconRef = useRef()
   const nameRef = useRef()
-  const descriptionRef = useRef()
-  const linkRef = useRef()
+  const lastnameRef = useRef()
+  const emailRef = useRef()
+  const phoneRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -33,10 +33,10 @@ const Users = ({ }) => {
     else setIsEditing(false)
 
     idRef.current.value = data?.id ?? ''
-    $(iconRef.current).val(data?.icon ?? null);
     nameRef.current.value = data?.name ?? ''
-    descriptionRef.current.value = data?.description ?? ''
-    linkRef.current.value = data?.link ?? ''
+    lastnameRef.current.value = data?.lastname ?? ''
+    emailRef.current.value = data?.email ?? ''
+    phoneRef.current.value = data?.phone ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -46,10 +46,10 @@ const Users = ({ }) => {
 
     const request = {
       id: idRef.current.value || undefined,
-      icon: iconRef.current.value,
       name: nameRef.current.value,
-      description: descriptionRef.current.value,
-      link: linkRef.current.value,
+      lastname: lastnameRef.current.value,
+      email: emailRef.current.value,
+      phone: phoneRef.current.value,
     }
 
     const result = await usersRest.save(request)
@@ -108,6 +108,11 @@ const Users = ({ }) => {
           visible: false
         },
         {
+          dataField: 'fullname',
+          caption: 'Nombre completo',
+          visible: false
+        },
+        {
           dataField: 'name',
           caption: 'Nombre',
         },
@@ -118,6 +123,10 @@ const Users = ({ }) => {
         {
           dataField: 'email',
           caption: 'Correo electronico',
+        },
+        {
+          dataField: 'phone',
+          caption: 'Celular',
         },
         {
           dataField: 'status',
@@ -159,11 +168,12 @@ const Users = ({ }) => {
         }
       ]} />
     <Modal modalRef={modalRef} title={isEditing ? 'Editar red social' : 'Agregar red social'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='socials-container'>
         <input ref={idRef} type='hidden' />
-        <InputFormGroup eRef={descriptionRef} label='Red social' col='col-md-8' required />
-        <InputFormGroup eRef={nameRef} label='Usuario' col='col-12' required />
-        <TextareaFormGroup eRef={linkRef} label='Enlace (https://...)' col='col-12' rows={2} required />
+      <div className='row' id='socials-container'>
+        <InputFormGroup eRef={nameRef} label='Nombre' col='col-md-6' required />
+        <InputFormGroup eRef={lastnameRef} label='Apellido' col='col-md-6' required />
+        <InputFormGroup eRef={emailRef} label='Correo' required />
+        <InputFormGroup eRef={phoneRef} label='Celular' required />
       </div>
     </Modal>
   </>
