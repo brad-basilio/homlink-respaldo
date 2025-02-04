@@ -27,12 +27,13 @@ use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
+use App\Http\Controllers\Admin\SaleController as AdminSaleController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 // Public 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
@@ -42,7 +43,6 @@ use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
-use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
@@ -113,6 +113,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/socials', [AdminSocialController::class, 'reactView'])->name('Admin/Socials.jsx');
     Route::get('/strengths', [AdminStrengthController::class, 'reactView'])->name('Admin/Strengths.jsx');
     Route::get('/generals', [AdminGeneralController::class, 'reactView'])->name('Admin/Generals.jsx');
+    Route::get('/users', [AdminUserController::class, 'reactView'])->name('Admin/Users.jsx');
 
     Route::get('/profile', [AdminProfileController::class, 'reactView'])->name('Admin/Profile.jsx');
     Route::get('/account', [AdminAccountController::class, 'reactView'])->name('Admin/Account.jsx');

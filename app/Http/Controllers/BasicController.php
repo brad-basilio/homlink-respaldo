@@ -34,6 +34,7 @@ class BasicController extends Controller
   public $throwMediaError = false;
   public $ignorePrefix = [];
   public $with4get = [];
+  public $ignoreStatusFilter = false;
 
   public function get(Request $request, string $id)
   {
@@ -140,7 +141,7 @@ class BasicController extends Controller
           ->groupBy(str_replace('!', '', $selector));
       }
 
-      if (Auth::check()) {
+      if (!$this->ignoreStatusFilter && Auth::check()) {
         $table = $this->prefix4filter ? $this->prefix4filter : (new $this->model)->getTable();
         if (Schema::hasColumn($table, 'status')) {
           $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');

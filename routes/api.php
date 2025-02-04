@@ -28,6 +28,7 @@ use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 
 // Customer
 use App\Http\Controllers\Customer\UserFormulasController as CustomerUserFormulasController;
@@ -234,6 +235,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/generals/status', [AdminGeneralController::class, 'status']);
         Route::patch('/generals/{field}', [AdminGeneralController::class, 'boolean']);
         Route::delete('/generals/{id}', [AdminGeneralController::class, 'delete']);
+
+        Route::post('/users', [AdminUserController::class, 'save']);
+        Route::post('/users/paginate', [AdminUserController::class, 'paginate']);
+        Route::patch('/users/status', [AdminUserController::class, 'status']);
+        Route::patch('/users/{field}', [AdminUserController::class, 'boolean']);
+        Route::delete('/users/{id}', [AdminUserController::class, 'delete']);
 
         Route::get('/profile/{uuid}', [AdminProfileController::class, 'full']);
         Route::get('/profile/thumbnail/{uuid}', [AdminProfileController::class, 'thumbnail']);

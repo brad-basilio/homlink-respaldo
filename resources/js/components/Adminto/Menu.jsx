@@ -106,6 +106,7 @@ const Menu = ({ session, hasRole, salesCount }) => {
               <MenuItem href="/admin/faqs" icon='mdi mdi-frequently-asked-questions'>FAQs</MenuItem>
               <MenuItem href="/admin/socials" icon='mdi mdi-web'>Redes Sociales</MenuItem>
               <li className="menu-title">Configuraciones</li>
+              <MenuItem href="/admin/users" icon='mdi mdi-account-multiple'>Usuarios</MenuItem>
               <MenuItem href="/admin/generals" icon='mdi mdi-credit-card-settings'>Datos Generales</MenuItem>
               <MenuItem href="/admin/profile" icon='mdi mdi-account-box'>Mi perfil</MenuItem>
               <MenuItem href="/admin/account" icon='mdi mdi-account-key'>Mi cuenta</MenuItem>
