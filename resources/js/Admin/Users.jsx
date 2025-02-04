@@ -6,18 +6,19 @@ import Table from '../Components/Table';
 import Modal from '../Components/Modal';
 import ReactAppend from '../Utils/ReactAppend';
 import DxButton from '../Components/dx/DxButton';
-import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
 import InputFormGroup from '@Adminto/form/InputFormGroup';
 import { renderToString } from 'react-dom/server';
 import UsersRest from '../Actions/Admin/UsersRest';
+import PasswordFormGroup from '../Components/Adminto/form/PasswordFormGroup';
 
 const usersRest = new UsersRest()
 
 const Users = ({ }) => {
   const gridRef = useRef()
   const modalRef = useRef()
+  const passwordModalRef = useRef()
 
   // Form elements ref
   const idRef = useRef()
@@ -25,6 +26,10 @@ const Users = ({ }) => {
   const lastnameRef = useRef()
   const emailRef = useRef()
   const phoneRef = useRef()
+
+  // Password form elements ref
+  const passwordIdRef = useRef()
+  const passwordRef = useRef()
 
   const [isEditing, setIsEditing] = useState(false)
 
@@ -39,6 +44,15 @@ const Users = ({ }) => {
     phoneRef.current.value = data?.phone ?? ''
 
     $(modalRef.current).modal('show')
+  }
+
+  const onPasswordModalOpen = (data) => {
+    setIsEditing(true)
+
+    passwordIdRef.current.value = data.id
+    passwordRef.current.value = ''
+
+    $(passwordModalRef.current).modal('show');
   }
 
   const onModalSubmit = async (e) => {
@@ -80,6 +94,20 @@ const Users = ({ }) => {
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
 
+  const onPasswordModalSubmit = async (e) => {
+    e.preventDefault()
+
+    const request = {
+      id: passwordIdRef.current.value,
+      password: passwordRef.current.value,
+    }
+
+    const result = await usersRest.save(request)
+    if (!result) return
+
+    $(passwordModalRef.current).modal('hide')
+  }
+
   return (<>
     <Table gridRef={gridRef} title='Usuarios' rest={usersRest}
       toolBar={(container) => {
@@ -89,15 +117,6 @@ const Users = ({ }) => {
             icon: 'refresh',
             hint: 'Refrescar tabla',
             onClick: () => $(gridRef.current).dxDataGrid('instance').refresh()
-          }
-        });
-        container.unshift({
-          widget: 'dxButton', location: 'after',
-          options: {
-            icon: 'plus',
-            text: 'Nuevo registro',
-            hint: 'Nuevo registro',
-            onClick: () => onModalOpen()
           }
         });
       }}
@@ -157,6 +176,12 @@ const Users = ({ }) => {
               onClick: () => onModalOpen(data)
             }))
             container.append(DxButton({
+              className: 'btn btn-xs btn-soft-dark',
+              title: 'Cambiar contraseña',
+              icon: 'fa fa-key',
+              onClick: () => onPasswordModalOpen(data)
+            }))
+            container.append(DxButton({
               className: 'btn btn-xs btn-soft-danger',
               title: 'Banear usuario',
               icon: 'fas fa-ban',
@@ -167,14 +192,19 @@ const Users = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar red social' : 'Agregar red social'} onSubmit={onModalSubmit} size='md'>
-        <input ref={idRef} type='hidden' />
-      <div className='row' id='socials-container'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar usuario' : 'Agregar usuario'} onSubmit={onModalSubmit} size='md'>
+      <input ref={idRef} type='hidden' />
+      <div className='row'>
         <InputFormGroup eRef={nameRef} label='Nombre' col='col-md-6' required />
         <InputFormGroup eRef={lastnameRef} label='Apellido' col='col-md-6' required />
-        <InputFormGroup eRef={emailRef} label='Correo' required />
-        <InputFormGroup eRef={phoneRef} label='Celular' required />
+        <InputFormGroup eRef={emailRef} label='Correo' required disabled />
+        <InputFormGroup eRef={phoneRef} label='Celular' />
       </div>
+    </Modal>
+
+    <Modal modalRef={passwordModalRef} title='Cambio de contraseña' onSubmit={onPasswordModalSubmit} size='sm'>
+      <input ref={passwordIdRef} type='hidden' />
+      <PasswordFormGroup eRef={passwordRef} label='Contraseña nueva'/>
     </Modal>
   </>
   )
