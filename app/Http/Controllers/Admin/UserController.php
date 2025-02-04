@@ -15,6 +15,7 @@ class UserController extends BasicController
 
     public function setPaginationInstance(string $model)
     {
-        return $model::where('email', '<>', 'admin@mundoweb.pe');
+        return $model::withCount(['sales'])
+            ->where('email', '<>', 'admin@mundoweb.pe');
     }
 }
