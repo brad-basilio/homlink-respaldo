@@ -19,7 +19,7 @@ const Thanks = ({ session }) => {
         </h1>
         <p className='mt-4 text-base sm:text-lg font-light'>
           Tu fórmula personalizada está pasando a nuestro laboratorio y será creada por nuestro equipo de expertos.
-          La tendrás en tus manos en un rango de 2 a 4 días hábiles.
+          La tendrás en tus manos en un rango de 3 a 6 días hábiles.
         </p>
       </div>
       {
