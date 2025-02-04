@@ -67,11 +67,11 @@ const Users = ({ }) => {
 
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar registro',
-      text: '¿Estas seguro de eliminar este registro?',
+      title: 'Banear usuario',
+      text: '¿Estas seguro de banear a este usuario?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Si, eliminar',
+      confirmButtonText: 'Si, banear',
       cancelButtonText: 'Cancelar'
     })
     if (!isConfirmed) return

@@ -61,7 +61,7 @@ class AuthController extends Controller
           'email_verified_at' => Trace::getDate('mysql'),
           'password' => $preUserJpa->password,
           'notify_me' => $preUserJpa->notify_me,
-          'status' => false
+          'status' => true
         ])->assignRole($roleJpa->name);
 
         $message = 'La confirmacion se ha realizado con exito';
@@ -131,12 +131,17 @@ class AuthController extends Controller
   public function login(Request $request): HttpResponse | ResponseFactory | RedirectResponse
   {
     $response = Response::simpleTryCatch(function (Response $response) use ($request) {
-      $email = $request->email;
-      $password = $request->password;
+      $email = Controller::decode($request->email);
+      $password = Controller::decode($request->password);
+
+      $userJpa = User::where('email', $email)->first();
+      if (!$userJpa) throw new Exception('Este usuario que no existe');
+      if (!$userJpa->status == null) throw new Exception('Este usuario se encuentra baneado del sistema');
+      if (!$userJpa->status) throw new Exception('Este usuario se encuentra inactivo');
 
       if (!Auth::attempt([
-        'email' => Controller::decode($email),
-        'password' => Controller::decode($password)
+        'email' => $email,
+        'password' => $password
       ])) {
         throw new Exception('Credenciales invalidas');
       }
