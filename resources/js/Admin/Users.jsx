@@ -150,7 +150,7 @@ const Users = ({ }) => {
         {
           dataField: 'sales_count',
           caption: 'Pedidos',
-          allowOrdering: false,
+          allowSorting: false,
           allowFiltering: false
         },
         {
