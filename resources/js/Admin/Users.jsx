@@ -148,6 +148,10 @@ const Users = ({ }) => {
           caption: 'Celular',
         },
         {
+          dataField: 'sales_count',
+          caption: 'Pedidos',
+        },
+        {
           dataField: 'status',
           caption: 'Estado',
           dataType: 'boolean',
