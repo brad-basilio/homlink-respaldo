@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 // Asume que tienes un servicio para guardar los datos
@@ -9,6 +9,8 @@ import { createRoot } from 'react-dom/client';
 import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
 import TextareaFormGroup from '../Components/Adminto/form/TextareaFormGroup';
 import Global from '../Utils/Global';
+import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
+import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
 
 const generalsRest = new GeneralsRest()
 
@@ -25,6 +27,9 @@ const Generals = ({ generals }) => {
     supportEmail: generals.find(x => x.correlative == 'support_email')?.description ?? '',
     privacyPolicy: generals.find(x => x.correlative == 'privacy_policy')?.description ?? '',
     termsConditions: generals.find(x => x.correlative == 'terms_conditions')?.description ?? '',
+    seoTitle: generals.find(x => x.correlative == 'seo_title')?.description ?? '',
+    seoDescription: generals.find(x => x.correlative == 'seo_description')?.description ?? '',
+    seoKeywords: generals.find(x => x.correlative == 'seo_keywords')?.description ?? '',
     location: {
       lat: Number(location.split(',').map(x => x.trim())[0]),
       lng: Number(location.split(',').map(x => x.trim())[1])
@@ -81,6 +86,9 @@ const Generals = ({ generals }) => {
         { correlative: 'support_email', name: 'Correo de soporte', description: formData.supportEmail },
         { correlative: 'privacy_policy', name: 'Política de privacidad', description: formData.privacyPolicy },
         { correlative: 'terms_conditions', name: 'Términos y condiciones', description: formData.termsConditions },
+        { correlative: 'seo_title', name: 'Titulo - SEO', description: formData.seoTitle },
+        { correlative: 'seo_description', name: 'Descripcion - SEO', description: formData.seoDescription },
+        { correlative: 'seo_keywords', name: 'Palabras clave - SEO', description: formData.seoKeywords },
         { correlative: 'location', name: 'Ubicación', description: `${formData.location.lat},${formData.location.lng}` }
       ]);
       // alert('Datos guardados exitosamente');
@@ -89,6 +97,14 @@ const Generals = ({ generals }) => {
       // alert('Error al guardar los datos');
     }
   };
+
+  const seo_keywords = (generals.find(x => x.correlative == 'seo_keywords')?.description ?? '').split(',').map(x => x.trim()).filter(Boolean)
+
+  useEffect(() => {
+    $('#cbo-keywords option').prop('selected', true).trigger('change')
+  }, [null])
+
+  console.log(formData)
 
   return (
     <div className="card">
@@ -102,6 +118,11 @@ const Generals = ({ generals }) => {
           <li className="nav-item" role="presentation">
             <button className={`nav-link ${activeTab === 'policies' ? 'active' : ''}`} onClick={() => setActiveTab('policies')} type="button" role="tab">
               Políticas y Términos
+            </button>
+          </li>
+          <li className="nav-item" role="presentation">
+            <button className={`nav-link ${activeTab === 'seo' ? 'active' : ''}`} onClick={() => setActiveTab('seo')} type="button" role="tab">
+              SEO (Metatags)
             </button>
           </li>
           <li className="nav-item" role="presentation" hidden> {/* Quitar el hidden para que se muestren las opciones */}
@@ -168,7 +189,7 @@ const Generals = ({ generals }) => {
               ></textarea>
             </div>
             <div className="mb-3">
-              <TextareaFormGroup label='Horarios de atencion' onChange={(e) => setFormData({ ...formData, openingHours: e.target.value })} value={formData.openingHours} required/>
+              <TextareaFormGroup label='Horarios de atencion' onChange={(e) => setFormData({ ...formData, openingHours: e.target.value })} value={formData.openingHours} required />
             </div>
             <div className="mb-3">
               <label htmlFor="supportPhone" className="form-label">Número de soporte</label>
@@ -201,6 +222,18 @@ const Generals = ({ generals }) => {
             <div className="mb-3">
               <QuillFormGroup label='Términos y condiciones' value={formData.termsConditions} onChange={(value) => setFormData({ ...formData, termsConditions: value })} />
             </div>
+          </div>
+
+          <div className={`tab-pane fade ${activeTab === 'seo' ? 'show active' : ''}`} role="tabpanel">
+            <InputFormGroup label='Titulo - SEO' value={formData.seoTitle ?? ''} onChange={(e) => setFormData({ ...formData, seoTitle: e.target.value })} />
+            <TextareaFormGroup label='Descripcion - SEO' value={formData.seoDescription ?? ''} onChange={(e) => setFormData({ ...formData, seoDescription: e.target.value })} />
+            <SelectFormGroup id='cbo-keywords' label='Palabras clave - SEO' tags multiple onChange={e => setFormData({ ...formData, seoKeywords: [...$(e.target).val()].join(', ') })} >
+              {
+                seo_keywords.map((keyword, index) => {
+                  return <option key={index} value={keyword}>{keyword}</option>
+                })
+              }
+            </SelectFormGroup>
           </div>
 
           <div className={`tab-pane fade ${activeTab === 'location' ? 'show active' : ''}`} role="tabpanel">

@@ -21,9 +21,10 @@ const WhatsAppModal = ({ status: whatsappStatus, setStatus }) => {
       })
 
       let eventSource = new EventSource(`${Global.WA_URL}/api/session/verify?${searchParams}`)
-      eventSource.onmessage = ({ data }) => {
+      eventSource.onmessage = ({ data, ...event }) => {
         if (data == 'ping') return console.log('Realtime active')
         const { status, qr, percent, info } = JSON.parse(data)
+
         switch (status) {
           case 'qr':
             setStatus('qr')

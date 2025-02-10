@@ -8,8 +8,6 @@ import MenuItemContainer from '../MenuItemContainer'
 const Menu = ({ session, hasRole, salesCount }) => {
   const mainRole = session.roles[0]
 
-  console.log(salesCount)
-
   return (<div className="left-side-menu">
     <div className="h-100" data-simplebar>
       <div className="user-box text-center">
