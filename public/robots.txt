@@ -1,2 +1,7 @@
 User-agent: *
-Disallow:
+Disallow: /login
+Disallow: /test
+Disallow: /supplies
+Disallow: /faqs
+Allow: /
+Sitemap: https://vua.pe/sitemap.xml
