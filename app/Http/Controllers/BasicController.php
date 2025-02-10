@@ -89,6 +89,11 @@ class BasicController extends Controller
   {
     $socials = Social::where('visible', true)->where('status', true)->get();
     $terms = General::select(['description'])->where('correlative', 'terms_conditions')->first();
+    if ($this->reactRootView == 'public') {
+      $seoTitle = General::select(['description'])->where('correlative', 'seo_title')->first();
+      $seoDescription = General::select(['description'])->where('correlative', 'seo_description')->first();
+      $seoKeywords = General::select(['description'])->where('correlative', 'seo_keywords')->first();
+    }
     $footerLinks = Aboutus::whereIn('correlative', ['phone', 'email', 'whatsapp', 'customer-complaints'])->get();
 
     $salesCount = null;
@@ -121,7 +126,11 @@ class BasicController extends Controller
     } else {
       return $reactViewProperties;
     }
-    return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView);
+    return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView)->withViewData([
+      'seoTitle' => $seoTitle->description ?? '',
+      'seoDescription' => $seoDescription->description ?? '',
+      'seoKeywords' => $seoKeywords->description ?? '',
+    ]);
   }
 
   public function paginate(Request $request): HttpResponse|ResponseFactory
