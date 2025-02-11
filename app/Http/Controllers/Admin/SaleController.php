@@ -67,7 +67,7 @@ class SaleController extends BasicController
             ]);
 
         return $model::select('sales.*')
-            ->with(['status'])
+            ->with(['status', 'renewal'])
             ->join('statuses AS status', 'status.id', 'sales.status_id');
     }
 

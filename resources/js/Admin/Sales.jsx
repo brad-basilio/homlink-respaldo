@@ -104,7 +104,14 @@ const Sales = ({ statuses }) => {
               onModalOpen(data.id)
             })
             ReactAppend(container, <p className='mb-0' style={{ width: '100%' }}>
-              <b className='d-block'>{data.name} {data.lastname}</b>
+              <b className='d-block'>
+                {
+                  data.renewal && <Tippy content={`Plan: ${data.renewal.name}`}>
+                    <i className='fa fas fa-spa text-pink'></i>
+                  </Tippy>
+                }
+                {data.name} {data.lastname}
+              </b>
               <small className='text-nowrap text-muted' style={{
                 overflow: 'hidden',
                 display: '-webkit-box',
