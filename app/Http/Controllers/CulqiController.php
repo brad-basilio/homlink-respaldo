@@ -220,7 +220,7 @@ class CulqiController extends Controller
     $name = Text::keep($sale->renewal->name
       . ' - ' . explode(' ', $sale->name)[0]
       . ' ' . explode(' ', $sale->lastname)[0]
-      . ' ' . Crypto::short(), 'A-Za-z0-9-_ ');
+      . ' ' . Crypto::short(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_ ');
     $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
 
     $amount = $normalAmount / $sale->renewal->months;
