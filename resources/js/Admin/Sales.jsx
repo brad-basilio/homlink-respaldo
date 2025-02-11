@@ -107,7 +107,7 @@ const Sales = ({ statuses }) => {
               <b className='d-block'>
                 {
                   data.renewal && <Tippy content={`Plan: ${data.renewal.name}`}>
-                    <i className='fa fas fa-spa text-pink'></i>
+                    <i className='fa fas fa-spa text-pink me-1'></i>
                   </Tippy>
                 }
                 {data.name} {data.lastname}
