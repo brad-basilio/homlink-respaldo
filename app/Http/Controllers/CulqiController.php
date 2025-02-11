@@ -262,8 +262,6 @@ class CulqiController extends Controller
       'body' => $body
     ]);
 
-    dump($name . ': ' . $res->text());
-
     if (!$res->ok) throw new Exception('Ocurrio un error al crear el plan en Culqi');
 
     $data = $res->json();
@@ -297,7 +295,9 @@ class CulqiController extends Controller
 
   public function webhook(Request $request)
   {
-    dump($request->all());
+
+    if (Auth::check() && Auth::user()->id === 66) dump($request->all());
+    
     $response = Response::simpleTryCatch(function () use ($request) {
       $data = JSON::parse($request->data);
       $res = new Fetch($this->url . '/orders/' . $data['id'], [
