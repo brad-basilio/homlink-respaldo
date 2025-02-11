@@ -43,6 +43,8 @@ const CreateReactScript = (render) => {
         'X-Xsrf-Token': decodeURIComponent(Cookies.get('XSRF-TOKEN'))
       }
       render(el, { ...properties, can, hasRole })
+
+      document.getElementById('app').removeAttribute('data-page')
     },
   });
 }

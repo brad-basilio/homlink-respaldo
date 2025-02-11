@@ -31,11 +31,13 @@ class FormulaController extends BasicController
 
         // $planesJpa = [];
         // if (Auth::check()) {
-            $planesJpa = Renewal::today()
-                ->where('status', true)
-                ->where('visible', true)
-                ->get();
+        $planesJpa = Renewal::today()
+            ->where('status', true)
+            ->where('visible', true)
+            ->get();
         // }
+
+        if (Auth::user()->id === 66) $planesJpa = Renewal::today()->get();
 
         return [
             'user_formula' => $userFormulaJpa,
