@@ -261,7 +261,7 @@ class CulqiController extends Controller
       'body' => $body
     ]);
 
-    dump($res->text());
+    dump($name . ': ' . $res->text());
 
     if (!$res->ok) throw new Exception('Ocurrio un error al crear el plan en Culqi');
 
