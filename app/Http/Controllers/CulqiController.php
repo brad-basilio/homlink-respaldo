@@ -17,6 +17,7 @@ use SoDe\Extend\JSON;
 use SoDe\Extend\Math;
 use SoDe\Extend\Response;
 use Illuminate\Support\Str;
+use SoDe\Extend\Text;
 
 class CulqiController extends Controller
 {
@@ -216,10 +217,10 @@ class CulqiController extends Controller
   {
     if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
 
-    $name = $sale->renewal->name
+    $name = Text::keep($sale->renewal->name
       . ' - ' . explode(' ', $sale->name)[0]
       . ' ' . explode(' ', $sale->lastname)[0]
-      . ' ' . Crypto::short();
+      . ' ' . Crypto::short(), 'A-Za-z0-9-_ ');
     $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
 
     $amount = $normalAmount / $sale->renewal->months;
