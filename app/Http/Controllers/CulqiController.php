@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Jobs\SendSaleEmail;
 use App\Jobs\SendSaleWhatsApp;
+use App\Models\CulqiCharge;
 use App\Models\CulqiSubscription;
 use App\Models\Sale;
 use App\Models\User;
 use Culqi\Culqi;
+use Error;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -82,7 +84,7 @@ class CulqiController extends Controller
   public function token(Request $request)
   {
     $order_number = \str_replace('#' . env('APP_CORRELATIVE') . '-', '', $request->order);
-    $sale = Sale::where('code', $order_number)->first();
+    $sale = Sale::with(['renewal'])->where('code', $order_number)->first();
 
     $response = Response::simpleTryCatch(function () use ($request, $sale) {
 
@@ -97,17 +99,20 @@ class CulqiController extends Controller
           'user_id' => Auth::user()->id,
           'cq_crd_id' => $cq_crd_id,
           'cq_pln_id' => $cq_pln_id,
-          'cq_sxn_id' => $cq_sxn_id
+          'cq_sxn_id' => $cq_sxn_id,
+          'sale_id' => $sale->id,
+          'already_paid' => false,
+          'current_payment' => 0,
+          'total_payments' => $sale->renewal->months,
         ]);
       } else {
         $this->createCharge($request->token, $sale);
+        $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+        $sale->save();
+
+        SendSaleWhatsApp::dispatchAfterResponse($sale);
+        SendSaleEmail::dispatchAfterResponse($sale);
       }
-
-      $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
-      $sale->save();
-
-      SendSaleWhatsApp::dispatchAfterResponse($sale);
-      SendSaleEmail::dispatchAfterResponse($sale);
     }, function () use ($sale) {
       $sale->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
     });
@@ -234,13 +239,7 @@ class CulqiController extends Controller
       "amount" => Math::ceil($amount * 100),
       "currency" => "PEN",
       "interval_unit_time" => 3,
-      "interval_count" => 0,
-      "metadata" => [
-        'user_id' => Auth::user()->id,
-        'sale_id' => $sale->id,
-        'paid' => 0,
-        'payments' => $sale->renewal->months,
-      ]
+      "interval_count" => 0
     ];
 
     if ($amount != $discount) {
@@ -318,21 +317,59 @@ class CulqiController extends Controller
 
   public function processSubscriptionCharge(Request $request, array $data)
   {
-    $cPlanRes = new Fetch($this->url . '/recurrent/plans/' . $data['planId'], [
-      'headers' => [
-        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
-      ]
-    ]);
-    $cPlan = $cPlanRes->json();
+    $culqiSubscription = CulqiSubscription::where('cq_sxn_id', $data['subsId'])->first();
+
+    if (!$culqiSubscription) throw new Exception('Esta subscripcion no esta registrada en ' . env('APP_NAME'));
 
     $cChrRes = new Fetch($this->url . '/charges/' . $data['chargeId'], [
       'headers' => [
         'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
       ]
     ]);
-    $cChr = $cChrRes->json();
 
-    dump($cPlan, $cChr);
+    if (!$cChrRes->ok) throw new Exception('El cargo que intentas procesar no existe en Culqi');
+
+    $chargeExists = CulqiCharge::where('culqi_id', $data['chargeId'])->exists();
+
+    if ($chargeExists) return;
+
+    $sale = Sale::with(['details'])->find($culqiSubscription->sale_id);
+
+    if (!$sale) throw new Exception('La venta asociada a la suscripción no existe.');
+
+    if (!$culqiSubscription->already_paid) {
+      $sale->update(['status_id' => '312f9a91-d3f2-4672-a6bf-678967616cac']);
+      $culqiSubscription->update(['already_paid' => true]);
+
+      SendSaleWhatsApp::dispatchAfterResponse($sale);
+      SendSaleEmail::dispatchAfterResponse($sale);
+    } else {
+      $cChrData = $cChrRes->json();
+
+      $chargeJpa = new CulqiCharge();
+      $chargeJpa->culqi_id = $data['chargeId'];
+      $chargeJpa->amount = $cChrData['amount'] / 100;
+      $chargeJpa->culqi_subscription_id = $culqiSubscription->id;
+      $chargeJpa->save();
+
+      $chargesCount = CulqiCharge::where('culqi_subscription_id', $culqiSubscription->id)
+        ->whereNull('sale_id')
+        ->count();
+
+      if ($chargesCount < $culqiSubscription->total_payments) return;
+
+      $newSale = $sale->replicate();
+      $newSale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $newSale->save();
+
+      CulqiCharge::where('culqi_subscription_id', $culqiSubscription->id)
+        ->whereNull('sale_id')
+        ->update(['sale_id' => $newSale->id]);
+
+      $sale->details->each(function ($detail) use ($newSale) {
+        $newSale->details()->create($detail->toArray());
+      });
+    }
   }
 
   public function processOrder(Request $request, array $data)
