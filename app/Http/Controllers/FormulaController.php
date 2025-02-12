@@ -37,8 +37,6 @@ class FormulaController extends BasicController
             ->get();
         // }
 
-        if (Auth::check() && Auth::user()->id === 66) $planesJpa = Renewal::today()->get();
-
         return [
             'user_formula' => $userFormulaJpa,
             'items' => $itemsJpa,
