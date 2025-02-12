@@ -301,43 +301,60 @@ class CulqiController extends Controller
 
   public function webhook(Request $request)
   {
-
-    // dump($request->all());
-
     $response = Response::simpleTryCatch(function () use ($request) {
       $data = JSON::parse($request->data);
-
-      if ($request->type == 'subscription.charge.succeeded') return true;
-
-      $res = new Fetch($this->url . '/orders/' . $data['id'], [
-        'headers' => [
-          'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
-        ]
-      ]);
-
-      if (!$res->ok) throw new Exception("Ocurrio un error al verificar la orden de pago");
-
-      $data = $res->json();
-
-      $code = str_replace('#' . env('APP_CORRELATIVE') . '-', '', $data['order_number']);
-
-      if ($data['state'] == 'expired') {
-        Sale::where('code', $code)
-          ->where('status_id', 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
-          ->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
-        return;
+      switch ($request->type) {
+        case 'subscription.charge.succeeded':
+          return $this->processSubscriptionCharge($request, $data);
+          break;
+        default:
+          return $this->processOrder($request, $data);
+          break;
       }
-
-      if ($data['state'] != 'paid') return;
-
-      $sale = Sale::where('code', $code)->first();
-      $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
-      $sale->save();
-
-      SendSaleWhatsApp::dispatchAfterResponse($sale);
-      SendSaleEmail::dispatchAfterResponse($sale);
     });
 
     return response($response->toArray(), $response->status);
+  }
+
+  public function processSubscriptionCharge(Request $request, array $data)
+  {
+    $res = new Fetch($this->url . '/recurrent/plans/' . $data['id'], [
+      'headers' => [
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ]
+    ]);
+
+    \dump($res);
+  }
+
+  public function processOrder(Request $request, array $data)
+  {
+    $res = new Fetch($this->url . '/orders/' . $data['id'], [
+      'headers' => [
+        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
+      ]
+    ]);
+
+    if (!$res->ok) throw new Exception("Ocurrio un error al verificar la orden de pago");
+
+    $data = $res->json();
+
+    $code = str_replace('#' . env('APP_CORRELATIVE') . '-', '', $data['order_number']);
+
+    if ($data['state'] == 'expired') {
+      Sale::where('code', $code)
+        ->where('status_id', 'f13fa605-72dd-4729-beaa-ee14c9bbc47b')
+        ->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
+      return;
+    }
+
+    if ($data['state'] != 'paid') return;
+
+    $sale = Sale::where('code', $code)->first();
+    $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+    $sale->save();
+
+    SendSaleWhatsApp::dispatchAfterResponse($sale);
+    SendSaleEmail::dispatchAfterResponse($sale);
   }
 }
