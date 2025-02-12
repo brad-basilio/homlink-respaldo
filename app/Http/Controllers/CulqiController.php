@@ -296,8 +296,8 @@ class CulqiController extends Controller
   public function webhook(Request $request)
   {
 
-    if (Auth::check() && Auth::user()->id === 66) dump($request->all());
-    
+    dump($request->all());
+
     $response = Response::simpleTryCatch(function () use ($request) {
       $data = JSON::parse($request->data);
       $res = new Fetch($this->url . '/orders/' . $data['id'], [
