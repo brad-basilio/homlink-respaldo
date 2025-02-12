@@ -360,6 +360,8 @@ class CulqiController extends Controller
 
       $newSale = $sale->replicate();
       $newSale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $newSale->coupon_id = null;
+      $newSale->coupon_discount = 0;
       $newSale->save();
 
       CulqiCharge::where('culqi_subscription_id', $culqiSubscription->id)
