@@ -300,6 +300,9 @@ class CulqiController extends Controller
 
     $response = Response::simpleTryCatch(function () use ($request) {
       $data = JSON::parse($request->data);
+
+      if ($request->type == 'subscription.charge.succeeded') return true;
+
       $res = new Fetch($this->url . '/orders/' . $data['id'], [
         'headers' => [
           'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
