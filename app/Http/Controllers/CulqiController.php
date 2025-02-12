@@ -237,7 +237,9 @@ class CulqiController extends Controller
       "interval_count" => 0,
       "metadata" => [
         'user_id' => Auth::user()->id,
-        'sale_id' => $sale->id
+        'sale_id' => $sale->id,
+        'paid' => 0,
+        'payments' => $sale->renewal->months,
       ]
     ];
 
