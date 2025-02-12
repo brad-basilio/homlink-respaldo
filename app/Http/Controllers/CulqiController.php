@@ -319,7 +319,7 @@ class CulqiController extends Controller
   public function processSubscriptionCharge(Request $request, array $data)
   {
     dump($request->all(), $data);
-    $res = new Fetch($this->url . '/recurrent/plans/' . $data['id'], [
+    $res = new Fetch($this->url . '/recurrent/plans/' . $data['planId'], [
       'headers' => [
         'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
       ]
