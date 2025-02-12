@@ -235,6 +235,10 @@ class CulqiController extends Controller
       "currency" => "PEN",
       "interval_unit_time" => 3,
       "interval_count" => 0,
+      "metadata" => [
+        'user_id' => Auth::user()->id,
+        'sale_id' => $sale->id
+      ]
     ];
 
     if ($amount != $discount) {
