@@ -300,7 +300,7 @@ class CulqiController extends Controller
   public function webhook(Request $request)
   {
 
-    dump($request->all());
+    // dump($request->all());
 
     $response = Response::simpleTryCatch(function () use ($request) {
       $data = JSON::parse($request->data);
