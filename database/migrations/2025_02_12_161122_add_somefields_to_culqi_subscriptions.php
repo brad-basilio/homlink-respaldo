@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('culqi_subscriptions', function (Blueprint $table) {
-            $table->foreignUuid('sale_id')->constrained('sales');
+            $table->foreignUuid('sale_id')->nullable()->constrained('sales');
             $table->boolean('already_paid')->default(false);
             $table->integer('current_payment')->default(0);
             $table->integer('total_payments')->default(1);
