@@ -40,7 +40,7 @@ class CulqiController extends Controller
 
       if (!$status) throw new Exception($sale['error']);
 
-      if ($sale->renewal_id) $this->createPlan($sale);
+      // if ($sale->renewal_id) $this->createPlan($sale);
 
       $amount = $sale['amount'];
 
