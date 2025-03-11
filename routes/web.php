@@ -36,6 +36,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
@@ -61,6 +62,11 @@ use App\Http\Controllers\ThankController;
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
+Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogProducts.jsx');
+Route::get('/instructions', [CatalogController::class, 'reactView'])->name('Instructions.jsx');
+Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');
+Route::get('/product', [CatalogController::class, 'reactView'])->name('DetailProduct.jsx');
+
 Route::get('/plans', [PlanController::class, 'reactView'])->name('Plans.jsx');
 Route::get('/supplies', [SupplyController::class, 'reactView'])->name('Supplies.jsx');
 Route::get('/faqs', [FaqController::class, 'reactView'])->name('FAQs.jsx');

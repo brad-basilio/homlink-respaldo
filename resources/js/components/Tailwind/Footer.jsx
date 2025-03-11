@@ -4,69 +4,135 @@ import ReactModal from "react-modal";
 import Tippy from "@tippyjs/react";
 import HtmlContent from "../../Utils/HtmlContent";
 
-ReactModal.setAppElement('#app')
+ReactModal.setAppElement("#app");
 
 const Footer = ({ socials, terms, footerLinks = [] }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
 
-  const links = {}
-  footerLinks.forEach(fl => {
-    links[fl.correlative] = fl.description
-  })
+    const links = {};
+    /* footerLinks.forEach((fl) => {
+        links[fl.correlative] = fl.description;
+    });*/
 
-  return (
-    <>
-      <footer className="px-[5%] py-[10%] md:px-[10%] md:py-[7.5%] lg:py-[5%] bg-transparent text-white relative grid grid-cols-3 md:grid-cols-2 gap-x-4 gap-y-6 text-sm">
-        <div className="col-span-2 flex flex-col gap-4 md:flex-row-reverse items-start justify-evenly md:col-span-1">
-          <ul className="flex flex-col gap-2">
-            {links.whatsapp && <li><a href={`//wa.me/${links.whatsapp}`}>Conversemos</a></li>}
-            <li><a href="/faqs">Preguntas frecuentes</a></li>
-            <li>
-              <span className="cursor-pointer" onClick={openModal}>
-                Términos y condiciones
-              </span>
-            </li>
-            {links['customer-complaints'] && <li><a href={links['customer-complaints']} target="_blank">Libro de reclamaciones</a></li>}
-          </ul>
-          <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 w-max" />
-        </div>
-        <div className="col-span-1 flex flex-col gap-4 md:flex-row items-start justify-evenly md:col-span-1">
-          <ul className="flex flex-col gap-2">
-            {links.phone && <li><a href={`tel:${links.phone}`}>Teléfono</a></li>}
-            {links.email && <li><a href={`mailto:${links.email}`}>Mail</a></li>}
-            {links.whatsapp && <li><a href={`//wa.me/${links.whatsapp}`}>WhatsApp</a></li>}
-          </ul>
-          <div className="flex items-end justify-start gap-2">
-            {socials.map((social, index) => (
-              <Tippy key={index} content={`Ver ${social.name} en ${social.description}`}>
-                <a
-                  href={social.link}
-                  className={`text-xl bg-white text-[#f1d7c1] ${social.icon} w-8 h-8 pt-0.5 text-center rounded-full`}
-                />
-              </Tippy>
-            ))}
-          </div>
-        </div>
-      </footer>
+    return (
+        <>
+            <footer class="bg-[#5F48B7] text-white">
+                <div class="px-[5%] max-w-xl lg:max-w-6xl xl:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto py-16">
+                    <div class=" flex md:flex-row flex-wrap xl:flex-nowrap gap-8">
+                        <div class="hidden w-3/12 lg:flex justify-center">
+                            <img
+                                src="https://i.ibb.co/pvgT612S/image.png"
+                                alt="weFem Logo"
+                                class="md:w-[170.52px] md:h-[120.27px] 2xl:w-[197.52px] 2xl:h-[136.27px] object-cover"
+                            />
+                        </div>
 
-      {/* Modal para Términos y Condiciones */}
-      <ReactModal
-        isOpen={modalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Términos y condiciones"
-        className="absolute left-1/2 -translate-x-1/2 bg-white p-6 rounded shadow-lg w-[95%] max-w-2xl my-8 outline-none h-[90vh]"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50"
-      >
-        <button onClick={closeModal} className="float-right text-gray-500 hover:text-gray-900">
-          Cerrar
-        </button>
-        <h2 className="text-xl font-bold mb-4">Políticas de privacidad y condiciones de uso</h2>
-        <HtmlContent className="prose h-[calc(90vh-120px)] lg:h-[calc(90vh-90px)] overflow-auto" html={terms.description} />
-      </ReactModal>
-    </>
-  );
+                        <div class="w-7/12  text-[15.77px] lg:w-3/12 xl:w-4/12  border-r-[#FFFFFF]  border-r-2 pr-4 md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-normal">
+                            <nav class="space-y-4">
+                                <a
+                                    href="#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Conversemos
+                                </a>
+                                <a
+                                    href="#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Preguntas frecuentes
+                                </a>
+                                <a
+                                    href="#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Términos y condiciones
+                                </a>
+                                <a
+                                    href="#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Libro de Reclamaciones
+                                </a>
+                            </nav>
+                        </div>
+
+                        <div class="md:w-[35%] text-[15.77px] lg:w-2/12 lg:border-r-[#FFFFFF]  lg:border-r-2  md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-normal">
+                            <nav class="space-y-4">
+                                <a
+                                    href="tel:#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Teléfono
+                                </a>
+                                <a
+                                    href="mailto:#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Mail
+                                </a>
+                                <a
+                                    href="#"
+                                    class="block hover:opacity-80 transition-opacity "
+                                >
+                                    Whatsapp
+                                </a>
+                            </nav>
+                        </div>
+                        <div class=" w-7/12  lg:hidden  flex items-center justify-center md:block">
+                            <img
+                                src="https://i.ibb.co/pvgT612S/image.png"
+                                alt="weFem Logo"
+                                class="h-[110.27px]  md:w-[170.52px] md:h-[120.27px] 2xl:w-[197.52px] 2xl:h-[136.27px] object-cover"
+                            />
+                        </div>
+
+                        <div class="md:w-[35%] lg:w-3/12 flex items-end lg:items-start lg:pt-4">
+                            <div class="flex flex-col md:flex-row gap-4 ">
+                                <a href="#" class="" aria-label="Instagram">
+                                    <img
+                                        src="/assets/img/footer/instagram.png"
+                                        alt="facebook"
+                                        class=" h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto"
+                                    />
+                                </a>
+
+                                <a href="#" className=" " aria-label="Facebook">
+                                    <img
+                                        src="/assets/img/footer/facebook.png"
+                                        alt="Facebook"
+                                        class="h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto "
+                                    />
+                                </a>
+
+                                <a href="#" class="" aria-label="WhatsApp">
+                                    <img
+                                        src="/assets/img/footer/whatsapp.png"
+                                        alt="WhatsApp"
+                                        class="h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto "
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-[#FFFFFF]">
+                    <div class="px-[5%]  md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto md:h-[77.91px] md:py-0 flex items-center justify-start">
+                        <p class="hidden md:block text-[14.72px] leading-[22.26px] text-[#EFEDF8]">
+                            Copyright © 2024 weFem® | Todos los derechos
+                            reservados | Juntxs sin límites
+                        </p>
+                        <p class="md:hidden flex w-full items-center justify-center text-center text-[12.72px] py-4 leading-[22.26px] text-[#EFEDF8]">
+                            Copyright © 2024 weFem® <br /> Todos los derechos
+                            reservados | Juntxs sin límites
+                        </p>
+                    </div>
+                </div>
+            </footer>
+        </>
+    );
 };
 
 export default Footer;

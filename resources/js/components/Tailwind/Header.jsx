@@ -1,109 +1,213 @@
 import Tippy from "@tippyjs/react";
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react";
 
-const Header = ({ session, showSlogan, gradientStart, menuGradientEnd }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const menuRef = useRef(null)
-  const btnToggleRef = useRef(null);
+const Header = ({
+    session,
+    showSlogan,
+    gradientStart,
+    menuGradientEnd,
+    backgroundType = "none",
+    backgroundSrc = "",
+    backgroundHeight = "h-screen",
+    backgroundPosition = "object-top",
+    children,
+}) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const menuRef = useRef(null);
+    const btnToggleRef = useRef(null);
 
-  const toggleMenu = (event) => {
-    if (event.target.closest('.menu-toggle')) {
-      setIsOpen(!isOpen)
-    } else {
-      setIsOpen(false)
-    }
-  }
+    const toggleMenu = (event) => {
+        if (event.target.closest(".menu-toggle")) {
+            setIsOpen(!isOpen);
+        } else {
+            setIsOpen(false);
+        }
+    };
 
-  useEffect(() => {
-    const handleOutsideClick = (event) => {
-      if (btnToggleRef.current == event.target || btnToggleRef.current.contains(event.target)) return
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setIsOpen(false)
-      }
-    }
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (
+                btnToggleRef.current == event.target ||
+                btnToggleRef.current.contains(event.target)
+            )
+                return;
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
 
-    document.addEventListener('mousedown', handleOutsideClick)
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick)
-    }
-  }, [])
+        document.addEventListener("mousedown", handleOutsideClick);
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, []);
 
-  return (
-    <>
-      {
-        showSlogan &&
-        <div className="text-center px-[5%] py-4 bg-[#A191B8] text-white text-sm">
-          ¡SUSCRÍBETE A CLUB VUÁ Y OBTÉN <b>ENVÍO GRATIS <br className="md:hidden" />
-            A TODO LIMA METROPOLITANA!</b>
-        </div>
-      }
-      <header className="sticky top-0 w-screen z-40">
-        <div className={`flex justify-between items-center ${!isOpen && location.pathname == '/' && 'bg-opacity-80'} text-white pe-[5%] shadow-lg lg:shadow-none`}
-          style={{
-            backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
-          }}>
-          <div className="flex items-center md:px-[5%]">
-            <button
-              ref={btnToggleRef}
-              onClick={toggleMenu}
-              className="text-white h-16 w-16 px-6 menu-toggle lg:hidden"
-              aria-label="Toggle menu"
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    return (
+        <>
+            {showSlogan && (
+                <div className="text-center px-[5%] py-3 bg-[#6048B7] text-white text-[14.21px] md:text-[16.21px] leading-6 uppercase">
+                    <span className="text-[#DDEC4C] font-bold ">
+                        ¡ENVÍO GRATIS
+                    </span>{" "}
+                    A TODO LIMA METROPOLITANA!
+                </div>
+            )}
+            <div
+                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip`}
             >
-              <i className={`fas ${isOpen ? 'fa-times' : 'fa-bars'} text-2xl`}></i>
-            </button>
-            <a href="/">
-              <img src="/assets/img/logo.svg" alt="Trasciende Logo" className="h-8 -mt-3.5" />
-            </a>
-          </div>
-          <div className="py-6 flex gap-2 md:gap-4 items-center">
+                {/* Fondo dinámico (imagen, video o nada) */}
+                {backgroundType === "image" && (
+                    <img
+                        src={backgroundSrc}
+                        className={`absolute inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
+                        alt="Background"
+                    />
+                )}
+                {backgroundType === "video" && (
+                    <video
+                        className={`absolute inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
+                        autoPlay
+                        loop
+                        muted
+                    >
+                        <source src={backgroundSrc} type="video/mp4" />
+                    </video>
+                )}
 
-            <ul className="hidden lg:flex gap-8 me-4">
-              <li><a href="/about" className="block py-2">NOSOTROS</a></li>
-              <li><a href="/supplies" className="block py-2">NUESTROS INGREDIENTES</a></li>
-              <li><a href="/plans" className="block py-2">SUSCRIPCIÓN</a></li>
-              <li><a href="/faqs" className="block py-2">Q&A</a></li>
-            </ul>
+                {/* Capa de color si hay fondo */}
+                {(backgroundType === "image" || backgroundType === "video") && (
+                    <div
+                        className="absolute inset-0 "
+                        style={{
+                            background:
+                                "linear-gradient(180deg, rgba(95, 72, 183, 0.75) 6.08%, rgba(96, 72, 183, 0.525) 100%)",
+                        }}
+                    ></div>
+                )}
+                <header
+                    className={`fixed top-0 w-full max-w-full overflow-hidden z-40 transition-colors duration-300 ${
+                        backgroundType === "none"
+                            ? "bg-[#5339B1]"
+                            : isScrolled
+                            ? "bg-[#5339B1] pt-0 "
+                            : "bg-transparent pt-14 lg:pt-10"
+                    }`}
+                >
+                    <div
+                        className={`px-[5%] py-4 lg:py-0  lg:max-w-7xl mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
+                    >
+                        <div className="flex items-center w-full  lg:hidden">
+                            <button
+                                ref={btnToggleRef}
+                                onClick={toggleMenu}
+                                className="text-white pr-6 menu-toggle "
+                                aria-label="Toggle menu"
+                            >
+                                <i
+                                    className={`fas ${
+                                        isOpen ? "fa-times" : "fa-bars"
+                                    } text-lg md:text-2xl`}
+                                ></i>
+                            </button>
+                            <a href="/">
+                                <img
+                                    src="/assets/img/logo.png"
+                                    alt="Trasciende Logo"
+                                    className="h-[27px] w-[150.55px] md:h-[36.8px] md:w-[210.55px] object-cover object-top"
+                                />
+                            </a>
+                        </div>
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[14.84px] leading-[18.55px]">
+                            <nav className="flex gap-8 ">
+                                <a href="/catalog">Tienda</a>
+                                <a href="/instructions">¿Cómo usar?</a>
+                                <a href="/about">Nosotrxs</a>
+                                <a href="/quiz">Quiz</a>
+                            </nav>
+                            <a href="/" className="flex justify-start">
+                                <img
+                                    src="/assets/img/logo.png"
+                                    alt="Wefem"
+                                    className="h-[36.8px] w-[210.55px] object-cover object-top"
+                                />
+                            </a>
+                            <div className="flex space-x-4 text-[22.93px] items-center">
+                                <a href="#" className="text-[14.84px]">
+                                    Escríbenos
+                                </a>
+                                <a href="#">
+                                    <i className="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fa-brands fa-tiktok"></i>
+                                </a>
 
-            <button href="/test" className="rounded-full px-3 py-2 bg-white text-[#A191B8] text-sm">CREA TU FÓRMULA</button>
-            <Tippy content={session ? `Perfil de ${session.name}` : 'Iniciar sesión'}>
-              <a className="relative block" href='/login'>
-                {
-                  session &&
-                  <span className="w-2 h-2 bg-green-500 rounded-full font-bold absolute bottom-0 -right-1"></span>
-                }
-                <i className="text-xl fa fa-user"></i>
-              </a>
-            </Tippy>
-            {/* <button>
-              <i className="text-xl fas fa-shopping-cart"></i>
-            </button> */}
-          </div>
+                                <a href="#">
+                                    <i className="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
 
-        </div>
-        <div
-          ref={menuRef}
-          className={`absolute top-full inset-0 text-white z-40 transform ${isOpen ? 'opacity-1' : 'hidden opacity-0'} transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto`}
-          style={{
-            backgroundImage: `linear-gradient(to right, ${gradientStart}, ${menuGradientEnd})`
-          }}>
-          <ul className="flex flex-col gap-4 items-center justify-center">
-            <li>
-              <a href="/about">NOSOTROS</a>
-            </li>
-            <li>
-              <a href="/supplies">NUESTROS INGREDIENTES</a>
-            </li>
-            <li>
-              <a href="/plans">SUSCRIPCIÓN</a>
-            </li>
-            <li>
-              <a href="/faqs">Q&A</a>
-            </li>
-          </ul>
-        </div>
-      </header>
-    </>
-  )
+                        <div className=" lg:hidden">
+                            <div className="flex items-center gap-2 sm:gap-4">
+                                <a href="/quiz">Quiz</a>
+                                <a href="#">
+                                    <i className="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="#">
+                                    <i className="fas fa-shopping-cart"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        ref={menuRef}
+                        className={`absolute top-full inset-0 text-white z-40 transform ${
+                            isOpen ? "opacity-1" : "hidden opacity-0"
+                        } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto bg-[rgba(95,72,183,0.4)]`}
+                    >
+                        <ul className="flex flex-col gap-4 items-center justify-center">
+                            <li>
+                                <a href="/about">NOSOTROS</a>
+                            </li>
+                            <li>
+                                <a href="/supplies">NUESTROS INGREDIENTES</a>
+                            </li>
+                            <li>
+                                <a href="/plans">SUSCRIPCIÓN</a>
+                            </li>
+                            <li>
+                                <a href="/faqs">Q&A</a>
+                            </li>
+                        </ul>
+                    </div>
+                </header>
+
+                {/* Contenido dinámico */}
+                {children && (
+                    <div className="absolute inset-0 flex items-center justify-center text-center text-white p-6">
+                        {children}
+                    </div>
+                )}
+            </div>
+        </>
+    );
 };
 
-export default Header
+export default Header;
