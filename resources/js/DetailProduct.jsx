@@ -27,38 +27,48 @@ const DetailProduct = ({
     showSlogan = true,
 }) => {
     const tipoSlider = "vua";
-  const products = [
-      {
-          id: 1,
-          name: "weTotal",
-          description: "Disco + Esterilizador",
+    const products = [
+        {
+            id: 1,
+            name: "weTotal",
+            description: "Disco + Esterilizador",
 
-          price: 255,
-          discount: 179.9,
-          final_price: 179.9,
-          image: "https://i.ibb.co/fV6JQ7Bf/e668d950658ae3c60479b23cdc546252.png",
-      },
-      {
-          id: 2,
-          name: "wePack",
-          description: "Disco + Esterilizador",
+            price: 255,
+            discount: 179.9,
+            final_price: 179.9,
+            image: "https://i.ibb.co/fV6JQ7Bf/e668d950658ae3c60479b23cdc546252.png",
+        },
+        {
+            id: 2,
+            name: "wePack",
+            description: "Disco + Esterilizador",
 
-          price: 230,
-          discount: 149.9,
-          final_price: 149.9,
-          image: "https://i.ibb.co/zyjGBDv/dd77e7ec81f52f1e46c68e0cb7e3db80.png",
-      },
-      {
-          id: 3,
-          name: "weDisk",
-          description: "Disco mestrual",
+            price: 230,
+            discount: 149.9,
+            final_price: 149.9,
+            image: "https://i.ibb.co/zyjGBDv/dd77e7ec81f52f1e46c68e0cb7e3db80.png",
+        },
+        {
+            id: 3,
+            name: "weDisk",
+            description: "Disco mestrual",
 
-          price: 180,
-          discount: 159.9,
-          final_price: 159.9,
-          image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png ",
-      },
-  ];
+            price: 180,
+            discount: 159.9,
+            final_price: 159.9,
+            image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png ",
+        },
+        {
+            id: 4,
+            name: "weDisk",
+            description: "Disco mestrual",
+
+            price: 180,
+            discount: 159.9,
+            final_price: 159.9,
+            image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png ",
+        },
+    ];
     return (
         <>
             <Header showSlogan={showSlogan} backgroundHeight="h-0"></Header>

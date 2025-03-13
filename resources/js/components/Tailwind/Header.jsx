@@ -63,19 +63,19 @@ const Header = ({
                 </div>
             )}
             <div
-                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip`}
+                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip `}
             >
                 {/* Fondo dinámico (imagen, video o nada) */}
                 {backgroundType === "image" && (
                     <img
                         src={backgroundSrc}
-                        className={`absolute inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
+                        className={`absolute -z-10 inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
                         alt="Background"
                     />
                 )}
                 {backgroundType === "video" && (
                     <video
-                        className={`absolute inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
+                        className={`absolute -z-10 inset-0  w-screen h-full  object-cover ${backgroundPosition}`}
                         autoPlay
                         loop
                         muted
@@ -176,28 +176,32 @@ const Header = ({
                             </div>
                         </div>
                     </div>
-                    <div
-                        ref={menuRef}
-                        className={`absolute top-full inset-0 text-white z-40 transform ${
-                            isOpen ? "opacity-1" : "hidden opacity-0"
-                        } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto bg-[rgba(95,72,183,0.4)]`}
-                    >
-                        <ul className="flex flex-col gap-4 items-center justify-center">
-                            <li>
-                                <a href="/about">NOSOTROS</a>
-                            </li>
-                            <li>
-                                <a href="/supplies">NUESTROS INGREDIENTES</a>
-                            </li>
-                            <li>
-                                <a href="/plans">SUSCRIPCIÓN</a>
-                            </li>
-                            <li>
-                                <a href="/faqs">Q&A</a>
-                            </li>
-                        </ul>
-                    </div>
                 </header>
+                <div
+                    ref={menuRef}
+                    className={`absolute top-16 md:top-20 inset-0 text-white z-[999] transform ${
+                        isOpen ? "opacity-1 block" : "hidden opacity-0"
+                    } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto `}
+                    style={{
+                        background:
+                            "linear-gradient(180deg, rgba(95, 72, 183, 0.75) 6.08%, rgba(96, 72, 183, 0.525) 100%)",
+                    }}
+                >
+                    <ul className="flex flex-col gap-4 items-center justify-center">
+                        <li>
+                            <a href="/catalog">Tienda</a>
+                        </li>
+                        <li>
+                            <a href="/instructions">¿Cómo usar?</a>
+                        </li>
+                        <li>
+                            <a href="/about">Nosotrxs</a>
+                        </li>
+                        <li>
+                            <a href="/quiz">Quiz</a>
+                        </li>
+                    </ul>
+                </div>
 
                 {/* Contenido dinámico */}
                 {children && (

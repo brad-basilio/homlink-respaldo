@@ -99,6 +99,7 @@ const Home = ({
             <div className="relative z-10">
                 <FeaturesSection />
                 <BenefitsSection />
+                <div className="h-[40px] lg:h-0"></div>
                 <ProductCarousel products={products}>
                     <h2 className="text-xl md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-start justify-center">
                         <img

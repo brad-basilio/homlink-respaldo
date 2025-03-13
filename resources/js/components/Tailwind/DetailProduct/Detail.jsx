@@ -1,158 +1,220 @@
 import React, { useState } from "react";
 
 const Detail = () => {
-    const [selectedColor, setSelectedColor] = useState("purple");
-    const [quantity, setQuantity] = useState(1);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleColorSelect = (color) => {
-        setSelectedColor(color);
-    };
+    const [quantity, setQuantity] = useState(1);
+    const [selectedColor, setSelectedColor] = useState("purple");
+    const [selectedSize, setSelectedSize] = useState("Talla A");
 
-    const handleQuantityChange = (delta) => {
-        setQuantity((prev) => Math.max(1, prev + delta));
+    const changeQuantity = (amount) => {
+        setQuantity((prev) => Math.max(1, prev + amount));
     };
 
     return (
-        <section className="relative py-10 bg-[#EFE5FF]">
-            <div className="px-[5%] mx-auto md:max-w-6xl 2xl:max-w-6xl">
-                <p className="md:text-[18.31px] 2xl:text-[23.31px] leading-[29.44px]">
+        <section className=" py-10 bg-[#EFE5FF]">
+            <div className="px-[5%] lg:px-0 mx-auto lg:max-w-5xl 2xl:max-w-6xl mt-8">
+                <p className="md:w-[644px] mx-auto lg:mx-0 md:text-[18.31px] 2xl:text-[23.31px] leading-[29.44px]">
                     Home / Tienda we Fem / <strong>wePack</strong>
                 </p>
 
-                <div className="flex items-start flex-col md:flex-row mt-4 gap-2">
-                    {/* Left Column - Images */}
-                    <div className="flex md:flex-col gap-4">
-                        <img
-                            src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
-                            alt="Thumbnail"
-                            className="w-16 h-auto md:w-1/12"
-                        />
-                        <img
-                            src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
-                            alt="Main Product"
-                            className="md:w-[580.81px] md:h-[580.81px] 2xl:w-[638.72px] 2xl:h-[638.72px]"
-                        />
-                    </div>
-
-                    {/* Right Column - Product Details */}
-                    <div className="w-[472px] text-[#333333]">
-                        <h3 className="md:text-[45.38px] 2xl:text-[54.38px] font-bold">
-                            wePack
-                        </h3>
-                        <p className="md:text-[20.81px] 2xl:text-[30.81px]">
-                            (Disco + Esterilizador)
-                        </p>
-
-                        <p className="md:text-xs 2xl:text-[14.05px] mt-2">
-                            🌸 Recipiente menstrual con el doble de capacidad
-                            que una copa, ideal para recolectar sangre y tener
-                            relaciones sin preocupaciones durante tu periodo.
-                            ¡Libertad total! 🌙 💖
-                        </p>
-
-                        {/* Promo Banner */}
-                        <div className="w-[155px] h-[25px] bg-[#212529] text-white rounded-[5.44px] my-4 flex items-center justify-center">
-                            <p className="flex items-center gap-2">
-                                🔥 <span className="font-bold">AHORRA</span> S/
-                                75.00 🔥
-                            </p>
+                <div className="flex items-start flex-col md:flex-row mt-4 gap-4">
+                    <div className="mx-auto flex flex-col lg:flex-row justify-start items-start my-4 gap-8">
+                        {/* Left Column - Images */}
+                        <div className="hidden lg:flex items-start justify-start flex-col gap-4 w-[100px] h-full">
+                            <img
+                                src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
+                                alt="Thumbnail"
+                                className="h-[100px] w-[100px] object-cover"
+                            />
                         </div>
 
-                        {/* Pricing */}
-                        <p className="md:text-[35.33px] 2xl:text-[49.33px] text-[#FC58BE] font-bold">
-                            S/. 169.90
-                        </p>
-                        <p className="md:text-[20.84px] 2xl:text-[24.84px] text-[#B4B4B4]">
-                            <del>Antes S/. 255</del>
-                        </p>
-
-                        {/* Rating */}
-                        <div className="flex gap-1 mt-2">
-                            {[...Array(5)].map((_, i) => (
-                                <span key={i} className="text-[#FF9900]">
-                                    ⭐
-                                </span>
-                            ))}
+                        {/* Image */}
+                        <div className="md:w-[644px] md:h-[644px] lg:w-[500.81px] lg:h-[500.81px] 2xl:w-[620.81px] 2xl:h-[620.81px] overflow-hidden">
+                            <img
+                                src="https://i.ibb.co/1tsnJxPj/image.png"
+                                alt="wePack Product"
+                                className="md:w-[644px] md:h-[644px] lg:w-[500.81px] lg:h-[500.81px] 2xl:w-[620.81px] 2xl:h-[620.81px] object-cover rounded-lg"
+                                loading="lazy"
+                            />
                         </div>
 
-                        {/* Color Selector */}
-                        <div className="flex items-center gap-2 mt-4">
-                            <span className="font-bold">Color:</span>
-                            <button
-                                className={`rounded-full p-1 border ${
-                                    selectedColor === "purple"
-                                        ? "border-[#C196E8]"
-                                        : "border-[#222222]"
-                                }`}
-                                onClick={() => handleColorSelect("purple")}
-                            >
-                                <span className="w-5 h-5 rounded-full bg-[#C196E8] block"></span>
-                            </button>
-                            <button
-                                className={`rounded-full p-1 border ${
-                                    selectedColor === "pink"
-                                        ? "border-[#EF62BA]"
-                                        : "border-[#DDDDDD]"
-                                }`}
-                                onClick={() => handleColorSelect("pink")}
-                            >
-                                <span className="w-5 h-5 rounded-full bg-[#EF62BA] block"></span>
-                            </button>
+                        <div className="flex items-start lg:hidden justify-start flex-row gap-4 w-[100px] h-full">
+                            <img
+                                src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
+                                alt="Thumbnail"
+                                className="h-[100px] w-[100px] object-cover"
+                            />
                         </div>
-
-                        {/* Size Selector */}
-                        <div className="relative mt-4">
-                            <select className="w-full h-[48.94px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none">
-                                <option>Talla A</option>
-                                <option>Talla B</option>
-                                <option>Talla C</option>
-                            </select>
-                            <svg
-                                className="absolute right-4 top-1/2 -translate-y-1/2"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 16 16"
-                            >
-                                <path
-                                    d="M4 6L8 10L12 6"
-                                    stroke="#9747FF"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
+                        {/* Product Details */}
+                        <div className="md:w-[644px] lg:w-[350px] 2xl:w-[475px] text-[#333333]">
+                            <div className="flex gap-4 lg:block items-end">
+                                <h3 className="text-[30.58px] md:text-[55.58px] lg:text-[40.38px] 2xl:text-[54.38px] font-bold leading-[40.78px]">
+                                    wePack
+                                </h3>
+                                <p className="text-[17.5px] md:text-[31.5px] lg:text-[16.81px] 2xl:text-[30.81px]  font-normal inline-flex ">
+                                    (Disco + Esterilizador)
+                                </p>
+                            </div>
+                            <p className="text-[12.36px] md:text-[14.36px] lg:text-[11px] 2xl:text-[14.05px] mt-2 leading-relaxed ">
+                                <img
+                                    src="/assets/img/emojis/blossom.png"
+                                    className="h-[15.05px] inline-flex"
+                                />{" "}
+                                Recipiente menstrual con el doble de capacidad
+                                que una copa, ideal para recolectar sangre y
+                                tener relaciones sin preocupaciones durante tu
+                                periodo. ¡Libertad total!
+                                <img
+                                    src="/assets/img/emojis/crescent-moon.png"
+                                    className="h-[15.05px] inline-flex"
                                 />
-                            </svg>
-                        </div>
+                                <img
+                                    src="/assets/img/emojis/sparkling-heart.png"
+                                    className="h-[15.05px] inline-flex"
+                                />
+                            </p>
+                            <div className="w-[158.43px] 2xl:w-[155px] h-[20px] 2xl:h-[25px] bg-[#212529] text-white rounded-[5.44px] my-4 flex items-center justify-center">
+                                <p className="w-[158.43px]   h-[25.55px]  bg-[#212529]  text-white rounded-[5.44px] my-4 flex items-center justify-center text-[10.88px]  leading-[21.75px]">
+                                    <img
+                                        src="/assets/img/emojis/fire.png"
+                                        className="h-[11.88px] inline-flex mr-2"
+                                    />{" "}
+                                    <span className="font-bold text-[10.88px] mr-2">
+                                        AHORRA
+                                    </span>{" "}
+                                    S/ 75.00{" "}
+                                    <img
+                                        src="/assets/img/emojis/fire.png"
+                                        className="h-[11.88px] inline-flex ml-2"
+                                    />
+                                </p>
+                            </div>
+                            <div className="flex gap-4 lg:block items-end">
+                                <p className="text-[30.42px] md:text-[50.42px] lg:text-[35.33px] 2xl:text-[49.33px] font-bold text-[#FC58BE]">
+                                    S/ 169.90
+                                </p>
+                                <p className="text-[20.39px] md:text-[25.39px] lg:text-[18.84px] 2xl:text-[24.84px] text-[#B4B4B4]">
+                                    <del>Antes S/ 255</del>
+                                </p>
+                            </div>
+                            <div className="flex items-center mt-2 text-[#FF9900] gap-1 text-base">
+                                {[1, 2, 3, 4, 5].map((_, index) => (
+                                    <img
+                                        src="/assets/img/emojis/star-score.png"
+                                        className="h-[19px] inline-flex"
+                                    />
+                                ))}
+                            </div>
+                            {/* Color Selector */}
+                            <div className="relative flex justify-between sm:justify-start gap-4 lg:gap-0 lg:justify-between items-center  my-2">
+                                <div className="flex items-start gap-2">
+                                    <p className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                        Color:
+                                    </p>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() =>
+                                                setSelectedColor("purple")
+                                            }
+                                            className={`rounded-full p-1 border ${
+                                                selectedColor === "purple"
+                                                    ? "border-[#222222]"
+                                                    : "border-[#DDDDDD]"
+                                            }`}
+                                        >
+                                            <div className="w-[22px] h-[22px] rounded-full bg-[#C196E8]"></div>
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                setSelectedColor("pink")
+                                            }
+                                            className={`rounded-full p-1 border ${
+                                                selectedColor === "pink"
+                                                    ? "border-[#222222]"
+                                                    : "border-[#DDDDDD]"
+                                            }`}
+                                        >
+                                            <div className="w-[22px] h-[22px] rounded-full bg-[#EF62BA]"></div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="lg:absolute right-0 lg:top-1/2  ">
+                                    <button class="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="h-5 fill-white mr-2"
+                                            viewBox="0 0 640 512"
+                                        >
+                                            <path
+                                                d="M0 336c0 26.5 21.5 48 48 48l544 0c26.5 0 48-21.5
+                48-48l0-160c0-26.5-21.5-48-48-48l-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0
+                8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0
+                8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0c-26.5
+                0-48 21.5-48 48L0 336z"
+                                            />
+                                        </svg>
+                                        ¿Cuál es mi talla?
+                                    </button>
+                                </div>
+                            </div>
 
-                        {/* Quantity Selector */}
-                        <div className="flex items-center justify-between h-[37.16px] bg-[#EFEDF8] rounded-[5.44px] mt-4 px-4">
-                            <button
-                                className="text-[17.84px]"
-                                onClick={() => handleQuantityChange(-1)}
-                            >
-                                -
-                            </button>
-                            <span className="text-xl font-medium">
-                                {quantity}
-                            </span>
-                            <button
-                                className="text-[17.84px]"
-                                onClick={() => handleQuantityChange(1)}
-                            >
-                                +
-                            </button>
+                            <div className=" block md:flex gap-4 lg:block items-end">
+                                {/* Size Selector */}
+                                <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                                    <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                        Selecciona tu talla:
+                                    </label>
+                                    <select
+                                        className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
+                                        value={selectedSize}
+                                        onChange={(e) =>
+                                            setSelectedSize(e.target.value)
+                                        }
+                                    >
+                                        <option>Talla A</option>
+                                        <option>Talla B</option>
+                                        <option>Talla C</option>
+                                    </select>
+                                </div>
+                                {/* Quantity Selector */}
+                                <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                                    <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
+                                        <button
+                                            onClick={() => changeQuantity(-1)}
+                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                        >
+                                            -
+                                        </button>
+                                        <span className="md:text-base 2xl:text-xl font-medium">
+                                            {quantity}
+                                        </span>
+                                        <button
+                                            onClick={() => changeQuantity(1)}
+                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Add to Cart Button */}
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={() => setIsModalOpen(!isModalOpen)}
+                                    class="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center"
+                                >
+                                    <span class="">Añadir al carrito</span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 576 512"
+                                        className="fill-white h-4 lg:h-3 absolute  top-1/2 -translate-y-1/2  right-16 "
+                                    >
+                                        <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
-
-                        {/* Add to Cart Button */}
-                        <button
-                            className="w-full h-[39.88px] bg-[#FC58BE] text-white rounded-[2.72px] mt-4 flex items-center justify-center"
-                            onClick={() => setIsModalOpen(true)}
-                        >
-                            <span>Añadir al carrito</span>
-                            <svg className="h-3 ml-4" viewBox="0 0 576 512">
-                                <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
             </div>

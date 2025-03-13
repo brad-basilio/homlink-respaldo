@@ -95,7 +95,7 @@ const ProductFilter = () => {
                             Todos los productos
                         </button>
                         {openMenu && (
-                            <ul className=" absolute bg-white rounded-lg p-4 space-y-3">
+                            <ul className=" absolute z-50 bg-white rounded-lg p-4 space-y-3">
                                 <li>
                                     <a href="#">Copas menstruales</a>
                                 </li>

@@ -11,7 +11,7 @@ const TopSaleSection = () => {
 
     return (
         <section className="py-10 px-[5%] mx-auto font-font-general bg-white">
-            <h2 className="md:text-[30.25px] 2xl:text-[36.25px] leading-[29.36px] font-bold text-[#212529] mt-6 mb-10 text-center flex gap-2 items-center justify-center">
+            <h2 className=" text-[30.25px] md:text-[30.25px] 2xl:text-[36.25px] leading-[29.36px] font-bold text-[#212529] mt-6 mb-10 text-center flex gap-2 items-center justify-center">
                 <img src="/assets/img/emojis/fire.png" className="h-8" /> El más
                 vendido{" "}
                 <img src="/assets/img/emojis/fire.png" className="h-8" />
@@ -28,13 +28,15 @@ const TopSaleSection = () => {
                 </div>
                 {/* Product Details */}
                 <div className="md:w-[644px] lg:w-[350px] 2xl:w-[475px] text-[#333333]">
-                    <h3 className="md:text-[40.38px] 2xl:text-[54.38px] font-bold leading-[40.78px]">
-                        wePack
-                    </h3>
-                    <p className="md:text-[16.81px] 2xl:text-[30.81px]  font-normal">
-                        (Disco + Esterilizador)
-                    </p>
-                    <p className="md:text-[11px] 2xl:text-[14.05px] mt-2 leading-relaxed ">
+                    <div className="flex gap-4 lg:block items-end">
+                        <h3 className="text-[30.58px] md:text-[55.58px] lg:text-[40.38px] 2xl:text-[54.38px] font-bold leading-[40.78px]">
+                            wePack
+                        </h3>
+                        <p className="text-[17.5px] md:text-[31.5px] lg:text-[16.81px] 2xl:text-[30.81px]  font-normal inline-flex ">
+                            (Disco + Esterilizador)
+                        </p>
+                    </div>
+                    <p className="text-[12.36px] md:text-[14.36px] lg:text-[11px] 2xl:text-[14.05px] mt-2 leading-relaxed ">
                         <img
                             src="/assets/img/emojis/blossom.png"
                             className="h-[15.05px] inline-flex"
@@ -51,13 +53,13 @@ const TopSaleSection = () => {
                             className="h-[15.05px] inline-flex"
                         />
                     </p>
-                    <div className="md:w-[158.43px] 2xl:w-[155px] md:h-[20px] 2xl:h-[25px] bg-[#212529] text-white rounded-[5.44px] my-4 flex items-center justify-center">
-                        <p className="w-[158.43px]   md:h-[25.55px]  bg-[#212529]  text-white rounded-[5.44px] my-4 flex items-center justify-center md:text-[10.88px]  leading-[21.75px]">
+                    <div className="w-[158.43px] 2xl:w-[155px] h-[20px] 2xl:h-[25px] bg-[#212529] text-white rounded-[5.44px] my-4 flex items-center justify-center">
+                        <p className="w-[158.43px]   h-[25.55px]  bg-[#212529]  text-white rounded-[5.44px] my-4 flex items-center justify-center text-[10.88px]  leading-[21.75px]">
                             <img
                                 src="/assets/img/emojis/fire.png"
                                 className="h-[11.88px] inline-flex mr-2"
                             />{" "}
-                            <span className="font-bold md:text-[10.88px]">
+                            <span className="font-bold text-[10.88px]">
                                 AHORRA
                             </span>{" "}
                             S/ 75.00{" "}
@@ -67,12 +69,14 @@ const TopSaleSection = () => {
                             />
                         </p>
                     </div>
-                    <p className="md:text-[35.33px] 2xl:text-[49.33px] font-bold text-[#FC58BE]">
-                        S/ 169.90
-                    </p>
-                    <p className="md:text-[18.84px] 2xl:text-[24.84px] text-[#B4B4B4]">
-                        <del>Antes S/ 255</del>
-                    </p>
+                    <div className="flex gap-4 lg:block items-end">
+                        <p className="text-[30.42px] md:text-[50.42px] lg:text-[35.33px] 2xl:text-[49.33px] font-bold text-[#FC58BE]">
+                            S/ 169.90
+                        </p>
+                        <p className="text-[20.39px] md:text-[25.39px] lg:text-[18.84px] 2xl:text-[24.84px] text-[#B4B4B4]">
+                            <del>Antes S/ 255</del>
+                        </p>
+                    </div>
                     <div className="flex items-center mt-2 text-[#FF9900] gap-1 text-base">
                         {[1, 2, 3, 4, 5].map((_, index) => (
                             <img
@@ -130,47 +134,53 @@ const TopSaleSection = () => {
                         </div>
                     </div>
 
-                    {/* Size Selector */}
-                    <div className="mb-4 2xl:mb-6">
-                        <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
-                            Selecciona tu talla:
-                        </label>
-                        <select
-                            className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
-                            value={selectedSize}
-                            onChange={(e) => setSelectedSize(e.target.value)}
-                        >
-                            <option>Talla A</option>
-                            <option>Talla B</option>
-                            <option>Talla C</option>
-                        </select>
-                    </div>
-                    {/* Quantity Selector */}
-                    <div className="flex h-[37.16px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
-                        <button
-                            onClick={() => changeQuantity(-1)}
-                            className="w-8 h-8 text-[17.84px] text-[#444444]"
-                        >
-                            -
-                        </button>
-                        <span className="md:text-base 2xl:text-xl font-medium">
-                            {quantity}
-                        </span>
-                        <button
-                            onClick={() => changeQuantity(1)}
-                            className="w-8 h-8 text-[17.84px] text-[#444444]"
-                        >
-                            +
-                        </button>
+                    <div className=" block md:flex gap-4 lg:block items-end">
+                        {/* Size Selector */}
+                        <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                            <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                Selecciona tu talla:
+                            </label>
+                            <select
+                                className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
+                                value={selectedSize}
+                                onChange={(e) =>
+                                    setSelectedSize(e.target.value)
+                                }
+                            >
+                                <option>Talla A</option>
+                                <option>Talla B</option>
+                                <option>Talla C</option>
+                            </select>
+                        </div>
+                        {/* Quantity Selector */}
+                        <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                            <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
+                                <button
+                                    onClick={() => changeQuantity(-1)}
+                                    className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                >
+                                    -
+                                </button>
+                                <span className="md:text-base 2xl:text-xl font-medium">
+                                    {quantity}
+                                </span>
+                                <button
+                                    onClick={() => changeQuantity(1)}
+                                    className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     {/* Add to Cart Button */}
                     <div className="flex justify-center">
-                        <button class="mt-4 relative w-full sm:w-[300px] lg:w-full h-[35.88px] 2xl:h-[39.88px] text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white  rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center">
+                        <button class="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center">
                             <span class="">Añadir al carrito</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 576 512"
-                                class="fill-white h-3 absolute  top-1/2 -translate-y-1/2  right-16 "
+                                className="fill-white h-4 lg:h-3 absolute  top-1/2 -translate-y-1/2  right-16 "
                             >
                                 <path d="M0 24C0 10.7 10.7 0 24 0L69.5 0c22 0 41.5 12.8 50.6 32l411 0c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3l-288.5 0 5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5L488 336c13.3 0 24 10.7 24 24s-10.7 24-24 24l-288.3 0c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5L24 48C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z" />
                             </svg>

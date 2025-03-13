@@ -15,8 +15,8 @@ const ProductCard = ({ product, visible = true }) => {
                         <div className="relative group aspect-square overflow-hidden flex items-center rounded-xl justify-center">
                             {product.discount &&
                                 typeof product.discount === "number" && (
-                                    <div className="absolute top-2 right-2 bg-[#212529] z-50 text-white text-base font-medium px-3 rounded-2xl">
-                                        <span className="text-[12.09px] leading-[15.72px]">
+                                    <div className="absolute top-2 right-2 bg-[#212529] z-50 text-white text-base font-medium px-3 pt-[1px] pb-1 rounded-2xl">
+                                        <span className="text-[12.09px] leading-[14.72px]">
                                             Ahorras
                                         </span>
                                         <div className="flex items-center gap-1">

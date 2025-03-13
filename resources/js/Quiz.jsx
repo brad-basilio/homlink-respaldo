@@ -7,11 +7,11 @@ import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 // Componente principal del cuestionario
 const Quiz = ({ showSlogan = true }) => {
-    const [currentStep, setCurrentStep] = useState(3);
+    const [currentStep, setCurrentStep] = useState(7);
 
     return (
         <>
-            <Header showSlogan={showSlogan} backgroundHeight="h-0"></Header>
+            <Header showSlogan={true} backgroundHeight="h-0" />
             <div className="relative z-10">
                 {currentStep === 1 && (
                     <InitQuiz setCurrentStep={setCurrentStep} />
@@ -261,11 +261,11 @@ const ThreeQuiz = ({ setCurrentStep }) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
-                <div className="px-[5%] max-w-[44rem] lg:px-0  lg:pl-[5%]   lg:max-w-lg 2xl:max-w-2xl text-center ">
+                <div className="px-[5%] w-full max-w-[40rem] lg:px-0  lg:pl-[5%] lg:w-[46rem]   lg:max-w-xl 2xl:max-w-2xl text-center ">
                     <h1 className="text-[50.64px] md:text-[65.64px] lg:text-[48.92px] 2xl:text-[68.92px] leading-[103.38px] font-bold  text-[#212529] tracking-[0.01em]">
                         weFem Quiz!
                     </h1>
-                    <h2 className="md:text-[21.1px] 2xl:text-[30.75px] md:leading-[36.12px] 2xl:leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
+                    <h2 className="text-[18.81px]   md:text-[29.81px]   lg:text-[20.1px] 2xl:text-[30.75px] md:leading-[36.12px] 2xl:leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
                         ¿Te interesaría tener relaciones con <br /> la regla sin
                         que manche?{" "}
                         <img
@@ -275,10 +275,10 @@ const ThreeQuiz = ({ setCurrentStep }) => {
                         />
                     </h2>
 
-                    <div className="space-x-4 w-full flex md:mt-8 2xl:mt-12">
+                    <div className="gap-4 w-full flex flex-col md:flex-row md:mt-8 2xl:mt-12">
                         <button
                             onClick={() => setCurrentStep(5)}
-                            className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] md:text-[16.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors w-full md:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            className="bg-white w-full md:w-1/2 hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.94px] lg:text-[18.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors h-[94px]  lg:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Sí! Sería lo max{" "}
                             <img
@@ -289,7 +289,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
                         </button>
                         <button
                             onClick={() => setCurrentStep(7)}
-                            className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] md:text-[16.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors w-full md:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            className="bg-white w-full md:w-1/2 hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.94px] lg:text-[18.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors  h-[94px] lg:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             No, me da igual{" "}
                             <img
@@ -299,7 +299,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
                             />
                         </button>
                     </div>
-                    <div className="flex justify-between mt-12">
+                    <div className="flex flex-row justify-between mt-12 mx-auto max-w-xl lg:w-full">
                         <button
                             onClick={() => setCurrentStep(4)}
                             className=" hover:opacity-90 font-semibold flex items-center gap-2 text-[#5F48B7] text-[22.12px] lg:text-[18.13px]  2xl:text-[23.13px] leading-[34.69px] tracking-[0.01em]"
@@ -322,7 +322,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
                         </button>
                         <button
                             onClick={() => setCurrentStep(5)}
-                            className="text-[#5F48B7] hover:opacity-90 font-semibold flex items-center md:text-[18.13px]  2xl:text-[23.13px]  leading-[34.69px] tracking-[0.01em]"
+                            className="text-[#5F48B7] hover:opacity-90 font-semibold flex gap-2 items-center text-[22.12px] lg:text-[18.13px]   2xl:text-[23.13px]  leading-[34.69px] tracking-[0.01em]"
                         >
                             Siguiente{" "}
                             <svg
@@ -354,33 +354,38 @@ const ThreeQuiz = ({ setCurrentStep }) => {
 };
 const FourQuiz = ({ setCurrentStep }) => {
     return (
-        <div className="flex w-full justify-between gap-8 bg-[#EFE5FF]  items-center">
-            <div className="flex  flex-col w-full md:w-1/2 justify-center text-[#212529]">
-                <div className="px-[5%] md:px-0 md:max-w-lg 2xl:max-w-2xl  mx-auto text-center">
-                    <h2 className="text-[25px] 2xl:text-[32.21px] leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
+        <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
+            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
+                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem]   lg:max-w-xl 2xl:max-w-[44rem] text-center ">
+                    <h2 className="text-[20.27px] md:text-[31.27px] lg:text-[25px] 2xl:text-[32.21px] leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
                         ¡Genial! Hemos encontrado el producto menstrual perfecto
                         para ti{" "}
+                        <img
+                            src="/assets/img/emojis/growing-heart.png"
+                            className="h-[30.05px] inline-flex ml-2"
+                            loading="lazy"
+                        />
                     </h2>
-                    <p className="mb-8 text-[17.77px] 2xl:text-[23.77px] leading-[31.81px] tracking-[0.01em]">
+                    <p className="mb-8 text-[18.07px] md:text-[23.07px] lg:text-[17.77px] 2xl:text-[23px] leading-[31.81px] tracking-[0.01em]">
                         Ingresa tu email para obtener tus resultados y recibir
-                        un email con un 
+                        un email con un {" "}
                         <strong>cupón exclusivo de 10% OFF</strong> ¡ solo para
                         ti!
                     </p>
-                    <div className="space-x-4 w-full ">
+                    <div className=" w-full flex items-center justify-center ">
                         <input
                             placeholder="Déjanos tu email aquí"
-                            className="bg-white hover:bg-gray-100 text-[#FF9900] font-semibold py-5 px-6 rounded-xl text-lg transition-colors w-full border-2 border-[#FF9900] focus:ring-0 focus:outline-none"
+                            className="bg-white w-full md:w-9/12 2xl:w-10/12 hover:bg-gray-100 text-[#FF9900] font-semibold  px-6 rounded-[20px] text-lg transition-colors border-2 border-[#FF9900] focus:ring-0 h-[80px] 2xl:h-[94px]  focus:outline-none text-[20.94px] placeholder:text-[20.94px] placeholder:text-[#FF9900] placeholder:text-center"
                         ></input>
                     </div>
-                    <p className="mb-8 text-[15px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
+                    <p className="mb-8 text-[15.78px] lg:text-[14px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
                         Dejándonos tu e-mail aceptas recibir novedades y
                         promociones de wefem
                     </p>
                     <div className="space-x-4 w-full flex justify-center">
                         <button
                             onClick={() => setCurrentStep(6)}
-                            className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] md:text-[18.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] md:h-[74px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Obtener mis resultados!
                         </button>
@@ -400,28 +405,38 @@ const FourQuiz = ({ setCurrentStep }) => {
 };
 const Result1Quiz = ({ setCurrentStep }) => {
     return (
-        <div className="flex w-full justify-between gap-8 bg-[#EFE5FF]  items-center">
-            <div className="flex  flex-col w-full md:w-1/2 justify-center text-[#212529]">
-                <div className="px-[5%] md:px-0 md:max-w-lg 2xl:max-w-3xl  mx-auto text-center">
-                    <h2 className="text-[25px] 2xl:text-[30.75px] 2xl:leading-[46.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
+        <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
+            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
+                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem] 2xl:w-[50rem]  lg:max-w-[35rem] 2xl:max-w-[47rem] text-center ">
+                    <h2 className=" md:text-[25.55px] lg:text-[25px] 2xl:text-[30.75px] 2xl:leading-[20.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
                         Tu mejor aliada sería
                     </h2>
-                    <h1 className="md:text-[58.92px]  2xl:text-[68.92px] 2xl:leading-[103.38px] font-bold mb-4 text-[#212529] tracking-[0.01em]">
-                        weDisk
+                    <h1 className="text-[50.82px] md:text-[82.82px] lg:text-[58.92px] leading-[36.26px]  2xl:text-[86.26px] 2xl:leading-[86.26px] font-bold mb-4 text-[#212529] tracking-[0.01em]">
+                        <img
+                            src="/assets/img/emojis/fire.png"
+                            className="h-[50.05px] md:h-[80.05px] lg:h-[50.05px]  2xl:2xl:h-[80.05px] inline-flex ml-2 mb-4"
+                            loading="lazy"
+                        />{" "}
+                        weDisk{" "}
+                        <img
+                            src="/assets/img/emojis/fire.png"
+                            className="h-[50.05px] md:h-[80.05px] lg:h-[50.05px]  2xl:h-[80.05px] inline-flex ml-2 mb-4"
+                            loading="lazy"
+                        />{" "}
                     </h1>
-                    <p className="mb-8 text-[16px] 2xl:text-[23.77px] leading-[29.93px] tracking-[0.01em]">
+                    <p className="text-[16.47px] mb-8 md:text-[21.47px] lg:text-[16px] 2xl:text-[22.37px] leading-[29.93px] tracking-[0.01em]">
                         Un disco menstrual de silicona que recoge tu flujo de
                         forma segura. Se coloca en la base del cuello uterino,
                         permitiéndote así tener sexo con la regla, sin manchas
                         ni fugas.
                     </p>
-                    <p className="mb-8 text-[17.77px] 2xl:text-[23.77px] leading-[29.93px] tracking-[0.01em] font-bold mt-6 text-[#212529]">
+                    <p className="text-[16.47px] mb-8 md:text-[21.47px] lg:text-[17.77px] 2xl:text-[22.37px] leading-[29.93px] tracking-[0.01em] font-bold mt-6 text-[#212529]">
                         ¡Revisa tu e-mail para obtener tu descuento exclusivo!
                     </p>
                     <div className="space-x-4 w-full flex justify-center mt-6">
                         <a
                             href="/product"
-                            className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[393px] md:h-[74px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[377.32px] h-[90.25px] lg:w-[300px] 2xl:w-[393px] lg:h-[86px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Comprar ahora!
                         </a>
@@ -441,28 +456,38 @@ const Result1Quiz = ({ setCurrentStep }) => {
 };
 const Result2Quiz = ({ setCurrentStep }) => {
     return (
-        <div className="flex w-full justify-between gap-8 bg-[#EFE5FF]  items-center">
-            <div className="flex  flex-col w-full md:w-1/2 justify-center text-[#212529]">
-                <div className="px-[5%] md:px-0 md:max-w-lg 2xl:max-w-3xl mx-auto text-center">
-                    <h2 className="text-[25px] 2xl:text-[30.75px] 2xl:leading-[46.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
+        <div className="bg-[#EFE5FF] flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20   items-center">
+            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
+                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem] 2xl:w-[50rem]  lg:max-w-[35rem] 2xl:max-w-[47rem] text-center ">
+                    <h2 className=" md:text-[25.55px] lg:text-[25px] 2xl:text-[30.75px] 2xl:leading-[20.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
                         Tu mejor aliada sería
                     </h2>
-                    <h1 className="md:text-[58.92px]  2xl:text-[68.92px] 2xl:leading-[103.38px] font-bold mb-4 text-[#212529] tracking-[0.01em]">
+                    <h1 className="text-[50.82px] md:text-[82.82px] lg:text-[58.92px] leading-[36.26px]  2xl:text-[86.26px] 2xl:leading-[86.26px] font-bold mb-4 text-[#212529] tracking-[0.01em]">
+                        <img
+                            src="/assets/img/emojis/wine-glass.png"
+                            className="h-[50.05px] md:h-[80.05px] lg:h-[50.05px]  2xl:h-[80.05px] inline-flex ml-2 mb-4"
+                            loading="lazy"
+                        />{" "}
                         weCup
+                        <img
+                            src="/assets/img/emojis/wine-glass.png"
+                            className="h-[50.05px] md:h-[80.05px] lg:h-[50.05px]  2xl:h-[80.05px] inline-flex ml-2 mb-4"
+                            loading="lazy"
+                        />{" "}
                     </h1>
-                    <p className="mb-8 text-[16px] 2xl:text-[23.77px] leading-[29.93px] tracking-[0.01em]">
-                        Un disco menstrual de silicona que recoge tu flujo de
-                        forma segura. Se coloca en la base del cuello uterino,
-                        permitiéndote así tener sexo con la regla, sin manchas
-                        ni fugas.
+                    <p className="text-[16.47px] mb-8 md:text-[21.47px] lg:text-[16px] 2xl:text-[22.37px] leading-[29.93px] tracking-[0.01em]">
+                        Una copa menstrual de silicona que recoge tu flujo de
+                        forma segura. Se coloca en el canal vaginal y te
+                        permitirá moverte cómodamente, sin irritaciones ni
+                        fugas.
                     </p>
-                    <p className="mb-8 text-[17.77px] 2xl:text-[23.77px] leading-[29.93px] tracking-[0.01em] font-bold mt-6 text-[#212529]">
+                    <p className="text-[16.47px] mb-8 md:text-[21.47px] lg:text-[17.77px] 2xl:text-[22.37px] leading-[29.93px] tracking-[0.01em] font-bold mt-6 text-[#212529]">
                         ¡Revisa tu e-mail para obtener tu descuento exclusivo!
                     </p>
                     <div className="space-x-4 w-full flex justify-center mt-6">
                         <a
                             href="/product"
-                            className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[393px] md:h-[74px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[377.32px] h-[90.25px] lg:w-[300px] 2xl:w-[393px] lg:h-[86px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Comprar ahora!
                         </a>
