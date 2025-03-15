@@ -7,7 +7,7 @@ import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 // Componente principal del cuestionario
 const Quiz = ({ showSlogan = true }) => {
-    const [currentStep, setCurrentStep] = useState(7);
+    const [currentStep, setCurrentStep] = useState(1);
 
     return (
         <>
