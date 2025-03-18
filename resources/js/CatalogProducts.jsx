@@ -32,7 +32,7 @@ const CatalogProducts = ({
                 showSlogan={showSlogan}
                 backgroundType="video"
                 backgroundSrc="/assets/img/backgrounds/store.mp4"
-                backgroundHeight="h-[40vh]"
+                backgroundHeight="h-[50vh] 2xl:h-[40vh]"
                 backgroundPosition="object-center"
             >
                 <div className="absolute inset-0 flex items-end justify-center text-center">
@@ -40,7 +40,7 @@ const CatalogProducts = ({
                         <h1 className="text-[38.54px] leading-[60.81px]  md:text-[58.54px] 2xl:text-[78.54px] lg:leading-[90.81px] 2xl:leading-[117.81px] font-bold max-w-4xl tracking-[0.01em]">
                             Tienda
                         </h1>
-                        <p className="md:text-[20.61px] 2xl:text-[24.61px]   my-2 tracking-[0.01em]">
+                        <p className="md:text-[20.61px] 2xl:text-[24.61px]   mb-2 tracking-[0.01em]">
                             Únete a weFem, libera tu ciclo y tu cuerpo.
                         </p>
                     </div>

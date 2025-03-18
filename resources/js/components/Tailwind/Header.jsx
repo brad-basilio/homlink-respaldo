@@ -127,7 +127,7 @@ const Header = ({
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[14.84px] leading-[18.55px]">
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[12.84px] leading-[18.55px]">
                             <nav className="flex gap-8 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
@@ -138,11 +138,15 @@ const Header = ({
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="Wefem"
-                                    className="h-[36.8px] w-[210.55px] object-cover object-top"
+                                    className="h-[30.8px] w-[180.55px] object-cover object-top"
+                                    style={{
+                                        textShadow:
+                                            "0px 4px 7.5px 0px #00000040",
+                                    }}
                                 />
                             </a>
-                            <div className="flex space-x-4 text-[22.93px] items-center">
-                                <a href="#" className="text-[14.84px]">
+                            <div className="flex space-x-4 text-[20.93px] items-center">
+                                <a href="#" className="text-[12.84px]">
                                     Escríbenos
                                 </a>
                                 <a href="#">

@@ -6,7 +6,7 @@ const GuaranteeSection = () => {
                 data-aos-duration="1000"
                 data-aos-easing="ease-in-out-quart" */
     }
-    const message = "Hola! Estoy interesada en la garantía weFem.";
+    const message = "Hola! Estoy interesada en la garantía weFem. ☺️";
     return (
         <section className="bg-[#FF9900] text-white h-[308px] md:h-[308px] lg:h-[110.178px] 2xl:h-[164.178px] flex items-center">
             <div className="px-[5%] w-full xl:max-w-[66rem] 2xl:max-w-7xl xl:px-0 mx-auto flex flex-col lg:flex-row justify-between items-center gap-6 xl:gap-6">

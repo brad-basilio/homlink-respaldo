@@ -115,8 +115,8 @@ const WeLoversSection = () => {
                         />
                     </div>
 
-                    {/* Paginação personalizada */}
-                    <div className="flex justify-center gap-2 mt-2">
+                    {/* Paginacion personalizada */}
+                    <div className="flex justify-center gap-2 mt-0 mb-2">
                         {testimonials.map((_, index) => (
                             <button
                                 key={index}
