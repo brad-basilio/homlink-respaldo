@@ -33,7 +33,7 @@ const About = ({ about, showSlogan = true }) => {
                 showSlogan={showSlogan}
                 backgroundType="image"
                 backgroundSrc="https://i.ibb.co/3mPwq5gH/7597f2cb62a9b3b354850510320d3167.png"
-                backgroundHeight="h-[65vh] "
+                backgroundHeight="h-[65vh]"
                 backgroundPosition="object-center blur-sm "
             >
                 <div className="absolute inset-0 flex items-center justify-center text-center ">
