@@ -49,7 +49,7 @@ const ProductCard = ({ product, visible = true }) => {
                     {/* Información del producto */}
                     <div
                         className={`p-4 block  lg:block ${
-                            visible ? "sm:block" : "sm:hidden"
+                            visible ? "block" : "hidden"
                         }`}
                     >
                         <div className="flex justify-between">
@@ -63,7 +63,7 @@ const ProductCard = ({ product, visible = true }) => {
 
                         {/* Precio */}
                         <div className="flex justify-between items-baseline gap-2">
-                            <h4 className="text-[14.28px] 2xl:text-[16.28px] text-[#212529] line-clamp-2 leading-[29.18px]">
+                            <h4 className="text-[13.28px] md:text-[14.28px] 2xl:text-[16.28px] text-[#212529] line-clamp-2 leading-[29.18px]">
                                 ({product.description})
                             </h4>
                             {product.discount &&

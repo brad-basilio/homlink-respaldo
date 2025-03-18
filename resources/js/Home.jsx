@@ -104,12 +104,12 @@ const Home = ({
                     <h2 className="text-xl md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-start justify-center">
                         <img
                             src="/assets/img/emojis/growing-heart.png"
-                            className="h-9"
+                            className="h-6 md:h-8 lg:h-9"
                         />{" "}
                         Preferidos por nosotrxs{" "}
                         <img
                             src="/assets/img/emojis/growing-heart.png"
-                            className="h-9"
+                            className="h-6 md:h-8 lg:h-9"
                         />
                     </h2>
                     <p className="text-[16.3px] md:text-[19.3px] leading-[19.77px] mt-4">

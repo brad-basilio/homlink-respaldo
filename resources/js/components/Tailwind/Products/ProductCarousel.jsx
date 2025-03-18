@@ -35,7 +35,7 @@ export default function ProductCarousel({ products, children }) {
                         modules={[Navigation]}
                         loop={true}
                         breakpoints={{
-                            0: { slidesPerView: 1, spaceBetween: 10 },
+                            0: { slidesPerView: 1.5, spaceBetween: 10 },
                             640: { slidesPerView: 2.5, spaceBetween: 10 },
                             1024: { slidesPerView: 3, spaceBetween: 0 },
                         }}
@@ -48,8 +48,8 @@ export default function ProductCarousel({ products, children }) {
                                 <div
                                     className={` ${
                                         index === activeIndex
-                                            ? "sm:scale-90 sm:opacity-100 lg:opacity-100 lg:scale-100 "
-                                            : "sm:scale-100 sm:opacity-50 lg:opacity-100 lg:scale-100 "
+                                            ? "scale-90 opacity-100 lg:opacity-100 lg:scale-100 "
+                                            : "scale-100 opacity-50 lg:opacity-100 lg:scale-100 "
                                     }`}
                                 >
                                     <ProductCard

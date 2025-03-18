@@ -46,23 +46,23 @@ const WeCupSection = () => {
         <>
             <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto py-8  md:mt-20">
                 <div className="flex justify-center items-center gap-8 flex-col  lg:flex-row">
-                    <div className="w-full lg:w-1/2 relative flex items-center justify-center md:h-[450px]  2xl:h-[520px]  overflow-hidden">
-                        <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[100.92px] 2xl:text-[150.92px] md:leading-[100.24px] 2xl:leading-[122.24px] font-bold space-y-1">
+                    <div className="w-full lg:w-1/2 relative flex items-center justify-center h-[450px]  md:h-[450px]  2xl:h-[520px]  overflow-hidden">
+                        <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[120.92px] 2xl:text-[150.92px] leading-[100.24px] md:leading-[130.24px] lg:leading-[110.24px] 2xl:leading-[132.24px] font-bold space-y-1">
                             <p>weCup</p>
                             <p>weCup</p>
                             <p>weCup</p>
                         </div>
                         <img
-                            className="-rotate-[26.33deg] absolute inset-0 top-1/2 -translate-y-1/2  h-[550.57px] lg:h-[600.57px] xl:h-[600.57px] 2xl:h-[680.57px] w-auto object-cover "
+                            className="-rotate-[20.33deg] absolute inset-0 top-1/2 -translate-y-1/2    h-[480.57px] lg:h-[560.57px] xl:h-[560.57px] 2xl:h-[660.57px] w-auto object-cover "
                             src="/assets/img/instructions/cup-item.png"
                             alt="weCup"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] w-full md:w-[520px] md:h-[490px]  lg:w-[470px] lg:h-[450px] 2xl:w-[545px] 2xl:h-[520px] rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins  leading-[28.07px] p-10 lg:py-6 lg:px-10 2xl:p-10">
-                        <h2 className="font-bold xl:mb-2 text-[58.2px] md:text-[78.2px] 2xl:mb-6 lg:text-[53.2px] xl:text-[73.2px] 2xl:text-[78.2px] leading-[78.55px] text-center">
+                    <div className="bg-[#DDEC4C] w-full md:w-[520px] md:h-[490px]  lg:w-[470px] lg:h-[450px] 2xl:w-[545px] 2xl:h-[520px] rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins  leading-[28.07px] px-10 py-8 md:p-10 lg:py-6 lg:px-10 2xl:p-10">
+                        <h2 className="font-bold xl:mb-2 text-[55.2px] md:text-[78.2px] 2xl:mb-6 lg:text-[53.2px] xl:text-[73.2px] 2xl:text-[78.2px] leading-[78.55px] text-center">
                             weCup
                         </h2>
-                        <ul className="space-y-2  md:space-y-4 ">
+                        <ul className="space-y-2  md:space-y-3 xl:space-y-4 ">
                             {[
                                 {
                                     text: "Suave y flexible",
@@ -87,11 +87,11 @@ const WeCupSection = () => {
                             ].map((item, index) => (
                                 <li
                                     key={index}
-                                    className="flex items-center gap-3 text-[16.06px]  md:text-[25.06px] lg:text-[22px] 2xl:text-[25px]"
+                                    className="flex items-center gap-3 text-[15.06px] leading-[20px] md:leading-snug  md:text-[25.06px] lg:text-[22px] 2xl:text-[25px]"
                                 >
                                     <img
                                         src={item.img}
-                                        className={`w-[34px] md:w-[48px] xl:w-[44px] 2xl:w-[48px] h-auto flex items-center justify-center brightness-100 grayscale`}
+                                        className={`w-[30px] md:w-[48px] xl:w-[38px] 2xl:w-[46px] h-auto flex items-center justify-center brightness-100 grayscale`}
                                         alt={item.text}
                                         loading="lazy"
                                     />

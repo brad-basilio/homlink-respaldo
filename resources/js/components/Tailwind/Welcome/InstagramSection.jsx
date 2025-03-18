@@ -53,7 +53,7 @@ const InstagramSection = () => {
                     spaceBetween={10}
                     loop={true}
                     breakpoints={{
-                        0: { slidesPerView: 1, spaceBetween: 10 },
+                        0: { slidesPerView: 1.5, spaceBetween: 10 },
                         640: {
                             slidesPerView: 2.5,
                             spaceBetween: 10,
