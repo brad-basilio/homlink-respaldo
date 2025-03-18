@@ -33,7 +33,7 @@ const About = ({ about, showSlogan = true }) => {
                 showSlogan={showSlogan}
                 backgroundType="image"
                 backgroundSrc="https://i.ibb.co/3mPwq5gH/7597f2cb62a9b3b354850510320d3167.png"
-                backgroundHeight="h-[80vh] "
+                backgroundHeight="h-[60vh] "
                 backgroundPosition="object-center blur-sm "
             >
                 <div className="absolute inset-0 flex items-center justify-center text-center ">
@@ -48,8 +48,8 @@ const About = ({ about, showSlogan = true }) => {
             <div className="relative z-10">
                 <FeaturesSection />
                 {/* Certificaciones Section */}
-                <div className="flex flex-col lg:flex-row w-full md:max-w-2xl lg:gap-16 px-[5%] lg:max-w-6xl 2xl:max-w-7xl lg:px-0 mx-auto py-12">
-                    <p className="font-poppins lg:w-7/12  2xl:w-6/12 md:text-[22.63px] lg:text-[20.45px] 2xl:text-[26.45px] xl:leading-[30px] text-justify">
+                <div className="flex lg:h-full lg:items-center flex-col lg:flex-row w-full md:max-w-2xl lg:gap-16 px-[5%] lg:max-w-6xl 2xl:max-w-[84rem] lg:px-0 mx-auto py-12 2xl:py-16">
+                    <p className="font-poppins lg:w-6/12 md:text-[22.63px]  lg:text-[18.45px] 2xl:text-[26.45px] xl:leading-[30px] text-justify font-light">
                         weFem se enorgullece de contar con los más altos
                         estándares de calidad y seguridad en la fabricación de
                         todos nuestros productos menstruales. Poseemos el
@@ -73,7 +73,7 @@ const About = ({ about, showSlogan = true }) => {
 
                     <img
                         src="https://i.ibb.co/VWpc1dvr/image.png"
-                        className="w-full h-[600px] mt-4 lg:mt-0  lg:w-5/12 lg:h-[500px]   2xl:w-6/12 2xl:h-[660px] object-cover object-right-top"
+                        className="w-full h-[600px] mt-4 lg:mt-0  lg:w-6/12 lg:h-[530px]   2xl:w-6/12 2xl:h-[660px] object-cover object-right-top"
                         alt="image"
                     />
                 </div>

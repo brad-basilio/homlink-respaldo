@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
 const TopSaleSection = () => {
+    const [isModalTalla, setIsModalTalla] = useState(false);
+
     const [quantity, setQuantity] = useState(1);
     const [selectedColor, setSelectedColor] = useState("purple");
     const [selectedSize, setSelectedSize] = useState("Talla A");
@@ -114,11 +116,14 @@ const TopSaleSection = () => {
                                 </button>
                             </div>
                         </div>
-                        <div class="lg:absolute right-0 lg:top-1/2  ">
-                            <button class="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]">
+                        <div className="lg:absolute right-0 lg:top-1/2  ">
+                            <button
+                                onClick={() => setIsModalTalla(!isModalTalla)}
+                                className="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]"
+                            >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    class="h-5 fill-white mr-2"
+                                    className="h-5 fill-white mr-2"
                                     viewBox="0 0 640 512"
                                 >
                                     <path
@@ -175,8 +180,8 @@ const TopSaleSection = () => {
                     </div>
                     {/* Add to Cart Button */}
                     <div className="flex justify-center">
-                        <button class="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center">
-                            <span class="">Añadir al carrito</span>
+                        <button className="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center">
+                            <span className="">Añadir al carrito</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 576 512"
@@ -188,6 +193,28 @@ const TopSaleSection = () => {
                     </div>
                 </div>
             </div>
+            {isModalTalla && (
+                <div
+                    className="fixed inset-0 min-h-screen flex items-center justify-center z-50 bg-[#00000080] transition-all duration-1000"
+                    style={{ backdropFilter: "blur(10px)" }}
+                >
+                    <div
+                        className="bg-white rounded-[30.58px] w-[319px] h-[320.40px]  md:w-[519px] md:h-[520.40px] lg:w-[419px] lg:h-[420.40px]  2xl:w-[519px] 2xl:h-[520.40px] z-10  p-8 relative"
+                        style={{
+                            backgroundImage:
+                                "url(/assets/img/multiple/mi-talla.png)",
+                            backgroundSize: "cover",
+                        }}
+                    >
+                        <button
+                            className="absolute z-50 top-4 right-4 text-3xl text-[#9577B9]"
+                            onClick={() => setIsModalTalla(false)}
+                        >
+                            ×
+                        </button>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };

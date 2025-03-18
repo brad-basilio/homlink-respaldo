@@ -108,7 +108,7 @@ const WeLoversSection = () => {
                         />
                     </div>
 
-                    <div className="absolute top-1/2 right-[-40px] transform -translate-y-1/2 custom-next cursor-pointer">
+                    <div className="absolute top-1/2 right-[-40px] 2xl:right-[-25px] transform -translate-y-1/2 custom-next cursor-pointer">
                         <img
                             src="/assets/img/swiper/right.png"
                             className="brightness-0 grayscale invert"

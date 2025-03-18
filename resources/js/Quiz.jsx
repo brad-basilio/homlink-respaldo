@@ -8,6 +8,28 @@ import Footer from "./components/Tailwind/Footer";
 // Componente principal del cuestionario
 const Quiz = ({ showSlogan = true }) => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [answers, setAnswers] = useState({});
+    const [result, setResult] = useState(null);
+    const handleAnswer = (questionId, answer) => {
+        setAnswers((prevAnswers) => ({
+            ...prevAnswers,
+            [questionId]: answer,
+        }));
+        setCurrentStep(currentStep + 1);
+    };
+    const handleResult = () => {
+        // Lógica para calcular el resultado basado en las respuestas
+        if (answers[2] === 1 || answers[2] === 2) {
+            if (answers[3] === 1) {
+                setCurrentStep(6);
+            } else {
+                setCurrentStep(7);
+            }
+        } else if ((answers[2] === 3 && answers[3] === 1) || answers[3] === 2) {
+            setCurrentStep(6);
+        }
+        setAnswers({});
+    };
 
     return (
         <>
@@ -17,16 +39,28 @@ const Quiz = ({ showSlogan = true }) => {
                     <InitQuiz setCurrentStep={setCurrentStep} />
                 )}
                 {currentStep === 2 && (
-                    <FirstQuiz setCurrentStep={setCurrentStep} />
+                    <FirstQuiz
+                        setCurrentStep={setCurrentStep}
+                        handleAnswer={handleAnswer}
+                    />
                 )}
                 {currentStep === 3 && (
-                    <SecondQuiz setCurrentStep={setCurrentStep} />
+                    <SecondQuiz
+                        setCurrentStep={setCurrentStep}
+                        handleAnswer={handleAnswer}
+                    />
                 )}
                 {currentStep === 4 && (
-                    <ThreeQuiz setCurrentStep={setCurrentStep} />
+                    <ThreeQuiz
+                        setCurrentStep={setCurrentStep}
+                        handleAnswer={handleAnswer}
+                    />
                 )}
                 {currentStep === 5 && (
-                    <FourQuiz setCurrentStep={setCurrentStep} />
+                    <FourQuiz
+                        setCurrentStep={setCurrentStep}
+                        handleResult={handleResult}
+                    />
                 )}
                 {currentStep === 6 && (
                     <Result1Quiz setCurrentStep={setCurrentStep} />
@@ -80,7 +114,7 @@ const InitQuiz = ({ setCurrentStep }) => {
     );
 };
 
-const FirstQuiz = ({ setCurrentStep }) => {
+const FirstQuiz = ({ setCurrentStep, handleAnswer }) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
@@ -99,13 +133,13 @@ const FirstQuiz = ({ setCurrentStep }) => {
 
                     <div className="gap-4 w-full flex flex-col md:flex-row items-center justify-center mt-12">
                         <button
-                            onClick={() => setCurrentStep(3)}
+                            onClick={() => handleAnswer(1, 1)}
                             className="w-full md:w-5/12 lg:w-1/2 text-[20.02px] bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-3 2xl:py-4 px-6 rounded-[20px] lg:text-[16.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors  border-2 border-[#FF9900] duration-300"
                         >
                             ¡Sí! Quiero probar <br /> algo nuevo
                         </button>
                         <button
-                            onClick={() => setCurrentStep(4)}
+                            onClick={() => handleAnswer(1, 2)}
                             className="w-full md:w-5/12 lg:w-1/2 text-[20.02px] bg-white text-[#FF9900] hover:bg-[#FF9900]  hover:text-white font-semibold  py-3 2xl:py-4 px-6 rounded-[20px] lg:text-[16.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors  border-2 border-[#FF9900] duration-300"
                         >
                             No, ya he usado uno
@@ -166,7 +200,7 @@ const FirstQuiz = ({ setCurrentStep }) => {
     );
 };
 
-const SecondQuiz = ({ setCurrentStep }) => {
+const SecondQuiz = ({ setCurrentStep, handleAnswer }) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
@@ -185,19 +219,19 @@ const SecondQuiz = ({ setCurrentStep }) => {
 
                     <div className="gap-4 w-full flex flex-col md:flex-row items-center justify-center mt-12">
                         <button
-                            onClick={() => setCurrentStep(4)}
+                            onClick={() => handleAnswer(2, 1)}
                             className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-full  md:w-[203px] h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             Leve
                         </button>
                         <button
-                            onClick={() => setCurrentStep(5)}
+                            onClick={() => handleAnswer(2, 2)}
                             className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-full  md:w-[203px] h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             Moderado
                         </button>
                         <button
-                            onClick={() => setCurrentStep(5)}
+                            onClick={() => handleAnswer(2, 3)}
                             className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-full md:w-[203px] h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             Abundante
@@ -257,7 +291,7 @@ const SecondQuiz = ({ setCurrentStep }) => {
     );
 };
 
-const ThreeQuiz = ({ setCurrentStep }) => {
+const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
@@ -277,7 +311,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
 
                     <div className="gap-4 w-full flex flex-col md:flex-row md:mt-8 2xl:mt-12">
                         <button
-                            onClick={() => setCurrentStep(5)}
+                            onClick={() => handleAnswer(3, 1)}
                             className="bg-white w-full md:w-1/2 hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.94px] lg:text-[18.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors h-[94px]  lg:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Sí! Sería lo max{" "}
@@ -288,7 +322,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
                             />
                         </button>
                         <button
-                            onClick={() => setCurrentStep(7)}
+                            onClick={() => handleAnswer(3, 2)}
                             className="bg-white w-full md:w-1/2 hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.94px] lg:text-[18.94px] 2xl:text-[20.94px] tracking-[0.01em] transition-colors  h-[94px] lg:h-[74px]  2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             No, me da igual{" "}
@@ -352,7 +386,7 @@ const ThreeQuiz = ({ setCurrentStep }) => {
         </div>
     );
 };
-const FourQuiz = ({ setCurrentStep }) => {
+const FourQuiz = ({ setCurrentStep, handleResult }) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
@@ -384,7 +418,7 @@ const FourQuiz = ({ setCurrentStep }) => {
                     </p>
                     <div className="space-x-4 w-full flex justify-center">
                         <button
-                            onClick={() => setCurrentStep(6)}
+                            onClick={() => handleResult()}
                             className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Obtener mis resultados!
@@ -403,7 +437,7 @@ const FourQuiz = ({ setCurrentStep }) => {
         </div>
     );
 };
-const Result1Quiz = ({ setCurrentStep }) => {
+const Result1Quiz = ({}) => {
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
@@ -454,7 +488,7 @@ const Result1Quiz = ({ setCurrentStep }) => {
         </div>
     );
 };
-const Result2Quiz = ({ setCurrentStep }) => {
+const Result2Quiz = ({}) => {
     return (
         <div className="bg-[#EFE5FF] flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20   items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">

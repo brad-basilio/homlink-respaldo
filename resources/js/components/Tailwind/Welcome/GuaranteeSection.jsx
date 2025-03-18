@@ -6,6 +6,7 @@ const GuaranteeSection = () => {
                 data-aos-duration="1000"
                 data-aos-easing="ease-in-out-quart" */
     }
+    const message = "Hola! Estoy interesada en la garantía weFem.";
     return (
         <section className="bg-[#FF9900] text-white h-[308px] md:h-[308px] lg:h-[110.178px] 2xl:h-[164.178px] flex items-center">
             <div className="px-[5%] w-full xl:max-w-[66rem] 2xl:max-w-7xl xl:px-0 mx-auto flex flex-col lg:flex-row justify-between items-center gap-6 xl:gap-6">
@@ -31,9 +32,14 @@ const GuaranteeSection = () => {
                     <strong> nosotros te mejoramos la oferta.</strong>
                 </p>
 
-                <button className="w-[311.94px] text-[20.77px] h-[55.11px] xl:w-[268.06px] bg-transparent text-white font-semibold  border border-white rounded-xl shadow xl:h-[47.36px] flex items-center justify-center">
+                <a
+                    className="w-[311.94px] text-[20.77px] h-[55.11px] xl:w-[268.06px] bg-transparent text-white font-semibold  border border-white rounded-xl shadow xl:h-[47.36px] flex items-center justify-center"
+                    target="_blank"
+                    id="whatsapp-toggle"
+                    href={`https://api.whatsapp.com/send?phone=+5113458695&text=${message}`}
+                >
                     ¡Escríbenos aquí!
-                </button>
+                </a>
             </div>
         </section>
     );

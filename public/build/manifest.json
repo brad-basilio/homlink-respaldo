@@ -59,8 +59,8 @@
       "resources/js/components/About/AboutHeader.jsx"
     ]
   },
-  "_Footer-CSNklA-w.js": {
-    "file": "assets/Footer-CSNklA-w.js",
+  "_Footer-CAY_4OOF.js": {
+    "file": "assets/Footer-CAY_4OOF.js",
     "name": "Footer",
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
@@ -68,8 +68,8 @@
       "_index-B1nVdsa0.js"
     ]
   },
-  "_GuaranteeSection-XC1crFf3.js": {
-    "file": "assets/GuaranteeSection-XC1crFf3.js",
+  "_GuaranteeSection-2l27mYQS.js": {
+    "file": "assets/GuaranteeSection-2l27mYQS.js",
     "name": "GuaranteeSection",
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
@@ -354,7 +354,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-D9LZ9WOu.js",
+    "file": "assets/About-Bx9uA7aO.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -364,7 +364,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-BuUiikl4.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
@@ -1344,7 +1344,7 @@
     ]
   },
   "resources/js/CatalogProducts.jsx": {
-    "file": "assets/CatalogProducts-C84M0LbU.js",
+    "file": "assets/CatalogProducts-DAC-UVKT.js",
     "name": "CatalogProducts",
     "src": "resources/js/CatalogProducts.jsx",
     "isEntry": true,
@@ -1354,11 +1354,11 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-BuUiikl4.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
-      "_GuaranteeSection-XC1crFf3.js",
+      "_GuaranteeSection-2l27mYQS.js",
       "resources/js/components/About/Strengths.jsx",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
@@ -1441,7 +1441,7 @@
     ]
   },
   "resources/js/DetailProduct.jsx": {
-    "file": "assets/DetailProduct-B0YlyedW.js",
+    "file": "assets/DetailProduct-DBQ9dJqF.js",
     "name": "DetailProduct",
     "src": "resources/js/DetailProduct.jsx",
     "isEntry": true,
@@ -1451,7 +1451,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-BuUiikl4.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_ProductCarousel-CvCO6RR8.js",
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
@@ -1519,7 +1519,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-CRfQ-0oJ.js",
+    "file": "assets/Home-6XVVljaq.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1535,10 +1535,10 @@
       "resources/js/components/Home/Banner.jsx",
       "resources/js/components/Home/Supplies.jsx",
       "_index-B1nVdsa0.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_ProductCarousel-CvCO6RR8.js",
-      "_GuaranteeSection-XC1crFf3.js",
+      "_GuaranteeSection-2l27mYQS.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
       "_InstagramSection-DzP6mLUB.js",
       "_index-DO3Aws4m.js",
@@ -1553,7 +1553,7 @@
     ]
   },
   "resources/js/Instructions.jsx": {
-    "file": "assets/Instructions-B9CsJEJg.js",
+    "file": "assets/Instructions-DqCP5Or4.js",
     "name": "Instructions",
     "src": "resources/js/Instructions.jsx",
     "isEntry": true,
@@ -1563,7 +1563,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-BuUiikl4.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_ProductCarousel-CvCO6RR8.js",
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
@@ -1697,7 +1697,7 @@
     ]
   },
   "resources/js/Quiz.jsx": {
-    "file": "assets/Quiz-CyrmqL-I.js",
+    "file": "assets/Quiz-VohNLMAE.js",
     "name": "Quiz",
     "src": "resources/js/Quiz.jsx",
     "isEntry": true,
@@ -1707,7 +1707,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-BuUiikl4.js",
-      "_Footer-CSNklA-w.js",
+      "_Footer-CAY_4OOF.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
@@ -2138,7 +2138,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-ClxeGkIS.js",
+    "file": "assets/InputFormGroup-uOWZuDyS.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -2168,7 +2168,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
+    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -2935,10 +2935,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-DnUtVnbq.js",
+    "file": "assets/Email-dm8Qjre6.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2969,10 +2969,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-CpPx52vs.js",
+    "file": "assets/HairType-D4XKIVGc.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -2982,20 +2982,20 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-BZiqHNWT.js",
+    "file": "assets/Main-uOWZuDyS.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js"
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-CpPx52vs.js",
+    "file": "assets/ScalpType-CQfzk1X8.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -3113,7 +3113,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-uOWZuDyS.js",
+    "file": "assets/InputFormGroup-ClxeGkIS.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -3143,7 +3143,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BpChv1vD.js",
+    "file": "assets/SelectAPIFormGroup-B2ZCJ3xv.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,

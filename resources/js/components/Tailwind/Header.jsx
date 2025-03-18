@@ -104,7 +104,7 @@ const Header = ({
                     }`}
                 >
                     <div
-                        className={`px-[5%] py-4 lg:py-0  lg:max-w-7xl mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
+                        className={`px-[5%] py-4 lg:py-0 lg:max-w-6xl 2xl:max-w-7xl mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
                     >
                         <div className="flex items-center w-full  lg:hidden">
                             <button

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 const Detail = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalTalla, setIsModalTalla] = useState(false);
 
     const [quantity, setQuantity] = useState(1);
     const [selectedColor, setSelectedColor] = useState("purple");
@@ -139,11 +140,16 @@ const Detail = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div class="lg:absolute right-0 lg:top-1/2  ">
-                                    <button class="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]">
+                                <div className="lg:absolute right-0 lg:top-1/2  ">
+                                    <button
+                                        onClick={() =>
+                                            setIsModalTalla(!isModalTalla)
+                                        }
+                                        className="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]"
+                                    >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
-                                            class="h-5 fill-white mr-2"
+                                            className="h-5 fill-white mr-2"
                                             viewBox="0 0 640 512"
                                         >
                                             <path
@@ -202,9 +208,9 @@ const Detail = () => {
                             <div className="flex justify-center">
                                 <button
                                     onClick={() => setIsModalOpen(!isModalOpen)}
-                                    class="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center"
+                                    className="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center"
                                 >
-                                    <span class="">Añadir al carrito</span>
+                                    <span className="">Añadir al carrito</span>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 576 512"
@@ -225,47 +231,77 @@ const Detail = () => {
                     className="fixed inset-0 flex items-center justify-center z-50 bg-[#00000080]"
                     style={{ backdropFilter: "blur(10px)" }}
                 >
-                    <div className="bg-white rounded-[48.58px] md:w-[619px] md:h-[605.40px] 2xl:w-[819px] 2xl:h-[805.40px] p-8">
+                    <div className="relative flex items-center justify-center">
                         <button
                             className="absolute top-4 right-4 text-3xl text-[#9577B9]"
                             onClick={() => setIsModalOpen(false)}
                         >
                             ×
                         </button>
-                        <div className="text-center mt-8">
-                            <div className="bg-[#FF9900] rounded-full px-6 py-2 mb-4">
-                                <p className="text-white font-bold">
-                                    Solo por 00 : 10 : 58
-                                </p>
+                        <div className="bg-white rounded-[30.58px]   2xl:rounded-[48.58px] md:w-[459px] md:h-[450.40px] 2xl:w-[819px] 2xl:h-[805.40px] flex flex-col items-center justify-center ">
+                            <div className="mx-auto font-bold flex items-center justify-center bg-[#FF9900] text-white md:text-[17px] 2xl:text-[35.85px] 2xl:leading-[53.78px] md:h-[40.26px] md:w-[342.05px] 2xl:h-[59.26px] 2xl:w-[442.05px] rounded-full">
+                                Solo por 00 : 10 : 58
                             </div>
-                            <p className="text-[#404040] text-2xl font-bold">
+
+                            <p className="text-[#404040] md:text-[20.29px] 2xl:text-[39.29px] leading-[58.94px] font-bold pt-0 2xl:pt-6">
                                 ¿Te gustaría añadir a tu pedido?
                             </p>
-                            <div className="flex gap-4 mt-8">
+
+                            <div className=" gap-4 flex items-center justify-between mt-4">
                                 <img
+                                    className="md:w-[238.05px] md:h-[301.16px] 2xl:w-[338.05px] 2xl:h-[501.16px] object-contain"
                                     src="https://i.ibb.co/MkgMJPzG/63d3b57a154aa23fe06f27206861c787.png"
-                                    className="md:w-[238.05px] md:h-[401.16px] 2xl:w-[338.05px] 2xl:h-[501.16px]"
                                 />
-                                <div>
-                                    <h3 className="text-[#000000] text-2xl font-semibold">
+                                <div className="font-mont flex items-start justify-start flex-col px-4 md:w-[290.05px] 2xl:w-[400.05px] md:gap-2 2xl:gap-4">
+                                    <p className="text-[#000000]  md:text-[35.24px] 2xl:text-[55.24px] md:leading-[50.05px] 2xl:leading-[69.05px] font-mont font-semibold">
                                         Lubricante
-                                    </h3>
-                                    <p className="text-[#000000] mt-2">
-                                        Te ayudará a colocar más fácil tu copa o
-                                        disco 💦
                                     </p>
-                                    <p className="text-[#FC58BE] text-4xl font-black mt-4">
+                                    <p className="text-[#000000] md:text-[15.1px] 2xl:text-[22.1px] leading-[27.63px] tracking-[0.28px] font-mont">
+                                        Te ayudará a colocar más fácil tu copa o
+                                        disco{" "}
+                                        <img
+                                            src="/assets/img/emojis/droplet.png"
+                                            className="h-5 inline-flex mb-2"
+                                        />
+                                    </p>
+                                    <p className="md:text-[60.2px] 2xl:text-[93.2px] md:leading-[90.5px]  2xl:leading-[116.5px] tracking-[-2.18px] text-[#FC58BE] font-black">
                                         S/25
                                     </p>
-                                    <p className="text-[#000000] mt-2 line-through">
+                                    <p className="md:text-[16.4px] 2xl:text-[33.4px] leading-[41.75px] tracking-[0.42px] text-[#000000]">
                                         P. regular S/30
                                     </p>
-                                    <button className="bg-[#FC58BE] text-white px-6 py-2 rounded mt-4">
+                                    <a
+                                        href="/checkout"
+                                        className="inline-flex text-white  items-center justify-center md:h-[50px] 2xl:h-[108px] md:w-[250px] 2xl:w-[338px] bg-[#FC58BE] md:mt-0 2xl:mt-0 md:rounded-[12.58px] 2xl:rounded-[19.58px] md:text-[18.99px]  2xl:text-[32.99px] leading-[41.24px] tracking-[0.41px] font-bold "
+                                    >
                                         ¡Lo quiero!
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {isModalTalla && (
+                <div
+                    className="fixed inset-0 min-h-screen flex items-center justify-center z-50 bg-[#00000080] transition-all duration-1000"
+                    style={{ backdropFilter: "blur(10px)" }}
+                >
+                    <div
+                        className="bg-white rounded-[30.58px] lg:w-[419px] lg:h-[405.40px] 2xl:w-[519px] 2xl:h-[505.40px] z-10  p-8 relative"
+                        style={{
+                            backgroundImage:
+                                "url(/assets/img/multiple/mi-talla.png)",
+                            backgroundSize: "cover",
+                        }}
+                    >
+                        <button
+                            className="absolute z-50 top-4 right-4 text-3xl text-[#9577B9]"
+                            onClick={() => setIsModalTalla(false)}
+                        >
+                            ×
+                        </button>
                     </div>
                 </div>
             )}
