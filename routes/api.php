@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
-use App\Http\Controllers\Admin\ColorController as AdminColorController;
+use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
@@ -37,12 +37,13 @@ use App\Http\Controllers\Customer\SaleController as CustomerSaleController;
 
 // Public
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ColorController;
+use App\Http\Controllers\ItemColorController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
@@ -68,8 +69,9 @@ Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media'])->wi
 Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/items/media/{uuid}', [ItemController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
+//Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/mailing/media/{uuid}', [MailingController::class, 'media'])->withoutMiddleware('throttle');
@@ -124,11 +126,11 @@ Route::middleware('auth')->group(function () {
         Route::patch('/items/{field}', [AdminItemController::class, 'boolean']);
         Route::delete('/items/{id}', [AdminItemController::class, 'delete']);
 
-        Route::post('/colors', [AdminColorController::class, 'save']);
-        Route::post('/colors/paginate', [AdminColorController::class, 'paginate']);
-        Route::patch('/colors/status', [AdminColorController::class, 'status']);
-        Route::patch('/colors/{field}', [AdminColorController::class, 'boolean']);
-        Route::delete('/colors/{id}', [AdminColorController::class, 'delete']);
+        Route::post('/colors', [AdminItemColorController::class, 'save']);
+        Route::post('/colors/paginate', [AdminItemColorController::class, 'paginate']);
+        Route::patch('/colors/status', [AdminItemColorController::class, 'status']);
+        Route::patch('/colors/{field}', [AdminItemColorController::class, 'boolean']);
+        Route::delete('/colors/{id}', [AdminItemColorController::class, 'delete']);
 
         Route::post('/supplies', [AdminSupplyController::class, 'save']);
         Route::post('/supplies/paginate', [AdminSupplyController::class, 'paginate']);

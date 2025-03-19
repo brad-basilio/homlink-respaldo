@@ -122,7 +122,7 @@ const Header = ({
                             <a href="/">
                                 <img
                                     src="/assets/img/logo.png"
-                                    alt="Trasciende Logo"
+                                    alt="WeFem Logo"
                                     className="h-[27px] w-[150.55px] md:h-[36.8px] md:w-[210.55px] object-cover object-top"
                                 />
                             </a>

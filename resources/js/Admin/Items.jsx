@@ -1,232 +1,631 @@
-import React, { useRef, useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import BaseAdminto from '@Adminto/Base';
-import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
-import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
-import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
-import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
-import Swal from 'sweetalert2';
-import ItemsRest from '../Actions/Admin/ItemsRest';
+import BaseAdminto from "@Adminto/Base";
+import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 
-const itemsRest = new ItemsRest()
+import React, { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import { renderToString } from "react-dom/server";
+import Swal from "sweetalert2";
+import ItemsRest from "../Actions/Admin/ItemsRest";
+import Modal from "../Components/Adminto/Modal";
+import Table from "../Components/Adminto/Table";
+import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
+import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
+import QuillFormGroup from "../Components/Adminto/form/QuillFormGroup";
+import SelectAPIFormGroup from "../Components/Adminto/form/SelectAPIFormGroup";
+import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
+import DxButton from "../Components/dx/DxButton";
+import CreateReactScript from "../Utils/CreateReactScript";
+import Number2Currency from "../Utils/Number2Currency";
+import ReactAppend from "../Utils/ReactAppend";
+import SetSelectValue from "../Utils/SetSelectValue";
 
-const Items = ({ }) => {
-  const gridRef = useRef()
-  const modalRef = useRef()
+const itemsRest = new ItemsRest();
 
-  // Form elements ref
-  const idRef = useRef()
-  const nameRef = useRef()
-  const descriptionRef = useRef()
-  const priceRef = useRef()
-  const imageRef = useRef()
+const Items = ({ categories, brands }) => {
+    const [itemData, setItemData] = useState([]);
+    const gridRef = useRef();
+    const modalRef = useRef();
+    // Form elements ref
+    const idRef = useRef();
+    const categoryRef = useRef();
 
-  const [isEditing, setIsEditing] = useState(false)
+    const nameRef = useRef();
+    const summaryRef = useRef();
+    const priceRef = useRef();
+    const discountRef = useRef();
+    const imageRef = useRef();
+    const descriptionRef = useRef();
+    // Nuevos campos
+    const stockRef = useRef();
+    const [isEditing, setIsEditing] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    /*ADD NEW LINES GALLERY */
+    const [gallery, setGallery] = useState([]);
+    const galleryRef = useRef();
 
-  const onModalOpen = (data) => {
-    if (data?.id) setIsEditing(true)
-    else setIsEditing(false)
+    const handleGalleryChange = (e) => {
+        const files = Array.from(e.target.files);
+        const newImages = files.map((file) => ({
+            file,
+            url: URL.createObjectURL(file),
+        }));
+        setGallery((prev) => [...prev, ...newImages]);
+    };
 
-    idRef.current.value = data?.id ?? ''
-    nameRef.current.value = data?.name ?? ''
-    descriptionRef.current.value = data?.description ?? ''
-    priceRef.current.value = data?.price ?? ''
-    imageRef.image.src = `/api/items/media/${data?.image}`
-    imageRef.current.value = null
+    const handleDrop = (e) => {
+        e.preventDefault();
+        const files = Array.from(e.dataTransfer.files);
+        const newImages = files.map((file) => ({
+            file,
+            url: URL.createObjectURL(file),
+        }));
+        setGallery((prev) => [...prev, ...newImages]);
+    };
 
-    $(modalRef.current).modal('show')
-  }
+    const handleDragOver = (e) => {
+        e.preventDefault();
+    };
 
-  const onModalSubmit = async (e) => {
-    e.preventDefault()
-
-    const request = {
-      id: idRef.current.value || undefined,
-      name: nameRef.current.value,
-      price: priceRef.current.value,
-      description: descriptionRef.current.value,
-    }
-
-    const formData = new FormData()
-    for (const key in request) {
-      formData.append(key, request[key])
-    }
-    const file = imageRef.current.files[0]
-    if (file) {
-      formData.append('image', file)
-    }
-
-    const result = await itemsRest.save(formData)
-    if (!result) return
-
-    $(gridRef.current).dxDataGrid('instance').refresh()
-    $(modalRef.current).modal('hide')
-  }
-
-  const onFeaturedChange = async ({ id, value }) => {
-    const result = await itemsRest.boolean({ id, field: 'featured', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const onIsDefaultChange = async ({ id, value }) => {
-    const result = await itemsRest.boolean({ id, field: 'is_default', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const onVisibleChange = async ({ id, value }) => {
-    const result = await itemsRest.boolean({ id, field: 'visible', value })
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  const onDeleteClicked = async (id) => {
-    const { isConfirmed } = await Swal.fire({
-      title: 'Eliminar item',
-      text: '¿Estás seguro de eliminar este item?',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    })
-    if (!isConfirmed) return
-    const result = await itemsRest.delete(id)
-    if (!result) return
-    $(gridRef.current).dxDataGrid('instance').refresh()
-  }
-
-  return (<>
-    <Table gridRef={gridRef} title='Items' rest={itemsRest}
-      toolBar={(container) => {
-        container.unshift({
-          widget: 'dxButton', location: 'after',
-          options: {
-            icon: 'refresh',
-            hint: 'Refrescar tabla',
-            onClick: () => $(gridRef.current).dxDataGrid('instance').refresh()
-          }
-        });
-        container.unshift({
-          widget: 'dxButton', location: 'after',
-          options: {
-            icon: 'plus',
-            text: 'Nuevo item',
-            hint: 'Nuevo item',
-            onClick: () => onModalOpen()
-          }
-        });
-      }}
-      columns={[
-        {
-          dataField: 'id',
-          caption: 'ID',
-          visible: false
-        },
-        {
-          dataField: 'name',
-          caption: 'Nombre',
-          width: '50%',
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <p className='mb-0' style={{ width: '100%' }}>
-              <b className='d-block'>{data.name}</b>
-              <small className='text-wrap text-muted' style={{
-                overflow: 'hidden',
-                display: '-webkit-box',
-                WebkitBoxOrient: 'vertical',
-                WebkitLineClamp: 2,
-              }}>{data.description}</small>
-            </p>)
-          }
-        },
-        {
-          dataField: 'price',
-          caption: 'Precio',
-          dataType: 'number',
-          width: '100px',
-          cellTemplate: (container, { data }) => {
-            container.text(`S/.${Number(data.price).toFixed(2)}`)
-          }
-        },
-        {
-          dataField: 'image',
-          caption: 'Imagen',
-          width: '60px',
-          allowFiltering: false,
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <img src={`/api/items/media/${data.image}`} style={{ width: '40px', aspectRatio: 3 / 4, objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/assets/img/routine/conditioner.png'} />)
-          }
-        },
-        {
-          dataField: 'is_default',
-          caption: 'Preseleccionar',
-          dataType: 'boolean',
-          width: '120px',
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <SwitchFormGroup checked={data.is_default} onChange={(e) => onIsDefaultChange({ id: data.id, value: e.target.checked })} />)
-          }
-        },
-        {
-          dataField: 'featured',
-          caption: 'Destacado',
-          dataType: 'boolean',
-          width: '120px',
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <SwitchFormGroup checked={data.featured} onChange={(e) => onFeaturedChange({ id: data.id, value: e.target.checked })} />)
-          }
-        },
-        {
-          dataField: 'visible',
-          caption: 'Visible',
-          dataType: 'boolean',
-          width: '120px',
-          cellTemplate: (container, { data }) => {
-            ReactAppend(container, <SwitchFormGroup checked={data.visible} onChange={(e) => onVisibleChange({ id: data.id, value: e.target.checked })} />)
-          }
-        },
-        {
-          caption: 'Acciones',
-          cellTemplate: (container, { data }) => {
-            container.css('text-overflow', 'unset')
-            container.append(DxButton({
-              className: 'btn btn-xs btn-soft-primary',
-              title: 'Editar',
-              icon: 'fa fa-pen',
-              onClick: () => onModalOpen(data)
-            }))
-            container.append(DxButton({
-              className: 'btn btn-xs btn-soft-danger',
-              title: 'Eliminar',
-              icon: 'fa fa-trash',
-              onClick: () => onDeleteClicked(data.id)
-            }))
-          },
-          allowFiltering: false,
-          allowExporting: false
+    const removeGalleryImage = (e, index) => {
+        e.preventDefault();
+        const image = gallery[index];
+        if (image.id) {
+            // Si la imagen tiene ID, significa que está guardada en la base de datos.
+            setGallery((prev) =>
+                prev.map((img, i) =>
+                    i === index ? { ...img, toDelete: true } : img
+                )
+            );
+        } else {
+            // Si es una imagen nueva, simplemente la eliminamos.
+            setGallery((prev) => prev.filter((_, i) => i !== index));
         }
-      ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar item' : 'Agregar item'} onSubmit={onModalSubmit} size='md'>
-      <div className='row' id='principal-container'>
-        <input ref={idRef} type='hidden' />
-        <ImageFormGroup eRef={imageRef} label='Imagen' col='col-md-4' aspect={3 / 4} onError='/assets/img/routine/conditioner.png' />
-        <div className="col-md-8">
-          <InputFormGroup eRef={nameRef} label='Nombre' required />
-          <InputFormGroup eRef={priceRef} label='Precio' type='number' step={0.01} required />
-          <TextareaFormGroup eRef={descriptionRef} label='Resumen' rows={3} required />
-        </div>
-      </div>
-    </Modal>
-  </>
-  )
-}
+    };
+    useEffect(() => {
+        if (itemData && itemData.images) {
+            const existingImages = itemData.images.map((img) => ({
+                id: img.id, // ID de la imagen en la BD
+                url: `/api/items/media/${img.url}`, // Ruta de la imagen almacenada
+            }));
+            setGallery(existingImages);
+        }
+    }, [itemData]);
+
+    const onModalOpen = (data) => {
+        // console.log(data);
+        setItemData(data || null); // Guardamos los datos en el estado
+        if (data?.id) setIsEditing(true);
+        else setIsEditing(false);
+
+        idRef.current.value = data?.id || "";
+        $(categoryRef.current)
+            .val(data?.category_id || null)
+            .trigger("change");
+
+        nameRef.current.value = data?.name || "";
+        summaryRef.current.value = data?.summary || "";
+        priceRef.current.value = data?.price || 0;
+        discountRef.current.value = data?.discount || 0;
+        imageRef.current.value = null;
+        imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
+
+        descriptionRef.editor.root.innerHTML = data?.description ?? "";
+
+        if (data?.images) {
+            const existingImages = data.images.map((img) => ({
+                id: img.id, // ID de la imagen en la base de datos
+                url: `/api/items/media/${img.url}`, // Ruta de la imagen almacenada
+            }));
+            setGallery(existingImages);
+        } else {
+            setGallery([]); // Limpiar la galería si no hay imágenes
+        }
+
+        // Nuevos campos
+
+        stockRef.current.value = data?.stock;
+
+        $(modalRef.current).modal("show");
+    };
+
+    const onModalSubmit = async (e) => {
+        e.preventDefault();
+
+        const request = {
+            id: idRef.current.value || undefined,
+            category_id: categoryRef.current.value,
+            name: nameRef.current.value,
+            summary: summaryRef.current.value,
+            price: priceRef.current.value,
+            discount: discountRef.current.value,
+            description: descriptionRef.current.value,
+            sotck: stockRef.current.value,
+        };
+
+        const formData = new FormData();
+        for (const key in request) {
+            formData.append(key, request[key]);
+        }
+
+        const image = imageRef.current.files[0];
+        if (image) {
+            formData.append("image", image);
+        }
+
+        gallery.forEach((img, index) => {
+            if (!img.toDelete) {
+                if (img.file) {
+                    formData.append(`gallery[${index}]`, img.file); // Imágenes nuevas
+                } else {
+                    formData.append(`gallery_ids[${index}]`, img.id); // IDs de imágenes existentes
+                }
+            }
+        });
+
+        const deletedImages = gallery
+            .filter((img) => img.toDelete)
+            .map((img) => parseInt(img.id, 10)); // Asegurar que sean enteros
+        if (deletedImages.length > 0) {
+            formData.append("deleted_images", JSON.stringify(deletedImages)); // Imágenes eliminadas
+        }
+
+        //console.log(formData);
+
+        const result = await itemsRest.save(formData);
+        if (!result) return;
+
+        $(gridRef.current).dxDataGrid("instance").refresh();
+        $(modalRef.current).modal("hide");
+        setGallery([]);
+    };
+
+    const onVisibleChange = async ({ id, value }) => {
+        const result = await itemsRest.boolean({ id, field: "visible", value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
+    const onBooleanChange = async ({ id, field, value }) => {
+        const result = await itemsRest.boolean({ id, field, value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
+    const onDeleteClicked = async (id) => {
+        const { isConfirmed } = await Swal.fire({
+            title: "Eliminar Item",
+            text: "¿Estás seguro de eliminar este item?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sí, eliminar",
+            cancelButtonText: "Cancelar",
+        });
+        if (!isConfirmed) return;
+        const result = await itemsRest.delete(id);
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
+    return (
+        <>
+            <Table
+                gridRef={gridRef}
+                title="Items"
+                rest={itemsRest}
+                toolBar={(container) => {
+                    container.unshift({
+                        widget: "dxButton",
+                        location: "after",
+                        options: {
+                            icon: "refresh",
+                            hint: "Refrescar tabla",
+                            onClick: () =>
+                                $(gridRef.current)
+                                    .dxDataGrid("instance")
+                                    .refresh(),
+                        },
+                    });
+                    container.unshift({
+                        widget: "dxButton",
+                        location: "after",
+                        options: {
+                            icon: "plus",
+                            text: "Agregar",
+                            hint: "Agregar",
+                            onClick: () => onModalOpen(),
+                        },
+                    });
+                }}
+                exportable={true}
+                exportableName="Items"
+                columns={[
+                    {
+                        dataField: "id",
+                        caption: "ID",
+                        visible: false,
+                    },
+                    {
+                        dataField: "category.name",
+                        caption: "Categoría",
+                        width: "120px",
+                        cellTemplate: (container, { data }) => {
+                            container.html(
+                                renderToString(
+                                    <>
+                                        <b className="d-block">
+                                            {data.category?.name}
+                                        </b>
+                                        <small className="text-muted">
+                                            {data.subcategory?.name}
+                                        </small>
+                                    </>
+                                )
+                            );
+                        },
+                    },
+                    {
+                        dataField: "subcategory.name",
+                        caption: "Subcategoría",
+                        visible: false,
+                    },
+                    {
+                        dataField: "brand.name",
+                        caption: "Marca",
+                        width: "120px",
+                    },
+                    {
+                        dataField: "name",
+                        caption: "Nombre",
+                        width: "300px",
+                        cellTemplate: (container, { data }) => {
+                            container.html(
+                                renderToString(
+                                    <>
+                                        <b>{data.name}</b>
+                                        <br />
+                                        <span className="truncate">
+                                            {data.summary}
+                                        </span>
+                                    </>
+                                )
+                            );
+                        },
+                    },
+                    {
+                        dataField: "final_price",
+                        caption: "Precio",
+                        dataType: "number",
+                        width: "75px",
+                        cellTemplate: (container, { data }) => {
+                            container.html(
+                                renderToString(
+                                    <>
+                                        {data.discount > 0 && (
+                                            <small
+                                                className="d-block text-muted"
+                                                style={{
+                                                    textDecoration:
+                                                        "line-through",
+                                                }}
+                                            >
+                                                S/.{Number2Currency(data.price)}
+                                            </small>
+                                        )}
+                                        <span>
+                                            S/.
+                                            {Number2Currency(
+                                                data.discount > 0
+                                                    ? data.discount
+                                                    : data.price
+                                            )}
+                                        </span>
+                                    </>
+                                )
+                            );
+                        },
+                    },
+                    {
+                        dataField: "image",
+                        caption: "Imagen",
+                        width: "90px",
+                        allowFiltering: false,
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <img
+                                    src={`/api/items/media/${data.image}`}
+                                    style={{
+                                        width: "80px",
+                                        height: "48px",
+                                        objectFit: "cover",
+                                        objectPosition: "center",
+                                        borderRadius: "4px",
+                                    }}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "is_new",
+                        caption: "Nuevo",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.is_new}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "is_new",
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "offering",
+                        caption: "En oferta",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.offering}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "offering",
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "recommended",
+                        caption: "Recomendado",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.recommended}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "recommended",
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "featured",
+                        caption: "Destacado",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.featured}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "featured",
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "visible",
+                        caption: "Visible",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.visible}
+                                    onChange={(e) =>
+                                        onVisibleChange({
+                                            id: data.id,
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        caption: "Acciones",
+                        width: "100px",
+                        cellTemplate: (container, { data }) => {
+                            container.css("text-overflow", "unset");
+                            container.append(
+                                DxButton({
+                                    className: "btn btn-xs btn-soft-primary",
+                                    title: "Editar",
+                                    icon: "fa fa-pen",
+                                    onClick: () => onModalOpen(data),
+                                })
+                            );
+                            container.append(
+                                DxButton({
+                                    className: "btn btn-xs btn-soft-danger",
+                                    title: "Eliminar",
+                                    icon: "fa fa-trash",
+                                    onClick: () => onDeleteClicked(data.id),
+                                })
+                            );
+                        },
+                        allowFiltering: false,
+                        allowExporting: false,
+                    },
+                ]}
+            />
+            <Modal
+                modalRef={modalRef}
+                title={isEditing ? "Editar Item" : "Agregar Item"}
+                onSubmit={onModalSubmit}
+                size="xl"
+            >
+                <div className="row" id="principal-container">
+                    <input ref={idRef} type="hidden" />
+                    <div className="col-md-6">
+                        <InputFormGroup
+                            eRef={nameRef}
+                            label="Nombre"
+                            required
+                        />
+                        <InputFormGroup eRef={summaryRef} label="Resumen" />
+                        <SelectFormGroup
+                            eRef={categoryRef}
+                            label="Categoría"
+                            required
+                            dropdownParent="#principal-container"
+                            onChange={(e) =>
+                                setSelectedCategory(e.target.value)
+                            }
+                        >
+                            {categories.map((item, index) => (
+                                <option key={index} value={item.id}>
+                                    {item.name}
+                                </option>
+                            ))}
+                        </SelectFormGroup>
+
+                        <InputFormGroup
+                            label="Stock"
+                            eRef={stockRef}
+                            type="number"
+                        />
+
+                        <InputFormGroup
+                            eRef={priceRef}
+                            label="Precio"
+                            type="number"
+                            step="0.01"
+                            required
+                        />
+                        <InputFormGroup
+                            eRef={discountRef}
+                            label="Descuento"
+                            type="number"
+                            step="0.01"
+                        />
+                    </div>
+
+                    <div className="col-md-6">
+                        <div className="row">
+                            <ImageFormGroup
+                                eRef={imageRef}
+                                label="Imagen"
+                                aspect={1}
+                                col="col-lg-6 col-md-12 col-sm-6"
+                            />
+
+                            <div className="col-lg-6 col-md-12 col-sm-6">
+                                <label className="form-label">Galeria</label>
+                                <input
+                                    id="input-item-gallery"
+                                    ref={galleryRef}
+                                    type="file"
+                                    multiple
+                                    accept="image/*"
+                                    hidden
+                                    onChange={handleGalleryChange}
+                                />
+                                <div
+                                    style={{
+                                        border: "2px dashed #ccc",
+                                        padding: "20px",
+                                        textAlign: "center",
+                                        cursor: "pointer",
+                                        borderRadius: "4px",
+                                        boxShadow:
+                                            "2.5px 2.5px 5px rgba(0,0,0,.125)",
+                                        aspectRatio: "21/9",
+                                        height: "254px",
+                                        width: "100%",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                    }}
+                                    onClick={() => galleryRef.current.click()}
+                                    onDrop={handleDrop}
+                                    onDragOver={handleDragOver}
+                                >
+                                    <span className="form-label d-block mb-1">
+                                        Arrastra y suelta imágenes aquí o haz
+                                        clic para agregar
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="col-md-12 col-sm-12">
+                                <div className="d-flex flex-wrap gap-1  mt-2">
+                                    {gallery.map((image, index) => (
+                                        <div
+                                            key={index}
+                                            className="position-relative"
+                                            style={{
+                                                width: "80px",
+                                                height: "80px",
+                                            }}
+                                        >
+                                            <img
+                                                src={`${image.url}`}
+                                                alt="preview"
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                    borderRadius: "4px",
+                                                }}
+                                            />
+                                            <button
+                                                className="btn btn-xs btn-danger position-absolute"
+                                                style={{ top: 0, right: 0 }}
+                                                onClick={(e) =>
+                                                    removeGalleryImage(e, index)
+                                                }
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr className="my-1" />
+                <QuillFormGroup eRef={descriptionRef} label="Descripcion" />
+            </Modal>
+        </>
+    );
+};
 
 CreateReactScript((el, properties) => {
-  createRoot(el).render(<BaseAdminto {...properties} title='Items'>
-    <Items {...properties} />
-  </BaseAdminto>);
-})
+    createRoot(el).render(
+        <BaseAdminto {...properties} title="Items">
+            <Items {...properties} />
+        </BaseAdminto>
+    );
+});

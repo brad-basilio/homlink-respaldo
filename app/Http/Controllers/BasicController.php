@@ -6,10 +6,11 @@ use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
 use App\Models\General;
-use App\Models\Sale;
+use App\Models\Slider;
 use App\Models\Social;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
@@ -21,7 +22,8 @@ use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 use SoDe\Extend\Text;
 use Illuminate\Support\Facades\Schema;
-use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+
 
 class BasicController extends Controller
 {
@@ -32,9 +34,8 @@ class BasicController extends Controller
   public $imageFields = [];
   public $prefix4filter = null;
   public $throwMediaError = false;
-  public $ignorePrefix = [];
+  public $reactData = null;
   public $with4get = [];
-  public $ignoreStatusFilter = false;
 
   public function get(Request $request, string $id)
   {
@@ -50,6 +51,10 @@ class BasicController extends Controller
   {
     try {
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      if ($snake_case === 'item_image' || $snake_case === 'item_color') {
+        $snake_case = 'item';
+      }
+      //dump($snake_case);
       if (Text::has($uuid, '.')) {
         $route = "images/{$snake_case}/{$uuid}";
       } else {
@@ -61,6 +66,7 @@ class BasicController extends Controller
         'Content-Type' => 'application/octet-stream'
       ]);
     } catch (\Throwable $th) {
+
       $content = Storage::get('utils/cover-404.svg');
       $status = 200;
       if ($this->throwMediaError) return null;
@@ -75,7 +81,7 @@ class BasicController extends Controller
     return $model::select();
   }
 
-  public function setPaginationSummary(string $model)
+  public function setPaginationSummary(Request $request, Builder $builder)
   {
     return [];
   }
@@ -87,33 +93,17 @@ class BasicController extends Controller
 
   public function reactView(Request $request)
   {
-    $socials = Social::where('visible', true)->where('status', true)->get();
-    $terms = General::select(['description'])->where('correlative', 'terms_conditions')->first();
-    if ($this->reactRootView == 'public') {
-      $seoTitle = General::select(['description'])->where('correlative', 'seo_title')->first();
-      $seoDescription = General::select(['description'])->where('correlative', 'seo_description')->first();
-      $seoKeywords = General::select(['description'])->where('correlative', 'seo_keywords')->first();
-    }
-    $footerLinks = Aboutus::whereIn('correlative', ['phone', 'email', 'whatsapp', 'customer-complaints'])->get();
 
-    $salesCount = null;
-    if (Auth::check() && Auth::user()->hasRole('Admin')) {
-      $salesCount = Sale::where('status_id', '312f9a91-d3f2-4672-a6bf-678967616cac')->count();
-    }
+    if (Auth::check()) Auth::user()->getAllPermissions();
 
     $properties = [
       'session' => Auth::user(),
-      'socials' => $socials,
-      'terms' => $terms,
-      'footerLinks' => $footerLinks,
-      'salesCount' => $salesCount,
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
-        'WA_URL' => env('WA_URL'),
-        'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
         'APP_DOMAIN' => env('APP_DOMAIN'),
+        'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
         'GMAPS_API_KEY' => env('GMAPS_API_KEY')
       ],
@@ -126,31 +116,36 @@ class BasicController extends Controller
     } else {
       return $reactViewProperties;
     }
-    return Inertia::render($this->reactView, $properties)->rootView($this->reactRootView)->withViewData([
-      'seoTitle' => $seoTitle->description ?? '',
-      'seoDescription' => $seoDescription->description ?? '',
-      'seoKeywords' => $seoKeywords->description ?? '',
-    ]);
+    return Inertia::render($this->reactView, $properties)
+      ->rootView($this->reactRootView)
+      ->withViewData('data', $this->reactData ?? []);
   }
 
   public function paginate(Request $request): HttpResponse|ResponseFactory
   {
     $response = new dxResponse();
     try {
-      $instance = $this->setPaginationInstance($this->model);
+
+      //$instance = $this->setPaginationInstance($this->model);
+      // Obtener los with desde el request (si no se envían, será un array vacío)
+      $withRelations = $request->has('with') ? explode(',', $request->with) : [];
+
+      // Aplicar with dinámicamente
+      $instance = $this->setPaginationInstance($this->model)->with($withRelations);
 
       if ($request->group != null) {
         [$grouping] = $request->group;
-        // $selector = str_replace('.', '__', $grouping['selector']);
         $selector = $grouping['selector'];
-        if (!str_contains($selector, '.') && $this->prefix4filter && !Text::startsWith($selector, '!') && !in_array($selector, $this->ignorePrefix)) {
-          $selector = "{$this->prefix4filter}.{$selector}";
+        if ($this->prefix4filter && !str_contains($selector, '.')) {
+          $selector = $this->prefix4filter . '.' . $selector;
         }
-        $instance = $instance->select(DB::raw("{$selector} AS `key`"))
-          ->groupBy(str_replace('!', '', $selector));
+        $instance = $instance->select([
+          DB::raw("{$selector} AS 'key'")
+        ])
+          ->groupBy($selector);
       }
 
-      if (!$this->ignoreStatusFilter && Auth::check()) {
+      if (Auth::check()) {
         $table = $this->prefix4filter ? $this->prefix4filter : (new $this->model)->getTable();
         if (Schema::hasColumn($table, 'status')) {
           $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');
@@ -163,6 +158,7 @@ class BasicController extends Controller
         });
       }
 
+
       if ($request->group == null) {
         if ($request->sort != null) {
           foreach ($request->sort as $sorting) {
@@ -172,8 +168,8 @@ class BasicController extends Controller
               $sorting['desc'] ? 'DESC' : 'ASC'
             );
           }
-        } else {
-          $instance->orderBy($this->prefix4filter ? $this->prefix4filter . '.id' : 'id', 'DESC');
+        } else { //MEJORAR IMPLMENTAR ASC O DESC DESDE EL REST, PARA MEJORARLO LA INTERACTIVIDAD CON OTRAS TABLAS
+          $instance->orderBy($this->prefix4filter ? $this->prefix4filter . '.id' : 'id', 'ASC');
         }
       }
 
@@ -204,7 +200,7 @@ class BasicController extends Controller
       $response->status = 200;
       $response->message = 'Operación correcta';
       $response->data = $jpas;
-      $response->summary = $this->setPaginationSummary($this->model);
+      $response->summary = $this->setPaginationSummary($request, $instance);
       $response->totalCount = $totalCount;
     } catch (\Throwable $th) {
       $response->status = 400;
@@ -224,42 +220,49 @@ class BasicController extends Controller
 
   public function save(Request $request): HttpResponse|ResponseFactory
   {
+    dump($request->all());
     $response = new Response();
     try {
 
       $body = $this->beforeSave($request);
 
+
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      if ($snake_case === "item_image" || $snake_case === "item_color") {
+        $snake_case = 'item';
+      }
+
       foreach ($this->imageFields as $field) {
+
         if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
         $uuid = Crypto::randomUUID();
         $ext = $full->getClientOriginalExtension();
-        $path = \storage_path("app/images/{$snake_case}/{$uuid}.{$ext}");
-
-        $image = Image::make($full);
-        if ($image->width() > 1000 || $image->height() > 1000) {
-          $image->resize(1000, null, function ($constraint) {
-            $constraint->aspectRatio();
-            $constraint->upsize(); // No permite aumentar el tamaño
-          });
-        }
-        $image->save($path); // Guarda la imagen redimensionada
-
+        $path = "images/{$snake_case}/{$uuid}.{$ext}";
+        Storage::put($path, file_get_contents($full));
         $body[$field] = "{$uuid}.{$ext}";
       }
 
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
 
       if (!$jpa) {
+        $body['slug'] = Crypto::randomUUID();
         $jpa = $this->model::create($body);
-        $isNew = true;
       } else {
         $jpa->update($body);
-        $isNew = false;
       }
 
-      $data = $this->afterSave($request, $jpa, $isNew);
+      $table = (new $this->model)->getTable();
+      if (Schema::hasColumn($table, 'slug')) {
+        $slug = Str::slug($jpa->name);
+        $slugExists = $this->model::where('slug', $slug)->where('id', '<>', $jpa->id)->exists();
+        if ($slugExists) {
+          $slug = $slug . '-' . Crypto::short();
+        }
+        $jpa->update(['slug' => $slug]);
+      }
+
+      $data = $this->afterSave($request, $jpa);
       if ($data) {
         $response->data = $data;
       }
@@ -267,6 +270,7 @@ class BasicController extends Controller
       $response->status = 200;
       $response->message = 'Operacion correcta';
     } catch (\Throwable $th) {
+      dump($th->getMessage());
       $response->status = 400;
       $response->message = $th->getMessage();
     } finally {
@@ -277,7 +281,7 @@ class BasicController extends Controller
     }
   }
 
-  public function afterSave(Request $request, object $jpa, bool $isNew)
+  public function afterSave(Request $request, object $jpa)
   {
     return null;
   }
@@ -333,7 +337,7 @@ class BasicController extends Controller
     try {
       $deleted = $this->softDeletion
         ? $this->model::where('id', $id)
-        ->update(['status' => null])
+        ->update(['status' => false])
         : $this->model::where('id', $id)
         ->delete();
 

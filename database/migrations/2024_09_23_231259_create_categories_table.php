@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->string('name');
             $table->longText('description')->nullable();
+            $table->string('slug')->nullable();
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();
