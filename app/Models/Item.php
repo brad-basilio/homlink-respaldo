@@ -33,6 +33,7 @@ class Item extends Model
         'status',
         'sku',
         'stock',
+        'score'
     ];
     /*
      
@@ -51,16 +52,28 @@ class Item extends Model
     {
         return $this->hasMany(ItemImage::class);
     }
-    public function zises()
+    public function sizes()
     {
         return $this->hasMany(ItemZise::class);
+    }
+    public function ad()
+    {
+        return $this->hasOne(Ad::class);
     }
 
     protected static function booted()
     {
         static::creating(function ($item) {
+            if (empty($item->final_price)) {
+                $item->final_price = $item->price;
+                if ($item->discount && $item->discount > 0) {
+                    $item->discount_percent = 100 - (($item->discount * 100) / $item->price);
+                    $item->final_price =  $item->discount;
+                }
+            }
+
             if (empty($item->sku)) {
-                $item->sku = 'PROD-' . strtoupper(substr($item->categoria_id, 0, 3)) . '-' . strtoupper(substr($item->name, 0, 3)) . '-' . uniqid();
+                $item->sku = 'PROD' . strtoupper(substr($item->categoria_id, 0, 3)) . '-' . strtoupper(substr($item->name, 0, 3)) . '-' . uniqid();
             }
         });
     }

@@ -45,8 +45,8 @@ class CulqiController extends Controller
       $amount = $sale['amount'];
 
       if (isset($sale['delivery'])) $amount += $sale['delivery'];
-      if (isset($sale['bundle_discount'])) $amount -= $sale['bundle_discount'];
-      if (isset($sale['renewal_discount'])) $amount -= $sale['renewal_discount'];
+
+
       if (isset($sale['coupon_discount'])) $amount -= $sale['coupon_discount'];
 
       $config = [
@@ -84,35 +84,17 @@ class CulqiController extends Controller
   public function token(Request $request)
   {
     $order_number = \str_replace('#' . env('APP_CORRELATIVE') . '-', '', $request->order);
-    $sale = Sale::with(['renewal'])->where('code', $order_number)->first();
+    $sale = Sale::where('code', $order_number)->first();
 
     $response = Response::simpleTryCatch(function () use ($request, $sale) {
 
-      if ($sale->renewal_id) {
-        $cq_cus_id = $this->createClient();
-        $cq_crd_id = $this->createCard($cq_cus_id, $request->token['id']);
-        $cq_pln_id = $this->createPlan($sale);
-        $cq_sxn_id = $this->subscribe($cq_crd_id, $cq_pln_id, $sale);
 
-        CulqiSubscription::create([
-          'renewal_id' => $sale->renewal_id,
-          'user_id' => Auth::user()->id,
-          'cq_crd_id' => $cq_crd_id,
-          'cq_pln_id' => $cq_pln_id,
-          'cq_sxn_id' => $cq_sxn_id,
-          'sale_id' => $sale->id,
-          'already_paid' => false,
-          'current_payment' => 0,
-          'total_payments' => $sale->renewal->months,
-        ]);
-      } else {
-        $this->createCharge($request->token, $sale);
-        $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
-        $sale->save();
+      $this->createCharge($request->token, $sale);
+      $sale->status_id = '312f9a91-d3f2-4672-a6bf-678967616cac';
+      $sale->save();
 
-        SendSaleWhatsApp::dispatchAfterResponse($sale);
-        SendSaleEmail::dispatchAfterResponse($sale);
-      }
+      SendSaleWhatsApp::dispatchAfterResponse($sale);
+      SendSaleEmail::dispatchAfterResponse($sale);
     }, function () use ($sale) {
       $sale->update(['status_id' => 'd3a77651-15df-4fdc-a3db-91d6a8f4247c']);
     });
@@ -123,8 +105,7 @@ class CulqiController extends Controller
   {
     $amount = $sale->amount;
     if (isset($sale->delivery)) $amount += $sale->delivery;
-    if (isset($sale->bundle_discount)) $amount -= $sale->bundle_discount;
-    if (isset($sale->renewal_discount)) $amount -= $sale->renewal_discount;
+
     if (isset($sale->coupon_discount)) $amount -= $sale->coupon_discount;
 
     $config = [
@@ -214,86 +195,6 @@ class CulqiController extends Controller
       ]
     ]);
     if (!$res->ok) throw new Exception('Ocurrio un error al crear la tarjeta en Culqi');
-    $data = $res->json();
-    return $data['id'];
-  }
-
-  private function createPlan(Sale $sale)
-  {
-    if (!$sale->renewal_id) throw new Exception('No hay una suscripción vinculada a la venta');
-
-    $name = Text::keep($sale->renewal->name
-      . ' - ' . explode(' ', $sale->name)[0]
-      . ' ' . explode(' ', $sale->lastname)[0]
-      . ' ' . Crypto::short(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789- ');
-    $normalAmount = $sale->amount - $sale->bundle_discount - $sale->renewal_discount;
-
-    $amount = $normalAmount / $sale->renewal->months;
-
-    $discount = $normalAmount - $sale->coupon_discount;
-
-    $body = [
-      "name" => $name,
-      "short_name" => Str::slug($name),
-      "description" => 'Plan ' . $name,
-      "amount" => Math::ceil($amount * 100),
-      "currency" => "PEN",
-      "interval_unit_time" => 3,
-      "interval_count" => 0
-    ];
-
-    if ($amount != $discount) {
-      $body["initial_cycles"] = [
-        "count" => 1, // Solo primer mes
-        "has_initial_charge" => $discount != 0,
-        "amount" => Math::ceil($discount * 100),
-        "interval_unit_time" => 3
-      ];
-    } else {
-      $body["initial_cycles"] = [
-        "count" => 0, // Solo primer mes
-        "has_initial_charge" => false,
-        "amount" => 0,
-        "interval_unit_time" => 3
-      ];
-    }
-
-    $res = new Fetch($this->url . '/recurrent/plans/create', [
-      'method' => 'POST',
-      'headers' => [
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
-      ],
-      'body' => $body
-    ]);
-
-    if (!$res->ok) throw new Exception('Ocurrio un error al crear el plan en Culqi');
-
-    $data = $res->json();
-
-    return $data['id'];
-  }
-
-  private function subscribe($cq_crd_id, $cq_pln_id, $sale)
-  {
-    $res = new Fetch($this->url . '/recurrent/subscriptions/create', [
-      'method' => 'POST',
-      'headers' => [
-        'Content-Type' => 'application/json',
-        'Authorization' => 'Bearer ' . \env('CULQI_PRIVATE_KEY')
-      ],
-      'body' => [
-        "card_id" => $cq_crd_id,
-        "plan_id" => $cq_pln_id,
-        "tyc" => true,
-        "metadata" => [
-          'user_id' => Auth::user()->id,
-          'sale_id' => $sale->id
-        ]
-      ]
-    ]);
-
-    if (!$res->ok) throw new Exception('Ocurrio un error al crear la subscripcion');
     $data = $res->json();
     return $data['id'];
   }

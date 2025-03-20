@@ -17,15 +17,9 @@ class SaleController extends BasicController
     public $reactView = 'Admin/Sales';
     public $prefix4filter = 'sales';
     public $with4get = [
-        'formula',
-        'formula.hasTreatment',
-        'formula.scalpType',
-        'formula.hairType',
-        'formula.fragrance',
+
         'status',
         'details',
-        'renewal',
-        'bundle',
         'coupon'
     ];
 
@@ -34,8 +28,7 @@ class SaleController extends BasicController
         $response = Response::simpleTryCatch(function () use ($id) {
             $jpa  = $this->model::with($this->with4get)->find($id);
             if (!$jpa) throw new Exception('El pedido que buscas no existe');
-            $hairGoals = Formula::whereIn('id', $jpa->formula->hair_goals)->get();
-            $jpa->formula->hair_goals_list = $hairGoals;
+
             return $jpa;
         });
         return \response($response->toArray(), $response->status);
@@ -67,11 +60,11 @@ class SaleController extends BasicController
             ]);
 
         return $model::select('sales.*')
-            ->with(['status', 'renewal'])
+            ->with(['status'])
             ->join('statuses AS status', 'status.id', 'sales.status_id');
     }
 
-    public function afterSave(Request $request, object $jpa, bool $isNew)
+    public function afterSave(Request $request, object $jpa)
     {
         $newJpa = Sale::with($this->with4get)->find($jpa->id);
         return $newJpa;

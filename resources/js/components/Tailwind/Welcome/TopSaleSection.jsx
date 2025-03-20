@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CarritoContext } from "../../../context/CarritoContext";
 
-const TopSaleSection = () => {
+const TopSaleSection = ({ producto }) => {
     const [isModalTalla, setIsModalTalla] = useState(false);
 
     const [quantity, setQuantity] = useState(1);
@@ -11,6 +12,7 @@ const TopSaleSection = () => {
         setQuantity((prev) => Math.max(1, prev + amount));
     };
 
+    const { agregarAlCarrito } = useContext(CarritoContext);
     return (
         <section className="py-10 px-[5%] mx-auto font-font-general bg-white">
             <h2 className=" text-[30.25px] md:text-[30.25px] 2xl:text-[36.25px] leading-[29.36px] font-bold text-[#212529] mt-6 mb-10 text-center flex gap-2 items-center justify-center">
@@ -180,7 +182,10 @@ const TopSaleSection = () => {
                     </div>
                     {/* Add to Cart Button */}
                     <div className="flex justify-center">
-                        <button className="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center">
+                        <button
+                            onClick={() => agregarAlCarrito(producto)}
+                            className="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center"
+                        >
                             <span className="">Añadir al carrito</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

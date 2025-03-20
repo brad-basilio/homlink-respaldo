@@ -131,71 +131,41 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     Pedidos
                                 </MenuItem>
                                 <MenuItemContainer
-                                    title="Productos y colores"
+                                    title="Inventario"
                                     icon="mdi mdi-cube"
                                 >
+                                    <MenuItem
+                                        href="/admin/categories"
+                                        icon="mdi mdi-clipboard-list-outline"
+                                    >
+                                        Categorias
+                                    </MenuItem>
+
                                     <MenuItem
                                         href="/admin/items"
                                         icon="mdi mdi-cube-send"
                                     >
                                         Items
                                     </MenuItem>
-                                    <MenuItem
-                                        href="/admin/categories"
-                                        icon="mdi mdi-cube-send"
-                                    >
-                                        Categorias
-                                    </MenuItem>
+
                                     <MenuItem
                                         href="/admin/colors"
                                         icon="mdi mdi-palette-outline"
                                     >
                                         Colores
                                     </MenuItem>
-                                </MenuItemContainer>
-                                {/* <MenuItem href='/admin/gifts' icon='mdi mdi-gift' badge >
-                <span className="badge bg-primary float-end">Nuevo</span>
-                Gifts
-              </MenuItem> */}
-                                <MenuItemContainer
-                                    title="Características"
-                                    icon="mdi mdi-flask-round-bottom"
-                                >
                                     <MenuItem
-                                        href="/admin/supplies"
-                                        icon="mdi mdi-flask-round-bottom"
+                                        href="/admin/sizes"
+                                        icon="mdi mdi-ruler"
                                     >
-                                        Ingredientes
-                                    </MenuItem>
-                                    <MenuItem
-                                        href="/admin/formulas"
-                                        icon="mdi mdi-flask"
-                                    >
-                                        Fórmulas
-                                    </MenuItem>
-                                    <MenuItem
-                                        href="/admin/fragrances"
-                                        icon="mdi mdi-fleur-de-lis"
-                                    >
-                                        Fragancias
+                                        Tallas
                                     </MenuItem>
                                 </MenuItemContainer>
+
                                 <MenuItemContainer
                                     title="Ventas"
                                     icon="mdi mdi-cash-register"
                                 >
-                                    <MenuItem
-                                        href="/admin/renewals"
-                                        icon="mdi mdi-calendar-month"
-                                    >
-                                        Renovaciones
-                                    </MenuItem>
-                                    <MenuItem
-                                        href="/admin/bundles"
-                                        icon="mdi mdi-package-variant"
-                                    >
-                                        Paquetes
-                                    </MenuItem>
                                     <MenuItem
                                         href="/admin/coupons"
                                         icon="mdi mdi-ticket-percent"

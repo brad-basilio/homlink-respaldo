@@ -18,7 +18,7 @@ class Sale extends Model
 
     protected $fillable = [
         'code',
-        'user_formula_id',
+
         'user_id',
         'name',
         'lastname',
@@ -35,35 +35,25 @@ class Sale extends Model
         'reference',
         'amount',
         'delivery',
-        'bundle_discount',
-        'bundle_id',
-        'renewal_discount',
-        'renewal_id',
+
+
+
+
         'coupon_discount',
         'coupon_id',
         'total_amount',
         'status_id',
     ];
 
-    public function formula(): BelongsTo
-    {
-        return $this->belongsTo(UserFormulas::class, 'user_formula_id', 'id');
-    }
+
 
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class);
     }
 
-    public function bundle(): BelongsTo
-    {
-        return $this->belongsTo(Bundle::class);
-    }
 
-    public function renewal(): BelongsTo
-    {
-        return $this->belongsTo(Renewal::class);
-    }
+
 
     public function coupon(): BelongsTo
     {

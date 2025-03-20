@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
+import SubscriptionsRest from "./actions/SubscriptionsRest";
+import { CarritoProvider } from "./context/CarritoContext";
+import Swal from "sweetalert2";
+import Global from "./Utils/Global";
 // Componente principal del cuestionario
 const Quiz = ({ showSlogan = true }) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -387,43 +391,76 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
     );
 };
 const FourQuiz = ({ setCurrentStep, handleResult }) => {
+    const subscriptionsRest = new SubscriptionsRest();
+    const [saving, setSaving] = useState(false);
+    const emailRef = useRef(null);
+    const onEmailSubmit = async (e) => {
+        e.preventDefault();
+        setSaving(true);
+        if (!emailRef.current.value) {
+            alert("Por favor ingresa un correo electrónico válido.");
+            setSaving(false);
+            return;
+        }
+        const request = {
+            email: emailRef.current.value,
+        };
+        const result = await subscriptionsRest.save(request);
+        setSaving(false);
+
+        if (!result) return;
+
+        Swal.fire({
+            title: "¡Éxito!",
+            text: `Pronto de enviaremos un email de ${Global.APP_NAME}.`,
+            icon: "success",
+            confirmButtonText: "Ok",
+        });
+
+        emailRef.current.value = null;
+        handleResult();
+    };
     return (
         <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
             <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
                 <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem]   lg:max-w-xl 2xl:max-w-[44rem] text-center ">
-                    <h2 className="text-[20.27px] md:text-[31.27px] lg:text-[25px] 2xl:text-[32.21px] leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
-                        ¡Genial! Hemos encontrado el producto menstrual perfecto
-                        para ti{" "}
-                        <img
-                            src="/assets/img/emojis/growing-heart.png"
-                            className="h-[30.05px] inline-flex ml-2"
-                            loading="lazy"
-                        />
-                    </h2>
-                    <p className="mb-8 text-[18.07px] md:text-[23.07px] lg:text-[17.77px] 2xl:text-[23px] leading-[31.81px] tracking-[0.01em]">
-                        Ingresa tu email para obtener tus resultados y recibir
-                        un email con un {" "}
-                        <strong>cupón exclusivo de 10% OFF</strong> ¡ solo para
-                        ti!
-                    </p>
-                    <div className=" w-full flex items-center justify-center ">
-                        <input
-                            placeholder="Déjanos tu email aquí"
-                            className="bg-white w-full md:w-9/12 2xl:w-10/12 hover:bg-gray-100 text-[#FF9900] font-semibold  px-6 rounded-[20px] text-lg transition-colors border-2 border-[#FF9900] focus:ring-0 h-[80px] 2xl:h-[94px]  focus:outline-none text-[20.94px] placeholder:text-[20.94px] placeholder:text-[#FF9900] placeholder:text-center"
-                        ></input>
-                    </div>
-                    <p className="mb-8 text-[15.78px] lg:text-[14px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
-                        Dejándonos tu e-mail aceptas recibir novedades y
-                        promociones de wefem
-                    </p>
-                    <div className="space-x-4 w-full flex justify-center">
-                        <button
-                            onClick={() => handleResult()}
-                            className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
-                        >
-                            ¡Obtener mis resultados!
-                        </button>
-                    </div>
+                    <form onSubmit={onEmailSubmit}>
+                        <h2 className="text-[20.27px] md:text-[31.27px] lg:text-[25px] 2xl:text-[32.21px] leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
+                            ¡Genial! Hemos encontrado el producto menstrual
+                            perfecto para ti{" "}
+                            <img
+                                src="/assets/img/emojis/growing-heart.png"
+                                className="h-[30.05px] inline-flex ml-2"
+                                loading="lazy"
+                            />
+                        </h2>
+                        <p className="mb-8 text-[18.07px] md:text-[23.07px] lg:text-[17.77px] 2xl:text-[23px] leading-[31.81px] tracking-[0.01em]">
+                            Ingresa tu email para obtener tus resultados y
+                            recibir un email con un {" "}
+                            <strong>cupón exclusivo de 10% OFF</strong> ¡ solo
+                            para ti!
+                        </p>
+                        <div className=" w-full flex items-center justify-center ">
+                            <input
+                                ref={emailRef}
+                                type="email"
+                                placeholder="Déjanos tu email aquí"
+                                className="bg-white w-full md:w-9/12 2xl:w-10/12 hover:bg-gray-100 text-[#FF9900] font-semibold  px-6 rounded-[20px] text-lg transition-colors border-2 border-[#FF9900] focus:ring-0 h-[80px] 2xl:h-[94px]  focus:outline-none text-[20.94px] placeholder:text-[20.94px] placeholder:text-[#FF9900] placeholder:text-center"
+                            ></input>
+                        </div>
+                        <p className="mb-8 text-[15.78px] lg:text-[14px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
+                            Dejándonos tu e-mail aceptas recibir novedades y
+                            promociones de wefem
+                        </p>
+                        <div className="space-x-4 w-full flex justify-center">
+                            <button
+                                type="submit"
+                                className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                            >
+                                ¡Obtener mis resultados!
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -542,8 +579,10 @@ const Result2Quiz = ({}) => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <Base {...properties}>
-            <Quiz {...properties} />
-        </Base>
+        <CarritoProvider>
+            <Base {...properties}>
+                <Quiz {...properties} />
+            </Base>
+        </CarritoProvider>
     );
 });

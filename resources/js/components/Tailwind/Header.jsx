@@ -1,5 +1,6 @@
 import Tippy from "@tippyjs/react";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { CarritoContext } from "../../context/CarritoContext";
 
 const Header = ({
     session,
@@ -51,6 +52,25 @@ const Header = ({
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const { carrito, eliminarProducto } = useContext(CarritoContext);
+    const [animar, setAnimar] = useState(false);
+    const totalProductos = carrito.reduce(
+        (acc, item) => acc + item.quantity,
+        0
+    );
+
+    useEffect(() => {
+        if (totalProductos > 0) {
+            setAnimar(true);
+            setTimeout(() => setAnimar(false), 500); // Duración de la animación
+        }
+    }, [totalProductos]);
+    const [mostrarCarrito, setMostrarCarrito] = useState(false);
+    const totalPrecio = carrito.reduce(
+        (acc, item) => acc + item.final_price * item.quantity,
+        0
+    );
 
     return (
         <>
@@ -162,9 +182,25 @@ const Header = ({
                                     <i className="fa-brands fa-tiktok"></i>
                                 </a>
 
-                                <a href="#">
+                                <button
+                                    onClick={() =>
+                                        setMostrarCarrito(!mostrarCarrito)
+                                    }
+                                    className="relative"
+                                >
                                     <i className="fas fa-shopping-cart"></i>
-                                </a>
+                                    <span
+                                        className={`absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold transition-transform ${
+                                            animar ? "scale-150" : "scale-100"
+                                        }`}
+                                        style={{
+                                            transition:
+                                                "transform 0.3s ease-in-out",
+                                        }}
+                                    >
+                                        {totalProductos}
+                                    </span>
+                                </button>
                             </div>
                         </div>
 
@@ -174,9 +210,25 @@ const Header = ({
                                 <a href="#">
                                     <i className="fa-brands fa-whatsapp"></i>
                                 </a>
-                                <a href="#">
+                                <button
+                                    onClick={() =>
+                                        setMostrarCarrito(!mostrarCarrito)
+                                    }
+                                    className="relative"
+                                >
                                     <i className="fas fa-shopping-cart"></i>
-                                </a>
+                                    <span
+                                        className={`absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold transition-transform ${
+                                            animar ? "scale-150" : "scale-100"
+                                        }`}
+                                        style={{
+                                            transition:
+                                                "transform 0.3s ease-in-out",
+                                        }}
+                                    >
+                                        {totalProductos}
+                                    </span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -212,6 +264,89 @@ const Header = ({
                     <div className="absolute inset-0 flex items-center justify-center text-center text-white p-6">
                         {children}
                     </div>
+                )}
+                {/*Modal Carrito*/}
+                {mostrarCarrito && (
+                    <>
+                        {/* Fondo oscuro (BackDrop) */}
+                        <div
+                            className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                            onClick={() => setMostrarCarrito(false)}
+                        ></div>
+
+                        {/* Contenedor del Modal */}
+                        <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 flex flex-col">
+                            {/* Encabezado */}
+                            <div className="flex justify-between items-center p-4 border-b">
+                                <h2 className="text-lg font-bold">
+                                    Tu Carrito
+                                </h2>
+                                <button
+                                    onClick={() => setMostrarCarrito(false)}
+                                    className="text-lg font-bold"
+                                >
+                                    ✖
+                                </button>
+                            </div>
+
+                            {/* Lista de productos con Scroll */}
+                            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                                {carrito.length === 0 ? (
+                                    <p className="text-center text-gray-500">
+                                        Tu carrito está vacío
+                                    </p>
+                                ) : (
+                                    carrito.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex items-center gap-4 border-b pb-2"
+                                        >
+                                            <img
+                                                src={`api/items/media/${item.image}`}
+                                                alt={item.name}
+                                                onError={(e) =>
+                                                    (e.target.src =
+                                                        "/api/cover/thumbnail/null")
+                                                }
+                                                className="w-16 h-16 object-cover"
+                                            />
+                                            <div className="flex-1">
+                                                <h3 className="font-semibold">
+                                                    {item.name}
+                                                </h3>
+                                                <p className="text-gray-500">
+                                                    S/ {item.final_price} x{" "}
+                                                    {item.quantity}
+                                                </p>
+                                            </div>
+                                            {/* 🗑️ Botón para eliminar */}
+                                            <button
+                                                className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
+                                                onClick={() =>
+                                                    eliminarProducto(item.id)
+                                                }
+                                            >
+                                                🗑️
+                                            </button>
+                                        </div>
+                                    ))
+                                )}
+                            </div>
+
+                            {/* Total y botón de Checkout */}
+                            <div className="p-4 border-t">
+                                <p className="text-lg font-semibold">
+                                    Total: S/ {totalPrecio.toFixed(2)}
+                                </p>
+                                <a
+                                    href="/checkout"
+                                    className="mt-2 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+                                >
+                                    Finalizar Compra
+                                </a>
+                            </div>
+                        </div>
+                    </>
                 )}
             </div>
         </>

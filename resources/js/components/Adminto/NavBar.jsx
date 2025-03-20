@@ -13,7 +13,9 @@ const NavBar = ({ session = {}, title = "Pagina", whatsappStatus }) => {
     return (
         <div className="navbar-custom">
             <ul className="list-unstyled topnav-menu float-end mb-0">
-                <li className="notification-list topbar-dropdown d-none d-lg-block">
+                <li className="dropdown notification-list topbar-dropdown">
+                    {/*
+                      <li className="notification-list topbar-dropdown d-none d-lg-block">
                     <a
                         className="nav-link waves-effect waves-light"
                         data-bs-toggle="modal"
@@ -31,8 +33,7 @@ const NavBar = ({ session = {}, title = "Pagina", whatsappStatus }) => {
                         </span>
                     </a>
                 </li>
-
-                <li className="dropdown notification-list topbar-dropdown">
+                    */}
                     <a
                         className="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
                         data-bs-toggle="dropdown"

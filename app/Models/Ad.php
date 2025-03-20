@@ -20,6 +20,8 @@ class Ad extends Model
         'image',
         'link',
         'seconds',
+        'actions',
+        'item_id',
         'date_begin',
         'date_end',
         'visible',
@@ -60,5 +62,10 @@ class Ad extends Model
                     });
             })
             ->get();
+    }
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
     }
 }

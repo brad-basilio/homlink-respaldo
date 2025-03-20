@@ -228,7 +228,7 @@ class BasicController extends Controller
 
 
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
-      if ($snake_case === "item_image" || $snake_case === "item_color") {
+      if ($snake_case === "item_image" || $snake_case === "item_color" || $snake_case === "item_zise") {
         $snake_case = 'item';
       }
 

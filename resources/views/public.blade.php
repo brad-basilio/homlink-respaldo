@@ -49,7 +49,7 @@
         }
     </style>
 
-    @if ($component == 'Formula.jsx')
+    @if ($component == 'Checkout.jsx')
         <script type="application/javascript" src="https://checkout.culqi.com/js/v4"></script>
     @elseif ($component == 'MyAccount.jsx')
         <link href="/lte/assets/libs/dxdatagrid/css/dx.light.compact.css?v=06d3ebc8-645c-4d80-a600-c9652743c425"

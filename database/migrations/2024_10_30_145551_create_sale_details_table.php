@@ -17,7 +17,8 @@ return new class extends Migration
             $table->char('sale_id', 36)->index();
             $table->char('item_id', 36)->index();
             $table->longText('name');
-            $table->json('colors')->nullable();
+            $table->string('color')->nullable();
+            $table->string('size')->nullable();
             $table->decimal('price', 10);
             $table->decimal('quantity', 10);
             $table->timestamps();

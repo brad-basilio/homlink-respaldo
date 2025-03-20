@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
+use App\Http\Controllers\Admin\ItemSizeController as AdminItemSizeController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
@@ -91,6 +92,8 @@ Route::post('/user-formulas', [UserFormulasController::class, 'save']);
 Route::post('/coupons', [CouponController::class, 'save']);
 Route::post('/coupons/is-first', [CouponController::class, 'isFirst']);
 
+Route::post('/items/verify-stock', [ItemController::class, 'verifyStock']);
+
 Route::prefix('/culqi')->group(function () {
     Route::post('/order', [CulqiController::class, 'order']);
     Route::post('/token', [CulqiController::class, 'token']);
@@ -131,6 +134,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/colors/status', [AdminItemColorController::class, 'status']);
         Route::patch('/colors/{field}', [AdminItemColorController::class, 'boolean']);
         Route::delete('/colors/{id}', [AdminItemColorController::class, 'delete']);
+
+        Route::post('/sizes', [AdminItemSizeController::class, 'save']);
+        Route::post('/sizes/paginate', [AdminItemSizeController::class, 'paginate']);
+        Route::patch('/sizes/status', [AdminItemSizeController::class, 'status']);
+        Route::patch('/sizes/{field}', [AdminItemSizeController::class, 'boolean']);
+        Route::delete('/sizes/{id}', [AdminItemSizeController::class, 'delete']);
 
         Route::post('/supplies', [AdminSupplyController::class, 'save']);
         Route::post('/supplies/paginate', [AdminSupplyController::class, 'paginate']);

@@ -21,22 +21,25 @@ class SaleController extends Controller
 {
     static function create(array $sale, array $details): array
     {
+        dump($sale, $details);
         try {
             $itemsJpa = Item::whereIn('id', array_map(fn($item) => $item['id'], $details))->get();
+
             foreach ($itemsJpa as $itemJpa) {
                 $item = Array2::find($details, fn($item) => $item['id'] == $itemJpa->id);
                 $itemJpa->final_price = $itemJpa->discount != 0
                     ? $itemJpa->discount
                     : $itemJpa->price;
                 $itemJpa->quantity = $item['quantity'];
-                $itemJpa->colors = $item['colors'];
+                $itemJpa->color = $item['color'];
+                $itemJpa->size = $item['size'];
             }
 
             $saleJpa = new Sale();
-
+            dump($itemsJpa);
             // Sale info
             $saleJpa->code = Trace::getId();
-            $saleJpa->user_formula_id = $sale['user_formula_id'];
+            //  $saleJpa->user_formula_id = $sale['user_formula_id'];
             $saleJpa->user_id = Auth::check() ? Auth::user()->id : null;
             $saleJpa->name = $sale['name'];
             $saleJpa->lastname = $sale['lastname'];
@@ -77,32 +80,6 @@ class SaleController extends Controller
 
             $totalItems = array_sum(array_map(fn($item) => $item['quantity'], $itemsJpa->toArray()));
 
-            $bundleJpa = Bundle::where('status', true)
-                ->whereRaw("
-                    CASE 
-                        WHEN comparator = '<' THEN ? < items_quantity
-                        WHEN comparator = '>' THEN ? > items_quantity 
-                        ELSE ? = items_quantity
-                    END
-                ", [$totalItems, $totalItems, $totalItems])
-                ->orderBy('percentage', 'desc')
-                ->first();
-
-            $bundle = 0;
-            if ($bundleJpa) {
-                $saleJpa->bundle_id = $bundleJpa->id;
-                $bundle = $totalPrice * $bundleJpa->percentage;
-                $saleJpa->bundle_discount = $bundle;
-            }
-
-            $renewalJpa = Renewal::find($sale['renewal_id'] ?? null);
-            $renewal = 0;
-            if ($renewalJpa) {
-                $saleJpa->renewal_id = $renewalJpa->id;
-                $renewal = ($totalPrice - $bundle) * $renewalJpa->percentage;
-                $saleJpa->renewal_discount = $renewal;
-            }
-
             if (isset($sale['coupon']) && $sale['coupon']) {
                 [$couponStatus, $couponJpa] = CouponController::verify(
                     $sale['coupon'],
@@ -114,7 +91,7 @@ class SaleController extends Controller
 
                 $saleJpa->coupon_id = $couponJpa->id;
                 if ($couponJpa->type == 'percentage') {
-                    $saleJpa->coupon_discount = ($totalPrice - $bundle - $renewal) * ($couponJpa->amount / 100);
+                    $saleJpa->coupon_discount = ($totalPrice) * ($couponJpa->amount / 100);
                 } else {
                     $saleJpa->coupon_discount = $couponJpa->amount;
                 }
@@ -132,13 +109,14 @@ class SaleController extends Controller
                 $detailJpa->name = $itemJpa->name;
                 $detailJpa->price = $itemJpa->final_price;
                 $detailJpa->quantity = $itemJpa->quantity;
-                $detailJpa->colors = $itemJpa->colors;
+                $detailJpa->color = $itemJpa->color;
+                $detailJpa->size = $itemJpa->size;
                 $detailJpa->save();
 
                 $detailsJpa[] = $detailJpa->toArray();
             }
 
-            $saleToReturn = Sale::with(['renewal', 'details'])->find($saleJpa->id);
+            $saleToReturn = Sale::with(['details'])->find($saleJpa->id);
 
             return [true, $saleToReturn];
         } catch (\Throwable $th) {

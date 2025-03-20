@@ -35,10 +35,12 @@ const Items = ({ categories, brands }) => {
     const discountRef = useRef();
     const imageRef = useRef();
     const descriptionRef = useRef();
+    const scoreRef = useRef();
     // Nuevos campos
     const stockRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedScore, setSelectedScore] = useState(null);
     /*ADD NEW LINES GALLERY */
     const [gallery, setGallery] = useState([]);
     const galleryRef = useRef();
@@ -106,6 +108,7 @@ const Items = ({ categories, brands }) => {
         summaryRef.current.value = data?.summary || "";
         priceRef.current.value = data?.price || 0;
         discountRef.current.value = data?.discount || 0;
+        scoreRef.current.value = data?.score || 0;
         imageRef.current.value = null;
         imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
 
@@ -130,7 +133,17 @@ const Items = ({ categories, brands }) => {
 
     const onModalSubmit = async (e) => {
         e.preventDefault();
-
+        let final_price = 0.0;
+        let discount_percent = 0.0;
+        if (discountRef.current.value && discountRef.current.value > 0) {
+            final_price = discountRef.current.value;
+            discount_percent =
+                100 -
+                (discountRef.current.value * 100) / priceRef.current.value;
+        } else {
+            final_price = priceRef.current.value;
+            discount_percent = 0;
+        }
         const request = {
             id: idRef.current.value || undefined,
             category_id: categoryRef.current.value,
@@ -140,6 +153,9 @@ const Items = ({ categories, brands }) => {
             discount: discountRef.current.value,
             description: descriptionRef.current.value,
             sotck: stockRef.current.value,
+            score: scoreRef.current.value,
+            final_price: final_price,
+            discount_percent: discount_percent,
         };
 
         const formData = new FormData();
@@ -206,6 +222,13 @@ const Items = ({ categories, brands }) => {
         $(gridRef.current).dxDataGrid("instance").refresh();
     };
 
+    const scoreOptions = [
+        { value: 1, label: "1" },
+        { value: 2, label: "2" },
+        { value: 3, label: "3" },
+        { value: 4, label: "4" },
+        { value: 5, label: "5" },
+    ];
     return (
         <>
             <Table
@@ -264,14 +287,9 @@ const Items = ({ categories, brands }) => {
                         },
                     },
                     {
-                        dataField: "subcategory.name",
-                        caption: "Subcategoría",
+                        dataField: "category.name",
+                        caption: "Categoria",
                         visible: false,
-                    },
-                    {
-                        dataField: "brand.name",
-                        caption: "Marca",
-                        width: "120px",
                     },
                     {
                         dataField: "name",
@@ -530,6 +548,19 @@ const Items = ({ categories, brands }) => {
                             type="number"
                             step="0.01"
                         />
+                        <SelectFormGroup
+                            eRef={scoreRef}
+                            label="Calificación"
+                            required
+                            dropdownParent="#principal-container"
+                            onChange={(e) => setSelectedScore(e.target.value)}
+                        >
+                            {scoreOptions.map((score, index) => (
+                                <option key={index} value={score.value}>
+                                    {score.label}
+                                </option>
+                            ))}
+                        </SelectFormGroup>
                     </div>
 
                     <div className="col-md-6">

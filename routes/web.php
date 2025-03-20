@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
+use App\Http\Controllers\Admin\ItemSizeController as AdminItemSizeController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
@@ -37,6 +38,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
@@ -78,6 +80,7 @@ Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.jsx');
 
 // Vistas maquetadas finalizadas
+Route::get('/checkout', [CheckoutController::class, 'reactView'])->name('Checkout.jsx');
 Route::get('/formula/{formula}', [FormulaController::class, 'reactView'])->name('Formula.jsx');
 Route::get('/thanks', [ThankController::class, 'reactView'])->name('Thanks.jsx');
 Route::get('/loginvua', [LoginVuaController::class, 'reactView'])->name('LoginVua.jsx');
@@ -99,6 +102,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');
     Route::get('/items', [AdminItemController::class, 'reactView'])->name('Admin/Items.jsx');
     Route::get('/colors', [AdminItemColorController::class, 'reactView'])->name('Admin/Colors.jsx');
+    Route::get('/sizes', [AdminItemSizeController::class, 'reactView'])->name('Admin/Sizes.jsx');
     Route::get('/supplies', [AdminSupplyController::class, 'reactView'])->name('Admin/Supplies.jsx');
     Route::get('/gifts', [AdminSupplyController::class, 'reactView'])->name('Admin/Gifts.jsx');
     Route::get('/formulas', [AdminFormulaController::class, 'reactView'])->name('Admin/Formulas.jsx');

@@ -25,7 +25,6 @@ return new class extends Migration
             $table->string('banner')->nullable();
             $table->string('image')->nullable();
             $table->foreignUuid('category_id')->nullable()->constrained('categories')->nullOnDelete();
-
             $table->boolean('is_new')->default(false);
             $table->boolean('offering')->default(false);
             $table->boolean('recommended')->default(false);
@@ -33,6 +32,7 @@ return new class extends Migration
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->string('sku')->nullable();
+            $table->integer('score')->default(0);
             $table->integer('stock')->default(0);
             $table->timestamps();
         });

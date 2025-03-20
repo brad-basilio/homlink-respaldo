@@ -24,13 +24,15 @@ class HomeController extends BasicController
         $items = Item::where('featured', true)->where('visible', true)->where('status', true)->get();
         $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
         $popups = Ad::today();
+        $top_sale = Item::where('status', true)->where('visible', true)->where('featured', true)->with(['colors', 'sizes'])->orderBy('updated_at', 'DESC')->first();
 
         return [
             'sliders' => $sliders,
             'testimonies' => $testimonies,
             'items' => $items,
             'supplies' => $supplies,
-            'popups' => $popups
+            'popups' => $popups,
+            'top_sale' => $top_sale,
         ];
     }
 }

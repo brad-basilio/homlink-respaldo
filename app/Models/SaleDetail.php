@@ -17,14 +17,13 @@ class SaleDetail extends Model
         'sale_id',
         'item_id',
         'name',
-        'colors',
+        'color',
+        'size',
         'price',
         'quantity',
     ];
 
-    protected $casts = [
-        'colors' => 'array'
-    ];
+
 
     public function sale()
     {

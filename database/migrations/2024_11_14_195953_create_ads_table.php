@@ -22,6 +22,8 @@ return new class extends Migration
             $table->date('date_begin')->nullable();
             $table->date('date_end')->nullable();
             $table->boolean('invasivo')->default(false);
+            $table->boolean('actions')->default(false);
+            $table->foreignId('item_id')->nullable()->constrained()->onDelete('cascade');
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();

@@ -15,6 +15,7 @@ import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
 import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
 import ProductFilter from "./components/Tailwind/Products/ProductFilter";
+import { CarritoProvider } from "./context/CarritoContext";
 
 const CatalogProducts = ({
     sliders,
@@ -59,8 +60,10 @@ const CatalogProducts = ({
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <Base {...properties}>
-            <CatalogProducts {...properties} />
-        </Base>
+        <CarritoProvider>
+            <Base {...properties}>
+                <CatalogProducts {...properties} />
+            </Base>
+        </CarritoProvider>
     );
 });

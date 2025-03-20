@@ -15,14 +15,12 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->string('code')->unique();
-            $table->foreignUuid('user_formula_id')->constrained('user_formulas')->cascadeOnDelete();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->string('lastname');
             $table->longText('fullname')->nullable();
             $table->longText('email');
             $table->string('phone');
-
             $table->longText('country');
             $table->longText('department');
             $table->longText('province')->nullable();
@@ -31,16 +29,11 @@ return new class extends Migration
             $table->longText('address');
             $table->longText('number');
             $table->longText('reference')->nullable();
-
             $table->longText('comment')->nullable();
-
             $table->decimal('amount', 10);
             $table->decimal('delivery', 10);
-
             $table->foreignUuid('status_id')->nullable()->constrained('statuses')->nullOnDelete();
-
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->nullOnDelete();
         });
     }

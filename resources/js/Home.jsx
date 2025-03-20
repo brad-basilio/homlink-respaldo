@@ -23,6 +23,7 @@ import WeLoversSection from "./components/Tailwind/Welcome/WeLoversSections";
 import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
 import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
+import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 
 const Home = ({
     sliders,
@@ -30,6 +31,7 @@ const Home = ({
     supplies,
     testimonies,
     popups,
+    top_sale,
     showSlogan = true,
 }) => {
     const tipoSlider = "vua";
@@ -72,6 +74,15 @@ const Home = ({
             image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png",
         },
     ];
+    const producto = {
+        id: 1,
+        name: "weTotal",
+        description: "Disco + Esterilizador",
+        price: 255,
+        discount: 179.9,
+        final_price: 179.9,
+        image: "https://i.ibb.co/fV6JQ7Bf/e668d950658ae3c60479b23cdc546252.png",
+    };
 
     return (
         <>
@@ -117,7 +128,7 @@ const Home = ({
                     </p>
                 </ProductCarousel>
                 <QuizSection />
-                <TopSaleSection />
+                <TopSaleSection producto={top_sale} />
                 <GuaranteeSection />
                 <WeLoversSection />
                 <NotSureSection />
@@ -143,8 +154,10 @@ const Home = ({
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <Base {...properties}>
-            <Home {...properties} />
-        </Base>
+        <CarritoProvider>
+            <Base {...properties}>
+                <Home {...properties} />
+            </Base>
+        </CarritoProvider>
     );
 });
