@@ -14,27 +14,10 @@ class Testimony extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'image',
         'name',
+        'correlative',
         'description',
-        'country_id',
-        'country',
         'visible',
         'status'
     ];
-
-    static function lastTen()
-    {
-        return Testimony::select([
-            'image',
-            'name',
-            'country',
-            'description'
-        ])
-            ->where('visible', true)
-            ->where('status', true)
-            ->orderBy('updated_at', 'desc')
-            ->take(10)
-            ->get();
-    }
 }

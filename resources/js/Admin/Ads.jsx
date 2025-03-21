@@ -48,7 +48,7 @@ const Ads = ({ items }) => {
         dateBeginRef.current.value = data?.date_begin ?? "";
         dateEndRef.current.value = data?.date_end ?? "";
         secondsRef.current.value = data?.seconds ?? 0;
-        itemRef.current.value = data?.main ?? null;
+        itemRef.current.value = data?.item_id ?? null;
         linkRef.current.value = data?.link ?? "";
         if (data?.actions) {
             $(actionsRef.current).prop("checked", false).trigger("click");
@@ -65,34 +65,54 @@ const Ads = ({ items }) => {
 
     const onModalSubmit = async (e) => {
         e.preventDefault();
+        try {
+            if (selectedAction) {
+                secondsRef.current.value = null;
+            }
 
-        const request = {
-            id: idRef.current.value || undefined,
-            name: nameRef.current.value,
-            description: descriptionRef.current.value,
-            date_begin: dateBeginRef.current.value,
-            date_end: dateEndRef.current.value,
-            seconds: secondsRef.current.value || 0,
-            actions: actionsRef.current.checked ? 1 : 0,
-            item_id: itemRef.current.value || null,
-            link: linkRef.current.value,
-            invasivo: invasivoRef.current.checked ? 1 : 0,
-        };
+            const request = {
+                id: idRef.current.value || undefined,
+                name: nameRef.current.value,
+                description: descriptionRef.current.value,
+                date_begin: dateBeginRef.current.value,
+                date_end: dateEndRef.current.value,
+                seconds: secondsRef.current.value || 0,
+                actions: actionsRef.current.checked ? 1 : 0,
+                item_id: itemRef.current.value || null,
+                link: linkRef.current.value,
+                invasivo: actionsRef.current.checked
+                    ? 0
+                    : invasivoRef.current.checked
+                    ? 1
+                    : 0,
+            };
 
-        const formData = new FormData();
-        for (const key in request) {
-            formData.append(key, request[key]);
+            const formData = new FormData();
+            for (const key in request) {
+                formData.append(key, request[key]);
+            }
+            const file = imageRef.current.files[0];
+            if (file) {
+                formData.append("image", file);
+            }
+
+            const result = await adsRest.save(formData);
+            console.log(result);
+            if (!result) return;
+
+            console.log("Refrescando tabla...");
+            $(gridRef.current).dxDataGrid("instance").refresh();
+
+            console.log("Cerrando modal...");
+            $(modalRef.current).modal("hide");
+        } catch (error) {
+            console.error("Error al enviar el formulario:", error);
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
+            });
         }
-        const file = imageRef.current.files[0];
-        if (file) {
-            formData.append("image", file);
-        }
-
-        const result = await adsRest.save(formData);
-        if (!result) return;
-
-        $(gridRef.current).dxDataGrid("instance").refresh();
-        $(modalRef.current).modal("hide");
     };
 
     const onVisibleChange = async ({ id, value }) => {
@@ -235,15 +255,21 @@ const Ads = ({ items }) => {
                                         )}
                                         <p className="mb-0">
                                             <b>Se muestra:</b>{" "}
-                                            {data.seconds > 0 ? (
+                                            {console.log(data)}
+                                            {data.seconds > 0 &&
+                                            data.actions === 0 ? (
                                                 <>Después de {data.seconds}s</>
+                                            ) : data.actions === 1 ? (
+                                                <>Al agregar carrito</>
                                             ) : (
                                                 <>Al cargar la página</>
                                             )}
                                         </p>
                                         <p className="mb-0">
                                             <b>Invasivo:</b>{" "}
-                                            {data.invasivo ? "Si" : "No"}
+                                            {data.invasivo && data.actions === 0
+                                                ? "Si"
+                                                : "No"}
                                         </p>
                                     </>
                                 )
@@ -365,23 +391,15 @@ const Ads = ({ items }) => {
                     />
 
                     <div className="col-md-12">
-                        <div class="form-check">
-                            <input
-                                ref={actionsRef}
-                                className="form-check-input"
-                                onChange={(e) =>
-                                    setSelectedAction(e.target.checked)
-                                }
-                                type="checkbox"
-                                id="actionsInput"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="actionsInput"
-                            >
-                                Default checkbox
-                            </label>
-                        </div>
+                        <SwitchFormGroup
+                            eRef={actionsRef}
+                            onChange={(e) =>
+                                setSelectedAction(e.target.checked)
+                            }
+                            label="¿Mostrar después de que el productos sea añadido
+                                al carrito?"
+                            specification="Solo se mostrará este anuncio cuando el producto ha seleccionar sea añadido al carrito de compras"
+                        />
                     </div>
 
                     <SelectFormGroup

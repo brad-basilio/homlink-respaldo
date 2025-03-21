@@ -6,25 +6,6 @@ class BasicRest {
     path = null;
     hasFiles = false;
 
-    get = async (id) => {
-        try {
-            const { status, result } = await Fetch(`/api/${this.path}/${id}`);
-            if (!status)
-                throw new Error(
-                    result?.message || "Ocurrio un error inesperado"
-                );
-            return result.data;
-        } catch (error) {
-            Notify.add({
-                icon: "/assets/img/favicon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
-            return null;
-        }
-    };
-
     paginate = async (params) => {
         controller.abort("Nothing");
         controller = new AbortController();
@@ -73,16 +54,17 @@ class BasicRest {
                 );
 
             Notify.add({
-                icon: "/assets/img/icon.svg",
+                icon: "/assets/img/icon.png",
                 title: "Correcto",
                 body: result.message,
                 type: "success",
             });
             callback?.();
+            console.log(result);
             return result;
         } catch (error) {
             Notify.add({
-                icon: "/assets/img/icon.svg",
+                icon: "/assets/img/icon.png",
                 title: "Error",
                 body: error.message,
                 type: "danger",
@@ -106,7 +88,7 @@ class BasicRest {
                 );
 
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Correcto",
                 body: result.message,
                 type: "success",
@@ -115,7 +97,7 @@ class BasicRest {
             return true;
         } catch (error) {
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Error",
                 body: error.message,
                 type: "danger",
@@ -140,7 +122,7 @@ class BasicRest {
                 );
 
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Correcto",
                 body: result.message,
                 type: "success",
@@ -149,7 +131,7 @@ class BasicRest {
             return true;
         } catch (error) {
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Error",
                 body: error.message,
                 type: "danger",
@@ -173,7 +155,7 @@ class BasicRest {
                 );
 
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Correcto",
                 body: result.message,
                 type: "success",
@@ -182,13 +164,67 @@ class BasicRest {
             return true;
         } catch (error) {
             Notify.add({
-                icon: "/assets/img/favicon.png",
+                icon: "/assets/img/icon.png",
                 title: "Error",
                 body: error.message,
                 type: "danger",
             });
 
             return false;
+        }
+    };
+
+    // Método para obtener datos con soporte para relaciones
+    get = async (idOrParams = {}, withRelations = []) => {
+        try {
+            let url = `/api/${this.path}`;
+            if (
+                typeof idOrParams === "string" ||
+                typeof idOrParams === "number"
+            ) {
+                // Si es un ID, construir la URL con el ID
+                url += `/${idOrParams}`;
+            } else if (
+                typeof idOrParams === "object" &&
+                Object.keys(idOrParams).length > 0
+            ) {
+                // Si son parámetros, agregarlos como query string
+                const queryParams = new URLSearchParams(idOrParams).toString();
+                url += `?${queryParams}`;
+            }
+
+            // Agregar relaciones si se especifican
+            if (withRelations.length > 0) {
+                const withParam = withRelations.join(",");
+                url += `${url.includes("?") ? "&" : "?"}with=${withParam}`;
+            }
+
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "X-Xsrf-Token": decodeURIComponent(
+                        Cookies.get("XSRF-TOKEN")
+                    ),
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `Error ${response.status}: ${response.statusText}`
+                );
+            }
+
+            return await response.json();
+        } catch (error) {
+            Notify.add({
+                icon: "/assets/img/icon.png",
+                title: "Error",
+                body: error.message,
+                type: "danger",
+            });
+            return null;
         }
     };
 }

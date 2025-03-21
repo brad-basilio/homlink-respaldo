@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -13,12 +14,14 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
+use App\Http\Controllers\Admin\CoreValueController as AdminCoreValueController;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
+use App\Http\Controllers\Admin\InstagramPostController as AdminInstagramPostsController;
 use App\Http\Controllers\Admin\ItemSizeController as AdminItemSizeController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
@@ -38,17 +41,20 @@ use App\Http\Controllers\Customer\SaleController as CustomerSaleController;
 
 // Public
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CoreValueController;
 use App\Http\Controllers\ItemColorController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
+use App\Http\Controllers\InstagramPostsController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemImageController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\StrengthController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\UserFormulasController;
@@ -73,8 +79,12 @@ Route::get('/items/media/{uuid}', [ItemController::class, 'media'])->withoutMidd
 Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media'])->withoutMiddleware('throttle');
 //Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media'])->withoutMiddleware('throttle');
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/ads/media/{uuid}', [AdminAdController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/ads/media/{uuid}', [AdController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/strength/media/{uuid}', [StrengthController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media'])->withoutMiddleware('throttle');
+
 Route::get('/mailing/media/{uuid}', [MailingController::class, 'media'])->withoutMiddleware('throttle');
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
@@ -134,6 +144,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/colors/status', [AdminItemColorController::class, 'status']);
         Route::patch('/colors/{field}', [AdminItemColorController::class, 'boolean']);
         Route::delete('/colors/{id}', [AdminItemColorController::class, 'delete']);
+
+        Route::post('/instagram_posts', [AdminInstagramPostsController::class, 'save']);
+        Route::post('/instagram_posts/paginate', [AdminInstagramPostsController::class, 'paginate']);
+        Route::patch('/instagram_posts/status', [AdminInstagramPostsController::class, 'status']);
+        Route::patch('/instagram_posts/{field}', [AdminInstagramPostsController::class, 'boolean']);
+        Route::delete('/instagram_posts/{id}', [AdminInstagramPostsController::class, 'delete']);
 
         Route::post('/sizes', [AdminItemSizeController::class, 'save']);
         Route::post('/sizes/paginate', [AdminItemSizeController::class, 'paginate']);
@@ -234,6 +250,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/strengths/status', [AdminStrengthController::class, 'status']);
         Route::patch('/strengths/{field}', [AdminStrengthController::class, 'boolean']);
         Route::delete('/strengths/{id}', [AdminStrengthController::class, 'delete']);
+
+        Route::post('/core_values', [AdminCoreValueController::class, 'save']);
+        Route::post('/core_values/paginate', [AdminCoreValueController::class, 'paginate']);
+        Route::patch('/core_values/status', [AdminCoreValueController::class, 'status']);
+        Route::patch('/core_values/{field}', [AdminCoreValueController::class, 'boolean']);
+        Route::delete('/core_values/{id}', [AdminCoreValueController::class, 'delete']);
 
         Route::post('/socials', [AdminSocialController::class, 'save']);
         Route::post('/socials/paginate', [AdminSocialController::class, 'paginate']);

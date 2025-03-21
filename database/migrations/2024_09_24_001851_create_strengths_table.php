@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('strengths', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
             $table->string('name');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->boolean('visible')->default(true);
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();

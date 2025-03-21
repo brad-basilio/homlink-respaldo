@@ -228,6 +228,7 @@ class BasicController extends Controller
 
 
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      dump($snake_case);
       if ($snake_case === "item_image" || $snake_case === "item_color" || $snake_case === "item_zise") {
         $snake_case = 'item';
       }
@@ -266,7 +267,7 @@ class BasicController extends Controller
       if ($data) {
         $response->data = $data;
       }
-
+      dump("esto es la data:", $data, "y el response", $response);
       $response->status = 200;
       $response->message = 'Operacion correcta';
     } catch (\Throwable $th) {

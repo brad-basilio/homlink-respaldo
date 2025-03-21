@@ -23,6 +23,7 @@ import {
     FaShieldAlt,
 } from "react-icons/fa";
 import StatsSection from "./components/Tailwind/About/StatsSection ";
+import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 
 const About = ({ about, showSlogan = true }) => {
     const [showModal1, setShowModal1] = useState(false);
@@ -219,8 +220,10 @@ const About = ({ about, showSlogan = true }) => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <Base {...properties}>
-            <About {...properties} />
-        </Base>
+        <CarritoProvider>
+            <Base {...properties}>
+                <About {...properties} />
+            </Base>
+        </CarritoProvider>
     );
 });

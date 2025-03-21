@@ -186,12 +186,12 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                 >
                                     Pop-ups
                                 </MenuItem>
-                                <MenuItem
+                                {/* <MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
                                 >
                                     Sliders
-                                </MenuItem>
+                                </MenuItem>*/}
                                 <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
@@ -199,10 +199,35 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     Nosotros
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/indicators"
+                                    icon="mdi mdi-checkbox-marked-outline"
+                                >
+                                    Indicadores
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/strengths"
+                                    icon="mdi mdi-sprout"
+                                >
+                                    Fortalezas
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/core_values"
+                                    icon="mdi mdi-shield-half-full"
+                                >
+                                    Valores
+                                </MenuItem>
+
+                                <MenuItem
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"
                                 >
                                     Testimonios
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/instagram_posts"
+                                    icon="mdi mdi-instagram"
+                                >
+                                    Posts
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/faqs"

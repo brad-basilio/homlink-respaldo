@@ -14,9 +14,9 @@ return new class extends Migration
     {
         Schema::create('generals', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->string('correlative');
-            $table->string('name');
-            $table->longText('description');
+            $table->string('correlative')->nullable();
+            $table->string('name')->nullable();
+            $table->longText('description')->nullable();
             $table->boolean('status')->default(true)->nullable();
             $table->timestamps();
         });

@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import Logout from "../../Actions/Logout";
 import Global from "../../Utils/Global";
 import WhatsAppStatuses from "../../Reutilizables/WhatsApp/WhatsAppStatuses";
-
-const NavBar = ({ session = {}, title = "Pagina", whatsappStatus }) => {
-    const { color } = WhatsAppStatuses[whatsappStatus];
+//const NavBar = ({ session = {}, title = "Pagina", whatsappStatus })
+const NavBar = ({ session = {}, title = "Pagina" }) => {
+    // const { color } = WhatsAppStatuses[whatsappStatus];
 
     useEffect(() => {
         document.title = `${title} | ${Global.APP_NAME}`;

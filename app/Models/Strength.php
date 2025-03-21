@@ -16,6 +16,7 @@ class Strength extends Model
     protected $fillable = [
         'name',
         'description',
+        'image',
         'visible',
         'status',
     ];

@@ -31,6 +31,7 @@ class SaleController extends BasicController
 
             return $jpa;
         });
+
         return \response($response->toArray(), $response->status);
     }
 
