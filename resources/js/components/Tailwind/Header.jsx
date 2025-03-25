@@ -188,7 +188,7 @@ const Header = ({
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-normal text-[14.54px] leading-[18.55px] tracking-widest">
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-normal text-[16px] leading-[18.55px] tracking-widest">
                             <nav className="flex gap-6 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
@@ -207,9 +207,7 @@ const Header = ({
                                 />
                             </a>
                             <div className="flex space-x-4 text-[21.93px] items-center">
-                                <span className="text-[14.54px]">
-                                    Escríbenos
-                                </span>
+                                <span className="text-[16px]">Escríbenos</span>
                                 {WhatsApp && (
                                     <a
                                         href={WhatsApp.link}
