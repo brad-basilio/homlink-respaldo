@@ -116,8 +116,8 @@ const Header = ({
     return (
         <>
             {showSlogan && (
-                <div className="text-center px-[5%] py-3 bg-[#6048B7] text-white text-[14.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em]">
-                    <span className="text-[#DDEC4C] font-bold ">
+                <div className="text-center px-[5%] py-3 bg-[#6048B7] text-white text-[14.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins">
+                    <span className="text-[#DDEC4C] font-semibold ">
                         ¡ENVÍO GRATIS
                     </span>{" "}
                     A TODO LIMA METROPOLITANA!
