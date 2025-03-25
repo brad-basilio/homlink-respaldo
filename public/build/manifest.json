@@ -62,14 +62,14 @@
       "resources/js/components/About/AboutHeader.jsx"
     ]
   },
-  "_Footer-VZDhxrWy.js": {
-    "file": "assets/Footer-VZDhxrWy.js",
+  "_Footer-CFnhHgQt.js": {
+    "file": "assets/Footer-CFnhHgQt.js",
     "name": "Footer",
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
       "_index-B1nVdsa0.js",
-      "_Header-DQmJcYi9.js"
+      "_Header-CuViqAK4.js"
     ]
   },
   "_GuaranteeSection-BNhrWVs7.js": {
@@ -80,8 +80,8 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_Header-DQmJcYi9.js": {
-    "file": "assets/Header-DQmJcYi9.js",
+  "_Header-CuViqAK4.js": {
+    "file": "assets/Header-CuViqAK4.js",
     "name": "Header",
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
@@ -393,7 +393,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-41dda92a.js",
+    "file": "assets/About-DCGpYFrH.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -403,7 +403,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-CLK1ONDs.js",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_main-B2CtU6ez.js",
       "resources/js/components/Blog/Results.jsx",
@@ -412,7 +412,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "resources/js/components/About/Strengths.jsx",
       "_InstagramSection-CVNOATkG.js",
-      "_Footer-VZDhxrWy.js",
+      "_Footer-CFnhHgQt.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
@@ -1475,7 +1475,7 @@
     ]
   },
   "resources/js/CatalogProducts.jsx": {
-    "file": "assets/CatalogProducts-C5Eo_7FM.js",
+    "file": "assets/CatalogProducts-IinrG_0J.js",
     "name": "CatalogProducts",
     "src": "resources/js/CatalogProducts.jsx",
     "isEntry": true,
@@ -1485,7 +1485,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-CLK1ONDs.js",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_main-B2CtU6ez.js",
       "resources/js/components/Blog/Results.jsx",
@@ -1494,7 +1494,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_GuaranteeSection-BNhrWVs7.js",
       "resources/js/components/About/Strengths.jsx",
-      "_Footer-VZDhxrWy.js",
+      "_Footer-CFnhHgQt.js",
       "_createLucideIcon-Cx5eUsrb.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
@@ -1508,7 +1508,7 @@
     ]
   },
   "resources/js/Checkout.jsx": {
-    "file": "assets/Checkout-U96ZCv2W.js",
+    "file": "assets/Checkout-CkGLafTn.js",
     "name": "Checkout",
     "src": "resources/js/Checkout.jsx",
     "isEntry": true,
@@ -1523,7 +1523,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_Base-EMiPcBfW.js",
       "resources/js/Utils/ReactAppend.jsx",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_createLucideIcon-Cx5eUsrb.js",
       "resources/js/components/Blog/Results.jsx",
@@ -1604,7 +1604,7 @@
     ]
   },
   "resources/js/DetailProduct.jsx": {
-    "file": "assets/DetailProduct-BJQIducJ.js",
+    "file": "assets/DetailProduct-DNNiwnXn.js",
     "name": "DetailProduct",
     "src": "resources/js/DetailProduct.jsx",
     "isEntry": true,
@@ -1614,7 +1614,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-CLK1ONDs.js",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "_main-B2CtU6ez.js",
       "resources/js/components/Blog/Results.jsx",
       "_ProductCarousel-DnvLfMBb.js",
@@ -1622,7 +1622,7 @@
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
       "resources/js/components/About/Strengths.jsx",
-      "_Footer-VZDhxrWy.js",
+      "_Footer-CFnhHgQt.js",
       "_WeCupSection-C4wSkMl5.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
@@ -1687,7 +1687,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-Cno-OPnN.js",
+    "file": "assets/Home-AUfmmqdE.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -1703,7 +1703,7 @@
       "resources/js/components/Home/Banner.jsx",
       "resources/js/components/Home/Supplies.jsx",
       "_index-B1nVdsa0.js",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "_FeaturesSection-w6QS8BNC.js",
       "_ProductCarousel-DnvLfMBb.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
@@ -1712,7 +1712,7 @@
       "_main-B2CtU6ez.js",
       "resources/js/components/Blog/Results.jsx",
       "_InstagramSection-CVNOATkG.js",
-      "_Footer-VZDhxrWy.js",
+      "_Footer-CFnhHgQt.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
@@ -1725,7 +1725,7 @@
     ]
   },
   "resources/js/Instructions.jsx": {
-    "file": "assets/Instructions-mqeNP_Pb.js",
+    "file": "assets/Instructions-DztvViga.js",
     "name": "Instructions",
     "src": "resources/js/Instructions.jsx",
     "isEntry": true,
@@ -1735,7 +1735,7 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-CLK1ONDs.js",
-      "_Header-DQmJcYi9.js",
+      "_Header-CuViqAK4.js",
       "_main-B2CtU6ez.js",
       "resources/js/components/Blog/Results.jsx",
       "_ProductCarousel-DnvLfMBb.js",
@@ -1743,7 +1743,7 @@
       "_swiper-react-DKHvTq9_.js",
       "resources/js/components/Tailwind/Products/ProductCarousel.jsx",
       "resources/js/components/About/Strengths.jsx",
-      "_Footer-VZDhxrWy.js",
+      "_Footer-CFnhHgQt.js",
       "_WeCupSection-C4wSkMl5.js",
       "_index-DO3Aws4m.js",
       "_index.esm-Cu-mVv1q.js",
@@ -1873,7 +1873,7 @@
     ]
   },
   "resources/js/Quiz.jsx": {
-    "file": "assets/Quiz-CrDqgjhv.js",
+    "file": "assets/Quiz-D0I3vGP5.js",
     "name": "Quiz",
     "src": "resources/js/Quiz.jsx",
     "isEntry": true,
@@ -1883,8 +1883,8 @@
       "resources/js/Utils/ReactAppend.jsx",
       "_Base-EMiPcBfW.js",
       "_CreateReactScript-CLK1ONDs.js",
-      "_Header-DQmJcYi9.js",
-      "_Footer-VZDhxrWy.js",
+      "_Header-CuViqAK4.js",
+      "_Footer-CFnhHgQt.js",
       "_SubscriptionsRest-BF8XlWPG.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_sweetalert2.all-Dh0rZL5X.js",
@@ -2048,7 +2048,7 @@
     ]
   },
   "resources/js/Thanks.jsx": {
-    "file": "assets/Thanks-D0ySG1vn.js",
+    "file": "assets/Thanks-fLDcvt7a.js",
     "name": "Thanks",
     "src": "resources/js/Thanks.jsx",
     "isEntry": true,
@@ -2060,8 +2060,8 @@
       "_Base-EMiPcBfW.js",
       "_main-B2CtU6ez.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
-      "_Header-DQmJcYi9.js",
-      "_Footer-VZDhxrWy.js",
+      "_Header-CuViqAK4.js",
+      "_Footer-CFnhHgQt.js",
       "_index.esm-Cu-mVv1q.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_index-DO3Aws4m.js",
@@ -2335,7 +2335,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
+    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -2367,7 +2367,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-ClxeGkIS.js",
+    "file": "assets/SelectFormGroup-uOWZuDyS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -2397,7 +2397,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TippyButton.jsx": {
-    "file": "assets/TippyButton-CjFt2XZT.js",
+    "file": "assets/TippyButton-BX8lFSaT.js",
     "name": "TippyButton",
     "src": "resources/js/components/Adminto/form/TippyButton.jsx",
     "isEntry": true,
@@ -3160,10 +3160,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-BP7wCDxC.js",
+    "file": "assets/Email-3AqkwFnN.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -3196,10 +3196,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-D4XKIVGc.js",
+    "file": "assets/HairType-CpPx52vs.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js",
@@ -3209,10 +3209,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-BZiqHNWT.js",
+    "file": "assets/Main-uOWZuDyS.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/components/About/AboutHeader.jsx",
       "_index-B80Lgev0.js"
@@ -3350,7 +3350,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-ClxeGkIS.js",
+    "file": "assets/PasswordFormGroup-uOWZuDyS.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -3382,7 +3382,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-uOWZuDyS.js",
+    "file": "assets/SelectFormGroup-ClxeGkIS.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -3402,7 +3402,7 @@
     ]
   },
   "resources/js/components/form/TippyButton.jsx": {
-    "file": "assets/TippyButton-BX8lFSaT.js",
+    "file": "assets/TippyButton-CjFt2XZT.js",
     "name": "TippyButton",
     "src": "resources/js/components/form/TippyButton.jsx",
     "isEntry": true,
