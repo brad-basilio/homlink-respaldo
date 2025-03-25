@@ -116,7 +116,7 @@ const Header = ({
     return (
         <>
             {showSlogan && (
-                <div className="text-center px-[5%] py-3 bg-[#6048B7] text-white text-[14.21px] md:text-[16.21px] leading-6 uppercase">
+                <div className="text-center px-[5%] py-3 bg-[#6048B7] text-white text-[14.21px] md:text-[17.21px] leading-6 uppercase tracking-wider">
                     <span className="text-[#DDEC4C] font-bold ">
                         ¡ENVÍO GRATIS
                     </span>{" "}
