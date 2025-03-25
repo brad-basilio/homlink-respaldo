@@ -116,7 +116,7 @@ const Header = ({
     return (
         <>
             {showSlogan && (
-                <div className="text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[14.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins">
+                <div className="text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[13.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins">
                     <span className="text-[#DDEC4C] font-semibold ">
                         ¡ENVÍO GRATIS
                     </span>{" "}
@@ -161,7 +161,7 @@ const Header = ({
                             ? "bg-[#5339B1]"
                             : isScrolled
                             ? "bg-[#5339B1] pt-0 "
-                            : "bg-transparent top-6 pt-14 lg:pt-10"
+                            : "bg-transparent top-4 pt-14 lg:pt-10"
                     }`}
                 >
                     <div
