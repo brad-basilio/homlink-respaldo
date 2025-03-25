@@ -20,6 +20,7 @@ import { CarritoProvider } from "./context/CarritoContext";
 const CatalogProducts = ({
     sliders,
     items,
+    categories,
     supplies,
     testimonies,
     popups,
@@ -49,7 +50,7 @@ const CatalogProducts = ({
             </Header>
             <div className="relative z-10">
                 <FeaturesSection />
-                <ProductFilter />
+                <ProductFilter products={items} categories={categories} />
                 <GuaranteeSection />
 
                 <Footer />

@@ -1,60 +1,101 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { CarritoContext } from "../../../context/CarritoContext";
 
-const Detail = () => {
+const Detail = ({ item }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalTalla, setIsModalTalla] = useState(false);
 
     const [quantity, setQuantity] = useState(1);
-    const [selectedColor, setSelectedColor] = useState("purple");
-    const [selectedSize, setSelectedSize] = useState("Talla A");
+    const [selectedColor, setSelectedColor] = useState(
+        item.colors.length > 0 ? item.colors[0].name : ""
+    );
 
+    const [selectedSize, setSelectedSize] = useState(
+        item.sizes.length > 0 ? item.sizes[0].name : ""
+    );
     const changeQuantity = (amount) => {
         setQuantity((prev) => Math.max(1, prev + amount));
     };
 
+    const { agregarAlCarrito } = useContext(CarritoContext);
+
+    const addProduct = () => {
+        agregarAlCarrito({
+            ...item,
+            quantity,
+            selectedColor: item.colors?.length > 0 ? selectedColor : null,
+            selectedSize: item.sizes?.length > 0 ? selectedSize : null,
+        });
+        // 2. Luego verificar si tiene ad y mostrar el modal
+        if (item.ad && item.ad.image) {
+            setIsModalOpen(true);
+        }
+    };
+    const [mainImage, setMainImage] = useState(item.image);
     return (
         <section className=" py-10 bg-[#EFE5FF]">
             <div className="px-[5%] lg:px-0 mx-auto lg:max-w-5xl 2xl:max-w-6xl mt-8">
                 <p className="md:w-[644px] mx-auto lg:mx-0 md:text-[18.31px] 2xl:text-[23.31px] leading-[29.44px]">
-                    Home / Tienda we Fem / <strong>wePack</strong>
+                    Home / Tienda we Fem / <strong>{item.name}</strong>
                 </p>
 
                 <div className="flex items-start flex-col md:flex-row mt-4 gap-4">
                     <div className="mx-auto flex flex-col lg:flex-row justify-start items-start my-4 gap-8">
                         {/* Left Column - Images */}
                         <div className="hidden lg:flex items-start justify-start flex-col gap-4 w-[100px] h-full">
-                            <img
-                                src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
-                                alt="Thumbnail"
-                                className="h-[100px] w-[100px] object-cover"
-                            />
+                            {item.images.length > 0 &&
+                                item.images.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        src={`/api/items/media/${image.url}`}
+                                        alt="Thumbnail"
+                                        className="h-[100px] w-[100px] object-cover"
+                                        onClick={() => setMainImage(image.url)}
+                                    />
+                                ))}
+                            {item.colors.length > 0 &&
+                                item.colors.map((color, index) => (
+                                    <img
+                                        key={index}
+                                        src={`/api/items/media/${color.image}`}
+                                        alt="Thumbnail"
+                                        className="h-[100px] w-[100px] object-cover"
+                                        onClick={() =>
+                                            setMainImage(color.image)
+                                        }
+                                    />
+                                ))}
                         </div>
 
                         {/* Image */}
                         <div className="md:w-[644px] md:h-[644px] lg:w-[500.81px] lg:h-[500.81px] 2xl:w-[620.81px] 2xl:h-[620.81px] overflow-hidden">
                             <img
-                                src="https://i.ibb.co/1tsnJxPj/image.png"
-                                alt="wePack Product"
+                                src={`/api/items/media/${mainImage}`}
+                                alt={item.name}
                                 className="md:w-[644px] md:h-[644px] lg:w-[500.81px] lg:h-[500.81px] 2xl:w-[620.81px] 2xl:h-[620.81px] object-cover rounded-lg"
                                 loading="lazy"
                             />
                         </div>
 
                         <div className="flex items-start lg:hidden justify-start flex-row gap-4 w-[100px] h-full">
-                            <img
-                                src="https://i.ibb.co/d4b37qjh/f7dbf1c4b1c1c7a425856f6ebcbcbce8.png"
-                                alt="Thumbnail"
-                                className="h-[100px] w-[100px] object-cover"
-                            />
+                            {item.images.length > 0 &&
+                                item.images.map((image, index) => (
+                                    <img
+                                        key={index}
+                                        src={`/api/items/media/${image.url}`}
+                                        alt="Thumbnail"
+                                        className="h-[100px] w-[100px] object-cover"
+                                    />
+                                ))}
                         </div>
                         {/* Product Details */}
                         <div className="md:w-[644px] lg:w-[350px] 2xl:w-[475px] text-[#333333]">
                             <div className="flex gap-4 lg:block items-end">
                                 <h3 className="text-[30.58px] md:text-[55.58px] lg:text-[40.38px] 2xl:text-[54.38px] font-bold leading-[40.78px]">
-                                    wePack
+                                    {item.name}
                                 </h3>
                                 <p className="text-[17.5px] md:text-[31.5px] lg:text-[16.81px] 2xl:text-[30.81px]  font-normal inline-flex ">
-                                    (Disco + Esterilizador)
+                                    ({item.summary})
                                 </p>
                             </div>
                             <p className="text-[12.36px] md:text-[14.36px] lg:text-[11px] 2xl:text-[14.05px] mt-2 leading-relaxed ">
@@ -62,10 +103,7 @@ const Detail = () => {
                                     src="/assets/img/emojis/blossom.png"
                                     className="h-[15.05px] inline-flex"
                                 />{" "}
-                                Recipiente menstrual con el doble de capacidad
-                                que una copa, ideal para recolectar sangre y
-                                tener relaciones sin preocupaciones durante tu
-                                periodo. ¡Libertad total!
+                                {item.description}
                                 <img
                                     src="/assets/img/emojis/crescent-moon.png"
                                     className="h-[15.05px] inline-flex"
@@ -76,138 +114,166 @@ const Detail = () => {
                                 />
                             </p>
                             <div className="w-[158.43px] 2xl:w-[155px] h-[20px] 2xl:h-[25px] bg-[#212529] text-white rounded-[5.44px] my-4 flex items-center justify-center">
-                                <p className="w-[158.43px]   h-[25.55px]  bg-[#212529]  text-white rounded-[5.44px] my-4 flex items-center justify-center text-[10.88px]  leading-[21.75px]">
-                                    <img
-                                        src="/assets/img/emojis/fire.png"
-                                        className="h-[11.88px] inline-flex mr-2"
-                                    />{" "}
-                                    <span className="font-bold text-[10.88px] mr-2">
-                                        AHORRA
-                                    </span>{" "}
-                                    S/ 75.00{" "}
-                                    <img
-                                        src="/assets/img/emojis/fire.png"
-                                        className="h-[11.88px] inline-flex ml-2"
-                                    />
-                                </p>
+                                {item.discount && (
+                                    <p className="w-[158.43px]   h-[25.55px]  bg-[#212529]  text-white rounded-[5.44px] my-4 flex items-center justify-center text-[10.88px]  leading-[21.75px]">
+                                        <img
+                                            src="/assets/img/emojis/fire.png"
+                                            className="h-[11.88px] inline-flex mr-2"
+                                        />{" "}
+                                        <span className="font-bold text-[10.88px] mr-1">
+                                            AHORRA
+                                        </span>{" "}
+                                        S/{" "}
+                                        {Number(
+                                            item.price - item.discount
+                                        ).toFixed(2)}{" "}
+                                        <img
+                                            src="/assets/img/emojis/fire.png"
+                                            className="h-[11.88px] inline-flex ml-2"
+                                        />
+                                    </p>
+                                )}
                             </div>
                             <div className="flex gap-4 lg:block items-end">
                                 <p className="text-[30.42px] md:text-[50.42px] lg:text-[35.33px] 2xl:text-[49.33px] font-bold text-[#FC58BE]">
-                                    S/ 169.90
+                                    S/ {Number(item.final_price).toFixed(2)}
                                 </p>
                                 <p className="text-[20.39px] md:text-[25.39px] lg:text-[18.84px] 2xl:text-[24.84px] text-[#B4B4B4]">
-                                    <del>Antes S/ 255</del>
+                                    <del>Antes S/ {item.price}</del>
                                 </p>
                             </div>
-                            <div className="flex items-center mt-2 text-[#FF9900] gap-1 text-base">
-                                {[1, 2, 3, 4, 5].map((_, index) => (
-                                    <img
-                                        src="/assets/img/emojis/star-score.png"
-                                        className="h-[19px] inline-flex"
-                                    />
-                                ))}
-                            </div>
+                            {item.score > 4 && (
+                                <div className="flex items-center mt-2 text-[#FF9900] gap-1 text-base">
+                                    {Array.from({ length: item.score }).map(
+                                        (_, index) => (
+                                            <img
+                                                key={index}
+                                                src="/assets/img/emojis/star-score.png"
+                                                className="h-[19px] inline-flex"
+                                                alt="star"
+                                            />
+                                        )
+                                    )}
+                                </div>
+                            )}
                             {/* Color Selector */}
                             <div className="relative flex justify-between sm:justify-start gap-4 lg:gap-0 lg:justify-between items-center  my-2">
-                                <div className="flex items-start gap-2">
-                                    <p className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
-                                        Color:
-                                    </p>
-                                    <div className="flex items-center gap-2">
-                                        <button
-                                            onClick={() =>
-                                                setSelectedColor("purple")
-                                            }
-                                            className={`rounded-full p-1 border ${
-                                                selectedColor === "purple"
-                                                    ? "border-[#222222]"
-                                                    : "border-[#DDDDDD]"
-                                            }`}
-                                        >
-                                            <div className="w-[22px] h-[22px] rounded-full bg-[#C196E8]"></div>
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                setSelectedColor("pink")
-                                            }
-                                            className={`rounded-full p-1 border ${
-                                                selectedColor === "pink"
-                                                    ? "border-[#222222]"
-                                                    : "border-[#DDDDDD]"
-                                            }`}
-                                        >
-                                            <div className="w-[22px] h-[22px] rounded-full bg-[#EF62BA]"></div>
-                                        </button>
+                                {item.colors.length > 0 && (
+                                    <div className="flex items-start gap-2">
+                                        <p className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                            Color:
+                                        </p>
+                                        <div className="flex items-center gap-2">
+                                            {item.colors.map((color, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() =>
+                                                        setSelectedColor(
+                                                            color.name
+                                                        )
+                                                    }
+                                                    className={`rounded-full p-1 border ${
+                                                        selectedColor ===
+                                                        color.name
+                                                            ? "border-[#222222]"
+                                                            : "border-[#DDDDDD]"
+                                                    }`}
+                                                >
+                                                    <div
+                                                        className="w-[22px] h-[22px] rounded-full "
+                                                        style={{
+                                                            backgroundColor: `${color.summary}`,
+                                                        }}
+                                                    ></div>
+                                                </button>
+                                            ))}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="lg:absolute right-0 lg:top-1/2  ">
-                                    <button
-                                        onClick={() =>
-                                            setIsModalTalla(!isModalTalla)
-                                        }
-                                        className="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]"
-                                    >
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="h-5 fill-white mr-2"
-                                            viewBox="0 0 640 512"
+                                )}
+                                {item.sizes.length > 0 && (
+                                    <div className="lg:absolute right-0 lg:top-1/2  ">
+                                        <button
+                                            onClick={() =>
+                                                setIsModalTalla(!isModalTalla)
+                                            }
+                                            className="inline-flex md:gap-2 2xl:gap-0 items-center justify-center w-[180.45px] 2xl:w-[187.45px] h-[34.02px] font-medium text-[12.05px] 2xl:text-[15.57px] leading-[15.95px] bg-[#5F48B7] text-white rounded-[8.51px]"
                                         >
-                                            <path
-                                                d="M0 336c0 26.5 21.5 48 48 48l544 0c26.5 0 48-21.5
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="h-5 fill-white mr-2"
+                                                viewBox="0 0 640 512"
+                                            >
+                                                <path
+                                                    d="M0 336c0 26.5 21.5 48 48 48l544 0c26.5 0 48-21.5
                 48-48l0-160c0-26.5-21.5-48-48-48l-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0
                 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0
                 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0 0 80c0 8.8-7.2 16-16 16s-16-7.2-16-16l0-80-64 0c-26.5
                 0-48 21.5-48 48L0 336z"
-                                            />
-                                        </svg>
-                                        ¿Cuál es mi talla?
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className=" block md:flex gap-4 lg:block items-end">
-                                {/* Size Selector */}
-                                <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
-                                    <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
-                                        Selecciona tu talla:
-                                    </label>
-                                    <select
-                                        className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
-                                        value={selectedSize}
-                                        onChange={(e) =>
-                                            setSelectedSize(e.target.value)
-                                        }
-                                    >
-                                        <option>Talla A</option>
-                                        <option>Talla B</option>
-                                        <option>Talla C</option>
-                                    </select>
-                                </div>
-                                {/* Quantity Selector */}
-                                <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
-                                    <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
-                                        <button
-                                            onClick={() => changeQuantity(-1)}
-                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
-                                        >
-                                            -
-                                        </button>
-                                        <span className="md:text-base 2xl:text-xl font-medium">
-                                            {quantity}
-                                        </span>
-                                        <button
-                                            onClick={() => changeQuantity(1)}
-                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
-                                        >
-                                            +
+                                                />
+                                            </svg>
+                                            ¿Cuál es mi talla?
                                         </button>
                                     </div>
-                                </div>
+                                )}
                             </div>
+
+                            {item.sizes.length > 0 && (
+                                <div className=" block md:flex gap-4 lg:block items-end">
+                                    {/* Size Selector */}
+                                    <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                                        <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                            Selecciona tu talla:
+                                        </label>
+                                        <select
+                                            className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
+                                            value={selectedSize}
+                                            onChange={(e) =>
+                                                setSelectedSize(e.target.value)
+                                            }
+                                        >
+                                            {item.sizes.map((size) => {
+                                                return (
+                                                    <option
+                                                        key={size.id}
+                                                        value={size.name}
+                                                        className="text-[#000000]"
+                                                    >
+                                                        {`Talla ${size.name}`}
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                    </div>
+                                    {/* Quantity Selector */}
+                                    <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                                        <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
+                                            <button
+                                                onClick={() =>
+                                                    changeQuantity(-1)
+                                                }
+                                                className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                            >
+                                                -
+                                            </button>
+                                            <span className="md:text-base 2xl:text-xl font-medium">
+                                                {quantity}
+                                            </span>
+                                            <button
+                                                onClick={() =>
+                                                    changeQuantity(1)
+                                                }
+                                                className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                             {/* Add to Cart Button */}
                             <div className="flex justify-center">
                                 <button
-                                    onClick={() => setIsModalOpen(!isModalOpen)}
+                                    onClick={() => addProduct()}
                                     className="mt-4 relative w-full sm:w-[332px] lg:w-full h-[59px] lg:h-[35.88px] 2xl:h-[39.88px] text-[17.02px] lg:text-[12.59px]  2xl:text-[13.59px] leading-[13.59px] bg-[#FC58BE] text-white rounded-[6px]  lg:rounded-[2.72px] border-[1.81px] border-[#FC58BE]  flex items-center justify-center"
                                 >
                                     <span className="">Añadir al carrito</span>
@@ -224,9 +290,9 @@ const Detail = () => {
                     </div>
                 </div>
             </div>
-
             {/* Modal */}
-            {isModalOpen && (
+
+            {item.ad && item.ad.image && isModalOpen && (
                 <div
                     className="fixed inset-0 flex items-center justify-center z-50 bg-[#00000080]"
                     style={{ backdropFilter: "blur(10px)" }}
@@ -242,47 +308,19 @@ const Detail = () => {
                             <div className="mx-auto font-bold flex items-center justify-center bg-[#FF9900] text-white md:text-[17px] 2xl:text-[35.85px] 2xl:leading-[53.78px] md:h-[40.26px] md:w-[342.05px] 2xl:h-[59.26px] 2xl:w-[442.05px] rounded-full">
                                 Solo por 00 : 10 : 58
                             </div>
-
-                            <p className="text-[#404040] md:text-[20.29px] 2xl:text-[39.29px] leading-[58.94px] font-bold pt-0 2xl:pt-6">
-                                ¿Te gustaría añadir a tu pedido?
-                            </p>
-
-                            <div className=" gap-4 flex items-center justify-between mt-4">
-                                <img
-                                    className="md:w-[238.05px] md:h-[301.16px] 2xl:w-[338.05px] 2xl:h-[501.16px] object-contain"
-                                    src="https://i.ibb.co/MkgMJPzG/63d3b57a154aa23fe06f27206861c787.png"
-                                />
-                                <div className="font-mont flex items-start justify-start flex-col px-4 md:w-[290.05px] 2xl:w-[400.05px] md:gap-2 2xl:gap-4">
-                                    <p className="text-[#000000]  md:text-[35.24px] 2xl:text-[55.24px] md:leading-[50.05px] 2xl:leading-[69.05px] font-mont font-semibold">
-                                        Lubricante
-                                    </p>
-                                    <p className="text-[#000000] md:text-[15.1px] 2xl:text-[22.1px] leading-[27.63px] tracking-[0.28px] font-mont">
-                                        Te ayudará a colocar más fácil tu copa o
-                                        disco{" "}
-                                        <img
-                                            src="/assets/img/emojis/droplet.png"
-                                            className="h-5 inline-flex mb-2"
-                                        />
-                                    </p>
-                                    <p className="md:text-[60.2px] 2xl:text-[93.2px] md:leading-[90.5px]  2xl:leading-[116.5px] tracking-[-2.18px] text-[#FC58BE] font-black">
-                                        S/25
-                                    </p>
-                                    <p className="md:text-[16.4px] 2xl:text-[33.4px] leading-[41.75px] tracking-[0.42px] text-[#000000]">
-                                        P. regular S/30
-                                    </p>
-                                    <a
-                                        href="/checkout"
-                                        className="inline-flex text-white  items-center justify-center md:h-[50px] 2xl:h-[108px] md:w-[250px] 2xl:w-[338px] bg-[#FC58BE] md:mt-0 2xl:mt-0 md:rounded-[12.58px] 2xl:rounded-[19.58px] md:text-[18.99px]  2xl:text-[32.99px] leading-[41.24px] tracking-[0.41px] font-bold "
-                                    >
-                                        ¡Lo quiero!
-                                    </a>
-                                </div>
+                            <div>
+                                <a href={item.ad.link}>
+                                    <img
+                                        src={`/api/ads/media/${item.ad.image}`}
+                                        alt="Ad"
+                                        className="w-full h-full object-cover rounded-[30.58px] 2xl:rounded-[48.58px]"
+                                    />
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             )}
-
             {isModalTalla && (
                 <div
                     className="fixed inset-0 min-h-screen flex items-center justify-center z-50 bg-[#00000080] transition-all duration-1000"

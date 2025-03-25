@@ -23,9 +23,9 @@ import {
     FaShieldAlt,
 } from "react-icons/fa";
 import StatsSection from "./components/Tailwind/About/StatsSection ";
-import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
+import { CarritoProvider } from "./context/CarritoContext";
 
-const About = ({ about, showSlogan = true }) => {
+const About = ({ about, showSlogan = true, posts, indicators }) => {
     const [showModal1, setShowModal1] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     return (
@@ -33,13 +33,13 @@ const About = ({ about, showSlogan = true }) => {
             <Header
                 showSlogan={showSlogan}
                 backgroundType="image"
-                backgroundSrc="https://i.ibb.co/3mPwq5gH/7597f2cb62a9b3b354850510320d3167.png"
-                backgroundHeight="h-[65vh]"
-                backgroundPosition="object-center blur-sm "
+                backgroundSrc="assets/img/about/bg-about.png"
+                backgroundHeight="h-[40vh] md:h-[85vh]"
+                backgroundPosition="object-center blur-[2px]"
             >
-                <div className="absolute inset-0 flex items-center justify-center text-center ">
+                <div className="absolute inset-0 flex items-end md:items-center justify-center text-center ">
                     <div className="text-white p-6">
-                        <h1 className="md:text-[58.21px] 2xl:text-[72.21px] md:leading-[65.32px] 2xl:leading-[90.32px] font-bold max-w-5xl tracking-[0.01em]">
+                        <h1 className="text-[30.66px] md:text-[58.21px] 2xl:text-[72.21px] md:leading-[65.32px] 2xl:leading-[90.32px] font-bold max-w-5xl tracking-[0.01em]">
                             ¡Tu mejor aliadx en <br />
                             el cuidado menstrual!
                         </h1>
@@ -73,7 +73,7 @@ const About = ({ about, showSlogan = true }) => {
                     </p>
 
                     <img
-                        src="https://i.ibb.co/VWpc1dvr/image.png"
+                        src="/assets/img/about/image-about.png"
                         className="w-full h-[600px] mt-4 lg:mt-0  lg:w-6/12 lg:h-[530px]   2xl:w-6/12 2xl:h-[660px] object-cover object-right-top"
                         alt="image"
                     />
@@ -109,7 +109,7 @@ const About = ({ about, showSlogan = true }) => {
                 </div>
 
                 {/* Beneficios Section */}
-                <StatsSection />
+                <StatsSection indicators={indicators} />
 
                 {/* Iconos Section */}
                 <div className="bg-[#FC58BE] mb-8">
@@ -165,7 +165,7 @@ const About = ({ about, showSlogan = true }) => {
                     </div>
                 </div>
 
-                <InstagramSection />
+                <InstagramSection posts={posts} />
 
                 <Footer />
             </div>

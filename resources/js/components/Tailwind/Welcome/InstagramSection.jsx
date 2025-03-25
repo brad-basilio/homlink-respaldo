@@ -10,8 +10,8 @@ import "swiper/css/navigation";
 // import required modules
 import { Navigation } from "swiper/modules";
 
-const InstagramSection = () => {
-    const posts = [
+const InstagramSection = ({ posts }) => {
+    const postes = [
         { image: "https://i.ibb.co/qYWkFHcr/image.png" },
         { image: "https://i.ibb.co/SjDMLFx/image.png" },
         { image: "https://i.ibb.co/d068vJ8C/image.png" },
@@ -68,13 +68,18 @@ const InstagramSection = () => {
                 >
                     {posts.map((post, index) => (
                         <SwiperSlide key={index}>
-                            <div className="aspect-square flex flex-col justify-center items-center">
+                            <a
+                                href={post.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="aspect-square flex flex-col justify-center items-center"
+                            >
                                 <img
-                                    src={post.image}
-                                    alt={`Instagram Post ${index + 1}`}
+                                    src={`/api/instagram_post/media/${post.image}`}
+                                    alt={post.name}
                                     className="w-full h-full object-cover"
                                 />
-                            </div>
+                            </a>
                         </SwiperSlide>
                     ))}
                 </Swiper>

@@ -21,11 +21,11 @@ class UsersSeeder extends Seeder
             'password' => 'r00tme'
         ])->assignRole('Admin');
         User::updateOrCreate([
-            'email' => 'admin@vua.pe'
+            'email' => 'admin@wefem.pe'
         ], [
             'name' => 'Admin',
-            'lastname' => 'Vuá',
-            'password' => 'Vu4Pun70p3'
+            'lastname' => 'WeFem',
+            'password' => 'wefem0001'
         ])->assignRole('Admin');
 
         User::updateOrCreate([

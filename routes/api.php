@@ -47,6 +47,7 @@ use App\Http\Controllers\CouponController;
 use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
+use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\InstagramPostsController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemImageController;
@@ -57,7 +58,9 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StrengthController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
+use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
+use App\Models\InstagramPost;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,23 +72,30 @@ use App\Http\Controllers\UserFormulasController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+/*NUEVOS */
 
+Route::get('/generals/get-socials', [GeneralController::class, 'getSocials']);
+Route::get('/generals/get-benefits', [GeneralController::class, 'getBenefits']);
+Route::get('/items/get-destacados', [ItemController::class, 'getDestacados']);
+Route::get('/items/get-testimonies', [TestimonyController::class, 'getTestimonies']);
+/*OTROS */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
-Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/items/media/{uuid}', [ItemController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media'])->withoutMiddleware('throttle');
-//Route::get('/colors/media/{uuid}', [ColorController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/ads/media/{uuid}', [AdController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/strength/media/{uuid}', [StrengthController::class, 'media'])->withoutMiddleware('throttle');
-Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
+Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
+Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
+Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
+Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media']);
+Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
+//Route::get('/colors/media/{uuid}', [ColorController::class, 'media']);
+Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
+Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
+Route::get('/ads/media/{uuid}', [AdController::class, 'media']);
+Route::get('/strength/media/{uuid}', [StrengthController::class, 'media']);
+Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media']);
+Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
 
-Route::get('/mailing/media/{uuid}', [MailingController::class, 'media'])->withoutMiddleware('throttle');
+Route::get('/mailing/media/{uuid}', [MailingController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);
@@ -103,6 +113,8 @@ Route::post('/coupons', [CouponController::class, 'save']);
 Route::post('/coupons/is-first', [CouponController::class, 'isFirst']);
 
 Route::post('/items/verify-stock', [ItemController::class, 'verifyStock']);
+
+
 
 Route::prefix('/culqi')->group(function () {
     Route::post('/order', [CulqiController::class, 'order']);

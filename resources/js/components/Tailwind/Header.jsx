@@ -1,10 +1,14 @@
 import Tippy from "@tippyjs/react";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { CarritoContext } from "../../context/CarritoContext";
+import GeneralRest from "../../actions/GeneralRest";
+import { TbBrush } from "react-icons/tb";
+import { Trash2 } from "lucide-react";
 
+const generalRest = new GeneralRest();
 const Header = ({
     session,
-    showSlogan,
+    showSlogan = true,
     gradientStart,
     menuGradientEnd,
     backgroundType = "none",
@@ -55,10 +59,14 @@ const Header = ({
 
     const { carrito, eliminarProducto } = useContext(CarritoContext);
     const [animar, setAnimar] = useState(false);
-    const totalProductos = carrito.reduce(
-        (acc, item) => acc + item.quantity,
-        0
-    );
+    const totalProductos = carrito.reduce((acc, item) => {
+        if (item.variations && item.variations.length > 0) {
+            return (
+                acc + item.variations.reduce((sum, v) => sum + v.quantity, 0)
+            );
+        }
+        return acc + item.quantity;
+    }, 0);
 
     useEffect(() => {
         if (totalProductos > 0) {
@@ -67,11 +75,44 @@ const Header = ({
         }
     }, [totalProductos]);
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
-    const totalPrecio = carrito.reduce(
-        (acc, item) => acc + item.final_price * item.quantity,
-        0
-    );
+    const totalPrecio = carrito.reduce((acc, item) => {
+        if (item.variations && item.variations.length > 0) {
+            return (
+                acc +
+                item.variations.reduce(
+                    (sum, v) => sum + item.final_price * v.quantity,
+                    0
+                )
+            );
+        }
+        return acc + item.final_price * item.quantity;
+    }, 0);
 
+    const [socials, setSocials] = useState([]);
+
+    useEffect(() => {
+        const fetchSocials = async () => {
+            try {
+                const data = await generalRest.getSocials();
+                setSocials(data);
+            } catch (error) {
+                console.error("Error fetching socials:", error);
+            }
+        };
+
+        fetchSocials();
+    }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
+
+    const TikTok = socials.find((social) => social.description === "TikTok");
+    const WhatsApp = socials.find(
+        (social) => social.description === "WhatsApp"
+    );
+    const Instagram = socials.find(
+        (social) => social.description === "Instagram"
+    );
+    const Facebook = socials.find(
+        (social) => social.description === "Facebook"
+    );
     return (
         <>
             {showSlogan && (
@@ -166,21 +207,42 @@ const Header = ({
                                 />
                             </a>
                             <div className="flex space-x-4 text-[20.93px] items-center">
-                                <a href="#" className="text-[12.84px]">
+                                <span className="text-[12.84px]">
                                     Escríbenos
-                                </a>
-                                <a href="#">
-                                    <i className="fa-brands fa-whatsapp"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa-brands fa-facebook"></i>
-                                </a>
-                                <a href="#">
-                                    <i className="fa-brands fa-tiktok"></i>
-                                </a>
+                                </span>
+                                {WhatsApp && (
+                                    <a
+                                        href={WhatsApp.link}
+                                        target="_blank"
+                                        className="flex justify-center items-center cursor-pointer"
+                                    >
+                                        <i className="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                )}
+                                {Instagram && (
+                                    <a
+                                        href={Instagram.link}
+                                        target="_blank"
+                                        className="flex justify-center items-center"
+                                    >
+                                        <i className="fa-brands fa-instagram"></i>
+                                    </a>
+                                )}
+                                {Facebook && (
+                                    <a
+                                        href={Facebook.link}
+                                        target="_blank"
+                                        className="flex justify-center items-center"
+                                    >
+                                        <i className="fa-brands fa-facebook"></i>
+                                    </a>
+                                )}
+
+                                {TikTok && (
+                                    <a href={TikTok.link} target="_blank">
+                                        <i className="fa-brands fa-tiktok"></i>
+                                    </a>
+                                )}
 
                                 <button
                                     onClick={() =>
@@ -190,7 +252,7 @@ const Header = ({
                                 >
                                     <i className="fas fa-shopping-cart"></i>
                                     <span
-                                        className={`absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold transition-transform ${
+                                        className={`absolute -top-1 -right-1 bg-[#FF9900] text-white rounded-full w-3 h-3 flex items-center justify-center text-[10px] font-medium transition-transform ${
                                             animar ? "scale-150" : "scale-100"
                                         }`}
                                         style={{
@@ -316,7 +378,15 @@ const Header = ({
                                                 </h3>
                                                 <p className="text-gray-500">
                                                     S/ {item.final_price} x{" "}
-                                                    {item.quantity}
+                                                    {item.variations &&
+                                                    item.variations.length > 0
+                                                        ? item.variations.reduce(
+                                                              (sum, v) =>
+                                                                  sum +
+                                                                  v.quantity,
+                                                              0
+                                                          )
+                                                        : item.quantity}
                                                 </p>
                                             </div>
                                             {/* 🗑️ Botón para eliminar */}
@@ -326,7 +396,7 @@ const Header = ({
                                                     eliminarProducto(item.id)
                                                 }
                                             >
-                                                🗑️
+                                                <Trash2 width="1rem" />
                                             </button>
                                         </div>
                                     ))
@@ -334,13 +404,13 @@ const Header = ({
                             </div>
 
                             {/* Total y botón de Checkout */}
-                            <div className="p-4 border-t">
+                            <div className="p-4 border-t w-full">
                                 <p className="text-lg font-semibold">
                                     Total: S/ {totalPrecio.toFixed(2)}
                                 </p>
                                 <a
                                     href="/checkout"
-                                    className="mt-2 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+                                    className="block text-center  w-full my-4 mt-2  bg-[#6048B7] text-white py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300"
                                 >
                                     Finalizar Compra
                                 </a>

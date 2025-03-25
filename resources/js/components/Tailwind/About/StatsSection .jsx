@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const StatsSection = () => {
+const StatsSection = ({ indicators }) => {
     const countersRef = useRef([]);
 
     useEffect(() => {
@@ -45,7 +45,24 @@ const StatsSection = () => {
         { value: 6, label: "Copas vendidas" },
         { value: 4, label: "Discos vendidos" },
     ];
-
+    const updatedStats = stats.map((stat) => {
+        const matchingIndicator = indicators.find(
+            (ind) => ind.name === stat.label
+        );
+        return matchingIndicator
+            ? {
+                  ...stat,
+                  value: matchingIndicator.description,
+              }
+            : stat;
+    });
+    // Función para obtener solo el número sin el sufijo
+    const getNumericValue = (desc) => parseFloat(desc.replace(/[KM]/, ""));
+    // Función para obtener solo el sufijo
+    const getSuffix = (desc) => {
+        const match = desc.match(/[KM]/);
+        return match ? match[0] : "";
+    };
     return (
         <div className="relative overflow-hidden bg-[#D9DE21]">
             <div className="bg-[#D9DE21] md:max-w-5xl 2xl:max-w-7xl mx-auto">
@@ -59,7 +76,7 @@ const StatsSection = () => {
 
                     {/* Contenido */}
                     <div className="px-[5%] mx-auto relative z-10 grid grid-cols-2 gap-4 gap-y-16 pt-10 md:pt-20 pb-0  lg:py-20">
-                        {stats.map((stat, index) => (
+                        {updatedStats.map((stat, index) => (
                             <div
                                 key={index}
                                 className="flex flex-col items-center text-center"
@@ -73,9 +90,9 @@ const StatsSection = () => {
                                     ref={(el) =>
                                         (countersRef.current[index] = el)
                                     }
-                                    data-count={stat.value}
+                                    data-count={getNumericValue(stat.value)}
                                 >
-                                    +0K
+                                    +0{getSuffix(stat.value)}
                                 </div>
                                 <div className="-rotate-2  md:w-[300.09px] 2xl:w-[369.09px] md:text-[22.61px] 2xl:text-[31.61px] text-white px-5 py-2 font-bold bg-[#F750BD]">
                                     {stat.label}

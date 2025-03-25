@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
@@ -24,6 +24,7 @@ import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
 import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
+import ItemsRest from "./actions/ItemRest";
 
 const Home = ({
     sliders,
@@ -33,57 +34,14 @@ const Home = ({
     popups,
     top_sale,
     showSlogan = true,
+
+    we_lovers,
+    products_featured,
+    new_product,
+    posts,
 }) => {
     const tipoSlider = "vua";
-
-    const products = [
-        {
-            id: 1,
-            name: "weTotal",
-            description: "Disco + Esterilizador",
-            price: 255,
-            discount: 179.9,
-            final_price: 179.9,
-            image: "https://i.ibb.co/fV6JQ7Bf/e668d950658ae3c60479b23cdc546252.png",
-        },
-        {
-            id: 2,
-            name: "wePack",
-            description: "Disco + Esterilizador",
-            price: 230,
-            discount: 149.9,
-            final_price: 149.9,
-            image: "https://i.ibb.co/zyjGBDv/dd77e7ec81f52f1e46c68e0cb7e3db80.png",
-        },
-        {
-            id: 3,
-            name: "weDisk",
-            description: "Disco menstrual",
-            price: 180,
-            discount: 159.9,
-            final_price: 159.9,
-            image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png",
-        },
-        {
-            id: 4,
-            name: "weDisk",
-            description: "Disco menstrual",
-            price: 180,
-            discount: 159.9,
-            final_price: 159.9,
-            image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png",
-        },
-    ];
-    const producto = {
-        id: 1,
-        name: "weTotal",
-        description: "Disco + Esterilizador",
-        price: 255,
-        discount: 179.9,
-        final_price: 179.9,
-        image: "https://i.ibb.co/fV6JQ7Bf/e668d950658ae3c60479b23cdc546252.png",
-    };
-
+    console.log(products_featured);
     return (
         <>
             <Header
@@ -111,7 +69,7 @@ const Home = ({
                 <FeaturesSection />
                 <BenefitsSection />
                 <div className="h-[40px] lg:h-0"></div>
-                <ProductCarousel products={products}>
+                <ProductCarousel products={products_featured}>
                     <h2 className="text-xl md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-start justify-center">
                         <img
                             src="/assets/img/emojis/growing-heart.png"
@@ -130,9 +88,9 @@ const Home = ({
                 <QuizSection />
                 <TopSaleSection producto={top_sale} />
                 <GuaranteeSection />
-                <WeLoversSection />
-                <NotSureSection />
-                <InstagramSection />
+                <WeLoversSection we_lovers={we_lovers} />
+                <NotSureSection producto={new_product} />
+                <InstagramSection posts={posts} />
                 <Footer />
                 {/*
                

@@ -2,65 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\General;
-use App\Http\Requests\StoreGeneralRequest;
-use App\Http\Requests\UpdateGeneralRequest;
 
-class GeneralController extends Controller
+use App\Http\Classes\dxResponse;
+use App\Models\Aboutus;
+use App\Models\dxDataGrid;
+use App\Models\Indicator;
+use App\Models\Slider;
+use App\Models\Social;
+use Exception;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Routing\ResponseFactory;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+use SoDe\Extend\Crypto;
+use SoDe\Extend\Response;
+use SoDe\Extend\Text;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
+
+
+class GeneralController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+
+
+    public function getSocials(Request $request): HttpResponse|ResponseFactory
     {
-        //
+        $response = new Response();
+        try {
+            $data = Social::all();
+            // dump($data);
+            $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function getBenefits(Request $request): HttpResponse|ResponseFactory
     {
-        //
-    }
+        $response = new Response();
+        try {
+            $data = Indicator::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreGeneralRequest $request)
-    {
-        //
-    }
+            $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(General $general)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(General $general)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateGeneralRequest $request, General $general)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(General $general)
-    {
-        //
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
     }
 }

@@ -275,6 +275,7 @@ const Sizes = ({ items }) => {
                             type="number"
                             eRef={widthRef}
                             label="Ancho (cm)"
+                            step="0.01"
                             required
                             className="col-lg-6 col-md-6 col-sm-6"
                         />
@@ -282,6 +283,7 @@ const Sizes = ({ items }) => {
                             type="number"
                             eRef={heightRef}
                             label="Alto (cm)"
+                            step="0.01"
                             required
                             className="col-lg-6 col-md-6 col-sm-6"
                         />

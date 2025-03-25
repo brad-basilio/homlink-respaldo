@@ -220,7 +220,7 @@ class BasicController extends Controller
 
   public function save(Request $request): HttpResponse|ResponseFactory
   {
-    dump($request->all());
+
     $response = new Response();
     try {
 

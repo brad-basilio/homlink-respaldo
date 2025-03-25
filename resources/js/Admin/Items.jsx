@@ -108,11 +108,14 @@ const Items = ({ categories, brands }) => {
         summaryRef.current.value = data?.summary || "";
         priceRef.current.value = data?.price || 0;
         discountRef.current.value = data?.discount || 0;
-        scoreRef.current.value = data?.score || 0;
+
+        $(scoreRef.current)
+            .val(data?.score || null)
+            .trigger("change");
         imageRef.current.value = null;
         imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
 
-        descriptionRef.editor.root.innerHTML = data?.description ?? "";
+        descriptionRef.current.value = data?.description ?? "";
 
         if (data?.images) {
             const existingImages = data.images.map((img) => ({
@@ -647,7 +650,12 @@ const Items = ({ categories, brands }) => {
                     </div>
                 </div>
                 <hr className="my-1" />
-                <QuillFormGroup eRef={descriptionRef} label="Descripcion" />
+                <label className="form-label">Descripción</label>
+                <textarea
+                    ref={descriptionRef}
+                    className="form-control"
+                    placeholder="Descripción"
+                ></textarea>
             </Modal>
         </>
     );

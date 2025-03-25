@@ -7,6 +7,8 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use SoDe\Extend\Response;
+use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Routing\ResponseFactory;
 
 class ItemController extends BasicController
 {
@@ -54,5 +56,25 @@ class ItemController extends BasicController
         });
         dump("estamos en response del verify: ", $response);
         return response($response->toArray(), $response->status);
+    }
+    public function getDestacados(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+            $data = Item::where('featured', true)->where('status', true)->take(10)->get();
+            dump($data);
+            $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+            dump($th->getMessage());
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
     }
 }

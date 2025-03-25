@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
+import TestimonyRest from "../../../actions/TestimonyRest";
 
 const testimonials = [
     { image: "https://i.ibb.co/Q3FDFsbt/image.png" },
@@ -19,26 +20,27 @@ const testimonials = [
     { image: "https://i.ibb.co/3mhCpVtC/image.png" },
 ];
 
-const WeLoversSection = () => {
+const WeLoversSection = ({ we_lovers }) => {
     const [activeIndex, setActiveIndex] = useState(0);
+
     return (
         <div className="py-8 px-4 bg-gradient-to-b from-[#6745BA] to-[#522EAA]">
             <div className="md:max-w-4xl 2xl:max-w-6xl mx-auto text-center text-white">
-                <h2 class="hidden text-white text-center md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-bold md:mb-8 2xl:mb-12 lg:flex items-center justify-center gap-2">
+                <h2 className="hidden text-white text-center md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-bold md:mb-8 2xl:mb-12 lg:flex items-center justify-center gap-2">
                     Nuestras weLovers{" "}
                     <img
                         src="/assets/img/emojis/stars.png"
                         alt=""
                         className="h-12"
                     />
-                    <span class="whitespace-nowrap">lo afirman</span>
+                    <span className="whitespace-nowrap">lo afirman</span>
                     <img
                         src="/assets/img/emojis/stars.png"
                         alt=""
                         className="h-12"
                     />
                 </h2>
-                <h2 class="lg:hidden text-white text-center md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-bold md:mb-8 2xl:mb-12  items-center justify-center gap-2">
+                <h2 className="lg:hidden text-white text-center md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-bold md:mb-8 2xl:mb-12  items-center justify-center gap-2">
                     Nuestras weLovers <br />
                     <span className="flex w-full items-center justify-center gap-2">
                         <img
@@ -46,7 +48,7 @@ const WeLoversSection = () => {
                             alt=""
                             className="h-8 sm:h-12"
                         />
-                        <span class="whitespace-nowrap">lo afirman</span>
+                        <span className="whitespace-nowrap">lo afirman</span>
                         <img
                             src="/assets/img/emojis/stars.png"
                             alt=""
@@ -76,7 +78,7 @@ const WeLoversSection = () => {
                             setActiveIndex(swiper.realIndex)
                         }
                     >
-                        {testimonials.map((testimonial, index) => (
+                        {we_lovers.map((testimonial, index) => (
                             <SwiperSlide key={index}>
                                 <div className="pb-10">
                                     <div
@@ -90,11 +92,14 @@ const WeLoversSection = () => {
                                                 "6.9px 7.77px 20.2px 0px #0000004D",
                                         }}
                                     >
-                                        <img
-                                            src={testimonial.image}
-                                            alt={`Testimonial ${index + 1}`}
-                                            className="w-full h-full object-cover"
-                                        />
+                                        <iframe
+                                            className="w-full h-full "
+                                            src={`https://www.youtube.com/embed/${testimonial.description}`}
+                                            frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            referrerpolicy="strict-origin-when-cross-origin"
+                                            allowfullscreen
+                                        ></iframe>
                                     </div>
                                 </div>
                             </SwiperSlide>

@@ -1,22 +1,29 @@
 import { useEffect, useState, useRef } from "react";
+import GeneralRest from "../../../actions/GeneralRest";
 
 const Counter = ({ target }) => {
     const [count, setCount] = useState(0);
     const ref = useRef(null);
+    const numericTarget = parseInt(target) || 0; // Asegura que sea número
 
     useEffect(() => {
+        if (!numericTarget) return; // No iniciar si es 0
+
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         let start = 0;
-                        const stepTime = Math.abs(Math.floor(2000 / target));
+                        const stepTime = Math.max(
+                            50,
+                            Math.floor(2000 / numericTarget)
+                        ); // Evitar valores negativos o muy rápidos
                         const timer = setInterval(() => {
                             start += 1;
                             setCount(start);
-                            if (start >= target) {
+                            if (start >= numericTarget) {
                                 clearInterval(timer);
-                                setCount(target);
+                                setCount(numericTarget);
                             }
                         }, stepTime);
                         observer.unobserve(entry.target);
@@ -28,19 +35,45 @@ const Counter = ({ target }) => {
 
         if (ref.current) observer.observe(ref.current);
         return () => observer.disconnect();
-    }, [target]);
+    }, [numericTarget]);
 
     return (
-        <h3
-            ref={ref}
-            className="text-[60.94px] md:text-[111.94px] leading-[70.94px] md:leading-[111.94px] tracking-[5.12px]  md:tracking-[9.99px] xl:text-[136.9px] 2xl:text-[146.9px]  xl:leading-[120.9px] 2xl:leading-[146.9px] font-bebas"
-        >
+        <h3 ref={ref} className="text-[60.94px] md:text-[111.94px] font-bebas">
             {count}
         </h3>
     );
 };
 
+const generalRest = new GeneralRest();
 const BenefitsSection = () => {
+    const [Benefits, setBenefits] = useState(null);
+    const [Toallas, setToallas] = useState(null);
+    const [Soles, setSoles] = useState(null);
+
+    useEffect(() => {
+        const fetchBenefits = async () => {
+            try {
+                const data = await generalRest.getBenefits();
+                setBenefits(data);
+
+                // Solo asigna valores cuando haya datos
+                const toallasFound = data.find(
+                    (benefit) =>
+                        benefit.name === "Reemplaza (Toallas higiénicas)"
+                );
+                const solesFound = data.find(
+                    (benefit) => benefit.name === "Ahorra (Soles)"
+                );
+
+                setToallas(toallasFound);
+                setSoles(solesFound);
+            } catch (error) {
+                console.error("Error fetching benefits:", error);
+            }
+        };
+
+        fetchBenefits();
+    }, []);
     return (
         <div className="relative overflow-hidden pt-8 bg-[#EFE5FF]">
             <div className="bg-[#6745BA]">
@@ -54,7 +87,7 @@ const BenefitsSection = () => {
                                 <span className="text-[16.99px] md:text-[24.99px] md:leading-[40.78px] xl:text-[28.79px] 2xl:text-[32.79px] 2xl:leading-[53.52px] font-bold text-[#E7FF57]">
                                     Reemplaza
                                 </span>
-                                <Counter target={600} />
+                                <Counter target={Toallas?.description} />
                                 <p className="text-[10.84px] md:text-[18.84px] md:leading-[47.47px] xl:text-[20.14px] 2xl:text-[24.14px] 2xl:leading-[62.3px]">
                                     Toallas higiénicas
                                 </p>
@@ -63,7 +96,7 @@ const BenefitsSection = () => {
                                 <span className="text-[16.99px] md:text-[24.99px] md:leading-[40.78px] xl:text-[28.79px] 2xl:text-[32.79px] 2xl:leading-[53.52px] font-bold text-[#E7FF57]">
                                     Ahorra
                                 </span>
-                                <Counter target={900} />
+                                <Counter target={Soles?.description} />
                                 <p className="text-[10.84px] md:text-[18.84px] md:leading-[47.47px] xl:text-[20.14px] 2xl:text-[24.14px] 2xl:leading-[62.3px]">
                                     Soles Aprox
                                 </p>

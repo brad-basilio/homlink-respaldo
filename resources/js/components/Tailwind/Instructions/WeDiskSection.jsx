@@ -63,31 +63,31 @@ const WeDiskSection = () => {
         <>
             <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto py-8  md:mt-20">
                 <div className="flex justify-center items-center gap-8 flex-col  lg:flex-row">
-                    <div className="w-full lg:w-1/2 relative flex items-center justify-center md:h-[450px]  2xl:h-[520px]  overflow-hidden">
-                        <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[100.92px] 2xl:text-[150.92px] md:leading-[100.24px] 2xl:leading-[122.24px] font-bold space-y-1">
+                    <div className="w-full lg:w-1/2 relative flex items-center justify-center  h-[350px] sm:h-[450px]  md:h-[450px]  2xl:h-[520px]  overflow-hidden">
+                        {/* <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[100.92px] 2xl:text-[150.92px] md:leading-[100.24px] 2xl:leading-[122.24px] font-bold space-y-1">
                             <p>weDisk</p>
                             <p>weDisk</p>
                             <p>weDisk</p>
-                        </div>
+                        </div> */}
                         <img
-                            className="-rotate-[-6deg] absolute inset-0 top-36 -translate-y-1/3  h-[800.57px] lg:h-[600.57px] xl:h-[600.57px] 2xl:h-[980.57px] w-auto object-cover "
-                            src="/assets/img/instructions/disk-item.png"
+                            className="absolute object-contain inset-0 top-1/2 -translate-y-1/2 aspect-square h-full sm:h-[480.57px] lg:h-[560.57px] xl:h-[560.57px] 2xl:h-[660.57px] w-auto"
+                            src="/assets/img/instructions/copa2.png"
                             alt="weDisk"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] w-full md:w-[520px] md:h-[490px]  lg:w-[470px] lg:h-[450px] 2xl:w-[545px] 2xl:h-[520px] rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins  leading-[28.07px] p-10 lg:py-6 lg:px-10 2xl:p-10">
-                        <h2 className="font-bold xl:mb-2 text-[58.2px] md:text-[78.2px] 2xl:mb-6 lg:text-[53.2px] xl:text-[73.2px] 2xl:text-[78.2px] leading-[78.55px] text-center">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[470px] 2xl:w-[545px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:p-10">
+                        <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl 2xl:text-6xl 2xl:mb-6 text-center">
                             weDisk
                         </h2>
-                        <ul className="space-y-2  md:space-y-4 ">
+                        <ul className="space-y-2 md:space-y-3 xl:space-y-4 mt-4">
                             {features.map((item, index) => (
                                 <li
                                     key={index}
-                                    className="flex items-center gap-3 text-[16.06px]  md:text-[25.06px] lg:text-[22px] 2xl:text-[25px]"
+                                    className="flex items-center gap-3 text-base 2xl:text-xl leading-[20px] md:leading-snug"
                                 >
                                     <img
                                         src={item.icon}
-                                        className={`w-[34px] md:w-[48px] xl:w-[44px] 2xl:w-[48px] h-auto flex items-center justify-center brightness-100 grayscale`}
+                                        className={`w-[20px] md:w-[25px] xl:w-[30px] 2xl:w-[40px] h-auto flex items-center justify-center brightness-100 grayscale`}
                                         alt={item.text}
                                         loading="lazy"
                                     />

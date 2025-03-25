@@ -17,6 +17,8 @@ import Footer from "./components/Tailwind/Footer";
 import ProductFilter from "./components/Tailwind/Products/ProductFilter";
 import Detail from "./components/Tailwind/DetailProduct/Detail";
 import WeDiskSection from "./components/Tailwind/Instructions/WeDiskSection";
+import WeCupSection from "./components/Tailwind/Instructions/WeCupSection";
+import { CarritoProvider } from "./context/CarritoContext";
 
 const DetailProduct = ({
     sliders,
@@ -25,6 +27,8 @@ const DetailProduct = ({
     testimonies,
     popups,
     showSlogan = true,
+    item,
+    products_featured,
 }) => {
     const tipoSlider = "vua";
     const products = [
@@ -69,13 +73,18 @@ const DetailProduct = ({
             image: "https://i.ibb.co/yFYSFPtJ/35b45868b7de6ab7b4b48f5bf5e380cd.png ",
         },
     ];
+    console.log(item);
     return (
         <>
             <Header showSlogan={showSlogan} backgroundHeight="h-0"></Header>
             <div className="relative z-10">
-                <Detail />
-                <WeDiskSection />
-                <ProductCarousel products={products}>
+                <Detail item={item} />
+                {item.category.slug === "copas-menstruales" && <WeCupSection />}
+                {item.category.slug === "discos-menstruales" && (
+                    <WeDiskSection />
+                )}
+
+                <ProductCarousel products={products_featured}>
                     <h2 className="md:text-3xl 2xl:text-4xl font-bold flex gap-4 items-start justify-center">
                         ¿Te sientes lista? Compra aquí{" "}
                     </h2>
@@ -88,8 +97,10 @@ const DetailProduct = ({
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <Base {...properties}>
-            <DetailProduct {...properties} />
-        </Base>
+        <CarritoProvider>
+            <Base {...properties}>
+                <DetailProduct {...properties} />
+            </Base>
+        </CarritoProvider>
     );
 });

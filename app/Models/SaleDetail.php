@@ -21,8 +21,14 @@ class SaleDetail extends Model
         'size',
         'price',
         'quantity',
+        'colors',
+        'sizes',
     ];
 
+    protected $casts = [
+        'colors' => 'array',
+        'sizes' => 'array',
+    ];
 
 
     public function sale()

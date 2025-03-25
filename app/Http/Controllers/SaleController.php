@@ -21,25 +21,43 @@ class SaleController extends Controller
 {
     static function create(array $sale, array $details): array
     {
-        dump($sale, $details);
         try {
-            $itemsJpa = Item::whereIn('id', array_map(fn($item) => $item['id'], $details))->get();
+            // Obtener solo los IDs de los productos para la consulta
+            $productIds = array_map(fn($item) => $item['id'], $details);
+            $itemsJpa = Item::whereIn('id', $productIds)->get();
 
-            foreach ($itemsJpa as $itemJpa) {
-                $item = Array2::find($details, fn($item) => $item['id'] == $itemJpa->id);
-                $itemJpa->final_price = $itemJpa->discount != 0
-                    ? $itemJpa->discount
-                    : $itemJpa->price;
-                $itemJpa->quantity = $item['quantity'];
-                $itemJpa->color = $item['color'];
-                $itemJpa->size = $item['size'];
+            // Preparar los detalles de venta
+            $saleDetails = [];
+            $totalPrice = 0;
+            $totalItems = 0;
+
+            foreach ($details as $detail) {
+                $itemJpa = $itemsJpa->firstWhere('id', $detail['id']);
+                if (!$itemJpa) continue;
+
+                // Calcular cantidad total de este producto (sumando todas sus variaciones)
+                $itemQuantity = array_sum(array_column($detail['variations'] ?? [], 'quantity'));
+                $itemPrice = $itemJpa->discount != 0 ? $itemJpa->discount : $itemJpa->price;
+
+                // Preparar los detalles por variación
+                foreach ($detail['variations'] ?? [] as $variation) {
+                    $saleDetails[] = [
+                        'item_id' => $itemJpa->id,
+                        'name' => $itemJpa->name,
+                        'price' => $itemPrice,
+                        'quantity' => $variation['quantity'],
+                        'color' => $variation['color'] ?? null,
+                        'size' => $variation['size'] ?? null
+                    ];
+                }
+
+                $totalPrice += $itemPrice * $itemQuantity;
+                $totalItems += $itemQuantity;
             }
 
+            // Crear la venta
             $saleJpa = new Sale();
-            dump($itemsJpa);
-            // Sale info
             $saleJpa->code = Trace::getId();
-            //  $saleJpa->user_formula_id = $sale['user_formula_id'];
             $saleJpa->user_id = Auth::check() ? Auth::user()->id : null;
             $saleJpa->name = $sale['name'];
             $saleJpa->lastname = $sale['lastname'];
@@ -47,7 +65,7 @@ class SaleController extends Controller
             $saleJpa->phone = $sale['phone'];
             $saleJpa->status_id = 'f13fa605-72dd-4729-beaa-ee14c9bbc47b';
 
-            // Address info
+            // Información de dirección
             $saleJpa->country = $sale['country'];
             $saleJpa->department = $sale['department'];
             $saleJpa->province = $sale['province'];
@@ -58,6 +76,7 @@ class SaleController extends Controller
             $saleJpa->reference = $sale['reference'];
             $saleJpa->comment = $sale['comment'];
 
+            // Actualizar información del usuario si está autenticado
             if (Auth::check()) {
                 $userJpa = User::find(Auth::user()->id);
                 $userJpa->phone = $sale['phone'];
@@ -72,14 +91,7 @@ class SaleController extends Controller
                 $userJpa->save();
             }
 
-            // Sale Header
-            $totalPrice = array_sum(array_map(
-                fn($item) => $item['final_price'] * $item['quantity'],
-                $itemsJpa->toArray()
-            ));
-
-            $totalItems = array_sum(array_map(fn($item) => $item['quantity'], $itemsJpa->toArray()));
-
+            // Aplicar cupón si existe
             if (isset($sale['coupon']) && $sale['coupon']) {
                 [$couponStatus, $couponJpa] = CouponController::verify(
                     $sale['coupon'],
@@ -91,31 +103,30 @@ class SaleController extends Controller
 
                 $saleJpa->coupon_id = $couponJpa->id;
                 if ($couponJpa->type == 'percentage') {
-                    $saleJpa->coupon_discount = ($totalPrice) * ($couponJpa->amount / 100);
+                    $saleJpa->coupon_discount = $totalPrice * ($couponJpa->amount / 100);
                 } else {
                     $saleJpa->coupon_discount = $couponJpa->amount;
                 }
             }
 
             $saleJpa->amount = $totalPrice;
-            $saleJpa->delivery = 0; // Agregar lógica si es que se tiene precio por envío
+            $saleJpa->delivery = 0; // Agregar lógica de envío si es necesario
             $saleJpa->save();
 
-            $detailsJpa = array();
-            foreach ($itemsJpa as $itemJpa) {
+            // Guardar los detalles de venta
+            foreach ($saleDetails as $detail) {
                 $detailJpa = new SaleDetail();
                 $detailJpa->sale_id = $saleJpa->id;
-                $detailJpa->item_id = $itemJpa->id;
-                $detailJpa->name = $itemJpa->name;
-                $detailJpa->price = $itemJpa->final_price;
-                $detailJpa->quantity = $itemJpa->quantity;
-                $detailJpa->color = $itemJpa->color;
-                $detailJpa->size = $itemJpa->size;
+                $detailJpa->item_id = $detail['item_id'];
+                $detailJpa->name = $detail['name'];
+                $detailJpa->price = $detail['price'];
+                $detailJpa->quantity = $detail['quantity'];
+                $detailJpa->color = $detail['color'];
+                $detailJpa->size = $detail['size'];
                 $detailJpa->save();
-
-                $detailsJpa[] = $detailJpa->toArray();
             }
 
+            // Cargar la venta con sus detalles para retornar
             $saleToReturn = Sale::with(['details'])->find($saleJpa->id);
 
             return [true, $saleToReturn];

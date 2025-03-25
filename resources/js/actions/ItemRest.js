@@ -23,6 +23,25 @@ class ItemsRest extends BasicRest {
             return [];
         }
     };
+
+    getDestacados = async () => {
+        try {
+            const { status, result } = await Fetch(
+                `/api/${this.path}/get-destacados`,
+                {
+                    method: "GET",
+                }
+            );
+            if (!status)
+                throw new Error(
+                    result?.message ??
+                        "Ocurrió un error al consultar el stock de los productos"
+                );
+            return result.data ?? [];
+        } catch (error) {
+            return [];
+        }
+    };
 }
 
 export default ItemsRest;

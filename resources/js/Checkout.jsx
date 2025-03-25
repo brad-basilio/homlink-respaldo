@@ -120,10 +120,18 @@ const Checkout = ({ publicKey, session }) => {
     const [loading, isLoading] = useState(false);
     const [coupon, setCoupon] = useState(null);
 
-    const totalPrice = cart.reduce(
-        (sum, item) => sum + item.final_price * item.quantity,
-        0
-    );
+    const totalPrice = cart.reduce((acc, item) => {
+        if (item.variations && item.variations.length > 0) {
+            return (
+                acc +
+                item.variations.reduce(
+                    (sum, v) => sum + item.final_price * v.quantity,
+                    0
+                )
+            );
+        }
+        return acc + item.final_price * item.quantity;
+    }, 0);
 
     const planDiscount = totalPrice * 0;
 
@@ -209,7 +217,7 @@ const Checkout = ({ publicKey, session }) => {
             // const order_number = Culqi.order_number.replace(`#${Global.APP_CORRELATIVE}-`, '')
             // fetch(`/api/sales/notify/${order_number}`)
             // .then(res => {
-            location.href = `/thanks`;
+            location.href = `/`;
             // })
         }, 500);
     };
@@ -237,7 +245,7 @@ const Checkout = ({ publicKey, session }) => {
     return (
         <>
             <Header showSlogan={true} backgroundHeight="h-0" />
-            <section className="px-[5%] md:px-[7.5%] lg:px-[10%] pb-[5%] mt-[7.5%] md:mt-[5%] lg:mt-[2.5%] text-[#404040]">
+            <section className="px-[5%] md:px-[7.5%] lg:px-[10%] pb-[5%] mt-[7.5%] md:mt-[5%] lg:mt-[2.5%] text-[#404040] bg-[#EFE5FF]">
                 <div className="max-w-4xl mx-auto">
                     <div className="py-6 flex justify-center space-x-8 text-sm text-gray-600">
                         <div className="flex items-center">
@@ -756,9 +764,21 @@ const Checkout = ({ publicKey, session }) => {
                                                                 <small className="text-xs text-gray-500">
                                                                     <span className="w-6 inline-block text-nowrap">
                                                                         ×{" "}
-                                                                        {
-                                                                            item.quantity
-                                                                        }
+                                                                        {item.variations &&
+                                                                        item
+                                                                            .variations
+                                                                            .length >
+                                                                            0
+                                                                            ? item.variations.reduce(
+                                                                                  (
+                                                                                      sum,
+                                                                                      v
+                                                                                  ) =>
+                                                                                      sum +
+                                                                                      v.quantity,
+                                                                                  0
+                                                                              )
+                                                                            : item.quantity}
                                                                     </span>
                                                                 </small>
                                                             </div>
@@ -766,8 +786,23 @@ const Checkout = ({ publicKey, session }) => {
                                                         <span className="">
                                                             S/{" "}
                                                             {Number2Currency(
-                                                                item.final_price *
-                                                                    item.quantity
+                                                                item.variations &&
+                                                                    item
+                                                                        .variations
+                                                                        .length >
+                                                                        0
+                                                                    ? item.variations.reduce(
+                                                                          (
+                                                                              sum,
+                                                                              v
+                                                                          ) =>
+                                                                              sum +
+                                                                              item.final_price *
+                                                                                  v.quantity,
+                                                                          0
+                                                                      )
+                                                                    : item.final_price *
+                                                                          item.quantity
                                                             )}
                                                         </span>
                                                     </div>
@@ -866,7 +901,7 @@ const Checkout = ({ publicKey, session }) => {
                                     )}
                                     <button
                                         type="submit"
-                                        className="mt-6 w-full rounded-md bg-[#C5B8D4] py-3 text-white disabled:cursor-not-allowed"
+                                        className="mt-6 w-full rounded-md bg-[#FF9900] py-3 text-white disabled:cursor-not-allowed"
                                         disabled={loading}
                                     >
                                         <i className="mdi mdi-lock me-1"></i>
