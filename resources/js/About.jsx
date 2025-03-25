@@ -34,7 +34,7 @@ const About = ({ about, showSlogan = true, posts, indicators }) => {
                 showSlogan={showSlogan}
                 backgroundType="image"
                 backgroundSrc="assets/img/about/bg-about.png"
-                backgroundHeight="h-[40vh] md:h-[85vh]"
+                backgroundHeight="h-[40vh] md:h-[70vh]"
                 backgroundPosition="object-center blur-[2px]"
             >
                 <div className="absolute inset-0 flex items-end md:items-center justify-center text-center ">
