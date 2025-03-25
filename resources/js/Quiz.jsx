@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
@@ -9,6 +9,7 @@ import SubscriptionsRest from "./actions/SubscriptionsRest";
 import { CarritoProvider } from "./context/CarritoContext";
 import Swal from "sweetalert2";
 import Global from "./Utils/Global";
+const subscriptionsRest = new SubscriptionsRest();
 // Componente principal del cuestionario
 const Quiz = ({ showSlogan = true }) => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -37,7 +38,7 @@ const Quiz = ({ showSlogan = true }) => {
 
     return (
         <>
-            <Header showSlogan={true} backgroundHeight="h-0" />
+            <Header showSlogan={showSlogan} backgroundHeight="h-0" />
             <div className="relative z-10">
                 {currentStep === 1 && (
                     <InitQuiz setCurrentStep={setCurrentStep} />
@@ -391,7 +392,6 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
     );
 };
 const FourQuiz = ({ setCurrentStep, handleResult }) => {
-    const subscriptionsRest = new SubscriptionsRest();
     const [saving, setSaving] = useState(false);
     const emailRef = useRef(null);
     const onEmailSubmit = async (e) => {
