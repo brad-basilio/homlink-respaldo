@@ -156,7 +156,7 @@ const Header = ({
                     ></div>
                 )}
                 <header
-                    className={`fixed top-0 w-full max-w-full overflow-hidden z-40 transition-colors duration-300 ${
+                    className={`font-poppins fixed top-0 w-full max-w-full overflow-hidden z-40 transition-colors duration-300 ${
                         backgroundType === "none"
                             ? "bg-[#5339B1]"
                             : isScrolled
@@ -165,7 +165,7 @@ const Header = ({
                     }`}
                 >
                     <div
-                        className={`px-[5%] py-4 lg:py-0 lg:max-w-6xl 2xl:max-w-7xl mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
+                        className={`px-[5%] py-4 lg:py-0 lg:max-w-7xl 2xl:max-w-7xl mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
                     >
                         <div className="flex items-center w-full  lg:hidden">
                             <button
@@ -188,7 +188,7 @@ const Header = ({
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[14.54px] leading-[18.55px]">
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-normal text-[14.54px] leading-[18.55px] tracking-widest">
                             <nav className="flex gap-6 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
