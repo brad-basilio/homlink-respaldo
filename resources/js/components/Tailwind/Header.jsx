@@ -364,7 +364,7 @@ const Header = ({
                                             className="flex items-center gap-4 border-b pb-2"
                                         >
                                             <img
-                                                src={`api/items/media/${item.image}`}
+                                                src={`/api/items/media/${item.image}`}
                                                 alt={item.name}
                                                 onError={(e) =>
                                                     (e.target.src =
