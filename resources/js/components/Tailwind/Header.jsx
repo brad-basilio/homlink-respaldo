@@ -199,7 +199,7 @@ const Header = ({
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="Wefem"
-                                    className="h-[35px] w-[190.55px] object-cover object-top"
+                                    className="h-[40px] w-[240.55px] object-cover object-top"
                                     style={{
                                         textShadow:
                                             "0px 4px 7.5px 0px #00000040",
