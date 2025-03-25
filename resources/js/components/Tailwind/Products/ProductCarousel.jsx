@@ -13,7 +13,7 @@ import ProductCard from "./ProductCard";
 export default function ProductCarousel({ products, children }) {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
-        <section className="pb-16 lg:py-16 bg-white text-[#212529]">
+        <section className="pb-16 lg:pb-16 lg:pt-20 bg-white text-[#212529] font-poppins">
             <div className="mx-auto xl:px-[5%] text-center">
                 <div className="flex flex-col items-center pb-4">
                     {children}
@@ -71,7 +71,7 @@ export default function ProductCarousel({ products, children }) {
                         />
                     </div>
 
-                    <div className="absolute top-1/2 right-[-30px] xl:right-[-40px] transform -translate-y-1/2 custom-next cursor-pointer">
+                    <div className="absolute top-1/2 right-[-30px] xl:right-[-30px] transform -translate-y-1/2 custom-next cursor-pointer">
                         <img src="/assets/img/swiper/right.png" />
                     </div>
                 </div>
