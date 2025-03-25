@@ -161,7 +161,7 @@ const Header = ({
                             ? "bg-[#5339B1]"
                             : isScrolled
                             ? "bg-[#5339B1] pt-0 "
-                            : "bg-transparent pt-14 lg:pt-10"
+                            : "bg-transparent top-4 pt-14 lg:pt-10"
                     }`}
                 >
                     <div
@@ -189,7 +189,7 @@ const Header = ({
                             </a>
                         </div>
                         <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[12.84px] leading-[18.55px]">
-                            <nav className="flex gap-8 ">
+                            <nav className="flex gap-5 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
                                 <a href="/about">Nosotrxs</a>
