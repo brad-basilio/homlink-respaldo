@@ -50,7 +50,7 @@ const About = ({ about, showSlogan = true, posts, indicators }) => {
                 <FeaturesSection />
                 {/* Certificaciones Section */}
                 <div className="flex lg:h-full lg:items-center flex-col lg:flex-row w-full md:max-w-2xl lg:gap-16 px-[5%] lg:max-w-6xl 2xl:max-w-[84rem] lg:px-0 mx-auto py-12 2xl:py-16">
-                    <p className="font-poppins lg:w-6/12 md:text-[22.63px]  lg:text-[18.45px] 2xl:text-[26.45px] xl:leading-[30px] text-justify font-light">
+                    <p className="font-poppins lg:w-6/12 md:text-[22.63px]  lg:text-[18.45px] 2xl:text-[24.45px] xl:leading-[32px] tracking-wider text-justify font-light">
                         weFem se enorgullece de contar con los más altos
                         estándares de calidad y seguridad en la fabricación de
                         todos nuestros productos menstruales. Poseemos el
