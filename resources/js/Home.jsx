@@ -50,9 +50,9 @@ const Home = ({
                 backgroundSrc="/assets/img/backgrounds/home.mp4"
                 backgroundHeight="h-[85vh] 2xl:h-[90vh]"
             >
-                <div className="absolute inset-0 flex items-center justify-center text-center">
+                <div className="absolute inset-0 flex items-center justify-center text-center pt-28">
                     <div className="text-white p-6">
-                        <h1 className="text-[30.66px] pt-8 leading-[100%] tracking-[1%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[78.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
+                        <h1 className="text-[30.66px]  leading-[100%] tracking-[1%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[78.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
                             ¡Tener sexo con
                             <br /> tu disco es posible!
                         </h1>
