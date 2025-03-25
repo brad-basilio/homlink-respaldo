@@ -506,7 +506,7 @@ const Result1Quiz = ({}) => {
                     </p>
                     <div className="space-x-4 w-full flex justify-center mt-6">
                         <a
-                            href="/product/wepack"
+                            href="/product/wedisk"
                             className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[377.32px] h-[90.25px] lg:w-[300px] 2xl:w-[393px] lg:h-[86px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Comprar ahora!
@@ -557,7 +557,7 @@ const Result2Quiz = ({}) => {
                     </p>
                     <div className="space-x-4 w-full flex justify-center mt-6">
                         <a
-                            href="/product/wedisk"
+                            href="/product/wepack"
                             className="inline-flex items-center justify-center bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold  px-6 rounded-[20px] text-[20.94px] tracking-[0.01em] transition-colors w-[377.32px] h-[90.25px] lg:w-[300px] 2xl:w-[393px] lg:h-[86px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                         >
                             ¡Comprar ahora!
