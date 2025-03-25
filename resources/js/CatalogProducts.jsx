@@ -34,7 +34,7 @@ const CatalogProducts = ({
                 showSlogan={showSlogan}
                 backgroundType="video"
                 backgroundSrc="/assets/img/backgrounds/store.mp4"
-                backgroundHeight="h-[50vh] 2xl:h-[40vh]"
+                backgroundHeight="h-[45vh] 2xl:h-[35vh]"
                 backgroundPosition="object-center"
             >
                 <div className="absolute inset-0 flex items-end justify-center text-center">
