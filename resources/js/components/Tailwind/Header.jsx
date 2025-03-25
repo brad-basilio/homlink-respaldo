@@ -188,8 +188,8 @@ const Header = ({
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[13.84px] leading-[18.55px]">
-                            <nav className="flex gap-5 ">
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[14.54px] leading-[18.55px]">
+                            <nav className="flex gap-6 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
                                 <a href="/about">Nosotrxs</a>
@@ -199,15 +199,15 @@ const Header = ({
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="Wefem"
-                                    className="h-[40px] w-[240.55px] object-cover object-top"
+                                    className="h-[38px] w-[230.55px] object-cover object-top"
                                     style={{
                                         textShadow:
                                             "0px 4px 7.5px 0px #00000040",
                                     }}
                                 />
                             </a>
-                            <div className="flex space-x-4 text-[20.93px] items-center">
-                                <span className="text-[12.84px]">
+                            <div className="flex space-x-4 text-[21.93px] items-center">
+                                <span className="text-[14.54px]">
                                     Escríbenos
                                 </span>
                                 {WhatsApp && (
