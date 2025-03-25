@@ -161,7 +161,7 @@ const Header = ({
                             ? "bg-[#5339B1]"
                             : isScrolled
                             ? "bg-[#5339B1] pt-0 "
-                            : "bg-transparent top-4 pt-14 lg:pt-10"
+                            : "bg-transparent top-6 pt-14 lg:pt-10"
                     }`}
                 >
                     <div
@@ -188,7 +188,7 @@ const Header = ({
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[12.84px] leading-[18.55px]">
+                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-medium text-[13.84px] leading-[18.55px]">
                             <nav className="flex gap-5 ">
                                 <a href="/catalog">Tienda</a>
                                 <a href="/instructions">¿Cómo usar?</a>
@@ -199,7 +199,7 @@ const Header = ({
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="Wefem"
-                                    className="h-[30.8px] w-[180.55px] object-cover object-top"
+                                    className="h-[35px] w-[190.55px] object-cover object-top"
                                     style={{
                                         textShadow:
                                             "0px 4px 7.5px 0px #00000040",
