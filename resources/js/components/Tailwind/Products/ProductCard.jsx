@@ -55,7 +55,7 @@ const ProductCard = ({ product, visible = true }) => {
 
                         {/* Información del producto */}
                         <div
-                            className={`px-4 pb-4 pt-6 block  lg:block ${
+                            className={`px-4 pb-4 pt-8 block  lg:block ${
                                 visible ? "block" : "hidden"
                             }`}
                         >
