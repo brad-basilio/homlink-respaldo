@@ -304,7 +304,7 @@ const Detail = ({ item }) => {
                         >
                             ×
                         </button>
-                        <div className="bg-white rounded-[30.58px]   2xl:rounded-[48.58px] md:w-[459px] md:h-[450.40px] 2xl:w-[819px] 2xl:h-[805.40px] flex flex-col items-center justify-center ">
+                        <div className="bg-white rounded-[30.58px]  p-4 2xl:rounded-[48.58px] md:w-[459px] md:h-[450.40px] 2xl:w-[819px] 2xl:h-[805.40px] flex flex-col items-center justify-center ">
                             <div className="mx-auto font-bold flex items-center justify-center bg-[#FF9900] text-white md:text-[17px] 2xl:text-[35.85px] 2xl:leading-[53.78px] md:h-[40.26px] md:w-[342.05px] 2xl:h-[59.26px] 2xl:w-[442.05px] rounded-full">
                                 Solo por 00 : 10 : 58
                             </div>
