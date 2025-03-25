@@ -76,6 +76,10 @@ const InstagramSection = ({ posts }) => {
                             >
                                 <img
                                     src={`/api/instagram_post/media/${post.image}`}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                     alt={post.name}
                                     className="w-full h-full object-cover"
                                 />
