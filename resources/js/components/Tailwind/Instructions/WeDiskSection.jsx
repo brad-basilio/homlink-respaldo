@@ -48,7 +48,7 @@ const sizes = [
         igual: "4",
     },
     {
-        size: "A",
+        size: "B",
         height: "7.6",
         width: "6.5",
         capacidad: "50",
