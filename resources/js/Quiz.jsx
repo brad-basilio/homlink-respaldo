@@ -38,50 +38,48 @@ const Quiz = ({ showSlogan = true }) => {
 
     return (
         <>
-            <Header showSlogan={showSlogan} backgroundHeight="h-0" />
-            <div className="relative z-10">
-                {currentStep === 1 && (
-                    <InitQuiz setCurrentStep={setCurrentStep} />
-                )}
-                {currentStep === 2 && (
-                    <FirstQuiz
-                        setCurrentStep={setCurrentStep}
-                        handleAnswer={handleAnswer}
-                    />
-                )}
-                {currentStep === 3 && (
-                    <SecondQuiz
-                        setCurrentStep={setCurrentStep}
-                        handleAnswer={handleAnswer}
-                    />
-                )}
-                {currentStep === 4 && (
-                    <ThreeQuiz
-                        setCurrentStep={setCurrentStep}
-                        handleAnswer={handleAnswer}
-                    />
-                )}
-                {currentStep === 5 && (
-                    <FourQuiz
-                        setCurrentStep={setCurrentStep}
-                        handleResult={handleResult}
-                    />
-                )}
-                {currentStep === 6 && (
-                    <Result1Quiz setCurrentStep={setCurrentStep} />
-                )}
-                {currentStep === 7 && (
-                    <Result2Quiz setCurrentStep={setCurrentStep} />
-                )}
-                {/* Agrega los demás pasos siguiendo el mismo patrón */}
-            </div>
+            <Header showSlogan={showSlogan} />
+
+            {currentStep === 1 && <InitQuiz setCurrentStep={setCurrentStep} />}
+            {currentStep === 2 && (
+                <FirstQuiz
+                    setCurrentStep={setCurrentStep}
+                    handleAnswer={handleAnswer}
+                />
+            )}
+            {currentStep === 3 && (
+                <SecondQuiz
+                    setCurrentStep={setCurrentStep}
+                    handleAnswer={handleAnswer}
+                />
+            )}
+            {currentStep === 4 && (
+                <ThreeQuiz
+                    setCurrentStep={setCurrentStep}
+                    handleAnswer={handleAnswer}
+                />
+            )}
+            {currentStep === 5 && (
+                <FourQuiz
+                    setCurrentStep={setCurrentStep}
+                    handleResult={handleResult}
+                />
+            )}
+            {currentStep === 6 && (
+                <Result1Quiz setCurrentStep={setCurrentStep} />
+            )}
+            {currentStep === 7 && (
+                <Result2Quiz setCurrentStep={setCurrentStep} />
+            )}
+            {/* Agrega los demás pasos siguiendo el mismo patrón */}
+
             <Footer />
         </>
     );
 };
 
 // Componente
-const InitQuiz = ({ setCurrentStep }) => {
+const InitQuiz = ({ setCurrentStep, showSlogan = true }) => {
     return (
         <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
@@ -340,7 +338,7 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
                     </div>
                     <div className="flex flex-row justify-between mt-6 mx-auto max-w-xl w-full">
                         <button
-                            onClick={() => setCurrentStep(4)}
+                            onClick={() => setCurrentStep(3)}
                             className="hover:opacity-90 font-semibold flex items-center gap-2 text-[#5F48B7] text-base lg:text-[18.13px]  2xl:text-[23.13px] leading-[34.69px] tracking-[0.01em]"
                         >
                             <span className="rotate-180">
@@ -393,12 +391,13 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
 };
 const FourQuiz = ({ setCurrentStep, handleResult }) => {
     const [saving, setSaving] = useState(false);
+    const [error, setError] = useState(false);
     const emailRef = useRef(null);
     const onEmailSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
         if (!emailRef.current.value) {
-            alert("Por favor ingresa un correo electrónico válido.");
+            setError(true);
             setSaving(false);
             return;
         }
@@ -410,12 +409,12 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
 
         if (!result) return;
 
-        Swal.fire({
+        /* Swal.fire({
             title: "¡Éxito!",
             text: `Pronto de enviaremos un email de ${Global.APP_NAME}.`,
             icon: "success",
             confirmButtonText: "Ok",
-        });
+        });*/
 
         emailRef.current.value = null;
         handleResult();
@@ -448,6 +447,12 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
                                 className="bg-white w-full md:w-9/12 2xl:w-10/12 hover:bg-gray-100 text-[#FF9900] font-semibold  px-6 rounded-[20px] text-lg transition-colors border-2 border-[#FF9900] focus:ring-0 h-[80px] 2xl:h-[94px]  focus:outline-none text-[20.94px] placeholder:text-[20.94px] placeholder:text-[#FF9900] placeholder:text-center"
                             ></input>
                         </div>
+                        {error && (
+                            <p className="text-red-500 text-sm pt-4">
+                                Ingresa tu email, para enviarte mas información
+                                ...
+                            </p>
+                        )}
                         <p className="mb-8 text-[15.78px] lg:text-[14px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
                             Dejándonos tu e-mail aceptas recibir novedades y
                             promociones de wefem

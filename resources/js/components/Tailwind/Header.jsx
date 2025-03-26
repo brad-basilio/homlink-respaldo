@@ -13,7 +13,7 @@ const Header = ({
     menuGradientEnd,
     backgroundType = "none",
     backgroundSrc = "",
-    backgroundHeight = "h-screen",
+    backgroundHeight = "h-full",
     backgroundPosition = "object-top",
     children,
 }) => {
@@ -116,13 +116,18 @@ const Header = ({
     return (
         <>
             {showSlogan && (
-                <div className="text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[13.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins">
-                    <span className="text-[#DDEC4C] font-semibold ">
+                <div
+                    className={`text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[13.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full  ${
+                        backgroundType === "none" && "mb-[78px] "
+                    }`}
+                >
+                    <span className="text-[#DDEC4C] font-semibold">
                         ¡ENVÍO GRATIS
                     </span>{" "}
                     A TODO LIMA METROPOLITANA!
                 </div>
             )}
+
             <div
                 className={`w-full max-w-full relative ${backgroundHeight} overflow-clip `}
             >
@@ -158,10 +163,13 @@ const Header = ({
                 <header
                     className={`font-poppins fixed top-0 w-full max-w-full overflow-hidden z-40 transition-colors duration-300 ${
                         backgroundType === "none"
-                            ? "bg-[#5339B1]"
+                            ? "bg-[#5339B1] mt-12 "
                             : isScrolled
-                            ? "bg-[#5339B1] pt-0 "
+                            ? "bg-[#5339B1]  pt-0 !mt-0 "
                             : "bg-transparent top-4 pt-14 lg:pt-10"
+                    } ${
+                        isScrolled &&
+                        "bg-[#5339B1]  pt-0 !mt-0 transition-all duration-150 "
                     }`}
                 >
                     <div

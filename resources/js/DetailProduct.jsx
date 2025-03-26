@@ -76,7 +76,7 @@ const DetailProduct = ({
     console.log(item);
     return (
         <>
-            <Header showSlogan={showSlogan} backgroundHeight="h-0"></Header>
+            <Header showSlogan={showSlogan}></Header>
             <div className="relative z-10">
                 <Detail item={item} />
                 {item.category.slug === "copas-menstruales" && <WeCupSection />}

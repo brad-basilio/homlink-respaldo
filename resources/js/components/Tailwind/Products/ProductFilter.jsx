@@ -27,6 +27,8 @@ const ProductFilter = ({ products, categories }) => {
             return 0;
         });
     const [openMenu, setOpenMenu] = useState(false);
+
+    console.log(filteredProducts);
     return (
         <div className="px-[5%] mx-auto py-8">
             <div className="flex flex-col md:flex-row w-full lg:justify-end md:justify-between">
@@ -124,19 +126,33 @@ const ProductFilter = ({ products, categories }) => {
                 <div className="w-full grid grid-cols-3 gap-4 gap-y-8">
                     {filteredProducts && filteredProducts.length > 0 ? (
                         filteredProducts.map((product, index) => (
-                            <div
+                            <a
+                                href={`/product/${product.slug}`}
                                 key={index}
-                                className="rounded-lg w-full group cursor-pointer"
+                                className="rounded-lg w-full group cursor-pointer group"
                             >
                                 <img
                                     src={`/api/items/media/${product.image}`}
                                     alt={product.name}
-                                    className="bg-[#FAFAFA] w-full h-auto object-cover mb-4 group-hover:bg-[#FDBB2E] transition-colors duration-300"
+                                    className={`${
+                                        product.images &&
+                                        product.images.length > 0 &&
+                                        "group-hover:hidden"
+                                    } bg-[#FAFAFA] w-full h-auto object-cover mb-4 group-hover:bg-[#FDBB2E] transition-colors duration-300 `}
                                 />
+                                {product.images &&
+                                    product.images.length > 0 && (
+                                        <img
+                                            src={`/api/items/media/${product.images[0].url}`}
+                                            alt={product.name}
+                                            className="hidden group-hover:block  bg-[#FAFAFA] w-full h-auto object-cover mb-4 group-hover:bg-[#FDBB2E] transition-colors duration-1000 "
+                                        />
+                                    )}
+
                                 <div className="px-6 text-[#212529]">
                                     <div className="flex justify-between">
                                         <h3 className="text-[25.44px] 2xl:text-[29.44px] leading-[41.64px] font-semibold line-clamp-2">
-                                            {product.name}
+                                            {product.name.split(" ")[0]}
                                         </h3>
                                         <span className="md:text-[25.56px] xl:leading-[39.79px] 2xl:text-[32.56px] tracking-[-0.01em] font-bold text-[#FC58BE]">
                                             S/
@@ -147,9 +163,16 @@ const ProductFilter = ({ products, categories }) => {
                                     </div>
                                     {/* Precio */}
                                     <div className="flex justify-between items-baseline gap-2">
-                                        {product.summary && (
+                                        {product.summary ? (
                                             <h4 className="text-[14.28px] 2xl:text-[16.28px] leading-[29.18px] font-normal mb-2 line-clamp-2">
                                                 ({product.summary})
+                                            </h4>
+                                        ) : (
+                                            <h4 className="text-[14.28px] 2xl:text-[16.28px] leading-[29.18px] font-normal mb-2 line-clamp-2">
+                                                {product.name
+                                                    .split(" ")
+                                                    .slice(1)
+                                                    .join(" ")}
                                             </h4>
                                         )}
                                         <span className="text-[16.8px] text-[#9F9F9F] font-semibold1 line-through leading-[21.84px]">
@@ -159,7 +182,7 @@ const ProductFilter = ({ products, categories }) => {
                                     </div>
                                     <a
                                         href={`/product/${product.slug}`}
-                                        className=" w-full flex gap-2 items-center justify-center fill-[#FF9900] border-2 border-[#FF9900] text-[#FF9900] font-medium py-4 px-4 rounded-xl group-hover:bg-[#FF9900] group-hover:fill-[#FFFFFF] group-hover:text-white transition-colors duration-300"
+                                        className=" w-full flex gap-2 items-center justify-center fill-[#FF9900] border-2 border-[#FF9900] text-[#FF9900] font-medium py-4 px-4 rounded-xl group-hover:bg-[#FF9900] group-hover:fill-[#FFFFFF] group-hover:text-white transition-colors duration-1000"
                                     >
                                         ¡Lo quiero!
                                         <svg
@@ -176,7 +199,7 @@ const ProductFilter = ({ products, categories }) => {
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </a>
                         ))
                     ) : (
                         <div className="col-span-3 flex flex-col items-center justify-center h-full w-full p-4 space-y-4">

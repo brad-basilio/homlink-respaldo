@@ -25,7 +25,7 @@ class CatalogController extends BasicController
 
         $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
         $popups = Ad::today();
-        $items = Item::where('status', true)->where('visible', true)->with('category')->get();
+        $items = Item::where('status', true)->where('visible', true)->with(['category', 'images'])->get();
         $categories = Category::all();
         return [
             'sliders' => $sliders,
