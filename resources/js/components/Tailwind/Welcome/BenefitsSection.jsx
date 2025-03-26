@@ -19,7 +19,7 @@ const Counter = ({ target }) => {
                             Math.floor(2000 / numericTarget)
                         ); // Evitar valores negativos o muy rápidos
                         const timer = setInterval(() => {
-                            start += 1;
+                            start += 11;
                             setCount(start);
                             if (start >= numericTarget) {
                                 clearInterval(timer);
