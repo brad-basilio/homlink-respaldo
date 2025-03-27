@@ -27,7 +27,7 @@ import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 import ItemsRest from "./actions/ItemRest";
 
 const Home = ({
-    sliders,
+    slider,
     items,
     supplies,
     testimonies,
@@ -47,7 +47,11 @@ const Home = ({
             <Header
                 showSlogan={showSlogan}
                 backgroundType="video"
-                backgroundSrc="/assets/img/backgrounds/home.mp4"
+                backgroundSrc={
+                    slider
+                        ? `/api/sliders/media/${slider?.image}`
+                        : "/assets/img/backgrounds/home.mp4"
+                }
                 backgroundHeight="h-[85vh] 2xl:h-[90vh]"
             >
                 <div className="absolute inset-0 flex items-center justify-center text-center pt-24">
