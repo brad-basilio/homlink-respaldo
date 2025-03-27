@@ -121,12 +121,12 @@ const FirstQuiz = ({ setCurrentStep, handleAnswer }) => {
     return (
         <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none  flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
-                <div className="px-[5%] max-w-[44rem] lg:px-0 lg:max-w-lg 2xl:max-w-2xl text-center flex flex-col gap-5 2xl:gap-10">
+                <div className="px-[5%] max-w-[44rem] lg:px-0 lg:max-w-lg 2xl:max-w-[44rem] text-center flex flex-col gap-5 2xl:gap-10">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px]  font-bold  text-[#212529] tracking-[0.01em]">
                         weFem Quiz!
                     </h1>
-                    <p className="text-base lg:text-lg  2xl:text-xl tracking-[1%]">
-                        ¿Esta es la primera vez que utilizarías un método
+                    <p className="text-xl lg:text-2xl 2xl:text-3xl font-semibold gap-2">
+                        ¿Esta es la primera vez que utilizarías un <br /> método
                         alternativo a toallas y tampones?
                         <img
                             src="/assets/img/emojis/thinking-face.png"
@@ -137,7 +137,7 @@ const FirstQuiz = ({ setCurrentStep, handleAnswer }) => {
                     <div className="gap-4 w-full flex flex-col lg:flex-row items-center justify-center mt-3">
                         <button
                             onClick={() => handleAnswer(1, 1)}
-                            className="w-full lg:w-1/2 text-base xl:text-lg 2xl:text-2xl bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-3 2xl:py-4 px-6 rounded-[20px]  transition-colors  border-2 border-[#FF9900] duration-300"
+                            className="w-full lg:w-1/2 text-base font-semibold xl:text-lg 2xl:text-2xl bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white py-3 2xl:py-4 px-6 rounded-[20px]  transition-colors  border-2 border-[#FF9900] duration-300"
                         >
                             ¡Sí! Quiero probar <br /> algo nuevo
                         </button>
@@ -302,7 +302,7 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
                     </div>
                     <div className="flex flex-row justify-between mt-6 mx-auto max-w-xl w-full">
                         <button
-                            onClick={() => setCurrentStep(4)}
+                            onClick={() => setCurrentStep(3)}
                             className="hover:opacity-90 font-semibold flex items-center gap-2 text-[#5F48B7] text-base lg:text-[18.13px]  2xl:text-[23.13px] leading-[34.69px] tracking-[0.01em]"
                         >
                             <span className="rotate-180">
