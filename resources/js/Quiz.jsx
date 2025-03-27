@@ -97,7 +97,7 @@ const Quiz = ({ showSlogan = true }) => {
 // Componente inicial
 const InitQuiz = ({ setCurrentStep }) => {
     return (
-        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[75vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
                 <div className="px-[5%] max-w-[44rem] lg:px-0 lg:max-w-lg 2xl:max-w-2xl text-center flex flex-col gap-5 2xl:gap-10">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px] font-bold text-[#212529] tracking-[0.01em]">
@@ -126,7 +126,7 @@ const InitQuiz = ({ setCurrentStep }) => {
                 <img
                     src="assets/img/quizz/quiz_1.png"
                     alt="weFem productos"
-                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[75vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
@@ -141,7 +141,7 @@ const FirstQuiz = ({
     selectedAnswer,
 }) => {
     return (
-        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[75vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
                 <div className="px-[5%] max-w-[44rem] lg:px-0 lg:max-w-lg 2xl:max-w-2xl text-center flex flex-col gap-5 2xl:gap-10">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px] font-bold text-[#212529] tracking-[0.01em]">
@@ -245,7 +245,7 @@ const FirstQuiz = ({
                 <img
                     src="assets/img/quizz/quiz_2.png"
                     alt="weFem productos"
-                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[75vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
@@ -260,7 +260,7 @@ const SecondQuiz = ({
     selectedAnswer,
 }) => {
     return (
-        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[75vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
                 <div className="px-[5%] w-full lg:px-0 lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-5 2xl:gap-10">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px] font-bold text-[#212529] tracking-[0.01em]">
@@ -353,7 +353,7 @@ const SecondQuiz = ({
                 <img
                     src="assets/img/quizz/quiz_3.png"
                     alt="weFem productos"
-                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[75vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
@@ -368,7 +368,7 @@ const ThreeQuiz = ({
     selectedAnswer,
 }) => {
     return (
-        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[75vh]">
             <div className="flex py-10 lg:py-0 order-1 md:order-none flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
                 <div className="px-[5%] w-full lg:px-0 lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-5 2xl:gap-10">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px] font-bold text-[#212529] tracking-[0.01em]">
@@ -482,7 +482,7 @@ const ThreeQuiz = ({
                 <img
                     src="assets/img/quizz/quiz_4.png"
                     alt="weFem productos"
-                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[75vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
