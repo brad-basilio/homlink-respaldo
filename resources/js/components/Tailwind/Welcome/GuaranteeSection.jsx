@@ -1,12 +1,28 @@
 import React from "react";
+import GeneralRest from "../../../actions/GeneralRest";
 
 const GuaranteeSection = () => {
-    {
-        /* data-aos="fade-right"
-                data-aos-duration="1000"
-                data-aos-easing="ease-in-out-quart" */
-    }
+    const generalRest = new GeneralRest();
     const message = "Hola! Estoy interesada en la garantía weFem. ☺️";
+    const [socials, setSocials] = useState([]);
+
+    useEffect(() => {
+        const fetchSocials = async () => {
+            try {
+                const data = await generalRest.getSocials();
+                setSocials(data);
+            } catch (error) {
+                console.error("Error fetching socials:", error);
+            }
+        };
+
+        fetchSocials();
+    }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
+
+    const WhatsApp = socials.find(
+        (social) => social.description === "WhatsApp Garantía"
+    );
+
     return (
         <section className="bg-[#FF9900] text-white h-[308px] md:h-[308px] lg:h-[110.178px] 2xl:h-[164.178px] flex items-center">
             <div className="px-[5%] w-full xl:max-w-[66rem] 2xl:max-w-7xl xl:px-0 mx-auto flex flex-col lg:flex-row justify-between items-center gap-6 xl:gap-6">
@@ -31,15 +47,16 @@ const GuaranteeSection = () => {
                     precio,
                     <strong> nosotros te mejoramos la oferta.</strong>
                 </p>
-
-                <a
-                    className="w-[311.94px] text-[20.77px] h-[55.11px] xl:w-[268.06px] bg-transparent text-white font-semibold  border border-white rounded-xl shadow xl:h-[47.36px] flex items-center justify-center"
-                    target="_blank"
-                    id="whatsapp-toggle"
-                    href={`https://api.whatsapp.com/send?phone=+5113458695&text=${message}`}
-                >
-                    ¡Escríbenos aquí!
-                </a>
+                {WhatsApp && (
+                    <a
+                        className="w-[311.94px] text-[20.77px] h-[55.11px] xl:w-[268.06px] bg-transparent text-white font-semibold  border border-white rounded-xl shadow xl:h-[47.36px] flex items-center justify-center"
+                        target="_blank"
+                        id="whatsapp-toggle"
+                        href={WhatsApp.link}
+                    >
+                        ¡Escríbenos aquí!
+                    </a>
+                )}
             </div>
         </section>
     );
