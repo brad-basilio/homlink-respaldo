@@ -1,5 +1,67 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CarritoContext } from "../../../context/CarritoContext";
+const CountdownTimer = ({ startDate, endDate }) => {
+    const [timeLeft, setTimeLeft] = useState({
+        hours: "00",
+        minutes: "00",
+        seconds: "00",
+    });
+
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+
+            // Si la promoción aún no inicia
+            if (now < start) {
+                return {
+                    hours: "00",
+                    minutes: "00",
+                    seconds: "00",
+                };
+            }
+
+            // Si la promoción ya terminó
+            if (now > end) {
+                return {
+                    hours: "00",
+                    minutes: "00",
+                    seconds: "00",
+                };
+            }
+
+            // Calcular diferencia
+            const difference = end - now;
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((difference / 1000 / 60) % 60);
+            const seconds = Math.floor((difference / 1000) % 60);
+
+            return {
+                hours: hours.toString().padStart(2, "0"),
+                minutes: minutes.toString().padStart(2, "0"),
+                seconds: seconds.toString().padStart(2, "0"),
+            };
+        };
+
+        // Actualizar inmediatamente
+        setTimeLeft(calculateTimeLeft());
+
+        // Configurar intervalo para actualizar cada segundo
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        // Limpiar intervalo al desmontar
+        return () => clearInterval(timer);
+    }, [startDate, endDate]);
+
+    return (
+        <div className="absolute top-8 mx-auto font-bold flex items-center justify-center bg-[#FF9900] text-white md:text-[17px] 2xl:text-[35.85px] px-10 py-1 w-max rounded-full">
+            Solo por {timeLeft.hours} : {timeLeft.minutes} : {timeLeft.seconds}
+        </div>
+    );
+};
 
 const Detail = ({ item }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -289,35 +351,38 @@ const Detail = ({ item }) => {
             </div>
             {/* Modal */}
 
-            {item.ad && item.ad.image && isModalOpen && (
-                <div
-                    className="fixed inset-0 flex items-center justify-center z-50 bg-[#00000080]"
-                    style={{ backdropFilter: "blur(10px)" }}
-                >
-                    <div className="relative flex items-center justify-center">
-                        <button
-                            className="absolute top-4 right-4 text-3xl text-[#9577B9]"
-                            onClick={() => setIsModalOpen(false)}
-                        >
-                            ×
-                        </button>
-                        <div className="bg-white rounded-[30.58px]  2xl:rounded-[48.58px] md:w-[459px] md:h-[450.40px] 2xl:w-[819px] 2xl:h-[805.40px] flex flex-col items-center justify-center ">
-                            <div className="mx-auto font-bold flex items-center justify-center bg-[#FF9900] text-white md:text-[17px] 2xl:text-[35.85px] 2xl:leading-[53.78px] md:h-[40.26px] md:w-[342.05px] 2xl:h-[59.26px] 2xl:w-[442.05px] rounded-full">
-                                Solo por 00 : 10 : 58
-                            </div>
-                            <div>
-                                <a href={item.ad.link}>
-                                    <img
-                                        src={`/api/ads/media/${item.ad.image}`}
-                                        alt="Ad"
-                                        className="w-full h-full object-cover rounded-[30.58px] 2xl:rounded-[48.58px]"
-                                    />
-                                </a>
+            {item?.ad?.image &&
+                isModalOpen &&
+                new Date(item.ad.date_end) >= new Date() && (
+                    <div
+                        className="fixed inset-0 flex items-center justify-center z-50 bg-[#00000080]"
+                        style={{ backdropFilter: "blur(10px)" }}
+                    >
+                        <div className="relative flex items-center justify-center">
+                            <button
+                                className="absolute top-4 right-4 text-3xl text-[#9577B9]"
+                                onClick={() => setIsModalOpen(false)}
+                            >
+                                ×
+                            </button>
+                            <div className="bg-white rounded-[30.58px]  2xl:rounded-[48.58px] md:w-[459px] md:h-[450.40px] 2xl:w-[819px] 2xl:h-[805.40px] flex flex-col items-center justify-center ">
+                                <CountdownTimer
+                                    startDate={item.ad.dete_begin}
+                                    endDate={item.ad.date_end}
+                                />
+                                <div>
+                                    <a href={item.ad.link}>
+                                        <img
+                                            src={`/api/ads/media/${item.ad.image}`}
+                                            alt="Ad"
+                                            className="w-full h-full object-cover rounded-[30.58px] 2xl:rounded-[48.58px]"
+                                        />
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
             {isModalTalla && (
                 <div
                     className="fixed inset-0 min-h-screen flex items-center justify-center z-50 bg-[#00000080] transition-all duration-1000"
