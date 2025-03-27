@@ -83,7 +83,7 @@ const WeDiskSection = () => {
                             {features.map((item, index) => (
                                 <li
                                     key={index}
-                                    className="flex items-center gap-3 text-base 2xl:text-xl leading-[20px] md:leading-snug"
+                                    className="flex items-center gap-3 text-base 2xl:text-2xl leading-[20px] md:leading-snug"
                                 >
                                     <img
                                         src={item.icon}
