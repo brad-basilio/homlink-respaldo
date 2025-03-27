@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
+use App\Models\General;
 use App\Models\Indicator;
 use App\Models\Slider;
 use App\Models\Social;
@@ -58,6 +59,29 @@ class GeneralController extends BasicController
             $data = Indicator::all();
 
             $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
+    }
+
+
+    public function getAboutuses(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+            $data = Aboutus::all();
+            $data2 = General::all();
+            // dump($data);
+            $response->data = ['aboutus' => $data, 'generals' => $data2];
             $response->status = 200;
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {

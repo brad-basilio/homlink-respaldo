@@ -41,6 +41,45 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const Facebook = socials.find(
         (social) => social.description === "Facebook"
     );
+
+    const [aboutuses, setAboutuses] = useState(null); // o useState({});
+
+    useEffect(() => {
+        const fetchAboutuses = async () => {
+            try {
+                const data = await generalRest.getAboutuses();
+                setAboutuses(data);
+            } catch (error) {
+                console.error("Error fetching about:", error);
+            }
+        };
+
+        fetchAboutuses();
+    }, []);
+    console.log(aboutuses);
+    // Extrae los datos necesarios
+    const aboutusData = aboutuses?.aboutus || [];
+    const generalsData = aboutuses?.generals || [];
+
+    // 1. Libro de reclamaciones (de aboutus)
+    const libroReclamaciones = aboutusData.find(
+        (item) => item.correlative === "customer-complaints"
+    )?.description;
+    const telefono = aboutusData.find(
+        (item) => item.correlative === "phone"
+    )?.description;
+    const mail = aboutusData.find(
+        (item) => item.correlative === "email"
+    )?.description;
+    const f_whatsapp = aboutusData.find(
+        (item) => item.correlative === "whatsapp"
+    )?.description;
+
+    // 2. Términos y condiciones (de generals)
+    const termsConditions = generalsData.find(
+        (item) => item.correlative === "terms_conditions"
+    )?.description;
+
     return (
         <>
             <footer className="bg-[#5F48B7] text-white">
@@ -74,40 +113,51 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     Preguntas frecuentes
                                 </a>
                                 <a
-                                    href="#"
-                                    className="block hover:opacity-80 transition-opacity "
+                                    onClick={openModal}
+                                    className="cursor-pointer block hover:opacity-80 transition-opacity "
                                 >
                                     Términos y condiciones
                                 </a>
-                                <a
-                                    href="#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Libro de Reclamaciones
-                                </a>
+                                {libroReclamaciones && (
+                                    <a
+                                        href={libroReclamaciones}
+                                        target="_blank"
+                                        className=" cursor-pointer block hover:opacity-80 transition-opacity "
+                                    >
+                                        Libro de Reclamaciones
+                                    </a>
+                                )}
                             </nav>
                         </div>
 
                         <div className="md:w-[35%] text-[15.77px] lg:w-2/12 lg:border-r-[#FFFFFF]  lg:border-r-2  md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-normal">
                             <nav className="space-y-4">
-                                <a
-                                    href="tel:#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Teléfono
-                                </a>
-                                <a
-                                    href="mailto:#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Mail
-                                </a>
-                                <a
-                                    href="#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Whatsapp
-                                </a>
+                                {telefono && (
+                                    <a
+                                        href={`tel:${telefono}`}
+                                        className="block hover:opacity-80 transition-opacity "
+                                    >
+                                        Teléfono
+                                    </a>
+                                )}
+                                {mail && (
+                                    <a
+                                        href={`mailto:${mail}`}
+                                        className="block hover:opacity-80 transition-opacity "
+                                    >
+                                        Mail
+                                    </a>
+                                )}
+                                {f_whatsapp && (
+                                    <a
+                                        href={`//wa.me/${f_whatsapp}`}
+                                        aria-label="WhatsApp"
+                                        target="_blank"
+                                        className="block hover:opacity-80 transition-opacity "
+                                    >
+                                        Whatsapp
+                                    </a>
+                                )}
                             </nav>
                         </div>
                         <div className=" w-7/12  lg:hidden  flex items-center justify-center md:block">
@@ -179,6 +229,28 @@ const Footer = ({ terms, footerLinks = [] }) => {
                     </div>
                 </div>
             </footer>
+            {/* Modal para Términos y Condiciones */}
+            <ReactModal
+                isOpen={modalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Términos y condiciones"
+                className="absolute left-1/2 -translate-x-1/2 bg-white p-6 rounded shadow-lg w-[95%] max-w-2xl my-8 outline-none h-[90vh]"
+                overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50"
+            >
+                <button
+                    onClick={closeModal}
+                    className="float-right text-gray-500 hover:text-gray-900"
+                >
+                    Cerrar
+                </button>
+                <h2 className="text-xl font-bold mb-4">
+                    Terminos y Condiciones
+                </h2>
+                <HtmlContent
+                    className="prose h-[calc(90vh-120px)] lg:h-[calc(90vh-90px)] overflow-auto"
+                    html={termsConditions}
+                />
+            </ReactModal>
         </>
     );
 };
