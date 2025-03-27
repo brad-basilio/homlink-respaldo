@@ -61,7 +61,7 @@ const WeDiskSection = () => {
 
     return (
         <>
-            <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto py-8  md:mt-20">
+            <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-[75rem] md:px-0 mx-auto py-8  md:mt-20">
                 <div className="flex justify-center items-center gap-8 flex-col  lg:flex-row">
                     <div className="w-full lg:w-1/2 relative flex items-center justify-center  h-[350px] sm:h-[450px]  md:h-[450px]  2xl:h-[520px]  overflow-hidden">
                         {/* <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[100.92px] 2xl:text-[150.92px] md:leading-[100.24px] 2xl:leading-[122.24px] font-bold space-y-1">
@@ -70,16 +70,16 @@ const WeDiskSection = () => {
                             <p>weDisk</p>
                         </div> */}
                         <img
-                            className="absolute object-contain inset-0 top-1/2 -translate-y-1/2 aspect-square h-full sm:h-[480.57px] lg:h-[560.57px] xl:h-[560.57px] 2xl:h-[660.57px] w-auto"
+                            className=" absolute object-contain inset-0 top-1/2 -translate-y-1/2 aspect-square h-full sm:h-[480.57px] lg:h-[470.57px] 2xl:h-[560.57px] w-auto"
                             src="/assets/img/instructions/copa2.png"
                             alt="weDisk"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[470px] 2xl:w-[545px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:p-10">
-                        <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl 2xl:text-6xl 2xl:mb-6 text-center">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[400px] 2xl:w-[500px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:p-10">
+                        <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl xl:text-6xl  2xl:text-7xl text-center">
                             weDisk
                         </h2>
-                        <ul className="space-y-2 md:space-y-3 xl:space-y-4 mt-4">
+                        <ul className="space-y-2 md:space-y-3 xl:space-y-4">
                             {features.map((item, index) => (
                                 <li
                                     key={index}
