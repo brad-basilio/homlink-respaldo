@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SelectForm from "./Components/SelectForm";
 
-const ProductFilter = ({ products, categories }) => {
+const ProductFilter = ({ products, categories, anuncio }) => {
     const [selectedOption, setSelectedOption] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("");
 
@@ -35,6 +35,7 @@ const ProductFilter = ({ products, categories }) => {
     const [openMenu, setOpenMenu] = useState(false);
 
     console.log(filteredProducts);
+    console.log(anuncio);
     return (
         <div className="px-[5%] mx-auto py-8">
             <div className="flex flex-col md:flex-row w-full lg:justify-end md:justify-between">
@@ -119,13 +120,18 @@ const ProductFilter = ({ products, categories }) => {
                         </ul>
                     </nav>
                     {/* Banner promocional */}
-                    <div className="text-white w-full">
-                        <img
-                            src="https://i.ibb.co/d48x03pk/image.png"
-                            className="w-full h-[300px] xl:h-[320px] 2xl:h-[370px] object-cover"
-                            alt="Promoción"
-                        />
-                    </div>
+                    {anuncio && (
+                        <div className="text-white w-full">
+                            <img
+                                src={`/api/ads/media/${anuncio.image}`}
+                                className="w-full h-[300px] xl:h-[320px] 2xl:h-[370px] object-cover"
+                                alt={anuncio?.name}
+                                onError={(e) =>
+                                    (e.target.src = "/api/cover/thumbnail/null")
+                                }
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Grid de productos */}
@@ -145,6 +151,10 @@ const ProductFilter = ({ products, categories }) => {
                                         product.images.length > 0 &&
                                         "group-hover:hidden"
                                     } bg-[#FAFAFA] w-full h-auto object-cover mb-4 group-hover:bg-[#FDBB2E] transition-colors duration-300 `}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                                 {product.images &&
                                     product.images.length > 0 && (
@@ -241,6 +251,10 @@ const ProductFilter = ({ products, categories }) => {
                                     src={`/api/items/media/${product.image}`}
                                     alt={product.name}
                                     className="bg-[#FAFAFA] w-full h-auto object-cover mb-4 group-hover:bg-[#FDBB2E] transition-colors duration-300"
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                                 <div className="px-6 text-[#212529]">
                                     <div className="flex justify-between">
@@ -305,13 +319,19 @@ const ProductFilter = ({ products, categories }) => {
                         </div>
                     )}
                     {/* Banner promocional */}
-                    <div className="text-white w-full md:col-span-2">
-                        <img
-                            src="https://i.ibb.co/hxYh4k4V/image-1.png"
-                            className="w-full h-[200px]   md:h-[305px] object-cover"
-                            alt="Promoción"
-                        />
-                    </div>
+                    {anuncio && (
+                        <div className="text-white w-full md:col-span-2">
+                            <img
+                                src={`/api/ads/media/${anuncio.image}`}
+                                className="w-full h-[200px]   md:h-[305px] object-cover"
+                                alt="Promoción"
+                                onError={(e) =>
+                                    (e.target.src = "/api/cover/thumbnail/null")
+                                }
+                            />
+                        </div>
+                    )}
+
                     {filteredProducts && filteredProducts.length > 0 ? (
                         filteredProducts.slice(4).map((product, index) => (
                             <div

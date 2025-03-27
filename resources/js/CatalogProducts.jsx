@@ -23,7 +23,7 @@ const CatalogProducts = ({
     categories,
     supplies,
     testimonies,
-    popups,
+    anuncio,
     showSlogan = true,
 }) => {
     const tipoSlider = "vua";
@@ -50,7 +50,11 @@ const CatalogProducts = ({
             </Header>
             <div className="relative z-10">
                 <FeaturesSection />
-                <ProductFilter products={items} categories={categories} />
+                <ProductFilter
+                    products={items}
+                    categories={categories}
+                    anuncio={anuncio}
+                />
                 <GuaranteeSection />
 
                 <Footer />
