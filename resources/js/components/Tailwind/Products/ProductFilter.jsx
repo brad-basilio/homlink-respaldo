@@ -141,8 +141,29 @@ const ProductFilter = ({ products, categories, anuncio }) => {
                             <a
                                 href={`/product/${product.slug}`}
                                 key={index}
-                                className="rounded-lg w-full group cursor-pointer group"
+                                className="rounded-lg w-full group cursor-pointer group relative"
                             >
+                                {product.discount && (
+                                    <div className="absolute top-2 right-2 bg-[#212529] z-50 text-white text-base font-medium px-3 pt-[1px] pb-1 rounded-2xl">
+                                        <span className="text-[12.09px] leading-[14.72px]">
+                                            Ahorras
+                                        </span>
+                                        <div className="flex items-center gap-1">
+                                            <img
+                                                src="https://i.ibb.co/S7R3V0tf/image.png"
+                                                className="w-3 mb-1"
+                                                alt="Descuento"
+                                            />
+                                            <p className="text-[16.08px] leading-[20.9px] font-bold">
+                                                S/{" "}
+                                                {parseFloat(
+                                                    product.price -
+                                                        product.discount
+                                                ).toFixed(0)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
                                 <img
                                     src={`/api/items/media/${product.image}`}
                                     alt={product.name}
