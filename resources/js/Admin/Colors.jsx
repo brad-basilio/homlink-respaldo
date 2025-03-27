@@ -263,7 +263,7 @@ const Colors = ({ items }) => {
                     >
                         {items.map((item, index) => (
                             <option key={index} value={item.id}>
-                                {item.name}
+                                {item.name} ( {item.summary} )
                             </option>
                         ))}
                     </SelectFormGroup>

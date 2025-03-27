@@ -217,9 +217,9 @@ const Detail = ({ item }) => {
                                 )}
                             </div>
 
-                            {item.sizes.length > 0 && (
-                                <div className=" block md:flex gap-4 lg:block items-end">
-                                    {/* Size Selector */}
+                            <div className=" block md:flex gap-4 lg:block items-end">
+                                {/* Size Selector */}
+                                {item.sizes.length > 0 && (
                                     <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
                                         <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
                                             Selecciona tu talla:
@@ -244,32 +244,29 @@ const Detail = ({ item }) => {
                                             })}
                                         </select>
                                     </div>
-                                    {/* Quantity Selector */}
-                                    <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
-                                        <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
-                                            <button
-                                                onClick={() =>
-                                                    changeQuantity(-1)
-                                                }
-                                                className="w-8 h-8 text-[17.84px] text-[#444444]"
-                                            >
-                                                -
-                                            </button>
-                                            <span className="md:text-base 2xl:text-xl font-medium">
-                                                {quantity}
-                                            </span>
-                                            <button
-                                                onClick={() =>
-                                                    changeQuantity(1)
-                                                }
-                                                className="w-8 h-8 text-[17.84px] text-[#444444]"
-                                            >
-                                                +
-                                            </button>
-                                        </div>
+                                )}
+                                {/* Quantity Selector */}
+                                <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
+                                    <div className=" flex h-[40.94px] text-[#000000]  bg-[#EFEDF8] items-center justify-around  rounded-[5.44px] ">
+                                        <button
+                                            onClick={() => changeQuantity(-1)}
+                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                        >
+                                            -
+                                        </button>
+                                        <span className="md:text-base 2xl:text-xl font-medium">
+                                            {quantity}
+                                        </span>
+                                        <button
+                                            onClick={() => changeQuantity(1)}
+                                            className="w-8 h-8 text-[17.84px] text-[#444444]"
+                                        >
+                                            +
+                                        </button>
                                     </div>
                                 </div>
-                            )}
+                            </div>
+
                             {/* Add to Cart Button */}
                             <div className="flex justify-center">
                                 <button
