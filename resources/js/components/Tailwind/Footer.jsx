@@ -106,12 +106,12 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     </a>
                                 )}
 
-                                <a
+                                {/* <a
                                     href="#"
                                     className="block hover:opacity-80 transition-opacity "
                                 >
                                     Preguntas frecuentes
-                                </a>
+                                </a>*/}
                                 <a
                                     onClick={openModal}
                                     className="cursor-pointer block hover:opacity-80 transition-opacity "
