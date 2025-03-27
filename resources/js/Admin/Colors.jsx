@@ -39,7 +39,7 @@ const Colors = ({ items }) => {
             .val(data?.item_id || null)
             .trigger("change");
         nameRef.current.value = data?.name ?? "";
-        summaryRef.current.value = data?.hex ?? "#fff";
+        summaryRef.current.value = data?.summary ?? "#fff";
         imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
 
         $(modalRef.current).modal("show");

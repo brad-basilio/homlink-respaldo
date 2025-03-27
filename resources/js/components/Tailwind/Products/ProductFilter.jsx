@@ -17,13 +17,19 @@ const ProductFilter = ({ products, categories }) => {
 
     // Filtrar y ordenar productos
     const filteredProducts = products
-        .filter((product) =>
-            selectedCategory ? product.category.name === selectedCategory : true
-        )
+        .filter((product) => {
+            if (selectedCategory === "Promociones") {
+                return product.offering; // Solo productos en oferta
+            } else if (selectedCategory) {
+                return product.category.name === selectedCategory; // Filtro por categoría normal
+            } else {
+                return true; // Sin filtro (mostrar todos)
+            }
+        })
         .sort((a, b) => {
             if (selectedOption === "min") return a.final_price - b.final_price;
             if (selectedOption === "max") return b.final_price - a.final_price;
-            if (selectedOption === "sale") return b.featured - a.featured; // Supongamos que 'featured' indica si es destacado
+            if (selectedOption === "sale") return b.featured - a.featured;
             return 0;
         });
     const [openMenu, setOpenMenu] = useState(false);

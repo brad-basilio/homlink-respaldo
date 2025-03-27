@@ -56,12 +56,17 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
                         <div className="w-7/12  text-[15.77px] lg:w-3/12 xl:w-4/12  border-r-[#FFFFFF]  border-r-2 pr-4 md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-light">
                             <nav className="space-y-4">
-                                <a
-                                    href="#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Conversemos
-                                </a>
+                                {WhatsApp && (
+                                    <a
+                                        href={WhatsApp.link}
+                                        aria-label="WhatsApp"
+                                        target="_blank"
+                                        className="block hover:opacity-80 transition-opacity "
+                                    >
+                                        Conversemos
+                                    </a>
+                                )}
+
                                 <a
                                     href="#"
                                     className="block hover:opacity-80 transition-opacity "
