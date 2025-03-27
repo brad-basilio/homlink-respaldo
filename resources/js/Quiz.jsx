@@ -262,7 +262,7 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
     return (
         <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
             <div className="flex py-10 lg:py-0 order-1  md:order-none  flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
-                <div className="px-[5%] w-full lg:px-0  lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-5 2xl:gap-10">
+                <div className="px-[5%] w-full lg:px-0  lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-5 ">
                     <h1 className="text-3xl md:text-4xl lg:text-[48.92px] 2xl:text-[68.92px]  font-bold  text-[#212529] tracking-[0.01em]">
                         weFem Quiz!
                     </h1>
@@ -337,12 +337,14 @@ const ThreeQuiz = ({ setCurrentStep, handleAnswer }) => {
 };
 const FourQuiz = ({ setCurrentStep, handleResult }) => {
     const [saving, setSaving] = useState(false);
+    const [error, setError] = useState(false);
     const emailRef = useRef(null);
+
     const onEmailSubmit = async (e) => {
         e.preventDefault();
         setSaving(true);
         if (!emailRef.current.value) {
-            alert("Por favor ingresa un correo electrónico válido.");
+            setError(true);
             setSaving(false);
             return;
         }
@@ -354,20 +356,13 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
 
         if (!result) return;
 
-        Swal.fire({
-            title: "¡Éxito!",
-            text: `Pronto de enviaremos un email de ${Global.APP_NAME}.`,
-            icon: "success",
-            confirmButtonText: "Ok",
-        });
-
         emailRef.current.value = null;
         handleResult();
     };
     return (
-        <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
-            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
-                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem]   lg:max-w-xl 2xl:max-w-[44rem] text-center ">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+            <div className="flex py-10 lg:py-0 order-1  md:order-none  flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
+                <div className="px-[5%] w-full lg:px-0  lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-5 2xl:gap-10">
                     <form onSubmit={onEmailSubmit}>
                         <h2 className="text-[20.27px] md:text-[31.27px] lg:text-[25px] 2xl:text-[32.21px] leading-[46.12px] tracking-[0.01em] font-semibold mb-4 gap-2">
                             ¡Genial! Hemos encontrado el producto menstrual
@@ -381,7 +376,7 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
                         <p className="mb-8 text-[18.07px] md:text-[23.07px] lg:text-[17.77px] 2xl:text-[23px] leading-[31.81px] tracking-[0.01em]">
                             Ingresa tu email para obtener tus resultados y
                             recibir un email con un {" "}
-                            <strong>cupón exclusivo de 10% OFF</strong> ¡ solo
+                            <strong>cupón exclusivo de 10% OFF</strong> ¡Solo
                             para ti!
                         </p>
                         <div className=" w-full flex items-center justify-center ">
@@ -392,6 +387,12 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
                                 className="bg-white w-full md:w-9/12 2xl:w-10/12 hover:bg-gray-100 text-[#FF9900] font-semibold  px-6 rounded-[20px] text-lg transition-colors border-2 border-[#FF9900] focus:ring-0 h-[80px] 2xl:h-[94px]  focus:outline-none text-[20.94px] placeholder:text-[20.94px] placeholder:text-[#FF9900] placeholder:text-center"
                             ></input>
                         </div>
+                        {error && (
+                            <p className="text-red-500 text-sm pt-4">
+                                Ingresa tu email, para enviarte mas información
+                                ...
+                            </p>
+                        )}
                         <p className="mb-8 text-[15.78px] lg:text-[14px] 2xl:text-[16.26px]  leading-[22.84px] tracking-[0.01em] mt-6 text-[#000000]">
                             Dejándonos tu e-mail aceptas recibir novedades y
                             promociones de wefem
@@ -399,9 +400,12 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
                         <div className="space-x-4 w-full flex justify-center">
                             <button
                                 type="submit"
-                                className="bg-white hover:bg-[#FF9900]  text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px]  2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
+                                disabled={saving}
+                                className="bg-white hover:!bg-[#FF9900] text-[#FF9900] hover:text-white font-semibold py-4 px-6 rounded-[20px] text-[20.13px] 2xl:text-[23.13px] tracking-[0.01em] transition-colors w-[393px] h-[80px] 2xl:h-[94px] border-2 border-[#FF9900] duration-300"
                             >
-                                ¡Obtener mis resultados!
+                                {saving
+                                    ? "Enviando..."
+                                    : "¡Obtener mis resultados!"}
                             </button>
                         </div>
                     </form>
@@ -420,9 +424,9 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
 };
 const Result1Quiz = ({}) => {
     return (
-        <div className="flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20 bg-[#EFE5FF]  items-center">
-            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
-                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem] 2xl:w-[50rem]  lg:max-w-[35rem] 2xl:max-w-[47rem] text-center ">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+            <div className="flex py-10 lg:py-0 order-1  md:order-none  flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
+                <div className="px-[5%] w-full lg:px-0  lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-0 ">
                     <h2 className=" md:text-[25.55px] lg:text-[25px] 2xl:text-[30.75px] 2xl:leading-[20.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
                         Tu mejor aliada sería
                     </h2>
@@ -471,9 +475,9 @@ const Result1Quiz = ({}) => {
 };
 const Result2Quiz = ({}) => {
     return (
-        <div className="bg-[#EFE5FF] flex flex-col lg:flex-row w-full justify-between lg:gap-16 2xl:gap-20   items-center">
-            <div className="flex py-10 lg:py-0 order-1  lg:order-none  flex-col w-full lg:w-1/2 justify-center items-center lg:items-end text-[#212529]">
-                <div className="px-[5%] w-full  lg:px-0  lg:pl-[5%] lg:w-[46rem] 2xl:w-[50rem]  lg:max-w-[35rem] 2xl:max-w-[47rem] text-center ">
+        <div className="flex flex-col md:flex-row w-full justify-between bg-[#EFE5FF] items-center md:h-[85vh]">
+            <div className="flex py-10 lg:py-0 order-1  md:order-none  flex-col w-full md:w-1/2 justify-center items-center lg:items-center text-[#212529]">
+                <div className="px-[5%] w-full lg:px-0  lg:max-w-lg 2xl:max-w-[46rem] text-center flex flex-col gap-0 ">
                     <h2 className=" md:text-[25.55px] lg:text-[25px] 2xl:text-[30.75px] 2xl:leading-[20.12px] tracking-[0.01em] font-semibold 2xl:mb-4 gap-2">
                         Tu mejor aliada sería
                     </h2>
