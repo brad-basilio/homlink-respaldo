@@ -34,7 +34,7 @@ const features = [
 
 const steps = [
     "ANTES DE EMPEZAR",
-    "DOBLAR TU COPA",
+    "DOBLAR TU DISCO",
     "PONER Y RETIRAR",
     "CUIDADO Y LIMPIEZA",
 ];
