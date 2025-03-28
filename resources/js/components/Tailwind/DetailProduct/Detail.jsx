@@ -98,7 +98,7 @@ const Detail = ({ item }) => {
         <section className=" py-10 bg-[#EFE5FF]">
             <div className="px-[5%] lg:px-0 mx-auto lg:max-w-5xl 2xl:max-w-6xl mt-8">
                 <p className="md:w-[644px] mx-auto lg:mx-0 md:text-[18.31px] 2xl:text-[23.31px] leading-[29.44px]">
-                    Home / Tienda we Fem / <strong>{item.name}</strong>
+                    Home / Tienda weFem / <strong>{item.name}</strong>
                 </p>
 
                 <div className="flex items-start flex-col md:flex-row mt-4 gap-4">
@@ -222,7 +222,7 @@ const Detail = ({ item }) => {
                             <div className="relative flex justify-between sm:justify-start gap-4 lg:gap-0 lg:justify-between items-center  my-2">
                                 {item.colors.length > 0 && (
                                     <div className="flex items-start gap-2">
-                                        <p className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                        <p className="md:text-[10.05px] lg:text-[11px] 2xl:text-[14.05px] font-bold">
                                             Color:
                                         </p>
                                         <div className="flex items-center gap-2">
@@ -283,7 +283,7 @@ const Detail = ({ item }) => {
                                 {/* Size Selector */}
                                 {item.sizes.length > 0 && (
                                     <div className=" w-full md:w-1/2 lg:w-full mb-4 2xl:mb-6">
-                                        <label className="md:text-[10.05px] 2xl:text-[13.05px] font-bold">
+                                        <label className="md:text-[10.05px] lg:text-[11px] 2xl:text-[14.05px] font-bold">
                                             Selecciona tu talla:
                                         </label>
                                         <select

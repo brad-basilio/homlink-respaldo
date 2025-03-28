@@ -101,7 +101,7 @@ const WeCupSection = () => {
                         </ul>
                     </div>
                 </div>
-                <nav className="mb-8 mt-16  font-bebas">
+                <nav className="mb-8 mt-11  font-bebas">
                     <ul className="grid grid-cols-2 gap-4 lg:gap-0 lg:flex font-bold justify-between border-b text-[20.48px] md:text-[34.48px]">
                         {steps.map((step, index) => (
                             <li
