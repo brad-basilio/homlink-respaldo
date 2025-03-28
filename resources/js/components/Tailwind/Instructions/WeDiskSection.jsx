@@ -61,7 +61,7 @@ const WeDiskSection = () => {
 
     return (
         <>
-            <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-[75rem] md:px-0 mx-auto py-8  md:mt-20">
+            <div className="px-[5%]  max-w-lg lg:max-w-5xl 2xl:max-w-[75rem] md:px-0 mx-auto py-8  md:mt-20 xl:mt-14">
                 <div className="flex justify-center items-center gap-8 flex-col  lg:flex-row">
                     <div className="w-full lg:w-1/2 relative flex items-center justify-center  h-[350px] sm:h-[450px]  md:h-[450px]  2xl:h-[520px]  overflow-hidden">
                         {/* <div className="text-[#EFEDF8] text-[100.92px]  md:text-[140.92px] lg:text-[100.92px] 2xl:text-[150.92px] md:leading-[100.24px] 2xl:leading-[122.24px] font-bold space-y-1">
