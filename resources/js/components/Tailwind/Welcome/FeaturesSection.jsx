@@ -46,18 +46,18 @@ const FeaturesSection = () => {
                     </div>
 
                     <div className="flex items-center gap-3 justify-start w-auto">
-                        <div className="relative z-10 w-2/12   sm:w-3/12 lg:w-2/12 ">
+                        <div className="relative z-10 w-2/12   sm:w-3/12 lg:w-[20%] ">
                             <img
                                 src="/assets/img/highlights/gota.png"
                                 alt="Hipoalergénica"
                                 className="w-auto h-full object-cover"
                             />
                         </div>
-                        <div className="w-9/12 lg:w-10/12">
+                        <div className="w-9/12 lg:w-[80%]">
                             <h3 className="text-[12.33px]  sm:text-[15.33px] lg:text-[18.4px] font-bold leading-[20.88px] w-full text-[#212529]">
                                 Hipoalergénica
                             </h3>
-                            <p className=" text-[7.8px]  md:text-[12.3px] lg:text-[11.5px] 2xl:text-[14.33px] leading-[18.42px] break-words whitespace-normal text-[#444444]">
+                            <p className=" text-[7.8px]  md:text-[12.3px] lg:text-[11.5px] 2xl:text-[13.5px] leading-[18.42px] break-words whitespace-normal text-[#444444]">
                                 Suaves para la piel y reducen <br /> el riesgo
                                 de irritación o alergias.
                             </p>
