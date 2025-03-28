@@ -132,33 +132,33 @@ const WeLoversSection = ({ we_lovers }) => {
                     <div className="flex gap-2 sm:gap-4">
                         {/* Thumbnails */}
                         <div className="flex flex-col gap-2">
-                            {testimonials.map((testimonial, index) => (
+                            {we_lovers.map((testimonial, index) => (
                                 <div
                                     key={index}
                                     className="cursor-pointer w-[70px] h-[70px] sm:w-[115px] sm:h-[128px] rounded-lg overflow-hidden"
-                                    onClick={() =>
-                                        (document.getElementById(
-                                            "mainImage"
-                                        ).src = testimonial.image)
-                                    }
                                 >
-                                    <img
-                                        src={testimonial.image}
-                                        alt={`Thumbnail ${index + 1}`}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    <iframe
+                                        className="w-full h-full "
+                                        src={`https://www.youtube.com/embed/${testimonial.description}`}
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin"
+                                        allowfullscreen
+                                    ></iframe>
                                 </div>
                             ))}
                         </div>
                         {/* Main Image */}
                         <div className="">
                             <div className="w-[250px] sm:w-[386px] sm:h-[680px] rounded-2xl overflow-hidden bg-white shadow-md">
-                                <img
-                                    id="mainImage"
-                                    src={testimonials[0].image}
-                                    alt="Main Image"
-                                    className="w-full h-full object-cover"
-                                />
+                                <iframe
+                                    className="w-full h-full "
+                                    src={`https://www.youtube.com/embed/${we_lovers[0].description}`}
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen
+                                ></iframe>
                             </div>
                         </div>
                     </div>
