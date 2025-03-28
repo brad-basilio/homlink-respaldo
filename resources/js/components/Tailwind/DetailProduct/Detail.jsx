@@ -229,11 +229,14 @@ const Detail = ({ item }) => {
                                             {item.colors.map((color, index) => (
                                                 <button
                                                     key={index}
-                                                    onClick={() =>
+                                                    onClick={() => {
                                                         setSelectedColor(
                                                             color.name
-                                                        )
-                                                    }
+                                                        );
+                                                        setMainImage(
+                                                            color.image
+                                                        );
+                                                    }}
                                                     className={`rounded-full p-1 border ${
                                                         selectedColor ===
                                                         color.name
