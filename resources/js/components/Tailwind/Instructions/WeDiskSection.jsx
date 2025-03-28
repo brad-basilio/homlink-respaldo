@@ -98,7 +98,7 @@ const WeDiskSection = () => {
                     </div>
                 </div>
                 <nav className="mb-8 mt-8  font-bebas">
-                    <ul className="grid grid-cols-2 gap-4 lg:gap-0 lg:flex font-semibold tracking-widest justify-between border-b text-[20.48px] md:text-[34.48px]">
+                    <ul className="grid grid-cols-2 gap-4 lg:gap-0 lg:flex font-semibold tracking-wide justify-between border-b text-[20.48px] md:text-[32.48px]">
                         {steps.map((step, index) => (
                             <li
                                 key={index}
