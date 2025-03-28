@@ -361,10 +361,10 @@ const Header = ({
                         ></div>
 
                         {/* Contenedor del Modal */}
-                        <div className="fixed top-12 right-0 py-14 px-8 h-[550px] 2xl:h-[650px] w-96 bg-[#EFE5FF] shadow-lg rounded-[50px] 2xl:rounded-[70px] z-50 flex flex-col">
+                        <div className="fixed top-12 right-0 py-14 px-16 h-[calc(100vh-6rem)] w-[600px]  bg-[#EFE5FF] shadow-lg rounded-[50px] 2xl:rounded-[70px] z-50 flex flex-col">
                             {/* Encabezado */}
                             <div className="flex justify-between items-center  border-b">
-                                <h2 className="text-lg font-bold">
+                                <h2 className="text-[44.67px] font-bold">
                                     Tu Carrito
                                 </h2>
                                 <button
