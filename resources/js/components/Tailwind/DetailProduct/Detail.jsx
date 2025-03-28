@@ -287,7 +287,7 @@ const Detail = ({ item }) => {
                                             Selecciona tu talla:
                                         </label>
                                         <select
-                                            className="w-full h-[40.94px] 2xl:h-[48.94px] md:text-[12.05px] 2xl:text-[14.05px] px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
+                                            className="w-full h-[40.94px] 2xl:h-[48.94px]  md:text-base 2xl:text-xl font-medium px-4 bg-[#EFEDF8] rounded-[5.44px] appearance-none  outline-none ring-0 border-0 cursor-pointer focus:outline-none"
                                             value={selectedSize}
                                             onChange={(e) =>
                                                 setSelectedSize(e.target.value)
