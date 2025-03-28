@@ -14,7 +14,7 @@ const FeaturesSection = () => {
                             <img
                                 src="/assets/img/highlights/truck.png"
                                 alt="Envíos a todo el Perú"
-                                className="w-full h-auto object-cover"
+                                className="w-auto h-full object-cover"
                             />
                         </div>
                         <div className="w-9/12">
@@ -32,7 +32,7 @@ const FeaturesSection = () => {
                             <img
                                 src="/assets/img/highlights/clock.png"
                                 alt="Protege hasta 12 horas"
-                                className="w-full h-auto object-cover"
+                                className="w-auto h-full object-cover"
                             />
                         </div>
                         <div className="w-9/12">
@@ -50,7 +50,7 @@ const FeaturesSection = () => {
                             <img
                                 src="/assets/img/highlights/gota.png"
                                 alt="Hipoalergénica"
-                                className="w-full h-auto object-cover"
+                                className="w-auto h-full object-cover"
                             />
                         </div>
                         <div className="w-9/12 lg:w-10/12">
@@ -69,7 +69,7 @@ const FeaturesSection = () => {
                             <img
                                 src="/assets/img/highlights/heart.png"
                                 alt="Libre de BPA"
-                                className="w-full h-auto object-cover"
+                                className="w-auto h-full object-cover"
                             />
                         </div>
                         <div className="w-9/12">
