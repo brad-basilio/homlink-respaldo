@@ -12,14 +12,6 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import TestimonyRest from "../../../actions/TestimonyRest";
 
-const testimonials = [
-    { image: "https://i.ibb.co/Q3FDFsbt/image.png" },
-    { image: "https://i.ibb.co/dHGmtkf/dfaabe6966459462e61bf7aef70f58b4.png" },
-    { image: "https://i.ibb.co/3mhCpVtC/image.png" },
-    { image: "https://i.ibb.co/dHGmtkf/dfaabe6966459462e61bf7aef70f58b4.png" },
-    { image: "https://i.ibb.co/3mhCpVtC/image.png" },
-];
-
 const WeLoversSection = ({ we_lovers }) => {
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -122,7 +114,7 @@ const WeLoversSection = ({ we_lovers }) => {
 
                     {/* Paginacion personalizada */}
                     <div className="flex justify-center gap-2 mt-0 mb-2">
-                        {testimonials.map((_, index) => (
+                        {we_lovers.map((_, index) => (
                             <button
                                 key={index}
                                 className={`w-[10.5px] h-[10.5px] rounded-full transition-all duration-300 ${
