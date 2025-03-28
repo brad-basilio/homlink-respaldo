@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('ads', function (Blueprint $table) {
             $table->dropForeign(['item_id']); // Elimina la restricción FK
-            $table->uuid('item_id')->nullable()->change();;
+            $table->uuid('item_id')->nullable()->change();
         });
     }
 

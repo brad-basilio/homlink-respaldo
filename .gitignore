@@ -21,3 +21,5 @@ composer.lock
 /.vscode
 /storage/profile
 /storage/public
+/.github
+/.github/workflows

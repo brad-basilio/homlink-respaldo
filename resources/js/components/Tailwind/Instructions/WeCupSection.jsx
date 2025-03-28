@@ -118,7 +118,11 @@ const WeCupSection = () => {
                         ))}
                     </ul>
                 </nav>
-                <div className="grid grid-cols-1  lg:grid-cols-2 gap-8 lg:mb-12 px-8 lg:px-12 py-4 lg:py-8">
+                <div
+                    className={`${
+                        activeStep === 0 ? "grid" : "hidden"
+                    } grid-cols-1  lg:grid-cols-2 gap-8 lg:mb-12 px-8 lg:px-12 py-4 lg:py-8`}
+                >
                     <div className="rounded-lg bg-text-pattern order-1 lg:order-none">
                         <video
                             autoPlay
@@ -127,7 +131,7 @@ const WeCupSection = () => {
                             className=" lg:pt-0  w-full h-auto lg:w-[405px]  lg:h-[405px] 2xl:w-[495px] 2xl:h-[495px] object-cover"
                         >
                             <source
-                                src="/assets/img/backgrounds/como-usar-1.mp4"
+                                src="/assets/img/instructions/wecup/Copa-Paso1.mp4"
                                 type="video/mp4"
                             />
                             Tu navegador no soporta la reproducción de video.
@@ -145,12 +149,118 @@ const WeCupSection = () => {
                         <p className="text-[20px] md:text-[24px] lg:text-[18px] 2xl:text-[24px] leading-[33px]">
                             Antes de usar tu weCup por primera vez, desinféctala
                             en una olla o en tu shakerCup con agua hirviendo
-                            durante 2:30 minutos. <br />
-                            Una vez que la uses, tendrás que repetir este paso
-                            antes y al final de cada ciclo.
+                            durante 2:30 minutos.
+                            <br /> Una vez que la usas, tendrás que repetir este
+                            paso antes y al final de cada ciclo.
                         </p>
                     </div>
                 </div>
+                <div
+                    className={`${
+                        activeStep === 1 ? "grid" : "hidden"
+                    } grid-cols-1  lg:grid-cols-2 gap-8 lg:mb-12 px-8 lg:px-12 py-4 lg:py-8`}
+                >
+                    <div className="rounded-lg bg-text-pattern order-1 lg:order-none">
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            className=" lg:pt-0  w-full h-auto lg:w-[405px]  lg:h-[405px] 2xl:w-[495px] 2xl:h-[495px] object-cover"
+                        >
+                            <source
+                                src="/assets/img/instructions/wecup/Copa-Paso2.mp4"
+                                type="video/mp4"
+                            />
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </div>
+                    <div className="flex flex-col justify-center">
+                        <h2 className="text-[48.75px] md:text-[52.75px] lg:text-[42.75px] 2xl:text-[52.75px] leading-[42.73px] font-bold mb-4">
+                            Paso 2:
+                        </h2>
+                        <div className="inline-block bg-[#DDEC4C] px-6 py-2 rounded-full mb-6 w-max">
+                            <span className="text-[22.57px] md:text-[27.57px] lg:text-[20.57px] 2xl:text-[27.57px] leading-[30.88px]">
+                                Elije tu doblez
+                            </span>
+                        </div>
+                        <p className="text-[20px] md:text-[24px] lg:text-[18px] 2xl:text-[24px] leading-[33px]">
+                            Hay muchas formas de doblar tu copa menstrual: con
+                            pliegue en U y con pliegue hacia abajo. Ambos son
+                            fáciles de dominar y adecuados para principiantes,
+                            lo importante es que encuentres cual es tu favorita
+                            y se acomoda a ti.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    className={`${
+                        activeStep === 2 ? "grid" : "hidden"
+                    } grid-cols-1  lg:grid-cols-2 gap-8 lg:mb-12 px-8 lg:px-12 py-4 lg:py-8`}
+                >
+                    <div className="rounded-lg bg-text-pattern order-1 lg:order-none">
+                        <img
+                            src="/assets/img/instructions/wecup/Copa-Paso3.webp"
+                            className=" lg:pt-0  w-full h-auto lg:w-[405px]  lg:h-[405px] 2xl:w-[495px] 2xl:h-[495px] object-cover"
+                        />
+                    </div>
+                    <div className="flex flex-col justify-center">
+                        <h2 className="text-[48.75px] md:text-[52.75px] lg:text-[42.75px] 2xl:text-[52.75px] leading-[42.73px] font-bold mb-4">
+                            Paso 3:
+                        </h2>
+                        <div className="inline-block bg-[#DDEC4C] px-6 py-2 rounded-full mb-6 w-max">
+                            <span className="text-[22.57px] md:text-[27.57px] lg:text-[20.57px] 2xl:text-[27.57px] leading-[30.88px]">
+                                ¿Cómo insertar?
+                            </span>
+                        </div>
+                        <p className="text-[20px] md:text-[24px] lg:text-[18px] 2xl:text-[24px] leading-[33px]">
+                            Lávate las manos y ponte cómoda. Mientras estás
+                            sentada en el inodoro o de pie con una pierna
+                            levantada en la bañera, separa suavemente tus labios
+                            vaginales con la mano libre. Respira profundamente,
+                            relaja los músculos de tu suelo pélvico y ahora si
+                            inserta la copa.
+                        </p>
+                    </div>
+                </div>
+                <div
+                    className={`${
+                        activeStep === 3 ? "grid" : "hidden"
+                    } grid-cols-1  lg:grid-cols-2 gap-8 lg:mb-12 px-8 lg:px-12 py-4 lg:py-8`}
+                >
+                    <div className="rounded-lg bg-text-pattern order-1 lg:order-none">
+                        <video
+                            autoPlay
+                            loop
+                            muted
+                            className=" lg:pt-0  w-full h-auto lg:w-[405px]  lg:h-[405px] 2xl:w-[495px] 2xl:h-[495px] object-cover"
+                        >
+                            <source
+                                src="/assets/img/instructions/wecup/Copa-Paso4.mp4"
+                                type="video/mp4"
+                            />
+                            Tu navegador no soporta la reproducción de video.
+                        </video>
+                    </div>
+                    <div className="flex flex-col justify-center">
+                        <h2 className="text-[48.75px] md:text-[52.75px] lg:text-[42.75px] 2xl:text-[52.75px] leading-[42.73px] font-bold mb-4">
+                            Paso 4:
+                        </h2>
+                        <div className="inline-block bg-[#DDEC4C] px-6 py-2 rounded-full mb-6 w-max">
+                            <span className="text-[22.57px] md:text-[27.57px] lg:text-[20.57px] 2xl:text-[27.57px] leading-[30.88px]">
+                                Lava tus manos y tu copa
+                            </span>
+                        </div>
+                        <p className="text-[20px] md:text-[24px] lg:text-[18px] 2xl:text-[24px] leading-[33px]">
+                            Antes de insertarla y después de retirarla, lava tu
+                            weCup con un jabón suave, sin fragancias
+                            artificiales, de preferencia de PH neutro. y
+                            recuerda no necesitas esterilizar cada vez que la
+                            usas en el ciclo, sino solo al empezar y terminar tu
+                            periodo, para guardarla limpia y seca.
+                        </p>
+                    </div>
+                </div>
+                {/*TAMAÑOS */}
                 <div class="hidden lg:grid grid-cols-3 gap-8 mt-24">
                     {sizes.map((zise, index) => (
                         <div
