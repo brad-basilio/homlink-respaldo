@@ -8,7 +8,7 @@ const FeaturesSection = () => {
             }`}
         >
             <div className="px-[5%] mx-auto relative">
-                <div className="grid  my-6  sm:my-0 grid-cols-2 gap-4 sm:gap-8 sm:max-w-[608px] lg:flex w-full lg:max-w-[69rem] 2xl:max-w-7xl mx-auto md:gap-4 lg:gap-14 whitespace-nowrap transition-none">
+                <div className="grid  my-6  sm:my-0 grid-cols-2 gap-4 sm:gap-8 sm:max-w-[608px] lg:flex w-full lg:max-w-[68rem] 2xl:max-w-[84rem] mx-auto md:gap-4 lg:gap-14 whitespace-nowrap transition-none">
                     <div className="flex items-center gap-3 justify-start w-auto">
                         <div className="relative z-10 w-3/12">
                             <img
@@ -57,7 +57,7 @@ const FeaturesSection = () => {
                             <h3 className="text-[12.33px]  sm:text-[15.33px] lg:text-[18.4px] font-bold leading-[20.88px] w-full text-[#212529]">
                                 Hipoalergénica
                             </h3>
-                            <p className=" text-[7.8px]  md:text-[12.3px] lg:text-[11.5px] 2xl:text-[13.5px] leading-[18.42px] break-words whitespace-normal text-[#444444]">
+                            <p className=" text-[7.8px]  md:text-[12.3px] lg:text-[11.5px]  2xl:text-[13.33px] leading-[18.42px] break-words whitespace-normal text-[#444444]">
                                 Suaves para la piel y reducen <br /> el riesgo
                                 de irritación o alergias.
                             </p>
