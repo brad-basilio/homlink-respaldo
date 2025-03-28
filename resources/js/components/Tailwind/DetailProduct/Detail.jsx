@@ -221,7 +221,7 @@ const Detail = ({ item }) => {
                             {/* Color Selector */}
                             <div className="relative flex justify-between sm:justify-start gap-4 lg:gap-0 lg:justify-between items-center  my-2">
                                 {item.colors.length > 0 && (
-                                    <div className="flex items-start gap-2">
+                                    <div className="flex items-center gap-2">
                                         <p className="md:text-[10.05px] lg:text-[11px] 2xl:text-[14.05px] font-bold">
                                             Color:
                                         </p>
@@ -298,7 +298,7 @@ const Detail = ({ item }) => {
                                                     <option
                                                         key={size.id}
                                                         value={size.name}
-                                                        className="text-[#000000]"
+                                                        className="text-[#000000] md:text-base 2xl:text-xl font-medium"
                                                     >
                                                         {`Talla ${size.name}`}
                                                     </option>
