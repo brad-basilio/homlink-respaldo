@@ -416,7 +416,7 @@ const FourQuiz = ({ setCurrentStep, handleResult }) => {
                 <img
                     src="assets/img/quizz/quiz_5.png"
                     alt="weFem productos"
-                    className="w-full h-[256px]   md:h-[356px] lg:h-[600px]  2xl:min-w-[873px] 2xl:h-[789px]  object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
@@ -467,7 +467,7 @@ const Result1Quiz = ({}) => {
                 <img
                     src="assets/img/quizz/quiz_6.png"
                     alt="weFem productos"
-                    className="w-full h-[256px]   md:h-[356px] lg:h-[600px]  2xl:min-w-[873px] 2xl:h-[789px]  object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>
@@ -518,7 +518,7 @@ const Result2Quiz = ({}) => {
                 <img
                     src="assets/img/quizz/quiz_7.png"
                     alt="weFem productos"
-                    className="w-full h-[256px]   md:h-[356px] lg:h-[600px]  2xl:min-w-[873px] 2xl:h-[789px]  object-cover object-center flex-shrink-0"
+                    className="w-full aspect-square 3xs:h-[50vh] md:h-[85vh] object-cover object-center flex-shrink-0"
                 />
             </div>
         </div>

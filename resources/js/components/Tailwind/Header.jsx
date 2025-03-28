@@ -361,9 +361,9 @@ const Header = ({
                         ></div>
 
                         {/* Contenedor del Modal */}
-                        <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 flex flex-col">
+                        <div className="fixed top-12 right-0 py-14 px-8 h-[550px] 2xl:h-[650px] w-96 bg-[#EFE5FF] shadow-lg rounded-[50px] 2xl:rounded-[70px] z-50 flex flex-col">
                             {/* Encabezado */}
-                            <div className="flex justify-between items-center p-4 border-b">
+                            <div className="flex justify-between items-center  border-b">
                                 <h2 className="text-lg font-bold">
                                     Tu Carrito
                                 </h2>
@@ -376,7 +376,7 @@ const Header = ({
                             </div>
 
                             {/* Lista de productos con Scroll */}
-                            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                            <div className="flex-1 overflow-y-auto  space-y-4">
                                 {carrito.length === 0 ? (
                                     <p className="text-center text-gray-500">
                                         Tu carrito está vacío
@@ -428,13 +428,13 @@ const Header = ({
                             </div>
 
                             {/* Total y botón de Checkout */}
-                            <div className="p-4 border-t w-full">
+                            <div className=" border-t w-full">
                                 <p className="text-lg font-semibold">
                                     Total: S/ {totalPrecio.toFixed(2)}
                                 </p>
                                 <a
                                     href="/checkout"
-                                    className="block text-center  w-full my-4 mt-2  bg-[#6048B7] text-white py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300"
+                                    className="block text-center  w-full mt-2  bg-[#6048B7] text-white py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300"
                                 >
                                     Finalizar Compra
                                 </a>
