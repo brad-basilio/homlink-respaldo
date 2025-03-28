@@ -58,7 +58,7 @@ const WeCupSection = () => {
                             alt="weCup"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[400px] 2xl:w-[500px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:p-10">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[400px] 2xl:w-[500px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:py-10 lg:px-14">
                         <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl xl:text-6xl  2xl:text-7xl text-center">
                             weCup
                         </h2>
