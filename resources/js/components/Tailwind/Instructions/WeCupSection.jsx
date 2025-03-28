@@ -58,7 +58,7 @@ const WeCupSection = () => {
                             alt="weCup"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[400px] 2xl:w-[500px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:py-10 lg:px-14">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[440px] 2xl:w-[540px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:py-10 lg:px-14">
                         <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl xl:text-6xl  2xl:text-7xl text-center">
                             weCup
                         </h2>
@@ -87,11 +87,11 @@ const WeCupSection = () => {
                             ].map((item, index) => (
                                 <li
                                     key={index}
-                                    className="flex items-center gap-3 text-base 2xl:text-2xl leading-[20px] md:leading-snug"
+                                    className="flex items-center gap-3 text-base 2xl:text-2xl leading-[20px] md:leading-snug font-light"
                                 >
                                     <img
                                         src={item.img}
-                                        className={`w-[20px] md:w-[25px] xl:w-[30px] 2xl:w-[40px] h-auto flex items-center justify-center brightness-100 grayscale`}
+                                        className={`w-[20px] md:w-[25px] xl:w-[32px] 2xl:w-[41px] h-auto flex items-center justify-center brightness-100 grayscale`}
                                         alt={item.text}
                                         loading="lazy"
                                     />
