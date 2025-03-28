@@ -8,7 +8,7 @@ const FeaturesSection = () => {
             }`}
         >
             <div className="px-[5%] mx-auto relative">
-                <div className="grid  my-6  sm:my-0 grid-cols-2 gap-4 sm:gap-8 sm:max-w-[608px] lg:flex w-full lg:max-w-[68rem] 2xl:max-w-[84rem] mx-auto md:gap-4 lg:gap-14 whitespace-nowrap transition-none">
+                <div className="grid  my-6  sm:my-0 grid-cols-2 gap-4 sm:gap-8 sm:max-w-[608px] lg:flex w-full lg:max-w-[72rem] 2xl:max-w-[84rem] mx-auto md:gap-4 lg:gap-14 whitespace-nowrap transition-none">
                     <div className="flex items-center gap-3 justify-start w-auto">
                         <div className="relative z-10 w-3/12">
                             <img
