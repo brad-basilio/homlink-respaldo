@@ -71,7 +71,7 @@ const WeDiskSection = () => {
                         </div> */}
                         <img
                             className=" absolute object-contain inset-0 top-1/2 -translate-y-1/2 aspect-square h-full sm:h-[480.57px] lg:h-[470.57px] 2xl:h-[560.57px] w-auto"
-                            src="/assets/img/instructions/copa2.png"
+                            src="/assets/img/instructions/disco.png"
                             alt="weDisk"
                         />
                     </div>
@@ -275,11 +275,11 @@ const WeDiskSection = () => {
                             {/*8cm * 4cm */}
                             <div class=" flex items-center justify-center">
                                 <div className="relative h-[290px]">
-                                    <div className="h-[240px]  ">
+                                    <div className="h-[290px]  ">
                                         <img
                                             src="/assets/img/instructions/disk-item-size.png"
                                             alt={`Talla ${zise.zise}`}
-                                            class="h-full w-auto rotate-[90deg]"
+                                            class="h-full w-auto rotate-[-20deg]"
                                         />
                                     </div>
 
