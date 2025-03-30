@@ -20,6 +20,8 @@ const Header = ({
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
     const btnToggleRef = useRef(null);
+    const { incrementarCantidad, decrementarCantidad } =
+        useContext(CarritoContext);
 
     const toggleMenu = (event) => {
         if (event.target.closest(".menu-toggle")) {
@@ -354,90 +356,212 @@ const Header = ({
                 {/*Modal Carrito*/}
                 {mostrarCarrito && (
                     <>
-                        {/* Fondo oscuro (BackDrop) */}
-                        <div
-                            className="fixed inset-0 bg-black bg-opacity-50 z-40"
-                            onClick={() => setMostrarCarrito(false)}
-                        ></div>
+                        <div className="fixed inset-0 bg-black/50 flex items-start justify-end px-[5%] lg:px-0 pt-12 pb-12 overflow-y-auto z-50 scrollbar-hide">
+                            <div className="bg-[#EFE5FF] shadow-lg w-full sm:max-w-[380px] lg:max-w-[700px] 2xl:max-w-[800px] h-max    p-8 lg:p-14 rounded-[30px]  lg:rounded-[50px] ">
+                                {/* Encabezado */}
+                                <div className="flex justify-between items-center  ">
+                                    <h2 className="text-[24.67px] lg:text-[44.67px] font-bold">
+                                        Tu Carrito
+                                    </h2>
+                                    <button
+                                        onClick={() => setMostrarCarrito(false)}
+                                        className="text-lg font-bold text-[#5F48B7]"
+                                    >
+                                        ✖
+                                    </button>
+                                </div>
+                                <div className="bg-[#9C79D4] py-2 text-[13.95px]  md:text-[16.95px]  lg:text-[26.95px] mt-4 mb-8 text-center rounded-[14px]  lg:rounded-[20px]  text-white">
+                                    ¡Tienes envío gratis en lima!{" "}
+                                    <img
+                                        src="/assets/img/emojis/motor-scooter.png"
+                                        className="h-[16.88px] lg:h-[26.88px] inline-flex ml-2"
+                                    />{" "}
+                                </div>
 
-                        {/* Contenedor del Modal */}
-                        <div className="fixed top-12 right-0 py-14 px-16 h-[calc(100vh-6rem)] w-[600px]  bg-[#EFE5FF] shadow-lg rounded-[50px] 2xl:rounded-[70px] z-50 flex flex-col">
-                            {/* Encabezado */}
-                            <div className="flex justify-between items-center  border-b">
-                                <h2 className="text-[44.67px] font-bold">
-                                    Tu Carrito
-                                </h2>
-                                <button
-                                    onClick={() => setMostrarCarrito(false)}
-                                    className="text-lg font-bold"
-                                >
-                                    ✖
-                                </button>
-                            </div>
-
-                            {/* Lista de productos con Scroll */}
-                            <div className="flex-1 overflow-y-auto  space-y-4">
-                                {carrito.length === 0 ? (
-                                    <p className="text-center text-gray-500">
-                                        Tu carrito está vacío
-                                    </p>
-                                ) : (
-                                    carrito.map((item, index) => (
-                                        <div
-                                            key={index}
-                                            className="flex items-center gap-4 border-b pb-2"
-                                        >
+                                {/* Lista de productos con Scroll */}
+                                <div className="flex-1  gap-4">
+                                    {carrito.length === 0 ? (
+                                        <div className="w-full flex flex-col items-center justify-center gap-5 text-3xl h-max my-5">
                                             <img
-                                                src={`/api/items/media/${item.image}`}
-                                                alt={item.name}
-                                                onError={(e) =>
-                                                    (e.target.src =
-                                                        "/api/cover/thumbnail/null")
-                                                }
-                                                className="w-16 h-16 object-cover"
+                                                src="/assets/img/logo.png"
+                                                alt="Wefem"
+                                                className="h-[58px] w-[330.55px] object-cover object-top"
+                                                style={{
+                                                    textShadow:
+                                                        "0px 4px 7.5px 0px #00000040",
+                                                }}
                                             />
-                                            <div className="flex-1">
-                                                <h3 className="font-semibold">
-                                                    {item.name}
-                                                </h3>
-                                                <p className="text-gray-500">
-                                                    S/ {item.final_price} x{" "}
-                                                    {item.variations &&
-                                                    item.variations.length > 0
-                                                        ? item.variations.reduce(
-                                                              (sum, v) =>
-                                                                  sum +
-                                                                  v.quantity,
-                                                              0
-                                                          )
-                                                        : item.quantity}
-                                                </p>
-                                            </div>
-                                            {/* 🗑️ Botón para eliminar */}
-                                            <button
-                                                className="bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition"
-                                                onClick={() =>
-                                                    eliminarProducto(item.id)
-                                                }
-                                            >
-                                                <Trash2 width="1rem" />
-                                            </button>
+                                            <p className="text-center text-gray-500 ">
+                                                Tu carrito está vacío
+                                            </p>
                                         </div>
-                                    ))
-                                )}
-                            </div>
+                                    ) : (
+                                        carrito.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex items-center gap-4  mb-4 w-full"
+                                            >
+                                                <img
+                                                    src={`/api/items/media/${item.image}`}
+                                                    alt={item.name}
+                                                    onError={(e) =>
+                                                        (e.target.src =
+                                                            "/api/cover/thumbnail/null")
+                                                    }
+                                                    className="w-20 h-20 md:w-28 md:h-28 lg:w-52 lg:h-52 object-cover"
+                                                />
+                                                <div className=" flex flex-col w-[calc(100%-5rem)] md:w-[calc(100%-7rem)] lg:w-[calc(100%-10rem)]">
+                                                    <div className="w-full flex">
+                                                        <div className="w-5/6 lg:w-8/12">
+                                                            <h3 className="text-[17.95px] md:text-[20.95px] lg:text-[24.95px] 2xl:text-[34.95px] font-normal leading-3 md:leading-[20.78px] lg:leading-[30.78px]">
+                                                                {item.name}
+                                                            </h3>
+                                                            {item.summary && (
+                                                                <p className="text-[10px] md:text-xs  lg:text-[16.81px] 2xl:text-[25px]  font-light inline-flex ">
+                                                                    (
+                                                                    {
+                                                                        item.summary
+                                                                    }
+                                                                    )
+                                                                </p>
+                                                            )}
 
-                            {/* Total y botón de Checkout */}
-                            <div className=" border-t w-full">
-                                <p className="text-lg font-semibold">
-                                    Total: S/ {totalPrecio.toFixed(2)}
-                                </p>
-                                <a
-                                    href="/checkout"
-                                    className="block text-center  w-full mt-2  bg-[#6048B7] text-white py-3 rounded-lg hover:bg-opacity-90 transition-all duration-300"
-                                >
-                                    Finalizar Compra
-                                </a>
+                                                            {item.discount && (
+                                                                <p className="w-11/12 md:w-full h-[18.55px]   md:h-[25.55px]   lg:h-[35.55px]  bg-[#212529]  text-white rounded-[5.44px] mb-2 md:my-2 lg:my-4 flex items-center justify-center text-[8.65px] md:text-[9.65px] 2xl:text-[16.65px] font-semibold   leading-[21.75px]">
+                                                                    <span className="font-medium md:font-bold text-[7.65px] md:text-[9.65px] 2xl:text-[16.65px] mr-2 ">
+                                                                        ESTAS
+                                                                        AHORRANDO
+                                                                    </span>{" "}
+                                                                    S/{" "}
+                                                                    {Number(
+                                                                        item.price -
+                                                                            item.discount
+                                                                    ).toFixed(
+                                                                        0
+                                                                    )}{" "}
+                                                                    <img
+                                                                        src="/assets/img/emojis/fire.png"
+                                                                        className="h-[9.88px] 2xl:h-[16px] inline-flex ml-2"
+                                                                    />
+                                                                </p>
+                                                            )}
+                                                        </div>
+
+                                                        {/* 🗑️ Botón para eliminar */}
+                                                        <div className="w-1/6 lg:w-4/12 flex items-start justify-end">
+                                                            <button
+                                                                className="group text-white px-2 py-1 rounded-md hover:fill-red-500 transition-all duration-300"
+                                                                onClick={() =>
+                                                                    eliminarProducto(
+                                                                        item.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                <div className="h-10 lg:h-12 scale-x-[-1] ">
+                                                                    <svg
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        viewBox="0 0 448 512"
+                                                                        className="h-full w-4 lg:w-5 relative"
+                                                                        fill="current"
+                                                                    >
+                                                                        <path
+                                                                            className="group-hover:-rotate-12 group-hover:absolute group-hover:inset-0 "
+                                                                            fill="current"
+                                                                            d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3z"
+                                                                        />
+
+                                                                        <path
+                                                                            fill="current"
+                                                                            d="M32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                                                                        />
+                                                                    </svg>
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div className="w-full flex">
+                                                        <div className="w-1/2  md:w-4/6 lg:w-1/2 h-full flex items-center ">
+                                                            <p className="text-[18.42px] md:text-[24.42px]  lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7] ">
+                                                                S/{" "}
+                                                                {Number(
+                                                                    item.final_price
+                                                                ).toFixed(2)}
+                                                            </p>
+                                                        </div>
+                                                        <div className="w-1/2  md:w-2/6 lg:w-1/2 h-full ">
+                                                            <div className=" flex h-full text-[#000000]  bg-transparent border border-black items-center justify-around  rounded-[8px]  md:rounded-[10px] ">
+                                                                <button
+                                                                    className="h-full md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl "
+                                                                    onClick={() =>
+                                                                        decrementarCantidad(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    -
+                                                                </button>
+                                                                <span className="h-full text-xs md:text-base 2xl:text-2xl font-medium">
+                                                                    {item.variations &&
+                                                                    item
+                                                                        .variations
+                                                                        .length >
+                                                                        0
+                                                                        ? item.variations.reduce(
+                                                                              (
+                                                                                  sum,
+                                                                                  v
+                                                                              ) =>
+                                                                                  sum +
+                                                                                  v.quantity,
+                                                                              0
+                                                                          )
+                                                                        : item.quantity}
+                                                                </span>
+                                                                <button
+                                                                    className="h-6 md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl  "
+                                                                    onClick={() =>
+                                                                        incrementarCantidad(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    +
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                                {/* Total y botón de Checkout */}
+                                {totalPrecio > 0 && (
+                                    <div className="  w-full mt-8">
+                                        <div className="w-full flex items-center justify-between my-6">
+                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black ">
+                                                Subtotal
+                                            </p>
+                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black ">
+                                                S/ {totalPrecio.toFixed(2)}
+                                            </p>
+                                        </div>
+
+                                        <a
+                                            href="/checkout"
+                                            className=" block text-center text-[20.76px] md:text-[25.76px]  lg:text-[34.76px] 2xl:text-[36.76px] w-full  font-semibold rounded-[12.11px] lg:rounded-[15.11px] bg-[#FF9900] text-white py-3 2xl:py-4 hover:bg-opacity-90 hover:scale-105 transition-all duration-300"
+                                        >
+                                            IR A COMPRAR
+                                        </a>
+
+                                        <div className="mt-6 relative w-full">
+                                            <img
+                                                src="/assets/img/checkout/banner-pagos.png"
+                                                className="w-full object-cover h-auto rounded-lg shadow-lg shadow-gray-500/20      "
+                                            />
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </>

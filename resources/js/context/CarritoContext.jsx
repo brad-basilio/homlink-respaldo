@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { Local } from "sode-extend-react";
 import ItemsRest from "../actions/ItemRest";
+import { i } from "framer-motion/client";
 
 export const CarritoContext = createContext();
 const itemsRest = new ItemsRest();
@@ -151,6 +152,149 @@ export const CarritoProvider = ({ children }) => {
         setCarrito([]);
     };
 
+    // Función para incrementar cantidad
+    const incrementarCantidad = (id, variation = null) => {
+        setCarrito((prev) => {
+            return prev.map((item) => {
+                // Producto sin variaciones
+                if (
+                    item.id === id &&
+                    (!item.variations || item.variations.length === 0)
+                ) {
+                    return {
+                        ...item,
+                        quantity: item.quantity + 1,
+                    };
+                }
+
+                // Producto con variaciones
+                if (
+                    item.id === id &&
+                    item.variations &&
+                    item.variations.length > 0
+                ) {
+                    // Si no se especifica variación, incrementamos la primera (podrías ajustar esto)
+                    if (!variation) {
+                        return {
+                            ...item,
+                            variations: item.variations.map((v, i) =>
+                                i === 0 ? { ...v, quantity: v.quantity + 1 } : v
+                            ),
+                        };
+                    }
+
+                    // Incrementar la variación específica
+                    return {
+                        ...item,
+                        variations: item.variations.map((v) =>
+                            v.color === variation.color &&
+                            v.size === variation.size
+                                ? { ...v, quantity: v.quantity + 1 }
+                                : v
+                        ),
+                    };
+                }
+
+                return item;
+            });
+        });
+    };
+
+    // Función para decrementar cantidad
+    const decrementarCantidad = (id, variation = null) => {
+        setCarrito((prev) => {
+            return prev.map((item) => {
+                // Producto sin variaciones
+                if (
+                    item.id === id &&
+                    (!item.variations || item.variations.length === 0)
+                ) {
+                    return {
+                        ...item,
+                        quantity: Math.max(1, item.quantity - 1), // No permitir menos de 1
+                    };
+                }
+
+                // Producto con variaciones
+                if (
+                    item.id === id &&
+                    item.variations &&
+                    item.variations.length > 0
+                ) {
+                    // Si no se especifica variación, decrementamos la primera
+                    if (!variation) {
+                        const newVariations = item.variations.map((v, i) =>
+                            i === 0
+                                ? {
+                                      ...v,
+                                      quantity: Math.max(1, v.quantity - 1),
+                                  }
+                                : v
+                        );
+
+                        return {
+                            ...item,
+                            variations: newVariations,
+                        };
+                    }
+
+                    // Decrementar la variación específica
+                    const newVariations = item.variations.map((v) =>
+                        v.color === variation.color && v.size === variation.size
+                            ? { ...v, quantity: Math.max(1, v.quantity - 1) }
+                            : v
+                    );
+
+                    return {
+                        ...item,
+                        variations: newVariations,
+                    };
+                }
+
+                return item;
+            });
+        });
+    };
+
+    // Función para eliminar producto cuando cantidad llega a 0 (opcional)
+    const eliminarSiCero = (id, variation = null) => {
+        setCarrito((prev) => {
+            // Productos sin variaciones
+            if (!variation) {
+                return prev.filter(
+                    (item) => !(item.id === id && item.quantity === 0)
+                );
+            }
+
+            // Productos con variaciones
+            return prev
+                .map((item) => {
+                    if (item.id === id && item.variations) {
+                        const newVariations = item.variations.filter(
+                            (v) =>
+                                !(
+                                    v.color === variation.color &&
+                                    v.size === variation.size &&
+                                    v.quantity === 0
+                                )
+                        );
+
+                        // Si no quedan variaciones, eliminamos el producto
+                        if (newVariations.length === 0) {
+                            return null;
+                        }
+
+                        return {
+                            ...item,
+                            variations: newVariations,
+                        };
+                    }
+                    return item;
+                })
+                .filter(Boolean); // Eliminar nulls
+        });
+    };
+
     return (
         <CarritoContext.Provider
             value={{
@@ -159,6 +303,9 @@ export const CarritoProvider = ({ children }) => {
                 eliminarProducto,
                 vaciarCarrito,
                 actualizarPrecios,
+                decrementarCantidad,
+                incrementarCantidad,
+                eliminarSiCero,
             }}
         >
             {children}
