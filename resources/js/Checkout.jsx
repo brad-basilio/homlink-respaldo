@@ -890,7 +890,7 @@ const Checkout = ({ publicKey, session }) => {
                                                 disabled={loading}
                                             />
                                             <button
-                                                className="rounded-r-md bg-[#C5B8D4] px-4 py-2 text-sm text-white"
+                                                className="rounded-r-md bg-[#5339B1] px-4 py-2 text-sm text-white"
                                                 type="button"
                                                 onClick={onCouponApply}
                                                 disabled={loading}
