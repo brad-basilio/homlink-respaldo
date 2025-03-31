@@ -13,14 +13,14 @@ import ProductCard from "./ProductCard";
 export default function ProductCarousel({ products, children }) {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
-        <section className="pb-16 lg:py-24 bg-white text-[#212529] font-poppins">
+        <section className="pb-10 lg:pb-16 lg:py-24 bg-white text-[#212529] font-poppins">
             <div className="mx-auto xl:px-[5%] text-center">
                 <div className="flex flex-col items-center pb-4">
                     {children}
                 </div>
 
                 {/* Swiper Slider */}
-                <div className="w-full flex items-center justify-center sm:max-w-[60rem] 2xl:max-w-[69rem] mx-auto relative mt-6">
+                <div className="w-full flex items-center justify-center sm:max-w-[60rem] 2xl:max-w-[69rem] mx-auto relative lg:mt-6">
                     <Swiper
                         navigation={{
                             prevEl: ".custom-prev",
@@ -79,11 +79,11 @@ export default function ProductCarousel({ products, children }) {
                 <div className="flex justify-center mt-6">
                     <a
                         href="/catalog"
-                        className="group bg-white h-[55.59px] 2xl:h-[60.59px] w-[300px] 2xl:w-[331px] text-[#FF9900] border-[0.9px] border-[#FF9900] md:text-[16.37px] 2xl:text-[19.37px] rounded-[13.57px] font-semibold flex items-center justify-center gap-3 leading-[29.05px] hover:bg-[#FF9900] hover:text-white transition-colors duration-300"
+                        className="group bg-white h-[45.59px] lg:h-[55.59px] 2xl:h-[60.59px] w-[220px] lg:w-[300px] 2xl:w-[331px] text-[#FF9900] border-[0.9px] border-[#FF9900] text-[14.37px] md:text-[16.37px] 2xl:text-[19.37px] rounded-[10.57px] lg:rounded-[13.57px] font-semibold flex items-center justify-center gap-3 leading-[29.05px] hover:bg-[#FF9900] hover:text-white transition-colors duration-300"
                     >
                         Ver más productos
                         <svg
-                            className="w-5 fill-[#FF9900] group-hover:fill-white"
+                            className="w-3 lg:w-5 fill-[#FF9900] group-hover:fill-white"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 448 512"
                         >

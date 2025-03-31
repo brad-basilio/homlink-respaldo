@@ -14,7 +14,18 @@ import TestimonyRest from "../../../actions/TestimonyRest";
 
 const WeLoversSection = ({ we_lovers }) => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedVideo, setSelectedVideo] = useState(
+        we_lovers[0].description
+    );
+    const [isPlaying, setIsPlaying] = useState(false);
 
+    // Precarga thumbnails al iniciar
+    useEffect(() => {
+        we_lovers.forEach((video) => {
+            const img = new Image();
+            img.src = `https://img.youtube.com/vi/${video.description}/mqdefault.jpg`;
+        });
+    }, []);
     return (
         <div className="py-8 px-4 bg-gradient-to-b from-[#6745BA] to-[#522EAA]">
             <div className="md:max-w-4xl 2xl:max-w-6xl mx-auto text-center text-white">
@@ -32,7 +43,7 @@ const WeLoversSection = ({ we_lovers }) => {
                         className="h-12"
                     />
                 </h2>
-                <h2 className="lg:hidden text-white text-center md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-bold md:mb-8 2xl:mb-12  items-center justify-center gap-2">
+                <h2 className="lg:hidden text-white text-center text-[25.41px] md:text-[45.41px] 2xl:text-[55.41px]    2xl:leading-[83.11px] tracking-[0.01em] font-semibold md:font-bold md:mb-8 2xl:mb-12  items-center justify-center gap-2">
                     Nuestras weLovers <br />
                     <span className="flex w-full items-center justify-center gap-2">
                         <img
@@ -128,38 +139,44 @@ const WeLoversSection = ({ we_lovers }) => {
                 </div>
 
                 {/* Mobile View */}
-                <div className="block lg:hidden w-max mx-auto mt-6">
-                    <div className="flex gap-2 sm:gap-4">
+                <div className="block lg:hidden !w-full mx-auto mt-6">
+                    <div className="flex  justify-between gap-2 ">
                         {/* Thumbnails */}
-                        <div className="flex flex-col gap-2">
-                            {we_lovers.map((testimonial, index) => (
+                        <div className="w-[20%] flex flex-col gap-4">
+                            {we_lovers.map((video, index) => (
                                 <div
                                     key={index}
-                                    className="cursor-pointer w-[70px] h-[70px] sm:w-[115px] sm:h-[128px] rounded-lg overflow-hidden"
+                                    onClick={() => {
+                                        setSelectedVideo(video.description);
+                                        setIsPlaying(true);
+                                    }}
+                                    className={`cursor-pointer border-2 rounded-lg ${
+                                        selectedVideo === video.description
+                                            ? "border-white"
+                                            : "border-transparent"
+                                    }`}
                                 >
-                                    <iframe
-                                        className="w-full h-full "
-                                        src={`https://www.youtube.com/embed/${testimonial.description}`}
-                                        frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        referrerpolicy="strict-origin-when-cross-origin"
-                                        allowfullscreen
-                                    ></iframe>
+                                    <img
+                                        src={`https://img.youtube.com/vi/${video.description}/mqdefault.jpg`}
+                                        alt={`Miniatura ${index}`}
+                                        className={`aspect-[9/16] object-cover !w-full rounded-lg `}
+                                    />
                                 </div>
                             ))}
                         </div>
                         {/* Main Image */}
-                        <div className="">
-                            <div className="w-[250px] sm:w-[386px] sm:h-[680px] rounded-2xl overflow-hidden bg-white shadow-md">
-                                <iframe
-                                    className="w-full h-full "
-                                    src={`https://www.youtube.com/embed/${we_lovers[0].description}`}
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen
-                                ></iframe>
-                            </div>
+                        <div className="w-9/12 flex justify-center">
+                            <iframe
+                                key={selectedVideo} // Fuerza recarga del iframe
+                                className="aspect-[9/16] !w-full rounded-xl"
+                                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=${
+                                    isPlaying ? 1 : 0
+                                }&mute=0`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerPolicy="strict-origin-when-cross-origin"
+                                allowFullScreen
+                            ></iframe>
                         </div>
                     </div>
                 </div>

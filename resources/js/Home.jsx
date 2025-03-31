@@ -52,18 +52,18 @@ const Home = ({
                         ? `/api/sliders/media/${slider?.image}`
                         : "/assets/img/backgrounds/home.mp4"
                 }
-                backgroundHeight="h-[85vh] 2xl:h-[90vh]"
+                backgroundHeight="h-[50vh] lg:h-[85vh] 2xl:h-[90vh]"
             >
-                <div className="absolute inset-0 flex items-center justify-center text-center pt-24">
+                <div className="absolute inset-0 flex items-center justify-center text-center pt-12 lg:pt-24">
                     <div className="text-white p-6">
-                        <h1 className="text-[30.66px]  leading-[100%] tracking-[1.5%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[81.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
+                        <h1 className="text-[27.66px]  leading-[100%] tracking-[1.5%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[81.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
                             ¡Tener sexo con
                             <br /> tu disco es posible!
                         </h1>
-                        <p className="text-[15.13px] mt-4 md:mt-4 lg:mt-0 leading-[100%]  md:text-[20.61px] 2xl:text-[26.61px] md:leading-[36.92px]  my-2 tracking-[1%]">
+                        <p className="text-[12.13px] mt-4 md:mt-4 lg:mt-0 leading-[100%]  md:text-[20.61px] 2xl:text-[26.61px] md:leading-[36.92px]  my-2 tracking-[1%]">
                             Copas y Discos menstruales weFem
                         </p>
-                        <button className="mt-4 w-[200.19px] h-[45.67px] md:w-[258.19px] md:h-[55.67px] xl:w-[300px]  2xl:w-[371px] xl:h-[70px] 2xl:h-[80px] bg-[#DDEC4C] md:text-[17.15px] xl:text-[20.64px] 2xl:text-[24.64px] hover:brightness-90 transition duration-300  font-semibold  rounded-[13.91px] text-[#5F48B7] tracking-[1%]">
+                        <button className="mt-4 w-[200.19px] h-[45.67px] md:w-[258.19px] md:h-[55.67px] xl:w-[300px]  2xl:w-[371px] xl:h-[70px] 2xl:h-[80px] bg-[#DDEC4C] text-[14.15px]  md:text-[17.15px] xl:text-[20.64px] 2xl:text-[24.64px] hover:brightness-90 transition duration-300  font-semibold rounded-[5.91px]  md:rounded-[13.91px] text-[#5F48B7] tracking-[1%]">
                             ¡Realiza el cambio!
                         </button>
                     </div>
@@ -74,18 +74,18 @@ const Home = ({
                 <BenefitsSection />
                 <div className="h-[40px] lg:h-0"></div>
                 <ProductCarousel products={products_featured}>
-                    <h2 className="text-xl md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-start justify-center">
+                    <h2 className="font-poppins text-lg md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-center justify-center">
                         <img
                             src="/assets/img/emojis/growing-heart.png"
-                            className="h-6 md:h-8 lg:h-9"
+                            className="h-4 md:h-8 lg:h-9"
                         />{" "}
                         Preferidos por nosotrxs{" "}
                         <img
                             src="/assets/img/emojis/growing-heart.png"
-                            className="h-6 md:h-8 lg:h-9"
+                            className="h-4 md:h-8 lg:h-9"
                         />
                     </h2>
-                    <p className="text-[16.3px] md:text-[19.3px] leading-[19.77px] mt-4">
+                    <p className="font-poppins text-[13.3px] md:text-[19.3px] leading-[19.77px] lg:mt-4">
                         ¿Estás listx para el cambio?
                     </p>
                 </ProductCarousel>

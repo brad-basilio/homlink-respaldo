@@ -54,26 +54,26 @@ const ProductCard = ({ product, visible = true }) => {
 
                         {/* Información del producto */}
                         <div
-                            className={`px-4 pb-4 pt-8 block  lg:block ${
+                            className={`px-4 pb-4 pt-2 lg:pt-8 block  lg:block ${
                                 visible ? "block" : "hidden"
                             }`}
                         >
                             <div className="flex justify-between">
-                                <h3 className="text-[25.44px] 2xl:text-[29.44px] md:leading-[20.64px] 2xl:leading-[41.64px] text-[#212529] font-semibold line-clamp-2">
+                                <h3 className="text-[22.44px] md:text-[25.44px] 2xl:text-[29.44px] md:leading-[20.64px] 2xl:leading-[41.64px] text-[#212529] font-semibold line-clamp-2">
                                     {product.name}
                                 </h3>
-                                <span className="text-[27.56px] 2xl:text-[32.56px] md:leading-[20.64px] 2xl:leading-[39.79px] font-bold text-[#FC58BE]">
+                                <span className="text-[22.56px] md:text-[27.56px] 2xl:text-[32.56px] md:leading-[20.64px] 2xl:leading-[39.79px] font-bold text-[#FC58BE]">
                                     {formatPrice(product.final_price)}
                                 </span>
                             </div>
 
                             {/* Precio */}
                             <div className="flex justify-between items-baseline gap-2">
-                                <h4 className="text-[13.28px] md:text-[14.28px] 2xl:text-[16.28px] text-[#212529] line-clamp-2 leading-[29.18px]">
+                                <h4 className="text-[12.28px] md:text-[14.28px] 2xl:text-[16.28px] text-[#212529] line-clamp-2 lg:leading-[29.18px]">
                                     ({product.summary})
                                 </h4>
                                 {product.discount && (
-                                    <span className="text-[14.28px] 2xl:text-[16.8px] text-[#9F9F9F] line-through">
+                                    <span className="text-[12.28px] lg:text-[14.28px] 2xl:text-[16.8px] text-[#9F9F9F] line-through">
                                         S/ {Number(product.price).toFixed(2)}
                                     </span>
                                 )}

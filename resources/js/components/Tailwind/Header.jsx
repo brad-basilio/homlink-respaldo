@@ -119,7 +119,7 @@ const Header = ({
         <>
             {showSlogan && (
                 <div
-                    className={`text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[13.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full  ${
+                    className={`text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full  ${
                         backgroundType === "none" && "mb-[78px] "
                     }`}
                 >
@@ -147,6 +147,11 @@ const Header = ({
                         autoPlay
                         loop
                         muted
+                        playsInline // <- Atributo crucial para iOS
+                        preload="auto"
+                        disablePictureInPicture
+                        disableRemotePlayback
+                        webkit-playsinline="true" // <- Fallback para versiones antiguas
                     >
                         <source src={backgroundSrc} type="video/mp4" />
                     </video>
@@ -163,25 +168,25 @@ const Header = ({
                     ></div>
                 )}
                 <header
-                    className={`font-poppins fixed top-0 w-full max-w-full overflow-hidden z-40 transition-colors duration-300 ${
+                    className={`font-poppins fixed lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
                         backgroundType === "none"
                             ? "bg-[#5339B1] mt-12 "
                             : isScrolled
                             ? "bg-[#5339B1]  pt-0 !mt-0 "
-                            : "bg-transparent top-4 pt-14 lg:pt-10"
+                            : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
                     } ${
                         isScrolled &&
                         "bg-[#5339B1]  pt-0 !mt-0 transition-all duration-150 "
                     }`}
                 >
                     <div
-                        className={`px-[5%] py-4 lg:py-0 lg:max-w-7xl 2xl:max-w-[92rem] mx-auto flex w-full justify-between items-center text-white shadow-lg lg:shadow-none `}
+                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-7xl 2xl:max-w-[92rem] mx-auto flex  justify-between items-center text-white shadow-lg lg:shadow-none `}
                     >
                         <div className="flex items-center w-full  lg:hidden">
                             <button
                                 ref={btnToggleRef}
                                 onClick={toggleMenu}
-                                className="text-white pr-6 menu-toggle "
+                                className="text-white pr-4 md:pr-6 menu-toggle "
                                 aria-label="Toggle menu"
                             >
                                 <i
@@ -194,7 +199,7 @@ const Header = ({
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="WeFem Logo"
-                                    className="h-[27px] w-[150.55px] md:h-[36.8px] md:w-[210.55px] object-cover object-top"
+                                    className="h-[20px] w-[120.55px] md:h-[36.8px] md:w-[210.55px] object-cover object-top"
                                 />
                             </a>
                         </div>
@@ -274,7 +279,7 @@ const Header = ({
                             </div>
                         </div>
 
-                        <div className=" lg:hidden">
+                        <div className=" lg:hidden text-sm">
                             <div className="flex items-center gap-2 sm:gap-4">
                                 <a href="/quiz">Quiz</a>
                                 <a href="#">
@@ -288,7 +293,7 @@ const Header = ({
                                 >
                                     <i className="fas fa-shopping-cart"></i>
                                     <span
-                                        className={`absolute -top-2 -right-2 bg-white text-black rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold transition-transform ${
+                                        className={`absolute -top-1 -right-1 bg-[#FF9900] text-white rounded-full w-3 h-3 flex items-center justify-center text-[7px] font-medium transition-transform ${
                                             animar ? "scale-150" : "scale-100"
                                         }`}
                                         style={{
@@ -305,7 +310,7 @@ const Header = ({
 
                     {WhatsApp && (
                         <div className="flex justify-end w-full mx-auto z-[100] relative  ">
-                            <div className="fixed bottom-6 sm:bottom-[2rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
+                            <div className="fixed bottom-6 right-6 sm:bottom-[2rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
                                 <a
                                     target="_blank"
                                     id="whatsapp-toggle"

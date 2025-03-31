@@ -20,13 +20,13 @@ const TopSaleSection = ({ producto }) => {
 
     console.log(producto);
     return (
-        <section className="py-10 px-[5%] mx-auto font-font-general bg-white">
-            <h2 className=" text-[30.25px] md:text-[30.25px] 2xl:text-[36.25px] leading-[29.36px] font-bold text-[#212529] mt-6 mb-10 text-center flex gap-2 items-center justify-center">
-                <img src="/assets/img/emojis/fire.png" className="h-8" /> El más
-                vendido{" "}
-                <img src="/assets/img/emojis/fire.png" className="h-8" />
+        <section className="py-2 md:py-10 px-[5%] mx-auto font-poppins bg-white">
+            <h2 className=" text-[20.25px] md:text-[30.25px] 2xl:text-[36.25px] leading-[29.36px] font-bold text-[#212529] mt-6 mb-8 md:mb-10 text-center flex gap-2 items-center justify-center">
+                <img src="/assets/img/emojis/fire.png" className="h-4 md:h-8" />{" "}
+                El más vendido{" "}
+                <img src="/assets/img/emojis/fire.png" className="h-4 md:h-8" />
             </h2>
-            <div className="mx-auto flex flex-col lg:flex-row justify-center items-center my-4 gap-8">
+            <div className="mx-auto flex flex-col lg:flex-row justify-center items-center my-4 gap-4 lg:gap-8">
                 {/* Image */}
                 <div className="md:w-[644px] md:h-[644px] lg:w-[500.81px] lg:h-[500.81px] 2xl:w-[620.81px] 2xl:h-[620.81px] overflow-hidden">
                     <img
@@ -39,7 +39,7 @@ const TopSaleSection = ({ producto }) => {
                 {/* Product Details */}
                 <div className="md:w-[644px] lg:w-[350px] 2xl:w-[475px] text-[#333333]">
                     <div className="flex gap-4 lg:block items-end">
-                        <h3 className="text-[30.58px] md:text-[55.58px] lg:text-[40.38px] 2xl:text-[54.38px] font-bold leading-[40.78px]">
+                        <h3 className="text-[30.58px] leading-[30.78px] md:text-[55.58px] lg:text-[40.38px] 2xl:text-[54.38px] font-bold lg:leading-[40.78px]">
                             {producto.name}
                         </h3>
                         <p className="text-[17.5px] md:text-[31.5px] lg:text-[16.81px] 2xl:text-[30.81px]  font-normal inline-flex ">

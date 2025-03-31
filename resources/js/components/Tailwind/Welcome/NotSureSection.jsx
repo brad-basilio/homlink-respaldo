@@ -81,7 +81,7 @@ const NotSureSection = ({ producto }) => {
 
                     {/* Add to Cart Button */}
                     {/* Add to Cart Button */}
-                    <div className="flex justify-center">
+                    <div className="hidden lg:flex justify-center">
                         <button
                             onClick={() =>
                                 agregarAlCarrito({
