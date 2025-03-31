@@ -310,7 +310,7 @@ const Header = ({
 
                     {WhatsApp && (
                         <div className="flex justify-end w-full mx-auto z-[100] relative  ">
-                            <div className="fixed bottom-6 right-6 sm:bottom-[2rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
+                            <div className="fixed bottom-3 right-3 sm:bottom-[2rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
                                 <a
                                     target="_blank"
                                     id="whatsapp-toggle"
