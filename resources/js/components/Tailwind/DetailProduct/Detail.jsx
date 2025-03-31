@@ -139,14 +139,27 @@ const Detail = ({ item }) => {
                             />
                         </div>
 
-                        <div className="flex items-start lg:hidden justify-start flex-row gap-4 w-[100px] h-full">
+                        <div className="flex items-start lg:hidden justify-start flex-row gap-4 w-full overflow-x-auto h-full">
                             {item.images.length > 0 &&
                                 item.images.map((image, index) => (
                                     <img
                                         key={index}
                                         src={`/api/items/media/${image.url}`}
                                         alt="Thumbnail"
-                                        className="h-[100px] w-[100px] object-cover"
+                                        className="h-[100px] w-[100px] object-cover rounded-xl"
+                                        onClick={() => setMainImage(image.url)}
+                                    />
+                                ))}
+                            {item.colors.length > 0 &&
+                                item.colors.map((color, index) => (
+                                    <img
+                                        key={index}
+                                        src={`/api/items/media/${color.image}`}
+                                        alt="Thumbnail"
+                                        className="h-[100px] w-[100px] object-cover rounded-xl"
+                                        onClick={() =>
+                                            setMainImage(color.image)
+                                        }
                                     />
                                 ))}
                         </div>

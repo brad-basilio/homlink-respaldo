@@ -120,7 +120,7 @@ const Header = ({
             {showSlogan && (
                 <div
                     className={`text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full  ${
-                        backgroundType === "none" && "mb-[78px] "
+                        backgroundType === "none" && "mb-10 lg:mb-[78px] "
                     }`}
                 >
                     <span className="text-[#DDEC4C] font-semibold">
