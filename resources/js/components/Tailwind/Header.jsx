@@ -328,13 +328,13 @@ const Header = ({
                 </header>
                 <div
                     ref={menuRef}
-                    className={`absolute top-16 md:top-20 inset-0 text-white z-[999] transform ${
-                        isOpen ? "opacity-1 block" : "hidden opacity-0"
+                    className={`fixed   md:top-20 inset-0 text-white z-[999] transform ${
+                        isOpen ? "opacity-1 block " : "hidden opacity-0 "
+                    } ${
+                        isScrolled
+                            ? "top-[3.75rem] bg-[#5339B1]"
+                            : "top-24 bg-[#5339B1]"
                     } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto `}
-                    style={{
-                        background:
-                            "linear-gradient(180deg, rgba(95, 72, 183, 0.75) 6.08%, rgba(96, 72, 183, 0.525) 100%)",
-                    }}
                 >
                     <ul className="flex flex-col gap-4 items-center justify-center">
                         <li>
