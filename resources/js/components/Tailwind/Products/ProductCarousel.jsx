@@ -64,14 +64,14 @@ export default function ProductCarousel({ products, children }) {
                     </Swiper>
 
                     {/* Botones de navegación personalizados */}
-                    <div className="absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
+                    <div className="hidden lg:block absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
                         <img
                             src="/assets/img/swiper/right.png"
                             className="rotate-180"
                         />
                     </div>
 
-                    <div className="absolute top-1/2 right-[-30px] xl:right-[-30px] transform -translate-y-1/2 custom-next cursor-pointer">
+                    <div className="hidden lg:block  absolute top-1/2 right-[-30px] xl:right-[-30px] transform -translate-y-1/2 custom-next cursor-pointer">
                         <img src="/assets/img/swiper/right.png" />
                     </div>
                 </div>
