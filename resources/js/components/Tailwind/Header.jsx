@@ -499,7 +499,7 @@ const Header = ({
                                                                 ).toFixed(2)}
                                                             </p>
                                                         </div>
-                                                        <div className="w-1/2  md:w-2/6 lg:w-1/2 h-full ">
+                                                        <div className="w-1/2  md:w-2/6 lg:w-1/2 h-full lg:h-14 ">
                                                             <div className=" flex h-full text-[#000000]  bg-transparent border border-black items-center justify-around  rounded-[8px]  md:rounded-[10px] ">
                                                                 <button
                                                                     className="h-full md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl "
@@ -511,7 +511,7 @@ const Header = ({
                                                                 >
                                                                     -
                                                                 </button>
-                                                                <span className="h-full text-xs md:text-base 2xl:text-2xl font-medium">
+                                                                <span className="h-full flex items-center text-xs md:text-base 2xl:text-2xl font-medium">
                                                                     {item.variations &&
                                                                     item
                                                                         .variations
