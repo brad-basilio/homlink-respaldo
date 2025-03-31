@@ -491,8 +491,8 @@ const Header = ({
                                                         </div>
                                                     </div>
                                                     <div className="w-full flex">
-                                                        <div className="w-1/2  md:w-4/6 lg:w-1/2 h-full flex items-center ">
-                                                            <p className="text-[18.42px] md:text-[24.42px]  lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7] ">
+                                                        <div className="w-1/2  md:w-4/6 lg:w-1/2 h-full flex  ">
+                                                            <p className="text-[18.42px] md:text-[24.42px] h-full items-center  lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7] ">
                                                                 S/{" "}
                                                                 {Number(
                                                                     item.final_price
