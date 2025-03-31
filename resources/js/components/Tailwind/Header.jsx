@@ -279,12 +279,18 @@ const Header = ({
                             </div>
                         </div>
 
-                        <div className=" lg:hidden text-sm">
-                            <div className="flex items-center gap-2 sm:gap-4">
+                        <div className=" lg:hidden text-base">
+                            <div className="flex items-center gap-4">
                                 <a href="/quiz">Quiz</a>
-                                <a href="#">
-                                    <i className="fa-brands fa-whatsapp"></i>
-                                </a>
+                                {WhatsApp && (
+                                    <a
+                                        href={WhatsApp.link}
+                                        target="_blank"
+                                        className="flex justify-center items-center cursor-pointer"
+                                    >
+                                        <i className="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                )}
                                 <button
                                     onClick={() =>
                                         setMostrarCarrito(!mostrarCarrito)
