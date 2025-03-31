@@ -56,7 +56,7 @@ const Home = ({
             >
                 <div className="absolute inset-0 flex items-center justify-center text-center pt-12 lg:pt-24">
                     <div className="text-white p-6">
-                        <h1 className="text-[27.66px]  leading-[100%] tracking-[1.5%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[81.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
+                        <h1 className="text-[29.66px]  leading-[100%] tracking-[1.5%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[81.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
                             ¡Tener sexo con
                             <br /> tu disco es posible!
                         </h1>

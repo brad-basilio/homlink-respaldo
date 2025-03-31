@@ -36,17 +36,29 @@ const ProductCard = ({ product, visible = true }) => {
                                         </div>
                                     </div>
                                 )}
-
-                                <img
-                                    src={`/api/items/media/${product.image}`}
-                                    alt={product.name}
-                                    className="w-[300.38px] md:w-[300.38px] md:h-[300.38px] 2xl:w-[346.38px] 2xl:h-[346.38px] object-cover group-hover:brightness-100 transition-all duration-300"
-                                    loading="lazy"
-                                    onError={(e) =>
-                                        (e.target.src =
-                                            "/api/cover/thumbnail/null")
-                                    }
-                                />
+                                {product.colors ? (
+                                    <img
+                                        src={`/api/items/media/${product.colors[0].image}`}
+                                        alt={product.name}
+                                        className="w-[300.38px] md:w-[300.38px] md:h-[300.38px] 2xl:w-[346.38px] 2xl:h-[346.38px] object-cover group-hover:brightness-100 transition-all duration-300"
+                                        loading="lazy"
+                                        onError={(e) =>
+                                            (e.target.src =
+                                                "/api/cover/thumbnail/null")
+                                        }
+                                    />
+                                ) : (
+                                    <img
+                                        src={`/api/items/media/${product.image}`}
+                                        alt={product.name}
+                                        className="w-[300.38px] md:w-[300.38px] md:h-[300.38px] 2xl:w-[346.38px] 2xl:h-[346.38px] object-cover group-hover:brightness-100 transition-all duration-300"
+                                        loading="lazy"
+                                        onError={(e) =>
+                                            (e.target.src =
+                                                "/api/cover/thumbnail/null")
+                                        }
+                                    />
+                                )}
 
                                 <div className="hidden lg:block absolute bottom-0 rounded-xl left-0 w-full h-full bg-[#00000080] group-hover:bg-transparent transition-colors duration-300"></div>
                             </div>
