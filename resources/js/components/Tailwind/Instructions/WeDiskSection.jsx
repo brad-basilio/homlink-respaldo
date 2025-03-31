@@ -75,8 +75,8 @@ const WeDiskSection = () => {
                             alt="weDisk"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[440px] 2xl:w-[540px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:py-10 lg:px-14">
-                        <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl xl:text-6xl  2xl:text-7xl text-center">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[440px] 2xl:w-[540px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[10%] lg:py-10 lg:px-14">
+                        <h2 className="font-bold xl:mb-2 text-5xl xl:text-6xl  2xl:text-7xl text-center">
                             weDisk
                         </h2>
                         <ul className="space-y-2 md:space-y-3 xl:space-y-4">
@@ -87,7 +87,7 @@ const WeDiskSection = () => {
                                 >
                                     <img
                                         src={item.icon}
-                                        className={`w-[20px] md:w-[25px] xl:w-[30px] 2xl:w-[40px] h-auto flex items-center justify-center brightness-100 grayscale`}
+                                        className={`w-[25px] xl:w-[30px] 2xl:w-[40px] h-auto flex items-center justify-center brightness-100 grayscale`}
                                         alt={item.text}
                                         loading="lazy"
                                     />
@@ -339,25 +339,25 @@ const WeDiskSection = () => {
                             <div className="text-center py-14 mb-4  h-[500px]  transition-all duration-300">
                                 {/*8cm * 4cm */}
                                 <div class=" flex items-center justify-center">
-                                    <div className="relative h-[290px]">
-                                        <div className="h-[200px] md:h-[240px]  ">
+                                    <div className="relative h-[260px]">
+                                        <div className="h-[220px] md:h-[240px]  ">
                                             <img
                                                 src="/assets/img/instructions/disk-item-size.png"
                                                 alt={`Talla ${zise.zise}`}
-                                                class="h-full w-auto rotate-[90deg]"
+                                                class="h-full w-auto rotate-[-10deg]"
                                             />
                                         </div>
 
                                         {/* Línea y anotación de altura */}
-                                        <div className="absolute left-[-40px]  md:left-[-70px] 2xl:left-[-80px]  top-0 h-full flex items-center">
+                                        <div className="absolute left-[-50px]  md:left-[-80px] 2xl:left-[-80px]  top-0 h-full flex items-center">
                                             <span className="mr-2 2xl:w-[60px] font-bebas text-[23.61px] 2xl:text-[28.61px]">
                                                 {zise.height} CM
                                             </span>
                                             {/* Triángulo superior */}
-                                            <div className="absolute top-6 left-[55px] 2xl:left-[66px]  border-b-[5px] border-l-[5px] border-b-[#000000] border-l-transparent rotate-45"></div>
+                                            <div className="absolute top-5 left-[54px] 2xl:left-[66px]  border-b-[5px] border-l-[5px] border-b-[#000000] border-l-transparent rotate-45"></div>
                                             <div className="h-[80%] border-l border-[#000000]"></div>
                                             {/* Triángulo inferior */}
-                                            <div className="absolute bottom-6 left-[55px] 2xl:left-[66px]  border-t-[5px] border-l-[5px] border-t-[#000000] border-l-transparent -rotate-45"></div>
+                                            <div className="absolute bottom-6 left-[54px] 2xl:left-[66px]  border-t-[5px] border-l-[5px] border-t-[#000000] border-l-transparent -rotate-45"></div>
                                         </div>
 
                                         {/* Línea y anotación de ancho */}
@@ -366,10 +366,10 @@ const WeDiskSection = () => {
                                                 {zise.width} CM
                                             </span>
                                             {/* Triángulo izquierdo */}
-                                            <div className="absolute left-10 top-[-2px] border-r-[5px] border-b-[5px] border-r-[#000000] border-b-transparent rotate-45"></div>
+                                            <div className="absolute left-7 top-[-2px] border-r-[5px] border-b-[5px] border-r-[#000000] border-b-transparent rotate-45"></div>
                                             <div className="w-[70%] border-t border-[#000000]"></div>
                                             {/* Triángulo derecho */}
-                                            <div className="absolute right-10 top-[-2px] border-l-[5px] border-b-[5px] border-l-[#000000] border-b-transparent -rotate-45"></div>
+                                            <div className="absolute right-7 top-[-2px] border-l-[5px] border-b-[5px] border-l-[#000000] border-b-transparent -rotate-45"></div>
                                         </div>
                                     </div>
                                 </div>

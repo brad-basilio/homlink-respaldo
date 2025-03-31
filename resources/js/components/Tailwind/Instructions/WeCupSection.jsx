@@ -58,8 +58,8 @@ const WeCupSection = () => {
                             alt="weCup"
                         />
                     </div>
-                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[440px] 2xl:w-[540px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[5%] sm:py-[10%] sm:px-[10%] lg:py-10 lg:px-14">
-                        <h2 className="font-bold xl:mb-2 text-4xl md:text-5xl xl:text-6xl  2xl:text-7xl text-center">
+                    <div className="bg-[#DDEC4C] flex flex-col items-center gap-4 w-full md:w-[520px] lg:w-[440px] 2xl:w-[540px] h-full  rounded-[50px]  md:rounded-[70px] lg:rounded-[40px] 2xl:rounded-[70px] font-poppins py-[10%] px-[10%] lg:py-10 lg:px-14">
+                        <h2 className="font-bold xl:mb-2 text-5xl xl:text-6xl  2xl:text-7xl text-center">
                             weCup
                         </h2>
                         <ul className="space-y-2 md:space-y-3 xl:space-y-4 ">
@@ -91,7 +91,7 @@ const WeCupSection = () => {
                                 >
                                     <img
                                         src={item.img}
-                                        className={`w-[20px] md:w-[25px] xl:w-[32px] 2xl:w-[41px] h-auto flex items-center justify-center brightness-100 grayscale`}
+                                        className={`w-[25px] xl:w-[32px] 2xl:w-[41px] h-auto flex items-center justify-center brightness-100 grayscale`}
                                         alt={item.text}
                                         loading="lazy"
                                     />
