@@ -50,6 +50,7 @@ const CatalogProducts = ({
             </Header>
             <div className="relative z-10">
                 <FeaturesSection />
+                <div className="bg-[#EFE5FF] h-4 lg:hidden"></div>
                 <ProductFilter
                     products={items}
                     categories={categories}

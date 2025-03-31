@@ -264,8 +264,9 @@ const ProductFilter = ({ products, categories, anuncio }) => {
                 <div className="w-full grid grid-cols-1  md:grid-cols-2 gap-4 gap-y-8">
                     {filteredProducts && filteredProducts.length > 0 ? (
                         filteredProducts.slice(0, 4).map((product, index) => (
-                            <div
+                            <a
                                 key={index}
+                                href={`/product/${product.slug}`}
                                 className="rounded-lg w-full group cursor-pointer"
                             >
                                 <img
@@ -319,7 +320,7 @@ const ProductFilter = ({ products, categories, anuncio }) => {
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </a>
                         ))
                     ) : (
                         <div className="col-span-1  md:col-span-2 flex flex-col items-center justify-center h-full w-full p-4 space-y-4">
@@ -355,8 +356,9 @@ const ProductFilter = ({ products, categories, anuncio }) => {
 
                     {filteredProducts && filteredProducts.length > 0 ? (
                         filteredProducts.slice(4).map((product, index) => (
-                            <div
+                            <a
                                 key={index}
+                                href={`/product/${product.slug}`}
                                 className="rounded-lg w-full group cursor-pointer"
                             >
                                 <img
@@ -406,7 +408,7 @@ const ProductFilter = ({ products, categories, anuncio }) => {
                                         </svg>
                                     </a>
                                 </div>
-                            </div>
+                            </a>
                         ))
                     ) : (
                         <div className="w-full flex flex-col items-center justify-center h-full  p-4 space-y-4">
