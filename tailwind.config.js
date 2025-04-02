@@ -10,7 +10,11 @@ export default {
         extend: {
             fontFamily: {
                 bebas: ["Bebas Neue", "serif"],
-                poppins: ["Poppins", "serif"],
+                poppins: ["Aspekta ", "serif"],
+            },
+            colors: {
+                azul: "#224483",
+                negro: "#242424",
             },
             // Puedes agregar personalizaciones aquí si es necesario
         },

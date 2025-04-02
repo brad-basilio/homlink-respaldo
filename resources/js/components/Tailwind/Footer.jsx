@@ -82,149 +82,120 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
     return (
         <>
-            <footer className="bg-[#5F48B7] text-white">
-                <div className="px-[5%] max-w-xl lg:max-w-6xl xl:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto py-16">
-                    <div className=" flex md:flex-row flex-wrap xl:flex-nowrap gap-8">
-                        <div className="hidden w-3/12 lg:flex justify-center">
-                            <img
-                                src="https://i.ibb.co/pvgT612S/image.png"
-                                alt="weFem Logo"
-                                className="md:w-[170.52px] md:h-[120.27px] 2xl:w-[197.52px] 2xl:h-[136.27px] object-cover"
-                            />
+            <footer className="bg-[#224483] text-white mt-8 font-poppins lg:mt-[120px]">
+                <div className="px-[5%] max-w-xl lg:max-w-[82rem]  mx-auto py-10 lg:pt-16 lg:pb-8">
+                    <div className=" flex flex-col gap-6 lg:flex-row ">
+                        <div className="lg:w-4/12 lg:px-[2%] ">
+                            <div className=" w-full">
+                                <img
+                                    src="/assets/img/footer/logo-white.png"
+                                    alt="No Pain"
+                                    className="md:w-[170.52px]  lg:w-[300.52px] object-cover"
+                                />
+                            </div>
+                            <div className=" w-full mt-6">
+                                <img
+                                    src="/assets/img/footer/pays.png"
+                                    alt="No Pain"
+                                    className="w-10/12 h-auto object-cover"
+                                />
+                            </div>
                         </div>
 
-                        <div className="w-7/12  text-[15.77px] lg:w-3/12 xl:w-4/12  border-r-[#FFFFFF]  border-r-2 pr-4 md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-light">
-                            <nav className="space-y-4">
-                                {WhatsApp && (
-                                    <a
-                                        href={WhatsApp.link}
-                                        aria-label="WhatsApp"
-                                        target="_blank"
-                                        className="block hover:opacity-80 transition-opacity "
-                                    >
-                                        Conversemos
-                                    </a>
-                                )}
+                        <div className="flex flex-col gap-6 lg:w-8/12 lg:grid lg:grid-cols-3">
+                            <div className="w-full text-white flex flex-col gap-2 mt-0">
+                                <p className="mb-2">Sede Central Miraflores</p>
+                                <p className="text-[14px]">
+                                    Calle Chiclayo 723
+                                </p>
+                                <p className="text-[14px]">
+                                    Teléfonos: 241 0448 - 976 953 599
+                                </p>
+                                <p className="text-[14px]">
+                                    info-miraflores@nopain.com.pe
+                                </p>
+                            </div>
 
-                                {/* <a
-                                    href="#"
-                                    className="block hover:opacity-80 transition-opacity "
-                                >
-                                    Preguntas frecuentes
-                                </a>*/}
-                                <a
-                                    onClick={openModal}
-                                    className="cursor-pointer block hover:opacity-80 transition-opacity "
-                                >
-                                    Términos y condiciones
+                            <div className="w-full text-white flex flex-col gap-2 mt-0">
+                                <p className="mb-2">Sede San Borja</p>
+                                <p className="text-[14px]">Calle Bernini 354</p>
+                                <p className="text-[14px]">
+                                    Teléfono: 398 7331
+                                </p>
+                                <p className="text-[14px]">
+                                    info-sanborja@nopain.com.pe
+                                </p>
+                            </div>
+                            <div className="w-full text-white flex flex-col gap-2">
+                                <p className="mb-2">Sede San Isidro</p>
+                                <p className="text-[14px]">
+                                    Consultorio 513 - 516
+                                </p>
+                                <p className="text-[14px]">
+                                    Teléfonos: 976 953 717
+                                </p>
+                                <p className="text-[14px]">
+                                    cavenecia@nopain.com.pe
+                                </p>
+                            </div>
+
+                            <div className="w-full text-white flex flex-col gap-2">
+                                <p className="mb-2">Horario de Atención</p>
+                                <p className="text-[14px]">
+                                    Lunes a viernes: <br /> 8:00 am a 8:00 pm
+                                </p>
+                                <p className="text-[14px]">
+                                    Sábados:
+                                    <br /> 8:00 am a 2:00 pm
+                                </p>
+                            </div>
+                            <div className="w-full text-white flex flex-col gap-2">
+                                <p className="mb-2 font-bold">Políticas</p>
+                                <p className="text-[14px]">
+                                    Políticas de privacidad
+                                </p>
+                                <a onClick={openModal} className="text-[14px]">
+                                    Términos y Condiciones
                                 </a>
-                                {libroReclamaciones && (
-                                    <a
-                                        href={libroReclamaciones}
-                                        target="_blank"
-                                        className=" cursor-pointer block hover:opacity-80 transition-opacity "
-                                    >
-                                        Libro de Reclamaciones
-                                    </a>
-                                )}
-                            </nav>
-                        </div>
+                                <p className="text-[14px]">
+                                    Políticas de cambio
+                                </p>
+                                <p className="text-[14px]">
+                                    Libro de reclamaciones
+                                </p>
+                            </div>
 
-                        <div className="md:w-[35%] text-[15.77px] lg:w-2/12 lg:border-r-[#FFFFFF]  lg:border-r-2  md:text-[18.77px] 2xl:text-[23.77px] leading-[23.77px] tracking-[-0.07px] font-normal">
-                            <nav className="space-y-4">
-                                {telefono && (
-                                    <a
-                                        href={`tel:${telefono}`}
-                                        className="block hover:opacity-80 transition-opacity "
-                                    >
-                                        Teléfono
-                                    </a>
-                                )}
-                                {mail && (
-                                    <a
-                                        href={`mailto:${mail}`}
-                                        className="block hover:opacity-80 transition-opacity "
-                                    >
-                                        Mail
-                                    </a>
-                                )}
-                                {f_whatsapp && (
-                                    <a
-                                        href={`//wa.me/${f_whatsapp}`}
-                                        aria-label="WhatsApp"
-                                        target="_blank"
-                                        className="block hover:opacity-80 transition-opacity "
-                                    >
-                                        Whatsapp
-                                    </a>
-                                )}
-                            </nav>
-                        </div>
-                        <div className=" w-7/12  lg:hidden  flex items-center justify-center md:block">
-                            <img
-                                src="https://i.ibb.co/pvgT612S/image.png"
-                                alt="weFem Logo"
-                                className="h-[110.27px]  md:w-[170.52px] md:h-[120.27px] 2xl:w-[197.52px] 2xl:h-[136.27px] object-cover"
-                            />
-                        </div>
-
-                        <div className="md:w-[35%] lg:w-3/12 flex items-end lg:items-start lg:pt-4">
-                            <div className="flex flex-col md:flex-row gap-4 ">
-                                {Instagram && (
-                                    <a
-                                        href={Instagram.link}
-                                        aria-label="Instagram"
-                                        target="_blank"
-                                    >
-                                        <img
-                                            src="/assets/img/footer/instagram.png"
-                                            alt="facebook"
-                                            className=" h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto"
-                                        />
-                                    </a>
-                                )}
-
-                                {Facebook && (
-                                    <a
-                                        href={Facebook.link}
-                                        aria-label="Facebook"
-                                        target="_blank"
-                                    >
-                                        <img
-                                            src="/assets/img/footer/facebook.png"
-                                            alt="Facebook"
-                                            className="h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto "
-                                        />
-                                    </a>
-                                )}
-
-                                {WhatsApp && (
-                                    <a
-                                        href={WhatsApp.link}
-                                        aria-label="WhatsApp"
-                                        target="_blank"
-                                    >
-                                        <img
-                                            src="/assets/img/footer/whatsapp.png"
-                                            alt="WhatsApp"
-                                            className="h-[39.65px] md:h-[59.65px] xl:h-[41.33px] 2xl:h-[61.33px] w-auto "
-                                        />
-                                    </a>
-                                )}
+                            <div className="w-full text-white flex flex-col gap-2">
+                                <p className="mb-2 font-bold">Nuestras redes</p>
+                                <div className="flex gap-4">
+                                    <img
+                                        src="/assets/img/footer/facebook.png"
+                                        className="h-8 w-8"
+                                    />
+                                    <img
+                                        src="/assets/img/footer/twitter.png"
+                                        className="h-8 w-8"
+                                    />
+                                    <img
+                                        src="/assets/img/footer/instagram.png"
+                                        className="h-8 w-8"
+                                    />
+                                    <img
+                                        src="/assets/img/footer/youtube.png"
+                                        className="h-8 w-8"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t border-[#FFFFFF]">
-                    <div className="px-[5%]  md:max-w-xl lg:max-w-5xl 2xl:max-w-7xl md:px-0 mx-auto md:h-[77.91px] md:py-0 flex items-center justify-start">
-                        <p className="hidden md:block text-[14.72px] leading-[22.26px] text-[#EFEDF8]">
-                            Copyright © 2025 weFem® | Todos los derechos
-                            reservados | Juntxs sin límites
-                        </p>
-                        <p className="md:hidden flex w-full items-center justify-center text-center text-[12.72px] py-4 leading-[22.26px] text-[#EFEDF8]">
-                            Copyright © 2025 weFem® <br /> Todos los derechos
-                            reservados | Juntxs sin límites
+                <div className=" bg-[#EFF0F1]">
+                    <div className="px-[5%]  py-3">
+                        <p className=" text-center text-xs text-[#242424] font-medium">
+                            Copyright © 2025 NOPAIN Fisioterapia &
+                            <br className="lg:hidden" />
+                            Rehabilitación. Reservados todos los derechos.
                         </p>
                     </div>
                 </div>

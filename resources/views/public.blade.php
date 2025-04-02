@@ -106,7 +106,20 @@
             src="https://www.facebook.com/tr?id=1098274404490481&ev=PageView&noscript=1" />
     </noscript>
     <!-- End Meta Pixel Code -->
+    <link rel="stylesheet" href="/assets/fonts/aspekta/font-face.css" />
 </head>
+<style>
+    body {
+        /*background-image: url('/assets/img/maqueta/Instalaciones.png');*/
+        width: 100%;
+        height: auto;
+        background-size: 100% auto;
+        background-repeat: no-repeat;
+        /* Asegura que la imagen no se repita */
+        background-position: top center;
+        /* Centra la imagen en la parte superior */
+    }
+</style>
 
 <body class="font-poppins">
     @inertia

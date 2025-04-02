@@ -25,6 +25,18 @@ import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 import ItemsRest from "./actions/ItemRest";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+// import required modules
+import { Navigation } from "swiper/modules";
+import HealthSection from "./components/Home/HealthSection";
+import TratamientoSection from "./components/Home/TratamientoSection";
+import TestimonioSection from "./components/Home/TestimonioSection";
+import AcercaDe from "./components/Home/AcercaDe";
 
 const Home = ({
     slider,
@@ -42,33 +54,167 @@ const Home = ({
 }) => {
     const tipoSlider = "vua";
     console.log(products_featured);
+
+    const benefits = [
+        {
+            number: "300",
+            message: "Reservas diarias",
+            symbol: "+",
+            image: "/assets/img/home/calendar.png",
+        },
+        {
+            number: "1M",
+            message: "Pacientes satisfechos",
+            symbol: "+",
+            image: "/assets/img/home/patient.png",
+        },
+        {
+            number: "4k",
+            message: "Consultas atendidas",
+            symbol: "+",
+            image: "/assets/img/home/yoga-mat.png",
+        },
+    ];
     return (
-        <>
-            <Header
-                showSlogan={showSlogan}
-                backgroundType="video"
-                backgroundSrc={
-                    slider
-                        ? `/api/sliders/media/${slider?.image}`
-                        : "/assets/img/backgrounds/home.mp4"
-                }
-                backgroundHeight="h-[50vh] lg:h-[85vh] 2xl:h-[90vh]"
-            >
-                <div className="absolute inset-0 flex items-center justify-center text-center pt-12 lg:pt-24">
-                    <div className="text-white p-6">
-                        <h1 className="text-[29.66px]  leading-[100%] tracking-[1.5%] md:text-[58.54px] xl:text-[58.54px]  2xl:text-[81.54px] md:leading-[60.81px] xl:leading-[60.81px] 2xl:leading-[90.81px] font-bold max-w-4xl ">
-                            ¡Tener sexo con
-                            <br /> tu disco es posible!
-                        </h1>
-                        <p className="text-[12.13px] mt-4 md:mt-4 lg:mt-0 leading-[100%]  md:text-[20.61px] 2xl:text-[26.61px] md:leading-[36.92px]  my-2 tracking-[1%]">
-                            Copas y Discos menstruales weFem
-                        </p>
-                        <button className="mt-4 w-[200.19px] h-[45.67px] md:w-[258.19px] md:h-[55.67px] xl:w-[300px]  2xl:w-[371px] xl:h-[70px] 2xl:h-[80px] bg-[#DDEC4C] text-[14.15px]  md:text-[17.15px] xl:text-[20.64px] 2xl:text-[24.64px] hover:brightness-90 transition duration-300  font-semibold rounded-[5.91px]  md:rounded-[13.91px] text-[#5F48B7] tracking-[1%]">
-                            ¡Realiza el cambio!
+        <div>
+            <Header showSlogan={showSlogan}></Header>
+            <div className="relative ">
+                <img
+                    src="/assets/img/home/image1.png"
+                    className="lg:hidden w-full h-auto mt-4
+                "
+                />
+                <img
+                    src="/assets/img/home/bg-des.png"
+                    className="hidden lg:block w-full h-auto mt-0
+                "
+                />
+                <div className="lg:absolute lg:top-1/2  lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
+                    <h2 className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]">
+                        Recupera tu{" "}
+                        <strong className="text-[#224483]">movilidad</strong>,
+                        <br /> vive sin dolor
+                    </h2>
+                    <p className="hidden lg:flex mt-8">
+                        NOPAIN – Fisioterapia y Rehabilitación ofrece
+                        información detallada sobre sus servicios, equipo
+                        profesional y datos de contacto. A continuación, se
+                        presenta un resumen de los contenidos disponibles
+                    </p>
+                    <div className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4">
+                        <button className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center">
+                            <img
+                                src="/assets/img/home/calendar-home.png"
+                                className="w-12 h-auto  bg-[#224483] rounded-full p-2"
+                            />
+                            Reserva tu cita
                         </button>
                     </div>
                 </div>
-            </Header>
+            </div>
+            <div className=" h-auto w-full bg-[#F8F8F8] mt-[36px] lg:mt-0">
+                {" "}
+                <div className="lg:max-w-[82rem] mx-auto lg:px-[5%]">
+                    <Swiper
+                        slidesPerView={3}
+                        spaceBetween={30}
+                        loop={true}
+                        breakpoints={{
+                            0: { slidesPerView: 1.5, spaceBetween: 0 },
+                            640: { slidesPerView: 1.5, spaceBetween: 10 },
+                            1024: { slidesPerView: 3, spaceBetween: 180 },
+                        }}
+                    >
+                        {benefits.map((benefit, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="flex gap-4 w-full my-6 lg:my-7 ">
+                                    <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
+                                        <img
+                                            src={benefit.image}
+                                            className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
+                                        />
+                                    </div>
+                                    <div className="text-[#242424]">
+                                        <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
+                                            {benefit.number}{" "}
+                                            <span className="text-[#224483]">
+                                                {benefit.symbol}
+                                            </span>
+                                        </h1>
+                                        <h2 className="font-normal">
+                                            {benefit.message}
+                                        </h2>
+                                    </div>
+                                    <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+            </div>
+            <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
+                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
+                    Descubre los{" "}
+                    <span className="text-[#224483]">beneficios</span> de{" "}
+                    <br className="lg:hidden" /> una vida sin dolor
+                </h2>
+                <button className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14">
+                    <img
+                        src="/assets/img/home/treatment.png"
+                        className="w-12 h-auto  bg-[#224483] rounded-full p-2"
+                    />
+                    Ver todos los servicios
+                </button>
+            </div>
+            <HealthSection />
+
+            <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
+                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
+                    Tratamientos diseñados para tu
+                    <span className="text-[#224483]">bienestar</span>
+                </h2>
+                <button className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14">
+                    <img
+                        src="/assets/img/home/treatment.png"
+                        className="w-12 h-auto  bg-[#224483] rounded-full p-2"
+                    />
+                    Ver todos los servicios
+                </button>
+            </div>
+
+            <TratamientoSection />
+            <div className="px-[5%]  py-4 lg:hidden ">
+                <div className="bg-[#F8F8F8] rounded-3xl p-4">
+                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
+                        Agenda tu cita y empieza tu recuperación.
+                    </h2>
+                    <div className="w-full flex items-center justify-end">
+                        <button className=" mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center">
+                            <img
+                                src="/assets/img/home/calendar-home.png"
+                                className="w-12 h-auto  bg-[#224483] rounded-full p-2"
+                            />
+                            Reservar una cita
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
+                <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
+                    Lo que
+                    <span className="text-[#224483]">
+                        {" "}
+                        nuestros clientes
+                    </span>{" "}
+                    dicen sobre nosotros
+                </h2>
+            </div>
+            <TestimonioSection />
+            <AcercaDe />
+            <Footer />
+
+            {/*
             <div className="relative z-10">
                 <FeaturesSection />
                 <BenefitsSection />
@@ -108,9 +254,9 @@ const Home = ({
                 <Testimonies testimonies={testimonies} />
                 <CallToAction />
                 <Popups popups={popups} />
-               */}
-            </div>
-        </>
+               
+        </div >*/}
+        </div>
     );
 };
 

@@ -119,15 +119,10 @@ const Header = ({
         <>
             {showSlogan && (
                 <div
-                    className={`text-center px-[5%] py-3 font-light bg-[#6048B7] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full  ${
-                        backgroundType === "none" && "mb-10 lg:mb-[78px] "
+                    className={` text-center px-[5%] py-3 lg:py-2 font-light bg-[#224483] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full h-[42px] lg:h-7  ${
+                        backgroundType === "none" && "mb-0  "
                     }`}
-                >
-                    <span className="text-[#DDEC4C] font-semibold">
-                        ¡ENVÍO GRATIS
-                    </span>{" "}
-                    A TODO LIMA METROPOLITANA!
-                </div>
+                ></div>
             )}
 
             <div
@@ -168,9 +163,9 @@ const Header = ({
                     ></div>
                 )}
                 <header
-                    className={`font-poppins fixed lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
+                    className={` font-poppins static lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
                         backgroundType === "none"
-                            ? "bg-[#5339B1] mt-12 "
+                            ? "bg-transparent mt-0 "
                             : isScrolled
                             ? "bg-[#5339B1]  pt-0 !mt-0 "
                             : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
@@ -180,141 +175,68 @@ const Header = ({
                     }`}
                 >
                     <div
-                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-7xl 2xl:max-w-[92rem] mx-auto flex  justify-between items-center text-white shadow-lg lg:shadow-none `}
+                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto flex  justify-between items-center text-[#242424] shadow-lg lg:shadow-none `}
                     >
-                        <div className="flex items-center w-full  lg:hidden">
-                            <button
-                                ref={btnToggleRef}
-                                onClick={toggleMenu}
-                                className="text-white pr-4 md:pr-6 menu-toggle "
-                                aria-label="Toggle menu"
-                            >
-                                <i
-                                    className={`fas ${
-                                        isOpen ? "fa-times" : "fa-bars"
-                                    } text-lg md:text-2xl`}
-                                ></i>
-                            </button>
+                        <div className="flex items-center  ">
                             <a href="/">
                                 <img
                                     src="/assets/img/logo.png"
                                     alt="WeFem Logo"
-                                    className="h-[20px] w-[120.55px] md:h-[36.8px] md:w-[210.55px] object-cover object-top"
+                                    className="h-[40px] w-auto  md:h-[36.8px] object-cover object-top"
                                 />
                             </a>
                         </div>
-                        <div className="hidden lg:flex py-6 mx-auto w-full justify-between items-center font-normal text-[16px] leading-[18.55px] tracking-widest">
-                            <nav className="flex gap-6 ">
-                                <a href="/catalog">Tienda</a>
-                                <a href="/instructions">¿Cómo usar?</a>
-                                <a href="/about">Nosotrxs</a>
-                                <a href="/quiz">Quiz</a>
-                            </nav>
-                            <a href="/" className="flex justify-start">
-                                <img
-                                    src="/assets/img/logo.png"
-                                    alt="Wefem"
-                                    className="h-[38px] w-[230.55px] object-cover object-top"
-                                    style={{
-                                        textShadow:
-                                            "0px 4px 7.5px 0px #00000040",
-                                    }}
-                                />
-                            </a>
-                            <div className="flex space-x-4 text-[21.93px] items-center">
-                                <span className="text-[16px]">Escríbenos</span>
-                                {WhatsApp && (
-                                    <a
-                                        href={WhatsApp.link}
-                                        target="_blank"
-                                        className="flex justify-center items-center cursor-pointer"
-                                    >
-                                        <i className="fa-brands fa-whatsapp"></i>
-                                    </a>
-                                )}
-                                {Instagram && (
-                                    <a
-                                        href={Instagram.link}
-                                        target="_blank"
-                                        className="flex justify-center items-center"
-                                    >
-                                        <i className="fa-brands fa-instagram"></i>
-                                    </a>
-                                )}
-                                {Facebook && (
-                                    <a
-                                        href={Facebook.link}
-                                        target="_blank"
-                                        className="flex justify-center items-center"
-                                    >
-                                        <i className="fa-brands fa-facebook"></i>
-                                    </a>
-                                )}
-
-                                {TikTok && (
-                                    <a href={TikTok.link} target="_blank">
-                                        <i className="fa-brands fa-tiktok"></i>
-                                    </a>
-                                )}
-
-                                <button
-                                    onClick={() =>
-                                        setMostrarCarrito(!mostrarCarrito)
-                                    }
-                                    className="relative"
+                        <div className="hidden lg:flex py-6 mx-auto  justify-center items-center font-normal text-base ">
+                            <nav className="flex gap-2 ">
+                                <a
+                                    href="/"
+                                    className="bg-[#EFF0F1] relative py-2 pl-5 pr-3 rounded-full"
                                 >
-                                    <i className="fas fa-shopping-cart"></i>
-                                    <span
-                                        className={`absolute -top-1 -right-1 bg-[#FF9900] text-white rounded-full w-3 h-3 flex items-center justify-center text-[10px] font-medium transition-transform ${
-                                            animar ? "scale-150" : "scale-100"
-                                        }`}
-                                        style={{
-                                            transition:
-                                                "transform 0.3s ease-in-out",
-                                        }}
-                                    >
-                                        {totalProductos}
-                                    </span>
-                                </button>
-                            </div>
+                                    Inicio
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                </a>
+                                <a href="/instructions" className=" py-2 px-5">
+                                    Servicios
+                                </a>
+                                <a href="/about" className=" py-2 px-5">
+                                    Nosotros
+                                </a>
+                                <a href="/quiz" className=" py-2 px-5">
+                                    Instalaciones
+                                </a>
+                                <a href="/quiz" className=" py-2 px-5">
+                                    Contacto
+                                </a>
+                            </nav>
+                        </div>
+                        <div className="hidden lg:flex h-full items-center  justify-end">
+                            <img
+                                src="/assets/img/home/paises.png"
+                                className="h-6 w-auto object-cover"
+                            />
                         </div>
 
                         <div className=" lg:hidden text-base">
-                            <div className="flex items-center gap-4">
-                                <a href="/quiz">Quiz</a>
-                                {WhatsApp && (
-                                    <a
-                                        href={WhatsApp.link}
-                                        target="_blank"
-                                        className="flex justify-center items-center cursor-pointer"
-                                    >
-                                        <i className="fa-brands fa-whatsapp"></i>
-                                    </a>
-                                )}
+                            <div className=" ">
                                 <button
-                                    onClick={() =>
-                                        setMostrarCarrito(!mostrarCarrito)
-                                    }
-                                    className="relative"
+                                    ref={btnToggleRef}
+                                    onClick={toggleMenu}
+                                    className="text-white  menu-toggle rounded-full h-[50px] w-[50px] flex items-center justify-center  bg-[#EFF0F1] "
+                                    aria-label="Toggle menu"
                                 >
-                                    <i className="fas fa-shopping-cart"></i>
-                                    <span
-                                        className={`absolute -top-1 -right-1 bg-[#FF9900] text-white rounded-full w-3 h-3 flex items-center justify-center text-[7px] font-medium transition-transform ${
-                                            animar ? "scale-150" : "scale-100"
-                                        }`}
-                                        style={{
-                                            transition:
-                                                "transform 0.3s ease-in-out",
-                                        }}
-                                    >
-                                        {totalProductos}
-                                    </span>
+                                    <div className="text-[#242424]">
+                                        <i
+                                            className={`fas ${
+                                                isOpen ? "fa-times" : "fa-bars"
+                                            } text-xl md:text-2xl py-3 px-3 `}
+                                        />
+                                    </div>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    {WhatsApp && (
+                    {/*WhatsApp && (
                         <div className="flex justify-end w-full mx-auto z-[100] relative  ">
                             <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
                                 <a
@@ -330,7 +252,7 @@ const Header = ({
                                 </a>
                             </div>
                         </div>
-                    )}
+                    )*/}
                 </header>
                 <div
                     ref={menuRef}

@@ -68,6 +68,10 @@ use App\Http\Controllers\ThankController;
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
+Route::get('/fisio', [HomeController::class, 'reactView'])->name('FisioTerapiaPage.jsx');
+Route::get('/contacto', [HomeController::class, 'reactView'])->name('Contacto.jsx');
+Route::get('/instalaciones', [HomeController::class, 'reactView'])->name('InstalacionesPage.jsx');
+Route::get('/servicios', [HomeController::class, 'reactView'])->name('ServiciosPage.jsx');
 Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogProducts.jsx');
 Route::get('/instructions', [InstructionController::class, 'reactView'])->name('Instructions.jsx');
 Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');
