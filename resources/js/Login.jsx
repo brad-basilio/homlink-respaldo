@@ -75,16 +75,16 @@ const Login = ({}) => {
                             alt="Imagen decorativa"
                             className="h-[400px] w-full object-cover rounded-xl"
                         >
-                            <source src="/assets/img/backgrounds/home.mp4" />
+                            <source src="/assets/img/backgrounds/login.mp4" />
                         </video>
                     </div>
                     <div className="flex items-center justify-center px-8">
                         <div className="mx-auto w-full max-w-md space-y-6">
                             <div className="space-y-2">
                                 <h1 className="text-3xl font-bold text-center">
-                                    Bienvenido{" "}
-                                    <span className="text-[#6745BA]">
-                                        WeLover
+                                    Bienvenido a {" "}
+                                    <span className="text-azul">
+                                        NoPain
                                     </span>
                                 </h1>
                             </div>
@@ -130,7 +130,7 @@ const Login = ({}) => {
                                     <a
                                         href="/forgot-password"
                                         className="text-sm flex gap-2
-                                    items-center justify-center text-[#6745BA] font-semibold hover:text-[#6745BA]  "
+                                    items-center justify-center text-azul font-semibold hover:text-azul  "
                                     >
                                         Olvidé mi contraseña
                                     </a>
