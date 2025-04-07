@@ -3,25 +3,8 @@ import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
 
-import Banner from "./Components/Home/Banner";
-import Highlights from "./Components/Home/Highlights";
-import HowItWorks from "./Components/Home/HowItWorks";
-import Routine from "./Components/Home/Routine";
-import Highlights2 from "./Components/Home/Highlights2";
-import Supplies from "./Components/Home/Supplies";
-import Testimonies from "./Components/Home/Testimonies";
-import CallToAction from "./Components/Home/CallToAction";
-import Popups from "./Components/Home/Popups";
 import Header from "./components/Tailwind/Header";
-import FeaturesSection from "./components/Tailwind/Welcome/FeaturesSection";
-import BenefitsSection from "./components/Tailwind/Welcome/BenefitsSection";
-import ProductCarousel from "./components/Tailwind/Products/ProductCarousel";
-import QuizSection from "./components/Tailwind/Welcome/QuizSection";
-import TopSaleSection from "./components/Tailwind/Welcome/TopSaleSection";
-import GuaranteeSection from "./components/Tailwind/Welcome/GuaranteeSection";
-import WeLoversSection from "./components/Tailwind/Welcome/WeLoversSections";
-import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
-import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
+
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 import ItemsRest from "./actions/ItemRest";
@@ -41,6 +24,77 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import ReactModal from "react-modal";
 import { X } from "lucide-react";
 import ModalAppointment from "./components/Appointment/ModalAppointment";
+
+import { motion } from "framer-motion";
+import { ScrollAnimation } from "./animations/ScrollAnimation";
+import { scrollEffects } from "./animations/animationVariantsSccroll";
+import { PersistentScrollAnimation } from "./animations/PersistentScrollAnimation";
+
+// Animaciones para textos (en loop)
+const textVariants = {
+    hidden: {
+        opacity: 0,
+        y: 20,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
+    },
+    loop: {
+        y: [0, -5, 0], // Movimiento sutil arriba/abajo
+        transition: {
+            repeat: Infinity,
+            repeatType: "reverse",
+            duration: 3,
+            ease: "easeInOut",
+        },
+    },
+};
+
+// Animación para el resaltado de texto
+const highlightVariants = {
+    visible: {
+        color: "#224483",
+        scale: 1.05,
+        transition: {
+            repeat: Infinity,
+            repeatType: "mirror",
+            duration: 2.5,
+        },
+    },
+};
+
+// Animación del botón (igual a tu versión)
+const buttonVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+        scale: 1,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            stiffness: 300,
+            damping: 10,
+        },
+    },
+    pulse: {
+        scale: [1, 1.05, 1],
+        transition: {
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeInOut",
+        },
+    },
+    hover: {
+        scale: 1.1,
+        rotate: [0, -5, 5, -5, 0],
+        transition: { duration: 0.5 },
+    },
+};
+
 ReactModal.setAppElement("#app");
 
 const Home = ({
@@ -81,6 +135,9 @@ const Home = ({
     };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    /*ANIMACIONES */
+
     return (
         <div>
             <Header showSlogan={showSlogan}></Header>
@@ -218,144 +275,198 @@ const Home = ({
                     ></div>
                 </div>
 
-                <div className="lg:absolute lg:top-1/2  lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
-                    <h2 className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]">
-                        <TextWithHighlight text={landingHero?.title} />
-                    </h2>
-                    <p className="hidden lg:flex mt-8">
+                <div className="lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
+                    {/* Título con animación en loop */}
+                    <motion.h2
+                        className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]"
+                        initial="hidden"
+                        animate={["visible", "loop"]} // Animación inicial + loop
+                        variants={textVariants}
+                    >
+                        <TextWithHighlight
+                            text={landingHero?.title}
+                            highlightVariants={highlightVariants}
+                        />
+                    </motion.h2>
+
+                    {/* Descripción con animación en loop */}
+                    <motion.p
+                        className="hidden lg:flex mt-8"
+                        initial="hidden"
+                        animate={["visible", "loop"]}
+                        variants={textVariants}
+                        transition={{ delay: 0.3 }} // Pequeño retraso
+                    >
                         {landingHero?.description}
-                    </p>
-                    <div className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4">
-                        <button
+                    </motion.p>
+
+                    {/* Botón con tu animación exacta */}
+                    <motion.div
+                        className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <motion.button
                             onClick={() => setIsModalOpen(true)}
-                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
+                            variants={buttonVariants}
+                            initial="hidden"
+                            animate={["visible", "pulse"]}
+                            whileHover="hover"
+                            style={{ position: "relative", overflow: "hidden" }}
                         >
+                            <motion.span
+                                className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                initial={{ scale: 0 }}
+                                whileTap={{
+                                    scale: 2,
+                                    opacity: 0.3,
+                                    transition: { duration: 0.5 },
+                                }}
+                            />
                             <div className="bg-[#224483] w-12 p-2 rounded-full">
                                 <img
                                     src="/assets/img/icons/calendar-check.png"
-                                    className=" h-auto    "
+                                    className="h-auto"
+                                    alt="Calendario"
                                 />
                             </div>
                             Reserva tu cita
-                        </button>
-                    </div>
+                        </motion.button>
+                    </motion.div>
                 </div>
             </div>
-            <div className=" h-auto w-full bg-[#F8F8F8] mt-[36px] lg:mt-0">
-                {" "}
-                <div className="lg:max-w-[82rem] mx-auto lg:px-[5%]">
-                    <Swiper
-                        slidesPerView={3}
-                        spaceBetween={30}
-                        loop={true}
-                        breakpoints={{
-                            0: { slidesPerView: 1.5, spaceBetween: 0 },
-                            640: { slidesPerView: 1.5, spaceBetween: 10 },
-                            1024: { slidesPerView: 3, spaceBetween: 180 },
-                        }}
-                    >
-                        {indicators.map((benefit, index) => (
-                            <SwiperSlide key={index}>
-                                <div className="flex gap-4 w-full my-6 lg:my-7 ">
-                                    <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
-                                        <img
-                                            src={`/api/indicator/media/${benefit.symbol}`}
-                                            className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
-                                        />
-                                    </div>
-                                    <div className="text-[#242424]">
-                                        <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
-                                            {benefit.name}{" "}
-                                            <span className="text-[#224483]">
-                                                +
-                                            </span>
-                                        </h1>
-                                        <h2 className="font-normal">
-                                            {benefit.description}
-                                        </h2>
-                                    </div>
-                                    <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2  -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
-                                </div>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-            </div>
-            <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
-                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[46rem] lg:tracking-wide ">
-                    <TextWithHighlight text={landingBenefits?.title} />
-                </h2>
-                <a
-                    href="/services"
-                    className=" mt-5 bg-[#EFF0F1] w-max text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
-                >
-                    <div className="bg-[#224483] w-12 p-2 rounded-full">
-                        <img
-                            src="/assets/img/icons/treatment.png"
-                            className=" h-auto    "
-                        />
-                    </div>
-                    Ver todos los servicios
-                </a>
-            </div>
-            <HealthSection
-                landingBenefits={landingBenefits}
-                benefits={benefits}
-            />
-
-            <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
-                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
-                    <TextWithHighlight text={landingServices?.title} />
-                </h2>
-                <a
-                    href="/services"
-                    className=" w-max mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
-                >
-                    <div className="bg-[#224483] w-12 p-2 rounded-full">
-                        <img
-                            src="/assets/img/icons/treatment.png"
-                            className=" h-auto    "
-                        />
-                    </div>
-                    Ver todos los servicios
-                </a>
-            </div>
-
-            <TratamientoSection
-                setIsModalOpen={setIsModalOpen}
-                isModalOpen={isModalOpen}
-                services={services}
-                landingServices={landingServices}
-            />
-            <div className="px-[5%]  py-4 lg:hidden ">
-                <div className="bg-[#F8F8F8] rounded-3xl p-4">
-                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
-                        {landingServices?.description}
-                    </h2>
-                    <div className="w-full flex items-center justify-end">
-                        <button
-                            onClick={() => setIsModalOpen(true)}
-                            className="w-max mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+            <ScrollAnimation>
+                <div className=" h-auto w-full bg-[#F8F8F8] mt-[36px] lg:mt-0">
+                    {" "}
+                    <div className="lg:max-w-[82rem] mx-auto lg:px-[5%]">
+                        <Swiper
+                            slidesPerView={3}
+                            spaceBetween={30}
+                            loop={true}
+                            breakpoints={{
+                                0: { slidesPerView: 1.5, spaceBetween: 0 },
+                                640: { slidesPerView: 1.5, spaceBetween: 10 },
+                                1024: { slidesPerView: 3, spaceBetween: 180 },
+                            }}
                         >
-                            <div className="bg-[#224483] w-12 p-2 rounded-full">
-                                <img
-                                    src="/assets/img/icons/calendar-check.png"
-                                    className=" h-auto "
-                                />
-                            </div>
-                            Reservar una cita
-                        </button>
+                            {indicators.map((benefit, index) => (
+                                <SwiperSlide key={index}>
+                                    <div className="flex gap-4 w-full my-6 lg:my-7 ">
+                                        <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
+                                            <img
+                                                src={`/api/indicator/media/${benefit.symbol}`}
+                                                className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
+                                            />
+                                        </div>
+                                        <div className="text-[#242424]">
+                                            <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
+                                                {benefit.name}{" "}
+                                                <span className="text-[#224483]">
+                                                    +
+                                                </span>
+                                            </h1>
+                                            <h2 className="font-normal">
+                                                {benefit.description}
+                                            </h2>
+                                        </div>
+                                        <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2  -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
-            </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
+                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[46rem] lg:tracking-wide ">
+                        <TextWithHighlight text={landingBenefits?.title} />
+                    </h2>
+                    <a
+                        href="/services"
+                        className=" mt-5 bg-[#EFF0F1] w-max text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                    >
+                        <div className="bg-[#224483] w-12 p-2 rounded-full">
+                            <img
+                                src="/assets/img/icons/treatment.png"
+                                className=" h-auto    "
+                            />
+                        </div>
+                        Ver todos los servicios
+                    </a>
+                </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <HealthSection
+                    landingBenefits={landingBenefits}
+                    benefits={benefits}
+                />
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
+                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
+                        <TextWithHighlight text={landingServices?.title} />
+                    </h2>
+                    <a
+                        href="/services"
+                        className=" w-max mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                    >
+                        <div className="bg-[#224483] w-12 p-2 rounded-full">
+                            <img
+                                src="/assets/img/icons/treatment.png"
+                                className=" h-auto    "
+                            />
+                        </div>
+                        Ver todos los servicios
+                    </a>
+                </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <TratamientoSection
+                    setIsModalOpen={setIsModalOpen}
+                    isModalOpen={isModalOpen}
+                    services={services}
+                    landingServices={landingServices}
+                />
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <div className="px-[5%]  py-4 lg:hidden ">
+                    <div className="bg-[#F8F8F8] rounded-3xl p-4">
+                        <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
+                            {landingServices?.description}
+                        </h2>
+                        <div className="w-full flex items-center justify-end">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="w-max mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                            >
+                                <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                    <img
+                                        src="/assets/img/icons/calendar-check.png"
+                                        className=" h-auto "
+                                    />
+                                </div>
+                                Reservar una cita
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
+                    <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
+                        <TextWithHighlight text={landingTestimonies?.title} />
+                    </h2>
+                </div>
+            </ScrollAnimation>
+            <ScrollAnimation>
+                <TestimonioSection testimonies={testimonies} />
+            </ScrollAnimation>
 
-            <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
-                <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
-                    <TextWithHighlight text={landingTestimonies?.title} />
-                </h2>
-            </div>
-            <TestimonioSection testimonies={testimonies} />
             <AcercaDe staff_boss={staff_boss} />
+
             <Footer />
             {/* Modal */}
             <ModalAppointment

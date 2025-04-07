@@ -1,148 +1,15 @@
-import {
-    ChevronDown,
-    Clock,
-    Calendar,
-    Target,
-    Grid,
-    BookOpen,
-    Users,
-    User,
-} from "lucide-react";
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
-
-import Banner from "./Components/Home/Banner";
-import Highlights from "./Components/Home/Highlights";
-import HowItWorks from "./Components/Home/HowItWorks";
-import Routine from "./Components/Home/Routine";
-import Highlights2 from "./Components/Home/Highlights2";
-import Supplies from "./Components/Home/Supplies";
-import Testimonies from "./Components/Home/Testimonies";
-import CallToAction from "./Components/Home/CallToAction";
-import Popups from "./Components/Home/Popups";
 import Header from "./components/Tailwind/Header";
-import FeaturesSection from "./components/Tailwind/Welcome/FeaturesSection";
-import BenefitsSection from "./components/Tailwind/Welcome/BenefitsSection";
-import ProductCarousel from "./components/Tailwind/Products/ProductCarousel";
-import QuizSection from "./components/Tailwind/Welcome/QuizSection";
-import TopSaleSection from "./components/Tailwind/Welcome/TopSaleSection";
-import GuaranteeSection from "./components/Tailwind/Welcome/GuaranteeSection";
-import WeLoversSection from "./components/Tailwind/Welcome/WeLoversSections";
-import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
-import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
-import ItemsRest from "./actions/ItemRest";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-
-// import required modules
-import { Navigation } from "swiper/modules";
-import HealthSection from "./components/Home/HealthSection";
-import TratamientoSection from "./components/Home/TratamientoSection";
-import TestimonioSection from "./components/Home/TestimonioSection";
-import AcercaDe from "./components/Home/AcercaDe";
 import TextWithHighlight from "./Utils/TextWithHighlight";
 import ModalAppointment from "./components/Appointment/ModalAppointment";
-
-const DynamicGallery = ({ service }) => {
-    // Determina el layout basado en el número de imágenes
-    const getLayoutConfig = () => {
-        if (!service?.gallery?.length)
-            return { gridClass: "", imageClasses: [] };
-
-        const count = service.gallery.length;
-
-        if (count === 1) {
-            return {
-                gridClass: "grid-cols-1 h-[500px] gap-4",
-                imageClasses: ["h-full"],
-            };
-        }
-
-        if (count === 2) {
-            return {
-                gridClass: "flex flex-col h-[600px] gap-4",
-                imageClasses: ["h-[350px]", "h-[250px]"],
-            };
-        }
-
-        if (count === 3) {
-            return {
-                gridClass: "grid-cols-2 grid-rows-3 gap-2  gap-4",
-                imageClasses: [
-                    "row-span-2 col-span-2 h-full", // Grande arriba
-                    "row-span-1 col-span-1 h-[250px]", // Abajo izquierda
-                    "row-span-1 col-span-1 h-[250px]", // Abajo derecha
-                ],
-            };
-        }
-
-        if (count === 4) {
-            return {
-                gridClass: "grid-cols-2 grid-rows-3 gap-4 h-[600px]",
-                imageClasses: [
-                    "row-span-1 col-span-2 h-full", // Grande izquierda
-                    "row-span-2 col-span-1 h-full", // Alta derecha
-                    "row-span-1 col-span-1 h-full", // Pequeña abajo 1
-                    "row-span-1 col-span-1 h-full", // Pequeña abajo 2
-                ],
-            };
-        }
-        if (count === 5) {
-            return {
-                gridClass: "grid-cols-2 grid-rows-4 gap-4 h-[800px]",
-                imageClasses: [
-                    "row-span-1 col-span-2 h-full", // Grande izquierda
-                    "row-span-2 col-span-1 h-full", // Alta derecha
-                    "row-span-1 col-span-1 h-full", // Pequeña abajo 1
-                    "row-span-1 col-span-1 h-full", // Pequeña abajo 2
-                    "row-span-1 col-span-2 h-full", // Pequeña abajo 2
-                ],
-            };
-        }
-
-        // Layout por defecto para 5+ imágenes
-        return {
-            gridClass: "grid-cols-3 gap-2 h-[600px]",
-            imageClasses: Array(count).fill("h-300px"),
-        };
-    };
-
-    const { gridClass, imageClasses } = getLayoutConfig();
-
-    if (!service?.gallery?.length) return null;
-
-    return (
-        <div
-            className={`grid ${gridClass} w-full mx-auto my-8 rounded-3xl overflow-hidden`}
-        >
-            {service.gallery.map((image, index) => (
-                <div
-                    key={index}
-                    className={`relative ${
-                        imageClasses[index] || "h-32"
-                    } overflow-hidden `}
-                >
-                    <img
-                        src={`/api/service/media/${image}`}
-                        alt={`${service.title} - Imagen ${index + 1}`}
-                        className="w-full h-full object-cover absolute inset-0 rounded-3xl"
-                        onError={(e) => {
-                            e.target.src = "/assets/img/placeholder.jpg"; // Imagen de respaldo
-                        }}
-                    />
-                </div>
-            ))}
-        </div>
-    );
-};
+import DynamicGalleryServiceService from "./DynamicGalleryService";
 
 const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
     const landingHero = landing.find(
@@ -151,77 +18,118 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [showServicesMenu, setShowServicesMenu] = useState(false);
+    const titleRef = useRef(null);
 
     const handleServicesMenu = () => {
         setShowServicesMenu(!showServicesMenu);
     };
 
+    // Animaciones
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 100,
+                damping: 10,
+            },
+        },
+    };
+
     // Función para dividir la descripción en párrafos
     const renderDescription = (description) => {
         if (!description) return null;
-
-        // Dividir por puntos seguidos de espacio (regex mejorado)
         const paragraphs = description.split(/(?<=\.)\s+/);
-
         return paragraphs.map((paragraph, index) => (
-            <p key={index} className="mb-4 last:mb-0">
+            <motion.p
+                key={index}
+                className="mb-4 last:mb-0"
+                variants={itemVariants}
+            >
                 {paragraph}
-            </p>
+            </motion.p>
         ));
     };
 
     // Obtener el slug de la URL
     useEffect(() => {
-        // Función para parsear los parámetros de la URL
         const getQueryParam = (param) => {
             const urlParams = new URLSearchParams(window.location.search);
             return urlParams.get(param);
         };
 
         const slug = getQueryParam("slug");
-
         if (slug) {
-            // Encontrar el índice del servicio que coincida con el slug
             const foundIndex = services.findIndex(
                 (service) =>
                     service.slug === slug ||
                     service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") ===
                         slug
             );
-
-            if (foundIndex !== -1) {
-                setActiveIndex(foundIndex);
-            }
+            if (foundIndex !== -1) setActiveIndex(foundIndex);
         }
-    }, [services]); // Dependencia de services para que se ejecute cuando cambie
+    }, [services]);
+
     return (
-        <div className=" font-poppins">
+        <div className="font-poppins">
             <Header />
             <div className="min-h-screen bg-white font-sans">
                 {/* Hero Image */}
-                <div className="w-full mt-4 lg:mt-0 h-52 md:h-64 overflow-hidden rounded-b-3xl">
+                <motion.div
+                    className="w-full mt-4 lg:mt-0 h-52 md:h-64 overflow-hidden rounded-b-3xl"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <img
                         src={`/api/landing_home/media/${landingHero.image}`}
                         alt="Equipamiento médico de fisioterapia"
                         className="w-full h-52 md:h-64 object-cover object-left lg:object-center"
                     />
-                </div>
+                </motion.div>
 
                 <div className="max-w-6xl mx-auto px-4 lg:px-3 py-8">
                     {/* Title Section */}
-                    <div className="text-center mb-8 lg:mt-10">
-                        <h1 className="text-5xl leading-[42px] lg:text-6xl font-semibold mb-2 lg:max-w-2xl lg:mx-auto">
+                    <motion.div
+                        className="text-center mb-8 lg:mt-10"
+                        initial="hidden"
+                        animate="visible"
+                        variants={containerVariants}
+                    >
+                        <motion.h1
+                            className="text-5xl leading-[42px] lg:text-6xl font-semibold mb-2 lg:max-w-2xl lg:mx-auto"
+                            variants={itemVariants}
+                        >
                             <TextWithHighlight text={landingHero.title} />
-                        </h1>
-                    </div>
+                        </motion.h1>
+                    </motion.div>
 
                     <div className="flex flex-col lg:flex-row lg:gap-12 lg:pt-2 justify-between">
-                        {/* Services Menu - Hidden on mobile, visible on desktop */}
-                        <div className="w-full lg:w-[30%] mt-10 relative">
+                        {/* Services Menu */}
+                        <motion.div
+                            className="w-full lg:w-[30%] mt-10 relative"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                        >
                             <h2 className="hidden lg:block text-xl lg:text-2xl font-semibold mb-4">
                                 Servicios
                             </h2>
-                            <div className="lg:hidden mb-6 ">
+
+                            <div className="lg:hidden mb-6">
                                 <button
                                     onClick={handleServicesMenu}
                                     className="w-full flex items-center justify-between p-3 border border-gray-300 rounded-md"
@@ -232,22 +140,23 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                     <ChevronDown className="h-5 w-5 text-gray-500" />
                                 </button>
                             </div>
-                            <div
-                                className={` lg:relative lg:block lg:bg-transparent space-y-2 ${
-                                    showServicesMenu
-                                        ? "absolute bg-white top-14"
-                                        : "hidden"
-                                }`}
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="lg:relative lg:block lg:bg-transparent space-y-2"
                             >
                                 {services.map((service, index) => (
-                                    <div
+                                    <motion.div
                                         key={index}
-                                        onClick={() => setActiveIndex(index)} // Al hacer clic, establece este índice como activo
-                                        className={`flex  items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
+                                        onClick={() => setActiveIndex(index)}
+                                        className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
                                             index === activeIndex
                                                 ? "bg-gray-100"
                                                 : "hover:bg-gray-50"
                                         }`}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
                                     >
                                         <span
                                             className={`lg:text-lg ${
@@ -266,34 +175,99 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                                 loading="lazy"
                                             />
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
-                            </div>
-                        </div>
+                            </motion.div>
+                            <AnimatePresence>
+                                {showServicesMenu && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className=" lg:hidden lg:bg-transparent space-y-2"
+                                    >
+                                        {services.map((service, index) => (
+                                            <motion.div
+                                                key={index}
+                                                onClick={() =>
+                                                    setActiveIndex(index)
+                                                }
+                                                className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
+                                                    index === activeIndex
+                                                        ? "bg-gray-100"
+                                                        : "hover:bg-gray-50"
+                                                }`}
+                                                whileHover={{ scale: 1.02 }}
+                                                whileTap={{ scale: 0.98 }}
+                                            >
+                                                <span
+                                                    className={`lg:text-lg ${
+                                                        index === activeIndex
+                                                            ? "font-medium"
+                                                            : ""
+                                                    }`}
+                                                >
+                                                    {service.title}
+                                                </span>
+                                                <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
+                                                    <img
+                                                        src={`/api/service/media/${service.image}`}
+                                                        alt={service.title}
+                                                        className="w-full h-full object-cover"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            </motion.div>
+                                        ))}
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
 
                         {/* Service Details */}
-                        <div className="lg:w-[62%]">
-                            <h2 className="text-5xl  lg:mt-6 font-semibold mb-4  text-wrap">
+                        <motion.div
+                            className="lg:w-[62%]"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4 }}
+                            key={activeIndex}
+                        >
+                            <motion.h2
+                                className="text-5xl lg:mt-6 font-semibold mb-4 text-wrap"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.3 }}
+                            >
                                 <TextWithHighlight
                                     text={services[activeIndex].title}
                                     split={true}
                                 />
-                            </h2>
+                            </motion.h2>
 
-                            <div className="mb-8 lg:mb-4 pt-4 lg:pt-2 text-lg">
-                                {" "}
+                            <motion.div
+                                className="mb-8 lg:mb-4 pt-4 lg:pt-2 text-lg"
+                                initial="hidden"
+                                animate="visible"
+                                variants={containerVariants}
+                            >
                                 {renderDescription(
                                     services[activeIndex].description
                                 )}
-                            </div>
+                            </motion.div>
 
                             {/* Service Features */}
-                            <div className="space-y-3 mb-8 text-lg">
+                            <motion.div
+                                className="space-y-3 mb-8 text-lg"
+                                variants={containerVariants}
+                                initial="hidden"
+                                animate="visible"
+                            >
                                 {services[activeIndex].characteristics.map(
                                     (characteristic, index) => (
-                                        <div
+                                        <motion.div
                                             key={index}
                                             className="flex gap-3 items-center"
+                                            variants={itemVariants}
                                         >
                                             <div className="flex-shrink-0">
                                                 <img
@@ -306,33 +280,43 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                             <p className="leading-relaxed">
                                                 {characteristic}
                                             </p>
-                                        </div>
+                                        </motion.div>
                                     )
                                 )}
-                            </div>
+                            </motion.div>
 
                             {/* CTA Button */}
-                            <div className="mb-8">
-                                <button
+                            <motion.div
+                                className="mb-8"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <motion.button
                                     onClick={() => setIsModalOpen(true)}
-                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                 >
                                     <div className="bg-[#224483] w-12 p-2 rounded-full">
                                         <img
                                             src="/assets/img/icons/calendar-check.png"
-                                            className=" h-auto    "
+                                            className="h-auto"
                                         />
                                     </div>
                                     Reserva tu cita
-                                </button>
-                            </div>
+                                </motion.button>
+                            </motion.div>
 
                             {/* Service Images */}
-                            <DynamicGallery service={services[activeIndex]} />
-                        </div>
+                            <DynamicGalleryServiceService
+                                service={services[activeIndex]}
+                            />
+                        </motion.div>
                     </div>
                 </div>
             </div>
+
             <ModalAppointment
                 linkWhatsApp={linkWhatsApp}
                 randomImage={randomImage}
@@ -343,6 +327,7 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
         </div>
     );
 };
+
 CreateReactScript((el, properties) => {
     createRoot(el).render(
         <CarritoProvider>

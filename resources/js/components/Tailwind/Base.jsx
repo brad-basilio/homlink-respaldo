@@ -12,7 +12,7 @@ const Base = ({
     gradientEnd = "#f1d7c1",
     menuGradientEnd = "#dbc8c9",
 }) => {
-    return <section>{children}</section>;
+    return <section> {children}</section>;
 };
 
 export default Base;

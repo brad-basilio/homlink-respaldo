@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
+import { motion } from "framer-motion";
 
 export default function TratamientoSection({
     services,
@@ -27,7 +28,7 @@ export default function TratamientoSection({
                         <SwiperSlide key={index}>
                             <a
                                 href={`/services?slug=${service?.slug}`}
-                                className="flex gap-4  my-6 w-[295px] h-[430px] relative"
+                                className=" flex gap-4  my-6 w-[295px] h-[430px] relative "
                             >
                                 <img
                                     src={`/api/service/media/${service?.image}`}
@@ -63,48 +64,58 @@ export default function TratamientoSection({
                         <a
                             href={`/services?slug=${service?.slug}`}
                             key={`large-${index}`}
-                            className="relative h-[410px]  overflow-hidden"
+                            className="relative h-[410px] overflow-hidden rounded-3xl group" // Agregamos group para hover
                         >
-                            <img
-                                src={`/api/service/media/${service?.image}`}
-                                alt={service?.title}
-                                className="w-full h-[410px] object-cover rounded-3xl"
-                            />
-                            {index === 0 ? (
-                                <>
-                                    <div class="absolute rounded-3xl inset-0 bg-gradient-to-br from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
-                                    <h2 className="text-white font-medium absolute top-8 left-8 inset-0 text-2xl line-clamp-2">
-                                        {service?.title}
-                                    </h2>
-                                    <div className="absolute bottom-8 right-8">
-                                        <a
-                                            href={`/services?slug=${service?.slug}`}
-                                        >
+                            {/* Contenedor para la imagen animada */}
+                            <motion.div
+                                className="w-full h-full"
+                                initial={false}
+                                whileHover={{
+                                    scale: 1.1,
+                                    transition: {
+                                        duration: 0.3,
+                                        ease: "easeOut",
+                                    },
+                                }}
+                                style={{ willChange: "transform" }}
+                            >
+                                <img
+                                    src={`/api/service/media/${service?.image}`}
+                                    alt={service?.title}
+                                    className="w-full h-full object-cover"
+                                />
+                            </motion.div>
+
+                            {/* Overlay y contenido - ahora con pointer-events-none */}
+                            <div className="pointer-events-none absolute inset-0">
+                                {index === 0 ? (
+                                    <>
+                                        <div className="absolute rounded-3xl inset-0 bg-gradient-to-br from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
+                                        <h2 className="text-white font-medium absolute top-8 left-8 text-2xl line-clamp-2">
+                                            {service?.title}
+                                        </h2>
+                                        <div className="absolute bottom-8 right-8">
                                             <img
                                                 src="/assets/img/icons/circle-right.svg"
-                                                className="cursor-pointer"
+                                                className="cursor-pointer pointer-events-auto" // Solo el icono es clickeable
                                             />
-                                        </a>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <div class="absolute  rounded-3xl inset-0 bg-gradient-to-tr from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
-                                    <h2 className="text-white font-medium absolute bottom-8 right-8 left-8  text-2xl line-clamp-2">
-                                        {service?.title}
-                                    </h2>
-                                    <div className="absolute  top-8 right-8 ">
-                                        <a
-                                            href={`/services?slug=${service?.slug}`}
-                                        >
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="absolute rounded-3xl inset-0 bg-gradient-to-tr from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
+                                        <h2 className="text-white font-medium absolute bottom-8 right-8 left-8 text-2xl line-clamp-2">
+                                            {service?.title}
+                                        </h2>
+                                        <div className="absolute top-8 right-8">
                                             <img
                                                 src="/assets/img/icons/circle-right.svg"
-                                                className="cursor-pointer"
+                                                className="cursor-pointer pointer-events-auto" // Solo el icono es clickeable
                                             />
-                                        </a>
-                                    </div>
-                                </>
-                            )}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
                         </a>
                     ))}
 
@@ -115,31 +126,32 @@ export default function TratamientoSection({
                                 <a
                                     href={`/services?slug=${service?.slug}`}
                                     key={`vertical-${index}`}
-                                    className="relative h-[195px]  overflow-hidden"
+                                    className="relative h-[195px] overflow-hidden rounded-3xl group"
                                 >
-                                    <img
-                                        src={`/api/service/media/${service?.image}`}
-                                        alt={service?.title}
-                                        className="w-full h-[195px] rounded-3xl object-cover"
-                                    />
-                                    <div class="absolute  rounded-3xl inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
-                                    <h2 className="text-white max-w-[15rem] font-medium absolute top-8 right-8 left-8  text-2xl line-clamp-2">
-                                        {service?.title.split(" ")[0]}
-                                        <br />
-                                        {service?.title
-                                            .split(" ")
-                                            .slice(1)
-                                            .join(" ")}
-                                    </h2>
-                                    <div className="absolute  bottom-8 right-8 ">
-                                        <a
-                                            href={`/services?slug=${service?.slug}`}
-                                        >
+                                    <div className="w-full h-full transition-transform duration-300 ease-out group-hover:scale-110">
+                                        <img
+                                            src={`/api/service/media/${service?.image}`}
+                                            alt={service?.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+
+                                    <div className="absolute inset-0 pointer-events-none">
+                                        <div className="absolute rounded-3xl inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
+                                        <h2 className="text-white max-w-[15rem] font-medium absolute top-8 right-8 left-8 text-2xl line-clamp-2">
+                                            {service?.title.split(" ")[0]}
+                                            <br />
+                                            {service?.title
+                                                .split(" ")
+                                                .slice(1)
+                                                .join(" ")}
+                                        </h2>
+                                        <div className="absolute bottom-8 right-8">
                                             <img
                                                 src="/assets/img/icons/circle-right.svg"
-                                                className="cursor-pointer"
+                                                className="cursor-pointer pointer-events-auto"
                                             />
-                                        </a>
+                                        </div>
                                     </div>
                                 </a>
                             ))}
@@ -151,31 +163,45 @@ export default function TratamientoSection({
                         <div className="col-span-4 flex gap-6 mt-6">
                             <a
                                 href={`/services?slug=${services[4]?.slug}`}
-                                className="w-8/12 relative h-[300px] overflow-hidden "
+                                className="w-8/12 relative h-[300px] overflow-hidden rounded-3xl group"
                             >
-                                <img
-                                    src={`/api/service/media/${services[4].image}`}
-                                    alt={services[4].title}
-                                    className="w-full h-[300px] rounded-3xl object-cover object-top"
-                                />
-                                <div class="absolute  rounded-3xl inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
-                                <h2 className="text-white max-w-[15rem] font-medium absolute top-8 right-8 left-8  text-2xl line-clamp-2">
-                                    {services[4].title.split(" ")[0]}
-                                    <br />
-                                    {services[4].title
-                                        .split(" ")
-                                        .slice(1)
-                                        .join(" ")}
-                                </h2>
-                                <div className="absolute  bottom-8 right-8 ">
-                                    <a
-                                        href={`/services?slug=${services[4].slug}`}
-                                    >
+                                {/* Contenedor animado para la imagen */}
+                                <motion.div
+                                    className="w-full h-full"
+                                    initial={false}
+                                    whileHover={{
+                                        scale: 1.1,
+                                        transition: {
+                                            duration: 0.3,
+                                            ease: "easeOut",
+                                        },
+                                    }}
+                                    style={{ willChange: "transform" }}
+                                >
+                                    <img
+                                        src={`/api/service/media/${services[4].image}`}
+                                        alt={services[4].title}
+                                        className="w-full h-full object-cover object-top"
+                                    />
+                                </motion.div>
+
+                                {/* Overlay y contenido */}
+                                <div className="pointer-events-none absolute inset-0">
+                                    <div className="absolute rounded-3xl inset-0 bg-gradient-to-r from-[rgba(0,0,0,0.56)_23.61%] to-[rgba(0,0,0,0)_64.76%]"></div>
+                                    <h2 className="text-white max-w-[15rem] font-medium absolute top-8 right-8 left-8 text-2xl line-clamp-2">
+                                        {services[4].title.split(" ")[0]}
+                                        <br />
+                                        {services[4].title
+                                            .split(" ")
+                                            .slice(1)
+                                            .join(" ")}
+                                    </h2>
+                                    <div className="absolute bottom-8 right-8">
                                         <img
                                             src="/assets/img/icons/circle-right.svg"
-                                            className="cursor-pointer"
+                                            className="cursor-pointer pointer-events-auto"
                                         />
-                                    </a>
+                                    </div>
                                 </div>
                             </a>
                             <div className="w-4/12 h-[300px]">

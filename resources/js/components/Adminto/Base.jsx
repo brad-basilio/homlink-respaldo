@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Footer from "./Footer";
 import Menu from "./Menu";
 import NavBar from "./NavBar";
 import RigthBar from "./RightBar";
+
 //import WhatsAppModal from '../modals/WhatsAppModal'
 
 moment.tz.setDefault("UTC");
 
 const Base = ({ children, title, ...props }) => {
-    //  const [whatsappStatus, setWhatsappStatus] = useState("verifying");
     return (
         <>
             <div id="wrapper">
