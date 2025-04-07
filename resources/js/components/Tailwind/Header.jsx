@@ -329,7 +329,7 @@ const Header = ({
                                     href={WhatsApp.link}
                                 >
                                     <img
-                                        src="/assets/img/whatsapp.svg"
+                                        src="/assets/img/icons/WhatsApp.svg"
                                         alt="whatsapp"
                                         className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]  animate-bounce duration-300"
                                     />

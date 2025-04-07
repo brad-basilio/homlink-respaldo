@@ -287,7 +287,7 @@ const Home = ({
                 </h2>
                 <a
                     href="/services"
-                    className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                    className=" mt-5 bg-[#EFF0F1] w-max text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
                 >
                     <div className="bg-[#224483] w-12 p-2 rounded-full">
                         <img
@@ -309,7 +309,7 @@ const Home = ({
                 </h2>
                 <a
                     href="/services"
-                    className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                    className=" w-max mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
                 >
                     <div className="bg-[#224483] w-12 p-2 rounded-full">
                         <img
@@ -335,7 +335,7 @@ const Home = ({
                     <div className="w-full flex items-center justify-end">
                         <button
                             onClick={() => setIsModalOpen(true)}
-                            className=" mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                            className="w-max mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
                         >
                             <div className="bg-[#224483] w-12 p-2 rounded-full">
                                 <img
