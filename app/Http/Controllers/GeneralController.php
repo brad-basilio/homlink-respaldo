@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\dxDataGrid;
+use App\Models\Facility;
 use App\Models\General;
 use App\Models\Indicator;
 use App\Models\Slider;
@@ -80,8 +81,9 @@ class GeneralController extends BasicController
         try {
             $data = Aboutus::all();
             $data2 = General::all();
+            $data3 = Facility::where('visible', true)->where('status', true)->get();
             // dump($data);
-            $response->data = ['aboutus' => $data, 'generals' => $data2];
+            $response->data = ['aboutus' => $data, 'generals' => $data2, 'sedes' => $data3];
             $response->status = 200;
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {

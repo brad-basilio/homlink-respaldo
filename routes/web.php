@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\Route;
 // Admin
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\LandingHomeController as AdminLandingHomeController;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
+use App\Http\Controllers\Admin\StaffController as AdminStaffController;
+use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
+use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
+
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
@@ -43,6 +50,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\InstructionController;
@@ -50,6 +58,7 @@ use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
@@ -68,10 +77,10 @@ use App\Http\Controllers\ThankController;
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/fisio', [HomeController::class, 'reactView'])->name('FisioTerapiaPage.jsx');
-Route::get('/contacto', [HomeController::class, 'reactView'])->name('Contacto.jsx');
-Route::get('/instalaciones', [HomeController::class, 'reactView'])->name('InstalacionesPage.jsx');
-Route::get('/servicios', [HomeController::class, 'reactView'])->name('ServiciosPage.jsx');
+Route::get('/about', [AboutController::class, 'reactView'])->name('FisioTerapiaPage.jsx');
+Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');
+Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
+Route::get('/services', [ServiceController::class, 'reactView'])->name('ServiciosPage.jsx');
 Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogProducts.jsx');
 Route::get('/instructions', [InstructionController::class, 'reactView'])->name('Instructions.jsx');
 Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');
@@ -82,10 +91,10 @@ Route::get('/supplies', [SupplyController::class, 'reactView'])->name('Supplies.
 Route::get('/faqs', [FaqController::class, 'reactView'])->name('FAQs.jsx');
 Route::get('/test', [TestController::class, 'reactView'])->name('Test.jsx');
 Route::get('/test/result/{formula}', [TestResultController::class, 'reactView'])->name('TestResult.jsx');
-Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
+//Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{articleId}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');
-Route::get('/contact', [ContactController::class, 'reactView'])->name('Contact.jsx');
+Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contact.jsx');
 
 // Vistas maquetadas finalizadas
 Route::get('/checkout', [CheckoutController::class, 'reactView'])->name('Checkout.jsx');
@@ -106,6 +115,14 @@ Route::middleware(['auth', 'can:Customer'])->group(function () {
 Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/', fn() => redirect('Admin/Home.jsx'));
     Route::get('/home', [AdminHomeController::class, 'reactView'])->name('Admin/Home.jsx');
+    Route::get('/landing_home', [AdminLandingHomeController::class, 'reactView'])->name('Admin/LandingHome.jsx');
+    Route::get('/services', [AdminServiceController::class, 'reactView'])->name('Admin/Services.jsx');
+
+    Route::get('/facilities', [AdminFacilityController::class, 'reactView'])->name('Admin/Facilities.jsx');
+    Route::get('/staff', [AdminStaffController::class, 'reactView'])->name('Admin/Staff.jsx');
+    Route::get('/specialities', [AdminSpecialityController::class, 'reactView'])->name('Admin/Specialities.jsx');
+    Route::get('/appointments', [AdminAppointmentController::class, 'reactView'])->name('Admin/Appointments.jsx');
+
     Route::get('/sales', [AdminSaleController::class, 'reactView'])->name('Admin/Sales.jsx');
     Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');
     Route::get('/items', [AdminItemController::class, 'reactView'])->name('Admin/Items.jsx');

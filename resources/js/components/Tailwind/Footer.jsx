@@ -4,12 +4,13 @@ import ReactModal from "react-modal";
 import Tippy from "@tippyjs/react";
 import HtmlContent from "../../Utils/HtmlContent";
 import GeneralRest from "../../actions/GeneralRest";
+import { X } from "lucide-react";
 
 ReactModal.setAppElement("#app");
 
 const Footer = ({ terms, footerLinks = [] }) => {
     const [modalOpen, setModalOpen] = useState(false);
-    const openModal = () => setModalOpen(true);
+    const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
     const generalRest = new GeneralRest();
     const links = {};
@@ -31,16 +32,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
         fetchSocials();
     }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
 
-    const TikTok = socials.find((social) => social.description === "TikTok");
-    const WhatsApp = socials.find(
-        (social) => social.description === "WhatsApp"
-    );
-    const Instagram = socials.find(
-        (social) => social.description === "Instagram"
-    );
     const Facebook = socials.find(
         (social) => social.description === "Facebook"
     );
+    const Twitter = socials.find((social) => social.description === "Twitter");
+    const Instagram = socials.find(
+        (social) => social.description === "Instagram"
+    );
+    const Youtube = socials.find((social) => social.description === "Youtube");
 
     const [aboutuses, setAboutuses] = useState(null); // o useState({});
 
@@ -56,29 +55,27 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
         fetchAboutuses();
     }, []);
-    console.log(aboutuses);
-    // Extrae los datos necesarios
+
     const aboutusData = aboutuses?.aboutus || [];
     const generalsData = aboutuses?.generals || [];
+    const sedesData = aboutuses?.sedes || [];
+    console.log(sedesData);
+    const policyItems = {
+        privacy_policy: "Políticas de privacidad",
+        terms_conditions: "Términos y condiciones",
+        // 'delivery_policy': 'Políticas de envío',
+        exchange_policy: "Políticas de cambio",
+    };
 
-    // 1. Libro de reclamaciones (de aboutus)
-    const libroReclamaciones = aboutusData.find(
-        (item) => item.correlative === "customer-complaints"
-    )?.description;
-    const telefono = aboutusData.find(
-        (item) => item.correlative === "phone"
-    )?.description;
-    const mail = aboutusData.find(
-        (item) => item.correlative === "email"
-    )?.description;
-    const f_whatsapp = aboutusData.find(
-        (item) => item.correlative === "whatsapp"
-    )?.description;
+    const cleanText = (text) => {
+        if (text === null || text === undefined) return "";
 
-    // 2. Términos y condiciones (de generals)
-    const termsConditions = generalsData.find(
-        (item) => item.correlative === "terms_conditions"
-    )?.description;
+        // Convertir a string y eliminar varios patrones de asteriscos
+        return String(text)
+            .replace(/\*\*(.*?)\*\*/g, "$1") // **texto**
+            .replace(/\*(.*?)\*/g, "$1") // *texto*
+            .replace(/[*]+/g, ""); // Cualquier asterisco suelto
+    };
 
     return (
         <>
@@ -93,71 +90,120 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     className="md:w-[170.52px]  lg:w-[300.52px] object-cover"
                                 />
                             </div>
-                            <div className=" w-full mt-6">
+                            <div className=" w-full mt-6 flex gap-1">
                                 <img
-                                    src="/assets/img/footer/pays.png"
-                                    alt="No Pain"
-                                    className="w-10/12 h-auto object-cover"
+                                    src="/assets/img/icons/visa.png"
+                                    alt="visa"
+                                    className="h-8 w-auto lg:h-9  object-cover"
+                                />
+                                <img
+                                    src="/assets/img/icons/mastercard.png"
+                                    alt="mastercard"
+                                    className="h-8 w-auto lg:h-9 object-cover"
+                                />
+                                <img
+                                    src="/assets/img/icons/amex.png"
+                                    alt="amex"
+                                    className="h-8 w-auto lg:h-9 object-cover"
+                                />
+                                <img
+                                    src="/assets/img/icons/diners.png"
+                                    alt="diners"
+                                    className="h-8 w-auto lg:h-9 object-cover"
+                                />
+                                <img
+                                    src="/assets/img/icons/yape.png"
+                                    alt="yape"
+                                    className="h-8 w-auto lg:h-9 object-cover"
+                                />
+                                <img
+                                    src="/assets/img/icons/plin.png"
+                                    alt="plin"
+                                    className="h-8 w-auto lg:h-9 object-cover"
                                 />
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-6 lg:w-8/12 lg:grid lg:grid-cols-3">
-                            <div className="w-full text-white flex flex-col gap-2 mt-0">
-                                <p className="mb-2">Sede Central Miraflores</p>
-                                <p className="text-[14px]">
-                                    Calle Chiclayo 723
-                                </p>
-                                <p className="text-[14px]">
-                                    Teléfonos: 241 0448 - 976 953 599
-                                </p>
-                                <p className="text-[14px]">
-                                    info-miraflores@nopain.com.pe
-                                </p>
-                            </div>
+                            {sedesData.map((sede) => (
+                                <div className="w-full text-white flex flex-col gap-2 mt-0">
+                                    <p className="mb-2">
+                                        {cleanText(sede.title) ||
+                                            "Información no disponible"}
+                                    </p>
+                                    {sede.ubications.map((ubication, index) => (
+                                        <p key={index} className="text-[14px]">
+                                            {ubication}
+                                        </p>
+                                    ))}
 
-                            <div className="w-full text-white flex flex-col gap-2 mt-0">
-                                <p className="mb-2">Sede San Borja</p>
-                                <p className="text-[14px]">Calle Bernini 354</p>
-                                <p className="text-[14px]">
-                                    Teléfono: 398 7331
-                                </p>
-                                <p className="text-[14px]">
-                                    info-sanborja@nopain.com.pe
-                                </p>
-                            </div>
-                            <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2">Sede San Isidro</p>
-                                <p className="text-[14px]">
-                                    Consultorio 513 - 516
-                                </p>
-                                <p className="text-[14px]">
-                                    Teléfonos: 976 953 717
-                                </p>
-                                <p className="text-[14px]">
-                                    cavenecia@nopain.com.pe
-                                </p>
-                            </div>
+                                    <p className="flex gap-2 text-[14px]">
+                                        Teléfono:{" "}
+                                        {sede.phones.map((phone, index) => (
+                                            <p key={index} className="">
+                                                {phone}
+                                            </p>
+                                        ))}
+                                    </p>
+                                    {sede.emails.map((email, index) => (
+                                        <p key={index} className="text-[14px]">
+                                            {email}
+                                        </p>
+                                    ))}
+                                </div>
+                            ))}
 
                             <div className="w-full text-white flex flex-col gap-2">
                                 <p className="mb-2">Horario de Atención</p>
-                                <p className="text-[14px]">
-                                    Lunes a viernes: <br /> 8:00 am a 8:00 pm
-                                </p>
-                                <p className="text-[14px]">
-                                    Sábados:
-                                    <br /> 8:00 am a 2:00 pm
-                                </p>
+                                {sedesData[0]?.business_hours.map(
+                                    (horario, index) => {
+                                        // Dividir solo en el primer ":" encontrado
+                                        const firstColonIndex =
+                                            horario.indexOf(":");
+
+                                        return (
+                                            <div
+                                                key={`hour-${index}`}
+                                                className="text-[14px] mb-2"
+                                            >
+                                                {/* Mostrar la parte antes del primer ":" */}
+                                                <p className="font-medium">
+                                                    {horario.substring(
+                                                        0,
+                                                        firstColonIndex + 1
+                                                    )}
+                                                </p>
+                                                {/* Mostrar la parte después del primer ":" */}
+                                                <p className="ml-0">
+                                                    {horario
+                                                        .substring(
+                                                            firstColonIndex + 1
+                                                        )
+                                                        .trim()}
+                                                </p>
+                                            </div>
+                                        );
+                                    }
+                                )}
                             </div>
                             <div className="w-full text-white flex flex-col gap-2">
                                 <p className="mb-2 font-bold">Políticas</p>
-                                <p className="text-[14px]">
+                                <a
+                                    className="text-[14px] cursor-pointer"
+                                    onClick={() => openModal(0)}
+                                >
                                     Políticas de privacidad
-                                </p>
-                                <a onClick={openModal} className="text-[14px]">
+                                </a>
+                                <a
+                                    onClick={() => openModal(1)}
+                                    className="text-[14px] cursor-pointer"
+                                >
                                     Términos y Condiciones
                                 </a>
-                                <p className="text-[14px]">
+                                <p
+                                    onClick={() => openModal(2)}
+                                    className="text-[14px] cursor-pointer"
+                                >
                                     Políticas de cambio
                                 </p>
                                 <p className="text-[14px]">
@@ -168,22 +214,59 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             <div className="w-full text-white flex flex-col gap-2">
                                 <p className="mb-2 font-bold">Nuestras redes</p>
                                 <div className="flex gap-4">
-                                    <img
-                                        src="/assets/img/footer/facebook.png"
-                                        className="h-8 w-8"
-                                    />
-                                    <img
-                                        src="/assets/img/footer/twitter.png"
-                                        className="h-8 w-8"
-                                    />
-                                    <img
-                                        src="/assets/img/footer/instagram.png"
-                                        className="h-8 w-8"
-                                    />
-                                    <img
-                                        src="/assets/img/footer/youtube.png"
-                                        className="h-8 w-8"
-                                    />
+                                    {Facebook && (
+                                        <a
+                                            className="cursor-pointer"
+                                            href={Facebook.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src="/assets/img/icons/facebook.png"
+                                                className="h-8 w-8"
+                                            />
+                                        </a>
+                                    )}
+                                    {Twitter && (
+                                        <a
+                                            className="cursor-pointer"
+                                            href={Twitter.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src="/assets/img/icons/twitter.png"
+                                                className="h-8 w-8"
+                                            />
+                                        </a>
+                                    )}
+
+                                    {Instagram && (
+                                        <a
+                                            className="cursor-pointer"
+                                            href={Instagram.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src="/assets/img/icons/instagram.png"
+                                                className="h-8 w-8"
+                                            />
+                                        </a>
+                                    )}
+                                    {Youtube && (
+                                        <a
+                                            className="cursor-pointer"
+                                            href={Youtube.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <img
+                                                src="/assets/img/icons/youtube.png"
+                                                className="h-8 w-8"
+                                            />
+                                        </a>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -199,29 +282,33 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         </p>
                     </div>
                 </div>
+                {/* Modal para Términos y Condiciones */}
+                {Object.keys(policyItems).map((key, index) => {
+                    const title = policyItems[key];
+                    const content =
+                        generalsData.find((x) => x.correlative == key)
+                            ?.description ?? "";
+                    return (
+                        <ReactModal
+                            key={index}
+                            isOpen={modalOpen === index}
+                            onRequestClose={closeModal}
+                            contentLabel={title}
+                            className="fixed top-[5%] left-1/2 -translate-x-1/2 bg-white p-6 rounded-3xl shadow-lg w-[95%] max-w-4xl max-h-[90vh] mb-10 overflow-y-auto scrollbar-hide"
+                            overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-auto  scrollbar-hide "
+                        >
+                            <button
+                                onClick={closeModal}
+                                className="float-right  text-red-500 hover:text-red-700 transition-all duration-300 "
+                            >
+                                <X width="2rem" strokeWidth="4px" />
+                            </button>
+                            <h2 className="text-2xl font-bold mb-4">{title}</h2>
+                            <HtmlContent className="prose" html={content} />
+                        </ReactModal>
+                    );
+                })}
             </footer>
-            {/* Modal para Términos y Condiciones */}
-            <ReactModal
-                isOpen={modalOpen}
-                onRequestClose={closeModal}
-                contentLabel="Términos y condiciones"
-                className="absolute left-1/2 -translate-x-1/2 bg-white p-6 rounded shadow-lg w-[95%] max-w-2xl my-8 outline-none h-[90vh]"
-                overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50"
-            >
-                <button
-                    onClick={closeModal}
-                    className="float-right text-gray-500 hover:text-gray-900"
-                >
-                    Cerrar
-                </button>
-                <h2 className="text-xl font-bold mb-4">
-                    Terminos y Condiciones
-                </h2>
-                <HtmlContent
-                    className="prose h-[calc(90vh-120px)] lg:h-[calc(90vh-90px)] overflow-auto"
-                    html={termsConditions}
-                />
-            </ReactModal>
         </>
     );
 };

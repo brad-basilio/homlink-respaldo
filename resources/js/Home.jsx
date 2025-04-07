@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
@@ -37,76 +37,205 @@ import HealthSection from "./components/Home/HealthSection";
 import TratamientoSection from "./components/Home/TratamientoSection";
 import TestimonioSection from "./components/Home/TestimonioSection";
 import AcercaDe from "./components/Home/AcercaDe";
+import TextWithHighlight from "./Utils/TextWithHighlight";
+import ReactModal from "react-modal";
+import { X } from "lucide-react";
+import ModalAppointment from "./components/Appointment/ModalAppointment";
+ReactModal.setAppElement("#app");
 
 const Home = ({
-    slider,
-    items,
-    supplies,
-    testimonies,
-    popups,
-    top_sale,
+    linkWhatsApp,
+    randomImage,
     showSlogan = true,
-
-    we_lovers,
-    products_featured,
-    new_product,
-    posts,
+    indicators,
+    landing,
+    benefits,
+    services,
+    testimonies,
+    staff_boss,
 }) => {
     const tipoSlider = "vua";
-    console.log(products_featured);
+    const landingHero = landing.find(
+        (item) => item.correlative === "page_home_hero"
+    );
+    const landingBenefits = landing.find(
+        (item) => item.correlative === "page_home_benefits"
+    );
+    const landingServices = landing.find(
+        (item) => item.correlative === "page_home_services"
+    );
+    const landingTestimonies = landing.find(
+        (item) => item.correlative === "page_home_testimonies"
+    );
+    const videoRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
-    const benefits = [
-        {
-            number: "300",
-            message: "Reservas diarias",
-            symbol: "+",
-            image: "/assets/img/home/calendar.png",
-        },
-        {
-            number: "1M",
-            message: "Pacientes satisfechos",
-            symbol: "+",
-            image: "/assets/img/home/patient.png",
-        },
-        {
-            number: "4k",
-            message: "Consultas atendidas",
-            symbol: "+",
-            image: "/assets/img/home/yoga-mat.png",
-        },
-    ];
+    const handlePlay = () => {
+        if (videoRef.current) {
+            videoRef.current.play();
+            setIsPlaying(true);
+        }
+    };
+    const handleEnded = () => {
+        setIsPlaying(false); // Mostrar el botón otra vez
+    };
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <div>
             <Header showSlogan={showSlogan}></Header>
             <div className="relative ">
-                <img
-                    src="/assets/img/home/image1.png"
-                    className="lg:hidden w-full h-auto mt-4
-                "
-                />
-                <img
-                    src="/assets/img/home/bg-des.png"
-                    className="hidden lg:block w-full h-auto mt-0
-                "
-                />
+                <div className="relative">
+                    {landingHero?.is_video ? (
+                        <div className="relative">
+                            <video
+                                src={`/api/landing_home/video/${landingHero?.video}`}
+                                ref={videoRef}
+                                muted
+                                playsInline
+                                className=" w-full object-cover object-left-top lg:object-contain lg:object-right-top h-[300px]  lg:h-[90vh] mt-4"
+                                onError={(e) =>
+                                    (e.target.src = "/api/cover/thumbnail/null")
+                                }
+                                onEnded={handleEnded}
+                            />
+                            {!isPlaying && (
+                                <button
+                                    onClick={handlePlay}
+                                    className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse z-50 lg:ml-40"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="80"
+                                        height="80"
+                                        viewBox="0 0 80 80"
+                                        fill="none"
+                                    >
+                                        <foreignObject
+                                            x="-17.6271"
+                                            y="-17.6271"
+                                            width="115.254"
+                                            height="115.254"
+                                        >
+                                            <div
+                                                xmlns="http://www.w3.org/1999/xhtml"
+                                                style={{
+                                                    backdropFilter:
+                                                        "blur(8.81px)",
+                                                    clipPath:
+                                                        "url(#bgblur_0_59_6055_clip_path)",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                }}
+                                            ></div>
+                                        </foreignObject>
+                                        <circle
+                                            data-figma-bg-blur-radius="17.6271"
+                                            cx="40"
+                                            cy="40"
+                                            r="40"
+                                            fill="white"
+                                            fillOpacity="0.18"
+                                        />
+                                        <foreignObject
+                                            x="-6.10167"
+                                            y="-6.09978"
+                                            width="92.2034"
+                                            height="92.2035"
+                                        >
+                                            <div
+                                                xmlns="http://www.w3.org/1999/xhtml"
+                                                style={{
+                                                    backdropFilter:
+                                                        "blur(8.81px)",
+                                                    clipPath:
+                                                        "url(#bgblur_1_59_6055_clip_path)",
+                                                    height: "100%",
+                                                    width: "100%",
+                                                }}
+                                            ></div>
+                                        </foreignObject>
+                                        <circle
+                                            data-figma-bg-blur-radius="17.6271"
+                                            cx="40"
+                                            cy="40.0019"
+                                            r="28.4746"
+                                            fill="white"
+                                            fillOpacity="0.5"
+                                        />
+                                        <path
+                                            d="M49.5178 40.054L35.2578 48.2345L35.3033 31.7948L49.5178 40.054Z"
+                                            fill="#FFFCFC"
+                                        />
+                                        <defs>
+                                            <clipPath
+                                                id="bgblur_0_59_6055_clip_path"
+                                                transform="translate(17.6271 17.6271)"
+                                            >
+                                                <circle
+                                                    cx="40"
+                                                    cy="40"
+                                                    r="40"
+                                                />
+                                            </clipPath>
+                                            <clipPath
+                                                id="bgblur_1_59_6055_clip_path"
+                                                transform="translate(6.10167 6.09978)"
+                                            >
+                                                <circle
+                                                    cx="40"
+                                                    cy="40.0019"
+                                                    r="28.4746"
+                                                />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </button>
+                            )}
+                        </div>
+                    ) : (
+                        <img
+                            src={`/api/landing_home/media/${landingHero?.image}`}
+                            className=" w-full h-auto mt-4  "
+                            onError={(e) =>
+                                (e.target.src = "/api/cover/thumbnail/null")
+                            }
+                        />
+                    )}
+                    <div
+                        className="hidden lg:block absolute top-0 right-0 inset-0"
+                        style={{
+                            background:
+                                "linear-gradient(90deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 70%)",
+                        }}
+                    ></div>
+                    <div
+                        className="block lg:hidden absolute top-0 right-0 inset-0"
+                        style={{
+                            background:
+                                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%)",
+                        }}
+                    ></div>
+                </div>
+
                 <div className="lg:absolute lg:top-1/2  lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
                     <h2 className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]">
-                        Recupera tu{" "}
-                        <strong className="text-[#224483]">movilidad</strong>,
-                        <br /> vive sin dolor
+                        <TextWithHighlight text={landingHero?.title} />
                     </h2>
                     <p className="hidden lg:flex mt-8">
-                        NOPAIN – Fisioterapia y Rehabilitación ofrece
-                        información detallada sobre sus servicios, equipo
-                        profesional y datos de contacto. A continuación, se
-                        presenta un resumen de los contenidos disponibles
+                        {landingHero?.description}
                     </p>
                     <div className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4">
-                        <button className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center">
-                            <img
-                                src="/assets/img/home/calendar-home.png"
-                                className="w-12 h-auto  bg-[#224483] rounded-full p-2"
-                            />
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                        >
+                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                <img
+                                    src="/assets/img/icons/calendar-check.png"
+                                    className=" h-auto    "
+                                />
+                            </div>
                             Reserva tu cita
                         </button>
                     </div>
@@ -125,27 +254,27 @@ const Home = ({
                             1024: { slidesPerView: 3, spaceBetween: 180 },
                         }}
                     >
-                        {benefits.map((benefit, index) => (
+                        {indicators.map((benefit, index) => (
                             <SwiperSlide key={index}>
                                 <div className="flex gap-4 w-full my-6 lg:my-7 ">
                                     <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
                                         <img
-                                            src={benefit.image}
+                                            src={`/api/indicator/media/${benefit.symbol}`}
                                             className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
                                         />
                                     </div>
                                     <div className="text-[#242424]">
                                         <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
-                                            {benefit.number}{" "}
+                                            {benefit.name}{" "}
                                             <span className="text-[#224483]">
-                                                {benefit.symbol}
+                                                +
                                             </span>
                                         </h1>
                                         <h2 className="font-normal">
-                                            {benefit.message}
+                                            {benefit.description}
                                         </h2>
                                     </div>
-                                    <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2 -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
+                                    <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2  -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
                                 </div>
                             </SwiperSlide>
                         ))}
@@ -153,47 +282,67 @@ const Home = ({
                 </div>
             </div>
             <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
-                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
-                    Descubre los{" "}
-                    <span className="text-[#224483]">beneficios</span> de{" "}
-                    <br className="lg:hidden" /> una vida sin dolor
+                <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[46rem] lg:tracking-wide ">
+                    <TextWithHighlight text={landingBenefits?.title} />
                 </h2>
-                <button className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14">
-                    <img
-                        src="/assets/img/home/treatment.png"
-                        className="w-12 h-auto  bg-[#224483] rounded-full p-2"
-                    />
+                <a
+                    href="/services"
+                    className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                >
+                    <div className="bg-[#224483] w-12 p-2 rounded-full">
+                        <img
+                            src="/assets/img/icons/treatment.png"
+                            className=" h-auto    "
+                        />
+                    </div>
                     Ver todos los servicios
-                </button>
+                </a>
             </div>
-            <HealthSection />
+            <HealthSection
+                landingBenefits={landingBenefits}
+                benefits={benefits}
+            />
 
             <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
                 <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
-                    Tratamientos diseñados para tu
-                    <span className="text-[#224483]">bienestar</span>
+                    <TextWithHighlight text={landingServices?.title} />
                 </h2>
-                <button className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14">
-                    <img
-                        src="/assets/img/home/treatment.png"
-                        className="w-12 h-auto  bg-[#224483] rounded-full p-2"
-                    />
+                <a
+                    href="/services"
+                    className=" mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                >
+                    <div className="bg-[#224483] w-12 p-2 rounded-full">
+                        <img
+                            src="/assets/img/icons/treatment.png"
+                            className=" h-auto    "
+                        />
+                    </div>
                     Ver todos los servicios
-                </button>
+                </a>
             </div>
 
-            <TratamientoSection />
+            <TratamientoSection
+                setIsModalOpen={setIsModalOpen}
+                isModalOpen={isModalOpen}
+                services={services}
+                landingServices={landingServices}
+            />
             <div className="px-[5%]  py-4 lg:hidden ">
                 <div className="bg-[#F8F8F8] rounded-3xl p-4">
                     <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
-                        Agenda tu cita y empieza tu recuperación.
+                        {landingServices?.description}
                     </h2>
                     <div className="w-full flex items-center justify-end">
-                        <button className=" mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center">
-                            <img
-                                src="/assets/img/home/calendar-home.png"
-                                className="w-12 h-auto  bg-[#224483] rounded-full p-2"
-                            />
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className=" mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                        >
+                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                <img
+                                    src="/assets/img/icons/calendar-check.png"
+                                    className=" h-auto "
+                                />
+                            </div>
                             Reservar una cita
                         </button>
                     </div>
@@ -202,60 +351,19 @@ const Home = ({
 
             <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
                 <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
-                    Lo que
-                    <span className="text-[#224483]">
-                        {" "}
-                        nuestros clientes
-                    </span>{" "}
-                    dicen sobre nosotros
+                    <TextWithHighlight text={landingTestimonies?.title} />
                 </h2>
             </div>
-            <TestimonioSection />
-            <AcercaDe />
+            <TestimonioSection testimonies={testimonies} />
+            <AcercaDe staff_boss={staff_boss} />
             <Footer />
-
-            {/*
-            <div className="relative z-10">
-                <FeaturesSection />
-                <BenefitsSection />
-                <div className="h-[40px] lg:h-0"></div>
-                <ProductCarousel products={products_featured}>
-                    <h2 className="font-poppins text-lg md:text-3xl 2xl:text-4xl font-bold flex gap-2 md:gap-4 items-center justify-center">
-                        <img
-                            src="/assets/img/emojis/growing-heart.png"
-                            className="h-4 md:h-8 lg:h-9"
-                        />{" "}
-                        Preferidos por nosotrxs{" "}
-                        <img
-                            src="/assets/img/emojis/growing-heart.png"
-                            className="h-4 md:h-8 lg:h-9"
-                        />
-                    </h2>
-                    <p className="font-poppins text-[13.3px] md:text-[19.3px] leading-[19.77px] lg:mt-4">
-                        ¿Estás listx para el cambio?
-                    </p>
-                </ProductCarousel>
-                <QuizSection />
-                <TopSaleSection producto={top_sale} />
-                <GuaranteeSection />
-                <WeLoversSection we_lovers={we_lovers} />
-                <NotSureSection producto={new_product} />
-                <InstagramSection posts={posts} />
-                <Footer />
-                {/*
-               
-                <Banner sliders={sliders} />
-                <hr className="h-4 bg-transparent border-none" />
-                <Highlights />
-                <HowItWorks />
-                <Routine items={items} />
-                <Highlights2 />
-                <Supplies supplies={supplies} />
-                <Testimonies testimonies={testimonies} />
-                <CallToAction />
-                <Popups popups={popups} />
-               
-        </div >*/}
+            {/* Modal */}
+            <ModalAppointment
+                linkWhatsApp={linkWhatsApp}
+                randomImage={randomImage}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
         </div>
     );
 };

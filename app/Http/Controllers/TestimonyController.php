@@ -10,8 +10,11 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
 use SoDe\Extend\Response;
 
-class TestimonyController extends Controller
+class TestimonyController extends BasicController
 {
+    public $model = Testimony::class;
+    public $reactRootView = 'public';
+
     public function getTestimonies(Request $request): HttpResponse|ResponseFactory
     {
         $response = new Response();

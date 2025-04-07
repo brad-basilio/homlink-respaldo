@@ -5,18 +5,18 @@ import Logout from "../../Actions/Logout";
 import MenuItem from "../MenuItem";
 import MenuItemContainer from "../MenuItemContainer";
 
-const Menu = ({ session, hasRole, salesCount }) => {
+const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
     const mainRole = session.roles[0];
 
     return (
         <div
             className="left-side-menu"
             style={{
-                background: "#6745BA",
+                background: "#224483 ",
             }}
         >
             <div className="h-100" data-simplebar>
-                <div className="user-box text-center">
+                <div className="user-box text-center ">
                     <img
                         src={`/api/admin/profile/thumbnail/${
                             session.relative_id
@@ -122,6 +122,48 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     Dashboard
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/messages"
+                                    icon="mdi mdi-email-multiple"
+                                >
+                                    <span className="badge bg-primary float-end">
+                                        {messagesCount}
+                                    </span>
+                                    Mensajes
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/appointments"
+                                    icon="mdi mdi-android-messages"
+                                >
+                                    <span className="badge bg-primary float-end">
+                                        {citasCount}
+                                    </span>
+                                    Citas
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/services"
+                                    icon="mdi mdi-shield-star"
+                                >
+                                    Servicios
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/specialities"
+                                    icon="mdi mdi-tag-faces"
+                                >
+                                    Especialidades
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/facilities"
+                                    icon="mdi mdi-office-building-marker"
+                                >
+                                    Instalaciones
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/staff"
+                                    icon="mdi mdi-account-heart"
+                                >
+                                    Staff
+                                </MenuItem>
+                                {/* <MenuItem
                                     href="/admin/sales"
                                     icon="mdi mdi-cart-outline"
                                 >
@@ -129,8 +171,8 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                         {salesCount}
                                     </span>
                                     Pedidos
-                                </MenuItem>
-                                <MenuItemContainer
+                                </MenuItem>*/}
+                                {/*  <MenuItemContainer
                                     title="Inventario"
                                     icon="mdi mdi-cube"
                                 >
@@ -160,9 +202,9 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     >
                                         Tallas
                                     </MenuItem>
-                                </MenuItemContainer>
+                                </MenuItemContainer>*/}
 
-                                <MenuItemContainer
+                                {/*<MenuItemContainer
                                     title="Ventas"
                                     icon="mdi mdi-cash-register"
                                 >
@@ -172,32 +214,42 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     >
                                         Cupones
                                     </MenuItem>
-                                </MenuItemContainer>
+                                </MenuItemContainer>*/}
                                 <li className="menu-title">Landing Page</li>
                                 <MenuItem
+                                    href="/admin/landing_home"
+                                    icon="mdi mdi-email-multiple"
+                                >
+                                    Landings
+                                </MenuItem>
+
+                                {/*    <MenuItem
                                     href="/admin/subscriptions"
                                     icon="mdi mdi-email-multiple"
                                 >
                                     Subscripciones
                                 </MenuItem>
+                                
+                                
                                 <MenuItem
                                     href="/admin/ads"
                                     icon="mdi mdi-google-ads"
                                 >
                                     Pop-ups
-                                </MenuItem>
-                                <MenuItem
+                                </MenuItem>*/}
+                                {/*<MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
                                 >
                                     Sliders
                                 </MenuItem>
-                                <MenuItem
+                                   <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
                                 >
                                     Nosotros
-                                </MenuItem>
+                                </MenuItem>*/}
+
                                 <MenuItem
                                     href="/admin/indicators"
                                     icon="mdi mdi-checkbox-marked-outline"
@@ -206,16 +258,17 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/strengths"
-                                    icon="mdi mdi-sprout"
+                                    icon="mdi mdi-cards-heart"
                                 >
-                                    Fortalezas
+                                    Beneficios
                                 </MenuItem>
-                                <MenuItem
+
+                                {/*  <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
                                     Valores
-                                </MenuItem>
+                                </MenuItem>*/}
 
                                 <MenuItem
                                     href="/admin/testimonies"
@@ -223,7 +276,8 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                 >
                                     Testimonios
                                 </MenuItem>
-                                <MenuItem
+
+                                {/*  <MenuItem
                                     href="/admin/instagram_posts"
                                     icon="mdi mdi-instagram"
                                 >
@@ -234,7 +288,7 @@ const Menu = ({ session, hasRole, salesCount }) => {
                                     icon="mdi mdi-frequently-asked-questions"
                                 >
                                     FAQs
-                                </MenuItem>
+                                </MenuItem>*/}
                                 <MenuItem
                                     href="/admin/socials"
                                     icon="mdi mdi-web"

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
+use App\Models\Appointment;
 use App\Models\dxDataGrid;
 use App\Models\General;
+use App\Models\Message;
+use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Social;
 use Exception;
@@ -32,6 +35,8 @@ class BasicController extends Controller
   public $reactView = 'Home';
   public $reactRootView = 'admin';
   public $imageFields = [];
+  public $videoFields = []; // Nuevo: Campos para videos
+
   public $prefix4filter = null;
   public $throwMediaError = false;
   public $reactData = null;
@@ -49,16 +54,47 @@ class BasicController extends Controller
 
   public function media(Request $request, string $uuid)
   {
+
     try {
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
       if ($snake_case === 'item_image' || $snake_case === 'item_color') {
         $snake_case = 'item';
       }
-      //dump($snake_case);
+
       if (Text::has($uuid, '.')) {
         $route = "images/{$snake_case}/{$uuid}";
       } else {
         $route = "images/{$snake_case}/{$uuid}.img";
+      }
+      $content = Storage::get($route);
+      if (!$content) throw new Exception('Imagen no encontrado');
+      return response($content, 200, [
+        'Content-Type' => 'application/octet-stream'
+      ]);
+    } catch (\Throwable $th) {
+
+      $content = Storage::get('utils/cover-404.svg');
+      $status = 200;
+      if ($this->throwMediaError) return null;
+      return response($content, $status, [
+        'Content-Type' => 'image/svg+xml'
+      ]);
+    }
+  }
+
+  public function video(Request $request, string $uuid)
+  {
+
+    try {
+      $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      if ($snake_case === 'item_image' || $snake_case === 'item_color') {
+        $snake_case = 'item';
+      }
+
+      if (Text::has($uuid, '.')) {
+        $route = "videos/{$snake_case}/{$uuid}";
+      } else {
+        $route = "videos/{$snake_case}/{$uuid}.mp4";
       }
       $content = Storage::get($route);
       if (!$content) throw new Exception('Imagen no encontrado');
@@ -98,6 +134,10 @@ class BasicController extends Controller
 
     $properties = [
       'session' => Auth::user(),
+      'messagesCount' => Message::where('status', true)->where('seen', false)->count(),
+      'citasCount' => Appointment::where('status', true)->where('seen', false)->count(),
+      'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
+      'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
@@ -221,6 +261,7 @@ class BasicController extends Controller
   public function save(Request $request): HttpResponse|ResponseFactory
   {
 
+
     $response = new Response();
     try {
 
@@ -244,6 +285,17 @@ class BasicController extends Controller
         $body[$field] = "{$uuid}.{$ext}";
       }
 
+      // Procesar videos (nuevo)
+      foreach ($this->videoFields as $field) {
+        if (!$request->hasFile($field)) continue;
+        $full = $request->file($field);
+        $uuid = Crypto::randomUUID();
+        $ext = $full->getClientOriginalExtension();
+        $path = "videos/{$snake_case}/{$uuid}.{$ext}";
+        Storage::put($path, file_get_contents($full));
+        $body[$field] = "{$uuid}.{$ext}";
+      }
+
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
 
       if (!$jpa) {
@@ -255,12 +307,15 @@ class BasicController extends Controller
 
       $table = (new $this->model)->getTable();
       if (Schema::hasColumn($table, 'slug')) {
-        $slug = Str::slug($jpa->name);
-        $slugExists = $this->model::where('slug', $slug)->where('id', '<>', $jpa->id)->exists();
-        if ($slugExists) {
-          $slug = $slug . '-' . Crypto::short();
+        $slugSource = $jpa->name ?? $jpa->title ?? null;
+        if ($slugSource) {
+          $slug = Str::slug($slugSource);
+          $slugExists = $this->model::where('slug', $slug)->where('id', '<>', $jpa->id)->exists();
+          if ($slugExists) {
+            $slug = $slug . '-' . Crypto::short();
+          }
+          $jpa->update(['slug' => $slug]);
         }
-        $jpa->update(['slug' => $slug]);
       }
 
       $data = $this->afterSave($request, $jpa);

@@ -116,7 +116,7 @@ const NavBar = ({ session = {}, title = "Pagina" }) => {
             <div
                 className="logo-box"
                 style={{
-                    background: "#6745BA",
+                    background: "#224483 ",
                 }}
             >
                 <a href="/home" className="logo logo-light text-center">
@@ -124,7 +124,11 @@ const NavBar = ({ session = {}, title = "Pagina" }) => {
                         <img src="/assets/img/favicon.png" alt="" height="22" />
                     </span>
                     <span className="logo-lg">
-                        <img src="/assets/img/logo.png" alt="" height="36" />
+                        <img
+                            src="/assets/img/logo-white.png"
+                            alt=""
+                            height="36"
+                        />
                     </span>
                 </a>
                 <a href="/home" className="logo logo-dark text-center">

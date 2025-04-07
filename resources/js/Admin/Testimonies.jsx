@@ -11,6 +11,7 @@ import TextareaFormGroup from "@Adminto/form/TextareaFormGroup";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import TestimoniesRest from "../Actions/Admin/TestimoniesRest";
 import Swal from "sweetalert2";
+import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
 
 const testimoniesRest = new TestimoniesRest();
 
@@ -23,17 +24,19 @@ const Testimonies = ({}) => {
     const nameRef = useRef();
     const correlativeRef = useRef();
     const descriptionRef = useRef();
-
+    const imageRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
 
     const onModalOpen = (data) => {
         if (data?.id) setIsEditing(true);
         else setIsEditing(false);
-
+        console.log(data);
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
         correlativeRef.current.value = data?.correlative ?? "";
         descriptionRef.current.value = data?.description ?? "";
+        imageRef.image.src = `/api/testimony/media/${data?.image}`;
+        imageRef.current.value = null;
 
         $(modalRef.current).modal("show");
     };
@@ -47,8 +50,16 @@ const Testimonies = ({}) => {
             correlative: correlativeRef.current.value,
             description: descriptionRef.current.value,
         };
+        const formData = new FormData();
+        for (const key in request) {
+            formData.append(key, request[key]);
+        }
+        const file = imageRef.current.files[0];
+        if (file) {
+            formData.append("image", file);
+        }
 
-        const result = await testimoniesRest.save(request);
+        const result = await testimoniesRest.save(formData);
         if (!result) return;
 
         $(gridRef.current).dxDataGrid("instance").refresh();
@@ -126,7 +137,7 @@ const Testimonies = ({}) => {
                                 <p className="mb-0" style={{ width: "100%" }}>
                                     <b className="d-block">{data.name}</b>
                                     <small className="text-nowrap text-muted truncate">
-                                        @{data.correlative}
+                                        {data.correlative}
                                     </small>
                                 </p>
                             );
@@ -136,6 +147,27 @@ const Testimonies = ({}) => {
                         dataField: "description",
                         caption: "Youtube",
                         width: "50%",
+                    },
+                    {
+                        dataField: "image",
+                        caption: "Imagen",
+                        width: "60px",
+                        allowFiltering: false,
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <img
+                                    src={`/api/testimony/media/${data.image}`}
+                                    style={{
+                                        width: "50px",
+                                        aspectRatio: 1,
+                                        objectFit: "contain",
+                                        objectPosition: "center",
+                                        borderRadius: "4px",
+                                    }}
+                                />
+                            );
+                        },
                     },
                     {
                         dataField: "visible",
@@ -186,26 +218,39 @@ const Testimonies = ({}) => {
                 modalRef={modalRef}
                 title={isEditing ? "Editar testimonio" : "Agregar testimonio"}
                 onSubmit={onModalSubmit}
-                size="sm"
+                size="md"
             >
                 <div className="row" id="testimony-container">
                     <input ref={idRef} type="hidden" />
-                    <InputFormGroup
-                        eRef={nameRef}
-                        label="Nombre"
-                        rows={2}
+                    <ImageFormGroup
+                        eRef={imageRef}
+                        label="Imagen"
+                        col="col-md-4"
+                        aspect={1}
+                        fit="contain"
                         required
                     />
-                    <InputFormGroup
-                        eRef={correlativeRef}
-                        label="Usuario"
-                        required
-                    />
-                    <InputFormGroup
-                        type="url"
+
+                    <div className="col-md-8">
+                        <InputFormGroup
+                            eRef={nameRef}
+                            label="Nombre"
+                            required
+                        />
+                        <InputFormGroup
+                            eRef={correlativeRef}
+                            label="Ubicación"
+                            required
+                        />
+                    </div>
+                    <TextareaFormGroup
+                        type="text"
                         eRef={descriptionRef}
-                        label="URL de youtube"
+                        label="Descripción"
+                        rows={3}
+                        placeholder="Ingresa el texto del testimonio"
                         required
+                        col="col-12"
                     />
                 </div>
             </Modal>

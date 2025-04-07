@@ -18,6 +18,7 @@ class Testimony extends Model
         'correlative',
         'description',
         'visible',
-        'status'
+        'status',
+        'image'
     ];
 }

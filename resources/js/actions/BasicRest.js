@@ -20,6 +20,7 @@ class BasicRest {
             body: JSON.stringify(params),
             signal,
         });
+
         return await res.json();
     };
 

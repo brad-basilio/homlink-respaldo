@@ -48,7 +48,152 @@ import HealthSection from "./components/Home/HealthSection";
 import TratamientoSection from "./components/Home/TratamientoSection";
 import TestimonioSection from "./components/Home/TestimonioSection";
 import AcercaDe from "./components/Home/AcercaDe";
-const ServiciosPage = () => {
+import TextWithHighlight from "./Utils/TextWithHighlight";
+import ModalAppointment from "./components/Appointment/ModalAppointment";
+
+const DynamicGallery = ({ service }) => {
+    // Determina el layout basado en el número de imágenes
+    const getLayoutConfig = () => {
+        if (!service?.gallery?.length)
+            return { gridClass: "", imageClasses: [] };
+
+        const count = service.gallery.length;
+
+        if (count === 1) {
+            return {
+                gridClass: "grid-cols-1 h-[500px] gap-4",
+                imageClasses: ["h-full"],
+            };
+        }
+
+        if (count === 2) {
+            return {
+                gridClass: "flex flex-col h-[600px] gap-4",
+                imageClasses: ["h-[350px]", "h-[250px]"],
+            };
+        }
+
+        if (count === 3) {
+            return {
+                gridClass: "grid-cols-2 grid-rows-3 gap-2  gap-4",
+                imageClasses: [
+                    "row-span-2 col-span-2 h-full", // Grande arriba
+                    "row-span-1 col-span-1 h-[250px]", // Abajo izquierda
+                    "row-span-1 col-span-1 h-[250px]", // Abajo derecha
+                ],
+            };
+        }
+
+        if (count === 4) {
+            return {
+                gridClass: "grid-cols-2 grid-rows-3 gap-4 h-[600px]",
+                imageClasses: [
+                    "row-span-1 col-span-2 h-full", // Grande izquierda
+                    "row-span-2 col-span-1 h-full", // Alta derecha
+                    "row-span-1 col-span-1 h-full", // Pequeña abajo 1
+                    "row-span-1 col-span-1 h-full", // Pequeña abajo 2
+                ],
+            };
+        }
+        if (count === 5) {
+            return {
+                gridClass: "grid-cols-2 grid-rows-4 gap-4 h-[800px]",
+                imageClasses: [
+                    "row-span-1 col-span-2 h-full", // Grande izquierda
+                    "row-span-2 col-span-1 h-full", // Alta derecha
+                    "row-span-1 col-span-1 h-full", // Pequeña abajo 1
+                    "row-span-1 col-span-1 h-full", // Pequeña abajo 2
+                    "row-span-1 col-span-2 h-full", // Pequeña abajo 2
+                ],
+            };
+        }
+
+        // Layout por defecto para 5+ imágenes
+        return {
+            gridClass: "grid-cols-3 gap-2 h-[600px]",
+            imageClasses: Array(count).fill("h-300px"),
+        };
+    };
+
+    const { gridClass, imageClasses } = getLayoutConfig();
+
+    if (!service?.gallery?.length) return null;
+
+    return (
+        <div
+            className={`grid ${gridClass} w-full mx-auto my-8 rounded-3xl overflow-hidden`}
+        >
+            {service.gallery.map((image, index) => (
+                <div
+                    key={index}
+                    className={`relative ${
+                        imageClasses[index] || "h-32"
+                    } overflow-hidden `}
+                >
+                    <img
+                        src={`/api/service/media/${image}`}
+                        alt={`${service.title} - Imagen ${index + 1}`}
+                        className="w-full h-full object-cover absolute inset-0 rounded-3xl"
+                        onError={(e) => {
+                            e.target.src = "/assets/img/placeholder.jpg"; // Imagen de respaldo
+                        }}
+                    />
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
+    const landingHero = landing.find(
+        (item) => item.correlative === "page_services_hero"
+    );
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [showServicesMenu, setShowServicesMenu] = useState(false);
+
+    const handleServicesMenu = () => {
+        setShowServicesMenu(!showServicesMenu);
+    };
+
+    // Función para dividir la descripción en párrafos
+    const renderDescription = (description) => {
+        if (!description) return null;
+
+        // Dividir por puntos seguidos de espacio (regex mejorado)
+        const paragraphs = description.split(/(?<=\.)\s+/);
+
+        return paragraphs.map((paragraph, index) => (
+            <p key={index} className="mb-4 last:mb-0">
+                {paragraph}
+            </p>
+        ));
+    };
+
+    // Obtener el slug de la URL
+    useEffect(() => {
+        // Función para parsear los parámetros de la URL
+        const getQueryParam = (param) => {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        };
+
+        const slug = getQueryParam("slug");
+
+        if (slug) {
+            // Encontrar el índice del servicio que coincida con el slug
+            const foundIndex = services.findIndex(
+                (service) =>
+                    service.slug === slug ||
+                    service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") ===
+                        slug
+            );
+
+            if (foundIndex !== -1) {
+                setActiveIndex(foundIndex);
+            }
+        }
+    }, [services]); // Dependencia de services para que se ejecute cuando cambie
     return (
         <div className=" font-poppins">
             <Header />
@@ -56,91 +201,69 @@ const ServiciosPage = () => {
                 {/* Hero Image */}
                 <div className="w-full mt-4 lg:mt-0 h-52 md:h-64 overflow-hidden rounded-b-3xl">
                     <img
-                        src="/assets/img/servicios/bg-header.png"
+                        src={`/api/landing_home/media/${landingHero.image}`}
                         alt="Equipamiento médico de fisioterapia"
-                        className="w-full h-full object-cover"
+                        className="w-full h-52 md:h-64 object-cover object-left lg:object-center"
                     />
                 </div>
 
                 <div className="max-w-6xl mx-auto px-4 lg:px-3 py-8">
                     {/* Title Section */}
                     <div className="text-center mb-8 lg:mt-10">
-                        <h1 className="text-5xl leading-[42px] lg:text-6xl font-semibold mb-2">
-                            Tratamientos diseñados
-                            <br className="hidden lg:flex" />
-                            para tu <span className="text-azul">bienestar</span>
+                        <h1 className="text-5xl leading-[42px] lg:text-6xl font-semibold mb-2 lg:max-w-2xl lg:mx-auto">
+                            <TextWithHighlight text={landingHero.title} />
                         </h1>
                     </div>
 
                     <div className="flex flex-col lg:flex-row lg:gap-12 lg:pt-2 justify-between">
                         {/* Services Menu - Hidden on mobile, visible on desktop */}
-                        <div className="hidden lg:block  lg:w-[30%] mt-10">
-                            <h2 className="text-xl lg:text-2xl font-semimbold mb-4">
+                        <div className="w-full lg:w-[30%] mt-10 relative">
+                            <h2 className="hidden lg:block text-xl lg:text-2xl font-semibold mb-4">
                                 Servicios
                             </h2>
-                            <div className="space-y-2">
-                                {[
-                                    {
-                                        name: "Evaluación Biomecánica",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Fisioterapia Post-Operativa",
-                                        active: true,
-                                    },
-                                    {
-                                        name: "Fisioterapia Traumatológica",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Fisioterapia Ortopédica",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Fisioterapia en Difusiones Temporomandibulares",
-                                        active: false,
-                                    },
-                                    { name: "Alta Tecnología", active: false },
-                                    {
-                                        name: "Pre Natal - Post Parto",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Nopain Atención domiciliaria",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Fisioterapia en la tercera edad",
-                                        active: false,
-                                    },
-                                    {
-                                        name: "Camilla de inversión",
-                                        active: false,
-                                    },
-                                    { name: "Humac Balance", active: false },
-                                ].map((service, index) => (
+                            <div className="lg:hidden mb-6 ">
+                                <button
+                                    onClick={handleServicesMenu}
+                                    className="w-full flex items-center justify-between p-3 border border-gray-300 rounded-md"
+                                >
+                                    <span className="font-medium">
+                                        Servicios
+                                    </span>
+                                    <ChevronDown className="h-5 w-5 text-gray-500" />
+                                </button>
+                            </div>
+                            <div
+                                className={` lg:relative lg:block lg:bg-transparent space-y-2 ${
+                                    showServicesMenu
+                                        ? "absolute bg-white top-14"
+                                        : "hidden"
+                                }`}
+                            >
+                                {services.map((service, index) => (
                                     <div
                                         key={index}
-                                        className={`flex items-center justify-between p-3 lg:py-3 lg:px-0 rounded-md cursor-pointer ${
-                                            service.active
+                                        onClick={() => setActiveIndex(index)} // Al hacer clic, establece este índice como activo
+                                        className={`flex  items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
+                                            index === activeIndex
                                                 ? "bg-gray-100"
                                                 : "hover:bg-gray-50"
                                         }`}
                                     >
                                         <span
                                             className={`lg:text-lg ${
-                                                service.active
+                                                index === activeIndex
                                                     ? "font-medium"
                                                     : ""
                                             }`}
                                         >
-                                            {service.name}
+                                            {service.title}
                                         </span>
                                         <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-200 flex-shrink-0">
                                             <img
-                                                src={`/assets/img/servicios/thum.png`}
-                                                alt={service.name}
+                                                src={`/api/service/media/${service.image}`}
+                                                alt={service.title}
                                                 className="w-full h-full object-cover"
+                                                loading="lazy"
                                             />
                                         </div>
                                     </div>
@@ -148,155 +271,74 @@ const ServiciosPage = () => {
                             </div>
                         </div>
 
-                        {/* Services Dropdown - Visible on mobile only */}
-                        <div className="md:hidden mb-6 ">
-                            <button className="w-full flex items-center justify-between p-3 border border-gray-300 rounded-md">
-                                <span className="font-medium">Servicios</span>
-                                <ChevronDown className="h-5 w-5 text-gray-500" />
-                            </button>
-                        </div>
-
                         {/* Service Details */}
                         <div className="lg:w-[62%]">
-                            <h2 className="text-5xl lg:text-5xl lg:mt-6 font-semibold mb-4">
-                                Fisioterapia <br className="hidden lg:block" />{" "}
-                                Post-Operativa
+                            <h2 className="text-5xl  lg:mt-6 font-semibold mb-4  text-wrap">
+                                <TextWithHighlight
+                                    text={services[activeIndex].title}
+                                    split={true}
+                                />
                             </h2>
 
                             <div className="mb-8 lg:mb-4 pt-4 lg:pt-2 text-lg">
-                                <p className=" mb-2">
-                                    Esta terapia se ofrece durante el período
-                                    post-operatorio inmediato. Seguimos
-                                    estrictamente los protocolos internacionales
-                                    para diseñar una intervención específica.
-                                </p>
-                                <p className=" mb-4">
-                                    Nuestros objetivos son para optimizar la
-                                    recuperación del paciente y para prevenir
-                                    las complicaciones post-operatorias comunes
-                                    que podrían interferir con su evolución como
-                                    adherencias, fibrosis o descompensación
-                                    muscular.
-                                </p>
+                                {" "}
+                                {renderDescription(
+                                    services[activeIndex].description
+                                )}
                             </div>
 
                             {/* Service Features */}
                             <div className="space-y-3 mb-8 text-lg">
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Duración de la sesión – 45 a 60 minutos
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Tiempo de recuperación – Depende del
-                                        tipo de cirugía y avance del paciente
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Objetivo – Acelerar la recuperación y
-                                        reducir complicaciones postoperatorias
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Áreas tratadas – Articulaciones,
-                                        músculos y movilidad general
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Métodos – Terapia manual, ejercicios
-                                        guiados y técnicas especializadas
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Frecuencia recomendada – 2 a 3 veces por
-                                        semana
-                                    </p>
-                                </div>
-                                <div className="flex gap-2 items-start">
-                                    <img
-                                        src="/assets/img/acercaDe/pin.png"
-                                        className="w-6 h-6"
-                                    />
-                                    <p className="">
-                                        Supervisión – Tratamiento personalizado
-                                        con fisioterapeuta especializado
-                                    </p>
-                                </div>
+                                {services[activeIndex].characteristics.map(
+                                    (characteristic, index) => (
+                                        <div
+                                            key={index}
+                                            className="flex gap-3 items-center"
+                                        >
+                                            <div className="flex-shrink-0">
+                                                <img
+                                                    src="/assets/img/icons/pin.png"
+                                                    className="w-6 h-6 mt-1"
+                                                    alt={characteristic}
+                                                    loading="lazy"
+                                                />
+                                            </div>
+                                            <p className="leading-relaxed">
+                                                {characteristic}
+                                            </p>
+                                        </div>
+                                    )
+                                )}
                             </div>
 
                             {/* CTA Button */}
                             <div className="mb-8">
-                                <button className="w-full md:w-auto bg-azul hover:bg-blue-800 text-white font-medium py-3 px-6 rounded-full transition duration-300 flex items-center justify-center">
-                                    <Calendar className="mr-2 h-5 w-5" />
-                                    <span className="md:hidden">
-                                        Agendar cita
-                                    </span>
-                                    <span className="hidden md:inline">
-                                        Reserva tu cita
-                                    </span>
+                                <button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
+                                >
+                                    <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                        <img
+                                            src="/assets/img/icons/calendar-check.png"
+                                            className=" h-auto    "
+                                        />
+                                    </div>
+                                    Reserva tu cita
                                 </button>
                             </div>
 
                             {/* Service Images */}
-                            <div className="space-y-4 pt-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-6">
-                                {/* Main Image - Full width on mobile, larger on desktop */}
-                                <div className="md:col-span-2 rounded-2xl overflow-hidden h-64 lg:h-[30rem] ">
-                                    <img
-                                        src="/assets/img/servicios/image1.png"
-                                        alt="Fisioterapia post-operativa"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-
-                                {/* Additional Images - Grid on desktop */}
-                                <div className="rounded-2xl overflow-hidden  h-64 lg:h-64 ">
-                                    <img
-                                        src="/assets/img/servicios/image2.png"
-                                        alt="Terapia con pelotas"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-                                <div className="rounded-2xl overflow-hidden h-64 lg:h-64 ">
-                                    <img
-                                        src="/assets/img/servicios/image3.png"
-                                        alt="Ejercicios de rehabilitación"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </div>
-                            </div>
+                            <DynamicGallery service={services[activeIndex]} />
                         </div>
                     </div>
                 </div>
             </div>
+            <ModalAppointment
+                linkWhatsApp={linkWhatsApp}
+                randomImage={randomImage}
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+            />
             <Footer />
         </div>
     );

@@ -157,7 +157,7 @@ const Strengths = () => {
                         caption: "Descripción",
                         width: "50%",
                     },
-                    /* {
+                    {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
@@ -176,7 +176,7 @@ const Strengths = () => {
                                 />
                             );
                         },
-                    },*/
+                    },
                     {
                         caption: "Acciones",
                         cellTemplate: (container, { data }) => {
@@ -189,14 +189,14 @@ const Strengths = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            /* container.append(
+                            container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );*/
+                            );
                         },
                         allowFiltering: false,
                         allowExporting: false,

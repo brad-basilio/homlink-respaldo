@@ -10,30 +10,7 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { useState } from "react";
 
-export default function TestimonioSection() {
-    const services = [
-        {
-            name: "Mario Torres",
-            dir: "Lima, Perú",
-            image: "/assets/img/testimonioSection/Ellipse 293 (1).png",
-            description:
-                "Llegué con mucho dolor después de mi cirugía y en pocas sesiones noté una gran mejoría. El equipo fue muy profesional y atento, adaptando cada ejercicio a mi ritmo. Hoy me siento más fuerte y con mayor movilidad. ¡Gracias por ayudarme a recuperar mi bienestar!",
-        },
-        {
-            name: "Mario Torres",
-            dir: "Lima, Perú",
-            image: "/assets/img/testimonioSection/Ellipse 293 (1).png",
-            description:
-                "Llegué con mucho dolor después de mi cirugía y en pocas sesiones noté una gran mejoría. El equipo fue muy profesional y atento, adaptando cada ejercicio a mi ritmo. Hoy me siento más fuerte y con mayor movilidad. ¡Gracias por ayudarme a recuperar mi bienestar!",
-        },
-        {
-            name: "Mario Torres",
-            dir: "Lima, Perú",
-            image: "/assets/img/testimonioSection/Ellipse 293 (1).png",
-            description:
-                "Llegué con mucho dolor después de mi cirugía y en pocas sesiones noté una gran mejoría. El equipo fue muy profesional y atento, adaptando cada ejercicio a mi ritmo. Hoy me siento más fuerte y con mayor movilidad. ¡Gracias por ayudarme a recuperar mi bienestar!",
-        },
-    ];
+export default function TestimonioSection({ testimonies }) {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
         <div className=" mt-0  font-poppins">
@@ -50,9 +27,9 @@ export default function TestimonioSection() {
                     modules={[Navigation, Pagination]}
                     onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                 >
-                    {services.map((testimonio, index) => (
+                    {testimonies.map((testimonio, index) => (
                         <SwiperSlide key={index}>
-                            <div className=" gap-4 w-full my-6 relative h-[400px] lg:h-max">
+                            <div className=" gap-4 w-full my-6 relative h-[400px] lg:h-max cursor-pointer">
                                 <img
                                     className="absolute -z-10 mt-10 lg:left-1/2 lg:-translate-x-1/2"
                                     src="/assets/img/testimonioSection/Ellipse.png"
@@ -60,7 +37,7 @@ export default function TestimonioSection() {
                                 <div className=" flex items-center justify-center flex-col">
                                     <img
                                         className="w-20 h-20 rounded-full"
-                                        src={testimonio.image}
+                                        src={`/api/testimony/media/${testimonio.image}`}
                                     />
                                     <p className="text-xl mt-6 text-center lg:text-[22px]">
                                         {testimonio.description}
@@ -69,7 +46,7 @@ export default function TestimonioSection() {
                                         {testimonio.name}
                                     </p>
                                     <p className="text-[#242424A3]  text-center lg:hidden">
-                                        {testimonio.dir}
+                                        {testimonio.correlative}
                                     </p>
                                 </div>
                             </div>
@@ -78,7 +55,7 @@ export default function TestimonioSection() {
                 </Swiper>
                 {/* Paginacion personalizada */}
                 <div className="flex justify-center gap-2 mt-10">
-                    {services.map((_, index) => (
+                    {testimonies.map((_, index) => (
                         <button
                             key={index}
                             className={`rounded-full transition-all duration-300 ${

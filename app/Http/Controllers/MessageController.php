@@ -35,7 +35,7 @@ class MessageController extends BasicController
         return $validatedData;
     }
 
-    public function afterSave(Request $request, object $jpa, bool $isNew)
+    public function afterSave(Request $request, object $jpa)
     {
         MailingController::notifyContact($jpa);
     }

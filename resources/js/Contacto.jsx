@@ -38,8 +38,33 @@ import HealthSection from "./components/Home/HealthSection";
 import TratamientoSection from "./components/Home/TratamientoSection";
 import TestimonioSection from "./components/Home/TestimonioSection";
 import AcercaDe from "./components/Home/AcercaDe";
+import TextWithHighlight from "./Utils/TextWithHighlight";
+import ContactForm from "./Components/Contact/ContactForm";
 
-const ContactoPage = () => {
+const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
+    const landingHero = landing.find(
+        (item) => item.correlative === "page_contact_hero"
+    );
+    const landingForm = landing.find(
+        (item) => item.correlative === "page_contact_form"
+    );
+    const landingHelp = landing.find(
+        (item) => item.correlative === "page_contact_help"
+    );
+
+    // Asegurarnos de que sedes sea siempre un array
+    const sedesValidas = Array.isArray(sedes) ? sedes : [];
+
+    // Verificar si hay sedes y si todos tienen el mismo horario
+    const todosHorariosIguales =
+        sedesValidas.length > 0 &&
+        sedesValidas.every(
+            (sede, _, arr) =>
+                JSON.stringify(sede.horario) === JSON.stringify(arr[0].horario)
+        );
+
+    /*FORMULARIO  DE CONTACTO */
+
     return (
         <div className="font-poppins text-negro">
             <Header />
@@ -49,188 +74,86 @@ const ContactoPage = () => {
                         {/* Información de contacto - Lado izquierdo en desktop */}
                         <div className="md:w-1/2 mb-8 md:mb-0">
                             <h1 className="text-[40px] mt-3 lg:mt-0 leading-[42px] lg:text-6xl font-semibold mb-2">
-                                Conéctate con el{" "}
-                                <span className="text-azul">bienestar</span>
+                                <TextWithHighlight text={landingHero.title} />
                             </h1>
                             <p className=" mb-6 text-lg">
-                                El dolor no tiene por qué limitarte. Escríbenos
-                                y descubre cómo podemos ayudarte a moverte
-                                mejor, sentirte mejor y vivir sin limitaciones.
-                                ¡Estamos aquí para ti!
+                                {landingHero.description}
                             </p>
+                            <div className="space-y-6 lg:pt-16">
+                                {/* Mostrar horario general si todos son iguales */}
+                                {todosHorariosIguales && (
+                                    <div>
+                                        <h2 className="text-xl font-semibold mb-2">
+                                            Horario de Atención
+                                        </h2>
+                                        {sedes[0].business_hours.map(
+                                            (horario, index) => (
+                                                <p key={index} className="">
+                                                    {horario}
+                                                </p>
+                                            )
+                                        )}
+                                    </div>
+                                )}
 
-                            <div className="space-y-6 ">
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-2">
-                                        Horario de Atención
-                                    </h2>
-                                    <p className="">
-                                        Lunes a viernes: 8:00 am a 8:00 pm
-                                    </p>
-                                    <p className="">
-                                        Sábados: 8:00 am a 2:00 pm
-                                    </p>
-                                </div>
+                                {/* Información de cada sede */}
+                                {sedes.map((sede) => (
+                                    <div key={sede.id}>
+                                        <h2 className="text-xl font-semibold mb-2">
+                                            <TextWithHighlight
+                                                text={sede.title}
+                                            />
+                                        </h2>
+                                        {sede.ubications.map(
+                                            (ubication, index) => (
+                                                <p key={index} className="">
+                                                    {ubication}
+                                                </p>
+                                            )
+                                        )}
+                                        <p className="flex gap-2">
+                                            Teléfono:{" "}
+                                            {sede.phones.map((phone, index) => (
+                                                <p key={index} className="">
+                                                    {phone}
+                                                </p>
+                                            ))}
+                                        </p>
+                                        {sede.emails.map((email, index) => (
+                                            <p key={index} className="">
+                                                {email}
+                                            </p>
+                                        ))}
 
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-2">
-                                        Sede Central Miraflores
-                                    </h2>
-                                    <p className="">Calle Chiclayo 723</p>
-                                    <p className="">Teléfono: 976 953 599</p>
-                                    <p className="">
-                                        info-miraflores@nopain.com.pe
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-2">
-                                        Sede San Borja
-                                    </h2>
-                                    <p className="">Calle Bernini 354</p>
-                                    <p className="">Teléfono: 398 7331</p>
-                                    <p className="">
-                                        info-sanborja@nopain.com.pe
-                                    </p>
-                                </div>
-
-                                <div>
-                                    <h2 className="text-xl font-semibold mb-2">
-                                        Sede San Isidro
-                                    </h2>
-                                    <p className="">Av. Emilio Cavenecia 225</p>
-                                    <p className="">Consultorio 513 - 516</p>
-                                    <p className="">Teléfono: 976 953 717</p>
-                                    <p className="">cavenecia@nopain.com.pe</p>
-                                </div>
+                                        {/* Mostrar horario individual si son diferentes */}
+                                        {!todosHorariosIguales && (
+                                            <div className="mt-2">
+                                                <h3 className="font-semibold">
+                                                    Horario:
+                                                </h3>
+                                                {sede.business_hours.map(
+                                                    (business_hour, i) => (
+                                                        <p key={i} className="">
+                                                            {business_hour}
+                                                        </p>
+                                                    )
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
 
                         {/* Formulario de contacto - Lado derecho en desktop */}
                         <div className="md:w-1/2">
-                            <div className="bg-gray-50 p-6 rounded-lg">
+                            <div className="bg-gray-50 p-6 rounded-3xl">
                                 <h2 className="text-3xl font-semibold mb-6">
-                                    Ponte en{" "}
-                                    <span className="text-azul">contacto</span>{" "}
-                                    con nuestro equipo ahora
+                                    <TextWithHighlight
+                                        text={landingForm.title}
+                                    />
                                 </h2>
-
-                                <form className="flex flex-col gap-y-6">
-                                    <div>
-                                        <label
-                                            htmlFor="nombre"
-                                            className="block text-sm font-medium  mb-1"
-                                        >
-                                            Nombre
-                                        </label>
-                                        <input
-                                            type="text"
-                                            id="nombre"
-                                            placeholder="Ingresa tu nombre"
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        />
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div>
-                                            <label
-                                                htmlFor="apellido-materno"
-                                                className="block text-sm font-medium  mb-1"
-                                            >
-                                                Apellido
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="apellido-materno"
-                                                placeholder="Ingresa tu apellido"
-                                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            htmlFor="email"
-                                            className="block text-sm font-medium  mb-1"
-                                        >
-                                            E-mail
-                                        </label>
-                                        <input
-                                            type="email"
-                                            id="email"
-                                            placeholder="Ingresa tu dirección de correo electrónico"
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        />
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            htmlFor="telefono"
-                                            className="block text-sm font-medium  mb-1"
-                                        >
-                                            Número de teléfono
-                                        </label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 flex items-center">
-                                                <button
-                                                    type="button"
-                                                    className="flex items-center justify-between h-full px-3 border-r border-gray-300 text-gray-500 focus:outline-none"
-                                                >
-                                                    PE{" "}
-                                                    <ChevronDown className="ml-1 h-4 w-4" />
-                                                </button>
-                                            </div>
-                                            <input
-                                                type="tel"
-                                                id="telefono"
-                                                placeholder="(+51) 000-000-000"
-                                                className="w-full pl-16 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label
-                                            htmlFor="mensaje"
-                                            className="block text-sm font-medium  mb-1"
-                                        >
-                                            Escribe un mensaje
-                                        </label>
-                                        <textarea
-                                            id="mensaje"
-                                            rows={6}
-                                            placeholder="Escríbenos tu pregunta aquí"
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        ></textarea>
-                                    </div>
-
-                                    <div className="flex items-start">
-                                        <div className="flex items-center h-5">
-                                            <input
-                                                id="privacidad"
-                                                type="checkbox"
-                                                className="h-4 w-4 text-blue-700 border-gray-300 rounded focus:ring-blue-500"
-                                            />
-                                        </div>
-                                        <div className="ml-3 text-sm">
-                                            <label
-                                                htmlFor="privacidad"
-                                                className=""
-                                            >
-                                                Usted acepta nuestra amigable
-                                                política de privacidad.
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                    <button className=" mt-5 bg-[#224483] w-8/12 lg:w-3/6 text-white py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14">
-                                        <img
-                                            src="/assets/img/home/treatment.png"
-                                            className="w-12 h-auto  bg-[#224483] rounded-full p-2"
-                                        />
-                                        Enviar formulario
-                                    </button>
-                                </form>
+                                <ContactForm />
                             </div>
 
                             {/* WhatsApp Section - Solo visible en móvil */}
@@ -257,50 +180,58 @@ const ContactoPage = () => {
                     </div>
 
                     {/* Chat Section - Full width */}
-                    <div className="mt-12 md:mt-16 bg-azul rounded-xl overflow-hidden">
-                        <div className="relative py-8 px-6 text-white text-center">
+                    <div className="mt-12 md:mt-16 rounded-3xl overflow-hidden relative">
+                        {/* Background image - Capa más baja */}
+                        <div className="absolute inset-0 z-0">
+                            <img
+                                src={`/api/landing_home/media/${landingHelp.image}`}
+                                alt="Background"
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        {/* Overlay azul - Capa intermedia */}
+                        <div className="absolute inset-0 bg-azul/90 z-10"></div>
+
+                        {/* Contenido - Capa superior */}
+                        <div className="relative py-8 px-6 text-white text-center z-20">
                             {/* Avatars */}
                             <div className="flex justify-center mb-4">
                                 <div className="flex -space-x-2">
-                                    <img
-                                        src="/assets/img/contacto/avatar1.png"
-                                        alt="Staff member 1"
-                                        className="w-10 h-10 rounded-full border-2 border-white"
-                                    />
-                                    <img
-                                        src="/assets/img/contacto/avatar2.png"
-                                        alt="Staff member 2"
-                                        className="w-10 h-10 rounded-full border-2 border-white"
-                                    />
-                                    <img
-                                        src="/assets/img/contacto/avatar3.png"
-                                        alt="Staff member 3"
-                                        className="w-10 h-10 rounded-full border-2 border-white"
-                                    />
+                                    {staff &&
+                                        staff.length > 0 &&
+                                        staff.map((job, index) => (
+                                            <img
+                                                src={`/api/staff/media/${job.image}`}
+                                                alt={job.name}
+                                                className="w-14 h-14 object-cover rounded-full border-2 border-white"
+                                            />
+                                        ))}
                                 </div>
                             </div>
 
-                            <h2 className="text-2xl font-semibold mb-2">
-                                ¿Aún tienes preguntas?
+                            <h2 className="text-2xl font-semibold mb-2 relative">
+                                <TextWithHighlight text={landingHelp.title} />
                             </h2>
-                            <p className="text-blue-100 mb-6 text-lg max-w-xl mx-auto">
-                                ¿No encuentras la respuesta que buscas? Por
-                                favor chatea con nuestro amigable equipo.
+
+                            <p className="text-blue-100 mb-6 text-lg max-w-xl mx-auto relative">
+                                {landingHelp.description}
                             </p>
 
-                            <button className="bg-white text-azul font-medium py-3 px-6 rounded-full inline-flex items-center">
-                                <Send className="mr-2 h-5 w-5" />
+                            <a
+                                href={whatsapp.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-[#EFF0F1] text-azul font-medium py-1 px-6 rounded-full inline-flex items-center relative hover:bg-gray-100 transition-colors"
+                            >
+                                <div className="bg-[#EFF0F1] w-12 p-2 rounded-full">
+                                    <img
+                                        src="/assets/img/icons/send.png"
+                                        className=" h-auto"
+                                    />
+                                </div>
                                 Ayuda Chat
-                            </button>
-
-                            {/* Background image - Podría ser reemplazado con una imagen real */}
-                            <div className="absolute inset-0 z-[-1] opacity-10">
-                                <img
-                                    src="/placeholder.svg?height=400&width=1200"
-                                    alt="Background"
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

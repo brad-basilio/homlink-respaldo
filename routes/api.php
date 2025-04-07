@@ -7,8 +7,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\MessageController as AdminMessageController;
+use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
+use App\Http\Controllers\Admin\LandingHomeController as AdminLandingHomeController;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
+
+use App\Http\Controllers\Admin\StaffController as AdminStaffController;
+use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
+
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
@@ -24,6 +32,7 @@ use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
 use App\Http\Controllers\Admin\InstagramPostController as AdminInstagramPostsController;
 use App\Http\Controllers\Admin\ItemSizeController as AdminItemSizeController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\FormulaController as AdminFormulaController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
@@ -31,6 +40,7 @@ use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
+
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
@@ -48,13 +58,18 @@ use App\Http\Controllers\CoverController;
 use App\Http\Controllers\CulqiController;
 use App\Http\Controllers\FragranceController;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\InstagramPostsController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ItemImageController;
+use App\Http\Controllers\LandingHomeController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SpecialityController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StrengthController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
@@ -84,7 +99,17 @@ Route::get('/items/get-testimonies', [TestimonyController::class, 'getTestimonie
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
-Route::get('/testimonies/media/{uuid}', [AdminTestimonyController::class, 'media']);
+
+Route::get('/landing_home/media/{uuid}', [LandingHomeController::class, 'media']);
+Route::get('/landing_home/video/{uuid}', [LandingHomeController::class, 'video']);
+
+Route::get('/service/media/{uuid}', [ServiceController::class, 'media']);
+Route::get('/facility/media/{uuid}', [FacilityController::class, 'media']);
+Route::get('/indicator/media/{uuid}', [IndicatorController::class, 'media']);
+Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
+Route::get('/staff/media/{uuid}', [StaffController::class, 'media']);
+Route::get('/speciality/media/{uuid}', [SpecialityController::class, 'media']);
+
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
 Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media']);
@@ -104,6 +129,7 @@ Route::post('/items/paginate', [ItemController::class, 'paginate']);
 Route::post('/supplies/paginate', [SupplyController::class, 'paginate']);
 
 Route::post('/messages', [MessageController::class, 'save']);
+Route::post('/appointments', [MessageController::class, 'save']);
 Route::post('/subscriptions', [SubscriptionController::class, 'save']);
 
 Route::get('/cover/{uuid}', [CoverController::class, 'full']);
@@ -152,6 +178,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/items/status', [AdminItemController::class, 'status']);
         Route::patch('/items/{field}', [AdminItemController::class, 'boolean']);
         Route::delete('/items/{id}', [AdminItemController::class, 'delete']);
+
 
         Route::post('/colors', [AdminItemColorController::class, 'save']);
         Route::post('/colors/paginate', [AdminItemColorController::class, 'paginate']);
@@ -218,6 +245,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/messages/status', [AdminMessageController::class, 'status']);
         Route::patch('/messages/{field}', [AdminMessageController::class, 'boolean']);
         Route::delete('/messages/{id}', [AdminMessageController::class, 'delete']);
+
+        Route::post('/appointments', [AdminAppointmentController::class, 'save']);
+        Route::post('/appointments/paginate', [AdminAppointmentController::class, 'paginate']);
+        Route::patch('/appointments/status', [AdminAppointmentController::class, 'status']);
+        Route::patch('/appointments/{field}', [AdminAppointmentController::class, 'boolean']);
+        Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'delete']);
 
         Route::post('/subscriptions/paginate', [AdminSubscriptionController::class, 'paginate']);
         Route::patch('/subscriptions/status', [AdminSubscriptionController::class, 'status']);
@@ -296,6 +329,38 @@ Route::middleware('auth')->group(function () {
 
         Route::patch('/account/email', [AdminAccountController::class, 'email']);
         Route::patch('/account/password', [AdminAccountController::class, 'password']);
+
+        /*NO PAIN LINKS */
+
+        Route::post('/landing_home', [AdminLandingHomeController::class, 'save']);
+        Route::post('/landing_home/paginate', [AdminLandingHomeController::class, 'paginate']);
+        Route::patch('/landing_home/status', [AdminLandingHomeController::class, 'status']);
+        Route::patch('/landing_home/{field}', [AdminLandingHomeController::class, 'boolean']);
+        Route::delete('/landing_home/{id}', [AdminLandingHomeController::class, 'delete']);
+
+        Route::post('/services', [AdminServiceController::class, 'save']);
+        Route::post('/services/paginate', [AdminServiceController::class, 'paginate']);
+        Route::patch('/services/status', [AdminServiceController::class, 'status']);
+        Route::patch('/services/{field}', [AdminServiceController::class, 'boolean']);
+        Route::delete('/services/{id}', [AdminServiceController::class, 'delete']);
+
+        Route::post('/facilities', [AdminFacilityController::class, 'save']);
+        Route::post('/facilities/paginate', [AdminFacilityController::class, 'paginate']);
+        Route::patch('/facilities/status', [AdminFacilityController::class, 'status']);
+        Route::patch('/facilities/{field}', [AdminFacilityController::class, 'boolean']);
+        Route::delete('/facilities/{id}', [AdminFacilityController::class, 'delete']);
+
+        Route::post('/staff', [AdminStaffController::class, 'save']);
+        Route::post('/staff/paginate', [AdminStaffController::class, 'paginate']);
+        Route::patch('/staff/status', [AdminStaffController::class, 'status']);
+        Route::patch('/staff/{field}', [AdminStaffController::class, 'boolean']);
+        Route::delete('/staff/{id}', [AdminStaffController::class, 'delete']);
+
+        Route::post('/specialities', [AdminSpecialityController::class, 'save']);
+        Route::post('/specialities/paginate', [AdminSpecialityController::class, 'paginate']);
+        Route::patch('/specialities/status', [AdminSpecialityController::class, 'status']);
+        Route::patch('/specialities/{field}', [AdminSpecialityController::class, 'boolean']);
+        Route::delete('/specialities/{id}', [AdminSpecialityController::class, 'delete']);
     });
 
     Route::middleware('can:Customer')->prefix('customer')->group(function () {

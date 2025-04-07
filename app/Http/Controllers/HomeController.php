@@ -7,8 +7,12 @@ use App\Models\Ad;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
 use App\Models\Item;
+use App\Models\LandingHome;
 use App\Models\Post;
+use App\Models\Service;
 use App\Models\Slider;
+use App\Models\Staff;
+use App\Models\Strength;
 use App\Models\Supply;
 use App\Models\Testimony;
 use Illuminate\Http\Request;
@@ -20,38 +24,24 @@ class HomeController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
-        $slider = Slider::where('status', true)->where('visible', true)->orderBy('updated_at', 'desc')->first();
+
+
+        /*ESTO ES PARA NO PAIN */
+
+        $indicators = Indicator::where('status', true)->where('visible', true)->get();
+        $landing = LandingHome::where('correlative', 'like', 'page_home%')->get();
+        $benefits = Strength::where('status', true)->where('visible', true)->get();
+        $services = Service::where('featured', true)->where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
-        $items = Item::where('featured', true)->where('visible', true)->where('status', true)->get();
-        $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
-        $popups = Ad::today();
-        $top_sale = Item::where('status', true)->where('visible', true)->where('featured', true)->with(['colors', 'sizes'])->orderBy('updated_at', 'DESC')->first();
-        $new_product = Item::where('status', true)->where('visible', true)->where('is_new', true)->with(['colors', 'sizes'])->orderBy('updated_at', 'DESC')->first();
-        $we_lovers = Testimony::all();
-        $products_featured = Item::where('status', true)->where('visible', true)->where('featured', true)->with(['colors', 'sizes'])->orderBy('updated_at', 'DESC')->limit(12)->get();
-        if (count($products_featured) < 4) {
-            $original_count = count($products_featured);
-            $needed = 4 - $original_count;
-
-            for ($i = 0; $i < $needed; $i++) {
-                // Duplicar elementos existentes (usando el índice original)
-                $products_featured->push($products_featured[$i % $original_count]);
-            }
-        }
-        $posts = InstagramPost::all();
-
-        // dump($top_sale);
+        $staff_boss = Staff::where('status', true)->where('visible', true)->where('job', 'LIKE', 'Director%')->first();
         return [
-            'slider' => $slider,
+
+            'indicators' => $indicators,
+            'landing' => $landing,
+            'benefits' => $benefits,
+            'services' => $services,
             'testimonies' => $testimonies,
-            'items' => $items,
-            'supplies' => $supplies,
-            'popups' => $popups,
-            'top_sale' => $top_sale,
-            'we_lovers' => $we_lovers,
-            'products_featured' => $products_featured,
-            'new_product' => $new_product,
-            'posts' => $posts
+            'staff_boss' => $staff_boss,
         ];
     }
 }

@@ -30,7 +30,8 @@ class TestimonyController extends BasicController
     public function media(Request $request, string $uuid)
     {
         try {
-            $content = Storage::get('images/' . $uuid . '.img');
+            $content = Storage::get('images/testimony/' . $uuid . '.img');
+            dump($content);
             if (!$content) throw new Exception('Imagen no encontrado');
             return response($content, 200, [
                 'Content-Type' => 'application/octet-stream'
@@ -59,7 +60,7 @@ class TestimonyController extends BasicController
         }
         return null;
     }
-
+    /*
     public function save(Request $request): HttpResponse|ResponseFactory
     {
         dump($request->all());
@@ -100,5 +101,5 @@ class TestimonyController extends BasicController
                 $response->status
             );
         }
-    }
+    }*/
 }

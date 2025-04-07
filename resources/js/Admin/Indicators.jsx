@@ -11,6 +11,7 @@ import TextareaFormGroup from "@Adminto/form/TextareaFormGroup";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import IndicatorsRest from "../Actions/Admin/IndicatorsRest";
 import Swal from "sweetalert2";
+import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
 
 const indicatorsRest = new IndicatorsRest();
 
@@ -20,7 +21,7 @@ const Indicators = () => {
 
     // Form elements ref
     const idRef = useRef();
-    // const symbolRef = useRef();
+    const symbolRef = useRef();
     const nameRef = useRef();
     const descriptionRef = useRef();
 
@@ -32,6 +33,8 @@ const Indicators = () => {
 
         idRef.current.value = data?.id ?? "";
         // symbolRef.current.value = data?.symbol ?? "";
+        symbolRef.image.src = `/api/indicator/media/${data?.symbol}`;
+        symbolRef.current.value = null;
         nameRef.current.value = data?.name ?? "";
         descriptionRef.current.value = data?.description ?? "";
 
@@ -47,8 +50,16 @@ const Indicators = () => {
             name: nameRef.current.value,
             description: descriptionRef.current.value,
         };
+        const formData = new FormData();
+        for (const key in request) {
+            formData.append(key, request[key]);
+        }
+        const file = symbolRef.current.files[0];
+        if (file) {
+            formData.append("symbol", file);
+        }
 
-        const result = await indicatorsRest.save(request);
+        const result = await indicatorsRest.save(formData);
         if (!result) return;
 
         $(gridRef.current).dxDataGrid("instance").refresh();
@@ -105,7 +116,7 @@ const Indicators = () => {
                                     .refresh(),
                         },
                     });
-                    /* container.unshift({
+                    container.unshift({
                         widget: "dxButton",
                         location: "after",
                         options: {
@@ -114,13 +125,34 @@ const Indicators = () => {
                             hint: "Nuevo indicador",
                             onClick: () => onModalOpen(),
                         },
-                    });*/
+                    });
                 }}
                 columns={[
                     {
                         dataField: "id",
                         caption: "ID",
                         visible: false,
+                    },
+                    {
+                        dataField: "symbol",
+                        caption: "Imagen",
+                        width: "60px",
+                        allowFiltering: false,
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <img
+                                    src={`/api/indicator/media/${data.symbol}`}
+                                    style={{
+                                        width: "50px",
+                                        aspectRatio: 1,
+                                        objectFit: "contain",
+                                        objectPosition: "center",
+                                        borderRadius: "4px",
+                                    }}
+                                />
+                            );
+                        },
                     },
                     {
                         dataField: "name",
@@ -131,7 +163,7 @@ const Indicators = () => {
                         dataField: "description",
                         caption: "Descripción",
                     },
-                    /* {
+                    {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
@@ -150,7 +182,7 @@ const Indicators = () => {
                                 />
                             );
                         },
-                    },*/
+                    },
                     // {
                     //   dataField: 'status',
                     //   caption: 'Estado',
@@ -180,14 +212,14 @@ const Indicators = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            /*  container.append(
+                            container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );*/
+                            );
                         },
                         allowFiltering: false,
                         allowExporting: false,
@@ -202,12 +234,22 @@ const Indicators = () => {
             >
                 <div className="row" id="indicators-container">
                     <input ref={idRef} type="hidden" />
-                    <InputFormGroup eRef={nameRef} label="Título" disabled />
-                    {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
-                    <TextareaFormGroup
-                        eRef={descriptionRef}
-                        label="Descripción"
+                    <ImageFormGroup
+                        eRef={symbolRef}
+                        label="Imagen"
+                        aspect={1}
+                        fit="contain"
+                        required
+                        col="col-sm-4"
                     />
+                    <div className="col-md-8">
+                        <InputFormGroup eRef={nameRef} label="Título" />
+                        {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
+                        <TextareaFormGroup
+                            eRef={descriptionRef}
+                            label="Descripción"
+                        />
+                    </div>
                 </div>
             </Modal>
         </>

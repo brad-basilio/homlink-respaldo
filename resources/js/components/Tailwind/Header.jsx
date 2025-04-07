@@ -115,6 +115,24 @@ const Header = ({
     const Facebook = socials.find(
         (social) => social.description === "Facebook"
     );
+
+    const [activeLink, setActiveLink] = useState("/");
+
+    // Obtener la ruta actual al cargar el componente
+    useEffect(() => {
+        const currentPath = window.location.pathname;
+        setActiveLink(currentPath);
+    }, []);
+
+    // Manejar el click en los enlaces
+    const handleLinkClick = (path) => {
+        setActiveLink(path);
+    };
+
+    // Función para determinar si un enlace está activo
+    const isActive = (path) => {
+        return activeLink === path;
+    };
     return (
         <>
             {showSlogan && (
@@ -167,11 +185,11 @@ const Header = ({
                         backgroundType === "none"
                             ? "bg-transparent mt-0 "
                             : isScrolled
-                            ? "bg-[#5339B1]  pt-0 !mt-0 "
+                            ? "bg-[#224483]  pt-0 !mt-0 "
                             : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
                     } ${
                         isScrolled &&
-                        "bg-[#5339B1]  pt-0 !mt-0 transition-all duration-150 "
+                        "bg-[#224483]  pt-0 !mt-0 transition-all duration-150 "
                     }`}
                 >
                     <div
@@ -190,28 +208,94 @@ const Header = ({
                             <nav className="flex gap-2 ">
                                 <a
                                     href="/"
-                                    className="bg-[#EFF0F1] relative py-2 pl-5 pr-3 rounded-full"
+                                    onClick={() => handleLinkClick("/")}
+                                    className={` relative py-2  rounded-full transition-all duration-300 ${
+                                        isActive("/")
+                                            ? "bg-[#EFF0F1] pl-5 pr-3"
+                                            : "bg-transparent px-5 "
+                                    }`}
                                 >
                                     Inicio
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    {isActive("/") ? (
+                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    ) : (
+                                        ""
+                                    )}
                                 </a>
-                                <a href="/instructions" className=" py-2 px-5">
+
+                                <a
+                                    href="/services"
+                                    onClick={() => handleLinkClick("/services")}
+                                    className={` relative py-2  rounded-full transition-all duration-300 ${
+                                        isActive("/services")
+                                            ? "bg-[#EFF0F1] pl-5 pr-3"
+                                            : "bg-transparent px-5 "
+                                    }`}
+                                >
                                     Servicios
+                                    {isActive("/services") ? (
+                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    ) : (
+                                        ""
+                                    )}
                                 </a>
-                                <a href="/about" className=" py-2 px-5">
+                                <a
+                                    href="/about"
+                                    onClick={() => handleLinkClick("/about")}
+                                    className={` relative py-2  rounded-full transition-all duration-300 ${
+                                        isActive("/about")
+                                            ? "bg-[#EFF0F1] pl-5 pr-3"
+                                            : "bg-transparent px-5 "
+                                    }`}
+                                >
                                     Nosotros
+                                    {isActive("/about") ? (
+                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    ) : (
+                                        ""
+                                    )}
                                 </a>
-                                <a href="/quiz" className=" py-2 px-5">
+                                <a
+                                    href="/offices"
+                                    onClick={() => handleLinkClick("/offices")}
+                                    className={` relative py-2  rounded-full transition-all duration-300 ${
+                                        isActive("/offices")
+                                            ? "bg-[#EFF0F1] pl-5 pr-3"
+                                            : "bg-transparent px-5 "
+                                    }`}
+                                >
                                     Instalaciones
+                                    {isActive("/offices") ? (
+                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    ) : (
+                                        ""
+                                    )}
                                 </a>
-                                <a href="/quiz" className=" py-2 px-5">
+                                <a
+                                    href="/contact"
+                                    onClick={() => handleLinkClick("/contact")}
+                                    className={` relative py-2  rounded-full transition-all duration-300 ${
+                                        isActive("/contact")
+                                            ? "bg-[#EFF0F1] pl-5 pr-3"
+                                            : "bg-transparent px-5 "
+                                    }`}
+                                >
                                     Contacto
+                                    {isActive("/contact") ? (
+                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                    ) : (
+                                        ""
+                                    )}
                                 </a>
                             </nav>
                         </div>
-                        <div className="hidden lg:flex h-full items-center  justify-end">
+                        <div className="hidden lg:flex h-full items-center gap-4  justify-end">
                             <img
-                                src="/assets/img/home/paises.png"
+                                src="/assets/img/icons/peru_flag.png"
+                                className="h-6 w-auto object-cover"
+                            />
+                            <img
+                                src="/assets/img/icons/uuee_flag.png"
                                 className="h-6 w-auto object-cover"
                             />
                         </div>
@@ -236,9 +320,9 @@ const Header = ({
                         </div>
                     </div>
 
-                    {/*WhatsApp && (
+                    {WhatsApp && (
                         <div className="flex justify-end w-full mx-auto z-[100] relative  ">
-                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
+                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer animate-bounce">
                                 <a
                                     target="_blank"
                                     id="whatsapp-toggle"
@@ -252,7 +336,7 @@ const Header = ({
                                 </a>
                             </div>
                         </div>
-                    )*/}
+                    )}
                 </header>
                 <div
                     ref={menuRef}
@@ -260,22 +344,101 @@ const Header = ({
                         isOpen ? "opacity-1 block " : "hidden opacity-0 "
                     } ${
                         isScrolled
-                            ? "top-[3.75rem] bg-[#5339B1]"
-                            : "top-24 bg-[#5339B1]"
+                            ? "top-[3.75rem] bg-[#224483]"
+                            : "top-24 bg-[#224483]"
                     } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto `}
                 >
                     <ul className="flex flex-col gap-4 items-center justify-center">
                         <li>
-                            <a href="/catalog">Tienda</a>
+                            <a
+                                href="/"
+                                onClick={() => handleLinkClick("/")}
+                                className={` relative py-2  rounded-full transition-all duration-300 ${
+                                    isActive("/")
+                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
+                                        : "bg-transparent px-5 text-white "
+                                }`}
+                            >
+                                Inicio
+                                {isActive("/") ? (
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                ) : (
+                                    ""
+                                )}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a
+                                href="/services"
+                                onClick={() => handleLinkClick("/services")}
+                                className={` relative py-2  rounded-full transition-all duration-300 ${
+                                    isActive("/services")
+                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
+                                        : "bg-transparent px-5 text-white "
+                                }`}
+                            >
+                                Servicios
+                                {isActive("/services") ? (
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                ) : (
+                                    ""
+                                )}
+                            </a>
                         </li>
                         <li>
-                            <a href="/instructions">¿Cómo usar?</a>
+                            <a
+                                href="/about"
+                                onClick={() => handleLinkClick("/about")}
+                                className={` relative py-2  rounded-full transition-all duration-300 ${
+                                    isActive("/about")
+                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
+                                        : "bg-transparent px-5 text-white "
+                                }`}
+                            >
+                                Nosotros
+                                {isActive("/about") ? (
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                ) : (
+                                    ""
+                                )}
+                            </a>
                         </li>
                         <li>
-                            <a href="/about">Nosotrxs</a>
+                            <a
+                                href="/offices"
+                                onClick={() => handleLinkClick("/offices")}
+                                className={` relative py-2  rounded-full transition-all duration-300 ${
+                                    isActive("/offices")
+                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
+                                        : "bg-transparent px-5 text-white "
+                                }`}
+                            >
+                                Instalaciones
+                                {isActive("/offices") ? (
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                ) : (
+                                    ""
+                                )}
+                            </a>
                         </li>
                         <li>
-                            <a href="/quiz">Quiz</a>
+                            <a
+                                href="/contact"
+                                onClick={() => handleLinkClick("/contact")}
+                                className={` relative py-2  rounded-full transition-all duration-300 ${
+                                    isActive("/contact")
+                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
+                                        : "bg-transparent px-5 text-white "
+                                }`}
+                            >
+                                Contacto
+                                {isActive("/contact") ? (
+                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                ) : (
+                                    ""
+                                )}
+                            </a>
                         </li>
                     </ul>
                 </div>
