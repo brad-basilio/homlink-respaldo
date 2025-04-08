@@ -144,7 +144,7 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                 initial={{ opacity: 0, height: 0 }}
                                 animate={{ opacity: 1, height: "auto" }}
                                 exit={{ opacity: 0, height: 0 }}
-                                className="lg:relative lg:block lg:bg-transparent space-y-2"
+                                className="hidden lg:relative lg:block lg:bg-transparent space-y-2"
                             >
                                 {services.map((service, index) => (
                                     <motion.div

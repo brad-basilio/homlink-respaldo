@@ -212,7 +212,7 @@ export default function ModalAppointment({
 
     return (
         <div className="fixed inset-0 px-[5%] lg:px-0 z-50 flex items-center justify-center py-10  bg-black bg-opacity-50 overflow-y-auto scrollbar-hide">
-            <div className="relative  w-full mt-[600px] lg:mt-[500px] max-w-5xl bg-white rounded-3xl shadow-3xl overflow-hidden flex flex-col md:flex-row">
+            <div className="relative  w-full mt-[1000px] lg:mt-[500px] max-w-5xl bg-white rounded-3xl shadow-3xl overflow-hidden flex flex-col md:flex-row">
                 {/* Botón de cierre */}
                 <button
                     onClick={onClose}
