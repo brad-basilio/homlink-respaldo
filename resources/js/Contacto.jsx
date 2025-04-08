@@ -1,45 +1,70 @@
+import { motion, AnimatePresence } from "framer-motion";
 import { Send, ChevronDown } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
-
-import Banner from "./Components/Home/Banner";
-import Highlights from "./Components/Home/Highlights";
-import HowItWorks from "./Components/Home/HowItWorks";
-import Routine from "./Components/Home/Routine";
-import Highlights2 from "./Components/Home/Highlights2";
-import Supplies from "./Components/Home/Supplies";
-import Testimonies from "./Components/Home/Testimonies";
-import CallToAction from "./Components/Home/CallToAction";
-import Popups from "./Components/Home/Popups";
 import Header from "./components/Tailwind/Header";
-import FeaturesSection from "./components/Tailwind/Welcome/FeaturesSection";
-import BenefitsSection from "./components/Tailwind/Welcome/BenefitsSection";
-import ProductCarousel from "./components/Tailwind/Products/ProductCarousel";
-import QuizSection from "./components/Tailwind/Welcome/QuizSection";
-import TopSaleSection from "./components/Tailwind/Welcome/TopSaleSection";
-import GuaranteeSection from "./components/Tailwind/Welcome/GuaranteeSection";
-import WeLoversSection from "./components/Tailwind/Welcome/WeLoversSections";
-import NotSureSection from "./components/Tailwind/Welcome/NotSureSection";
-import InstagramSection from "./components/Tailwind/Welcome/InstagramSection";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
-import ItemsRest from "./actions/ItemRest";
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-
-// import required modules
-import { Navigation } from "swiper/modules";
-import HealthSection from "./components/Home/HealthSection";
-import TratamientoSection from "./components/Home/TratamientoSection";
-import TestimonioSection from "./components/Home/TestimonioSection";
-import AcercaDe from "./components/Home/AcercaDe";
 import TextWithHighlight from "./Utils/TextWithHighlight";
 import ContactForm from "./Components/Contact/ContactForm";
+
+// Animaciones
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            delayChildren: 0.3,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+            duration: 0.6,
+        },
+    },
+};
+
+const fadeIn = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { duration: 0.8 },
+    },
+};
+
+const slideUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            ease: [0.16, 1, 0.3, 1],
+        },
+    },
+};
+
+const buttonHover = {
+    hover: {
+        scale: 1.05,
+        transition: { duration: 0.2 },
+    },
+    tap: {
+        scale: 0.95,
+    },
+};
 
 const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     const landingHero = landing.find(
@@ -51,11 +76,8 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     const landingHelp = landing.find(
         (item) => item.correlative === "page_contact_help"
     );
-
-    // Asegurarnos de que sedes sea siempre un array
     const sedesValidas = Array.isArray(sedes) ? sedes : [];
 
-    // Verificar si hay sedes y si todos tienen el mismo horario
     const todosHorariosIguales =
         sedesValidas.length > 0 &&
         sedesValidas.every(
@@ -63,42 +85,62 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                 JSON.stringify(sede.horario) === JSON.stringify(arr[0].horario)
         );
 
-    /*FORMULARIO  DE CONTACTO */
-
     return (
         <div className="font-poppins text-negro">
             <Header />
-            <div className="min-h-screen bg-white font-sans">
+            <motion.div
+                className="min-h-screen bg-white font-sans"
+                initial="hidden"
+                animate="visible"
+                variants={containerVariants}
+            >
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">
-                    <div className="flex flex-col md:flex-row md:gap-16">
-                        {/* Información de contacto - Lado izquierdo en desktop */}
-                        <div className="md:w-1/2 mb-8 md:mb-0">
-                            <h1 className="text-[40px] mt-3 lg:mt-0 leading-[42px] lg:text-6xl font-semibold mb-2">
+                    <motion.div
+                        className="flex flex-col md:flex-row md:gap-16"
+                        variants={containerVariants}
+                    >
+                        {/* Información de contacto */}
+                        <motion.div
+                            className="md:w-1/2 mb-8 md:mb-0"
+                            variants={itemVariants}
+                        >
+                            <motion.h1
+                                className="text-[40px] mt-3 lg:mt-0 leading-[42px] lg:text-6xl font-semibold mb-2"
+                                variants={slideUp}
+                            >
                                 <TextWithHighlight text={landingHero.title} />
-                            </h1>
-                            <p className=" mb-6 text-lg">
+                            </motion.h1>
+
+                            <motion.p
+                                className="mb-6 text-lg"
+                                variants={fadeIn}
+                            >
                                 {landingHero.description}
-                            </p>
-                            <div className="space-y-6 lg:pt-16">
-                                {/* Mostrar horario general si todos son iguales */}
+                            </motion.p>
+
+                            <motion.div
+                                className="space-y-6 lg:pt-16"
+                                variants={containerVariants}
+                            >
                                 {todosHorariosIguales && (
-                                    <div>
+                                    <motion.div variants={itemVariants}>
                                         <h2 className="text-xl font-semibold mb-2">
                                             Horario de Atención
                                         </h2>
                                         {sedes[0].business_hours.map(
                                             (horario, index) => (
-                                                <p key={index} className="">
-                                                    {horario}
-                                                </p>
+                                                <p key={index}>{horario}</p>
                                             )
                                         )}
-                                    </div>
+                                    </motion.div>
                                 )}
 
-                                {/* Información de cada sede */}
                                 {sedes.map((sede) => (
-                                    <div key={sede.id}>
+                                    <motion.div
+                                        key={sede.id}
+                                        variants={itemVariants}
+                                        whileHover={{ scale: 1.01 }}
+                                    >
                                         <h2 className="text-xl font-semibold mb-2">
                                             <TextWithHighlight
                                                 text={sede.title}
@@ -106,26 +148,19 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                         </h2>
                                         {sede.ubications.map(
                                             (ubication, index) => (
-                                                <p key={index} className="">
-                                                    {ubication}
-                                                </p>
+                                                <p key={index}>{ubication}</p>
                                             )
                                         )}
                                         <p className="flex gap-2">
                                             Teléfono:{" "}
                                             {sede.phones.map((phone, index) => (
-                                                <p key={index} className="">
-                                                    {phone}
-                                                </p>
+                                                <p key={index}>{phone}</p>
                                             ))}
                                         </p>
                                         {sede.emails.map((email, index) => (
-                                            <p key={index} className="">
-                                                {email}
-                                            </p>
+                                            <p key={index}>{email}</p>
                                         ))}
 
-                                        {/* Mostrar horario individual si son diferentes */}
                                         {!todosHorariosIguales && (
                                             <div className="mt-2">
                                                 <h3 className="font-semibold">
@@ -133,31 +168,48 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                                 </h3>
                                                 {sede.business_hours.map(
                                                     (business_hour, i) => (
-                                                        <p key={i} className="">
+                                                        <p key={i}>
                                                             {business_hour}
                                                         </p>
                                                     )
                                                 )}
                                             </div>
                                         )}
-                                    </div>
+                                    </motion.div>
                                 ))}
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
 
-                        {/* Formulario de contacto - Lado derecho en desktop */}
-                        <div className="md:w-1/2">
-                            <div className="bg-gray-50 p-6 rounded-3xl">
-                                <h2 className="text-3xl font-semibold mb-6">
+                        {/* Formulario de contacto */}
+                        <motion.div
+                            className="md:w-1/2"
+                            variants={itemVariants}
+                        >
+                            <motion.div
+                                className="bg-gray-50 p-6 rounded-3xl"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.4 }}
+                            >
+                                <motion.h2
+                                    className="text-3xl font-semibold mb-6"
+                                    variants={slideUp}
+                                >
                                     <TextWithHighlight
                                         text={landingForm.title}
                                     />
-                                </h2>
+                                </motion.h2>
                                 <ContactForm />
-                            </div>
+                            </motion.div>
 
-                            {/* WhatsApp Section - Solo visible en móvil */}
-                            <div className="mt-8 flex gap-4 items-center md:hidden p-8">
+                            {/* WhatsApp Section - Mobile */}
+                            <motion.div
+                                className="mt-8 flex gap-4 items-center md:hidden p-8"
+                                variants={itemVariants}
+                                whileHover="hover"
+                                whileTap="tap"
+                                variants={buttonHover}
+                            >
                                 <div className="bg-green-500 text-white p-2 rounded-full mr-3">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -169,77 +221,124 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                     </svg>
                                 </div>
                                 <div>
-                                    <p className=" font-medium">
+                                    <p className="font-medium">
                                         ¿Tienes dudas sobre como agendar? Haz
                                         clic aquí y chatea con nosotros por
                                         WhatsApp
                                     </p>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                            </motion.div>
+                        </motion.div>
+                    </motion.div>
 
-                    {/* Chat Section - Full width */}
-                    <div className="mt-12 md:mt-16 rounded-3xl overflow-hidden relative">
-                        {/* Background image - Capa más baja */}
-                        <div className="absolute inset-0 z-0">
+                    {/* Chat Section */}
+                    <motion.div
+                        className="mt-12 md:mt-16 rounded-3xl overflow-hidden relative"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-100px" }}
+                        variants={containerVariants}
+                    >
+                        {/* Background image */}
+                        <motion.div
+                            className="absolute inset-0 z-0"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.8 }}
+                        >
                             <img
                                 src={`/api/landing_home/media/${landingHelp.image}`}
                                 alt="Background"
                                 className="w-full h-full object-cover"
                             />
-                        </div>
+                        </motion.div>
 
-                        {/* Overlay azul - Capa intermedia */}
-                        <div className="absolute inset-0 bg-azul/90 z-10"></div>
+                        {/* Overlay azul */}
+                        <motion.div
+                            className="absolute inset-0 bg-azul/90 z-10"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.8 }}
+                        />
 
-                        {/* Contenido - Capa superior */}
-                        <div className="relative py-8 px-6 text-white text-center z-20">
-                            {/* Avatars */}
-                            <div className="flex justify-center mb-4">
+                        {/* Contenido */}
+                        <motion.div
+                            className="relative py-8 px-6 text-white text-center z-20"
+                            variants={containerVariants}
+                        >
+                            <motion.div
+                                className="flex justify-center mb-4"
+                                variants={itemVariants}
+                            >
                                 <div className="flex -space-x-2">
                                     {staff &&
                                         staff.length > 0 &&
                                         staff.map((job, index) => (
-                                            <img
+                                            <motion.img
+                                                key={index}
                                                 src={`/api/staff/media/${job.image}`}
                                                 alt={job.name}
                                                 className="w-14 h-14 object-cover rounded-full border-2 border-white"
+                                                initial={{
+                                                    opacity: 0,
+                                                    scale: 0.8,
+                                                }}
+                                                animate={{
+                                                    opacity: 1,
+                                                    scale: 1,
+                                                }}
+                                                transition={{
+                                                    delay: index * 0.1,
+                                                }}
+                                                whileHover={{
+                                                    scale: 1.1,
+                                                    zIndex: 1,
+                                                }}
                                             />
                                         ))}
                                 </div>
-                            </div>
+                            </motion.div>
 
-                            <h2 className="text-2xl font-semibold mb-2 relative">
+                            <motion.h2
+                                className="text-2xl font-semibold mb-2 relative"
+                                variants={slideUp}
+                            >
                                 <TextWithHighlight text={landingHelp.title} />
-                            </h2>
+                            </motion.h2>
 
-                            <p className="text-blue-100 mb-6 text-lg max-w-xl mx-auto relative">
+                            <motion.p
+                                className="text-blue-100 mb-6 text-lg max-w-xl mx-auto relative"
+                                variants={fadeIn}
+                            >
                                 {landingHelp.description}
-                            </p>
+                            </motion.p>
 
-                            <a
+                            <motion.a
                                 href={whatsapp.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="bg-[#EFF0F1] text-azul font-medium py-1 px-6 rounded-full inline-flex items-center relative hover:bg-gray-100 transition-colors"
+                                variants={buttonHover}
+                                whileHover="hover"
+                                whileTap="tap"
                             >
                                 <div className="bg-[#EFF0F1] w-12 p-2 rounded-full">
                                     <img
                                         src="/assets/img/icons/send.png"
-                                        className=" h-auto"
+                                        className="h-auto"
                                     />
                                 </div>
                                 Ayuda Chat
-                            </a>
-                        </div>
-                    </div>
+                            </motion.a>
+                        </motion.div>
+                    </motion.div>
                 </div>
-            </div>
+            </motion.div>
             <Footer />
         </div>
     );
 };
+
 CreateReactScript((el, properties) => {
     createRoot(el).render(
         <CarritoProvider>

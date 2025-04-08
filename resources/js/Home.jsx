@@ -29,6 +29,7 @@ import { motion } from "framer-motion";
 import { ScrollAnimation } from "./animations/ScrollAnimation";
 import { scrollEffects } from "./animations/animationVariantsSccroll";
 import { PersistentScrollAnimation } from "./animations/PersistentScrollAnimation";
+import BlurText from "./Utils/BlurText";
 
 // Animaciones para textos (en loop)
 const textVariants = {
@@ -283,10 +284,7 @@ const Home = ({
                         animate={["visible", "loop"]} // Animación inicial + loop
                         variants={textVariants}
                     >
-                        <TextWithHighlight
-                            text={landingHero?.title}
-                            highlightVariants={highlightVariants}
-                        />
+                        <TextWithHighlight text={landingHero?.title} />
                     </motion.h2>
 
                     {/* Descripción con animación en loop */}

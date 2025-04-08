@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from "framer-motion";
 import Tippy from "@tippyjs/react";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { CarritoContext } from "../../context/CarritoContext";
@@ -6,6 +7,68 @@ import { TbBrush } from "react-icons/tb";
 import { Trash2 } from "lucide-react";
 
 const generalRest = new GeneralRest();
+
+// Variantes de animación
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.1,
+            delayChildren: 0.2,
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { y: -20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.4,
+            ease: "easeOut",
+        },
+    },
+};
+
+const menuVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.3,
+            ease: "easeOut",
+        },
+    },
+    exit: {
+        opacity: 0,
+        y: -20,
+        transition: {
+            duration: 0.2,
+        },
+    },
+};
+
+const cartItemVariants = {
+    hidden: { x: 50, opacity: 0 },
+    visible: {
+        x: 0,
+        opacity: 1,
+        transition: {
+            duration: 0.3,
+        },
+    },
+    exit: {
+        x: -50,
+        opacity: 0,
+        transition: {
+            duration: 0.2,
+        },
+    },
+};
+
 const Header = ({
     session,
     showSlogan = true,
@@ -73,9 +136,10 @@ const Header = ({
     useEffect(() => {
         if (totalProductos > 0) {
             setAnimar(true);
-            setTimeout(() => setAnimar(false), 500); // Duración de la animación
+            setTimeout(() => setAnimar(false), 500);
         }
     }, [totalProductos]);
+
     const [mostrarCarrito, setMostrarCarrito] = useState(false);
     const totalPrecio = carrito.reduce((acc, item) => {
         if (item.variations && item.variations.length > 0) {
@@ -103,7 +167,7 @@ const Header = ({
         };
 
         fetchSocials();
-    }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
+    }, []);
 
     const TikTok = socials.find((social) => social.description === "TikTok");
     const WhatsApp = socials.find(
@@ -118,366 +182,364 @@ const Header = ({
 
     const [activeLink, setActiveLink] = useState("/");
 
-    // Obtener la ruta actual al cargar el componente
     useEffect(() => {
         const currentPath = window.location.pathname;
         setActiveLink(currentPath);
     }, []);
 
-    // Manejar el click en los enlaces
     const handleLinkClick = (path) => {
         setActiveLink(path);
     };
 
-    // Función para determinar si un enlace está activo
     const isActive = (path) => {
         return activeLink === path;
     };
+
     return (
         <>
             {showSlogan && (
-                <div
-                    className={` text-center px-[5%] py-3 lg:py-2 font-light bg-[#224483] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full h-[42px] lg:h-7  ${
-                        backgroundType === "none" && "mb-0  "
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className={`text-center px-[5%] py-3 lg:py-2 font-light bg-[#224483] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full h-[42px] lg:h-7 ${
+                        backgroundType === "none" && "mb-0"
                     }`}
-                ></div>
+                ></motion.div>
             )}
 
             <div
-                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip `}
+                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip`}
             >
-                {/* Fondo dinámico (imagen, video o nada) */}
+                {/* Fondo dinámico */}
                 {backgroundType === "image" && (
-                    <img
+                    <motion.img
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
                         src={backgroundSrc}
-                        className={`absolute -z-10 inset-0 w-screen h-full  object-cover ${backgroundPosition}`}
+                        className={`absolute -z-10 inset-0 w-screen h-full object-cover ${backgroundPosition}`}
                         alt="Background"
                     />
                 )}
                 {backgroundType === "video" && (
-                    <video
-                        className={`absolute -z-10 inset-0  w-screen h-full  object-cover ${backgroundPosition}`}
+                    <motion.video
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className={`absolute -z-10 inset-0 w-screen h-full object-cover ${backgroundPosition}`}
                         autoPlay
                         loop
                         muted
-                        playsInline // <- Atributo crucial para iOS
+                        playsInline
                         preload="auto"
                         disablePictureInPicture
                         disableRemotePlayback
-                        webkit-playsinline="true" // <- Fallback para versiones antiguas
+                        webkit-playsinline="true"
                     >
                         <source src={backgroundSrc} type="video/mp4" />
-                    </video>
+                    </motion.video>
                 )}
 
-                {/* Capa de color si hay fondo */}
                 {(backgroundType === "image" || backgroundType === "video") && (
-                    <div
-                        className="absolute inset-0 "
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        className="absolute inset-0"
                         style={{
                             background:
                                 "linear-gradient(180deg, rgba(95, 72, 183, 0.75) 6.08%, rgba(96, 72, 183, 0.525) 100%)",
                         }}
-                    ></div>
+                    ></motion.div>
                 )}
-                <header
-                    className={` font-poppins static lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
+
+                <motion.header
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                    className={`font-poppins static lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
                         backgroundType === "none"
-                            ? "bg-transparent mt-0 "
+                            ? "bg-transparent mt-0"
                             : isScrolled
-                            ? "bg-[#224483]  pt-0 !mt-0 "
+                            ? "bg-[#224483] pt-0 !mt-0"
                             : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
                     } ${
                         isScrolled &&
-                        "bg-[#224483]  pt-0 !mt-0 transition-all duration-150 "
+                        "bg-[#224483] pt-0 !mt-0 transition-all duration-150"
                     }`}
                 >
                     <div
-                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto flex  justify-between items-center text-[#242424] shadow-lg lg:shadow-none `}
+                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto flex justify-between items-center text-[#242424] shadow-lg lg:shadow-none`}
                     >
-                        <div className="flex items-center  ">
+                        <motion.div
+                            variants={itemVariants}
+                            className="flex items-center"
+                        >
                             <a href="/">
-                                <img
+                                <motion.img
+                                    whileHover={{ scale: 1.05 }}
                                     src="/assets/img/logo.png"
                                     alt="WeFem Logo"
-                                    className="h-[40px] w-auto  md:h-[36.8px] object-cover object-top"
+                                    className="h-[40px] w-auto md:h-[36.8px] object-cover object-top"
                                 />
                             </a>
-                        </div>
-                        <div className="hidden lg:flex py-6 mx-auto  justify-center items-center font-normal text-base ">
-                            <nav className="flex gap-2 ">
-                                <a
-                                    href="/"
-                                    onClick={() => handleLinkClick("/")}
-                                    className={` relative py-2  rounded-full transition-all duration-300 ${
-                                        isActive("/")
-                                            ? "bg-[#EFF0F1] pl-5 pr-3"
-                                            : "bg-transparent px-5 "
-                                    }`}
-                                >
-                                    Inicio
-                                    {isActive("/") ? (
-                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                    ) : (
-                                        ""
-                                    )}
-                                </a>
+                        </motion.div>
 
-                                <a
-                                    href="/services"
-                                    onClick={() => handleLinkClick("/services")}
-                                    className={` relative py-2  rounded-full transition-all duration-300 ${
-                                        isActive("/services")
-                                            ? "bg-[#EFF0F1] pl-5 pr-3"
-                                            : "bg-transparent px-5 "
-                                    }`}
-                                >
-                                    Servicios
-                                    {isActive("/services") ? (
-                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                    ) : (
-                                        ""
-                                    )}
-                                </a>
-                                <a
-                                    href="/about"
-                                    onClick={() => handleLinkClick("/about")}
-                                    className={` relative py-2  rounded-full transition-all duration-300 ${
-                                        isActive("/about")
-                                            ? "bg-[#EFF0F1] pl-5 pr-3"
-                                            : "bg-transparent px-5 "
-                                    }`}
-                                >
-                                    Nosotros
-                                    {isActive("/about") ? (
-                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                    ) : (
-                                        ""
-                                    )}
-                                </a>
-                                <a
-                                    href="/offices"
-                                    onClick={() => handleLinkClick("/offices")}
-                                    className={` relative py-2  rounded-full transition-all duration-300 ${
-                                        isActive("/offices")
-                                            ? "bg-[#EFF0F1] pl-5 pr-3"
-                                            : "bg-transparent px-5 "
-                                    }`}
-                                >
-                                    Instalaciones
-                                    {isActive("/offices") ? (
-                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                    ) : (
-                                        ""
-                                    )}
-                                </a>
-                                <a
-                                    href="/contact"
-                                    onClick={() => handleLinkClick("/contact")}
-                                    className={` relative py-2  rounded-full transition-all duration-300 ${
-                                        isActive("/contact")
-                                            ? "bg-[#EFF0F1] pl-5 pr-3"
-                                            : "bg-transparent px-5 "
-                                    }`}
-                                >
-                                    Contacto
-                                    {isActive("/contact") ? (
-                                        <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                    ) : (
-                                        ""
-                                    )}
-                                </a>
+                        <motion.div
+                            variants={containerVariants}
+                            className="hidden lg:flex py-6 mx-auto justify-center items-center font-normal text-base"
+                        >
+                            <nav className="flex gap-2">
+                                {[
+                                    "/",
+                                    "/services",
+                                    "/about",
+                                    "/offices",
+                                    "/contact",
+                                ].map((path) => {
+                                    const text = {
+                                        "/": "Inicio",
+                                        "/services": "Servicios",
+                                        "/about": "Nosotros",
+                                        "/offices": "Instalaciones",
+                                        "/contact": "Contacto",
+                                    }[path];
+
+                                    return (
+                                        <motion.a
+                                            key={path}
+                                            href={path}
+                                            onClick={() =>
+                                                handleLinkClick(path)
+                                            }
+                                            variants={itemVariants}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                            className={`relative py-2 rounded-full transition-all duration-300 ${
+                                                isActive(path)
+                                                    ? "bg-[#EFF0F1] pl-7 pr-3"
+                                                    : "bg-transparent px-5"
+                                            }`}
+                                        >
+                                            {text}
+                                            {isActive(path) && (
+                                                <motion.span
+                                                    layoutId="activeDot"
+                                                    className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"
+                                                />
+                                            )}
+                                        </motion.a>
+                                    );
+                                })}
                             </nav>
-                        </div>
-                        <div className="hidden lg:flex h-full items-center gap-4  justify-end">
-                            <img
+                        </motion.div>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="hidden lg:flex h-full items-center gap-4 justify-end"
+                        >
+                            <motion.img
+                                whileHover={{ y: -2 }}
                                 src="/assets/img/icons/peru_flag.png"
                                 className="h-6 w-auto object-cover"
                             />
-                            <img
+                            <motion.img
+                                whileHover={{ y: -2 }}
                                 src="/assets/img/icons/uuee_flag.png"
                                 className="h-6 w-auto object-cover"
                             />
-                        </div>
+                        </motion.div>
 
-                        <div className=" lg:hidden text-base">
-                            <div className=" ">
-                                <button
+                        <motion.div
+                            variants={itemVariants}
+                            className="lg:hidden text-base"
+                        >
+                            <div>
+                                <motion.button
                                     ref={btnToggleRef}
                                     onClick={toggleMenu}
-                                    className="text-white  menu-toggle rounded-full h-[50px] w-[50px] flex items-center justify-center  bg-[#EFF0F1] "
+                                    whileTap={{ scale: 0.9 }}
+                                    className="text-white menu-toggle rounded-full h-[50px] w-[50px] flex items-center justify-center bg-[#EFF0F1]"
                                     aria-label="Toggle menu"
                                 >
                                     <div className="text-[#242424]">
                                         <i
                                             className={`fas ${
                                                 isOpen ? "fa-times" : "fa-bars"
-                                            } text-xl md:text-2xl py-3 px-3 `}
+                                            } text-xl md:text-2xl py-3 px-3`}
                                         />
                                     </div>
-                                </button>
+                                </motion.button>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
 
                     {WhatsApp && (
-                        <div className="flex justify-end w-full mx-auto z-[100] relative  ">
-                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer animate-bounce">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex justify-end w-full mx-auto z-[100] relative"
+                        >
+                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
                                 <a
                                     target="_blank"
                                     id="whatsapp-toggle"
                                     href={WhatsApp.link}
                                 >
-                                    <img
+                                    <motion.img
+                                        animate={{
+                                            y: [0, -10, 0],
+                                        }}
+                                        transition={{
+                                            duration: 1.5,
+                                            repeat: Infinity,
+                                            repeatType: "loop",
+                                        }}
                                         src="/assets/img/icons/WhatsApp.svg"
                                         alt="whatsapp"
-                                        className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]  animate-bounce duration-300"
+                                        className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]"
                                     />
                                 </a>
                             </div>
-                        </div>
+                        </motion.div>
                     )}
-                </header>
-                <div
-                    ref={menuRef}
-                    className={`fixed   md:top-20 inset-0 text-white z-[999] transform ${
-                        isOpen ? "opacity-1 block " : "hidden opacity-0 "
-                    } ${
-                        isScrolled
-                            ? "top-[3.75rem] bg-[#224483]"
-                            : "top-24 bg-[#224483]"
-                    } transition-transform duration-300 ease-in-out p-[5%] h-max overflow-y-auto `}
-                >
-                    <ul className="flex flex-col gap-4 items-center justify-center">
-                        <li>
-                            <a
-                                href="/"
-                                onClick={() => handleLinkClick("/")}
-                                className={` relative py-2  rounded-full transition-all duration-300 ${
-                                    isActive("/")
-                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
-                                        : "bg-transparent px-5 text-white "
-                                }`}
-                            >
-                                Inicio
-                                {isActive("/") ? (
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                ) : (
-                                    ""
-                                )}
-                            </a>
-                        </li>
+                </motion.header>
 
-                        <li>
-                            <a
-                                href="/services"
-                                onClick={() => handleLinkClick("/services")}
-                                className={` relative py-2  rounded-full transition-all duration-300 ${
-                                    isActive("/services")
-                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
-                                        : "bg-transparent px-5 text-white "
-                                }`}
+                {/* Menú móvil */}
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            ref={menuRef}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
+                            variants={menuVariants}
+                            className={`fixed md:top-20 inset-0 text-white z-[999] ${
+                                isScrolled
+                                    ? "top-[3.75rem] bg-[#224483]"
+                                    : "top-28 bg-[#224483]"
+                            } p-[5%] h-max overflow-y-auto`}
+                        >
+                            <motion.ul
+                                variants={containerVariants}
+                                className="flex flex-col gap-4 items-center justify-center"
                             >
-                                Servicios
-                                {isActive("/services") ? (
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                ) : (
-                                    ""
-                                )}
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/about"
-                                onClick={() => handleLinkClick("/about")}
-                                className={` relative py-2  rounded-full transition-all duration-300 ${
-                                    isActive("/about")
-                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
-                                        : "bg-transparent px-5 text-white "
-                                }`}
-                            >
-                                Nosotros
-                                {isActive("/about") ? (
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                ) : (
-                                    ""
-                                )}
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/offices"
-                                onClick={() => handleLinkClick("/offices")}
-                                className={` relative py-2  rounded-full transition-all duration-300 ${
-                                    isActive("/offices")
-                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
-                                        : "bg-transparent px-5 text-white "
-                                }`}
-                            >
-                                Instalaciones
-                                {isActive("/offices") ? (
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                ) : (
-                                    ""
-                                )}
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/contact"
-                                onClick={() => handleLinkClick("/contact")}
-                                className={` relative py-2  rounded-full transition-all duration-300 ${
-                                    isActive("/contact")
-                                        ? "bg-[#EFF0F1] pl-5 pr-3 text-azul"
-                                        : "bg-transparent px-5 text-white "
-                                }`}
-                            >
-                                Contacto
-                                {isActive("/contact") ? (
-                                    <span className="absolute left-3 top-1/2 -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
-                                ) : (
-                                    ""
-                                )}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                                {[
+                                    "/",
+                                    "/services",
+                                    "/about",
+                                    "/offices",
+                                    "/contact",
+                                ].map((path) => {
+                                    const text = {
+                                        "/": "Inicio",
+                                        "/services": "Servicios",
+                                        "/about": "Nosotros",
+                                        "/offices": "Instalaciones",
+                                        "/contact": "Contacto",
+                                    }[path];
+
+                                    return (
+                                        <motion.li
+                                            key={path}
+                                            variants={itemVariants}
+                                        >
+                                            <a
+                                                href={path}
+                                                onClick={() => {
+                                                    handleLinkClick(path);
+                                                    setIsOpen(false);
+                                                }}
+                                                className={`relative py-2 rounded-full transition-all duration-300 ${
+                                                    isActive(path)
+                                                        ? "bg-[#EFF0F1] pl-8 pr-3 text-azul"
+                                                        : "bg-transparent px-5 text-white"
+                                                }`}
+                                            >
+                                                {text}
+                                                {isActive(path) && (
+                                                    <span className="absolute left-3 ml-2 top-[50%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"></span>
+                                                )}
+                                            </a>
+                                        </motion.li>
+                                    );
+                                })}
+                            </motion.ul>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Contenido dinámico */}
                 {children && (
-                    <div className="absolute inset-0 flex items-center justify-center text-center text-white p-6">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="absolute inset-0 flex items-center justify-center text-center text-white p-6"
+                    >
                         {children}
-                    </div>
+                    </motion.div>
                 )}
-                {/*Modal Carrito*/}
-                {mostrarCarrito && (
-                    <>
-                        <div className="fixed inset-0 bg-black/50 flex items-start justify-end px-[5%] lg:px-0 pt-12 pb-12 overflow-y-auto z-50 scrollbar-hide">
-                            <div className="bg-[#EFE5FF] shadow-lg w-full sm:max-w-[380px] lg:max-w-[700px] 2xl:max-w-[800px] h-max    p-8 lg:p-14 rounded-[30px]  lg:rounded-[50px] ">
+
+                {/* Modal Carrito */}
+                <AnimatePresence>
+                    {mostrarCarrito && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="fixed inset-0 bg-black/50 flex items-start justify-end px-[5%] lg:px-0 pt-12 pb-12 overflow-y-auto z-50 scrollbar-hide"
+                        >
+                            <motion.div
+                                initial={{ x: 100, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                exit={{ x: 100, opacity: 0 }}
+                                transition={{ type: "spring", damping: 25 }}
+                                className="bg-[#EFE5FF] shadow-lg w-full sm:max-w-[380px] lg:max-w-[700px] 2xl:max-w-[800px] h-max p-8 lg:p-14 rounded-[30px] lg:rounded-[50px]"
+                            >
                                 {/* Encabezado */}
-                                <div className="flex justify-between items-center  ">
+                                <div className="flex justify-between items-center">
                                     <h2 className="text-[24.67px] lg:text-[44.67px] font-bold">
                                         Tu Carrito
                                     </h2>
-                                    <button
+                                    <motion.button
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
                                         onClick={() => setMostrarCarrito(false)}
                                         className="text-lg font-bold text-[#5F48B7]"
                                     >
                                         ✖
-                                    </button>
+                                    </motion.button>
                                 </div>
-                                <div className="bg-[#9C79D4] py-2 text-[13.95px]  md:text-[16.95px]  lg:text-[26.95px] mt-4 mb-8 text-center rounded-[14px]  lg:rounded-[20px]  text-white">
+
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.1 }}
+                                    className="bg-[#9C79D4] py-2 text-[13.95px] md:text-[16.95px] lg:text-[26.95px] mt-4 mb-8 text-center rounded-[14px] lg:rounded-[20px] text-white"
+                                >
                                     ¡Tienes envío gratis en lima!{" "}
-                                    <img
+                                    <motion.img
+                                        animate={{ rotate: [0, 15, 0] }}
+                                        transition={{
+                                            repeat: Infinity,
+                                            duration: 2,
+                                        }}
                                         src="/assets/img/emojis/motor-scooter.png"
                                         className="h-[16.88px] lg:h-[26.88px] inline-flex ml-2"
                                     />{" "}
-                                </div>
+                                </motion.div>
 
                                 {/* Lista de productos con Scroll */}
-                                <div className="flex-1  gap-4">
+                                <div className="flex-1 gap-4">
                                     {carrito.length === 0 ? (
-                                        <div className="w-full flex flex-col items-center justify-center gap-5 text-3xl h-max my-5">
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            className="w-full flex flex-col items-center justify-center gap-5 text-3xl h-max my-5"
+                                        >
                                             <img
                                                 src="/assets/img/logo.png"
                                                 alt="Wefem"
@@ -487,181 +549,218 @@ const Header = ({
                                                         "0px 4px 7.5px 0px #00000040",
                                                 }}
                                             />
-                                            <p className="text-center text-gray-500 ">
+                                            <p className="text-center text-gray-500">
                                                 Tu carrito está vacío
                                             </p>
-                                        </div>
+                                        </motion.div>
                                     ) : (
-                                        carrito.map((item, index) => (
-                                            <div
-                                                key={index}
-                                                className="flex items-center gap-4  mb-4 w-full"
-                                            >
-                                                <img
-                                                    src={`/api/items/media/${item.image}`}
-                                                    alt={item.name}
-                                                    onError={(e) =>
-                                                        (e.target.src =
-                                                            "/api/cover/thumbnail/null")
-                                                    }
-                                                    className="w-20 h-20 md:w-28 md:h-28 lg:w-52 lg:h-52 object-cover"
-                                                />
-                                                <div className=" flex flex-col w-[calc(100%-5rem)] md:w-[calc(100%-7rem)] lg:w-[calc(100%-10rem)]">
-                                                    <div className="w-full flex">
-                                                        <div className="w-5/6 lg:w-8/12">
-                                                            <h3 className="text-[17.95px] md:text-[20.95px] lg:text-[24.95px] 2xl:text-[34.95px] font-normal leading-3 md:leading-[20.78px] lg:leading-[30.78px]">
-                                                                {item.name}
-                                                            </h3>
-                                                            {item.summary && (
-                                                                <p className="text-[10px] md:text-xs  lg:text-[16.81px] 2xl:text-[25px]  font-light inline-flex ">
-                                                                    (
-                                                                    {
-                                                                        item.summary
-                                                                    }
-                                                                    )
-                                                                </p>
-                                                            )}
+                                        <AnimatePresence>
+                                            {carrito.map((item, index) => (
+                                                <motion.div
+                                                    key={item.id}
+                                                    variants={cartItemVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
+                                                    exit="exit"
+                                                    layout
+                                                    className="flex items-center gap-4 mb-4 w-full"
+                                                >
+                                                    <motion.img
+                                                        layout
+                                                        src={`/api/items/media/${item.image}`}
+                                                        alt={item.name}
+                                                        onError={(e) =>
+                                                            (e.target.src =
+                                                                "/api/cover/thumbnail/null")
+                                                        }
+                                                        className="w-20 h-20 md:w-28 md:h-28 lg:w-52 lg:h-52 object-cover rounded-lg"
+                                                    />
+                                                    <div className="flex flex-col w-[calc(100%-5rem)] md:w-[calc(100%-7rem)] lg:w-[calc(100%-10rem)]">
+                                                        <div className="w-full flex">
+                                                            <div className="w-5/6 lg:w-8/12">
+                                                                <h3 className="text-[17.95px] md:text-[20.95px] lg:text-[24.95px] 2xl:text-[34.95px] font-normal leading-3 md:leading-[20.78px] lg:leading-[30.78px]">
+                                                                    {item.name}
+                                                                </h3>
+                                                                {item.summary && (
+                                                                    <p className="text-[10px] md:text-xs lg:text-[16.81px] 2xl:text-[25px] font-light inline-flex">
+                                                                        (
+                                                                        {
+                                                                            item.summary
+                                                                        }
+                                                                        )
+                                                                    </p>
+                                                                )}
 
-                                                            {item.discount && (
-                                                                <p className="w-11/12 md:w-full h-[18.55px]   md:h-[25.55px]   lg:h-[35.55px]  bg-[#212529]  text-white rounded-[5.44px] mb-2 md:my-2 lg:my-4 flex items-center justify-center text-[8.65px] md:text-[9.65px] 2xl:text-[16.65px] font-semibold   leading-[21.75px]">
-                                                                    <span className="font-medium md:font-bold text-[7.65px] md:text-[9.65px] 2xl:text-[16.65px] mr-2 ">
-                                                                        ESTAS
-                                                                        AHORRANDO
-                                                                    </span>{" "}
+                                                                {item.discount && (
+                                                                    <motion.p
+                                                                        whileHover={{
+                                                                            scale: 1.02,
+                                                                        }}
+                                                                        className="w-11/12 md:w-full h-[18.55px] md:h-[25.55px] lg:h-[35.55px] bg-[#212529] text-white rounded-[5.44px] mb-2 md:my-2 lg:my-4 flex items-center justify-center text-[8.65px] md:text-[9.65px] 2xl:text-[16.65px] font-semibold leading-[21.75px]"
+                                                                    >
+                                                                        <span className="font-medium md:font-bold text-[7.65px] md:text-[9.65px] 2xl:text-[16.65px] mr-2">
+                                                                            ESTAS
+                                                                            AHORRANDO
+                                                                        </span>{" "}
+                                                                        S/{" "}
+                                                                        {Number(
+                                                                            item.price -
+                                                                                item.discount
+                                                                        ).toFixed(
+                                                                            0
+                                                                        )}{" "}
+                                                                        <img
+                                                                            src="/assets/img/emojis/fire.png"
+                                                                            className="h-[9.88px] 2xl:h-[16px] inline-flex ml-2"
+                                                                        />
+                                                                    </motion.p>
+                                                                )}
+                                                            </div>
+
+                                                            {/* 🗑️ Botón para eliminar */}
+                                                            <div className="w-1/6 lg:w-4/12 flex items-start justify-end">
+                                                                <motion.button
+                                                                    whileHover={{
+                                                                        scale: 1.1,
+                                                                    }}
+                                                                    whileTap={{
+                                                                        scale: 0.9,
+                                                                    }}
+                                                                    className="group text-white px-2 py-1 rounded-md hover:fill-red-500 transition-all duration-300"
+                                                                    onClick={() =>
+                                                                        eliminarProducto(
+                                                                            item.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    <div className="h-10 lg:h-12 scale-x-[-1]">
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            viewBox="0 0 448 512"
+                                                                            className="h-full w-4 lg:w-5 relative"
+                                                                            fill="current"
+                                                                        >
+                                                                            <path
+                                                                                className="group-hover:-rotate-12 group-hover:absolute group-hover:inset-0"
+                                                                                fill="current"
+                                                                                d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3z"
+                                                                            />
+                                                                            <path
+                                                                                fill="current"
+                                                                                d="M32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
+                                                                            />
+                                                                        </svg>
+                                                                    </div>
+                                                                </motion.button>
+                                                            </div>
+                                                        </div>
+                                                        <div className="w-full flex">
+                                                            <div className="w-1/2 md:w-4/6 lg:w-1/2 h-full flex">
+                                                                <p className="text-[18.42px] md:text-[24.42px] h-full items-center lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7]">
                                                                     S/{" "}
                                                                     {Number(
-                                                                        item.price -
-                                                                            item.discount
+                                                                        item.final_price
                                                                     ).toFixed(
-                                                                        0
-                                                                    )}{" "}
-                                                                    <img
-                                                                        src="/assets/img/emojis/fire.png"
-                                                                        className="h-[9.88px] 2xl:h-[16px] inline-flex ml-2"
-                                                                    />
+                                                                        2
+                                                                    )}
                                                                 </p>
-                                                            )}
-                                                        </div>
-
-                                                        {/* 🗑️ Botón para eliminar */}
-                                                        <div className="w-1/6 lg:w-4/12 flex items-start justify-end">
-                                                            <button
-                                                                className="group text-white px-2 py-1 rounded-md hover:fill-red-500 transition-all duration-300"
-                                                                onClick={() =>
-                                                                    eliminarProducto(
-                                                                        item.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                <div className="h-10 lg:h-12 scale-x-[-1] ">
-                                                                    <svg
-                                                                        xmlns="http://www.w3.org/2000/svg"
-                                                                        viewBox="0 0 448 512"
-                                                                        className="h-full w-4 lg:w-5 relative"
-                                                                        fill="current"
+                                                            </div>
+                                                            <div className="w-1/2 md:w-2/6 lg:w-1/2 h-full lg:h-14">
+                                                                <div className="flex h-full text-[#000000] bg-transparent border border-black items-center justify-around rounded-[8px] md:rounded-[10px]">
+                                                                    <motion.button
+                                                                        whileTap={{
+                                                                            scale: 0.8,
+                                                                        }}
+                                                                        className="h-full md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl"
+                                                                        onClick={() =>
+                                                                            decrementarCantidad(
+                                                                                item.id
+                                                                            )
+                                                                        }
                                                                     >
-                                                                        <path
-                                                                            className="group-hover:-rotate-12 group-hover:absolute group-hover:inset-0 "
-                                                                            fill="current"
-                                                                            d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3z"
-                                                                        />
-
-                                                                        <path
-                                                                            fill="current"
-                                                                            d="M32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
-                                                                        />
-                                                                    </svg>
+                                                                        -
+                                                                    </motion.button>
+                                                                    <span className="h-full flex items-center text-xs md:text-base 2xl:text-2xl font-medium">
+                                                                        {item.variations &&
+                                                                        item
+                                                                            .variations
+                                                                            .length >
+                                                                            0
+                                                                            ? item.variations.reduce(
+                                                                                  (
+                                                                                      sum,
+                                                                                      v
+                                                                                  ) =>
+                                                                                      sum +
+                                                                                      v.quantity,
+                                                                                  0
+                                                                              )
+                                                                            : item.quantity}
+                                                                    </span>
+                                                                    <motion.button
+                                                                        whileTap={{
+                                                                            scale: 0.8,
+                                                                        }}
+                                                                        className="h-6 md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl"
+                                                                        onClick={() =>
+                                                                            incrementarCantidad(
+                                                                                item.id
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        +
+                                                                    </motion.button>
                                                                 </div>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                    <div className="w-full flex">
-                                                        <div className="w-1/2  md:w-4/6 lg:w-1/2 h-full flex  ">
-                                                            <p className="text-[18.42px] md:text-[24.42px] h-full items-center  lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7] ">
-                                                                S/{" "}
-                                                                {Number(
-                                                                    item.final_price
-                                                                ).toFixed(2)}
-                                                            </p>
-                                                        </div>
-                                                        <div className="w-1/2  md:w-2/6 lg:w-1/2 h-full lg:h-14 ">
-                                                            <div className=" flex h-full text-[#000000]  bg-transparent border border-black items-center justify-around  rounded-[8px]  md:rounded-[10px] ">
-                                                                <button
-                                                                    className="h-full md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl "
-                                                                    onClick={() =>
-                                                                        decrementarCantidad(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    -
-                                                                </button>
-                                                                <span className="h-full flex items-center text-xs md:text-base 2xl:text-2xl font-medium">
-                                                                    {item.variations &&
-                                                                    item
-                                                                        .variations
-                                                                        .length >
-                                                                        0
-                                                                        ? item.variations.reduce(
-                                                                              (
-                                                                                  sum,
-                                                                                  v
-                                                                              ) =>
-                                                                                  sum +
-                                                                                  v.quantity,
-                                                                              0
-                                                                          )
-                                                                        : item.quantity}
-                                                                </span>
-                                                                <button
-                                                                    className="h-6 md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl  "
-                                                                    onClick={() =>
-                                                                        incrementarCantidad(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    +
-                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        ))
+                                                </motion.div>
+                                            ))}
+                                        </AnimatePresence>
                                     )}
                                 </div>
+
                                 {/* Total y botón de Checkout */}
                                 {totalPrecio > 0 && (
-                                    <div className="  w-full mt-8">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="w-full mt-8"
+                                    >
                                         <div className="w-full flex items-center justify-between my-6">
-                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black ">
+                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black">
                                                 Subtotal
                                             </p>
-                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black ">
+                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black">
                                                 S/ {totalPrecio.toFixed(2)}
                                             </p>
                                         </div>
 
-                                        <a
+                                        <motion.a
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
                                             href="/checkout"
-                                            className=" block text-center text-[20.76px] md:text-[25.76px]  lg:text-[34.76px] 2xl:text-[36.76px] w-full  font-semibold rounded-[12.11px] lg:rounded-[15.11px] bg-[#FF9900] text-white py-3 2xl:py-4 hover:bg-opacity-90 hover:scale-105 transition-all duration-300"
+                                            className="block text-center text-[20.76px] md:text-[25.76px] lg:text-[34.76px] 2xl:text-[36.76px] w-full font-semibold rounded-[12.11px] lg:rounded-[15.11px] bg-[#FF9900] text-white py-3 2xl:py-4 hover:bg-opacity-90 transition-all duration-300"
                                         >
                                             IR A COMPRAR
-                                        </a>
+                                        </motion.a>
 
-                                        <div className="mt-6 relative w-full">
+                                        <motion.div
+                                            whileHover={{ scale: 1.01 }}
+                                            className="mt-6 relative w-full"
+                                        >
                                             <img
                                                 src="/assets/img/checkout/banner-pagos.png"
-                                                className="w-full object-cover h-auto rounded-lg shadow-lg shadow-gray-500/20      "
+                                                className="w-full object-cover h-auto rounded-lg shadow-lg shadow-gray-500/20"
                                             />
-                                        </div>
-                                    </div>
+                                        </motion.div>
+                                    </motion.div>
                                 )}
-                            </div>
-                        </div>
-                    </>
-                )}
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </>
     );
