@@ -203,7 +203,6 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                         Tallas
                                     </MenuItem>
                                 </MenuItemContainer>*/}
-
                                 {/*<MenuItemContainer
                                     title="Ventas"
                                     icon="mdi mdi-cash-register"
@@ -222,7 +221,6 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                 >
                                     Landings
                                 </MenuItem>
-
                                 {/*    <MenuItem
                                     href="/admin/subscriptions"
                                     icon="mdi mdi-email-multiple"
@@ -249,7 +247,6 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                 >
                                     Nosotros
                                 </MenuItem>*/}
-
                                 <MenuItem
                                     href="/admin/indicators"
                                     icon="mdi mdi-checkbox-marked-outline"
@@ -262,27 +259,25 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                 >
                                     Beneficios
                                 </MenuItem>
-
                                 {/*  <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
                                     Valores
                                 </MenuItem>*/}
-
                                 <MenuItem
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"
                                 >
                                     Testimonios
                                 </MenuItem>
-
-                                {/*  <MenuItem
-                                    href="/admin/instagram_posts"
+                                <MenuItem
+                                    href="/admin/posts"
                                     icon="mdi mdi-instagram"
                                 >
                                     Posts
                                 </MenuItem>
+                                {/*
                                 <MenuItem
                                     href="/admin/faqs"
                                     icon="mdi mdi-frequently-asked-questions"

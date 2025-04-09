@@ -165,6 +165,10 @@ const Testimonies = ({}) => {
                                         objectPosition: "center",
                                         borderRadius: "4px",
                                     }}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                             );
                         },

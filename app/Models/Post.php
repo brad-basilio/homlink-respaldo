@@ -19,6 +19,8 @@ class Post extends Model
         'category_id',
         'description',
         'image',
+        'slug',
+        'content',
         'post_date',
         'status',
     ];
@@ -28,7 +30,8 @@ class Post extends Model
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
-    public function tags() {
+    public function tags()
+    {
         return $this->hasManyThrough(Tag::class, PostTag::class, 'post_id', 'id', 'id', 'tag_id');
     }
 }
