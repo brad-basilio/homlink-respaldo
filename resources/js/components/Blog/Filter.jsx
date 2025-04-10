@@ -14,9 +14,9 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
             opacity: 1,
             transition: {
                 staggerChildren: 0.1,
-                delayChildren: 0.2
-            }
-        }
+                delayChildren: 0.2,
+            },
+        },
     };
 
     const itemVariants = {
@@ -26,9 +26,9 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: "easeOut"
-            }
-        }
+                ease: "easeOut",
+            },
+        },
     };
 
     const buttonHover = {
@@ -37,47 +37,47 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
             boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
             transition: {
                 duration: 0.3,
-                ease: "easeOut"
-            }
+                ease: "easeOut",
+            },
         },
         tap: {
-            scale: 0.98
-        }
+            scale: 0.98,
+        },
     };
 
     const inputFocus = {
         focus: {
             boxShadow: "0 0 0 2px #3b82f6",
             transition: {
-                duration: 0.2
-            }
-        }
+                duration: 0.2,
+            },
+        },
     };
 
     return (
-        <motion.section 
-            className="p-[5%] lg:px-0 max-w-7xl mx-auto"
+        <motion.section
+            className="p-[5%] lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
         >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 md:gap-8 items-center text-negro">
                 {/* Título y descripción */}
-                <motion.div 
+                <motion.div
                     className="col-span-1 md:col-span-2 lg:col-span-4 text-center lg:text-left"
                     variants={itemVariants}
                 >
                     <motion.h2
                         className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
                         initial={{ opacity: 0, y: 30 }}
-                        animate={{ 
-                            opacity: 1, 
+                        animate={{
+                            opacity: 1,
                             y: 0,
                             transition: {
                                 type: "spring",
                                 stiffness: 100,
-                                damping: 10
-                            }
+                                damping: 10,
+                            },
                         }}
                     >
                         <TextWithHighlight text={landingFooter?.title} />
@@ -85,12 +85,12 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                     <motion.p
                         className="hidden lg:flex mt-8"
                         initial={{ opacity: 0 }}
-                        animate={{ 
+                        animate={{
                             opacity: 1,
                             transition: {
                                 delay: 0.4,
-                                duration: 0.8
-                            } 
+                                duration: 0.8,
+                            },
                         }}
                     >
                         {landingFooter?.description}
@@ -106,7 +106,7 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                     whileFocus="focus"
                     variants={inputFocus}
                 >
-                    <motion.i 
+                    <motion.i
                         className="fas fa-search text-negro mr-2"
                         whileHover={{ scale: 1.1 }}
                     />
@@ -123,13 +123,13 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                         }
                         whileFocus={{
                             outline: "none",
-                            x: 3
+                            x: 3,
                         }}
                     />
                 </motion.label>
 
                 {/* Botones de categorías */}
-                <motion.div 
+                <motion.div
                     className="col-span-1 md:col-span-2 lg:col-span-4 flex flex-wrap gap-3 justify-center lg:justify-start"
                     variants={containerVariants}
                 >
@@ -144,7 +144,10 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                             onClick={() =>
                                 setFilter((old) => ({
                                     ...old,
-                                    category: item.id == filter.category ? null : item.id,
+                                    category:
+                                        item.id == filter.category
+                                            ? null
+                                            : item.id,
                                 }))
                             }
                             variants={itemVariants}
@@ -153,9 +156,9 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                             variants={buttonHover}
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
-                            transition={{ 
+                            transition={{
                                 type: "spring",
-                                delay: index * 0.05
+                                delay: index * 0.05,
                             }}
                         >
                             {item.name}

@@ -297,7 +297,7 @@ const Header = ({
                                     "/about",
                                     "/offices",
                                     "/contact",
-                                    "/blog"
+                                    "/blog",
                                 ].map((path) => {
                                     const text = {
                                         "/": "Inicio",
@@ -305,7 +305,7 @@ const Header = ({
                                         "/about": "Nosotros",
                                         "/offices": "Instalaciones",
                                         "/contact": "Contacto",
-                                        "/blog": "Blog"
+                                        "/blog": "Blog",
                                     }[path];
 
                                     return (
@@ -434,7 +434,7 @@ const Header = ({
                                     "/about",
                                     "/offices",
                                     "/contact",
-                                    "/blog"
+                                    "/blog",
                                 ].map((path) => {
                                     const text = {
                                         "/": "Inicio",
@@ -442,7 +442,7 @@ const Header = ({
                                         "/about": "Nosotros",
                                         "/offices": "Instalaciones",
                                         "/contact": "Contacto",
-                                        "/blog": "Blog"
+                                        "/blog": "Blog",
                                     }[path];
 
                                     return (
