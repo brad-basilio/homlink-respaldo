@@ -1680,7 +1680,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-BJnfh2Zf.js",
+    "file": "assets/Blog-CiBX7JeF.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -1913,7 +1913,7 @@
     ]
   },
   "resources/js/DetailProduct.jsx": {
-    "file": "assets/DetailProduct-DI96DN3P.js",
+    "file": "assets/DetailProduct-Bgr1Us-C.js",
     "name": "DetailProduct",
     "src": "resources/js/DetailProduct.jsx",
     "isEntry": true,
@@ -2787,7 +2787,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-D3gnLJF6.js",
+    "file": "assets/CheckboxFormGroup-ChnUc9L5.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -2837,7 +2837,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-cOvRWR0A.js",
+    "file": "assets/SelectAPIFormGroup-C-gEJRea.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -2849,7 +2849,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-D3gnLJF6.js",
+    "file": "assets/SelectFormGroup-ChnUc9L5.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -2879,7 +2879,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TippyButton.jsx": {
-    "file": "assets/TippyButton-BZ-T425W.js",
+    "file": "assets/TippyButton-DejBs43w.js",
     "name": "TippyButton",
     "src": "resources/js/components/Adminto/form/TippyButton.jsx",
     "isEntry": true,
@@ -3421,7 +3421,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-ChnUc9L5.js",
+    "file": "assets/Table-D3gnLJF6.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -3603,7 +3603,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-D3gnLJF6.js",
+    "file": "assets/Table-ChnUc9L5.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -3735,13 +3735,15 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-ChnUc9L5.js",
+    "file": "assets/Fragrance-SNGEp8vT.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/animations/PersistentScrollAnimation.jsx",
-      "_index-B80Lgev0.js"
+      "_tippy-react.esm-CHhA99mn.js",
+      "_index-B80Lgev0.js",
+      "_index-DO3Aws4m.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -3755,10 +3757,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-CSxtp8IN.js",
+    "file": "assets/HairType-lZr7i-da.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/animations/PersistentScrollAnimation.jsx",
       "_index-B80Lgev0.js",
@@ -3778,10 +3780,10 @@
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-DuH4nTGs.js",
+    "file": "assets/ScalpType-CSxtp8IN.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/animations/PersistentScrollAnimation.jsx",
       "_index-B80Lgev0.js",
@@ -3791,10 +3793,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-ChnUc9L5.js",
+    "file": "assets/Treatment-ChBx6QvQ.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/animations/PersistentScrollAnimation.jsx",
       "_index-B80Lgev0.js"
@@ -3889,7 +3891,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-ChnUc9L5.js",
+    "file": "assets/CheckboxFormGroup-D3gnLJF6.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -3929,7 +3931,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-C-gEJRea.js",
+    "file": "assets/SelectAPIFormGroup-cOvRWR0A.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -3941,7 +3943,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-ChnUc9L5.js",
+    "file": "assets/SelectFormGroup-D3gnLJF6.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -3961,7 +3963,7 @@
     ]
   },
   "resources/js/components/form/TippyButton.jsx": {
-    "file": "assets/TippyButton-DejBs43w.js",
+    "file": "assets/TippyButton-BZ-T425W.js",
     "name": "TippyButton",
     "src": "resources/js/components/form/TippyButton.jsx",
     "isEntry": true,
