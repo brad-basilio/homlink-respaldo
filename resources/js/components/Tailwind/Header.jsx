@@ -280,7 +280,7 @@ const Header = ({
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
                                     src="/assets/img/logo.png"
-                                    alt="WeFem Logo"
+                                    alt="NoPain Logo"
                                     className="h-[40px] w-auto md:h-[36.8px] object-cover object-top"
                                 />
                             </a>
@@ -297,6 +297,7 @@ const Header = ({
                                     "/about",
                                     "/offices",
                                     "/contact",
+                                    "/blog"
                                 ].map((path) => {
                                     const text = {
                                         "/": "Inicio",
@@ -304,6 +305,7 @@ const Header = ({
                                         "/about": "Nosotros",
                                         "/offices": "Instalaciones",
                                         "/contact": "Contacto",
+                                        "/blog": "Blog"
                                     }[path];
 
                                     return (
@@ -432,6 +434,7 @@ const Header = ({
                                     "/about",
                                     "/offices",
                                     "/contact",
+                                    "/blog"
                                 ].map((path) => {
                                     const text = {
                                         "/": "Inicio",
@@ -439,6 +442,7 @@ const Header = ({
                                         "/about": "Nosotros",
                                         "/offices": "Instalaciones",
                                         "/contact": "Contacto",
+                                        "/blog": "Blog"
                                     }[path];
 
                                     return (

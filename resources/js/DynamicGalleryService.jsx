@@ -30,13 +30,13 @@ const DynamicGalleryService = ({ service }) => {
         },
     };
 
-    // Efecto hover solo para la imagen
+    // Efecto hover mejorado para la imagen
     const imageHover = {
         hover: {
-            scale: 1.05,
+            scale: 1.1,
             transition: {
-                duration: 0.3,
-                ease: "easeOut",
+                duration: 0.4,
+                ease: [0.25, 0.1, 0.25, 1]
             },
         },
     };
@@ -111,30 +111,31 @@ const DynamicGalleryService = ({ service }) => {
                     className={`grid ${group.config.gridClass} rounded-3xl overflow-hidden mb-8`}
                 >
                     {group.images.map((image, index) => (
-                        <div
+                        <motion.div
                             key={`${groupIndex}-${index}`}
                             className={`relative ${
                                 group.config.imageClasses[index] || "h-full"
                             } overflow-hidden cursor-pointer rounded-3xl`}
                             onClick={() => setSelectedImage(image)}
+                            whileHover="hover"
                         >
-                            <motion.img
-                                src={`/api/service/media/${image}`}
-                                alt={`${service.title} - Imagen ${
-                                    groupIndex * 5 + index + 1
-                                }`}
-                                className="w-full h-full object-cover absolute inset-0 rounded-3xl hover:scale-110 transition-all duration-500"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.5 }}
-                                variants={itemVariants}
-                                whileHover={imageHover}
-                                onError={(e) => {
-                                    e.target.src =
-                                        "/assets/img/placeholder.jpg";
-                                }}
-                            />
-                        </div>
+                            <motion.div
+                                className="w-full h-full"
+                                variants={imageHover}
+                                style={{ originX: 0.5, originY: 0.5 }} // Para que el zoom sea desde el centro
+                            >
+                                <img
+                                    src={`/api/service/media/${image}`}
+                                    alt={`${service.title} - Imagen ${
+                                        groupIndex * 5 + index + 1
+                                    }`}
+                                    className="w-full h-full object-cover absolute inset-0 rounded-3xl"
+                                    onError={(e) => {
+                                        e.target.src = "/assets/img/placeholder.jpg";
+                                    }}
+                                />
+                            </motion.div>
+                        </motion.div>
                     ))}
                 </motion.div>
             ))}
@@ -145,42 +146,49 @@ const DynamicGalleryService = ({ service }) => {
                     <motion.button
                         onClick={() => setExpanded(!expanded)}
                         className="px-6 py-3 bg-gray-100 rounded-full flex items-center gap-2"
-                        whileHover={{ scale: 1.05 }}
+                        whileHover={{ 
+                            scale: 1.05,
+                            backgroundColor: "#f3f4f6"
+                        }}
                         whileTap={{ scale: 0.95 }}
                     >
                         {expanded ? (
                             <>
                                 <span>Mostrar menos</span>
-                                <svg
+                                <motion.svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
+                                    animate={{ rotate: 180 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <path
                                         fillRule="evenodd"
                                         d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
                                         clipRule="evenodd"
                                     />
-                                </svg>
+                                </motion.svg>
                             </>
                         ) : (
                             <>
                                 <span>
                                     Ver más ({totalImages - 5} imágenes más)
                                 </span>
-                                <svg
+                                <motion.svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
+                                    animate={{ rotate: 0 }}
+                                    transition={{ duration: 0.3 }}
                                 >
                                     <path
                                         fillRule="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
                                         clipRule="evenodd"
                                     />
-                                </svg>
+                                </motion.svg>
                             </>
                         )}
                     </motion.button>
@@ -199,22 +207,27 @@ const DynamicGalleryService = ({ service }) => {
                     >
                         <motion.div
                             className="relative max-w-4xl w-full"
-                            initial={{ scale: 0.9 }}
-                            animate={{ scale: 1 }}
-                            exit={{ scale: 0.9 }}
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            transition={{ type: "spring", stiffness: 200 }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <motion.img
                                 src={`/api/service/media/${selectedImage}`}
                                 alt="Imagen ampliada"
-                                className="w-full h-auto max-h-[80vh] object-contain rounded-lg "
+                                className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.2 }}
                             />
                             <motion.button
-                                className="absolute top-4 right-4 bg-white rounded-full p-2"
-                                whileHover={{ scale: 1.1 }}
+                                className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg"
+                                whileHover={{ 
+                                    scale: 1.1,
+                                    rotate: 90,
+                                    backgroundColor: "#f3f4f6"
+                                }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setSelectedImage(null)}
                             >

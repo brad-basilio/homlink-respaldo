@@ -9,7 +9,7 @@ import Results from "./Components/Blog/Results";
 import Header from "./components/Tailwind/Header";
 import { CarritoProvider } from "./context/CarritoContext";
 
-function Blog({ categories }) {
+function Blog({ categories,postRecent,landing }) {
     const [filter, setFilter] = useState({
         category: null,
         search: null,
@@ -17,16 +17,17 @@ function Blog({ categories }) {
     });
 
     return (
-        <>
+        <div >
             <Header />
-            <BlogHeader />
+            <BlogHeader postRecent={postRecent} landing={landing}/>
             <Filter
                 categories={categories}
                 filter={filter}
                 setFilter={setFilter}
+                landing={landing}
             />
             <Results filter={filter} />
-        </>
+        </div>
     );
 }
 

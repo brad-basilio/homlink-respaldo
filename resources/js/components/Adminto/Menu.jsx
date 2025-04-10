@@ -272,8 +272,14 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                     Testimonios
                                 </MenuItem>
                                 <MenuItem
+                                        href="/admin/categories"
+                                        icon="mdi mdi-clipboard-list-outline"
+                                    >
+                                        Categorias
+                                </MenuItem>
+                                <MenuItem
                                     href="/admin/posts"
-                                    icon="mdi mdi-instagram"
+                                    icon="mdi mdi-book-open-page-variant"
                                 >
                                     Posts
                                 </MenuItem>

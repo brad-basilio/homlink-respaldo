@@ -34,7 +34,32 @@ const containerVariants = {
         },
     },
 };
-
+  // Animación del botón (igual a tu versión)
+    const buttonVariants = {
+        hidden: { scale: 0.8, opacity: 0 },
+        visible: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 10,
+            },
+        },
+        pulse: {
+            scale: [1, 1.05, 1],
+            transition: {
+                repeat: Infinity,
+                duration: 2,
+                ease: "easeInOut",
+            },
+        },
+        hover: {
+            scale: 1.1,
+            rotate: [0, -5, 5, -5, 0],
+            transition: { duration: 0.5 },
+        },
+    };
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -222,22 +247,41 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
                         </motion.div>
                     </motion.div>
 
-                    <motion.button
-                        onClick={() => setIsModalOpen(true)}
-                        className="mt-16 lg:mt-6 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center lg:h-14"
-                        variants={itemVariants}
-                        whileHover="hover"
-                        whileTap="tap"
-                        variants={buttonHover}
-                    >
-                        <div className="bg-[#224483] w-12 p-2 rounded-full">
-                            <img
-                                src="/assets/img/icons/calendar-check.png"
-                                className="h-auto"
-                            />
-                        </div>
-                        Reservar una cita
-                    </motion.button>
+                    {/* CTA Button */}
+                    <motion.div
+                                className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-6"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <motion.button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 mt-2 rounded-full flex items-center"
+                                    variants={buttonVariants}
+                                    initial="hidden"
+                                    animate={["visible", "pulse"]}
+                                    whileHover="hover"
+                                    style={{ position: "relative", overflow: "hidden" }}
+                                >
+                                    <motion.span
+                                        className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                        initial={{ scale: 0 }}
+                                        whileTap={{
+                                            scale: 2,
+                                            opacity: 0.3,
+                                            transition: { duration: 0.5 },
+                                        }}
+                                    />
+                                    <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                        <img
+                                            src="/assets/img/icons/calendar-check.png"
+                                            className="h-auto"
+                                            alt="Calendario"
+                                        />
+                                    </div>
+                                    Reserva tu cita
+                                </motion.button>
+                            </motion.div>
                 </motion.div>
 
                 {/* Images Section */}

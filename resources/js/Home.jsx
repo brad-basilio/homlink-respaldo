@@ -435,20 +435,40 @@ const Home = ({
                         <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
                             {landingServices?.description}
                         </h2>
-                        <div className="w-full flex items-center justify-end">
-                            <button
-                                onClick={() => setIsModalOpen(true)}
-                                className="w-max mt-5 bg-white text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center"
-                            >
-                                <div className="bg-[#224483] w-12 p-2 rounded-full">
-                                    <img
-                                        src="/assets/img/icons/calendar-check.png"
-                                        className=" h-auto "
-                                    />
-                                </div>
-                                Reservar una cita
-                            </button>
-                        </div>
+                        <motion.div
+                        className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <motion.button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
+                            variants={buttonVariants}
+                            initial="hidden"
+                            animate={["visible", "pulse"]}
+                            whileHover="hover"
+                            style={{ position: "relative", overflow: "hidden" }}
+                        >
+                            <motion.span
+                                className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                initial={{ scale: 0 }}
+                                whileTap={{
+                                    scale: 2,
+                                    opacity: 0.3,
+                                    transition: { duration: 0.5 },
+                                }}
+                            />
+                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                <img
+                                    src="/assets/img/icons/calendar-check.png"
+                                    className="h-auto"
+                                    alt="Calendario"
+                                />
+                            </div>
+                            Reserva tu cita
+                        </motion.button>
+                    </motion.div>
                     </div>
                 </div>
             </ScrollAnimation>

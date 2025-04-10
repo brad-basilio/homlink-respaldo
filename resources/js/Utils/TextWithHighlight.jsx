@@ -1,4 +1,4 @@
-const TextWithHighlight = ({ text, split = false, split_coma = false }) => {
+const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_puntos=false }) => {
     // Función para procesar el texto con resaltados
     const renderHighlightedText = (textToRender) => {
         const parts = textToRender.split(/(\*[^*]+\*)/g); // separa todo lo entre *...*
@@ -31,6 +31,20 @@ const TextWithHighlight = ({ text, split = false, split_coma = false }) => {
 
     if (split_coma) {
         const words = text.split(",");
+        const firstWord = words[0];
+        const remainingText = words.slice(1).join(" ");
+
+        return (
+            <div className="flex flex-col">
+                <span className="block">{firstWord}</span>
+                <span className="block">
+                    {renderHighlightedText(remainingText)}
+                </span>
+            </div>
+        );
+    }
+    if (split_dos_puntos) {
+        const words = text.split(":");
         const firstWord = words[0];
         const remainingText = words.slice(1).join(" ");
 

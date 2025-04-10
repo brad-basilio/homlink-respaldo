@@ -25,9 +25,9 @@ const Results = ({ filter }) => {
     postsRest.paginate({
       filter: ArrayJoin(filter2search, 'and'),
       requireTotalCount: true,
-      skip: 12 * (currentPage - 1),
+      skip: 6 * (currentPage - 1),
       sort: [{ selector: 'post_date', desc: filter.sortOrder == 'desc' }],
-      take: 12,
+      take: 6,
     })
       .then(({ status, data, totalCount }) => {
         if (status != 200) return
@@ -38,7 +38,7 @@ const Results = ({ filter }) => {
   }, [filter, currentPage])
 
   return <>
-    <section className="p-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    <section className="p-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3  gap-8 lg:px-0 max-w-7xl mx-auto">
       {
         results.map((item, index) => {
           return <PostCard key={index} {...item} firstImage />

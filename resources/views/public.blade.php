@@ -122,7 +122,7 @@
 </head>
 <style>
     body {
-        /*background-image: url('/assets/img/maqueta/Instalaciones.png');*/
+        /*background-image: url('/assets/img/maqueta/Blog.png');*/
         width: 100%;
         height: auto;
         background-size: 100% auto;

@@ -35,6 +35,32 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
             },
         },
     };
+    // Animación del botón (igual a tu versión)
+    const buttonVariants = {
+        hidden: { scale: 0.8, opacity: 0 },
+        visible: {
+            scale: 1,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 10,
+            },
+        },
+        pulse: {
+            scale: [1, 1.05, 1],
+            transition: {
+                repeat: Infinity,
+                duration: 2,
+                ease: "easeInOut",
+            },
+        },
+        hover: {
+            scale: 1.1,
+            rotate: [0, -5, 5, -5, 0],
+            transition: { duration: 0.5 },
+        },
+    };
 
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
@@ -77,7 +103,7 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                 (service) =>
                     service.slug === slug ||
                     service.title.toLowerCase().replace(/[^a-z0-9]+/g, "-") ===
-                        slug
+                    slug
             );
             if (foundIndex !== -1) setActiveIndex(foundIndex);
         }
@@ -150,20 +176,18 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                     <motion.div
                                         key={index}
                                         onClick={() => setActiveIndex(index)}
-                                        className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
-                                            index === activeIndex
+                                        className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${index === activeIndex
                                                 ? "bg-gray-100"
                                                 : "hover:bg-gray-50"
-                                        }`}
+                                            }`}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
                                     >
                                         <span
-                                            className={`lg:text-lg ${
-                                                index === activeIndex
+                                            className={`lg:text-lg ${index === activeIndex
                                                     ? "font-medium"
                                                     : ""
-                                            }`}
+                                                }`}
                                         >
                                             {service.title}
                                         </span>
@@ -192,20 +216,18 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                                                 onClick={() =>
                                                     setActiveIndex(index)
                                                 }
-                                                className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${
-                                                    index === activeIndex
+                                                className={`flex items-center justify-between p-3 lg:py-3 lg:px-[5%] rounded-lg cursor-pointer ${index === activeIndex
                                                         ? "bg-gray-100"
                                                         : "hover:bg-gray-50"
-                                                }`}
+                                                    }`}
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
                                                 <span
-                                                    className={`lg:text-lg ${
-                                                        index === activeIndex
+                                                    className={`lg:text-lg ${index === activeIndex
                                                             ? "font-medium"
                                                             : ""
-                                                    }`}
+                                                        }`}
                                                 >
                                                     {service.title}
                                                 </span>
@@ -287,21 +309,34 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
 
                             {/* CTA Button */}
                             <motion.div
-                                className="mb-8"
+                                className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-6"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.6 }}
                             >
                                 <motion.button
                                     onClick={() => setIsModalOpen(true)}
-                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
+                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 mt-2 rounded-full flex items-center"
+                                    variants={buttonVariants}
+                                    initial="hidden"
+                                    animate={["visible", "pulse"]}
+                                    whileHover="hover"
+                                    style={{ position: "relative", overflow: "hidden" }}
                                 >
+                                    <motion.span
+                                        className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                        initial={{ scale: 0 }}
+                                        whileTap={{
+                                            scale: 2,
+                                            opacity: 0.3,
+                                            transition: { duration: 0.5 },
+                                        }}
+                                    />
                                     <div className="bg-[#224483] w-12 p-2 rounded-full">
                                         <img
                                             src="/assets/img/icons/calendar-check.png"
                                             className="h-auto"
+                                            alt="Calendario"
                                         />
                                     </div>
                                     Reserva tu cita
