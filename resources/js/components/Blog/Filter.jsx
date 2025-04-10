@@ -130,7 +130,7 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
 
                 {/* Botones de categorías */}
                 <motion.div
-                    className="col-span-1 md:col-span-2 lg:col-span-4 flex flex-wrap gap-3 justify-center lg:justify-start"
+                    className="col-span-1 md:col-span-2 lg:col-span-6 flex flex-wrap gap-3 justify-center lg:justify-start"
                     variants={containerVariants}
                 >
                     {categories.map((item, index) => (
