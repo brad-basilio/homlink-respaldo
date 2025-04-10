@@ -93,7 +93,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
             {/* Header Section */}
             <motion.div className="mb-10" variants={itemVariants}>
                 <motion.h2
-                    className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center  lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
+                    className="w-full text-[32px] mt-8 lg:mt-0 text-center  lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{
                         opacity: 1,
