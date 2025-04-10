@@ -270,10 +270,10 @@ const BlogArticle = ({ article, posts, landing }) => {
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="mt-8 pt-6 border-slate-200 text-sm font-medium lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
+                className="mt-8 pt-6 border-slate-200 text-sm font-medium lg:max-w-[82rem] 2xl:max-w-[92rem]  px-[5%] py-8 md:py-12  text-negro mx-auto"
             >
                 <motion.h2
-                    className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
+                    className="w-full  text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
                     variants={fadeInUp}
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -292,7 +292,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                 </motion.p>
 
                 <motion.section
-                    className="p-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:px-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
+                    className="py-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:px-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
                     variants={{
                         hidden: { opacity: 0 },
                         visible: {
