@@ -85,9 +85,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         <div className="lg:w-4/12 lg:px-[2%] ">
                             <div className=" w-full">
                                 <img
-                                    src="/assets/img/footer/logo-white.png"
+                                    src="/assets/img/logo.svg"
                                     alt="No Pain"
-                                    className="md:w-[170.52px]  lg:w-[300.52px] object-cover"
+                                    className="md:w-[170.52px]  lg:w-[300.52px] object-cover grayscale invert brightness-0"
                                 />
                             </div>
                             <div className=" w-full mt-6 flex gap-1 ">

@@ -279,7 +279,7 @@ const Header = ({
                             <a href="/">
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
-                                    src="/assets/img/logo.png"
+                                    src="/assets/img/logo.svg"
                                     alt="NoPain Logo"
                                     className="h-[40px] w-auto md:h-[36.8px] object-cover object-top"
                                 />
