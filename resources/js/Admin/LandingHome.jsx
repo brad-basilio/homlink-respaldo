@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import BaseAdminto from "@Adminto/Base";
 import CreateReactScript from "../Utils/CreateReactScript";
-import Table from "../Components/Table";
 import Modal from "../Components/Modal";
 import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
 import ReactAppend from "../Utils/ReactAppend";
@@ -10,45 +9,55 @@ import DxButton from "../Components/dx/DxButton";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
 import Swal from "sweetalert2";
-
 import { renderToString } from "react-dom/server";
 import TextareaFormGroup from "../Components/Adminto/form/TextareaFormGroup";
-import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
-import LandingHomeRest from "../actions/Admin/LandingHomeRest";
 import VideoFormGroup from "../components/Adminto/form/VideoFormGroup";
+import LandingHomeRest from "../actions/Admin/LandingHomeRest";
 
 const landingHomeRest = new LandingHomeRest();
 
 const LandingHome = ({ items }) => {
-    console.log(items);
-    const gridRef = useRef();
     const modalRef = useRef();
+    const [activeTab, setActiveTab] = useState("home");
+    const [isEditing, setIsEditing] = useState(false);
 
     // Form elements ref
     const idRef = useRef();
     const titleRef = useRef();
     const descriptionRef = useRef();
     const imageRef = useRef();
-
     const videoRef = useRef();
     const linkRef = useRef();
-
-    const [isEditing, setIsEditing] = useState(false);
-
     const is_videoRef = useRef();
-    const [isVideo, setIsVideo] = useState(false); // Estado para controlar si se está usando un video en lugar de una imagen
+    const [isVideo, setIsVideo] = useState(false);
+
+    // Agrupar items por página
+    const groupedItems = items.reduce((acc, item) => {
+        const page = item.correlative.split("_")[1]; // Extrae 'home', 'services', etc.
+        if (!acc[page]) acc[page] = [];
+        acc[page].push(item);
+        return acc;
+    }, {});
+
+    // Nombres de las páginas para los tabs
+    const pageNames = {
+        home: "Inicio",
+        services: "Servicios",
+        aboutus: "Nosotros",
+        facility: "Sedes",
+        contact: "Contacto",
+        blog: "Blog",
+    };
 
     const onModalOpen = (data) => {
         if (data?.id) setIsEditing(true);
         else setIsEditing(false);
 
         idRef.current.value = data?.id ?? "";
-
         titleRef.current.value = data?.title ?? "";
         descriptionRef.current.value = data?.description ?? "";
-
         linkRef.current.value = data?.link ?? "";
-        // Para establecer el video existente
+
         if (data?.is_video) {
             $(is_videoRef.current).prop("checked", false).trigger("click");
             setTimeout(() => {
@@ -58,10 +67,12 @@ const LandingHome = ({ items }) => {
                     );
                 }
             }, 100);
-            setIsVideo(true); // Asegúrate de actualizar el estado isVideo
+            setIsVideo(true);
         } else {
             $(is_videoRef.current).prop("checked", true).trigger("click");
-            imageRef.image.src = `/api/landing_home/media/${data?.image}`;
+            if (imageRef.current && data?.image) {
+                imageRef.image.src = `/api/landing_home/media/${data?.image}`;
+            }
             imageRef.current.value = null;
             setIsVideo(false);
         }
@@ -83,9 +94,8 @@ const LandingHome = ({ items }) => {
             for (const key in request) {
                 formData.append(key, request[key]);
             }
+
             if (isVideo) {
-                // Obtener el archivo de video
-                // Para obtener el archivo de video
                 if (videoRef.current) {
                     const videoFile = videoRef.current.getFile();
                     if (videoFile) {
@@ -101,14 +111,10 @@ const LandingHome = ({ items }) => {
             }
 
             const result = await landingHomeRest.save(formData);
-            console.log(result);
             if (!result) return;
 
-            console.log("Refrescando tabla...");
-            $(gridRef.current).dxDataGrid("instance").refresh();
-
-            console.log("Cerrando modal...");
-            $(modalRef.current).modal("hide");
+            // Recargar la página para ver los cambios
+            window.location.reload();
         } catch (error) {
             console.error("Error al enviar el formulario:", error);
             Swal.fire({
@@ -126,7 +132,7 @@ const LandingHome = ({ items }) => {
             value,
         });
         if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
+        window.location.reload();
     };
 
     const onDeleteClicked = async (id) => {
@@ -141,211 +147,178 @@ const LandingHome = ({ items }) => {
         if (!isConfirmed) return;
         const result = await landingHomeRest.delete(id);
         if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
+        window.location.reload();
     };
 
     return (
         <>
-            <Table
-                gridRef={gridRef}
-                title="Landing Home"
-                rest={landingHomeRest}
-                toolBar={(container) => {
-                    container.unshift({
-                        widget: "dxButton",
-                        location: "after",
-                        options: {
-                            icon: "refresh",
-                            hint: "Refrescar tabla",
-                            onClick: () =>
-                                $(gridRef.current)
-                                    .dxDataGrid("instance")
-                                    .refresh(),
-                        },
-                    });
-                    container.unshift({
-                        widget: "dxButton",
-                        location: "after",
-                        options: {
-                            icon: "plus",
-                            text: "Nuevo sección",
-                            hint: "Nuevo sección",
-                            onClick: () => onModalOpen(),
-                        },
-                    });
-                }}
-                columns={[
-                    {
-                        dataField: "id",
-                        caption: "ID",
-                        visible: false,
-                    },
-                    {
-                        dataField: "image",
-                        caption: "Imagen",
-                        width: "100px",
-                        allowFiltering: false,
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                data.is_video ? (
-                                    <video
-                                        src={`/api/landing_home/video/${data.video}`}
-                                        autoPlay
-                                        style={{
-                                            width: "100px",
-                                            height: "48px",
-                                            objectFit: "cover",
-                                            objectPosition: "center",
-                                            borderRadius: "4px",
-                                        }}
-                                        onError={(e) =>
-                                            (e.target.src =
-                                                "/api/cover/thumbnail/null")
-                                        }
-                                    />
-                                ) : (
-                                    <img
-                                        src={`/api/landing_home/media/${data.image}`}
-                                        style={{
-                                            width: "100px",
-                                            height: "48px",
-
-                                            objectFit: "cover",
-                                            objectPosition: "center",
-                                            borderRadius: "4px",
-                                        }}
-                                        onError={(e) =>
-                                            (e.target.src =
-                                                "/api/cover/thumbnail/null")
-                                        }
-                                    />
-                                )
-                            );
-                        },
-                    },
-                    {
-                        dataField: "title",
-                        caption: "Contenido",
-                        width: "50%",
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                data.title ? (
-                                    <p
-                                        className="mb-0"
-                                        style={{ width: "100%" }}
-                                    >
-                                        <b className="d-block">{data.title}</b>
-                                    </p>
-                                ) : (
-                                    <i className="text-muted">
-                                        - Sin contenido textual -
-                                    </i>
-                                )
-                            );
-                        },
-                    },
-                    {
-                        dataField: "name",
-                        caption: "Contenido",
-                        width: "50%",
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                data.description ? (
-                                    <p
-                                        className="mb-0"
-                                        style={{ width: "100%" }}
-                                    >
-                                        <small
-                                            className="text-wrap text-muted"
-                                            style={{
-                                                overflow: "hidden",
-                                                display: "-webkit-box",
-                                                WebkitBoxOrient: "vertical",
-                                                WebkitLineClamp: 2,
-                                            }}
-                                        >
-                                            {data.description}
-                                        </small>
-                                    </p>
-                                ) : (
-                                    <i className="text-muted">
-                                        - Sin contenido textual -
-                                    </i>
-                                )
-                            );
-                        },
-                    },
-
-                    {
-                        dataField: "link",
-                        caption: "Link",
-                        cellTemplate: (container, { data }) => {
-                            if (data.link) {
-                                container.html(
-                                    renderToString(
-                                        <a href={data.link}>{data.link}</a>
-                                    )
-                                );
-                            } else {
-                                container.html(
-                                    renderToString(
-                                        <i className="text-muted">
-                                            - Sin link -
-                                        </i>
-                                    )
-                                );
-                            }
-                        },
-                    },
-                    {
-                        dataField: "visible",
-                        caption: "Visible",
-                        dataType: "boolean",
-                        width: "120px",
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                <SwitchFormGroup
-                                    checked={data.visible}
-                                    onChange={(e) =>
-                                        onVisibleChange({
-                                            id: data.id,
-                                            value: e.target.checked,
+            <div className="card">
+                <div className="card-header">
+                    <ul className="nav nav-tabs card-header-tabs">
+                        {Object.keys(pageNames).map((page) => (
+                            <li key={page} className="nav-item">
+                                <button
+                                    className={`nav-link ${
+                                        activeTab === page ? "active" : ""
+                                    }`}
+                                    onClick={() => setActiveTab(page)}
+                                >
+                                    {pageNames[page]}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div className="card-body">
+                    {Object.keys(pageNames).map((page) => (
+                        <div
+                            key={page}
+                            style={{
+                                display: activeTab === page ? "block" : "none",
+                            }}
+                        >
+                            <div className="d-flex justify-content-between mb-3">
+                                <h4>Secciones de {pageNames[page]}</h4>
+                                {/*   <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() =>
+                                        onModalOpen({
+                                            correlative: `page_${page}_new`,
                                         })
                                     }
-                                />
-                            );
-                        },
-                    },
-                    {
-                        caption: "Acciones",
-                        cellTemplate: (container, { data }) => {
-                            container.css("text-overflow", "unset");
-                            container.append(
-                                DxButton({
-                                    className: "btn btn-xs btn-soft-primary",
-                                    title: "Editar",
-                                    icon: "fa fa-pen",
-                                    onClick: () => onModalOpen(data),
-                                })
-                            );
-                            container.append(
-                                DxButton({
-                                    className: "btn btn-xs btn-soft-danger",
-                                    title: "Eliminar",
-                                    icon: "fa fa-trash",
-                                    onClick: () => onDeleteClicked(data.id),
-                                })
-                            );
-                        },
-                        allowFiltering: false,
-                        allowExporting: false,
-                    },
-                ]}
-            />
+                                >
+                                    <i className="fa fa-plus me-1"></i> Nueva
+                                    Sección
+                                </button>*/}
+                            </div>
+
+                            <div className="row">
+                                {(groupedItems[page] || []).map((item) => (
+                                    <div
+                                        key={item.id}
+                                        className="col-md-6 mb-4"
+                                    >
+                                        <div className="card h-100">
+                                            <div className="card-header d-flex justify-content-between align-items-center">
+                                                <h5 className="mb-0">
+                                                    {
+                                                        item.correlative.split(
+                                                            "_"
+                                                        )[2]
+                                                    }
+                                                </h5>
+                                                {/*  <SwitchFormGroup
+                                                    checked={item.visible}
+                                                    onChange={(e) =>
+                                                        onVisibleChange({
+                                                            id: item.id,
+                                                            value: e.target
+                                                                .checked,
+                                                        })
+                                                    }
+                                                />*/}
+                                            </div>
+                                            <div className="card-body">
+                                                {item.is_video === "1" ? (
+                                                    <video
+                                                        src={`/api/landing_home/video/${item.video}`}
+                                                        autoPlay
+                                                        muted
+                                                        loop
+                                                        className="img-fluid mb-3"
+                                                        style={{
+                                                            maxHeight: "200px",
+                                                            width: "100%",
+                                                            objectFit: "cover",
+                                                        }}
+                                                        onError={(e) =>
+                                                            (e.target.src =
+                                                                "/api/cover/thumbnail/null")
+                                                        }
+                                                    />
+                                                ) : item.image ? (
+                                                    <img
+                                                        src={`/api/landing_home/media/${item.image}`}
+                                                        className="img-fluid mb-3"
+                                                        style={{
+                                                            maxHeight: "200px",
+                                                            width: "100%",
+                                                            objectFit: "cover",
+                                                        }}
+                                                        onError={(e) =>
+                                                            (e.target.src =
+                                                                "/api/cover/thumbnail/null")
+                                                        }
+                                                    />
+                                                ) : null}
+
+                                                {item.title && (
+                                                    <div className="mb-2">
+                                                        <strong>Título:</strong>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{
+                                                                __html: item.title.replace(
+                                                                    /\*(.*?)\*/g,
+                                                                    "<strong>$1</strong>"
+                                                                ),
+                                                            }}
+                                                        />
+                                                    </div>
+                                                )}
+
+                                                {item.description && (
+                                                    <div className="mb-2">
+                                                        <strong>
+                                                            Descripción:
+                                                        </strong>
+                                                        <p>
+                                                            {item.description}
+                                                        </p>
+                                                    </div>
+                                                )}
+
+                                                {item.link && (
+                                                    <div className="mb-2">
+                                                        <strong>Enlace:</strong>
+                                                        <a
+                                                            href={item.link}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {item.link}
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                            <div className="card-footer d-flex justify-content-end">
+                                                <button
+                                                    className="btn btn-sm btn-outline-primary me-2"
+                                                    onClick={() =>
+                                                        onModalOpen(item)
+                                                    }
+                                                >
+                                                    <i className="fa fa-edit"></i>{" "}
+                                                    Editar
+                                                </button>
+                                                {/* <button
+                                                    className="btn btn-sm btn-outline-danger"
+                                                    onClick={() =>
+                                                        onDeleteClicked(item.id)
+                                                    }
+                                                >
+                                                    <i className="fa fa-trash"></i>{" "}
+                                                    Eliminar
+                                                </button>*/}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
             <Modal
                 modalRef={modalRef}
                 title={isEditing ? "Editar sección" : "Agregar sección"}
@@ -360,13 +333,18 @@ const LandingHome = ({ items }) => {
                             eRef={titleRef}
                             label="Título"
                             rows={1}
+                            placeholder="Puedes usar *asteriscos* para resaltar texto"
                         />
                         <TextareaFormGroup
                             eRef={descriptionRef}
                             label="Descripción"
                             rows={3}
                         />
-                        <InputFormGroup eRef={linkRef} label="Link" />
+                        <InputFormGroup
+                            eRef={linkRef}
+                            label="Link"
+                            placeholder="https://ejemplo.com"
+                        />
                         <SwitchFormGroup
                             eRef={is_videoRef}
                             onChange={(e) => setIsVideo(e.target.checked)}

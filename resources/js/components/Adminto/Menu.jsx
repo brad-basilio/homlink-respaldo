@@ -217,9 +217,9 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                 <li className="menu-title">Landing Page</li>
                                 <MenuItem
                                     href="/admin/landing_home"
-                                    icon="mdi mdi-email-multiple"
+                                    icon="mdi mdi-tab"
                                 >
-                                    Landings
+                                    Páginas
                                 </MenuItem>
                                 {/*    <MenuItem
                                     href="/admin/subscriptions"
@@ -272,10 +272,10 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                     Testimonios
                                 </MenuItem>
                                 <MenuItem
-                                        href="/admin/categories"
-                                        icon="mdi mdi-clipboard-list-outline"
-                                    >
-                                        Categorias
+                                    href="/admin/categories"
+                                    icon="mdi mdi-clipboard-list-outline"
+                                >
+                                    Categorias
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/posts"
