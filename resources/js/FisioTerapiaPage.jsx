@@ -12,7 +12,15 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import TextWithHighlight from "./Utils/TextWithHighlight";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import {
+    ChevronDown,
+    ChevronLeft,
+    ChevronLeftCircle,
+    ChevronLeftIcon,
+    ChevronRight,
+    ChevronUp,
+    CircleChevronLeft,
+} from "lucide-react";
 
 // Animaciones compartidas
 const containerVariants = {
@@ -297,10 +305,14 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
                             </motion.div>
 
                             <motion.div
-                                className="lg:w-1/2 mt-4 lg:mt-0"
+                                className="lg:w-1/2 mt-4 lg:mt-0 relative"
                                 variants={itemVariants}
                             >
                                 <Swiper
+                                    navigation={{
+                                        prevEl: ".custom-prev",
+                                        nextEl: ".custom-next",
+                                    }}
                                     slidesPerView={3}
                                     spaceBetween={30}
                                     loop={true}
@@ -325,24 +337,37 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
                                 >
                                     {specialities.map((speciality, index) => (
                                         <SwiperSlide key={index}>
-                                            <motion.div
-                                                className="rounded-2xl overflow-hidden shadow-lg h-[380px] lg:h-[650px]"
-                                                whileHover={{ scale: 1.02 }}
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 400,
-                                                    damping: 10,
-                                                }}
-                                            >
-                                                <img
+                                            <motion.div className="rounded-2xl overflow-hidden shadow-lg h-[380px] lg:h-[650px] group">
+                                                <motion.img
                                                     src={`/api/speciality/media/${speciality.image}`}
                                                     alt="Tratamiento de fisioterapia"
+                                                    whileHover={{ scale: 1.1 }}
+                                                    transition={{
+                                                        stiffness: 400,
+                                                        damping: 10,
+                                                    }}
                                                     className="w-full h-full object-cover"
                                                 />
                                             </motion.div>
                                         </SwiperSlide>
                                     ))}
                                 </Swiper>
+                                {/* Botones de navegación personalizados */}
+                                <div className="hidden lg:block absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
+                                    <ChevronLeft
+                                        size={40}
+                                        strokeWidth={3}
+                                        className="text-[#224483] "
+                                    />
+                                </div>
+
+                                <div className="hidden lg:block  absolute top-1/2 right-[-40px]  transform -translate-y-1/2 custom-next cursor-pointer">
+                                    <ChevronRight
+                                        size={40}
+                                        strokeWidth={3}
+                                        className="text-[#224483] "
+                                    />
+                                </div>
 
                                 <motion.div
                                     className="w-[150px] mx-auto overflow-hidden flex justify-center gap-2 mt-10"

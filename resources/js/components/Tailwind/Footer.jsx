@@ -90,36 +90,36 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     className="md:w-[170.52px]  lg:w-[300.52px] object-cover"
                                 />
                             </div>
-                            <div className=" w-full mt-6 flex gap-1">
+                            <div className=" w-full mt-6 flex gap-1 ">
                                 <img
-                                    src="/assets/img/icons/visa.png"
+                                    src="/assets/img/icons/visa.svg"
                                     alt="visa"
-                                    className="h-8 w-auto lg:h-9  object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                                 <img
-                                    src="/assets/img/icons/mastercard.png"
+                                    src="/assets/img/icons/mastercard.svg"
                                     alt="mastercard"
-                                    className="h-8 w-auto lg:h-9 object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                                 <img
-                                    src="/assets/img/icons/amex.png"
+                                    src="/assets/img/icons/amex.svg"
                                     alt="amex"
-                                    className="h-8 w-auto lg:h-9 object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                                 <img
-                                    src="/assets/img/icons/diners.png"
+                                    src="/assets/img/icons/diners.svg"
                                     alt="diners"
-                                    className="h-8 w-auto lg:h-9 object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                                 <img
-                                    src="/assets/img/icons/yape.png"
+                                    src="/assets/img/icons/yape.svg"
                                     alt="yape"
-                                    className="h-8 w-auto lg:h-9 object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                                 <img
-                                    src="/assets/img/icons/plin.png"
+                                    src="/assets/img/icons/plin.svg"
                                     alt="plin"
-                                    className="h-8 w-auto lg:h-9 object-cover"
+                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
                                 />
                             </div>
                         </div>
