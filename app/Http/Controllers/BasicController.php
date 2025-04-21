@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
 use App\Models\Appointment;
+use App\Models\Complaint;
 use App\Models\dxDataGrid;
 use App\Models\General;
 use App\Models\Message;
@@ -112,6 +113,35 @@ class BasicController extends Controller
     }
   }
 
+  public function file(Request $request, string $uuid)
+  {
+
+    try {
+      $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
+      if ($snake_case === 'item_image' || $snake_case === 'item_color') {
+        $snake_case = 'item';
+      }
+
+      if (Text::has($uuid, '.')) {
+        $route = "files/{$snake_case}/{$uuid}";
+      } else {
+        $route = "files/{$snake_case}/{$uuid}.mp4";
+      }
+      $content = Storage::get($route);
+      if (!$content) throw new Exception('Imagen no encontrado');
+      return response($content, 200, [
+        'Content-Type' => 'application/octet-stream'
+      ]);
+    } catch (\Throwable $th) {
+
+      $content = Storage::get('utils/cover-404.svg');
+      $status = 200;
+      if ($this->throwMediaError) return null;
+      return response($content, $status, [
+        'Content-Type' => 'image/svg+xml'
+      ]);
+    }
+  }
   public function setPaginationInstance(string $model)
   {
     return $model::select();
@@ -136,6 +166,7 @@ class BasicController extends Controller
       'session' => Auth::user(),
       'messagesCount' => Message::where('status', true)->where('seen', false)->count(),
       'citasCount' => Appointment::where('status', true)->where('seen', false)->count(),
+      'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
       'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
       'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
       'global' => [
@@ -189,6 +220,7 @@ class BasicController extends Controller
         $table = $this->prefix4filter ? $this->prefix4filter : (new $this->model)->getTable();
         if (Schema::hasColumn($table, 'status')) {
           $instance->whereNotNull($this->prefix4filter ? $this->prefix4filter . '.status' : 'status');
+          $instance->where($this->prefix4filter ? $this->prefix4filter . '.status' : 'status', true);
         }
       }
 
@@ -295,6 +327,7 @@ class BasicController extends Controller
         Storage::put($path, file_get_contents($full));
         $body[$field] = "{$uuid}.{$ext}";
       }
+
 
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
 

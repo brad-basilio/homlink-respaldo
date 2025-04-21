@@ -5,7 +5,14 @@ import Logout from "../../Actions/Logout";
 import MenuItem from "../MenuItem";
 import MenuItemContainer from "../MenuItemContainer";
 
-const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
+const Menu = ({
+    session,
+    hasRole,
+    salesCount,
+    messagesCount,
+    citasCount,
+    reclamosCount,
+}) => {
     const mainRole = session.roles[0];
 
     return (
@@ -138,6 +145,15 @@ const Menu = ({ session, hasRole, salesCount, messagesCount, citasCount }) => {
                                         {citasCount}
                                     </span>
                                     Citas
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/complaints"
+                                    icon="mdi mdi-book-open-page-variant"
+                                >
+                                    <span className="badge bg-primary float-end">
+                                        {reclamosCount}
+                                    </span>
+                                    Reclamaciones
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/services"

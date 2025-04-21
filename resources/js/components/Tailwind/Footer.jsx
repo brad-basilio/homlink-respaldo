@@ -59,7 +59,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const aboutusData = aboutuses?.aboutus || [];
     const generalsData = aboutuses?.generals || [];
     const sedesData = aboutuses?.sedes || [];
-    console.log(sedesData);
+    // console.log(sedesData);
     const policyItems = {
         privacy_policy: "Políticas de privacidad",
         terms_conditions: "Términos y condiciones",
@@ -125,8 +125,11 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         </div>
 
                         <div className="flex flex-col gap-6 lg:w-8/12 lg:grid lg:grid-cols-3">
-                            {sedesData.map((sede) => (
-                                <div className="w-full text-white flex flex-col gap-2 mt-0">
+                            {sedesData.map((sede, index) => (
+                                <div
+                                    key={index}
+                                    className="w-full text-white flex flex-col gap-2 mt-0"
+                                >
                                     <p className="mb-2">
                                         {cleanText(sede.title) ||
                                             "Información no disponible"}
@@ -206,9 +209,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 >
                                     Políticas de cambio
                                 </p>
-                                <p className="text-[14px]">
+                                <a
+                                    href="/libro-de-reclamaciones"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[14px]"
+                                >
                                     Libro de reclamaciones
-                                </p>
+                                </a>
                             </div>
 
                             <div className="w-full text-white flex flex-col gap-2">

@@ -12,7 +12,7 @@ export const CarritoProvider = ({ children }) => {
 
         return data ? JSON.parse(data) : [];
     });
-    console.log("data", carrito);
+    //  console.log("data", carrito);
 
     // Función para obtener precios actualizados desde la API
     const actualizarPrecios = async () => {
@@ -41,7 +41,7 @@ export const CarritoProvider = ({ children }) => {
     // Cargar carrito desde localStorage y actualizar precios al iniciar
     useEffect(() => {
         actualizarPrecios();
-        console.log("estoy actualizando");
+        //console.log("estoy actualizando");
     }, []);
 
     // Guardar cambios en LocalStorage

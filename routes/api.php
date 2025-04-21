@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController
 
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
@@ -51,6 +52,7 @@ use App\Http\Controllers\Customer\SaleController as CustomerSaleController;
 
 // Public
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\CoreValueController;
 use App\Http\Controllers\ItemColorController;
 use App\Http\Controllers\CouponController;
@@ -88,6 +90,8 @@ use App\Models\InstagramPost;
 |
 */
 /*NUEVOS */
+
+Route::post('/reclamos', [ComplaintController::class, 'store']);
 
 Route::get('/generals/get-socials', [GeneralController::class, 'getSocials']);
 Route::get('/generals/get-benefits', [GeneralController::class, 'getBenefits']);
@@ -285,6 +289,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/status', [AdminCategoryController::class, 'status']);
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
+
+
+        Route::post('/complaints', [AdminComplaintController::class, 'save']);
+        Route::post('/complaints/paginate', [AdminComplaintController::class, 'paginate']);
+        Route::patch('/complaints/status', [AdminComplaintController::class, 'status']);
+        Route::patch('/complaints/{field}', [AdminComplaintController::class, 'boolean']);
+        Route::delete('/complaints/{id}', [AdminComplaintController::class, 'delete']);
+
+        Route::get('/complaints/{id}/attachments', [AdminComplaintController::class, 'attachments']);
+        Route::patch('/complaints/{id}/update-estado', [AdminComplaintController::class, 'updateEstado']);
+
+
+
 
         Route::post('/faqs', [AdminFaqController::class, 'save']);
         Route::post('/faqs/paginate', [AdminFaqController::class, 'paginate']);
