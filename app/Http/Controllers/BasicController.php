@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use App\Models\Complaint;
 use App\Models\dxDataGrid;
 use App\Models\General;
+use App\Models\Lang;
 use App\Models\Message;
 use App\Models\Service;
 use App\Models\Slider;
@@ -166,6 +167,7 @@ class BasicController extends Controller
       'session' => Auth::user(),
       'messagesCount' => Message::where('status', true)->where('seen', false)->count(),
       'citasCount' => Appointment::where('status', true)->where('seen', false)->count(),
+      'languagesSystem' => Lang::where('status', true)->where('visible', true)->get(),
       'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
       'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
       'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
@@ -199,10 +201,22 @@ class BasicController extends Controller
 
       //$instance = $this->setPaginationInstance($this->model);
       // Obtener los with desde el request (si no se envían, será un array vacío)
-      $withRelations = $request->has('with') ? explode(',', $request->with) : [];
+      // [NUEVO] Obtener el idioma actual
+      $langId = app('current_lang_id'); // Ya lo establece el middleware
+
+
+      // [MODIFICADO] Aplicar with dinámicamente + filtro de idioma
+      $instance = $this->setPaginationInstance($this->model)
+        ->when($langId && Schema::hasColumn((new $this->model)->getTable(), 'lang_id'), function ($query) use ($langId) {
+          $query->where('lang_id', $langId); // Filtra solo si el modelo tiene lang_id
+        })
+        ->with($request->has('with') ? explode(',', $request->with) : []);
+
+      /* $withRelations = $request->has('with') ? explode(',', $request->with) : [];
 
       // Aplicar with dinámicamente
-      $instance = $this->setPaginationInstance($this->model)->with($withRelations);
+      $instance = $this->setPaginationInstance($this->model)->with($withRelations);*/
+
 
       if ($request->group != null) {
         [$grouping] = $request->group;
@@ -292,22 +306,17 @@ class BasicController extends Controller
 
   public function save(Request $request): HttpResponse|ResponseFactory
   {
-
-
     $response = new Response();
     try {
-
       $body = $this->beforeSave($request);
 
-
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
-      // dump($snake_case);
       if ($snake_case === "item_image" || $snake_case === "item_color" || $snake_case === "item_zise") {
         $snake_case = 'item';
       }
 
+      // Procesar imágenes
       foreach ($this->imageFields as $field) {
-
         if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
         $uuid = Crypto::randomUUID();
@@ -317,7 +326,7 @@ class BasicController extends Controller
         $body[$field] = "{$uuid}.{$ext}";
       }
 
-      // Procesar videos (nuevo)
+      // Procesar videos
       foreach ($this->videoFields as $field) {
         if (!$request->hasFile($field)) continue;
         $full = $request->file($field);
@@ -328,9 +337,15 @@ class BasicController extends Controller
         $body[$field] = "{$uuid}.{$ext}";
       }
 
+      // Asignar lang_id si el modelo lo tiene y no fue enviado
+      $langId = app('current_lang_id');
+      $table = (new $this->model)->getTable();
+      if (Schema::hasColumn($table, 'lang_id') && !isset($body['lang_id'])) {
+        $body['lang_id'] = $langId;
+      }
 
+      // Crear o actualizar registro
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
-
       if (!$jpa) {
         $body['slug'] = Crypto::randomUUID();
         $jpa = $this->model::create($body);
@@ -338,7 +353,7 @@ class BasicController extends Controller
         $jpa->update($body);
       }
 
-      $table = (new $this->model)->getTable();
+      // Generar slug único si el modelo tiene columna 'slug'
       if (Schema::hasColumn($table, 'slug')) {
         $slugSource = $jpa->name ?? $jpa->title ?? null;
         if ($slugSource) {
@@ -351,15 +366,15 @@ class BasicController extends Controller
         }
       }
 
+      // Post-guardado
       $data = $this->afterSave($request, $jpa);
       if ($data) {
         $response->data = $data;
       }
-      //dump("esto es la data:", $data, "y el response", $response);
+
       $response->status = 200;
       $response->message = 'Operacion correcta';
     } catch (\Throwable $th) {
-      // dump($th->getMessage());
       $response->status = 400;
       $response->message = $th->getMessage();
     } finally {
@@ -369,6 +384,7 @@ class BasicController extends Controller
       );
     }
   }
+
 
   public function afterSave(Request $request, object $jpa)
   {

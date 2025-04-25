@@ -173,7 +173,7 @@ const ContactForm = ({}) => {
 
         const result = await messagesRest.save(request);
         setSending(false);
-
+        window.location.href = "/thanks";
         if (!result) return;
 
         Swal.fire({

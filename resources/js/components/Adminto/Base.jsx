@@ -3,6 +3,7 @@ import Footer from "./Footer";
 import Menu from "./Menu";
 import NavBar from "./NavBar";
 import RigthBar from "./RightBar";
+import { LanguageProvider } from "../../context/LanguageContext";
 
 //import WhatsAppModal from '../modals/WhatsAppModal'
 
@@ -10,7 +11,7 @@ moment.tz.setDefault("UTC");
 
 const Base = ({ children, title, ...props }) => {
     return (
-        <>
+        <LanguageProvider>
             <div id="wrapper">
                 <NavBar
                     {...props}
@@ -28,7 +29,7 @@ const Base = ({ children, title, ...props }) => {
             {/*<WhatsAppModal status={whatsappStatus} setStatus={setWhatsappStatus} />*/}
             <RigthBar {...props} />
             <div className="rightbar-overlay"></div>
-        </>
+        </LanguageProvider>
     );
 };
 

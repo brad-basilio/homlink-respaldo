@@ -4,6 +4,7 @@ import "tippy.js/dist/tippy.css";
 import Logout from "../../Actions/Logout";
 import MenuItem from "../MenuItem";
 import MenuItemContainer from "../MenuItemContainer";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const Menu = ({
     session,
@@ -14,7 +15,18 @@ const Menu = ({
     reclamosCount,
 }) => {
     const mainRole = session.roles[0];
+    const { t, loading, error } = useTranslation();
+    if (loading) {
+        return <div className="text-center py-4">Cargando menú...</div>;
+    }
 
+    if (error) {
+        return (
+            <div className="alert alert-danger m-3">
+                Error cargando traducciones: {error}
+            </div>
+        );
+    }
     return (
         <div
             className="left-side-menu"
@@ -126,7 +138,13 @@ const Menu = ({
                                     href="/admin/home"
                                     icon="mdi mdi-home"
                                 >
-                                    Dashboard
+                                    {t("admin.sidebar.dashboard", "Dashboard")}
+                                </MenuItem>
+                                <MenuItem
+                                    href="/admin/langs"
+                                    icon="mdi mdi-google-translate"
+                                >
+                                    {t("admin.sidebar.languages", "Idiomas")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/messages"
@@ -135,7 +153,8 @@ const Menu = ({
                                     <span className="badge bg-primary float-end">
                                         {messagesCount}
                                     </span>
-                                    Mensajes
+
+                                    {t("admin.sidebar.messages", "Mensajes")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/appointments"
@@ -144,7 +163,8 @@ const Menu = ({
                                     <span className="badge bg-primary float-end">
                                         {citasCount}
                                     </span>
-                                    Citas
+
+                                    {t("admin.sidebar.appointments", "Citas")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/complaints"
@@ -153,31 +173,41 @@ const Menu = ({
                                     <span className="badge bg-primary float-end">
                                         {reclamosCount}
                                     </span>
-                                    Reclamaciones
+
+                                    {t(
+                                        "admin.sidebar.complaints",
+                                        "Reclamaciones"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/services"
                                     icon="mdi mdi-shield-star"
                                 >
-                                    Servicios
+                                    {t("admin.sidebar.services", "Servicios")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/specialities"
                                     icon="mdi mdi-tag-faces"
                                 >
-                                    Especialidades
+                                    {t(
+                                        "admin.sidebar.specialties",
+                                        "Especialidades"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/facilities"
                                     icon="mdi mdi-office-building-marker"
                                 >
-                                    Instalaciones
+                                    {t(
+                                        "admin.sidebar.facilities",
+                                        "Instalaciones"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/staff"
                                     icon="mdi mdi-account-heart"
                                 >
-                                    Staff
+                                    {t("admin.sidebar.staff", "Staff")}
                                 </MenuItem>
                                 {/* <MenuItem
                                     href="/admin/sales"
@@ -232,10 +262,19 @@ const Menu = ({
                                 </MenuItemContainer>*/}
                                 <li className="menu-title">Landing Page</li>
                                 <MenuItem
+                                    href="/admin/translations"
+                                    icon="mdi mdi-translate"
+                                >
+                                    {t(
+                                        "admin.sidebar.translations",
+                                        "Traducciones"
+                                    )}
+                                </MenuItem>
+                                <MenuItem
                                     href="/admin/landing_home"
                                     icon="mdi mdi-tab"
                                 >
-                                    Páginas
+                                    {t("admin.sidebar.pages", "Páginas")}
                                 </MenuItem>
                                 {/*    <MenuItem
                                     href="/admin/subscriptions"
@@ -267,13 +306,16 @@ const Menu = ({
                                     href="/admin/indicators"
                                     icon="mdi mdi-checkbox-marked-outline"
                                 >
-                                    Indicadores
+                                    {t(
+                                        "admin.sidebar.indicators",
+                                        "Indicadores"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/strengths"
                                     icon="mdi mdi-cards-heart"
                                 >
-                                    Beneficios
+                                    {t("admin.sidebar.benefits", "Beneficios")}
                                 </MenuItem>
                                 {/*  <MenuItem
                                     href="/admin/core_values"
@@ -285,19 +327,25 @@ const Menu = ({
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"
                                 >
-                                    Testimonios
+                                    {t(
+                                        "admin.sidebar.testimonials",
+                                        "Testimonios"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/categories"
                                     icon="mdi mdi-clipboard-list-outline"
                                 >
-                                    Categorias
+                                    {t(
+                                        "admin.sidebar.categories",
+                                        "Categorias"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/posts"
                                     icon="mdi mdi-book-open-page-variant"
                                 >
-                                    Posts
+                                    {t("admin.sidebar.posts", "Posts")}
                                 </MenuItem>
                                 {/*
                                 <MenuItem
@@ -310,32 +358,38 @@ const Menu = ({
                                     href="/admin/socials"
                                     icon="mdi mdi-web"
                                 >
-                                    Redes Sociales
+                                    {t(
+                                        "admin.sidebar.socials",
+                                        "Redes Sociales"
+                                    )}
                                 </MenuItem>
                                 <li className="menu-title">Configuraciones</li>
                                 <MenuItem
                                     href="/admin/users"
                                     icon="mdi mdi-account-multiple"
                                 >
-                                    Usuarios
+                                    {t("admin.sidebar.users", "Usuarios")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/generals"
                                     icon="mdi mdi-credit-card-settings"
                                 >
-                                    Datos Generales
+                                    {t(
+                                        "admin.sidebar.generals",
+                                        "Datos Generales"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/profile"
                                     icon="mdi mdi-account-box"
                                 >
-                                    Mi perfil
+                                    {t("admin.sidebar.profile", "Mi perfil")}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/account"
                                     icon="mdi mdi-account-key"
                                 >
-                                    Mi cuenta
+                                    {t("admin.sidebar.account", "Mi cuenta")}
                                 </MenuItem>
                             </>
                         )}

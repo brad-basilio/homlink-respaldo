@@ -1,18 +1,81 @@
-import React, { useEffect } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import Logout from "../../Actions/Logout";
 import Global from "../../Utils/Global";
 import WhatsAppStatuses from "../../Reutilizables/WhatsApp/WhatsAppStatuses";
+import {
+    LanguageContext,
+    LanguageProvider,
+} from "../../context/LanguageContext";
 //const NavBar = ({ session = {}, title = "Pagina", whatsappStatus })
-const NavBar = ({ session = {}, title = "Pagina" }) => {
+const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
+    //   console.log(languagesSystem);
     // const { color } = WhatsAppStatuses[whatsappStatus];
 
     useEffect(() => {
         document.title = `${title} | ${Global.APP_NAME}`;
     }, [null]);
+    const { changeLanguage } = useContext(LanguageContext);
+    const onUseLanguage = async (langData) => {
+        try {
+            // Obtén el token CSRF de las cookies automáticamente
+            const response = await fetch("/set-current-lang", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-XSRF-TOKEN": getCsrfTokenFromCookie(), // Función para obtenerlo
+                },
+                body: JSON.stringify({ lang_id: langData.id }),
+                credentials: "include", // Permite enviar cookies
+            });
 
+            if (response.ok) {
+                await changeLanguage(langData); // ✅ Agrega await aquí
+                window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
+            } else {
+                console.error("Error:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error de red:", error);
+        }
+    };
+
+    // Función para extraer el token de la cookie
+    const getCsrfTokenFromCookie = () => {
+        const cookie = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+        return cookie ? decodeURIComponent(cookie[1]) : null;
+    };
     return (
         <div className="navbar-custom">
             <ul className="list-unstyled topnav-menu float-end mb-0">
+                <li className="dropdown notification-list topbar-dropdown ">
+                    <div className=" ">
+                        <div className="d-flex gap-0 align-items-center justify-content-center ">
+                            {languagesSystem.map((language) => (
+                                <a
+                                    key={language.id}
+                                    className="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
+                                    data-bs-toggle="dropdown"
+                                    href="#"
+                                    role="button"
+                                    aria-haspopup="false"
+                                    aria-expanded="false"
+                                    onClick={() => onUseLanguage(language)}
+                                >
+                                    <img
+                                        src={`/api/lang/media/${language.image}`}
+                                        alt={language.name}
+                                        style={{
+                                            width: "40px",
+                                        }}
+                                        onError={(e) =>
+                                            (e.target.src = `https://ui-avatars.com/api/?name=${session.name}+${session.lastname}&color=7F9CF5&background=EBF4FF`)
+                                        }
+                                    />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </li>
                 <li className="dropdown notification-list topbar-dropdown">
                     {/*
                       <li className="notification-list topbar-dropdown d-none d-lg-block">
@@ -34,6 +97,7 @@ const NavBar = ({ session = {}, title = "Pagina" }) => {
                     </a>
                 </li>
                     */}
+
                     <a
                         className="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
                         data-bs-toggle="dropdown"

@@ -19,5 +19,10 @@ class Category extends Model
         'description',
         'visible',
         'status',
+        'lang_id',
     ];
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }

@@ -12,6 +12,7 @@ import DxButton from "../Components/dx/DxButton";
 import CreateReactScript from "../Utils/CreateReactScript";
 import ReactAppend from "../Utils/ReactAppend";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
+import { LanguageProvider } from "../context/LanguageContext";
 const servicesRest = new ServicesRest();
 
 const Services = ({ brands }) => {
@@ -508,8 +509,10 @@ const Services = ({ brands }) => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Servicios">
-            <Services {...properties} />
-        </BaseAdminto>
+        <LanguageProvider>
+            <BaseAdminto {...properties} title="Servicios">
+                <Services {...properties} />
+            </BaseAdminto>
+        </LanguageProvider>
     );
 });

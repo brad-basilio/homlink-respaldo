@@ -19,6 +19,12 @@ class Testimony extends Model
         'description',
         'visible',
         'status',
-        'image'
+        'image',
+        'lang_id',
+
     ];
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }

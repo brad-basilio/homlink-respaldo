@@ -6,57 +6,154 @@ import { Local } from "sode-extend-react";
 import { CarritoProvider } from "./context/CarritoContext";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
+import { motion } from "framer-motion";
+
+// Animaciones configuradas
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.2,
+            when: "beforeChildren",
+        },
+    },
+};
+
+const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+        y: 0,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            stiffness: 100,
+            damping: 10,
+        },
+    },
+};
+
+const checkmarkVariants = {
+    hidden: { scale: 0 },
+    visible: {
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+        },
+    },
+};
+
+const pulseVariants = {
+    initial: { scale: 1 },
+    pulse: {
+        scale: [1, 1.05, 1],
+        transition: {
+            duration: 1.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+        },
+    },
+};
+
 const Thanks = ({ session }) => {
     useEffect(() => {
         history.replaceState(null, "", "/thanks");
-        //Local.delete('vua_cart');
-        //Local.delete('vua_test');
         localStorage.removeItem("carrito");
-    }, [null]);
+    }, []);
+
+    const handleReturnHome = () => {
+        window.location.href = "/";
+    };
 
     return (
         <>
-            <Header showSlogan={true} backgroundHeight="h-0" />
-            <div>
-                <section
-                    className="min-h-screen px-[3%] lg:px-[10%] py-[10%] md:py-[7.5%] lg:py-[5%] bg-[#F9F3EF] text-center"
-                    style={{
-                        backgroundImage:
-                            "url('/assets/img/about/bg-about.png')",
-                        backgroundPosition: "top",
-                        backgroundSize: "cover", // Cambiado a "cover" para llenar todo el espacio
-                        backgroundRepeat: "no-repeat",
-                        width: "100%", // Cambiado de 100vw a 100% para evitar scroll horizontal
-                        height: "200vh", // Asegura que ocupe toda la altura de la pantalla
-                        position: "relative", // Añadido para mejor manejo de elementos hijos
-                    }}
+            <Header />
+            <div className="flex flex-col items-center justify-center min-h-screen px-5 py-10 bg-gradient-to-br from-gray-50 to-gray-200">
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                    className="w-full max-w-lg p-10 bg-white rounded-xl shadow-2xl flex flex-col items-center"
                 >
-                    <div className="max-w-4xl mx-auto text-white">
-                        <h1 className="text-3xl lg:text-[62.25px] tracking-[-0.25px] leading-[74.22px]">
-                            <b>¡Ya eres parte de la revolución menstrual! </b>
-                            <img
-                                src="/assets/img/emojis/drop-of-blood.png"
-                                alt="blood"
-                                className="inline-flex h-6 w-6 align-middle"
-                            />
-                        </h1>
-                        <p className="mt-4 text-[28.67px] font-light max-w-4xl mx-auto ">
-                            Estamos segurxs que tu producto weFem se convertirá
-                            en tu mejor aliada y será solo el inicio de tu
-                            libertad menstrual. La tendrás en tus manos en un
-                            rango de 2 a 4 días hábiles.
-                        </p>
-                    </div>
-                    {/*session?.id && (
-                        <button
-                            href="/my-account"
-                            className="mt-[15%] md:mt-[10%] lg:mt-[5%] bg-[#C5B8D4] text-white text-sm px-8 py-3 rounded border border-white w-max  text-nowrap"
-                        >
-                            MIS FÓRMULAS
-                            <i className="ms-1 mdi mdi-arrow-top-right"></i>
-                        </button>
-                    )*/}
-                </section>
+                    {/* Checkmark icon with animation */}
+                    <motion.div
+                        variants={checkmarkVariants}
+                        className="relative mb-8"
+                    >
+                        <motion.div
+                            variants={pulseVariants}
+                            initial="initial"
+                            animate="pulse"
+                            className="absolute flex items-center justify-center inset-0 rounded-full bg-blue-100 opacity-70"
+                            style={{ width: "80px", height: "80px" }}
+                        />
+                        <div className="flex items-center justify-center w-20 h-20 rounded-full  z-10 relative">
+                            <motion.span
+                                className="text-4xl text-blue-500"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{
+                                    delay: 0.3,
+                                    type: "spring",
+                                    stiffness: 300,
+                                }}
+                            >
+                                ✓
+                            </motion.span>
+                        </div>
+                    </motion.div>
+
+                    {/* Title */}
+                    <motion.h1
+                        variants={itemVariants}
+                        className="text-3xl font-bold text-gray-800 mb-4 text-center"
+                    >
+                        ¡Gracias por contactarnos!
+                    </motion.h1>
+
+                    {/* Divider */}
+                    <motion.div
+                        variants={itemVariants}
+                        className="w-20 h-1 bg-gradient-to-r from-blue-600 to-[#224483] rounded-full mb-6"
+                    />
+
+                    {/* Message */}
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-base text-gray-600 text-center mb-6 max-w-md leading-relaxed"
+                    >
+                        Hemos recibido su mensaje correctamente. Nuestro equipo
+                        revisará su solicitud y nos pondremos en contacto con
+                        usted a la brevedad.
+                    </motion.p>
+
+                    {/* Response time */}
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-sm text-gray-500 mb-8 px-4 py-2 bg-gray-50 rounded-lg"
+                    >
+                        Tiempo estimado de respuesta:{" "}
+                        <strong className="text-[#224483]">
+                            24-48 horas hábiles
+                        </strong>
+                    </motion.p>
+
+                    {/* Return button */}
+                    <motion.button
+                        variants={itemVariants}
+                        whileHover={{
+                            scale: 1.05,
+                            boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                        }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={handleReturnHome}
+                        className="px-8 py-3 bg-gradient-to-r from-blue-600 to-[#224483] text-white font-medium rounded-lg hover:shadow-md transition-all duration-200"
+                    >
+                        Volver al inicio
+                    </motion.button>
+                </motion.div>
             </div>
             <Footer />
         </>

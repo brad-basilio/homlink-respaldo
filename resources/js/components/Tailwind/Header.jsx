@@ -5,6 +5,8 @@ import { CarritoContext } from "../../context/CarritoContext";
 import GeneralRest from "../../actions/GeneralRest";
 import { TbBrush } from "react-icons/tb";
 import { Trash2 } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
+import { LanguageContext } from "../../context/LanguageContext";
 
 const generalRest = new GeneralRest();
 
@@ -80,6 +82,18 @@ const Header = ({
     backgroundPosition = "object-top",
     children,
 }) => {
+    const { t, loading, error } = useTranslation();
+    /*  if (loading) {
+        return <div className="text-center py-4">Cargando menú...</div>;
+    }
+
+    if (error) {
+        return (
+            <div className="alert alert-danger m-3">
+                Error cargando traducciones: {error}
+            </div>
+        );
+    }*/
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
     const btnToggleRef = useRef(null);
@@ -155,12 +169,14 @@ const Header = ({
     }, 0);
 
     const [socials, setSocials] = useState([]);
-
+    const [languagesSystem, setLanguagesSystem] = useState([]);
     useEffect(() => {
         const fetchSocials = async () => {
             try {
                 const data = await generalRest.getSocials();
+                const languages = await generalRest.getLanguages();
                 setSocials(data);
+                setLanguagesSystem(languages);
             } catch (error) {
                 console.error("Error fetching socials:", error);
             }
@@ -193,6 +209,37 @@ const Header = ({
 
     const isActive = (path) => {
         return activeLink === path;
+    };
+
+    const { changeLanguage } = useContext(LanguageContext);
+    const onUseLanguage = async (langData) => {
+        try {
+            // Obtén el token CSRF de las cookies automáticamente
+            const response = await fetch("/set-current-lang", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-XSRF-TOKEN": getCsrfTokenFromCookie(), // Función para obtenerlo
+                },
+                body: JSON.stringify({ lang_id: langData.id }),
+                credentials: "include", // Permite enviar cookies
+            });
+
+            if (response.ok) {
+                await changeLanguage(langData); // ✅ Agrega await aquí
+                window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
+            } else {
+                console.error("Error:", await response.text());
+            }
+        } catch (error) {
+            console.error("Error de red:", error);
+        }
+    };
+
+    // Función para extraer el token de la cookie
+    const getCsrfTokenFromCookie = () => {
+        const cookie = document.cookie.match(/XSRF-TOKEN=([^;]+)/);
+        return cookie ? decodeURIComponent(cookie[1]) : null;
     };
 
     return (
@@ -279,9 +326,9 @@ const Header = ({
                             <a href="/">
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
-                                    src="/assets/img/logo.svg"
+                                    src="/assets/img/logo.png"
                                     alt="NoPain Logo"
-                                    className="h-[40px] w-auto md:h-[36.8px] object-cover object-top"
+                                    className="h-[40px] w-auto md:h-[50px] object-cover object-top"
                                 />
                             </a>
                         </motion.div>
@@ -300,12 +347,27 @@ const Header = ({
                                     "/blog",
                                 ].map((path) => {
                                     const text = {
-                                        "/": "Inicio",
-                                        "/services": "Servicios",
-                                        "/about": "Nosotros",
-                                        "/offices": "Instalaciones",
-                                        "/contact": "Contacto",
-                                        "/blog": "Blog",
+                                        "/": t("public.header.home", "Inicio"),
+                                        "/services": t(
+                                            "public.header.services",
+                                            "Servicios"
+                                        ),
+                                        "/about": t(
+                                            "public.header.aboutus",
+                                            "Nosotros"
+                                        ),
+                                        "/offices": t(
+                                            "public.header.facilities",
+                                            "Instalaciones"
+                                        ),
+                                        "/contact": t(
+                                            "public.header.contac",
+                                            "Contacto"
+                                        ),
+                                        "/blog": t(
+                                            "public.header.blog",
+                                            "Blog"
+                                        ),
                                     }[path];
 
                                     return (
@@ -341,16 +403,16 @@ const Header = ({
                             variants={itemVariants}
                             className="hidden lg:flex h-full items-center gap-4 justify-end"
                         >
-                            <motion.img
-                                whileHover={{ y: -2 }}
-                                src="/assets/img/icons/peru_flag.png"
-                                className="h-6 w-auto object-cover"
-                            />
-                            <motion.img
-                                whileHover={{ y: -2 }}
-                                src="/assets/img/icons/uuee_flag.png"
-                                className="h-6 w-auto object-cover"
-                            />
+                            {languagesSystem.map((language) => (
+                                <motion.img
+                                    onClick={() => onUseLanguage(language)}
+                                    key={language.id}
+                                    whileHover={{ y: -2 }}
+                                    src={`/api/lang/media/${language.image}`}
+                                    alt={language.name}
+                                    className="h-6 w-auto object-cover"
+                                />
+                            ))}
                         </motion.div>
 
                         <motion.div
@@ -437,12 +499,27 @@ const Header = ({
                                     "/blog",
                                 ].map((path) => {
                                     const text = {
-                                        "/": "Inicio",
-                                        "/services": "Servicios",
-                                        "/about": "Nosotros",
-                                        "/offices": "Instalaciones",
-                                        "/contact": "Contacto",
-                                        "/blog": "Blog",
+                                        "/": t("public.header.home", "Inicio"),
+                                        "/services": t(
+                                            "public.header.services",
+                                            "Servicios"
+                                        ),
+                                        "/about": t(
+                                            "public.header.aboutus",
+                                            "Nosotros"
+                                        ),
+                                        "/offices": t(
+                                            "public.header.facilities",
+                                            "Instalaciones"
+                                        ),
+                                        "/contact": t(
+                                            "public.header.contac",
+                                            "Contacto"
+                                        ),
+                                        "/blog": t(
+                                            "public.header.blog",
+                                            "Blog"
+                                        ),
                                     }[path];
 
                                     return (

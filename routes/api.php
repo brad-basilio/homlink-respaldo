@@ -16,12 +16,13 @@ use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
-
+use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
+use App\Http\Controllers\Admin\TranslationController as AdminTranslationController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
 use App\Http\Controllers\Admin\CoreValueController as AdminCoreValueController;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
@@ -71,6 +72,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecialityController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StrengthController;
 use App\Http\Controllers\SubscriptionController;
@@ -78,6 +80,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
 use App\Models\InstagramPost;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,9 +94,14 @@ use App\Models\InstagramPost;
 */
 /*NUEVOS */
 
+
+Route::get('/translations/{lang_id}', [AdminTranslationController::class, 'getByLang']);
+
+
 Route::post('/reclamos', [ComplaintController::class, 'store']);
 
 Route::get('/generals/get-socials', [GeneralController::class, 'getSocials']);
+Route::get('/generals/get-languages', [GeneralController::class, 'getLanguages']);
 Route::get('/generals/get-benefits', [GeneralController::class, 'getBenefits']);
 Route::get('/generals/get-aboutuses', [GeneralController::class, 'getAboutuses']);
 
@@ -113,6 +121,7 @@ Route::get('/indicator/media/{uuid}', [IndicatorController::class, 'media']);
 Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
 Route::get('/staff/media/{uuid}', [StaffController::class, 'media']);
 Route::get('/speciality/media/{uuid}', [SpecialityController::class, 'media']);
+Route::get('/lang/media/{uuid}', [LangController::class, 'media']);
 
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
@@ -327,6 +336,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('/socials/{field}', [AdminSocialController::class, 'boolean']);
         Route::delete('/socials/{id}', [AdminSocialController::class, 'delete']);
 
+        Route::post('/translations', [AdminTranslationController::class, 'save']);
+        Route::post('/translations/paginate', [AdminTranslationController::class, 'paginate']);
+        Route::patch('/translations/status', [AdminTranslationController::class, 'status']);
+        Route::patch('/translations/{field}', [AdminTranslationController::class, 'boolean']);
+        Route::delete('/translations/{id}', [AdminTranslationController::class, 'delete']);
+        Route::post('/translations/translate', [AdminTranslationController::class, 'translate']);
+
         Route::post('/generals', [AdminGeneralController::class, 'save']);
         Route::post('/generals/paginate', [AdminGeneralController::class, 'paginate']);
         Route::patch('/generals/status', [AdminGeneralController::class, 'status']);
@@ -354,6 +370,8 @@ Route::middleware('auth')->group(function () {
         Route::patch('/landing_home/status', [AdminLandingHomeController::class, 'status']);
         Route::patch('/landing_home/{field}', [AdminLandingHomeController::class, 'boolean']);
         Route::delete('/landing_home/{id}', [AdminLandingHomeController::class, 'delete']);
+        Route::post('/landing_home/translate', [AdminLandingHomeController::class, 'translate']);
+        Route::get('/landing_home/by_lang/{langId}', [AdminLandingHomeController::class, 'getByLang']);
 
         Route::post('/services', [AdminServiceController::class, 'save']);
         Route::post('/services/paginate', [AdminServiceController::class, 'paginate']);
@@ -378,6 +396,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/specialities/status', [AdminSpecialityController::class, 'status']);
         Route::patch('/specialities/{field}', [AdminSpecialityController::class, 'boolean']);
         Route::delete('/specialities/{id}', [AdminSpecialityController::class, 'delete']);
+
+        Route::post('/langs', [AdminLangController::class, 'save']);
+        Route::post('/langs/paginate', [AdminLangController::class, 'paginate']);
+        Route::patch('/langs/status', [AdminLangController::class, 'status']);
+        Route::patch('/langs/{field}', [AdminLangController::class, 'boolean']);
+        Route::delete('/langs/{id}', [AdminLangController::class, 'delete']);
     });
 
     Route::middleware('can:Customer')->prefix('customer')->group(function () {

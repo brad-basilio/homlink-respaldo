@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
+use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
 
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
@@ -20,6 +21,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
+use App\Http\Controllers\Admin\TranslationController as AdminTranslationController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
 use App\Http\Controllers\Admin\CoreValueController as AdminCoreValueController;
 use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
@@ -65,6 +67,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\ThankController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +79,15 @@ use App\Http\Controllers\ThankController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// routes/api.php (o web.php)
+// routes/web.php
+Route::post('/set-current-lang', function (Request $request) {
+    dump($request->all());
+    $request->validate(['lang_id' => 'required|exists:langs,id']);
+    session(['current_lang_id' => $request->lang_id]);
+    dump(session('current_lang_id'));
+    return response()->json(['success' => true]);
+})->middleware('web'); // <-- El middleware 'web' es clave
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
@@ -123,6 +135,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/facilities', [AdminFacilityController::class, 'reactView'])->name('Admin/Facilities.jsx');
     Route::get('/staff', [AdminStaffController::class, 'reactView'])->name('Admin/Staff.jsx');
     Route::get('/specialities', [AdminSpecialityController::class, 'reactView'])->name('Admin/Specialities.jsx');
+    Route::get('/langs', [AdminLangController::class, 'reactView'])->name('Admin/Langs.jsx');
     Route::get('/appointments', [AdminAppointmentController::class, 'reactView'])->name('Admin/Appointments.jsx');
 
     Route::get('/sales', [AdminSaleController::class, 'reactView'])->name('Admin/Sales.jsx');
@@ -151,6 +164,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/tags', [AdminTagController::class, 'reactView'])->name('Admin/Tags.jsx');
     Route::get('/faqs', [AdminFaqController::class, 'reactView'])->name('Admin/Faqs.jsx');
     Route::get('/socials', [AdminSocialController::class, 'reactView'])->name('Admin/Socials.jsx');
+    Route::get('/translations', [AdminTranslationController::class, 'reactView'])->name('Admin/Translations.jsx');
     Route::get('/strengths', [AdminStrengthController::class, 'reactView'])->name('Admin/Strengths.jsx');
     Route::get('/core_values', [AdminCoreValueController::class, 'reactView'])->name('Admin/CoreValues.jsx');
     Route::get('/generals', [AdminGeneralController::class, 'reactView'])->name('Admin/Generals.jsx');

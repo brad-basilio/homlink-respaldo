@@ -9,6 +9,7 @@ use App\Models\dxDataGrid;
 use App\Models\Facility;
 use App\Models\General;
 use App\Models\Indicator;
+use App\Models\Lang;
 use App\Models\Slider;
 use App\Models\Social;
 use Exception;
@@ -37,6 +38,27 @@ class GeneralController extends BasicController
         $response = new Response();
         try {
             $data = Social::all();
+            // dump($data);
+            $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
+    }
+
+    public function getLanguages(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+            $data = Lang::all();
             // dump($data);
             $response->data = $data;
             $response->status = 200;

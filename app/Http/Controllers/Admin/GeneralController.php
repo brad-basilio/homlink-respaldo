@@ -17,7 +17,8 @@ class GeneralController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
-        $generals = General::all();
+        $langId = app('current_lang_id');
+        $generals = General::where('lang_id', $langId)->get();
         return [
             'generals' => $generals
         ];

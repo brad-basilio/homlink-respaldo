@@ -1,4 +1,5 @@
 import React from "react";
+import { LanguageProvider } from "../../context/LanguageContext";
 
 const Base = ({
     children,
@@ -12,7 +13,11 @@ const Base = ({
     gradientEnd = "#f1d7c1",
     menuGradientEnd = "#dbc8c9",
 }) => {
-    return <section> {children}</section>;
+    return (
+        <LanguageProvider>
+            <section> {children}</section>
+        </LanguageProvider>
+    );
 };
 
 export default Base;

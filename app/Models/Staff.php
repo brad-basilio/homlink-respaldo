@@ -21,9 +21,15 @@ class Staff extends Model
         'slug',
         'characteristics',
         'socials',
+        'lang_id'
     ];
     protected $casts = [
         'characteristics' => 'array',
         'socials' => 'array'
     ];
+
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }

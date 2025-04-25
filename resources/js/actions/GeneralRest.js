@@ -24,7 +24,26 @@ class GeneralRest extends BasicRest {
             return [];
         }
     };
+    getLanguages = async () => {
+        try {
+            const { status, result } = await Fetch(
+                `/api/${this.path}/get-languages`,
+                {
+                    method: "GET",
+                }
+            );
 
+            if (!status)
+                throw new Error(
+                    result?.message ?? "Ocurrió un error al consultar"
+                );
+
+            return result?.data ?? [];
+        } catch (error) {
+            console.error("Error en getSocials:", error);
+            return [];
+        }
+    };
     getBenefits = async () => {
         try {
             const { status, result } = await Fetch(

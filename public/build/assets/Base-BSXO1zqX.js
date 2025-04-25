@@ -1,1 +1,0 @@
-import{j as t}from"./FileViewer-CpM0iYLI.js";import"./index-B80Lgev0.js";const x=({children:s,footerLinks:r,session:e,socials:o,terms:n,showSlogan:i=!0,showFooter:a=!0,gradientStart:d="#c4b8d3",gradientEnd:c="#f1d7c1",menuGradientEnd:m="#dbc8c9"})=>t.jsxs("section",{children:[" ",s]});export{x as B};

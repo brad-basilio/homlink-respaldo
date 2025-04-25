@@ -23,6 +23,7 @@ class Post extends Model
         'content',
         'post_date',
         'status',
+        'lang_id'
     ];
 
     public function category()
@@ -33,5 +34,10 @@ class Post extends Model
     public function tags()
     {
         return $this->hasManyThrough(Tag::class, PostTag::class, 'post_id', 'id', 'id', 'tag_id');
+    }
+
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
     }
 }

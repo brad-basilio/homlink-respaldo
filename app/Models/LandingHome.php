@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LandingHome extends Model
 {
@@ -23,6 +24,29 @@ class LandingHome extends Model
         'visible',
         'correlative',
         'is_video',
-        'video'
+        'video',
+        'lang_id',
+        'original_id',
     ];
+    public function lang(): BelongsTo
+    {
+        return $this->belongsTo(Lang::class);
+    }
+
+    public function original()
+    {
+        return $this->belongsTo(LandingHome::class, 'original_id');
+    }
+
+    public function translations()
+    {
+        return $this->hasMany(LandingHome::class, 'original_id')
+            ->where('id', '!=', $this->id);
+    }
+
+    // Obtener el registro original (idioma base)
+    public function getOriginalRecord()
+    {
+        return $this->original_id ? $this->original : $this;
+    }
 }

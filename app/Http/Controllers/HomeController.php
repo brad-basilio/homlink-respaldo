@@ -8,6 +8,7 @@ use App\Models\Indicator;
 use App\Models\InstagramPost;
 use App\Models\Item;
 use App\Models\LandingHome;
+use App\Models\Lang;
 use App\Models\Post;
 use App\Models\Service;
 use App\Models\Slider;
@@ -34,6 +35,7 @@ class HomeController extends BasicController
         $services = Service::where('featured', true)->where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
         $staff_boss = Staff::where('status', true)->where('visible', true)->where('job', 'LIKE', 'Director%')->first();
+
         return [
 
             'indicators' => $indicators,
@@ -42,6 +44,7 @@ class HomeController extends BasicController
             'services' => $services,
             'testimonies' => $testimonies,
             'staff_boss' => $staff_boss,
+            // 'languagesSystem' => Lang::where('status', true)->where('visible', true)->get(),
         ];
     }
 }

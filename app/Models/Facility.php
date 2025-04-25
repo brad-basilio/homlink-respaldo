@@ -24,7 +24,8 @@ class Facility extends Model
         'emails',
         'business_hours',
         'gallery',
-        'view'
+        'view',
+        'lang_id'
     ];
 
     protected $casts = [
@@ -34,4 +35,8 @@ class Facility extends Model
         'business_hours' => 'array',
         'gallery' => 'array'
     ];
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }

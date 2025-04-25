@@ -21,6 +21,7 @@ import {
     ChevronUp,
     CircleChevronLeft,
 } from "lucide-react";
+import MaintenancePage from "./Utils/MaintenancePage";
 
 // Animaciones compartidas
 const containerVariants = {
@@ -77,12 +78,12 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
     );
 
     /*PARA STAFF */
-    const [activeFilter, setActiveFilter] = useState(staffData[0].job);
+    const [activeFilter, setActiveFilter] = useState(staffData[0]?.job);
     const [expandedCard, setExpandedCard] = useState(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeSlide, setActiveSlide] = useState(0);
 
-    const filteredStaff = staffData.filter(
+    const filteredStaff = staffData?.filter(
         (person) => person.job === activeFilter
     );
     const categories = [...new Set(staffData.map((person) => person.job))];
@@ -115,762 +116,804 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
     return (
         <div className="font-poppins">
             <Header />
-            <div className="px-[5%] lg:px-0 min-h-screen bg-white font-sans text-negro">
-                {/* Hero Section */}
-                <motion.header
-                    className="w-full max-w-[82rem] mx-auto pt-10 pb-6 md:pt-10 md:pb-12"
-                    initial="hidden"
-                    animate="visible"
-                    variants={containerVariants}
-                >
-                    <motion.div
-                        className="md:text-center max-w-4xl md:mx-auto lg:max-w-6xl mb-6 md:mb-14"
+            {landingHero ? (
+                <div className="px-[5%] lg:px-0 min-h-screen bg-white font-sans text-negro">
+                    {/* Hero Section */}
+                    <motion.header
+                        className="w-full max-w-[82rem] mx-auto pt-10 pb-6 md:pt-10 md:pb-12"
+                        initial="hidden"
+                        animate="visible"
                         variants={containerVariants}
                     >
-                        <motion.h1
-                            className="text-[40px] md:text-4xl lg:text-6xl font-semibold leading-[42px] lg:text-center lg:leading-tight mb-2 md:mb-3 text-center"
-                            variants={slideUp}
-                        >
-                            <TextWithHighlight
-                                text={landingHero.title}
-                                split_coma={true}
-                            />
-                        </motion.h1>
-                        <motion.p
-                            className="text-base lg:text-lg max-w-3xl lg:max-w-4xl md:mx-auto leading-relaxed text-center"
-                            variants={slideUp}
-                            transition={{ delay: 0.1 }}
-                        >
-                            {landingHero.description}
-                        </motion.p>
-                    </motion.div>
-
-                    <motion.div
-                        className="w-full mt-0 rounded-2xl overflow-hidden shadow-lg h-[500px] lg:h-[500px] lg:max-w-6xl lg:mx-auto"
-                        variants={fadeIn}
-                        transition={{ delay: 0.2 }}
-                    >
-                        <img
-                            src={`/api/landing_home/media/${landingHero.image}`}
-                            alt={landingHero.title}
-                            className="w-full h-full object-cover"
-                            onError={(e) =>
-                                (e.target.src = "/api/cover/thumbnail/null")
-                            }
-                        />
-                    </motion.div>
-                </motion.header>
-
-                {/* Especialidades Section */}
-                <motion.section
-                    className="w-full lg:max-w-[82rem] lg:px-[5%] lg:mx-auto py-10 lg:py-0"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-                    variants={containerVariants}
-                >
-                    <div className="mx-auto">
                         <motion.div
-                            className="flex flex-col md:flex-row gap-8 md:gap-16"
+                            className="md:text-center max-w-4xl md:mx-auto lg:max-w-6xl mb-6 md:mb-14"
                             variants={containerVariants}
                         >
-                            <motion.div
-                                className="lg:w-1/2"
-                                variants={itemVariants}
-                            >
-                                <div className="mb-6 lg:mb-4">
-                                    <motion.h2
-                                        className="text-[40px] leading-[42px] lg:text-6xl font-semibold mb-2 lg:max-w-lg"
-                                        variants={itemVariants}
-                                    >
-                                        <TextWithHighlight
-                                            text={landingSpecialities.title}
-                                        />
-                                    </motion.h2>
-                                    <motion.p
-                                        className="text-lg lg:max-w-lg lg:mt-4"
-                                        variants={itemVariants}
-                                        transition={{ delay: 0.1 }}
-                                    >
-                                        {landingSpecialities.description}
-                                    </motion.p>
-                                </div>
-
-                                <motion.div
-                                    className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-2 gap-y-1 lg:mt-8"
-                                    variants={containerVariants}
-                                >
-                                    {(() => {
-                                        const middleIndex = Math.ceil(
-                                            specialities.length / 2
-                                        );
-                                        const firstHalf = specialities.slice(
-                                            0,
-                                            middleIndex
-                                        );
-                                        const secondHalf =
-                                            specialities.slice(middleIndex);
-
-                                        return (
-                                            <>
-                                                <motion.div
-                                                    className="ml-6"
-                                                    variants={itemVariants}
-                                                >
-                                                    <ul className="list-disc text-lg leading-[22px]">
-                                                        {firstHalf.map(
-                                                            (
-                                                                especialidad,
-                                                                index
-                                                            ) => (
-                                                                <motion.li
-                                                                    key={
-                                                                        especialidad.id ||
-                                                                        index
-                                                                    }
-                                                                    className="mb-1"
-                                                                    variants={
-                                                                        itemVariants
-                                                                    }
-                                                                    custom={
-                                                                        index
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        especialidad.name
-                                                                    }
-                                                                </motion.li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </motion.div>
-
-                                                <motion.div
-                                                    className="ml-6"
-                                                    variants={itemVariants}
-                                                >
-                                                    <ul className="list-disc text-lg leading-[22px]">
-                                                        {secondHalf.map(
-                                                            (
-                                                                especialidad,
-                                                                index
-                                                            ) => (
-                                                                <motion.li
-                                                                    key={
-                                                                        especialidad.id ||
-                                                                        index
-                                                                    }
-                                                                    className="mb-1"
-                                                                    variants={
-                                                                        itemVariants
-                                                                    }
-                                                                    custom={
-                                                                        index +
-                                                                        firstHalf.length
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        especialidad.name
-                                                                    }
-                                                                </motion.li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </motion.div>
-                                            </>
-                                        );
-                                    })()}
-                                </motion.div>
-
-                                <motion.button
-                                    className="hidden lg:flex text-white font-medium rounded-full mt-8 lg:mt-4 items-center"
-                                    variants={itemVariants}
-                                    transition={{ delay: 0.3 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    <a
-                                        href="/services"
-                                        className="mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center lg:h-14"
-                                    >
-                                        <div className="bg-[#224483] w-12 p-2 rounded-full">
-                                            <img
-                                                src="/assets/img/icons/treatment.png"
-                                                className="h-auto"
-                                            />
-                                        </div>
-                                        Ver todos los servicios
-                                    </a>
-                                </motion.button>
-                            </motion.div>
-
-                            <motion.div
-                                className="lg:w-1/2 mt-4 lg:mt-0 relative"
-                                variants={itemVariants}
-                            >
-                                <Swiper
-                                    navigation={{
-                                        prevEl: ".custom-prev",
-                                        nextEl: ".custom-next",
-                                    }}
-                                    slidesPerView={3}
-                                    spaceBetween={30}
-                                    loop={true}
-                                    breakpoints={{
-                                        0: {
-                                            slidesPerView: 1,
-                                            spaceBetween: 10,
-                                        },
-                                        640: {
-                                            slidesPerView: 1,
-                                            spaceBetween: 10,
-                                        },
-                                        1024: {
-                                            slidesPerView: 1,
-                                            spaceBetween: 10,
-                                        },
-                                    }}
-                                    modules={[Navigation, Pagination]}
-                                    onSlideChange={(swiper) =>
-                                        setActiveIndex(swiper.realIndex)
-                                    }
-                                >
-                                    {specialities.map((speciality, index) => (
-                                        <SwiperSlide key={index}>
-                                            <motion.div className="rounded-2xl overflow-hidden shadow-lg h-[380px] lg:h-[650px] group">
-                                                <motion.img
-                                                    src={`/api/speciality/media/${speciality.image}`}
-                                                    alt="Tratamiento de fisioterapia"
-                                                    whileHover={{ scale: 1.1 }}
-                                                    transition={{
-                                                        stiffness: 400,
-                                                        damping: 10,
-                                                    }}
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </motion.div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                                {/* Botones de navegación personalizados */}
-                                <div className="hidden lg:block absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
-                                    <ChevronLeft
-                                        size={40}
-                                        strokeWidth={3}
-                                        className="text-[#224483] "
-                                    />
-                                </div>
-
-                                <div className="hidden lg:block  absolute top-1/2 right-[-40px]  transform -translate-y-1/2 custom-next cursor-pointer">
-                                    <ChevronRight
-                                        size={40}
-                                        strokeWidth={3}
-                                        className="text-[#224483] "
-                                    />
-                                </div>
-
-                                <motion.div
-                                    className="w-[150px] mx-auto overflow-hidden flex justify-center gap-2 mt-10"
-                                    variants={itemVariants}
-                                >
-                                    {specialities
-                                        .slice(
-                                            Math.max(0, activeIndex - 1),
-                                            Math.min(
-                                                specialities.length,
-                                                activeIndex + 2
-                                            )
-                                        )
-                                        .map((_, indexOffset) => {
-                                            const index =
-                                                Math.max(0, activeIndex - 1) +
-                                                indexOffset;
-                                            return (
-                                                <motion.button
-                                                    key={index}
-                                                    className={`rounded-full transition-all duration-300 ${
-                                                        index === activeIndex
-                                                            ? "bg-[#224483] w-[20px] h-[12px]"
-                                                            : "bg-[#22448366] w-[12px] h-[12px]"
-                                                    }`}
-                                                    whileHover={{ scale: 1.2 }}
-                                                    whileTap={{ scale: 0.9 }}
-                                                />
-                                            );
-                                        })}
-                                </motion.div>
-                            </motion.div>
-                        </motion.div>
-                    </div>
-                </motion.section>
-
-                {/* Staff Section */}
-                <motion.section
-                    className="w-full pt-4 pb-12 lg:pt-16 lg:pb-0 lg:max-w-[82rem] lg:mx-auto lg:px-[5%]"
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, margin: "0px 0px -100px 0px" }}
-                    variants={containerVariants}
-                >
-                    <div className="mx-auto">
-                        <motion.div
-                            className="text-center mb-10 lg:mb-8"
-                            variants={containerVariants}
-                        >
-                            <motion.h2
-                                className="text-[40px] leading-[42px] lg:text-7xl font-semibold lg:max-w-4xl lg:mx-auto mb-4"
+                            <motion.h1
+                                className="text-[40px] md:text-4xl lg:text-6xl font-semibold leading-[42px] lg:text-center lg:leading-tight mb-2 md:mb-3 text-center"
                                 variants={slideUp}
                             >
-                                <TextWithHighlight text={landingStaff.title} />
-                            </motion.h2>
+                                <TextWithHighlight
+                                    text={landingHero?.title}
+                                    split_coma={true}
+                                />
+                            </motion.h1>
                             <motion.p
-                                className="text-base mt-8 lg:text-lg max-w-3xl mx-auto"
+                                className="text-base lg:text-lg max-w-3xl lg:max-w-4xl md:mx-auto leading-relaxed text-center"
                                 variants={slideUp}
                                 transition={{ delay: 0.1 }}
                             >
-                                {landingStaff.description}
+                                {landingHero?.description}
                             </motion.p>
                         </motion.div>
 
-                        {/* Staff Categories */}
                         <motion.div
-                            className="flex items-center justify-center"
-                            variants={itemVariants}
+                            className="w-full mt-0 rounded-2xl overflow-hidden shadow-lg h-[500px] lg:h-[500px] lg:max-w-6xl lg:mx-auto"
+                            variants={fadeIn}
+                            transition={{ delay: 0.2 }}
                         >
-                            <div className="flex justify-center gap-8 text-[#242424] mb-8 lg:mb-16 bg-[#F2F3F4] py-1 px-1 w-max rounded-full">
-                                {categories.map((category) => (
+                            <img
+                                src={`/api/landing_home/media/${landingHero?.image}`}
+                                alt={landingHero?.title}
+                                className="w-full h-full object-cover"
+                                onError={(e) =>
+                                    (e.target.src = "/api/cover/thumbnail/null")
+                                }
+                            />
+                        </motion.div>
+                    </motion.header>
+
+                    {/* Especialidades Section */}
+                    <motion.section
+                        className="w-full lg:max-w-[82rem] lg:px-[5%] lg:mx-auto py-10 lg:py-0"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                        variants={containerVariants}
+                    >
+                        <div className="mx-auto">
+                            <motion.div
+                                className="flex flex-col md:flex-row gap-8 md:gap-16"
+                                variants={containerVariants}
+                            >
+                                <motion.div
+                                    className="lg:w-1/2"
+                                    variants={itemVariants}
+                                >
+                                    <div className="mb-6 lg:mb-4">
+                                        <motion.h2
+                                            className="text-[40px] leading-[42px] lg:text-6xl font-semibold mb-2 lg:max-w-lg"
+                                            variants={itemVariants}
+                                        >
+                                            <TextWithHighlight
+                                                text={
+                                                    landingSpecialities?.title
+                                                }
+                                            />
+                                        </motion.h2>
+                                        <motion.p
+                                            className="text-lg lg:max-w-lg lg:mt-4"
+                                            variants={itemVariants}
+                                            transition={{ delay: 0.1 }}
+                                        >
+                                            {landingSpecialities?.description}
+                                        </motion.p>
+                                    </div>
+
+                                    <motion.div
+                                        className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-2 gap-y-1 lg:mt-8"
+                                        variants={containerVariants}
+                                    >
+                                        {(() => {
+                                            const middleIndex = Math.ceil(
+                                                specialities.length / 2
+                                            );
+                                            const firstHalf =
+                                                specialities.slice(
+                                                    0,
+                                                    middleIndex
+                                                );
+                                            const secondHalf =
+                                                specialities.slice(middleIndex);
+
+                                            return (
+                                                <>
+                                                    <motion.div
+                                                        className="ml-6"
+                                                        variants={itemVariants}
+                                                    >
+                                                        <ul className="list-disc text-lg leading-[22px]">
+                                                            {firstHalf &&
+                                                                firstHalf.map(
+                                                                    (
+                                                                        especialidad,
+                                                                        index
+                                                                    ) => (
+                                                                        <motion.li
+                                                                            key={
+                                                                                especialidad.id ||
+                                                                                index
+                                                                            }
+                                                                            className="mb-1"
+                                                                            variants={
+                                                                                itemVariants
+                                                                            }
+                                                                            custom={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                especialidad.name
+                                                                            }
+                                                                        </motion.li>
+                                                                    )
+                                                                )}
+                                                        </ul>
+                                                    </motion.div>
+
+                                                    <motion.div
+                                                        className="ml-6"
+                                                        variants={itemVariants}
+                                                    >
+                                                        <ul className="list-disc text-lg leading-[22px]">
+                                                            {secondHalf &&
+                                                                secondHalf.map(
+                                                                    (
+                                                                        especialidad,
+                                                                        index
+                                                                    ) => (
+                                                                        <motion.li
+                                                                            key={
+                                                                                especialidad.id ||
+                                                                                index
+                                                                            }
+                                                                            className="mb-1"
+                                                                            variants={
+                                                                                itemVariants
+                                                                            }
+                                                                            custom={
+                                                                                index +
+                                                                                firstHalf.length
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                especialidad.name
+                                                                            }
+                                                                        </motion.li>
+                                                                    )
+                                                                )}
+                                                        </ul>
+                                                    </motion.div>
+                                                </>
+                                            );
+                                        })()}
+                                    </motion.div>
+
                                     <motion.button
-                                        key={category}
-                                        className={`flex items-center cursor-pointer h-12 px-4 capitalize ${
-                                            activeFilter === category
-                                                ? "text-azul bg-[#E2E4E7] rounded-full px-4"
-                                                : ""
-                                        }`}
-                                        onClick={() => {
-                                            setActiveFilter(category);
-                                            setExpandedCard(null);
-                                        }}
+                                        className="hidden lg:flex text-white font-medium rounded-full mt-8 lg:mt-4 items-center"
+                                        variants={itemVariants}
+                                        transition={{ delay: 0.3 }}
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <span
-                                            className={`w-2 h-2 rounded-full mr-2 ${
-                                                activeFilter === category
-                                                    ? "bg-azul"
-                                                    : "hidden"
-                                            }`}
-                                        ></span>
-                                        <span className="text-lg md:text-base font-medium">
-                                            {category}
-                                        </span>
-                                    </motion.button>
-                                ))}
-                            </div>
-                        </motion.div>
-
-                        {/* Staff Cards - Desktop */}
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeFilter}
-                                className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
-                                initial="hidden"
-                                animate="visible"
-                                exit="hidden"
-                                variants={containerVariants}
-                                transition={{ duration: 0.3 }}
-                            >
-                                {filteredStaff.map((person, index) => (
-                                    <motion.div
-                                        key={person.id}
-                                        className={`bg-white rounded-xl lg:rounded-2xl shadow-md relative ${
-                                            expandedCard === index ? "z-10" : ""
-                                        }`}
-                                        variants={itemVariants}
-                                        whileHover={{ y: -5 }}
-                                        layout
-                                    >
-                                        {/* Imagen */}
-                                        <div className="h-[350px] lg:h-80 rounded-t-3xl overflow-hidden">
-                                            <motion.img
-                                                src={`/api/staff/media/${person.image}`}
-                                                alt={person.name}
-                                                className="w-full h-full object-cover"
-                                                whileHover={{ scale: 1.05 }}
-                                                transition={{ duration: 0.3 }}
-                                            />
-                                        </div>
-
-                                        {/* Contenido básico */}
-                                        <div className="p-4 lg:mt-4 relative">
-                                            <h3 className="font-semibold text-2xl">
-                                                <TextWithHighlight
-                                                    text={person.name}
+                                        <a
+                                            href="/services"
+                                            className="mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center lg:h-14"
+                                        >
+                                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                                <img
+                                                    src="/assets/img/icons/treatment.png"
+                                                    className="h-auto"
                                                 />
-                                            </h3>
-                                            <p
-                                                className={`text-lg line-clamp-1 ${
-                                                    expandedCard === index
-                                                        ? "hidden"
-                                                        : ""
-                                                }`}
-                                            >
-                                                {person.description}
-                                            </p>
+                                            </div>
+                                            Ver todos los servicios
+                                        </a>
+                                    </motion.button>
+                                </motion.div>
 
-                                            {/* Botón para expandir */}
-                                            <motion.button
-                                                className={`absolute right-4 bg-white rounded-full p-2 shadow-sm hover:bg-gray-100 ${
-                                                    expandedCard === index
-                                                        ? "bottom-4"
-                                                        : "bottom-10"
-                                                }`}
-                                                onClick={() =>
-                                                    setExpandedCard(
-                                                        expandedCard === index
-                                                            ? null
-                                                            : index
-                                                    )
-                                                }
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }}
-                                            >
-                                                {expandedCard === index ? (
-                                                    <ChevronUp className="h-5 w-5 text-azul" />
-                                                ) : (
-                                                    <ChevronDown className="h-5 w-5 text-azul" />
-                                                )}
-                                            </motion.button>
-                                        </div>
+                                <motion.div
+                                    className="lg:w-1/2 mt-4 lg:mt-0 relative"
+                                    variants={itemVariants}
+                                >
+                                    <Swiper
+                                        navigation={{
+                                            prevEl: ".custom-prev",
+                                            nextEl: ".custom-next",
+                                        }}
+                                        slidesPerView={3}
+                                        spaceBetween={30}
+                                        loop={true}
+                                        breakpoints={{
+                                            0: {
+                                                slidesPerView: 1,
+                                                spaceBetween: 10,
+                                            },
+                                            640: {
+                                                slidesPerView: 1,
+                                                spaceBetween: 10,
+                                            },
+                                            1024: {
+                                                slidesPerView: 1,
+                                                spaceBetween: 10,
+                                            },
+                                        }}
+                                        modules={[Navigation, Pagination]}
+                                        onSlideChange={(swiper) =>
+                                            setActiveIndex(swiper.realIndex)
+                                        }
+                                    >
+                                        {specialities.map(
+                                            (speciality, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <motion.div className="rounded-2xl overflow-hidden shadow-lg h-[380px] lg:h-[650px] group">
+                                                        <motion.img
+                                                            src={`/api/speciality/media/${speciality.image}`}
+                                                            alt="Tratamiento de fisioterapia"
+                                                            whileHover={{
+                                                                scale: 1.1,
+                                                            }}
+                                                            transition={{
+                                                                stiffness: 400,
+                                                                damping: 10,
+                                                            }}
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    </motion.div>
+                                                </SwiperSlide>
+                                            )
+                                        )}
+                                    </Swiper>
+                                    {/* Botones de navegación personalizados */}
+                                    <div className="hidden lg:block absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
+                                        <ChevronLeft
+                                            size={40}
+                                            strokeWidth={3}
+                                            className="text-[#224483] "
+                                        />
+                                    </div>
 
-                                        {/* Contenido expandido */}
-                                        <AnimatePresence>
-                                            {expandedCard === index && (
-                                                <motion.div
-                                                    className="absolute left-0 right-0 top-full -mt-10 bg-white p-6 rounded-b-xl lg:rounded-b-2xl shadow-lg z-20"
-                                                    initial={{
-                                                        opacity: 0,
-                                                        y: -20,
-                                                    }}
-                                                    animate={{
-                                                        opacity: 1,
-                                                        y: 0,
-                                                    }}
-                                                    exit={{
-                                                        opacity: 0,
-                                                        y: -20,
-                                                    }}
+                                    <div className="hidden lg:block  absolute top-1/2 right-[-40px]  transform -translate-y-1/2 custom-next cursor-pointer">
+                                        <ChevronRight
+                                            size={40}
+                                            strokeWidth={3}
+                                            className="text-[#224483] "
+                                        />
+                                    </div>
+
+                                    <motion.div
+                                        className="w-[150px] mx-auto overflow-hidden flex justify-center gap-2 mt-10"
+                                        variants={itemVariants}
+                                    >
+                                        {specialities
+                                            .slice(
+                                                Math.max(0, activeIndex - 1),
+                                                Math.min(
+                                                    specialities.length,
+                                                    activeIndex + 2
+                                                )
+                                            )
+                                            .map((_, indexOffset) => {
+                                                const index =
+                                                    Math.max(
+                                                        0,
+                                                        activeIndex - 1
+                                                    ) + indexOffset;
+                                                return (
+                                                    <motion.button
+                                                        key={index}
+                                                        className={`rounded-full transition-all duration-300 ${
+                                                            index ===
+                                                            activeIndex
+                                                                ? "bg-[#224483] w-[20px] h-[12px]"
+                                                                : "bg-[#22448366] w-[12px] h-[12px]"
+                                                        }`}
+                                                        whileHover={{
+                                                            scale: 1.2,
+                                                        }}
+                                                        whileTap={{
+                                                            scale: 0.9,
+                                                        }}
+                                                    />
+                                                );
+                                            })}
+                                    </motion.div>
+                                </motion.div>
+                            </motion.div>
+                        </div>
+                    </motion.section>
+
+                    {/* Staff Section */}
+                    <motion.section
+                        className="w-full pt-4 pb-12 lg:pt-16 lg:pb-0 lg:max-w-[82rem] lg:mx-auto lg:px-[5%]"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "0px 0px -100px 0px" }}
+                        variants={containerVariants}
+                    >
+                        <div className="mx-auto">
+                            <motion.div
+                                className="text-center mb-10 lg:mb-8"
+                                variants={containerVariants}
+                            >
+                                <motion.h2
+                                    className="text-[40px] leading-[42px] lg:text-7xl font-semibold lg:max-w-4xl lg:mx-auto mb-4"
+                                    variants={slideUp}
+                                >
+                                    <TextWithHighlight
+                                        text={landingStaff?.title}
+                                    />
+                                </motion.h2>
+                                <motion.p
+                                    className="text-base mt-8 lg:text-lg max-w-3xl mx-auto"
+                                    variants={slideUp}
+                                    transition={{ delay: 0.1 }}
+                                >
+                                    {landingStaff?.description}
+                                </motion.p>
+                            </motion.div>
+
+                            {/* Staff Categories */}
+                            <motion.div
+                                className="flex items-center justify-center"
+                                variants={itemVariants}
+                            >
+                                <div className="flex justify-center gap-8 text-[#242424] mb-8 lg:mb-16 bg-[#F2F3F4] py-1 px-1 w-max rounded-full">
+                                    {categories.map((category) => (
+                                        <motion.button
+                                            key={category}
+                                            className={`flex items-center cursor-pointer h-12 px-4 capitalize ${
+                                                activeFilter === category
+                                                    ? "text-azul bg-[#E2E4E7] rounded-full px-4"
+                                                    : ""
+                                            }`}
+                                            onClick={() => {
+                                                setActiveFilter(category);
+                                                setExpandedCard(null);
+                                            }}
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <span
+                                                className={`w-2 h-2 rounded-full mr-2 ${
+                                                    activeFilter === category
+                                                        ? "bg-azul"
+                                                        : "hidden"
+                                                }`}
+                                            ></span>
+                                            <span className="text-lg md:text-base font-medium">
+                                                {category}
+                                            </span>
+                                        </motion.button>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* Staff Cards - Desktop */}
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeFilter}
+                                    className="hidden lg:grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8"
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="hidden"
+                                    variants={containerVariants}
+                                    transition={{ duration: 0.3 }}
+                                >
+                                    {filteredStaff.map((person, index) => (
+                                        <motion.div
+                                            key={person.id}
+                                            className={`bg-white rounded-xl lg:rounded-2xl shadow-md relative ${
+                                                expandedCard === index
+                                                    ? "z-10"
+                                                    : ""
+                                            }`}
+                                            variants={itemVariants}
+                                            whileHover={{ y: -5 }}
+                                            layout
+                                        >
+                                            {/* Imagen */}
+                                            <div className="h-[350px] lg:h-80 rounded-t-3xl overflow-hidden">
+                                                <motion.img
+                                                    src={`/api/staff/media/${person.image}`}
+                                                    alt={person.name}
+                                                    className="w-full h-full object-cover"
+                                                    whileHover={{ scale: 1.05 }}
                                                     transition={{
                                                         duration: 0.3,
                                                     }}
+                                                />
+                                            </div>
+
+                                            {/* Contenido básico */}
+                                            <div className="p-4 lg:mt-4 relative">
+                                                <h3 className="font-semibold text-2xl">
+                                                    <TextWithHighlight
+                                                        text={person.name}
+                                                    />
+                                                </h3>
+                                                <p
+                                                    className={`text-lg line-clamp-1 ${
+                                                        expandedCard === index
+                                                            ? "hidden"
+                                                            : ""
+                                                    }`}
                                                 >
-                                                    <div className="space-y-4">
-                                                        {/* Descripción completa */}
-                                                        <p className="text-base">
-                                                            {person.description}
-                                                        </p>
+                                                    {person.description}
+                                                </p>
 
-                                                        {/* Credenciales */}
-                                                        <div className="space-y-4">
-                                                            {person.characteristics.map(
-                                                                (
-                                                                    characteristic,
-                                                                    i
-                                                                ) => (
-                                                                    <div
-                                                                        key={i}
-                                                                        className="flex items-start gap-4"
-                                                                    >
-                                                                        <img
-                                                                            src="/assets/img/icons/pin.png"
-                                                                            className="w-6 h-6 mt-1 flex-shrink-0"
-                                                                        />
-                                                                        <p className="text-base lg:text-[17px]">
-                                                                            {
-                                                                                characteristic
-                                                                            }
-                                                                        </p>
-                                                                    </div>
-                                                                )
-                                                            )}
-                                                        </div>
+                                                {/* Botón para expandir */}
+                                                <motion.button
+                                                    className={`absolute right-4 bg-white rounded-full p-2 shadow-sm hover:bg-gray-100 ${
+                                                        expandedCard === index
+                                                            ? "bottom-4"
+                                                            : "bottom-10"
+                                                    }`}
+                                                    onClick={() =>
+                                                        setExpandedCard(
+                                                            expandedCard ===
+                                                                index
+                                                                ? null
+                                                                : index
+                                                        )
+                                                    }
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                >
+                                                    {expandedCard === index ? (
+                                                        <ChevronUp className="h-5 w-5 text-azul" />
+                                                    ) : (
+                                                        <ChevronDown className="h-5 w-5 text-azul" />
+                                                    )}
+                                                </motion.button>
+                                            </div>
 
-                                                        {/* Redes sociales */}
-                                                        {person.socials
-                                                            ?.length > 0 && (
-                                                            <div className="flex gap-4 mt-6 justify-end">
-                                                                {person.socials.map(
-                                                                    (
-                                                                        social,
-                                                                        i
-                                                                    ) => {
-                                                                        const platform =
-                                                                            extractSocialPlatform(
-                                                                                social
-                                                                            );
-                                                                        return (
-                                                                            <a
-                                                                                key={
-                                                                                    i
-                                                                                }
-                                                                                href={
-                                                                                    social
-                                                                                }
-                                                                                target="_blank"
-                                                                                rel="noopener noreferrer"
-                                                                            >
-                                                                                <img
-                                                                                    src={`/assets/img/icons/socials/${platform}.png`}
-                                                                                    className="h-10 w-10 hover:opacity-80 transition-opacity"
-                                                                                    alt={
-                                                                                        platform
-                                                                                    }
-                                                                                />
-                                                                            </a>
-                                                                        );
-                                                                    }
-                                                                )}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                </motion.div>
-                                            )}
-                                        </AnimatePresence>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
-                        </AnimatePresence>
-
-                        {/* Staff Cards - Mobile */}
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeFilter}
-                                className="lg:hidden"
-                                initial="hidden"
-                                animate="visible"
-                                exit="hidden"
-                                variants={containerVariants}
-                                transition={{ duration: 0.3 }}
-                                style={{
-                                    overflow: "visible",
-                                    padding: "0 20px",
-                                }}
-                            >
-                                <Swiper
-                                    spaceBetween={0}
-                                    slidesPerView={1}
-                                    breakpoints={{ 640: { slidesPerView: 3 } }}
-                                    loop={true}
-                                    pagination={{ clickable: true }}
-                                    onSlideChange={(swiper) =>
-                                        setActiveSlide(swiper.realIndex)
-                                    }
-                                    style={{
-                                        overflowY: "visible",
-                                    }}
-                                >
-                                    {staffSlides.map((group, slideIndex) => (
-                                        <SwiperSlide key={slideIndex}>
-                                            <div className="grid grid-cols-1 gap-6">
-                                                {group.map((person, index) => (
+                                            {/* Contenido expandido */}
+                                            <AnimatePresence>
+                                                {expandedCard === index && (
                                                     <motion.div
-                                                        key={person.id}
-                                                        className="bg-white rounded-xl lg:rounded-2xl shadow-md relative"
-                                                        variants={itemVariants}
+                                                        className="absolute left-0 right-0 top-full -mt-10 bg-white p-6 rounded-b-xl lg:rounded-b-2xl shadow-lg z-20"
+                                                        initial={{
+                                                            opacity: 0,
+                                                            y: -20,
+                                                        }}
+                                                        animate={{
+                                                            opacity: 1,
+                                                            y: 0,
+                                                        }}
+                                                        exit={{
+                                                            opacity: 0,
+                                                            y: -20,
+                                                        }}
+                                                        transition={{
+                                                            duration: 0.3,
+                                                        }}
                                                     >
-                                                        {/* Imagen */}
-                                                        <div className="h-[350px] lg:h-80 rounded-t-3xl overflow-hidden">
-                                                            <img
-                                                                src={`/api/staff/media/${person.image}`}
-                                                                alt={
-                                                                    person.name
-                                                                }
-                                                                className="w-full h-full object-cover"
-                                                            />
-                                                        </div>
-
-                                                        {/* Contenido básico */}
-                                                        <div className="p-4 lg:mt-4 relative">
-                                                            <h3 className="font-semibold text-2xl">
-                                                                <TextWithHighlight
-                                                                    text={
-                                                                        person.name
-                                                                    }
-                                                                />
-                                                            </h3>
-                                                            <p
-                                                                className={`text-lg line-clamp-1 ${
-                                                                    expandedCard ===
-                                                                    index
-                                                                        ? "hidden"
-                                                                        : ""
-                                                                }`}
-                                                            >
+                                                        <div className="space-y-4">
+                                                            {/* Descripción completa */}
+                                                            <p className="text-base">
                                                                 {
                                                                     person.description
                                                                 }
                                                             </p>
 
-                                                            {/* Botón para expandir */}
-                                                            <motion.button
-                                                                className={`absolute right-4 bg-white rounded-full p-2 shadow-sm hover:bg-gray-100 ${
-                                                                    expandedCard ===
-                                                                    index
-                                                                        ? "bottom-4"
-                                                                        : "bottom-10"
-                                                                }`}
-                                                                onClick={() =>
-                                                                    setExpandedCard(
-                                                                        expandedCard ===
-                                                                            index
-                                                                            ? null
-                                                                            : index
-                                                                    )
-                                                                }
-                                                                whileHover={{
-                                                                    scale: 1.1,
-                                                                }}
-                                                                whileTap={{
-                                                                    scale: 0.9,
-                                                                }}
-                                                            >
-                                                                {expandedCard ===
-                                                                index ? (
-                                                                    <ChevronUp className="h-5 w-5 text-azul" />
-                                                                ) : (
-                                                                    <ChevronDown className="h-5 w-5 text-azul" />
-                                                                )}
-                                                            </motion.button>
-                                                        </div>
-
-                                                        {/* Contenido expandido */}
-                                                        {expandedCard ===
-                                                            index && (
-                                                            <motion.div
-                                                                className="absolute left-0 right-0 top-full -mt-4 bg-white p-6 rounded-b-xl lg:rounded-b-2xl shadow-lg z-20"
-                                                                initial={{
-                                                                    opacity: 0,
-                                                                    y: -20,
-                                                                }}
-                                                                animate={{
-                                                                    opacity: 1,
-                                                                    y: 0,
-                                                                }}
-                                                                exit={{
-                                                                    opacity: 0,
-                                                                    y: -20,
-                                                                }}
-                                                                transition={{
-                                                                    duration: 0.3,
-                                                                }}
-                                                            >
-                                                                <div className="space-y-4">
-                                                                    {/* Descripción completa */}
-                                                                    <p className="text-base">
-                                                                        {
-                                                                            person.description
-                                                                        }
-                                                                    </p>
-
-                                                                    {/* Credenciales */}
-                                                                    <div className="space-y-4">
-                                                                        {person.characteristics.map(
-                                                                            (
-                                                                                characteristic,
+                                                            {/* Credenciales */}
+                                                            <div className="space-y-4">
+                                                                {person.characteristics.map(
+                                                                    (
+                                                                        characteristic,
+                                                                        i
+                                                                    ) => (
+                                                                        <div
+                                                                            key={
                                                                                 i
-                                                                            ) => (
-                                                                                <div
+                                                                            }
+                                                                            className="flex items-start gap-4"
+                                                                        >
+                                                                            <img
+                                                                                src="/assets/img/icons/pin.png"
+                                                                                className="w-6 h-6 mt-1 flex-shrink-0"
+                                                                            />
+                                                                            <p className="text-base lg:text-[17px]">
+                                                                                {
+                                                                                    characteristic
+                                                                                }
+                                                                            </p>
+                                                                        </div>
+                                                                    )
+                                                                )}
+                                                            </div>
+
+                                                            {/* Redes sociales */}
+                                                            {person.socials
+                                                                ?.length >
+                                                                0 && (
+                                                                <div className="flex gap-4 mt-6 justify-end">
+                                                                    {person.socials.map(
+                                                                        (
+                                                                            social,
+                                                                            i
+                                                                        ) => {
+                                                                            const platform =
+                                                                                extractSocialPlatform(
+                                                                                    social
+                                                                                );
+                                                                            return (
+                                                                                <a
                                                                                     key={
                                                                                         i
                                                                                     }
-                                                                                    className="flex items-start gap-4"
+                                                                                    href={
+                                                                                        social
+                                                                                    }
+                                                                                    target="_blank"
+                                                                                    rel="noopener noreferrer"
                                                                                 >
                                                                                     <img
-                                                                                        src="/assets/img/icons/pin.png"
-                                                                                        className="w-6 h-6 mt-1 flex-shrink-0"
-                                                                                    />
-                                                                                    <p className="text-base lg:text-[17px]">
-                                                                                        {
-                                                                                            characteristic
+                                                                                        src={`/assets/img/icons/socials/${platform}.png`}
+                                                                                        className="h-10 w-10 hover:opacity-80 transition-opacity"
+                                                                                        alt={
+                                                                                            platform
                                                                                         }
-                                                                                    </p>
-                                                                                </div>
-                                                                            )
-                                                                        )}
-                                                                    </div>
-
-                                                                    {/* Redes sociales */}
-                                                                    {person
-                                                                        .socials
-                                                                        ?.length >
-                                                                        0 && (
-                                                                        <div className="flex gap-4 mt-6 justify-end">
-                                                                            {person.socials.map(
-                                                                                (
-                                                                                    social,
-                                                                                    i
-                                                                                ) => {
-                                                                                    const platform =
-                                                                                        extractSocialPlatform(
-                                                                                            social
-                                                                                        );
-                                                                                    return (
-                                                                                        <a
-                                                                                            key={
-                                                                                                i
-                                                                                            }
-                                                                                            href={
-                                                                                                social
-                                                                                            }
-                                                                                            target="_blank"
-                                                                                            rel="noopener noreferrer"
-                                                                                        >
-                                                                                            <img
-                                                                                                src={`/assets/img/icons/socials/${platform}.png`}
-                                                                                                className="h-10 w-10 hover:opacity-80 transition-opacity"
-                                                                                                alt={
-                                                                                                    platform
-                                                                                                }
-                                                                                            />
-                                                                                        </a>
-                                                                                    );
-                                                                                }
-                                                                            )}
-                                                                        </div>
+                                                                                    />
+                                                                                </a>
+                                                                            );
+                                                                        }
                                                                     )}
                                                                 </div>
-                                                            </motion.div>
-                                                        )}
+                                                            )}
+                                                        </div>
                                                     </motion.div>
-                                                ))}
-                                            </div>
-                                        </SwiperSlide>
-                                    ))}
-                                </Swiper>
-                                <motion.div
-                                    className="flex justify-center mt-4 space-x-2"
-                                    variants={itemVariants}
-                                >
-                                    {staffSlides.map((_, index) => (
-                                        <motion.button
-                                            key={index}
-                                            onClick={() =>
-                                                setActiveSlide(index)
-                                            }
-                                            className={`rounded-full transition-all duration-300 ${
-                                                index === activeSlide
-                                                    ? "bg-[#224483] w-[20px] h-[12px]"
-                                                    : "bg-[#22448366] w-[12px] h-[12px]"
-                                            }`}
-                                            whileHover={{ scale: 1.2 }}
-                                            whileTap={{ scale: 0.9 }}
-                                        />
+                                                )}
+                                            </AnimatePresence>
+                                        </motion.div>
                                     ))}
                                 </motion.div>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-                </motion.section>
-            </div>
+                            </AnimatePresence>
+
+                            {/* Staff Cards - Mobile */}
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activeFilter}
+                                    className="lg:hidden"
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="hidden"
+                                    variants={containerVariants}
+                                    transition={{ duration: 0.3 }}
+                                    style={{
+                                        overflow: "visible",
+                                        padding: "0 20px",
+                                    }}
+                                >
+                                    <Swiper
+                                        spaceBetween={0}
+                                        slidesPerView={1}
+                                        breakpoints={{
+                                            640: { slidesPerView: 3 },
+                                        }}
+                                        loop={true}
+                                        pagination={{ clickable: true }}
+                                        onSlideChange={(swiper) =>
+                                            setActiveSlide(swiper.realIndex)
+                                        }
+                                        style={{
+                                            overflowY: "visible",
+                                        }}
+                                    >
+                                        {staffSlides.map(
+                                            (group, slideIndex) => (
+                                                <SwiperSlide key={slideIndex}>
+                                                    <div className="grid grid-cols-1 gap-6">
+                                                        {group.map(
+                                                            (person, index) => (
+                                                                <motion.div
+                                                                    key={
+                                                                        person.id
+                                                                    }
+                                                                    className="bg-white rounded-xl lg:rounded-2xl shadow-md relative"
+                                                                    variants={
+                                                                        itemVariants
+                                                                    }
+                                                                >
+                                                                    {/* Imagen */}
+                                                                    <div className="h-[350px] lg:h-80 rounded-t-3xl overflow-hidden">
+                                                                        <img
+                                                                            src={`/api/staff/media/${person.image}`}
+                                                                            alt={
+                                                                                person.name
+                                                                            }
+                                                                            className="w-full h-full object-cover"
+                                                                        />
+                                                                    </div>
+
+                                                                    {/* Contenido básico */}
+                                                                    <div className="p-4 lg:mt-4 relative">
+                                                                        <h3 className="font-semibold text-2xl">
+                                                                            <TextWithHighlight
+                                                                                text={
+                                                                                    person.name
+                                                                                }
+                                                                            />
+                                                                        </h3>
+                                                                        <p
+                                                                            className={`text-lg line-clamp-1 ${
+                                                                                expandedCard ===
+                                                                                index
+                                                                                    ? "hidden"
+                                                                                    : ""
+                                                                            }`}
+                                                                        >
+                                                                            {
+                                                                                person.description
+                                                                            }
+                                                                        </p>
+
+                                                                        {/* Botón para expandir */}
+                                                                        <motion.button
+                                                                            className={`absolute right-4 bg-white rounded-full p-2 shadow-sm hover:bg-gray-100 ${
+                                                                                expandedCard ===
+                                                                                index
+                                                                                    ? "bottom-4"
+                                                                                    : "bottom-10"
+                                                                            }`}
+                                                                            onClick={() =>
+                                                                                setExpandedCard(
+                                                                                    expandedCard ===
+                                                                                        index
+                                                                                        ? null
+                                                                                        : index
+                                                                                )
+                                                                            }
+                                                                            whileHover={{
+                                                                                scale: 1.1,
+                                                                            }}
+                                                                            whileTap={{
+                                                                                scale: 0.9,
+                                                                            }}
+                                                                        >
+                                                                            {expandedCard ===
+                                                                            index ? (
+                                                                                <ChevronUp className="h-5 w-5 text-azul" />
+                                                                            ) : (
+                                                                                <ChevronDown className="h-5 w-5 text-azul" />
+                                                                            )}
+                                                                        </motion.button>
+                                                                    </div>
+
+                                                                    {/* Contenido expandido */}
+                                                                    {expandedCard ===
+                                                                        index && (
+                                                                        <motion.div
+                                                                            className="absolute left-0 right-0 top-full -mt-4 bg-white p-6 rounded-b-xl lg:rounded-b-2xl shadow-lg z-20"
+                                                                            initial={{
+                                                                                opacity: 0,
+                                                                                y: -20,
+                                                                            }}
+                                                                            animate={{
+                                                                                opacity: 1,
+                                                                                y: 0,
+                                                                            }}
+                                                                            exit={{
+                                                                                opacity: 0,
+                                                                                y: -20,
+                                                                            }}
+                                                                            transition={{
+                                                                                duration: 0.3,
+                                                                            }}
+                                                                        >
+                                                                            <div className="space-y-4">
+                                                                                {/* Descripción completa */}
+                                                                                <p className="text-base">
+                                                                                    {
+                                                                                        person.description
+                                                                                    }
+                                                                                </p>
+
+                                                                                {/* Credenciales */}
+                                                                                <div className="space-y-4">
+                                                                                    {person.characteristics.map(
+                                                                                        (
+                                                                                            characteristic,
+                                                                                            i
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    i
+                                                                                                }
+                                                                                                className="flex items-start gap-4"
+                                                                                            >
+                                                                                                <img
+                                                                                                    src="/assets/img/icons/pin.png"
+                                                                                                    className="w-6 h-6 mt-1 flex-shrink-0"
+                                                                                                />
+                                                                                                <p className="text-base lg:text-[17px]">
+                                                                                                    {
+                                                                                                        characteristic
+                                                                                                    }
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        )
+                                                                                    )}
+                                                                                </div>
+
+                                                                                {/* Redes sociales */}
+                                                                                {person
+                                                                                    .socials
+                                                                                    ?.length >
+                                                                                    0 && (
+                                                                                    <div className="flex gap-4 mt-6 justify-end">
+                                                                                        {person.socials.map(
+                                                                                            (
+                                                                                                social,
+                                                                                                i
+                                                                                            ) => {
+                                                                                                const platform =
+                                                                                                    extractSocialPlatform(
+                                                                                                        social
+                                                                                                    );
+                                                                                                return (
+                                                                                                    <a
+                                                                                                        key={
+                                                                                                            i
+                                                                                                        }
+                                                                                                        href={
+                                                                                                            social
+                                                                                                        }
+                                                                                                        target="_blank"
+                                                                                                        rel="noopener noreferrer"
+                                                                                                    >
+                                                                                                        <img
+                                                                                                            src={`/assets/img/icons/socials/${platform}.png`}
+                                                                                                            className="h-10 w-10 hover:opacity-80 transition-opacity"
+                                                                                                            alt={
+                                                                                                                platform
+                                                                                                            }
+                                                                                                        />
+                                                                                                    </a>
+                                                                                                );
+                                                                                            }
+                                                                                        )}
+                                                                                    </div>
+                                                                                )}
+                                                                            </div>
+                                                                        </motion.div>
+                                                                    )}
+                                                                </motion.div>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </SwiperSlide>
+                                            )
+                                        )}
+                                    </Swiper>
+                                    <motion.div
+                                        className="flex justify-center mt-4 space-x-2"
+                                        variants={itemVariants}
+                                    >
+                                        {staffSlides.map((_, index) => (
+                                            <motion.button
+                                                key={index}
+                                                onClick={() =>
+                                                    setActiveSlide(index)
+                                                }
+                                                className={`rounded-full transition-all duration-300 ${
+                                                    index === activeSlide
+                                                        ? "bg-[#224483] w-[20px] h-[12px]"
+                                                        : "bg-[#22448366] w-[12px] h-[12px]"
+                                                }`}
+                                                whileHover={{ scale: 1.2 }}
+                                                whileTap={{ scale: 0.9 }}
+                                            />
+                                        ))}
+                                    </motion.div>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+                    </motion.section>
+                </div>
+            ) : (
+                <MaintenancePage />
+            )}
             <Footer />
         </div>
     );

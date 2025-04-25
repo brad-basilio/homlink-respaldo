@@ -18,5 +18,10 @@ class General extends Model
         'correlative',
         'description',
         'status',
+        'lang_id',
     ];
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }
