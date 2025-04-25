@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Lang;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,17 @@ class AssignDefaultLangIdSeeder extends Seeder
      */
     public function run(): void
     {
+        //create a new lang default
+        $lang = new Lang();
+        $lang->name = 'Español';
+        $lang->description = 'Idioma por defecto';
+        $lang->image = "";
+        $lang->is_default = true;
+        $lang->status = true;
+        $lang->visible = true;
+        $lang->save();
+
+
         //services, specialties, facilities, staff,indicators,strengths,testimonies,categories,posts
         $defaultLang = DB::table('langs')->where('is_default', true)->first();
 
