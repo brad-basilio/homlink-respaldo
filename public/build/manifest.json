@@ -3226,7 +3226,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dr3wPUh9.js",
+    "file": "assets/CheckboxFormGroup-IlEDNq44.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -3246,7 +3246,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dr3wPUh9.js",
+    "file": "assets/InputFormGroup-IlEDNq44.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -3266,7 +3266,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dr3wPUh9.js",
+    "file": "assets/QuillFormGroup-IlEDNq44.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -3276,7 +3276,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-DuXIhBO8.js",
+    "file": "assets/SelectAPIFormGroup-BIYLbswy.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -3288,7 +3288,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-Dr3wPUh9.js",
+    "file": "assets/SelectFormGroup-IlEDNq44.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -3545,7 +3545,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dr3wPUh9.js",
+    "file": "assets/DataGrid-IlEDNq44.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -3912,7 +3912,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-IlEDNq44.js",
+    "file": "assets/DataGrid-Dr3wPUh9.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -4210,10 +4210,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-DqvWIHiO.js",
+    "file": "assets/HairType-Chh2FwmR.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/FileViewer.jsx",
       "_index-B80Lgev0.js",
@@ -4233,10 +4233,10 @@
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-BSUDgcH2.js",
+    "file": "assets/ScalpType-Chh2FwmR.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/FileViewer.jsx",
       "_index-B80Lgev0.js",
@@ -4344,7 +4344,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-IlEDNq44.js",
+    "file": "assets/CheckboxFormGroup-Dr3wPUh9.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4354,7 +4354,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-IlEDNq44.js",
+    "file": "assets/InputFormGroup-Dr3wPUh9.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4374,7 +4374,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-IlEDNq44.js",
+    "file": "assets/QuillFormGroup-Dr3wPUh9.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4384,7 +4384,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-BIYLbswy.js",
+    "file": "assets/SelectAPIFormGroup-DuXIhBO8.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -4396,7 +4396,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-IlEDNq44.js",
+    "file": "assets/SelectFormGroup-Dr3wPUh9.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,

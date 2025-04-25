@@ -12,14 +12,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Nueva migración: php artisan make:migration add_is_default_to_langs
         Schema::table('langs', function (Blueprint $table) {
             $table->boolean('is_default')->default(false)->after('visible');
         });
 
         // Asegúrate de que solo un idioma sea el predeterminado
-        DB::statement('UPDATE langs SET is_default = false');
-        DB::statement('UPDATE langs SET is_default = true WHERE id = (SELECT id FROM langs LIMIT 1)');
+        DB::table('langs')->update(['is_default' => false]);
+
+        $firstLangId = DB::table('langs')->value('id');
+        if ($firstLangId) {
+            DB::table('langs')->where('id', $firstLangId)->update(['is_default' => true]);
+        }
     }
 
     /**
