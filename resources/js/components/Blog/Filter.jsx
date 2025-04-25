@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TextWithHighlight from "../../Utils/TextWithHighlight";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const Filter = ({ categories, filter, setFilter, landing }) => {
     const landingFooter = landing.find(
@@ -54,6 +55,7 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
         },
     };
 
+    const { t } = useTranslation();
     return (
         <motion.section
             className="p-[5%] lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
@@ -113,7 +115,10 @@ const Filter = ({ categories, filter, setFilter, landing }) => {
                     <motion.input
                         id="txt-search"
                         type="text"
-                        placeholder="Buscar publicación"
+                        placeholder={t(
+                            "public.post.search",
+                            "	Buscar publicación"
+                        )}
                         className="w-full bg-transparent border-none outline-none text-slate-800"
                         onChange={(e) =>
                             setFilter((old) => ({

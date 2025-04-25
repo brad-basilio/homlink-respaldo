@@ -22,6 +22,7 @@ import {
     CircleChevronLeft,
 } from "lucide-react";
 import MaintenancePage from "./Utils/MaintenancePage";
+import { useTranslation } from "./hooks/useTranslation";
 
 // Animaciones compartidas
 const containerVariants = {
@@ -112,6 +113,8 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
             return "default";
         }
     };
+
+    const { t } = useTranslation();
 
     return (
         <div className="font-poppins">
@@ -306,7 +309,10 @@ const FisioTerapiaPage = ({ landing, staffData, specialities }) => {
                                                     className="h-auto"
                                                 />
                                             </div>
-                                            Ver todos los servicios
+                                            {t(
+                                                "public.btn.all_services",
+                                                "Ver todos los servicios"
+                                            )}
                                         </a>
                                     </motion.button>
                                 </motion.div>

@@ -16,7 +16,7 @@ const Menu = ({
 }) => {
     const mainRole = session.roles[0];
     const { t, loading, error } = useTranslation();
-    if (loading) {
+    /* if (loading) {
         return <div className="text-center py-4">Cargando menú...</div>;
     }
 
@@ -26,7 +26,7 @@ const Menu = ({
                 Error cargando traducciones: {error}
             </div>
         );
-    }
+    }*/
     return (
         <div
             className="left-side-menu"

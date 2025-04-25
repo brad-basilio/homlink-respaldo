@@ -9,6 +9,7 @@ import {
 import MessagesRest from "../../Actions/MessagesRest";
 import Swal from "sweetalert2";
 import { data } from "autoprefixer";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const messagesRest = new MessagesRest();
 
@@ -194,6 +195,8 @@ const ContactForm = ({}) => {
         });
     };
 
+    const { t } = useTranslation();
+
     return (
         <form className="flex flex-col gap-y-6" onSubmit={onMessageSubmit}>
             <div>
@@ -201,13 +204,13 @@ const ContactForm = ({}) => {
                     htmlFor="nombre"
                     className="block text-sm font-medium  mb-1"
                 >
-                    Nombre
+                    {t("public.form.name", "Nombre")}
                 </label>
                 <input
                     ref={nameRef}
                     type="text"
                     id="nombre"
-                    placeholder="Ingresa tu nombre"
+                    placeholder={t("public.form.name", "Nombre")}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
@@ -218,13 +221,13 @@ const ContactForm = ({}) => {
                         htmlFor="apellido-materno"
                         className="block text-sm font-medium  mb-1"
                     >
-                        Apellido
+                        {t("public.form.lastname", "Apelldios")}
                     </label>
                     <input
                         ref={lastNameRef}
                         type="text"
                         id="apellido-materno"
-                        placeholder="Ingresa tu apellido"
+                        placeholder={t("public.form.lastname", "Apelldios")}
                         className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
@@ -235,13 +238,13 @@ const ContactForm = ({}) => {
                     htmlFor="email"
                     className="block text-sm font-medium  mb-1"
                 >
-                    E-mail
+                    {t("public.form.email", "E-mail")}
                 </label>
                 <input
                     ref={emailRef}
                     type="email"
                     id="email"
-                    placeholder="Ingresa tu dirección de correo electrónico"
+                    placeholder={t("public.form.email", "E-mail")}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
@@ -259,13 +262,13 @@ const ContactForm = ({}) => {
                     htmlFor="mensaje"
                     className="block text-sm font-medium  mb-1"
                 >
-                    Escribe un mensaje
+                    {t("public.form.message", "Escribe un mensaje")}
                 </label>
                 <textarea
                     ref={descriptionRef}
                     id="mensaje"
                     rows={6}
-                    placeholder="Escríbenos tu pregunta aquí"
+                    placeholder={t("public.form.message", "Escribe un mensaje")}
                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 ></textarea>
             </div>
@@ -280,7 +283,10 @@ const ContactForm = ({}) => {
                 </div>
                 <div className="ml-3 text-sm">
                     <label htmlFor="privacidad" className="">
-                        Usted acepta nuestra amigable política de privacidad.
+                        {t(
+                            "public.form.privacy",
+                            "Usted acepta nuestra amigable política de privacidad."
+                        )}
                     </label>
                 </div>
             </div>
@@ -294,9 +300,11 @@ const ContactForm = ({}) => {
                     <img src="/assets/img/icons/send.png" className=" h-auto" />
                 </div>
                 {!sending ? (
-                    <p className="ml-4">Enviar formulario</p>
+                    <p className="ml-4">
+                        {t("public.btn.send_form", "Enviar formulario")}
+                    </p>
                 ) : (
-                    <p>Enviando formulario...</p>
+                    <p> {t("public.btn.sending", "Enviando formulario...")}</p>
                 )}
             </button>
         </form>

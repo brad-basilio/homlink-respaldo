@@ -9,13 +9,18 @@ import "swiper/css/pagination";
 // import required modules
 import { Navigation, Pagination } from "swiper/modules";
 import { useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function TestimonioSection({ testimonies }) {
     const [activeIndex, setActiveIndex] = useState(0);
     return (
         <div className=" mt-0  font-poppins">
-            <div className="max-w-md mx-auto px-4 py-4 lg:max-w-3xl lg:mt-4">
+            <div className="max-w-md mx-auto px-4 py-4 lg:max-w-3xl lg:mt-4 relative">
                 <Swiper
+                    navigation={{
+                        prevEl: ".custom-prev",
+                        nextEl: ".custom-next",
+                    }}
                     slidesPerView={3}
                     spaceBetween={30}
                     loop={true}
@@ -53,6 +58,22 @@ export default function TestimonioSection({ testimonies }) {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+                {/* Botones de navegación personalizados */}
+                <div className="hidden lg:block absolute top-1/2 left-[-40px] transform -translate-y-1/2 custom-prev cursor-pointer">
+                    <ChevronLeft
+                        size={40}
+                        strokeWidth={3}
+                        className="text-[#224483] "
+                    />
+                </div>
+
+                <div className="hidden lg:block  absolute top-1/2 right-[-40px]  transform -translate-y-1/2 custom-next cursor-pointer">
+                    <ChevronRight
+                        size={40}
+                        strokeWidth={3}
+                        className="text-[#224483] "
+                    />
+                </div>
                 {/* Paginacion personalizada */}
                 <div className="flex justify-center gap-2 mt-10">
                     {testimonies.map((_, index) => (

@@ -13,6 +13,8 @@ import { data } from "autoprefixer";
 const messagesRest = new AppointmentsRest();
 import { X } from "lucide-react";
 import AppointmentsRest from "../../actions/Admin/AppointmentsRest";
+import { useTranslation } from "../../hooks/useTranslation";
+import TextWithHighlight from "../../Utils/TextWithHighlight";
 const PhoneInput = ({ onPhoneChange }) => {
     const [countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
@@ -80,9 +82,13 @@ const PhoneInput = ({ onPhoneChange }) => {
         setShowDropdown(false);
     };
 
+    const { t } = useTranslation();
+
     return (
         <div className="relative w-full">
-            <label className="block text-sm  mb-1">Número de teléfono*</label>
+            <label className="block text-sm  mb-1">
+                {t("public.form.phone", "Número de teléfono")}*
+            </label>
 
             <div className="flex border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-azul">
                 {/* Selector de país */}
@@ -209,6 +215,7 @@ export default function ModalAppointment({
     };
 
     if (!isOpen) return null;
+    const { t } = useTranslation();
 
     return (
         <div className="fixed inset-0 px-[5%] lg:px-0 z-50 flex items-center justify-center py-10  bg-black bg-opacity-50 overflow-y-auto scrollbar-hide">
@@ -225,8 +232,12 @@ export default function ModalAppointment({
                 {/* Formulario */}
                 <div className="w-full md:w-1/2 p-6 md:p-8">
                     <h2 className="text-[40px]  mb-6 max-w-[15rem] leading-10">
-                        Reservar una <span className="text-azul">cita</span>{" "}
-                        ahora
+                        <TextWithHighlight
+                            text={t(
+                                "public.form.form_cita",
+                                " Reservar una *cita* ahora"
+                            )}
+                        />
                     </h2>
 
                     <form
@@ -238,14 +249,14 @@ export default function ModalAppointment({
                                 htmlFor="nombre"
                                 className="block text-sm   mb-1"
                             >
-                                Nombre*
+                                {t("public.form.name", "Nombre")}*
                             </label>
                             <input
                                 ref={nameRef}
                                 required
                                 type="text"
                                 id="nombre"
-                                placeholder="Ingresa tu nombre"
+                                placeholder={t("public.form.name", "Nombre")}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                             />
                         </div>
@@ -256,14 +267,21 @@ export default function ModalAppointment({
                                     htmlFor="apellido-paterno"
                                     className="block text-sm   mb-1"
                                 >
-                                    Apellido paterno*
+                                    {t(
+                                        "public.form.lastname_father",
+                                        "Apellido paterno"
+                                    )}
+                                    *
                                 </label>
                                 <input
                                     ref={lastNameRef}
                                     required
                                     type="text"
                                     id="apellido-paterno"
-                                    placeholder="Apellido"
+                                    placeholder={t(
+                                        "public.form.lastname_father",
+                                        "Apellido paterno"
+                                    )}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                                 />
                             </div>
@@ -272,14 +290,21 @@ export default function ModalAppointment({
                                     htmlFor="apellido-materno"
                                     className="block text-sm   mb-1"
                                 >
-                                    Apellido materno*
+                                    {t(
+                                        "public.form.lastname_mother",
+                                        "Apellido materno"
+                                    )}
+                                    *
                                 </label>
                                 <input
                                     ref={lastName2Ref}
                                     required
                                     type="text"
                                     id="apellido-materno"
-                                    placeholder="Apellido"
+                                    placeholder={t(
+                                        "public.form.lastname_mother",
+                                        "Apellido materno"
+                                    )}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                                 />
                             </div>
@@ -300,13 +325,13 @@ export default function ModalAppointment({
                                 htmlFor="document"
                                 className="block text-sm   mb-1"
                             >
-                                DNI o CE
+                                {t("public.form.dni", " DNI o CE")}
                             </label>
                             <input
                                 ref={documentRef}
                                 type="text"
                                 id="document"
-                                placeholder="Ingresa tu dirección de correo electrónico"
+                                placeholder={t("public.form.dni", " DNI o CE")}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                             />
                         </div>
@@ -315,14 +340,17 @@ export default function ModalAppointment({
                                 htmlFor="email"
                                 className="block text-sm   mb-1"
                             >
-                                Correo electrónico
+                                {t("public.form.email", " Correo electrónico")}
                             </label>
                             <input
                                 required
                                 ref={emailRef}
                                 type="email"
                                 id="email"
-                                placeholder="Ingresa tu dirección de correo electrónico"
+                                placeholder={t(
+                                    "public.form.email",
+                                    "Correo electrónico"
+                                )}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                             />
                         </div>
@@ -332,14 +360,17 @@ export default function ModalAppointment({
                                 htmlFor="mensaje"
                                 className="block text-sm   mb-1"
                             >
-                                Escribe un mensaje
+                                {t("public.form.message", "Escribe un mensaje")}
                             </label>
                             <textarea
                                 required
                                 ref={descriptionRef}
                                 id="mensaje"
                                 rows={6}
-                                placeholder="Escríbenos tu pregunta aquí"
+                                placeholder={t(
+                                    "public.form.message",
+                                    "Escribe un mensaje"
+                                )}
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-azul"
                             ></textarea>
                         </div>
@@ -354,8 +385,10 @@ export default function ModalAppointment({
                             </div>
                             <div className="ml-3 text-sm">
                                 <label htmlFor="privacidad" className="">
-                                    Usted acepta nuestra amigable política de
-                                    privacidad.
+                                    {t(
+                                        "public.form.privacy",
+                                        " Usted acepta nuestra amigable política de privacidad."
+                                    )}
                                 </label>
                             </div>
                         </div>
@@ -372,9 +405,19 @@ export default function ModalAppointment({
                                 />
                             </div>
                             {!sending ? (
-                                <p className="ml-4">Enviar formulario</p>
+                                <p className="ml-4">
+                                    {t(
+                                        "public.btn.send_form",
+                                        "Enviar formulario"
+                                    )}
+                                </p>
                             ) : (
-                                <p>Enviando formulario...</p>
+                                <p>
+                                    {t(
+                                        "public.btn.sending",
+                                        " Enviando formulario..."
+                                    )}
+                                </p>
                             )}
                         </button>
                     </form>
@@ -393,17 +436,22 @@ export default function ModalAppointment({
                         </div>
                         <div>
                             <p className="text-[#242424] text-base">
-                                ¿Tienes dudas sobre como agendar? <br />
-                                Haz{" "}
+                                {t(
+                                    "public.form.whatsapp",
+                                    "¿Tienes dudas sobre como agendar?"
+                                )}
+                                <br />
                                 <a
                                     href={linkWhatsApp?.link}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-azul cursor-pointer"
                                 >
-                                    clic aquí
-                                </a>{" "}
-                                y chatea con nosotros por WhatsApp
+                                    {t(
+                                        "public.form.link_whatsapp",
+                                        "Chatea con nosotros por WhatsApp"
+                                    )}
+                                </a>
                             </p>
                         </div>
                     </div>

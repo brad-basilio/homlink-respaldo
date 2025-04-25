@@ -22,19 +22,19 @@ class AboutController extends BasicController
     public function setReactViewProperties(Request $request)
     {
         $langId = app('current_lang_id');
-        $defaultLangId = Lang::where('is_default', true)->value('id');
+        // $defaultLangId = Lang::where('is_default', true)->value('id');
 
         // LANDING
         $landing = LandingHome::where('correlative', 'like', 'page_aboutus%')
             ->where('lang_id', $langId)
             ->get();
 
-        if ($landing->isEmpty()) {
+        /* if ($landing->isEmpty()) {
             $landing = LandingHome::where('correlative', 'like', 'page_aboutus%')
                 ->where('lang_id', $defaultLangId)
                 ->get();
         }
-
+*/
         // STAFF
         $staffData = Staff::where('visible', true)
             ->whereNotIn('job', ['Director', 'Directora'])
@@ -50,12 +50,12 @@ class AboutController extends BasicController
             ->where('lang_id', $langId)
             ->get();
 
-        if ($specialities->isEmpty()) {
+        /*  if ($specialities->isEmpty()) {
             $specialities = Specialty::where('visible', true)
                 ->where('status', true)
                 ->where('lang_id', $defaultLangId)
                 ->get();
-        }
+        }*/
 
         return [
             'landing' => $landing,

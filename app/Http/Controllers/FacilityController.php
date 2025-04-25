@@ -16,9 +16,9 @@ class FacilityController extends BasicController
     public function setReactViewProperties(Request $request)
     {
 
-
-        $landing = LandingHome::where('correlative', 'like', 'page_facility%')->get();
-        $facilities = Facility::where('status', true)->where('visible', true)->orderBy('created_at', 'ASC')->get();
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_facility%')->where('lang_id', $langId)->get();
+        $facilities = Facility::where('status', true)->where('visible', true)->where('lang_id', $langId)->orderBy('created_at', 'ASC')->get();
 
         return [
             'landing' => $landing,

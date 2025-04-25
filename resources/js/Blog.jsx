@@ -7,9 +7,10 @@ import BlogHeader from "./Components/Blog/BlogHeader";
 import Filter from "./Components/Blog/Filter";
 import Results from "./Components/Blog/Results";
 import Header from "./components/Tailwind/Header";
+import Footer from "./components/Tailwind/Footer";
 import { CarritoProvider } from "./context/CarritoContext";
-
-function Blog({ categories,postRecent,landing }) {
+import MaintenancePage from "./Utils/MaintenancePage";
+function Blog({ categories, postRecent, landing }) {
     const [filter, setFilter] = useState({
         category: null,
         search: null,
@@ -17,16 +18,23 @@ function Blog({ categories,postRecent,landing }) {
     });
 
     return (
-        <div >
+        <div>
             <Header />
-            <BlogHeader postRecent={postRecent} landing={landing}/>
-            <Filter
-                categories={categories}
-                filter={filter}
-                setFilter={setFilter}
-                landing={landing}
-            />
-            <Results filter={filter} />
+            {postRecent && postRecent.length > 0 ? (
+                <>
+                    <BlogHeader postRecent={postRecent} landing={landing} />
+                    <Filter
+                        categories={categories}
+                        filter={filter}
+                        setFilter={setFilter}
+                        landing={landing}
+                    />
+                    <Results filter={filter} />
+                </>
+            ) : (
+                <MaintenancePage />
+            )}
+            <Footer />
         </div>
     );
 }

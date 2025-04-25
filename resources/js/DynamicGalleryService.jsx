@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useTranslation } from "./hooks/useTranslation";
 
 const DynamicGalleryService = ({ service }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -36,7 +37,7 @@ const DynamicGalleryService = ({ service }) => {
             scale: 1.1,
             transition: {
                 duration: 0.4,
-                ease: [0.25, 0.1, 0.25, 1]
+                ease: [0.25, 0.1, 0.25, 1],
             },
         },
     };
@@ -98,6 +99,7 @@ const DynamicGalleryService = ({ service }) => {
             config: getLayoutConfig(groupSize),
         });
     }
+    const { t } = useTranslation();
 
     return (
         <div className="w-full mx-auto my-8">
@@ -131,7 +133,8 @@ const DynamicGalleryService = ({ service }) => {
                                     }`}
                                     className="w-full h-full object-cover absolute inset-0 rounded-3xl"
                                     onError={(e) => {
-                                        e.target.src = "/assets/img/placeholder.jpg";
+                                        e.target.src =
+                                            "/assets/img/placeholder.jpg";
                                     }}
                                 />
                             </motion.div>
@@ -146,21 +149,23 @@ const DynamicGalleryService = ({ service }) => {
                     <motion.button
                         onClick={() => setExpanded(!expanded)}
                         className="px-6 py-3 bg-gray-100 rounded-full flex items-center gap-2"
-                        whileHover={{ 
+                        whileHover={{
                             scale: 1.05,
-                            backgroundColor: "#f3f4f6"
+                            backgroundColor: "#f3f4f6",
                         }}
                         whileTap={{ scale: 0.95 }}
                     >
                         {expanded ? (
                             <>
-                                <span>Mostrar menos</span>
+                                <span>
+                                    {t("public.btn.see_less", "Mostrar menos")}
+                                </span>
                                 <motion.svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5"
                                     viewBox="0 0 20 20"
                                     fill="currentColor"
-                                    animate={{ rotate: 180 }}
+                                    animate={{ rotate: 0 }}
                                     transition={{ duration: 0.3 }}
                                 >
                                     <path
@@ -173,7 +178,7 @@ const DynamicGalleryService = ({ service }) => {
                         ) : (
                             <>
                                 <span>
-                                    Ver más ({totalImages - 5} imágenes más)
+                                    {t("public.btn.see_all", "Ver más")}
                                 </span>
                                 <motion.svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -223,10 +228,10 @@ const DynamicGalleryService = ({ service }) => {
                             />
                             <motion.button
                                 className="absolute top-4 right-4 bg-white rounded-full p-2 shadow-lg"
-                                whileHover={{ 
+                                whileHover={{
                                     scale: 1.1,
                                     rotate: 90,
-                                    backgroundColor: "#f3f4f6"
+                                    backgroundColor: "#f3f4f6",
                                 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setSelectedImage(null)}

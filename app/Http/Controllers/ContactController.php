@@ -16,12 +16,14 @@ class ContactController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
-        $landing = LandingHome::where('correlative', 'like', 'page_contact%')->get();
-        $sedes = Facility::where('visible', true)->where('status', true)->get();
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_contact%')->where('lang_id', $langId)->get();
+        $sedes = Facility::where('visible', true)->where('status', true)->where('lang_id', $langId)->get();
 
         $staff = Staff::where('visible', true)
             ->where('status', true)
             ->whereNotIn('job', ['Director', 'Directora'])
+            ->where('lang_id', $langId)
             ->latest()
             ->take(3)
             ->get();

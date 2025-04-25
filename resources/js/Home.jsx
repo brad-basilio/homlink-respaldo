@@ -30,6 +30,7 @@ import { ScrollAnimation } from "./animations/ScrollAnimation";
 import { scrollEffects } from "./animations/animationVariantsSccroll";
 import { PersistentScrollAnimation } from "./animations/PersistentScrollAnimation";
 import BlurText from "./Utils/BlurText";
+import { useTranslation } from "./hooks/useTranslation";
 
 // Animaciones para textos (en loop)
 const textVariants = {
@@ -109,17 +110,18 @@ const Home = ({
     testimonies,
     staff_boss,
 }) => {
-    const tipoSlider = "vua";
-    const landingHero = landing.find(
+    const { t, loading, error } = useTranslation();
+    const tipoSlider = "nopain";
+    const landingHero = landing?.find(
         (item) => item.correlative === "page_home_hero"
     );
-    const landingBenefits = landing.find(
+    const landingBenefits = landing?.find(
         (item) => item.correlative === "page_home_benefits"
     );
-    const landingServices = landing.find(
+    const landingServices = landing?.find(
         (item) => item.correlative === "page_home_services"
     );
-    const landingTestimonies = landing.find(
+    const landingTestimonies = landing?.find(
         (item) => item.correlative === "page_home_testimonies"
     );
     const videoRef = useRef(null);
@@ -142,349 +144,389 @@ const Home = ({
     return (
         <div>
             <Header showSlogan={showSlogan}></Header>
-            <div className="relative ">
-                <div className="relative">
-                    {landingHero?.is_video ? (
-                        <div className="relative">
-                            <video
-                                src={`/api/landing_home/video/${landingHero?.video}`}
-                                ref={videoRef}
-                                muted
-                                playsInline
-                                className=" w-full object-cover object-left-top lg:object-contain lg:object-right-top h-[300px]  lg:h-[90vh] mt-4"
+            {landingHero && (
+                <div className="relative ">
+                    <div className="relative">
+                        {landingHero?.is_video ? (
+                            <div className="relative">
+                                <video
+                                    src={`/api/landing_home/video/${landingHero?.video}`}
+                                    ref={videoRef}
+                                    muted
+                                    playsInline
+                                    className=" w-full object-cover object-left-top lg:object-contain lg:object-right-top h-[300px]  lg:h-[90vh] mt-4"
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
+                                    onEnded={handleEnded}
+                                />
+                                {!isPlaying && (
+                                    <button
+                                        onClick={handlePlay}
+                                        className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse z-50 lg:ml-40"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="80"
+                                            height="80"
+                                            viewBox="0 0 80 80"
+                                            fill="none"
+                                        >
+                                            <foreignObject
+                                                x="-17.6271"
+                                                y="-17.6271"
+                                                width="115.254"
+                                                height="115.254"
+                                            >
+                                                <div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    style={{
+                                                        backdropFilter:
+                                                            "blur(8.81px)",
+                                                        clipPath:
+                                                            "url(#bgblur_0_59_6055_clip_path)",
+                                                        height: "100%",
+                                                        width: "100%",
+                                                    }}
+                                                ></div>
+                                            </foreignObject>
+                                            <circle
+                                                data-figma-bg-blur-radius="17.6271"
+                                                cx="40"
+                                                cy="40"
+                                                r="40"
+                                                fill="white"
+                                                fillOpacity="0.18"
+                                            />
+                                            <foreignObject
+                                                x="-6.10167"
+                                                y="-6.09978"
+                                                width="92.2034"
+                                                height="92.2035"
+                                            >
+                                                <div
+                                                    xmlns="http://www.w3.org/1999/xhtml"
+                                                    style={{
+                                                        backdropFilter:
+                                                            "blur(8.81px)",
+                                                        clipPath:
+                                                            "url(#bgblur_1_59_6055_clip_path)",
+                                                        height: "100%",
+                                                        width: "100%",
+                                                    }}
+                                                ></div>
+                                            </foreignObject>
+                                            <circle
+                                                data-figma-bg-blur-radius="17.6271"
+                                                cx="40"
+                                                cy="40.0019"
+                                                r="28.4746"
+                                                fill="white"
+                                                fillOpacity="0.5"
+                                            />
+                                            <path
+                                                d="M49.5178 40.054L35.2578 48.2345L35.3033 31.7948L49.5178 40.054Z"
+                                                fill="#FFFCFC"
+                                            />
+                                            <defs>
+                                                <clipPath
+                                                    id="bgblur_0_59_6055_clip_path"
+                                                    transform="translate(17.6271 17.6271)"
+                                                >
+                                                    <circle
+                                                        cx="40"
+                                                        cy="40"
+                                                        r="40"
+                                                    />
+                                                </clipPath>
+                                                <clipPath
+                                                    id="bgblur_1_59_6055_clip_path"
+                                                    transform="translate(6.10167 6.09978)"
+                                                >
+                                                    <circle
+                                                        cx="40"
+                                                        cy="40.0019"
+                                                        r="28.4746"
+                                                    />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </button>
+                                )}
+                            </div>
+                        ) : (
+                            <img
+                                src={`/api/landing_home/media/${landingHero?.image}`}
+                                className=" w-full h-auto mt-4  "
                                 onError={(e) =>
                                     (e.target.src = "/api/cover/thumbnail/null")
                                 }
-                                onEnded={handleEnded}
                             />
-                            {!isPlaying && (
-                                <button
-                                    onClick={handlePlay}
-                                    className="absolute cursor-pointer top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse z-50 lg:ml-40"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="80"
-                                        height="80"
-                                        viewBox="0 0 80 80"
-                                        fill="none"
-                                    >
-                                        <foreignObject
-                                            x="-17.6271"
-                                            y="-17.6271"
-                                            width="115.254"
-                                            height="115.254"
-                                        >
-                                            <div
-                                                xmlns="http://www.w3.org/1999/xhtml"
-                                                style={{
-                                                    backdropFilter:
-                                                        "blur(8.81px)",
-                                                    clipPath:
-                                                        "url(#bgblur_0_59_6055_clip_path)",
-                                                    height: "100%",
-                                                    width: "100%",
-                                                }}
-                                            ></div>
-                                        </foreignObject>
-                                        <circle
-                                            data-figma-bg-blur-radius="17.6271"
-                                            cx="40"
-                                            cy="40"
-                                            r="40"
-                                            fill="white"
-                                            fillOpacity="0.18"
-                                        />
-                                        <foreignObject
-                                            x="-6.10167"
-                                            y="-6.09978"
-                                            width="92.2034"
-                                            height="92.2035"
-                                        >
-                                            <div
-                                                xmlns="http://www.w3.org/1999/xhtml"
-                                                style={{
-                                                    backdropFilter:
-                                                        "blur(8.81px)",
-                                                    clipPath:
-                                                        "url(#bgblur_1_59_6055_clip_path)",
-                                                    height: "100%",
-                                                    width: "100%",
-                                                }}
-                                            ></div>
-                                        </foreignObject>
-                                        <circle
-                                            data-figma-bg-blur-radius="17.6271"
-                                            cx="40"
-                                            cy="40.0019"
-                                            r="28.4746"
-                                            fill="white"
-                                            fillOpacity="0.5"
-                                        />
-                                        <path
-                                            d="M49.5178 40.054L35.2578 48.2345L35.3033 31.7948L49.5178 40.054Z"
-                                            fill="#FFFCFC"
-                                        />
-                                        <defs>
-                                            <clipPath
-                                                id="bgblur_0_59_6055_clip_path"
-                                                transform="translate(17.6271 17.6271)"
-                                            >
-                                                <circle
-                                                    cx="40"
-                                                    cy="40"
-                                                    r="40"
-                                                />
-                                            </clipPath>
-                                            <clipPath
-                                                id="bgblur_1_59_6055_clip_path"
-                                                transform="translate(6.10167 6.09978)"
-                                            >
-                                                <circle
-                                                    cx="40"
-                                                    cy="40.0019"
-                                                    r="28.4746"
-                                                />
-                                            </clipPath>
-                                        </defs>
-                                    </svg>
-                                </button>
-                            )}
-                        </div>
-                    ) : (
-                        <img
-                            src={`/api/landing_home/media/${landingHero?.image}`}
-                            className=" w-full h-auto mt-4  "
-                            onError={(e) =>
-                                (e.target.src = "/api/cover/thumbnail/null")
-                            }
-                        />
-                    )}
-                    <div
-                        className="hidden lg:block absolute top-0 right-0 inset-0"
-                        style={{
-                            background:
-                                "linear-gradient(90deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 70%)",
-                        }}
-                    ></div>
-                    <div
-                        className="block lg:hidden absolute top-0 right-0 inset-0"
-                        style={{
-                            background:
-                                "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%)",
-                        }}
-                    ></div>
-                </div>
-
-                <div className="lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
-                    {/* Título con animación en loop */}
-                    <motion.h2
-                        className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]"
-                        initial="hidden"
-                        animate={["visible", "loop"]} // Animación inicial + loop
-                        variants={textVariants}
-                    >
-                        <TextWithHighlight text={landingHero?.title} />
-                    </motion.h2>
-
-                    {/* Descripción con animación en loop */}
-                    <motion.p
-                        className="hidden lg:flex mt-8"
-                        initial="hidden"
-                        animate={["visible", "loop"]}
-                        variants={textVariants}
-                        transition={{ delay: 0.3 }} // Pequeño retraso
-                    >
-                        {landingHero?.description}
-                    </motion.p>
-
-                    {/* Botón con tu animación exacta */}
-                    <motion.div
-                        className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                    >
-                        <motion.button
-                            onClick={() => setIsModalOpen(true)}
-                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
-                            variants={buttonVariants}
-                            initial="hidden"
-                            animate={["visible", "pulse"]}
-                            whileHover="hover"
-                            style={{ position: "relative", overflow: "hidden" }}
-                        >
-                            <motion.span
-                                className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
-                                initial={{ scale: 0 }}
-                                whileTap={{
-                                    scale: 2,
-                                    opacity: 0.3,
-                                    transition: { duration: 0.5 },
-                                }}
-                            />
-                            <div className="bg-[#224483] w-12 p-2 rounded-full">
-                                <img
-                                    src="/assets/img/icons/calendar-check.png"
-                                    className="h-auto"
-                                    alt="Calendario"
-                                />
-                            </div>
-                            Reserva tu cita
-                        </motion.button>
-                    </motion.div>
-                </div>
-            </div>
-            <ScrollAnimation>
-                <div className=" h-auto w-full bg-[#F8F8F8] mt-[36px] lg:mt-0">
-                    {" "}
-                    <div className="lg:max-w-[82rem] mx-auto lg:px-[5%]">
-                        <Swiper
-                            slidesPerView={3}
-                            spaceBetween={30}
-                            loop={true}
-                            breakpoints={{
-                                0: { slidesPerView: 1.5, spaceBetween: 0 },
-                                640: { slidesPerView: 1.5, spaceBetween: 10 },
-                                1024: { slidesPerView: 3, spaceBetween: 180 },
+                        )}
+                        <div
+                            className="hidden lg:block absolute top-0 right-0 inset-0"
+                            style={{
+                                background:
+                                    "linear-gradient(90deg, rgba(255,255,255,1) 30%, rgba(255,255,255,0) 70%)",
                             }}
+                        ></div>
+                        <div
+                            className="block lg:hidden absolute top-0 right-0 inset-0"
+                            style={{
+                                background:
+                                    "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 50%)",
+                            }}
+                        ></div>
+                    </div>
+
+                    <div className="lg:absolute lg:top-1/2 lg:-translate-y-1/2 lg:left-20 lg:max-w-md">
+                        {/* Título con animación en loop */}
+                        <motion.h2
+                            className="w-full px-[5%] text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-7xl lg:leading-[102%]"
+                            initial="hidden"
+                            animate={["visible", "loop"]} // Animación inicial + loop
+                            variants={textVariants}
                         >
-                            {indicators.map((benefit, index) => (
-                                <SwiperSlide key={index}>
-                                    <div className="flex gap-4 w-full my-6 lg:my-7 ">
-                                        <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
-                                            <img
-                                                src={`/api/indicator/media/${benefit.symbol}`}
-                                                className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
-                                            />
-                                        </div>
-                                        <div className="text-[#242424]">
-                                            <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
-                                                {benefit.name}{" "}
-                                                <span className="text-[#224483]">
-                                                    +
-                                                </span>
-                                            </h1>
-                                            <h2 className="font-normal">
-                                                {benefit.description}
-                                            </h2>
-                                        </div>
-                                        <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2  -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
-                                    </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                            <TextWithHighlight text={landingHero?.title} />
+                        </motion.h2>
+
+                        {/* Descripción con animación en loop */}
+                        <motion.p
+                            className="hidden lg:flex mt-8"
+                            initial="hidden"
+                            animate={["visible", "loop"]}
+                            variants={textVariants}
+                            transition={{ delay: 0.3 }} // Pequeño retraso
+                        >
+                            {landingHero?.description}
+                        </motion.p>
+
+                        {/* Botón con tu animación exacta */}
+                        <motion.div
+                            className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6 }}
+                        >
+                            <motion.button
+                                onClick={() => setIsModalOpen(true)}
+                                className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
+                                variants={buttonVariants}
+                                initial="hidden"
+                                animate={["visible", "pulse"]}
+                                whileHover="hover"
+                                style={{
+                                    position: "relative",
+                                    overflow: "hidden",
+                                }}
+                            >
+                                <motion.span
+                                    className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                    initial={{ scale: 0 }}
+                                    whileTap={{
+                                        scale: 2,
+                                        opacity: 0.3,
+                                        transition: { duration: 0.5 },
+                                    }}
+                                />
+                                <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                    <img
+                                        src="/assets/img/icons/calendar-check.png"
+                                        className="h-auto"
+                                        alt="Calendario"
+                                    />
+                                </div>
+                                {t("public.btn.appointment", "Reserva tu cita")}
+                            </motion.button>
+                        </motion.div>
                     </div>
                 </div>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
-                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[46rem] lg:tracking-wide ">
-                        <TextWithHighlight text={landingBenefits?.title} />
-                    </h2>
-                    <a
-                        href="/services"
-                        className=" mt-5 bg-[#EFF0F1] w-max text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
-                    >
-                        <div className="bg-[#224483] w-12 p-2 rounded-full">
-                            <img
-                                src="/assets/img/icons/treatment.png"
-                                className=" h-auto    "
-                            />
-                        </div>
-                        Ver todos los servicios
-                    </a>
-                </div>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <HealthSection
-                    landingBenefits={landingBenefits}
-                    benefits={benefits}
-                />
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
-                    <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
-                        <TextWithHighlight text={landingServices?.title} />
-                    </h2>
-                    <a
-                        href="/services"
-                        className=" w-max mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
-                    >
-                        <div className="bg-[#224483] w-12 p-2 rounded-full">
-                            <img
-                                src="/assets/img/icons/treatment.png"
-                                className=" h-auto    "
-                            />
-                        </div>
-                        Ver todos los servicios
-                    </a>
-                </div>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <TratamientoSection
-                    setIsModalOpen={setIsModalOpen}
-                    isModalOpen={isModalOpen}
-                    services={services}
-                    landingServices={landingServices}
-                />
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <div className="px-[5%]  py-4 lg:hidden ">
-                    <div className="bg-[#F8F8F8] rounded-3xl p-4">
-                        <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
-                            {landingServices?.description}
-                        </h2>
-                        <motion.div
-                        className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                    >
-                        <motion.button
-                            onClick={() => setIsModalOpen(true)}
-                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
-                            variants={buttonVariants}
-                            initial="hidden"
-                            animate={["visible", "pulse"]}
-                            whileHover="hover"
-                            style={{ position: "relative", overflow: "hidden" }}
-                        >
-                            <motion.span
-                                className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
-                                initial={{ scale: 0 }}
-                                whileTap={{
-                                    scale: 2,
-                                    opacity: 0.3,
-                                    transition: { duration: 0.5 },
+            )}
+            {indicators && (
+                <ScrollAnimation>
+                    <div className=" h-auto w-full bg-[#F8F8F8] mt-[36px] lg:mt-0">
+                        {" "}
+                        <div className="lg:max-w-[82rem] mx-auto lg:px-[5%]">
+                            <Swiper
+                                slidesPerView={3}
+                                spaceBetween={30}
+                                loop={true}
+                                breakpoints={{
+                                    0: { slidesPerView: 1.5, spaceBetween: 0 },
+                                    640: {
+                                        slidesPerView: 1.5,
+                                        spaceBetween: 10,
+                                    },
+                                    1024: {
+                                        slidesPerView: 3,
+                                        spaceBetween: 180,
+                                    },
                                 }}
-                            />
+                            >
+                                {indicators.map((benefit, index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className="flex gap-4 w-full my-6 lg:my-7 ">
+                                            <div className="bg-white rounded-xl h-[60px] w-[60px] lg:h-[80px] lg:w-[80px]  flex items-center justify-center">
+                                                <img
+                                                    src={`/api/indicator/media/${benefit.symbol}`}
+                                                    className="h-[32.2px] w-[32.2px] lg:h-[40.2px] lg:w-[40.2px] "
+                                                />
+                                            </div>
+                                            <div className="text-[#242424]">
+                                                <h1 className="text-4xl lg:text-5xl font-medium leading-[102%]">
+                                                    {benefit.name}{" "}
+                                                    <span className="text-[#224483]">
+                                                        +
+                                                    </span>
+                                                </h1>
+                                                <h2 className="font-normal">
+                                                    {benefit.description}
+                                                </h2>
+                                            </div>
+                                            <span className="hidden lg:block lg:absolute -right-20 top-1/2 -translate-x-1/2  -translate-y-1/2 h-12 w-1 bg-[#242424] rounded-full"></span>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
+                        </div>
+                    </div>
+                </ScrollAnimation>
+            )}
+            {benefits && landingBenefits && (
+                <ScrollAnimation>
+                    <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-14 lg:flex lg:justify-between lg:items-center">
+                        <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[46rem] lg:tracking-wide ">
+                            <TextWithHighlight text={landingBenefits?.title} />
+                        </h2>
+                        <a
+                            href="/services"
+                            className=" mt-5 bg-[#EFF0F1] w-max text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                        >
                             <div className="bg-[#224483] w-12 p-2 rounded-full">
                                 <img
-                                    src="/assets/img/icons/calendar-check.png"
-                                    className="h-auto"
-                                    alt="Calendario"
+                                    src="/assets/img/icons/treatment.png"
+                                    className=" h-auto    "
                                 />
                             </div>
-                            Reserva tu cita
-                        </motion.button>
-                    </motion.div>
+                            {t(
+                                "public.btn.all_services",
+                                "Ver todos los servicios"
+                            )}
+                        </a>
                     </div>
-                </div>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
-                    <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
-                        <TextWithHighlight text={landingTestimonies?.title} />
-                    </h2>
-                </div>
-            </ScrollAnimation>
-            <ScrollAnimation>
-                <TestimonioSection testimonies={testimonies} />
-            </ScrollAnimation>
-
-            <AcercaDe staff_boss={staff_boss} />
-
+                </ScrollAnimation>
+            )}
+            {benefits && landingBenefits && (
+                <ScrollAnimation>
+                    <HealthSection
+                        landingBenefits={landingBenefits}
+                        benefits={benefits}
+                    />
+                </ScrollAnimation>
+            )}
+            {services && landingServices && (
+                <ScrollAnimation>
+                    <div className="px-[5%] lg:max-w-[82rem] lg:mx-auto mt-10 lg:mt-10 lg:flex lg:justify-between lg:items-center">
+                        <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem] lg:text-6xl lg:max-w-[44rem] lg:tracking-wide ">
+                            <TextWithHighlight text={landingServices?.title} />
+                        </h2>
+                        <a
+                            href="/services"
+                            className=" w-max mt-5 bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3  gap-2 rounded-full flex items-center lg:h-14"
+                        >
+                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                <img
+                                    src="/assets/img/icons/treatment.png"
+                                    className=" h-auto    "
+                                />
+                            </div>
+                            {t(
+                                "public.btn.all_services",
+                                "Ver todos los servicios"
+                            )}
+                        </a>
+                    </div>
+                </ScrollAnimation>
+            )}
+            {services && landingServices && (
+                <ScrollAnimation>
+                    <TratamientoSection
+                        setIsModalOpen={setIsModalOpen}
+                        isModalOpen={isModalOpen}
+                        services={services}
+                        landingServices={landingServices}
+                    />
+                </ScrollAnimation>
+            )}
+            {services && landingServices && (
+                <ScrollAnimation>
+                    <div className="px-[5%]  py-4 lg:hidden ">
+                        <div className="bg-[#F8F8F8] rounded-3xl p-4">
+                            <h2 className="text-[32px] font-medium leading-[102%] max-w-[16rem]">
+                                {landingServices?.description}
+                            </h2>
+                            <motion.div
+                                className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-4"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <motion.button
+                                    onClick={() => setIsModalOpen(true)}
+                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 rounded-full flex items-center"
+                                    variants={buttonVariants}
+                                    initial="hidden"
+                                    animate={["visible", "pulse"]}
+                                    whileHover="hover"
+                                    style={{
+                                        position: "relative",
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <motion.span
+                                        className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                        initial={{ scale: 0 }}
+                                        whileTap={{
+                                            scale: 2,
+                                            opacity: 0.3,
+                                            transition: { duration: 0.5 },
+                                        }}
+                                    />
+                                    <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                        <img
+                                            src="/assets/img/icons/calendar-check.png"
+                                            className="h-auto"
+                                            alt="Calendario"
+                                        />
+                                    </div>
+                                    {t(
+                                        "public.btn.appointment",
+                                        "Reserva tu cita"
+                                    )}
+                                </motion.button>
+                            </motion.div>
+                        </div>
+                    </div>
+                </ScrollAnimation>
+            )}
+            {testimonies && landingTestimonies && (
+                <ScrollAnimation>
+                    <div className="px-[5%] flex items-center justify-center mt-9  lg:mt-32">
+                        <h2 className="text-[32px] font-medium leading-[102%] w-full text-center lg:text-6xl lg:max-w-3xl lg:tracking-wide  ">
+                            <TextWithHighlight
+                                text={landingTestimonies?.title}
+                            />
+                        </h2>
+                    </div>
+                </ScrollAnimation>
+            )}
+            {testimonies && (
+                <ScrollAnimation>
+                    <TestimonioSection testimonies={testimonies} />
+                </ScrollAnimation>
+            )}
+            {staff_boss && <AcercaDe staff_boss={staff_boss} />}
             <Footer />
             {/* Modal */}
             <ModalAppointment

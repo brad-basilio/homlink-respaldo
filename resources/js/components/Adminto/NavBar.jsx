@@ -14,7 +14,10 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
     useEffect(() => {
         document.title = `${title} | ${Global.APP_NAME}`;
     }, [null]);
-    const { changeLanguage } = useContext(LanguageContext);
+    const { currentLanguage, changeLanguage } = useContext(LanguageContext);
+    const [selectLanguage, setSelectLanguage] = useState(
+        currentLanguage || languagesSystem[0]
+    );
     const onUseLanguage = async (langData) => {
         try {
             // Obtén el token CSRF de las cookies automáticamente
@@ -30,6 +33,7 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
 
             if (response.ok) {
                 await changeLanguage(langData); // ✅ Agrega await aquí
+                setSelectLanguage(langData);
                 window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
             } else {
                 console.error("Error:", await response.text());
@@ -53,7 +57,7 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
                             {languagesSystem.map((language) => (
                                 <a
                                     key={language.id}
-                                    className="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light"
+                                    className={`nav-link dropdown-toggle nav-user me-0 waves-effect waves-light `}
                                     data-bs-toggle="dropdown"
                                     href="#"
                                     role="button"
@@ -63,13 +67,16 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
                                 >
                                     <img
                                         src={`/api/lang/media/${language.image}`}
-                                        alt={language.name}
+                                        className={`${
+                                            selectLanguage.id === language.id
+                                                ? "border border-2 border-primary"
+                                                : ""
+                                        }`}
                                         style={{
                                             width: "40px",
+
+                                            borderRadius: "20%",
                                         }}
-                                        onError={(e) =>
-                                            (e.target.src = `https://ui-avatars.com/api/?name=${session.name}+${session.lastname}&color=7F9CF5&background=EBF4FF`)
-                                        }
                                     />
                                 </a>
                             ))}

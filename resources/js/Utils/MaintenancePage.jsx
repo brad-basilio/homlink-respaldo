@@ -1,129 +1,132 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+
 const MaintenancePage = () => {
-    // Inline styles for the professional maintenance page
-    const styles = {
-        container: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            minHeight: "100vh",
-            padding: "40px 20px",
-            background: "linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%)",
-            fontFamily: "'Segoe UI', Roboto, 'Helvetica Neue', sans-serif",
-            textAlign: "center",
-            color: "#2d3748",
-        },
-        card: {
-            backgroundColor: "#ffffff",
-            borderRadius: "12px",
-            boxShadow:
-                "0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.02)",
-            padding: "40px",
-            maxWidth: "550px",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-        },
-        logo: {
-            marginBottom: "30px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "80px",
-            height: "80px",
-            borderRadius: "50%",
-            backgroundColor: "#ebf4ff",
-        },
-        icon: {
-            fontSize: "32px",
-            color: "#3182ce",
-        },
-        title: {
-            fontSize: "28px",
-            fontWeight: "600",
-            color: "#1a202c",
-            marginBottom: "16px",
-            letterSpacing: "-0.5px",
-        },
-        divider: {
-            width: "60px",
-            height: "4px",
-            backgroundColor: "#3182ce",
-            borderRadius: "2px",
-            margin: "0 auto 24px",
-        },
-        message: {
-            fontSize: "16px",
-            lineHeight: "1.6",
-            color: "#4a5568",
-            marginBottom: "30px",
-            maxWidth: "400px",
-        },
-        progressContainer: {
-            width: "100%",
-            height: "6px",
-            backgroundColor: "#edf2f7",
-            borderRadius: "3px",
-            overflow: "hidden",
-            marginBottom: "30px",
-        },
-        progressBar: {
-            height: "100%",
-            backgroundImage:
-                "linear-gradient(to right, #3182ce, #63b3ed, #3182ce)",
-            backgroundSize: "200% 100%",
-            animation: "shimmer 2s infinite linear",
-        },
-        footer: {
-            marginTop: "30px",
-            fontSize: "14px",
-            color: "#718096",
-        },
-        contact: {
-            marginTop: "20px",
-            fontSize: "14px",
-            color: "#4a5568",
-        },
-        email: {
-            color: "#3182ce",
-            textDecoration: "none",
-            fontWeight: "500",
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Animaciones
+    const container = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3,
+            },
         },
     };
 
-    // Add keyframes for the progress bar animation
-    const styleSheet = document.createElement("style");
-    styleSheet.type = "text/css";
-    styleSheet.innerText = `
-    @keyframes shimmer {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-  `;
-    document.head.appendChild(styleSheet);
+    const item = {
+        hidden: { y: 20, opacity: 0 },
+        show: {
+            y: 0,
+            opacity: 1,
+            transition: {
+                type: "spring",
+                stiffness: 80,
+            },
+        },
+    };
+
+    const gear = {
+        rotate: 0,
+        transition: {
+            repeat: Infinity,
+            ease: "linear",
+            duration: 8,
+        },
+    };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.card}>
-                <div style={styles.logo}>
-                    <div style={styles.icon}>⚙️</div>
-                </div>
+        <motion.div
+            initial="hidden"
+            animate="show"
+            variants={container}
+            className="min-h-screen flex flex-col items-center justify-center p-6 bg-white font-sans"
+        >
+            <motion.div variants={item} className="relative w-32 h-32 mb-8">
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{
+                        repeat: Infinity,
+                        ease: "linear",
+                        duration: 12,
+                    }}
+                    className="absolute inset-0 text-gray-300 text-6xl flex items-center justify-center"
+                >
+                    ⚙️
+                </motion.div>
+                <motion.div
+                    animate={{ rotate: -360 }}
+                    transition={{
+                        repeat: Infinity,
+                        ease: "linear",
+                        duration: 8,
+                    }}
+                    className="absolute inset-0 text-gray-400 text-4xl flex items-center justify-center"
+                    style={{ top: "30%", left: "30%" }}
+                >
+                    ⚙️
+                </motion.div>
+            </motion.div>
 
-                <h1 style={styles.title}>Página en Mantenimiento</h1>
+            <motion.h1
+                variants={item}
+                className="text-4xl font-light text-gray-800 mb-4 text-center"
+            >
+                Estamos mejorando tu experiencia
+            </motion.h1>
 
-                <div style={styles.divider}></div>
+            <motion.div
+                variants={item}
+                className="w-24 h-1 bg-[#224483] my-6"
+            />
 
-                <p style={styles.message}>
-                    Estamos actualizando nuestra web para mejorar su
-                    experiencia. Gracias por su paciencia.
-                </p>
+            <motion.p
+                variants={item}
+                className="text-gray-600 max-w-md text-center mb-8 leading-relaxed"
+            >
+                Nuestro sitio está en mantenimiento para ofrecerte un servicio
+                mejorado. Vuelve pronto para descubrir las novedades.
+            </motion.p>
 
-                <div style={styles.progressContainer}>
-                    <div style={styles.progressBar}></div>
-                </div>
-            </div>
-        </div>
+            {/*  <motion.div
+                variants={item}
+                onHoverStart={() => setIsHovered(true)}
+                onHoverEnd={() => setIsHovered(false)}
+                className="mt-8"
+            >
+                <motion.a
+                    href="mailto:soporte@empresa.com"
+                    className="px-6 py-3 border border-blue-400 text-blue-500 rounded-lg inline-flex items-center"
+                    animate={{
+                        backgroundColor: isHovered
+                            ? "rgba(59, 130, 246, 0.05)"
+                            : "rgba(255, 255, 255, 0)",
+                        borderColor: isHovered ? "#3B82F6" : "#60A5FA",
+                    }}
+                    transition={{ duration: 0.3 }}
+                >
+                    <motion.span
+                        animate={{
+                            x: isHovered ? 2 : 0,
+                        }}
+                        transition={{
+                            repeat: isHovered ? Infinity : 0,
+                            repeatType: "reverse",
+                            duration: 0.8,
+                        }}
+                    >
+                        📩
+                    </motion.span>
+                    <span className="ml-2">Contactar al equipo</span>
+                </motion.a>
+            </motion.div>*/}
+
+            {/* <motion.div variants={item} className="mt-12 text-sm text-gray-400">
+                <p>© {new Date().getFullYear()} Tu Empresa</p>
+            </motion.div>*/}
+        </motion.div>
     );
 };
 

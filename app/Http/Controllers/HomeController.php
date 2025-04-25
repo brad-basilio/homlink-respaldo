@@ -26,15 +26,16 @@ class HomeController extends BasicController
     public function setReactViewProperties(Request $request)
     {
 
+        $langId = app('current_lang_id');
 
         /*ESTO ES PARA NO PAIN */
 
-        $indicators = Indicator::where('status', true)->where('visible', true)->get();
-        $landing = LandingHome::where('correlative', 'like', 'page_home%')->get();
-        $benefits = Strength::where('status', true)->where('visible', true)->get();
-        $services = Service::where('featured', true)->where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
-        $testimonies = Testimony::where('status', true)->where('visible', true)->get();
-        $staff_boss = Staff::where('status', true)->where('visible', true)->where('job', 'LIKE', 'Director%')->first();
+        $indicators = Indicator::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
+        $landing = LandingHome::where('correlative', 'like', 'page_home%')->where('lang_id', $langId)->get();
+        $benefits = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
+        $services = Service::where('featured', true)->where('status', true)->where('visible', true)->where('lang_id', $langId)->orderBy('updated_at', 'DESC')->get();
+        $testimonies = Testimony::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
+        $staff_boss = Staff::where('status', true)->where('visible', true)->where('job', 'LIKE', 'Director%')->where('lang_id', $langId)->first();
 
         return [
 

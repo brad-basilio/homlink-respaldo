@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { motion } from "framer-motion";
+import { useTranslation } from "../../hooks/useTranslation";
 
 export default function TratamientoSection({
     services,
@@ -18,9 +19,9 @@ export default function TratamientoSection({
             transition: {
                 type: "spring",
                 stiffness: 500,
-                damping: 10
-            }
-        }
+                damping: 10,
+            },
+        },
     };
 
     // Animación para el botón de reserva
@@ -30,12 +31,12 @@ export default function TratamientoSection({
             boxShadow: "0 5px 15px rgba(0,0,0,0.1)",
             transition: {
                 type: "spring",
-                stiffness: 400
-            }
+                stiffness: 400,
+            },
         },
         tap: {
-            scale: 0.95
-        }
+            scale: 0.95,
+        },
     };
     // Animación del botón (igual a tu versión)
     const buttonVariants = {
@@ -69,9 +70,9 @@ export default function TratamientoSection({
             scale: 1.1,
             transition: {
                 duration: 0.4,
-                ease: "easeOut"
-            }
-        }
+                ease: "easeOut",
+            },
+        },
     };
 
     // Animación para la card completa
@@ -79,11 +80,12 @@ export default function TratamientoSection({
         hover: {
             transition: {
                 staggerChildren: 0.1,
-                delayChildren: 0.1
-            }
-        }
+                delayChildren: 0.1,
+            },
+        },
     };
 
+    const { t } = useTranslation();
     return (
         <div className="mt-0 font-poppins">
             {/* Versión móvil */}
@@ -287,7 +289,10 @@ export default function TratamientoSection({
                                             initial="hidden"
                                             animate={["visible", "pulse"]}
                                             whileHover="hover"
-                                            style={{ position: "relative", overflow: "hidden" }}
+                                            style={{
+                                                position: "relative",
+                                                overflow: "hidden",
+                                            }}
                                         >
                                             <motion.span
                                                 className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
@@ -295,7 +300,9 @@ export default function TratamientoSection({
                                                 whileTap={{
                                                     scale: 2,
                                                     opacity: 0.3,
-                                                    transition: { duration: 0.5 },
+                                                    transition: {
+                                                        duration: 0.5,
+                                                    },
                                                 }}
                                             />
                                             <div className="bg-[#224483] w-12 p-2 rounded-full">
@@ -305,7 +312,10 @@ export default function TratamientoSection({
                                                     alt="Calendario"
                                                 />
                                             </div>
-                                            Reserva tu cita
+                                            {t(
+                                                "public.btn.appointment",
+                                                "Reserva tu cita"
+                                            )}
                                         </motion.button>
                                     </motion.div>
                                 </div>
@@ -334,7 +344,10 @@ export default function TratamientoSection({
                                             initial="hidden"
                                             animate={["visible", "pulse"]}
                                             whileHover="hover"
-                                            style={{ position: "relative", overflow: "hidden" }}
+                                            style={{
+                                                position: "relative",
+                                                overflow: "hidden",
+                                            }}
                                         >
                                             <motion.span
                                                 className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
@@ -342,7 +355,9 @@ export default function TratamientoSection({
                                                 whileTap={{
                                                     scale: 2,
                                                     opacity: 0.3,
-                                                    transition: { duration: 0.5 },
+                                                    transition: {
+                                                        duration: 0.5,
+                                                    },
                                                 }}
                                             />
                                             <div className="bg-[#224483] w-12 p-2 rounded-full">
@@ -352,7 +367,10 @@ export default function TratamientoSection({
                                                     alt="Calendario"
                                                 />
                                             </div>
-                                            Reserva tu cita
+                                            {t(
+                                                "public.btn.appointment",
+                                                "Reserva tu cita"
+                                            )}
                                         </motion.button>
                                     </motion.div>
                                 </div>

@@ -15,7 +15,7 @@ import SelectFormGroup from "@Adminto/form/SelectFormGroup";
 import { renderToString } from "react-dom/server";
 
 const translationsRest = new TranslationsRest();
-const EditableCell = ({ data, gridRef }) => {
+const EditableCell = ({ data, gridRef, isTranslationMode }) => {
     const [tempValue, setTempValue] = useState(data.value || data.value_base);
     const [isEditing, setIsEditing] = useState(true);
     const inputRef = useRef(null);
@@ -58,14 +58,18 @@ const EditableCell = ({ data, gridRef }) => {
                     className="btn btn-xs btn-soft-primary"
                     onClick={handleSave}
                 >
-                    <i className="fa fa-language"></i>
+                    {isTranslationMode ? (
+                        <i className="fa fa-language"></i>
+                    ) : (
+                        <i className="fa fa-pen"></i>
+                    )}
                 </button>
             )}
         </div>
     );
 };
 
-const Translations = () => {
+const Translations = ({ current_lang_id, default_lang_id }) => {
     const gridRef = useRef();
     const modalRef = useRef();
 
@@ -131,7 +135,7 @@ const Translations = () => {
         if (!result) return;
         $(gridRef.current).dxDataGrid("instance").refresh();
     };
-
+    const isTranslationMode = current_lang_id !== default_lang_id;
     return (
         <>
             <Table
@@ -184,13 +188,18 @@ const Translations = () => {
                         caption: "Valor Español",
                         width: "200px",
                     },
+
                     {
                         dataField: "value",
-                        caption: "Traducción",
+                        caption: isTranslationMode ? "Traducción" : "Valor",
                         cellTemplate: (container, { data }) => {
                             ReactAppend(
                                 container,
-                                <EditableCell data={data} gridRef={gridRef} />
+                                <EditableCell
+                                    data={data}
+                                    gridRef={gridRef}
+                                    isTranslationMode={isTranslationMode}
+                                />
                             );
                         },
                     },

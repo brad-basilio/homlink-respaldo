@@ -211,7 +211,10 @@ const Header = ({
         return activeLink === path;
     };
 
-    const { changeLanguage } = useContext(LanguageContext);
+    const { currentLanguage, changeLanguage } = useContext(LanguageContext);
+    const [selectLanguage, setSelectLanguage] = useState(
+        currentLanguage || languagesSystem[0]
+    );
     const onUseLanguage = async (langData) => {
         try {
             // Obtén el token CSRF de las cookies automáticamente
@@ -227,6 +230,7 @@ const Header = ({
 
             if (response.ok) {
                 await changeLanguage(langData); // ✅ Agrega await aquí
+                setSelectLanguage(langData);
                 window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
             } else {
                 console.error("Error:", await response.text());
@@ -410,7 +414,11 @@ const Header = ({
                                     whileHover={{ y: -2 }}
                                     src={`/api/lang/media/${language.image}`}
                                     alt={language.name}
-                                    className="h-6 w-auto object-cover"
+                                    className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
+                                        selectLanguage.id === language.id
+                                            ? "border border-2 border-[#224483] shadow-2xl"
+                                            : ""
+                                    }`}
                                 />
                             ))}
                         </motion.div>

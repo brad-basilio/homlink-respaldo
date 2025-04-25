@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import TextWithHighlight from "../../Utils/TextWithHighlight";
+import { useTranslation } from "../../hooks/useTranslation";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -37,6 +38,7 @@ const imageVariants = {
 };
 
 const AcercaDe = ({ staff_boss }) => {
+    const { t } = useTranslation();
     return (
         <motion.div
             className="min-h-screen mt-12 font-poppins px-[5%] lg:mt-48 lg:max-w-[82rem] lg:mx-auto lg:min-h-full lg:flex lg:gap-10"
@@ -112,7 +114,7 @@ const AcercaDe = ({ staff_boss }) => {
                                 className="h-auto"
                             />
                         </div>
-                        Ver staff
+                        {t("public.btn.all_staff", "Ver staff")}
                     </a>
                 </motion.div>
             </motion.div>

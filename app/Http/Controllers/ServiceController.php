@@ -14,10 +14,10 @@ class ServiceController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
 
-        $landing = LandingHome::where('correlative', 'like', 'page_services%')->get();
-
-        $services = Service::where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
+        $services = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->orderBy('updated_at', 'DESC')->get();
 
         return [
 

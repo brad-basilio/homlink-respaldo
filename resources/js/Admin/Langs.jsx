@@ -246,14 +246,14 @@ const Langs = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            container.append(
+                            /*  container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-success",
                                     title: "Usar",
                                     icon: "fa fa-check",
                                     onClick: () => onUseLanguage(data),
                                 })
-                            );
+                            );*/
                             container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",

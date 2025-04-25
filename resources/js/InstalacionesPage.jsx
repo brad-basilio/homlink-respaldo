@@ -22,7 +22,8 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import TextWithHighlight from "./Utils/TextWithHighlight";
 import ModalAppointment from "./components/Appointment/ModalAppointment";
-
+import MaintenancePage from "./Utils/MaintenancePage";
+import { useTranslation } from "./hooks/useTranslation";
 // Animaciones
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -34,32 +35,32 @@ const containerVariants = {
         },
     },
 };
-  // Animación del botón (igual a tu versión)
-    const buttonVariants = {
-        hidden: { scale: 0.8, opacity: 0 },
-        visible: {
-            scale: 1,
-            opacity: 1,
-            transition: {
-                type: "spring",
-                stiffness: 300,
-                damping: 10,
-            },
+// Animación del botón (igual a tu versión)
+const buttonVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+        scale: 1,
+        opacity: 1,
+        transition: {
+            type: "spring",
+            stiffness: 300,
+            damping: 10,
         },
-        pulse: {
-            scale: [1, 1.05, 1],
-            transition: {
-                repeat: Infinity,
-                duration: 2,
-                ease: "easeInOut",
-            },
+    },
+    pulse: {
+        scale: [1, 1.05, 1],
+        transition: {
+            repeat: Infinity,
+            duration: 2,
+            ease: "easeInOut",
         },
-        hover: {
-            scale: 1.1,
-            rotate: [0, -5, 5, -5, 0],
-            transition: { duration: 0.5 },
-        },
-    };
+    },
+    hover: {
+        scale: 1.1,
+        rotate: [0, -5, 5, -5, 0],
+        transition: { duration: 0.5 },
+    },
+};
 const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -162,6 +163,7 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
         return "col-span-6 row-span-6";
     };
 
+    const { t } = useTranslation();
     return (
         <motion.div
             className="pt-12"
@@ -215,14 +217,19 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
                         variants={containerVariants}
                     >
                         <motion.div variants={itemVariants}>
-                            <h3 className="font-semibold">Dirección:</h3>
+                            <h3 className="font-semibold">
+                                {t("public.form.ubication", "Dirección")}:
+                            </h3>
                             {sede.ubications.map((direction, index) => (
                                 <p key={index}>{direction}</p>
                             ))}
                         </motion.div>
 
                         <motion.div variants={itemVariants}>
-                            <h3 className="font-semibold">Teléfono:</h3>
+                            <h3 className="font-semibold">
+                                {" "}
+                                {t("public.form.phone", "Teléfono")}:
+                            </h3>
                             {sede.phones.map((phone, index) => (
                                 <p key={index}>{phone}</p>
                             ))}
@@ -230,7 +237,7 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
 
                         <motion.div variants={itemVariants}>
                             <h3 className="font-semibold">
-                                Correo electrónico:
+                                {t("public.form.email", "Correo Eléctronico")}:
                             </h3>
                             {sede.emails.map((email, index) => (
                                 <p key={index}>{email}</p>
@@ -239,7 +246,10 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
 
                         <motion.div variants={itemVariants}>
                             <h3 className="font-semibold">
-                                Horario de atención
+                                {t(
+                                    "public.footer.office_hours",
+                                    "Horario de atención"
+                                )}
                             </h3>
                             {sede.business_hours.map((business_hour, index) => (
                                 <p key={index}>{business_hour}</p>
@@ -249,39 +259,39 @@ const SedeItem = ({ sede, index, isModalOpen, setIsModalOpen }) => {
 
                     {/* CTA Button */}
                     <motion.div
-                                className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-6"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0.6 }}
-                            >
-                                <motion.button
-                                    onClick={() => setIsModalOpen(true)}
-                                    className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 mt-2 rounded-full flex items-center"
-                                    variants={buttonVariants}
-                                    initial="hidden"
-                                    animate={["visible", "pulse"]}
-                                    whileHover="hover"
-                                    style={{ position: "relative", overflow: "hidden" }}
-                                >
-                                    <motion.span
-                                        className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
-                                        initial={{ scale: 0 }}
-                                        whileTap={{
-                                            scale: 2,
-                                            opacity: 0.3,
-                                            transition: { duration: 0.5 },
-                                        }}
-                                    />
-                                    <div className="bg-[#224483] w-12 p-2 rounded-full">
-                                        <img
-                                            src="/assets/img/icons/calendar-check.png"
-                                            className="h-auto"
-                                            alt="Calendario"
-                                        />
-                                    </div>
-                                    Reserva tu cita
-                                </motion.button>
-                            </motion.div>
+                        className="w-full px-[5%] lg:px-0 flex items-center justify-center lg:justify-start mt-6"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <motion.button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-[#EFF0F1] text-[#242424] py-1 pl-1 pr-3 gap-2 mt-2 rounded-full flex items-center"
+                            variants={buttonVariants}
+                            initial="hidden"
+                            animate={["visible", "pulse"]}
+                            whileHover="hover"
+                            style={{ position: "relative", overflow: "hidden" }}
+                        >
+                            <motion.span
+                                className="absolute inset-0 bg-[#224483] opacity-0 rounded-full"
+                                initial={{ scale: 0 }}
+                                whileTap={{
+                                    scale: 2,
+                                    opacity: 0.3,
+                                    transition: { duration: 0.5 },
+                                }}
+                            />
+                            <div className="bg-[#224483] w-12 p-2 rounded-full">
+                                <img
+                                    src="/assets/img/icons/calendar-check.png"
+                                    className="h-auto"
+                                    alt="Calendario"
+                                />
+                            </div>
+                            {t("public.btn.appointment", "Reserva tu cita")}
+                        </motion.button>
+                    </motion.div>
                 </motion.div>
 
                 {/* Images Section */}
@@ -324,7 +334,7 @@ const InstalacionesPage = ({
     linkWhatsApp,
     randomImage,
 }) => {
-    const landingHero = landing.find(
+    const landingHero = landing?.find(
         (item) => item.correlative === "page_facility_hero"
     );
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -332,52 +342,60 @@ const InstalacionesPage = ({
     return (
         <div className="font-poppins">
             <Header />
-            <div className="min-h-screen bg-white font-sans text-negro">
-                <motion.div
-                    className="max-w-[82rem] mx-auto px-4 lg:px-[5%] py-8 lg:py-12"
-                    initial="hidden"
-                    animate="visible"
-                    variants={containerVariants}
-                >
-                    {/* Header Section */}
+            {facilities ? (
+                <div className="min-h-screen bg-white font-sans text-negro">
                     <motion.div
-                        className="text-center mb-8 lg:mb-12"
+                        className="max-w-[82rem] mx-auto px-4 lg:px-[5%] py-8 lg:py-12"
+                        initial="hidden"
+                        animate="visible"
                         variants={containerVariants}
                     >
-                        <motion.h1
-                            className="text-[40px] leading-[42px] lg:text-6xl font-semibold mb-4 lg:pt-2 lg:max-w-3xl lg:mx-auto"
-                            variants={slideUp}
-                        >
-                            <TextWithHighlight text={landingHero.title} />
-                        </motion.h1>
-                        <motion.p
-                            className="max-w-[60rem] mx-auto text-base pt-2 lg:text-lg"
-                            variants={fadeIn}
-                        >
-                            {landingHero.description}
-                        </motion.p>
+                        {/* Header Section */}
+                        {landingHero && (
+                            <motion.div
+                                className="text-center mb-8 lg:mb-12"
+                                variants={containerVariants}
+                            >
+                                <motion.h1
+                                    className="text-[40px] leading-[42px] lg:text-6xl font-semibold mb-4 lg:pt-2 lg:max-w-3xl lg:mx-auto"
+                                    variants={slideUp}
+                                >
+                                    <TextWithHighlight
+                                        text={landingHero?.title}
+                                    />
+                                </motion.h1>
+                                <motion.p
+                                    className="max-w-[60rem] mx-auto text-base pt-2 lg:text-lg"
+                                    variants={fadeIn}
+                                >
+                                    {landingHero?.description}
+                                </motion.p>
+                            </motion.div>
+                        )}
+                        <AnimatePresence>
+                            {facilities &&
+                                facilities.map((sede, index) => (
+                                    <SedeItem
+                                        key={sede.id}
+                                        sede={sede}
+                                        index={index}
+                                        setIsModalOpen={setIsModalOpen}
+                                        isModalOpen={isModalOpen}
+                                    />
+                                ))}
+                        </AnimatePresence>
                     </motion.div>
 
-                    <AnimatePresence>
-                        {facilities.map((sede, index) => (
-                            <SedeItem
-                                key={sede.id}
-                                sede={sede}
-                                index={index}
-                                setIsModalOpen={setIsModalOpen}
-                                isModalOpen={isModalOpen}
-                            />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
-
-                <ModalAppointment
-                    linkWhatsApp={linkWhatsApp}
-                    randomImage={randomImage}
-                    isOpen={isModalOpen}
-                    onClose={() => setIsModalOpen(false)}
-                />
-            </div>
+                    <ModalAppointment
+                        linkWhatsApp={linkWhatsApp}
+                        randomImage={randomImage}
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                    />
+                </div>
+            ) : (
+                <MaintenancePage />
+            )}
             <Footer />
         </div>
     );

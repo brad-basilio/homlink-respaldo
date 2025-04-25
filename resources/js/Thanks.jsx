@@ -7,6 +7,7 @@ import { CarritoProvider } from "./context/CarritoContext";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 import { motion } from "framer-motion";
+import { useTranslation } from "./hooks/useTranslation";
 
 // Animaciones configuradas
 const containerVariants = {
@@ -67,15 +68,17 @@ const Thanks = ({ session }) => {
         window.location.href = "/";
     };
 
+    const { t } = useTranslation();
+
     return (
         <>
             <Header />
-            <div className="flex flex-col items-center justify-center min-h-screen px-5 py-10 bg-gradient-to-br from-gray-50 to-gray-200">
+            <div className="flex flex-col items-center justify-center min-h-screen px-5 py-10 bg-white">
                 <motion.div
                     initial="hidden"
                     animate="visible"
                     variants={containerVariants}
-                    className="w-full max-w-lg p-10 bg-white rounded-xl shadow-2xl flex flex-col items-center"
+                    className="w-full max-w-lg p-10 bg-white rounded-xl  flex flex-col items-center"
                 >
                     {/* Checkmark icon with animation */}
                     <motion.div
@@ -151,7 +154,7 @@ const Thanks = ({ session }) => {
                         onClick={handleReturnHome}
                         className="px-8 py-3 bg-gradient-to-r from-blue-600 to-[#224483] text-white font-medium rounded-lg hover:shadow-md transition-all duration-200"
                     >
-                        Volver al inicio
+                        {t("public.header.home", "Inicio")}
                     </motion.button>
                 </motion.div>
             </div>

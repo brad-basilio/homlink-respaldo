@@ -5,6 +5,7 @@ import Tippy from "@tippyjs/react";
 import HtmlContent from "../../Utils/HtmlContent";
 import GeneralRest from "../../actions/GeneralRest";
 import { X } from "lucide-react";
+import { useTranslation } from "../../hooks/useTranslation";
 
 ReactModal.setAppElement("#app");
 
@@ -76,10 +77,13 @@ const Footer = ({ terms, footerLinks = [] }) => {
             .replace(/\*(.*?)\*/g, "$1") // *texto*
             .replace(/[*]+/g, ""); // Cualquier asterisco suelto
     };
+    const { t } = useTranslation();
 
     return (
         <>
-            <footer className="bg-[#224483] text-white mt-8 font-poppins lg:mt-[120px]">
+            <footer className="bg-[#224483] text-white mt-8 font-poppins ">
+                {" "}
+                {/*lg:mt-[120px] */}
                 <div className="px-[5%] max-w-xl lg:max-w-[82rem]  mx-auto py-10 lg:pt-16 lg:pb-8">
                     <div className=" flex flex-col gap-6 lg:flex-row ">
                         <div className="lg:w-4/12 lg:px-[2%] ">
@@ -141,7 +145,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     ))}
 
                                     <p className="flex gap-2 text-[14px]">
-                                        Teléfono:{" "}
+                                        {t("public.form.phone", "Teléfono")}:{" "}
                                         {sede.phones.map((phone, index) => (
                                             <p key={index} className="">
                                                 {phone}
@@ -157,7 +161,12 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             ))}
 
                             <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2">Horario de Atención</p>
+                                <p className="mb-2">
+                                    {t(
+                                        "public.footer.office_hours",
+                                        "Horario de Atención"
+                                    )}
+                                </p>
                                 {sedesData[0]?.business_hours.map(
                                     (horario, index) => {
                                         // Dividir solo en el primer ":" encontrado
@@ -190,24 +199,35 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 )}
                             </div>
                             <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2 font-bold">Políticas</p>
+                                <p className="mb-2 font-bold">
+                                    {t("public.footer.politycs", "Politicas")}
+                                </p>
                                 <a
                                     className="text-[14px] cursor-pointer"
                                     onClick={() => openModal(0)}
                                 >
-                                    Políticas de privacidad
+                                    {t(
+                                        "public.footer.privacity",
+                                        "Políticas de privacidad"
+                                    )}
                                 </a>
                                 <a
                                     onClick={() => openModal(1)}
                                     className="text-[14px] cursor-pointer"
                                 >
-                                    Términos y Condiciones
+                                    {t(
+                                        "public.footer.terms",
+                                        "Términos y Condiciones"
+                                    )}
                                 </a>
                                 <p
                                     onClick={() => openModal(2)}
                                     className="text-[14px] cursor-pointer"
                                 >
-                                    Políticas de cambio
+                                    {t(
+                                        "public.footer.change",
+                                        "Políticas de cambio"
+                                    )}
                                 </p>
                                 <a
                                     href="/libro-de-reclamaciones"
@@ -215,12 +235,20 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     rel="noopener noreferrer"
                                     className="text-[14px]"
                                 >
-                                    Libro de reclamaciones
+                                    {t(
+                                        "public.footer.complaints",
+                                        "Libro de reclamaciones"
+                                    )}
                                 </a>
                             </div>
 
                             <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2 font-bold">Nuestras redes</p>
+                                <p className="mb-2 font-bold">
+                                    {t(
+                                        "public.footer.socials",
+                                        "Nuestras redes"
+                                    )}
+                                </p>
                                 <div className="flex gap-4">
                                     {Facebook && (
                                         <a
@@ -280,13 +308,16 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         </div>
                     </div>
                 </div>
-
                 <div className=" bg-[#EFF0F1]">
                     <div className="px-[5%]  py-3">
                         <p className=" text-center text-xs text-[#242424] font-medium">
-                            Copyright © 2025 NOPAIN Fisioterapia &
-                            <br className="lg:hidden" />
-                            Rehabilitación. Reservados todos los derechos.
+                            {t(
+                                "public.footer.copyright",
+                                "Copyright © 2024 NOPAIN Fisioterapia & Rehabilitación. Reservados todos los derechos."
+                            )}
+                            {/*  Copyright © 2025 NOPAIN Fisioterapia & 
+                           <br className="lg:hidden" />
+                            Rehabilitación. Reservados todos los derechos.*/}
                         </p>
                     </div>
                 </div>

@@ -23,9 +23,13 @@ class TranslationController extends BasicController
 
     public function setReactViewProperties(Request $request)
     {
+        $currentLangId = app('current_lang_id');
+        $defaultLang = Lang::where('is_default', true)->first();
         $icons = JSON::parse(File::get('../storage/app/utils/icons.json'));
         return [
-            'icons' => $icons
+            'icons' => $icons,
+            'current_lang_id' => $currentLangId,
+            'default_lang_id' => $defaultLang->id
         ];
     }
 
