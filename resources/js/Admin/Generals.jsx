@@ -145,6 +145,11 @@ const Generals = ({ generals }) => {
                     description: formData.termsConditions,
                 },
                 {
+                    correlative: "exchange_policy",
+                    name: "Política de cambio",
+                    description: formData.exchangePolicy,
+                },
+                {
                     correlative: "seo_title",
                     name: "Titulo - SEO",
                     description: formData.seoTitle,

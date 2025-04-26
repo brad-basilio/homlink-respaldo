@@ -102,8 +102,8 @@ class GeneralController extends BasicController
         $response = new Response();
         try {
             $data = Aboutus::all();
-            $data2 = General::all();
-            $data3 = Facility::where('visible', true)->where('status', true)->get();
+            $data2 = General::where('lang_id', app('current_lang_id'))->get();
+            $data3 = Facility::where('visible', true)->where('status', true)->where('lang_id', app('current_lang_id'))->get();
             // dump($data);
             $response->data = ['aboutus' => $data, 'generals' => $data2, 'sedes' => $data3];
             $response->status = 200;

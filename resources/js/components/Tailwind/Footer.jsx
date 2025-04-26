@@ -10,6 +10,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 ReactModal.setAppElement("#app");
 
 const Footer = ({ terms, footerLinks = [] }) => {
+    const { t } = useTranslation();
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
@@ -62,10 +63,10 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const sedesData = aboutuses?.sedes || [];
     // console.log(sedesData);
     const policyItems = {
-        privacy_policy: "Políticas de privacidad",
-        terms_conditions: "Términos y condiciones",
+        privacy_policy: t("public.footer.privacity", "Políticas de privacidad"),
+        terms_conditions: t("public.footer.terms", "Términos y condiciones"),
         // 'delivery_policy': 'Políticas de envío',
-        exchange_policy: "Políticas de cambio",
+        exchange_policy: t("public.footer.change", "Políticas de cambio"),
     };
 
     const cleanText = (text) => {
@@ -77,7 +78,6 @@ const Footer = ({ terms, footerLinks = [] }) => {
             .replace(/\*(.*?)\*/g, "$1") // *texto*
             .replace(/[*]+/g, ""); // Cualquier asterisco suelto
     };
-    const { t } = useTranslation();
 
     return (
         <>
@@ -159,45 +159,47 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     ))}
                                 </div>
                             ))}
+                            {sedesData && sedesData.length > 0 && (
+                                <div className="w-full text-white flex flex-col gap-2">
+                                    <p className="mb-2">
+                                        {t(
+                                            "public.contact.office_hours",
+                                            "Horario de Atención"
+                                        )}
+                                    </p>
+                                    {sedesData[0]?.business_hours.map(
+                                        (horario, index) => {
+                                            // Dividir solo en el primer ":" encontrado
+                                            const firstColonIndex =
+                                                horario.indexOf(":");
 
-                            <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2">
-                                    {t(
-                                        "public.footer.office_hours",
-                                        "Horario de Atención"
-                                    )}
-                                </p>
-                                {sedesData[0]?.business_hours.map(
-                                    (horario, index) => {
-                                        // Dividir solo en el primer ":" encontrado
-                                        const firstColonIndex =
-                                            horario.indexOf(":");
-
-                                        return (
-                                            <div
-                                                key={`hour-${index}`}
-                                                className="text-[14px] mb-2"
-                                            >
-                                                {/* Mostrar la parte antes del primer ":" */}
-                                                <p className="font-medium">
-                                                    {horario.substring(
-                                                        0,
-                                                        firstColonIndex + 1
-                                                    )}
-                                                </p>
-                                                {/* Mostrar la parte después del primer ":" */}
-                                                <p className="ml-0">
-                                                    {horario
-                                                        .substring(
+                                            return (
+                                                <div
+                                                    key={`hour-${index}`}
+                                                    className="text-[14px] mb-2"
+                                                >
+                                                    {/* Mostrar la parte antes del primer ":" */}
+                                                    <p className="font-medium">
+                                                        {horario.substring(
+                                                            0,
                                                             firstColonIndex + 1
-                                                        )
-                                                        .trim()}
-                                                </p>
-                                            </div>
-                                        );
-                                    }
-                                )}
-                            </div>
+                                                        )}
+                                                    </p>
+                                                    {/* Mostrar la parte después del primer ":" */}
+                                                    <p className="ml-0">
+                                                        {horario
+                                                            .substring(
+                                                                firstColonIndex +
+                                                                    1
+                                                            )
+                                                            .trim()}
+                                                    </p>
+                                                </div>
+                                            );
+                                        }
+                                    )}
+                                </div>
+                            )}
                             <div className="w-full text-white flex flex-col gap-2">
                                 <p className="mb-2 font-bold">
                                     {t("public.footer.politycs", "Politicas")}

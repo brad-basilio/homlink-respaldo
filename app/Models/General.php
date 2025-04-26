@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class General extends Model
 {
@@ -23,5 +24,19 @@ class General extends Model
     public function lang()
     {
         return $this->belongsTo(Lang::class);
+    }
+
+    public static function rules(): array
+    {
+        return [
+            'correlative' => 'required|string',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'lang_id' => 'required|exists:langs,id',
+            // Regla de unicidad compuesta
+            Rule::unique('generals')->where(function ($query) {
+                return $query->where('lang_id', request('lang_id'));
+            })->ignore(request('id'))
+        ];
     }
 }
