@@ -17,8 +17,11 @@ import { renderToString } from "react-dom/server";
 const translationsRest = new TranslationsRest();
 const EditableCell = ({ data, gridRef, isTranslationMode }) => {
     const [tempValue, setTempValue] = useState(data.value || data.value_base);
-    const [isEditing, setIsEditing] = useState(true);
+    const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef(null);
+
+    // Determinar si está traducido
+    const isTranslated = data.value !== null && data.value !== data.value_base;
 
     const handleSave = async () => {
         try {
@@ -44,6 +47,15 @@ const EditableCell = ({ data, gridRef, isTranslationMode }) => {
 
     return (
         <div className="d-flex gap-2 align-items-center">
+            {!isEditing && (
+                <span className="text-nowrap">
+                    {isTranslated ? (
+                        <i className="fas fa-check text-success"></i>
+                    ) : (
+                        <i className="fas fa-times text-danger"></i>
+                    )}
+                </span>
+            )}
             <input
                 ref={inputRef}
                 className="form-control flex-grow-1"
@@ -52,6 +64,8 @@ const EditableCell = ({ data, gridRef, isTranslationMode }) => {
                     setTempValue(e.target.value);
                     setIsEditing(true);
                 }}
+                onFocus={() => setIsEditing(true)}
+                onBlur={() => setTimeout(() => setIsEditing(false), 200)}
             />
             {isEditing && (
                 <button
@@ -142,29 +156,13 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                 gridRef={gridRef}
                 title="Traducciones"
                 rest={translationsRest}
+                remoteOperations={{
+                    paging: true,
+                    filtering: true,
+                    sorting: true,
+                }}
                 toolBar={(container) => {
-                    container.unshift({
-                        widget: "dxButton",
-                        location: "after",
-                        options: {
-                            icon: "refresh",
-                            hint: "Refrescar tabla",
-                            onClick: () =>
-                                $(gridRef.current)
-                                    .dxDataGrid("instance")
-                                    .refresh(),
-                        },
-                    });
-                    container.unshift({
-                        widget: "dxButton",
-                        location: "after",
-                        options: {
-                            icon: "plus",
-                            text: "Nuevo registro",
-                            hint: "Nuevo registro",
-                            onClick: () => onModalOpen(),
-                        },
-                    });
+                    // ... (código existente)
                 }}
                 columns={[
                     {
@@ -175,10 +173,20 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                     {
                         dataField: "group",
                         caption: "Grupo",
+                        allowFiltering: false,
+                        filterOperations: ["contains"],
+                        filterType: "text",
+                        cellTemplate: (container, { data }) => {
+                            container.html(renderToString(<>{data.group}</>));
+                        },
                     },
                     {
                         dataField: "key",
                         caption: "Clave",
+                        allowFiltering: false,
+
+                        filterOperations: ["contains"],
+                        filterType: "text",
                         cellTemplate: (container, { data }) => {
                             container.html(renderToString(<>{data.key}</>));
                         },
@@ -187,11 +195,55 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                         dataField: "value_base",
                         caption: "Valor Español",
                         width: "200px",
+                        allowFiltering: true,
+                        filterOperations: ["contains"],
+                        filterType: "text",
                     },
-
+                    {
+                        dataField: "is_translated",
+                        caption: "Estado",
+                        width: "80px",
+                        allowFiltering: false,
+                        filterType: "text",
+                        cellTemplate: (container, { data }) => {
+                            const isTranslated =
+                                data.value && data.value !== data.value_base;
+                            container.html(
+                                renderToString(
+                                    <div
+                                        className="d-flex justify-content-center align-items-center"
+                                        style={{ height: "100%" }}
+                                    >
+                                        {isTranslated ? (
+                                            <i
+                                                className="fas fa-check-circle text-success"
+                                                title="Traducido"
+                                            ></i>
+                                        ) : (
+                                            <i
+                                                className="fas fa-times-circle text-danger"
+                                                title="Sin traducir"
+                                            ></i>
+                                        )}
+                                    </div>
+                                )
+                            );
+                        },
+                        calculateFilterExpression: (
+                            filterValue,
+                            selectedFilterOperation
+                        ) => {
+                            if (filterValue === "traducido")
+                                return ["is_translated", "=", true];
+                            if (filterValue === "no traducido")
+                                return ["is_translated", "=", false];
+                            return null;
+                        },
+                    },
                     {
                         dataField: "value",
                         caption: isTranslationMode ? "Traducción" : "Valor",
+                        allowFiltering: false, // No filtramos en esta columna
                         cellTemplate: (container, { data }) => {
                             ReactAppend(
                                 container,
@@ -204,6 +256,26 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                         },
                     },
                 ]}
+                options={{
+                    searchPanel: {
+                        visible: true,
+                        width: 240,
+                        placeholder: "Buscar...",
+                        highlightSearchText: true,
+                    },
+                    filterRow: {
+                        visible: true,
+                        applyFilter: "auto",
+                    },
+                    paging: {
+                        pageSize: 10,
+                    },
+                    pager: {
+                        showPageSizeSelector: true,
+                        allowedPageSizes: [10, 25, 50, 100],
+                        showInfo: true,
+                    },
+                }}
             />
             <Modal
                 modalRef={modalRef}

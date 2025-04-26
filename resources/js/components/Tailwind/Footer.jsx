@@ -64,7 +64,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     // console.log(sedesData);
     const policyItems = {
         privacy_policy: t("public.footer.privacity", "Políticas de privacidad"),
-        terms_conditions: t("public.footer.terms", "Términos y condiciones"),
+        terms_conditions: t("public.form.terms", "Términos y condiciones"),
         // 'delivery_policy': 'Políticas de envío',
         exchange_policy: t("public.footer.change", "Políticas de cambio"),
     };
@@ -218,7 +218,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     className="text-[14px] cursor-pointer"
                                 >
                                     {t(
-                                        "public.footer.terms",
+                                        "public.form.terms",
                                         "Términos y Condiciones"
                                     )}
                                 </a>

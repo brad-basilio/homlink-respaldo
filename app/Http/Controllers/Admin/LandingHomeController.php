@@ -21,7 +21,7 @@ class LandingHomeController extends BasicController
     public $videoFields = ['video']; // Nuevo campo para videos
     //public $prefix4filter = 'landing_home';
 
-    public function setReactViewProperties(Request $request)
+    /*  public function setReactViewProperties(Request $request)
     {
         $currentLangId = app('current_lang_id');
         $defaultLang = Lang::where('is_default', true)->first();
@@ -33,6 +33,55 @@ class LandingHomeController extends BasicController
 
         return [
             'items' => $baseItems,
+            'current_lang_id' => $currentLangId,
+            'default_lang_id' => $defaultLang->id
+        ];
+    }*/
+    public function setReactViewProperties(Request $request)
+    {
+        $currentLangId = app('current_lang_id');
+        $defaultLang = Lang::where('is_default', true)->first();
+
+        // Obtener todos los registros base (idioma por defecto)
+        $baseItems = LandingHome::where('lang_id', $defaultLang->id)
+            ->orWhereNull('lang_id')
+            ->get();
+
+        // Obtener todas las traducciones para el idioma actual
+        $translations = LandingHome::where('lang_id', $currentLangId)
+            ->get()
+            ->keyBy('original_id');
+
+        // Combinar los datos
+        $items = $baseItems->map(function ($item) use ($translations, $currentLangId, $defaultLang) {
+            $translation = $translations[$item->id] ?? null;
+
+            return [
+                'id' => $item->id,
+                'original_id' => $item->original_id ?? $item->id,
+                'title' => $currentLangId === $defaultLang->id
+                    ? $item->title
+                    : ($translation->title ?? $item->title),
+                'subtitle' => $currentLangId === $defaultLang->id
+                    ? $item->subtitle
+                    : ($translation->subtitle ?? $item->subtitle),
+                'description' => $currentLangId === $defaultLang->id
+                    ? $item->description
+                    : ($translation->description ?? $item->description),
+                'link' => $currentLangId === $defaultLang->id
+                    ? $item->link
+                    : ($translation->link ?? $item->link),
+                'image' => $item->image,
+                'video' => $item->video,
+                'is_video' => $item->is_video,
+                'correlative' => $item->correlative,
+                'is_translated' => $translation ? true : false,
+                'lang_id' => $currentLangId
+            ];
+        });
+
+        return [
+            'items' => $items,
             'current_lang_id' => $currentLangId,
             'default_lang_id' => $defaultLang->id
         ];
@@ -72,8 +121,8 @@ class LandingHomeController extends BasicController
         try {
             $validated = $request->validate([
                 'original_id' => 'required|string',
-                'title' => 'required|string',
-                'description' => 'required|string',
+                'title' => 'nullable|string',
+                'description' => 'nullable|string',
                 'link' => 'nullable|string',
                 'lang_id' => 'required|string'
             ]);
