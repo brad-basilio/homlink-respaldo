@@ -215,6 +215,14 @@ const Header = ({
     const [selectLanguage, setSelectLanguage] = useState(
         currentLanguage || languagesSystem[0]
     );
+
+    useEffect(() => {
+        if (currentLanguage) {
+            setSelectLanguage(currentLanguage);
+        } else if (languagesSystem.length > 0) {
+            setSelectLanguage(languagesSystem[0]);
+        }
+    }, [currentLanguage, languagesSystem]);
     const onUseLanguage = async (langData) => {
         try {
             // Obtén el token CSRF de las cookies automáticamente

@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ env('APP_NAME', 'Vuá') }}</title>
+    <title>{{ env('APP_NAME', 'NoPain') }}</title>
 
     @isset($seoTitle)
         <meta name="title" content="{{ $seoTitle }}" />
@@ -22,7 +22,7 @@
     @isset($seoKeywords)
         <meta name="keywords" content="{{ $seoKeywords }}" />
     @endisset
-
+    <meta name="csrf_token" content="{{ csrf_token() }}">
     <link rel="manifest" href="/manifest.webmanifest">
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
 
