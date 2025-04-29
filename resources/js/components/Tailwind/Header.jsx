@@ -416,7 +416,7 @@ const Header = ({
                                     alt={language.name}
                                     className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
                                         selectLanguage.id === language.id
-                                            ? "border border-2 border-[#224483] shadow-2xl"
+                                            ? " border-2 border-[#224483] shadow-2xl"
                                             : ""
                                     }`}
                                 />
