@@ -18,11 +18,11 @@ export const LanguageProvider = ({ children }) => {
         try {
             setLoading(true);
             setError(null);
-
+            //MODIFICAR CON FECH xautoken
             const res = await axios.get(`/api/translations/${langId}`, {
                 signal, // Para cancelar peticiones anteriores
             });
-            console.log(res.data);
+            //console.log(res.data);
             setTranslations(res.data);
         } catch (err) {
             if (!axios.isCancel(err)) {
