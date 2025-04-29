@@ -415,7 +415,8 @@ const Header = ({
                             variants={itemVariants}
                             className="hidden lg:flex h-full items-center gap-4 justify-end"
                         >
-                            {languagesSystem &&
+                            {selectLanguage &&
+                                languagesSystem &&
                                 languagesSystem?.map((language) => (
                                     <motion.img
                                         onClick={() => onUseLanguage(language)}
@@ -424,7 +425,7 @@ const Header = ({
                                         src={`/api/lang/media/${language.image}`}
                                         alt={language.name}
                                         className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
-                                            selectLanguage.id === language.id
+                                            selectLanguage?.id === language.id
                                                 ? " border-2 border-[#224483] shadow-2xl"
                                                 : ""
                                         }`}
