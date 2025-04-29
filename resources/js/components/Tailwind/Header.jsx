@@ -413,7 +413,7 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="hidden lg:flex h-full items-center gap-4 justify-end"
+                            className="flex h-full items-center gap-4 justify-end"
                         >
                             {selectLanguage &&
                                 languagesSystem &&
@@ -426,7 +426,7 @@ const Header = ({
                                         alt={language.name}
                                         className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
                                             selectLanguage?.id === language.id
-                                                ? " border-2 border-[#224483] shadow-2xl"
+                                                ? " border-2 border-white lg:border-[#224483] shadow-2xl"
                                                 : ""
                                         }`}
                                     />
