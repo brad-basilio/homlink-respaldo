@@ -172,7 +172,7 @@ class TranslationController extends BasicController
     }*/
     public function paginate(Request $request): HttpResponse|ResponseFactory
     {
-        dump('Request', ['request' => $request->all()]);
+        // dump('Request', ['request' => $request->all()]);
         $response = new dxResponse();
         try {
             $currentLangId = $request->input('lang_id') ?? app('current_lang_id');
@@ -246,9 +246,9 @@ class TranslationController extends BasicController
                 ->take($request->input('take', 10))
                 ->get();
 
-            dump('Query', ['query' => $query->toSql()]);
-            dump('Bindings', ['bindings' => $query->getBindings()]);
-            dump('Data', ['data' => $data]);
+            //   dump('Query', ['query' => $query->toSql()]);
+            //dump('Bindings', ['bindings' => $query->getBindings()]);
+            // dump('Data', ['data' => $data]);
 
             // Estructura de respuesta que DevExtreme espera
             $response->status = 200;

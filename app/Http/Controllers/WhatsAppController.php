@@ -85,7 +85,7 @@ class WhatsAppController extends Controller
             } catch (\Throwable $th) {
             }
         } catch (\Throwable $th) {
-            dump($th->getMessage());
+            //dump($th->getMessage());
         }
     }
 }

@@ -31,7 +31,7 @@ class TestimonyController extends BasicController
     {
         try {
             $content = Storage::get('images/testimony/' . $uuid . '.img');
-            dump($content);
+            //dump($content);
             if (!$content) throw new Exception('Imagen no encontrado');
             return response($content, 200, [
                 'Content-Type' => 'application/octet-stream'

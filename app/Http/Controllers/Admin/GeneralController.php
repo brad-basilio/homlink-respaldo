@@ -53,7 +53,7 @@ class GeneralController extends BasicController
 
     public function save(Request $request): HttpResponse|ResponseFactory
     {
-        dump($request->all());
+        // dump($request->all());
         $response = Response::simpleTryCatch(function () use ($request) {
             $body = $request->all();
             foreach ($body as $record) {
