@@ -407,20 +407,21 @@ const Header = ({
                             variants={itemVariants}
                             className="hidden lg:flex h-full items-center gap-4 justify-end"
                         >
-                            {languagesSystem.map((language) => (
-                                <motion.img
-                                    onClick={() => onUseLanguage(language)}
-                                    key={language.id}
-                                    whileHover={{ y: -2 }}
-                                    src={`/api/lang/media/${language.image}`}
-                                    alt={language.name}
-                                    className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
-                                        selectLanguage.id === language.id
-                                            ? " border-2 border-[#224483] shadow-2xl"
-                                            : ""
-                                    }`}
-                                />
-                            ))}
+                            {languagesSystem &&
+                                languagesSystem.map((language) => (
+                                    <motion.img
+                                        onClick={() => onUseLanguage(language)}
+                                        key={language.id}
+                                        whileHover={{ y: -2 }}
+                                        src={`/api/lang/media/${language.image}`}
+                                        alt={language.name}
+                                        className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
+                                            selectLanguage.id === language.id
+                                                ? " border-2 border-[#224483] shadow-2xl"
+                                                : ""
+                                        }`}
+                                    />
+                                ))}
                         </motion.div>
 
                         <motion.div
