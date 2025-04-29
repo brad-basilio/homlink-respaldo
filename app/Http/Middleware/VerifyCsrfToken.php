@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/api/culqi/webhook',
         '/set-current-lang',
+        'get-languages'
     ];
 }
