@@ -408,7 +408,7 @@ const Header = ({
                             className="hidden lg:flex h-full items-center gap-4 justify-end"
                         >
                             {languagesSystem &&
-                                languagesSystem.map((language) => (
+                                languagesSystem?.map((language) => (
                                     <motion.img
                                         onClick={() => onUseLanguage(language)}
                                         key={language.id}
