@@ -82,10 +82,10 @@ use Illuminate\Http\Request;
 // routes/api.php (o web.php)
 // routes/web.php
 Route::post('/set-current-lang', function (Request $request) {
-    dump($request->all());
+   // dump($request->all());
     $request->validate(['lang_id' => 'required|exists:langs,id']);
     session(['current_lang_id' => $request->lang_id]);
-    dump(session('current_lang_id'));
+   // dump(session('current_lang_id'));
     return response()->json(['success' => true]);
 })->middleware('web'); // <-- El middleware 'web' es clave
 

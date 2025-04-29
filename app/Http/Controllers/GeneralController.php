@@ -58,7 +58,7 @@ class GeneralController extends BasicController
     {
         $response = new Response();
         try {
-            $data = Lang::all();
+            $data = Lang::where('status', true)->where('visible', true)->get();
             // dump($data);
             $response->data = $data;
             $response->status = 200;
