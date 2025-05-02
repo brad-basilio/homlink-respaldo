@@ -268,31 +268,28 @@ class TranslationController extends BasicController
 
     public function translate(Request $request)
     {
+
+        //dump($request->all());
         try {
             $validated = $request->validate([
                 'group' => 'required|string',
                 'key' => 'required|string',
                 'value' => 'required|string',
-
+                // 'lang_id' => 'required|integer|exists:langs,id'
             ]);
-            $langId = $request->input('lang_id') ?? app('current_lang_id');
-
-            dump('Idioma', ['idioma' => $langId]);
-
+            $currentLangId = $request->input('lang_id') ?? app('current_lang_id');
             // Verifica si ya existe la traducción para ese idioma
             $translation = Translation::where('group', $validated['group'])
                 ->where('key', $validated['key'])
-                ->where('lang_id', $langId)
+                ->where('lang_id', $currentLangId)
                 ->first();
-                
-            dump('Trad', ['trad' => $translation]);
 
             if ($translation) {
                 // Actualiza la traducción
                 $translation->value = $validated['value'];
                 $translation->save();
             } else {
-                $validated['lang_id'] = $langId;
+                $validated['lang_id'] = $currentLangId;
                 // Crea una nueva traducción
                 Translation::create($validated);
             }
