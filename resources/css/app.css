@@ -10,3 +10,44 @@
 .banner-swiper .swiper-pagination-bullet-active {
   opacity: 1;
 }
+
+.font-Poppins_Light{
+  font-family: "Poppins_Light";
+}
+.font-Poppins_Regular{
+  font-family: "Poppins_Regular";
+}
+.font-Poppins_Medium{
+  font-family: "Poppins_Medium";
+}
+.font-Poppins_SemiBold{
+  font-family: "Poppins_SemiBold";
+}
+.font-Poppins_Bold{
+  font-family: "Poppins_Bold";
+}
+
+@font-face {
+  font-family: "Poppins_Light";
+  src: url("../../public/assets/fonts/Poppins-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Poppins_Regular";
+  src: url("../../public/assets/fonts/Poppins-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Poppins_Medium";
+  src: url("../../public/assets/fonts/Poppins-Medium.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Poppins_SemiBold";
+  src: url("../../public/assets/fonts/Poppins-Semibold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Poppins_Bold";
+  src: url("../../public/assets/fonts/Poppins-Bold.woff") format("woff");
+}

@@ -290,18 +290,18 @@ const Menu = ({
                                 >
                                     Pop-ups
                                 </MenuItem>*/}
-                                {/*<MenuItem
+                                <MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
                                 >
-                                    Sliders
+                                    {t("admin.sidebar.pages", "Sliders")}
                                 </MenuItem>
-                                   <MenuItem
+                                {/* <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
                                 >
                                     Nosotros
-                                </MenuItem>*/}
+                                </MenuItem> */}
                                 <MenuItem
                                     href="/admin/indicators"
                                     icon="mdi mdi-checkbox-marked-outline"
@@ -317,12 +317,12 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.benefits", "Beneficios")}
                                 </MenuItem>
-                                {/*  <MenuItem
+                                 <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
                                     Valores
-                                </MenuItem>*/}
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"
@@ -347,13 +347,13 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.posts", "Posts")}
                                 </MenuItem>
-                                {/*
+                                
                                 <MenuItem
                                     href="/admin/faqs"
                                     icon="mdi mdi-frequently-asked-questions"
                                 >
                                     FAQs
-                                </MenuItem>*/}
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/socials"
                                     icon="mdi mdi-web"

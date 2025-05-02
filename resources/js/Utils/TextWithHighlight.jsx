@@ -5,7 +5,7 @@ const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_p
 
         return parts.map((part, index) =>
             part.startsWith("*") && part.endsWith("*") ? (
-                <span key={index} className="text-[#224483] font-bold">
+                <span key={index} className="bg-gradient-to-r from-[#7B94B1] to-[#B27BA8] bg-clip-text text-transparent">
                     {part.slice(1, -1)}
                 </span>
             ) : (

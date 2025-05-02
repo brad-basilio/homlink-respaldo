@@ -196,7 +196,7 @@ class TranslationController extends BasicController
                     'spanish.group',
                     'spanish.key',
                     'spanish.spanish_value as value_base',       // Español como valor principal
-                    'current.value as value ',          // Traducción como valor adicional
+                    'current.value as value',          // Traducción como valor adicional
                     DB::raw('IFNULL(current.value, spanish.spanish_value) as value'),
                     DB::raw('CASE WHEN current.value IS NULL THEN 0 ELSE 1 END as is_translated')
                 ]);
@@ -248,7 +248,7 @@ class TranslationController extends BasicController
 
             //   dump('Query', ['query' => $query->toSql()]);
             //dump('Bindings', ['bindings' => $query->getBindings()]);
-            // dump('Data', ['data' => $data]);
+            dump('Data', ['data' => $data]);
 
             // Estructura de respuesta que DevExtreme espera
             $response->status = 200;
@@ -276,11 +276,16 @@ class TranslationController extends BasicController
 
             ]);
             $langId = $request->input('lang_id') ?? app('current_lang_id');
+
+            dump('Idioma', ['idioma' => $langId]);
+
             // Verifica si ya existe la traducción para ese idioma
             $translation = Translation::where('group', $validated['group'])
                 ->where('key', $validated['key'])
                 ->where('lang_id', $langId)
                 ->first();
+                
+            dump('Trad', ['trad' => $translation]);
 
             if ($translation) {
                 // Actualiza la traducción
@@ -291,6 +296,8 @@ class TranslationController extends BasicController
                 // Crea una nueva traducción
                 Translation::create($validated);
             }
+
+            dump('Traduccion', ['translation' => $translation]);
 
             return response()->json([
                 'status' => true,

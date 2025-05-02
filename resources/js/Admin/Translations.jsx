@@ -16,6 +16,8 @@ import { renderToString } from "react-dom/server";
 
 const translationsRest = new TranslationsRest();
 const EditableCell = ({ data, gridRef, isTranslationMode }) => {
+    console.log("Esta es la data", data);
+
     const [tempValue, setTempValue] = useState(data.value || data.value_base);
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef(null);
@@ -31,7 +33,8 @@ const EditableCell = ({ data, gridRef, isTranslationMode }) => {
                 value: tempValue,
                 lang_id: data.lang_id,
             };
-
+            console.log("Este es el lang_id", data.lang_id);
+            console.log("Este es el lang default", data.default_lang_id);
             if (data.lang_id === data.default_lang_id) {
                 await translationsRest.save({ ...payload, id: data.id });
             } else {
@@ -162,7 +165,16 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                     sorting: true,
                 }}
                 toolBar={(container) => {
-                    // ... (código existente)
+                    container.unshift({
+                        widget: "dxButton",
+                        location: "after",
+                        options: {
+                            icon: "plus",
+                            text: "Agregar",
+                            hint: "Agregar",
+                            onClick: () => onModalOpen(),
+                        },
+                    });
                 }}
                 columns={[
                     {

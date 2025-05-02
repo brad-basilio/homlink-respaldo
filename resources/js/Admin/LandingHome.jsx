@@ -371,7 +371,7 @@ const LandingHome = ({
                                 Traducción
                             </span>
                         )}
-                        {/* <button
+                        <button
                             className="btn btn-primary btn-sm"
                             onClick={() =>
                                 onModalOpen({
@@ -381,7 +381,7 @@ const LandingHome = ({
                             }
                         >
                             <i className="fa fa-plus me-1"></i> Nueva Sección
-                        </button>*/}
+                        </button>
                     </div>
                 </div>
 

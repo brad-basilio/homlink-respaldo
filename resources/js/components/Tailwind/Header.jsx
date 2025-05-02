@@ -256,16 +256,6 @@ const Header = ({
 
     return (
         <>
-            {showSlogan && (
-                <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className={`text-center px-[5%] py-3 lg:py-2 font-light bg-[#224483] text-white text-[10.21px] md:text-[16.21px] leading-6 uppercase tracking-[0.2em] font-poppins w-full h-[42px] lg:h-7 ${
-                        backgroundType === "none" && "mb-0"
-                    }`}
-                ></motion.div>
-            )}
 
             <div
                 className={`w-full max-w-full relative ${backgroundHeight} overflow-clip`}
@@ -338,9 +328,9 @@ const Header = ({
                             <a href="/">
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
-                                    src="/assets/img/logo.png"
-                                    alt="NoPain Logo"
-                                    className="h-[40px] w-auto md:h-[50px] object-cover object-top"
+                                    src="/assets/img/sedna_logo.svg"
+                                    alt="Sedna Logo"
+                                    className="object-cover object-top h-12 xs:h-14 sm:h-16 w-full"
                                 />
                             </a>
                         </motion.div>
@@ -360,9 +350,17 @@ const Header = ({
                                 ].map((path) => {
                                     const text = {
                                         "/": t("public.header.home", "Inicio"),
+                                        "/soluciones": t(
+                                            "public.header.solutions",
+                                            "Soluciones"
+                                        ),
                                         "/services": t(
                                             "public.header.services",
                                             "Servicios"
+                                        ),
+                                        "/options": t(
+                                            "public.header.options",
+                                            "Opciones de compra"
                                         ),
                                         "/about": t(
                                             "public.header.aboutus",
@@ -431,6 +429,17 @@ const Header = ({
                                         }`}
                                     />
                                 ))}
+                        </motion.div>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="hidden md:flex flex-col justify-center items-center font-Poppins_Medium"
+                        >
+                                <a href="/contacto">
+                                    <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
+                                        <p className="leading-none text-white">Contáctanos</p>
+                                    </div>
+                                </a>
                         </motion.div>
 
                         <motion.div

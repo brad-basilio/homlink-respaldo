@@ -11,6 +11,11 @@ export default {
             fontFamily: {
                 bebas: ["Bebas Neue", "serif"],
                 poppins: ["Aspekta ", "serif"],
+                Poppins_Light: ["Poppins_Light"],
+                Poppins_Regular: ["Poppins_Regular"],
+                Poppins_Medium: ["Poppins_Medium"],
+                Poppins_SemiBold: ["Poppins_SemiBold"],
+                Poppins_Bold: ["Poppins_Bold"],
             },
             colors: {
                 azul: "#224483",
