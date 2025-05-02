@@ -25,7 +25,7 @@ const Services = ({ brands }) => {
     const titleRef = useRef();
     const descriptionRef = useRef();
     const imageRef = useRef();
-    const linkRef = useRef();
+    //const linkRef = useRef();
     // Estados para galería y características
     const [gallery, setGallery] = useState([]);
     const galleryRef = useRef();
@@ -101,7 +101,7 @@ const Services = ({ brands }) => {
         } else {
             setCharacteristics([{ value: "" }]);
         }
-        linkRef.current.value = data?.link ?? "";
+        //  linkRef.current.value = data?.link ?? "";
         $(modalRef.current).modal("show");
     };
 
@@ -112,7 +112,7 @@ const Services = ({ brands }) => {
         const formData = new FormData();
         formData.append("title", titleRef.current.value);
         formData.append("description", descriptionRef.current.value);
-        formData.append("link", linkRef.current.value);
+        // formData.append("link", linkRef.current.value);
 
         // Si estamos editando, agregar el ID
         if (isEditing) {
@@ -445,11 +445,11 @@ const Services = ({ brands }) => {
                                 característica
                             </button>
                         </div>
-                        <InputFormGroup
+                        {/*  <InputFormGroup
                             type="url"
                             eRef={linkRef}
                             label="Link"
-                        />
+                        />*/}
                     </div>
 
                     <div className="col-md-6">

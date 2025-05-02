@@ -24,7 +24,7 @@ const Specialities = () => {
     const idRef = useRef();
     const imageRef = useRef();
     const nameRef = useRef();
-    const descriptionRef = useRef();
+    //const descriptionRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -37,7 +37,7 @@ const Specialities = () => {
         imageRef.image.src = `/api/speciality/media/${data?.image}`;
         imageRef.current.value = null;
         nameRef.current.value = data?.name ?? "";
-        descriptionRef.current.value = data?.description ?? "";
+        //descriptionRef.current.value = data?.description ?? "";
 
         $(modalRef.current).modal("show");
     };
@@ -49,7 +49,7 @@ const Specialities = () => {
             id: idRef.current.value || undefined,
             // image: imageRef.current.value,
             name: nameRef.current.value,
-            description: descriptionRef.current.value,
+            // description: descriptionRef.current.value,
         };
         const formData = new FormData();
         for (const key in request) {
@@ -233,7 +233,7 @@ const Specialities = () => {
                     isEditing ? "Editar especialidad" : "Agregar especialidad"
                 }
                 onSubmit={onModalSubmit}
-                size="lg"
+                size="sm"
             >
                 <div className="row" id="indicators-container">
                     <input ref={idRef} type="hidden" />
@@ -243,15 +243,15 @@ const Specialities = () => {
                         aspect={16 / 9}
                         fit="cover"
                         required
-                        col="col-sm-6"
+                        col="col-12"
                     />
-                    <div className="col-md-6">
+                    <div className="col-12">
                         <InputFormGroup eRef={nameRef} label="Título" />
                         {/*<InputFormGroup eRef={imageRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
-                        <TextareaFormGroup
+                        {/*  <TextareaFormGroup
                             eRef={descriptionRef}
                             label="Descripción"
-                        />
+                        />*/}
                     </div>
                 </div>
             </Modal>
