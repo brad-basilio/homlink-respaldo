@@ -38,7 +38,9 @@ const EditableCell = ({
                 //  lang_id: data.lang_id,
             };
 
-            if (data.lang_id === data.default_lang_id) {
+            if (isTranslationMode) {
+                await translationsRest.translate(payload);
+            } else {
                 await translationsRest.save({ ...payload, id: data.id });
             }
 

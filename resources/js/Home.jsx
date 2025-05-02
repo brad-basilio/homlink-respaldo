@@ -264,13 +264,23 @@ const Home = ({
                         >
                         <div className="flex flex-col justify-start items-start font-Poppins_SemiBold">
                             <a href=""><div className="bg-[#7B5E9A] px-4 py-3 rounded-md">
-                                <p className="leading-none text-white text-base 2xl:text-lg">Nuestras soluciones</p>
+                                <p className="leading-none text-white text-base 2xl:text-lg">
+                                {t(
+                                    "public.btn.our_solutions",
+                                    "Nuestras soluciones"
+                                )}
+                                </p>
                             </div></a>
                         </div>
     
                         <div className="flex flex-col justify-start items-start font-Poppins_SemiBold">
                             <a href=""><div className="bg-transparent px-4 py-3 rounded-md">
-                                <p className="leading-none text-[#3E2F4D] text-base 2xl:text-lg">Habla con un experto</p>
+                                <p className="leading-none text-[#3E2F4D] text-base 2xl:text-lg">
+                                    {t(
+                                        "public.btn.talk_adviser",
+                                        "Habla con un experto"
+                                    )}
+                                </p>
                             </div></a>
                         </div>
                     </motion.div>
