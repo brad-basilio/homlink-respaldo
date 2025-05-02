@@ -15,7 +15,13 @@ import SelectFormGroup from "@Adminto/form/SelectFormGroup";
 import { renderToString } from "react-dom/server";
 
 const translationsRest = new TranslationsRest();
-const EditableCell = ({ data, gridRef, isTranslationMode }) => {
+const EditableCell = ({
+    data,
+    gridRef,
+    isTranslationMode,
+    current_lang_id,
+    default_lang_id,
+}) => {
     const [tempValue, setTempValue] = useState(data.value || data.value_base);
     const [isEditing, setIsEditing] = useState(false);
     const inputRef = useRef(null);
@@ -29,16 +35,16 @@ const EditableCell = ({ data, gridRef, isTranslationMode }) => {
                 group: data.group,
                 key: data.key,
                 value: tempValue,
-                lang_id: data.lang_id,
+                //  lang_id: data.lang_id,
             };
 
-            if (data.lang_id === data.default_lang_id) {
-                await translationsRest.save({ ...payload, id: data.id });
-            } else {
+            if (isTranslationMode) {
                 await translationsRest.translate(payload);
+            } else {
+                await translationsRest.save({ ...payload, id: data.id });
             }
 
-            gridRef.current.dxDataGrid("instance").refresh();
+            $(gridRef.current).dxDataGrid("instance").refresh();
             setIsEditing(false);
         } catch (error) {
             Notify.error("Error al guardar traducción");
@@ -251,6 +257,8 @@ const Translations = ({ current_lang_id, default_lang_id }) => {
                                     data={data}
                                     gridRef={gridRef}
                                     isTranslationMode={isTranslationMode}
+                                    current_lang_id={current_lang_id}
+                                    default_lang_id={default_lang_id}
                                 />
                             );
                         },
