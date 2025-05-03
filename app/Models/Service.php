@@ -11,10 +11,33 @@ class Service extends Model
     use HasFactory, HasUuids;
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['title', 'description', 'image', 'link', 'status', 'visible', 'slug', 'characteristics', 'gallery', 'featured', 'lang_id'];
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'link',
+        'status',
+        'visible',
+        'slug',
+        'characteristics',
+        'gallery',
+        'featured',
+        'lang_id',
+        //SEDNA
+        'how_it_helps',
+        'description_helps',
+        'value_proposition',
+        'innovation_focus',
+        'customer_relation',
+        'benefits',
+        'image_secondary',
+        'image_banner',
+
+    ];
     protected $casts = [
         'characteristics' => 'array', // Convierte automáticamente el JSON a array de PHP
-        'gallery' => 'array'
+        'gallery' => 'array',
+        'benefits' => 'array'
     ];
 
     public function lang()

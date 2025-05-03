@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
-import BaseAdminto from "@Adminto/Base";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
+import BaseAdminto from "@Adminto/Base";
 import { renderToString } from "react-dom/server";
 import Swal from "sweetalert2";
 import ServicesRest from "../Actions/Admin/ServicesRest";
@@ -13,187 +13,366 @@ import CreateReactScript from "../Utils/CreateReactScript";
 import ReactAppend from "../Utils/ReactAppend";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import { LanguageProvider } from "../context/LanguageContext";
-const servicesRest = new ServicesRest();
+import DragDropImage from "../components/Adminto/form/DragDropImage";
 
+const servicesRest = new ServicesRest();
+// Componente FeatureCard simplificado
+const FeatureCard = ({
+    feature,
+    index,
+    onUpdate,
+    onRemove,
+    type,
+    canRemove,
+    characteristics,
+    benefits,
+    addCharacteristic,
+    addBenefit,
+}) => {
+    const handleFieldChange = (field, value) => {
+        onUpdate(index, field, value);
+    };
+
+    const handleImageChange = (imageData) => {
+        onUpdate(index, "image", imageData);
+    };
+
+    return (
+        <div className="card mb-3">
+            <div className="card-body">
+                <div className="row">
+                    <div className="col-md-6">
+                        <InputFormGroup
+                            label="Título"
+                            value={feature.title}
+                            onChange={(e) =>
+                                handleFieldChange("title", e.target.value)
+                            }
+                        />
+                        <div className="mb-3">
+                            <label className="form-label">Descripción</label>
+                            <textarea
+                                className="form-control"
+                                rows={3}
+                                value={feature.description}
+                                onChange={(e) =>
+                                    handleFieldChange(
+                                        "description",
+                                        e.target.value
+                                    )
+                                }
+                            />
+                        </div>
+                    </div>
+                    <div className="col-md-6">
+                        <DragDropImage
+                            label="Imagen"
+                            currentImage={feature.image}
+                            onChange={handleImageChange}
+                            aspect={16 / 9}
+                        />
+                    </div>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-outline-danger"
+                        onClick={() => onRemove(index)}
+                        disabled={!canRemove}
+                    >
+                        Eliminar
+                    </button>
+                    {(type === "characteristic" &&
+                        index === characteristics.length - 1) ||
+                    (type === "benefit" && index === benefits.length - 1) ? (
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-outline-primary"
+                            onClick={
+                                type === "characteristic"
+                                    ? addCharacteristic
+                                    : addBenefit
+                            }
+                        >
+                            Agregar{" "}
+                            {type === "characteristic"
+                                ? "Característica"
+                                : "Beneficio"}
+                        </button>
+                    ) : null}
+                </div>
+            </div>
+        </div>
+    );
+};
 const Services = ({ brands }) => {
-    const [itemData, setItemData] = useState([]);
     const gridRef = useRef();
     const modalRef = useRef();
 
-    // Refs para campos del formulario
+    // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
     const titleRef = useRef();
     const descriptionRef = useRef();
+    const howItHelpsRef = useRef();
+    const descriptionHelpsRef = useRef();
+    const valuePropositionRef = useRef();
+    const innovationFocusRef = useRef();
+    const customerRelationRef = useRef();
+
+    // Refs para imágenes - igual que en el primer código
     const imageRef = useRef();
-    //const linkRef = useRef();
-    // Estados para galería y características
-    const [gallery, setGallery] = useState([]);
-    const galleryRef = useRef();
-    const [characteristics, setCharacteristics] = useState([{ value: "" }]);
+    const imageSecondaryRef = useRef();
+    const imageBannerRef = useRef();
+
     const [isEditing, setIsEditing] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
 
-    // Manejo de la galería
-    const handleGalleryChange = (e) => {
-        const files = Array.from(e.target.files);
-        const newImages = files.map((file) => ({
-            file,
-            url: URL.createObjectURL(file),
-            isNew: true,
-        }));
-        setGallery((prev) => [...prev, ...newImages]);
-    };
+    // Estados para características y beneficios
+    const [characteristics, setCharacteristics] = useState([
+        { title: "", description: "", image: undefined },
+    ]);
+    const [benefits, setBenefits] = useState([
+        { title: "", description: "", image: undefined },
+    ]);
 
-    const removeGalleryImage = (index) => {
-        setGallery((prev) => prev.filter((_, i) => i !== index));
-    };
-
-    // Manejo de características
+    // Funciones para características (simplificadas)
     const addCharacteristic = () => {
-        setCharacteristics([...characteristics, { value: "" }]);
+        setCharacteristics([
+            ...characteristics,
+            {
+                title: "",
+                description: "",
+                image: undefined,
+            },
+        ]);
     };
 
-    const updateCharacteristic = (index, value) => {
-        const newCharacteristics = [...characteristics];
-        newCharacteristics[index].value = value;
-        setCharacteristics(newCharacteristics);
-    };
+    const updateCharacteristic = useCallback((index, field, value) => {
+        setCharacteristics((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
+    }, []);
 
     const removeCharacteristic = (index) => {
         if (characteristics.length <= 1) return;
-        const newCharacteristics = characteristics.filter(
-            (_, i) => i !== index
-        );
-        setCharacteristics(newCharacteristics);
+        setCharacteristics(characteristics.filter((_, i) => i !== index));
     };
 
-    // Cargar datos al editar
+    // Funciones para beneficios (simplificadas)
+    const addBenefit = () => {
+        setBenefits([
+            ...benefits,
+            {
+                title: "",
+                description: "",
+                image: undefined,
+            },
+        ]);
+    };
+    const updateBenefit = useCallback((index, field, value) => {
+        setBenefits((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
+    }, []);
+
+    const removeBenefit = (index) => {
+        if (benefits.length <= 1) return;
+        setBenefits(benefits.filter((_, i) => i !== index));
+    };
+
+    // Cargar datos al editar - similar al primer código
     const onModalOpen = (data) => {
-        setItemData(data || null);
-        setIsEditing(!!data?.id);
+        if (data?.id) setIsEditing(true);
+        else setIsEditing(false);
 
-        // Resetear formulario
-        idRef.current.value = data?.id || "";
-        titleRef.current.value = data?.title || "";
-        descriptionRef.current.value = data?.description || "";
-        imageRef.current.value = null;
-        if (data?.image) {
-            imageRef.image.src = `/api/service/media/${data.image}`;
-        }
+        // Resetear valores como en el primer código
+        idRef.current.value = data?.id ?? "";
+        titleRef.current.value = data?.title ?? "";
+        descriptionRef.current.value = data?.description ?? "";
+        howItHelpsRef.current.value = data?.how_it_helps ?? "";
+        descriptionHelpsRef.current.value = data?.description_helps ?? "";
+        valuePropositionRef.current.value = data?.value_proposition ?? "";
+        innovationFocusRef.current.value = data?.innovation_focus ?? "";
+        customerRelationRef.current.value = data?.customer_relation ?? "";
 
-        // Cargar galería existente
-        if (data?.gallery) {
-            console.log(data?.gallery);
-            const existingImages = data.gallery.map((url) => ({
-                url: `/api/service/media/${url}`,
-                isNew: false,
-            }));
+        // Manejo de imágenes como en el primer código
+        imageRef.image.src = `/api/service/media/${data?.image ?? "undefined"}`;
+        imageSecondaryRef.image.src = `/api/service/media/${
+            data?.image_secondary ?? "undefined"
+        }`;
+        imageBannerRef.image.src = `/api/service/media/${
+            data?.image_banner ?? "undefined"
+        }`;
 
-            setGallery(existingImages);
-        } else {
-            setGallery([]);
-        }
-
-        // Cargar características existentes
-        if (data?.characteristics && data.characteristics.length > 0) {
+        // Cargar características y beneficios si existen
+        /*if (data?.characteristics) {
             setCharacteristics(
-                data.characteristics.map((item) => ({ value: item }))
+                data.characteristics.map((char) => ({
+                    title: char.title || "",
+                    description: char.description || "",
+                    image: char.image
+                        ? { preview: `/api/service/media/${char.image}` }
+                        : null,
+                }))
             );
-        } else {
-            setCharacteristics([{ value: "" }]);
         }
-        //  linkRef.current.value = data?.link ?? "";
+
+        if (data?.benefits) {
+            setBenefits(
+                data.benefits.map((benefit) => ({
+                    title: benefit.title || "",
+                    description: benefit.description || "",
+                    image: benefit.image
+                        ? { preview: `/api/service/media/${benefit.image}` }
+                        : null,
+                }))
+            );
+        }*/
+        // En onModalOpen, al cargar características y beneficios
+        if (data?.characteristics) {
+            setCharacteristics(
+                data.characteristics.map((char) => ({
+                    title: char.title,
+                    description: char.description,
+                    image: char.image, // Guardar directamente el string del nombre de archivo
+                }))
+            );
+        }
+
+        if (data?.benefits) {
+            setBenefits(
+                data.benefits.map((char) => ({
+                    title: char.title,
+                    description: char.description,
+                    image: char.image, // Guardar directamente el string del nombre de archivo
+                }))
+            );
+        }
+
         $(modalRef.current).modal("show");
     };
 
-    // Enviar formulario
+    // Enviar formulario - similar al primer código pero adaptado
     const onModalSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("title", titleRef.current.value);
-        formData.append("description", descriptionRef.current.value);
-        // formData.append("link", linkRef.current.value);
 
-        // Si estamos editando, agregar el ID
-        if (isEditing) {
-            formData.append("id", idRef.current.value);
+        // Campos básicos como en el primer código
+        const request = {
+            id: idRef.current.value || undefined,
+            title: titleRef.current.value,
+            description: descriptionRef.current.value,
+            how_it_helps: howItHelpsRef.current.value,
+            description_helps: descriptionHelpsRef.current.value,
+            value_proposition: valuePropositionRef.current.value,
+            innovation_focus: innovationFocusRef.current.value,
+            customer_relation: customerRelationRef.current.value,
+        };
+
+        // Añadir campos básicos al formData
+        for (const key in request) {
+            formData.append(key, request[key]);
         }
 
-        // Agregar imagen principal si existe
-        if (imageRef.current.files[0]) {
-            formData.append("image", imageRef.current.files[0]);
-        }
+        // Añadir imágenes como en el primer código
+        const image = imageRef.current.files[0];
+        if (image) formData.append("image", image);
 
-        // Agregar imágenes de galería nuevas
-        gallery
-            .filter((img) => img.isNew)
-            .forEach((img, index) => {
-                formData.append(`gallery[${index}]`, img.file);
-            });
+        const imageSecondary = imageSecondaryRef.current.files[0];
+        if (imageSecondary) formData.append("image_secondary", imageSecondary);
 
-        // Agregar IDs de imágenes existentes
-        const existingGallery = gallery
-            .filter((img) => !img.isNew)
-            .map((img) => {
-                return img.url.split("/").pop();
-            });
-        formData.append("existing_gallery", JSON.stringify(existingGallery));
+        const imageBanner = imageBannerRef.current.files[0];
+        if (imageBanner) formData.append("image_banner", imageBanner);
 
-        // Agregar características (filtrar vacías)
-        const nonEmptyCharacteristics = characteristics
-            .map((c) => c.value.trim())
-            .filter((c) => c.length > 0);
-        formData.append(
-            "characteristics",
-            JSON.stringify(nonEmptyCharacteristics)
-        );
+        // Añadir características y beneficios
+        /* characteristics.forEach((char, index) => {
+            formData.append(`characteristics[${index}][title]`, char.title);
+            formData.append(
+                `characteristics[${index}][description]`,
+                char.description
+            );
+            if (char.image?.file) {
+                formData.append(
+                    `characteristics[${index}][image]`,
+                    char.image.file
+                );
+            }
+        });
 
-        // Enviar al backend
+        benefits.forEach((benefit, index) => {
+            formData.append(`benefits[${index}][title]`, benefit.title);
+            formData.append(
+                `benefits[${index}][description]`,
+                benefit.description
+            );
+            if (benefit.image?.file) {
+                formData.append(
+                    `benefits[${index}][image]`,
+                    benefit.image.file
+                );
+            }
+        });*/
+        // Dentro de onModalSubmit, al procesar características
+        characteristics.forEach((char, index) => {
+            formData.append(`characteristics[${index}][title]`, char.title);
+            formData.append(
+                `characteristics[${index}][description]`,
+                char.description
+            );
+
+            if (char.image) {
+                if (char.image.file) {
+                    formData.append(
+                        `characteristics[${index}][image]`,
+                        char.image.file
+                    );
+                }
+                // Si es una imagen existente (viene del servidor como string)
+                else if (typeof char.image === "string") {
+                    formData.append(
+                        `characteristics[${index}][existing_image]`,
+                        char.image
+                    );
+                }
+            }
+        });
+
+        benefits.forEach((char, index) => {
+            formData.append(`benefits[${index}][title]`, char.title);
+            formData.append(
+                `benefits[${index}][description]`,
+                char.description
+            );
+
+            if (char.image) {
+                if (char.image.file) {
+                    formData.append(
+                        `benefits[${index}][image]`,
+                        char.image.file
+                    );
+                }
+                // Si es una imagen existente (viene del servidor como string)
+                else if (typeof char.image === "string") {
+                    formData.append(
+                        `benefits[${index}][existing_image]`,
+                        char.image
+                    );
+                }
+            }
+        });
+
         const result = await servicesRest.save(formData);
         if (!result) return;
 
-        // Limpiar y cerrar
         $(gridRef.current).dxDataGrid("instance").refresh();
         $(modalRef.current).modal("hide");
-        setGallery([]);
-        setCharacteristics([{ value: "" }]);
     };
 
-    // Resto de métodos (delete, boolean change, etc.)
-    const onDeleteClicked = async (id) => {
-        const { isConfirmed } = await Swal.fire({
-            title: "Eliminar Servicio",
-            text: "¿Estás seguro de eliminar este servicio?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonText: "Sí, eliminar",
-            cancelButtonText: "Cancelar",
-        });
-        if (!isConfirmed) return;
-        const result = await servicesRest.delete(id);
-        if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
-    };
-
-    const onVisibleChange = async ({ id, value }) => {
-        const result = await servicesRest.boolean({
-            id,
-            field: "visible",
-            value,
-        });
-        if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
-    };
-
-    const onFeaturedChange = async ({ id, value }) => {
-        const result = await servicesRest.boolean({
-            id,
-            field: "featured",
-            value,
-        });
-        if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
-    };
     return (
         <>
             <Table
@@ -252,45 +431,6 @@ const Services = ({ brands }) => {
                         },
                     },
                     {
-                        dataField: "characteristics",
-                        caption: "Características",
-                        cellTemplate: (container, { data }) => {
-                            if (!data.characteristics) return;
-                            container.html(
-                                renderToString(
-                                    <ul
-                                        className="m-0 ps-3"
-                                        style={{ listStyle: "none" }}
-                                    >
-                                        {data.characteristics
-                                            .slice(0, 2)
-                                            .map((char, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="text-truncate"
-                                                    style={{
-                                                        maxWidth: "250px",
-                                                    }}
-                                                >
-                                                    <small>• {char}</small>
-                                                </li>
-                                            ))}
-                                        {data.characteristics.length > 2 && (
-                                            <li>
-                                                <small className="text-muted">
-                                                    +
-                                                    {data.characteristics
-                                                        .length - 2}{" "}
-                                                    más...
-                                                </small>
-                                            </li>
-                                        )}
-                                    </ul>
-                                )
-                            );
-                        },
-                    },
-                    {
                         dataField: "image",
                         caption: "Imagen",
                         width: "100px",
@@ -313,47 +453,6 @@ const Services = ({ brands }) => {
                             );
                         },
                     },
-                    {
-                        dataField: "featured",
-                        caption: "Destacado",
-                        dataType: "boolean",
-                        cellTemplate: (container, { data }) => {
-                            $(container).empty();
-                            ReactAppend(
-                                container,
-                                <SwitchFormGroup
-                                    checked={data.featured == 1}
-                                    onChange={() =>
-                                        onFeaturedChange({
-                                            id: data.id,
-                                            value: !data.featured,
-                                        })
-                                    }
-                                />
-                            );
-                        },
-                    },
-                    {
-                        dataField: "visible",
-                        caption: "Visible",
-                        dataType: "boolean",
-                        cellTemplate: (container, { data }) => {
-                            $(container).empty();
-                            ReactAppend(
-                                container,
-                                <SwitchFormGroup
-                                    checked={data.visible == 1}
-                                    onChange={() =>
-                                        onVisibleChange({
-                                            id: data.id,
-                                            value: !data.visible,
-                                        })
-                                    }
-                                />
-                            );
-                        },
-                    },
-
                     {
                         caption: "Acciones",
                         width: "100px",
@@ -384,7 +483,7 @@ const Services = ({ brands }) => {
                 modalRef={modalRef}
                 title={isEditing ? "Editar Servicio" : "Nuevo Servicio"}
                 onSubmit={onModalSubmit}
-                size="xl"
+                size="lg"
             >
                 <input ref={idRef} type="hidden" />
 
@@ -395,7 +494,6 @@ const Services = ({ brands }) => {
                             label="Título del servicio"
                             required
                         />
-
                         <div className="mb-3">
                             <label className="form-label">Descripción</label>
                             <textarea
@@ -405,101 +503,110 @@ const Services = ({ brands }) => {
                                 required
                             />
                         </div>
-
+                    </div>
+                    <div className="col-md-6">
+                        <InputFormGroup
+                            eRef={howItHelpsRef}
+                            label="Cómo ayuda"
+                        />
                         <div className="mb-3">
                             <label className="form-label">
-                                Características
+                                Descripción de ayuda
                             </label>
-                            {characteristics.map((char, index) => (
-                                <div key={index} className="input-group mb-2">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Ej: Duración de la sesión - 45 a 60 minutos"
-                                        value={char.value}
-                                        onChange={(e) =>
-                                            updateCharacteristic(
-                                                index,
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-danger"
-                                        onClick={() =>
-                                            removeCharacteristic(index)
-                                        }
-                                        disabled={characteristics.length <= 1}
-                                    >
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            ))}
-                            <button
-                                type="button"
-                                className="btn btn-sm btn-outline-primary"
-                                onClick={addCharacteristic}
-                            >
-                                <i className="fas fa-plus me-1"></i> Agregar
-                                característica
-                            </button>
+                            <textarea
+                                ref={descriptionHelpsRef}
+                                className="form-control"
+                                rows={4}
+                            />
                         </div>
-                        {/*  <InputFormGroup
-                            type="url"
-                            eRef={linkRef}
-                            label="Link"
-                        />*/}
                     </div>
+                </div>
 
+                <div className="row mt-3">
                     <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageRef}
                             label="Imagen principal"
                             aspect={16 / 9}
                         />
+                    </div>
+                    <div className="col-md-6">
+                        <ImageFormGroup
+                            eRef={imageSecondaryRef}
+                            label="Imagen secundaria"
+                            aspect={16 / 9}
+                        />
+                    </div>
+                    <div className="col-md-12 mt-3">
+                        <ImageFormGroup
+                            eRef={imageBannerRef}
+                            label="Banner"
+                            aspect={16 / 9}
+                        />
+                    </div>
+                </div>
 
+                <div className="row mt-3">
+                    <div className="col-12">
+                        <InputFormGroup
+                            eRef={valuePropositionRef}
+                            label="Propuesta de valor"
+                        />
+                        <h5 className="mb-3">Características</h5>
+                        {characteristics.map((char, index) => (
+                            <FeatureCard
+                                key={`char-${index}`}
+                                feature={char}
+                                index={index}
+                                onUpdate={updateCharacteristic}
+                                onRemove={removeCharacteristic}
+                                canRemove={characteristics.length > 1}
+                                type="characteristic"
+                                characteristics={characteristics}
+                                benefits={benefits}
+                                addCharacteristic={addCharacteristic}
+                                addBenefit={addBenefit}
+                            />
+                        ))}
+                    </div>
+                </div>
+
+                <div className="row mt-3">
+                    <div className="col-md-6">
+                        <InputFormGroup
+                            eRef={innovationFocusRef}
+                            label="Enfoque de innovación"
+                        />
+                    </div>
+                    <div className="col-md-6">
                         <div className="mb-3">
                             <label className="form-label">
-                                Galería de imágenes
+                                Relación con el cliente
                             </label>
-                            <input
-                                type="file"
-                                ref={galleryRef}
-                                multiple
-                                accept="image/*"
-                                onChange={handleGalleryChange}
+                            <textarea
+                                ref={customerRelationRef}
                                 className="form-control"
+                                rows={5}
                             />
-
-                            <div className="d-flex flex-wrap gap-2 mt-2">
-                                {gallery.map((image, index) => (
-                                    <div
-                                        key={index}
-                                        className="position-relative"
-                                        style={{
-                                            width: "100px",
-                                            height: "100px",
-                                        }}
-                                    >
-                                        <img
-                                            src={image.url}
-                                            alt="Preview"
-                                            className="img-thumbnail h-100 w-100 object-fit-cover"
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-danger btn-xs position-absolute top-0 end-0"
-                                            onClick={() =>
-                                                removeGalleryImage(index)
-                                            }
-                                        >
-                                            ×
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
+                    </div>
+                    <div className="col-md-12">
+                        <h5 className="mb-3 mt-4">Beneficios</h5>
+                        {benefits.map((benefit, index) => (
+                            <FeatureCard
+                                key={`benefit-${index}`}
+                                feature={benefit}
+                                index={index}
+                                onUpdate={updateBenefit}
+                                onRemove={removeBenefit}
+                                canRemove={benefits.length > 1}
+                                type="benefit"
+                                characteristics={characteristics}
+                                benefits={benefits}
+                                addCharacteristic={addCharacteristic}
+                                addBenefit={addBenefit}
+                            />
+                        ))}
                     </div>
                 </div>
             </Modal>
