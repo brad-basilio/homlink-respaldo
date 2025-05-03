@@ -31,7 +31,7 @@ return new class extends Migration
             $table->json('benefits')->nullable();
             $table->string('image_secondary')->nullable();
             $table->string('image_banner')->nullable();
-            $table->uuid('lang_id')->nullable()->after('id');
+            $table->uuid('lang_id')->nullable();
             $table->foreign('lang_id')->references('id')->on('langs')->onDelete('cascade');
             $table->string('how_it_requirements')->nullable();
             $table->text('description_requirements')->nullable();
