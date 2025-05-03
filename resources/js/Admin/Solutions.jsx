@@ -67,6 +67,7 @@ const FeatureCard = ({
                     </div>
                     <div className="col-md-6">
                         <DragDropImage
+                            current="solution"
                             label="Imagen"
                             currentImage={feature.image}
                             onChange={handleImageChange}
@@ -201,11 +202,13 @@ const Solutions = ({ brands }) => {
         customerRelationRef.current.value = data?.customer_relation ?? "";
 
         // Manejo de imágenes como en el primer código
-        imageRef.image.src = `/api/service/media/${data?.image ?? "undefined"}`;
-        imageSecondaryRef.image.src = `/api/service/media/${
+        imageRef.image.src = `/api/solution/media/${
+            data?.image ?? "undefined"
+        }`;
+        imageSecondaryRef.image.src = `/api/solution/media/${
             data?.image_secondary ?? "undefined"
         }`;
-        imageBannerRef.image.src = `/api/service/media/${
+        imageBannerRef.image.src = `/api/solution/media/${
             data?.image_banner ?? "undefined"
         }`;
 
@@ -216,7 +219,7 @@ const Solutions = ({ brands }) => {
                     title: char.title || "",
                     description: char.description || "",
                     image: char.image
-                        ? { preview: `/api/service/media/${char.image}` }
+                        ? { preview: `/api/solution/media/${char.image}` }
                         : null,
                 }))
             );
@@ -228,7 +231,7 @@ const Solutions = ({ brands }) => {
                     title: benefit.title || "",
                     description: benefit.description || "",
                     image: benefit.image
-                        ? { preview: `/api/service/media/${benefit.image}` }
+                        ? { preview: `/api/solution/media/${benefit.image}` }
                         : null,
                 }))
             );
@@ -439,7 +442,7 @@ const Solutions = ({ brands }) => {
                             ReactAppend(
                                 container,
                                 <img
-                                    src={`/api/service/media/${data.image}`}
+                                    src={`/api/solution/media/${data.image}`}
                                     style={{
                                         width: "80px",
                                         height: "45px",

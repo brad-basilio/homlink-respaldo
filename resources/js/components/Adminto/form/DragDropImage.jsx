@@ -1,7 +1,13 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
-const DragDropImage = ({ onChange, currentImage, label, aspect = 16 / 9 }) => {
+const DragDropImage = ({
+    current = "service",
+    onChange,
+    currentImage,
+    label,
+    aspect = 16 / 9,
+}) => {
     const onDrop = useCallback(
         (acceptedFiles) => {
             const file = acceptedFiles[0];
@@ -36,7 +42,7 @@ const DragDropImage = ({ onChange, currentImage, label, aspect = 16 / 9 }) => {
                     backgroundImage: currentImage
                         ? `url(${
                               typeof currentImage === "string"
-                                  ? `/api/service/media/${currentImage}`
+                                  ? `/api/${current}/media/${currentImage}`
                                   : currentImage.preview
                           })`
                         : "none",
