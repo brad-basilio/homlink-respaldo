@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController
 use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\CategoryServiceController as AdminCategoryServiceControllerController;
+use App\Http\Controllers\Admin\CategorySolutionController as AdminCategorySolutionControllerController;
+use App\Http\Controllers\Admin\CategoryPurcharseOptionController as AdminCategoryPurcharseOptionController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
@@ -306,6 +309,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
 
+        Route::post('/category_services/paginate', [AdminCategoryServiceControllerController::class, 'paginate']);
+        Route::post('/category_solutions/paginate', [AdminCategorySolutionControllerController::class, 'paginate']);
+        Route::post('/category_purcharse_options/paginate', [AdminCategoryPurcharseOptionController::class, 'paginate']);
 
         Route::post('/complaints', [AdminComplaintController::class, 'save']);
         Route::post('/complaints/paginate', [AdminComplaintController::class, 'paginate']);

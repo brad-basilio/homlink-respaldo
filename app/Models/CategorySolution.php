@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CategoryService extends Model
+class CategorySolution extends Model
 {
     use HasFactory, HasUuids;
 
@@ -26,8 +26,8 @@ class CategoryService extends Model
         return $this->belongsTo(Lang::class);
     }
 
-    public function service()
+    public function solution()
     {
-        return $this->hasMany(Service::class, 'category_service_id');
+        return $this->hasMany(Solution::class, 'category_solution_id');
     }
 }

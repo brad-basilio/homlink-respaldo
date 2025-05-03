@@ -32,6 +32,7 @@ class Service extends Model
         'benefits',
         'image_secondary',
         'image_banner',
+        'category_service_id',
 
     ];
     protected $casts = [
@@ -43,5 +44,10 @@ class Service extends Model
     public function lang()
     {
         return $this->belongsTo(Lang::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryService::class, 'category_service_id');
     }
 }

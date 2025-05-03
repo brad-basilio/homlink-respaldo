@@ -35,6 +35,7 @@ class PurchaseOption extends Model
         'how_it_requirements',
         'description_requirements',
         'requirements',
+        'category_purchase_option_id'
 
     ];
     protected $casts = [
@@ -47,5 +48,9 @@ class PurchaseOption extends Model
     public function lang()
     {
         return $this->belongsTo(Lang::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(CategoryPurcharseOption::class, 'category_purchase_option_id');
     }
 }

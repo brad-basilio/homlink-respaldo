@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
+use App\Models\CategoryPurcharseOption;
 use App\Models\PurchaseOption;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
+use Illuminate\Support\Str;
 
 class PurchaseOptionController extends BasicController
 
@@ -16,6 +18,10 @@ class PurchaseOptionController extends BasicController
     public $model = PurchaseOption::class;
     public $reactView = 'Admin/Solutions';
     public $imageFields = ['image', 'image_secondary', 'image_banner'];
+    public function setPaginationInstance(string $model)
+    {
+        return $model::with(['category']);
+    }
 
     public function beforeSave(Request $request)
     {
@@ -23,7 +29,23 @@ class PurchaseOptionController extends BasicController
 
         // Procesar galería de imágenes
         $gallery = [];
+        if ($request->has('category_name')) {
+            $langId = app('current_lang_id'); // Obtener el lang_id del middleware
 
+            $category = CategoryPurcharseOption::firstOrCreate(
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId // Añadir lang_id a la búsqueda/creación
+                ],
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId, // Campo obligatorio
+                    'slug' => Str::slug($request->category_name)
+                ]
+            );
+
+            $body['category_purchase_option_id'] = $category->id;
+        }
         // Agregar imágenes nuevas
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $file) {

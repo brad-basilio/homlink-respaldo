@@ -16,6 +16,7 @@ import { LanguageProvider } from "../context/LanguageContext";
 import DragDropImage from "../components/Adminto/form/DragDropImage";
 import PurchaseOptionsRest from "../actions/Admin/PurchaseOptionsRest";
 import RequirementCard from "./components/RequirementCard";
+import SelectAPIFormGroupSupport from "../components/Adminto/form/SelectAPIFormGroupSupport";
 
 const servicesRest = new PurchaseOptionsRest();
 // Componente FeatureCard simplificado
@@ -115,6 +116,7 @@ const PurchaseOptions = ({ brands }) => {
     // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
     const titleRef = useRef();
+    const categoryRef = useRef();
     const descriptionRef = useRef();
     const howItHelpsRef = useRef();
     const descriptionHelpsRef = useRef();
@@ -147,6 +149,8 @@ const PurchaseOptions = ({ brands }) => {
             characteristics: [""],
         },
     ]);
+
+    const [selectedCategory, setSelectedCategory] = useState("");
     // Funciones para características (simplificadas)
     const addCharacteristic = () => {
         setCharacteristics([
@@ -273,6 +277,9 @@ const PurchaseOptions = ({ brands }) => {
         // Resetear valores como en el primer código
         idRef.current.value = data?.id ?? "";
         titleRef.current.value = data?.title ?? "";
+        categoryRef.current.value = data?.category.name ?? "";
+        setSelectedCategory(data?.category.name);
+        setSelectedItem(data);
         descriptionRef.current.value = data?.description ?? "";
         howItHelpsRef.current.value = data?.how_it_helps ?? "";
         descriptionHelpsRef.current.value = data?.description_helps ?? "";
@@ -486,7 +493,7 @@ const PurchaseOptions = ({ brands }) => {
                 );
             });
         });
-
+        formData.append("category_name", selectedCategory);
         const result = await servicesRest.save(formData);
         if (!result) return;
 
@@ -613,7 +620,19 @@ const PurchaseOptions = ({ brands }) => {
                 <input ref={idRef} type="hidden" />
 
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-6" id="purchase-container">
+                        <SelectAPIFormGroupSupport
+                            eRef={categoryRef}
+                            dropdownParent="#purchase-container"
+                            label="Categoría"
+                            searchAPI="/api/admin/category_purcharse_options/paginate"
+                            searchBy="name"
+                            allowCreate
+                            onChange={(categoryName) =>
+                                setSelectedCategory(categoryName)
+                            }
+                            initialValue={selectedItem?.category?.name || ""}
+                        />
                         <InputFormGroup
                             eRef={titleRef}
                             label="Título de la opción de compra"

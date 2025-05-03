@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
-
+use App\Models\CategorySolution;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
+use Illuminate\Support\Str;
 
 class SolutionController extends BasicController
 
@@ -17,12 +18,34 @@ class SolutionController extends BasicController
     public $reactView = 'Admin/Solutions';
     public $imageFields = ['image', 'image_secondary', 'image_banner'];
 
+    public function setPaginationInstance(string $model)
+    {
+        return $model::with(['category']);
+    }
+
     public function beforeSave(Request $request)
     {
         $body = $request->all();
 
         // Procesar galería de imágenes
         $gallery = [];
+        if ($request->has('category_name')) {
+            $langId = app('current_lang_id'); // Obtener el lang_id del middleware
+
+            $category = CategorySolution::firstOrCreate(
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId // Añadir lang_id a la búsqueda/creación
+                ],
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId, // Campo obligatorio
+                    'slug' => Str::slug($request->category_name)
+                ]
+            );
+
+            $body['category_solution_id'] = $category->id;
+        }
 
         // Agregar imágenes nuevas
         if ($request->hasFile('gallery')) {
