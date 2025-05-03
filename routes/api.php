@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\LandingHomeController as AdminLandingHomeController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
+use App\Http\Controllers\Admin\PurchaseOptionController as AdminPurchaseOptionController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
@@ -73,6 +74,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
+use App\Http\Controllers\PurchaseOptionController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\StaffController;
@@ -82,6 +84,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
 use App\Models\InstagramPost;
+use App\Models\PurchaseOption;
 use Illuminate\Http\Request;
 
 /*
@@ -119,6 +122,7 @@ Route::get('/landing_home/video/{uuid}', [LandingHomeController::class, 'video']
 
 Route::get('/service/media/{uuid}', [ServiceController::class, 'media']);
 Route::get('/solution/media/{uuid}', [SolutionController::class, 'media']);
+Route::get('/purchaseOption/media/{uuid}', [PurchaseOptionController::class, 'media']);
 Route::get('/facility/media/{uuid}', [FacilityController::class, 'media']);
 Route::get('/indicator/media/{uuid}', [IndicatorController::class, 'media']);
 Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
@@ -387,6 +391,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/solutions/status', [AdminSolutionController::class, 'status']);
         Route::patch('/solutions/{field}', [AdminSolutionController::class, 'boolean']);
         Route::delete('/solutions/{id}', [AdminSolutionController::class, 'delete']);
+
+        Route::post('/purchaseOptions', [AdminPurchaseOptionController::class, 'save']);
+        Route::post('/purchaseOptions/paginate', [AdminPurchaseOptionController::class, 'paginate']);
+        Route::patch('/purchaseOptions/status', [AdminPurchaseOptionController::class, 'status']);
+        Route::patch('/purchaseOptions/{field}', [AdminPurchaseOptionController::class, 'boolean']);
+        Route::delete('/purchaseOptions/{id}', [AdminPurchaseOptionController::class, 'delete']);
 
         Route::post('/facilities', [AdminFacilityController::class, 'save']);
         Route::post('/facilities/paginate', [AdminFacilityController::class, 'paginate']);
