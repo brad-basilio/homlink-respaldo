@@ -186,6 +186,12 @@ const Menu = ({
                                     {t("admin.sidebar.services", "Servicios")}
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/solutions"
+                                    icon="mdi mdi-shield-star"
+                                >
+                                    {t("admin.sidebar.solutions", "Soluciones")}
+                                </MenuItem>
+                                <MenuItem
                                     href="/admin/specialities"
                                     icon="mdi mdi-tag-faces"
                                 >
@@ -317,7 +323,7 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.benefits", "Beneficios")}
                                 </MenuItem>
-                                 <MenuItem
+                                <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
@@ -347,7 +353,7 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.posts", "Posts")}
                                 </MenuItem>
-                                
+
                                 <MenuItem
                                     href="/admin/faqs"
                                     icon="mdi mdi-frequently-asked-questions"

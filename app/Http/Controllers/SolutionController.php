@@ -2,64 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LandingHome;
+use App\Models\Service;
 use App\Models\Solution;
 use Illuminate\Http\Request;
 
-class SolutionController extends Controller
+class SolutionController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public $model = Solution::class;
+    public $reactView = 'SolutionsPage';
+    public $reactRootView = 'public';
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function setReactViewProperties(Request $request)
     {
-        //
-    }
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $solutions = Solution::where('status', true)->where('visible', true)->where('lang_id', $langId)->orderBy('updated_at', 'DESC')->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Solution $solution)
-    {
-        //
-    }
+        return [
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Solution $solution)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Solution $solution)
-    {
-        //
-    }
+            'landing' => $landing,
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Solution $solution)
-    {
-        //
+            'solutions' => $solutions,
+
+        ];
     }
 }
