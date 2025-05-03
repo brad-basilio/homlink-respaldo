@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import BaseAdminto from "@Adminto/Base";
 import { renderToString } from "react-dom/server";
 import Swal from "sweetalert2";
-import ServicesRest from "../Actions/Admin/ServicesRest";
+
 import Modal from "../Components/Adminto/Modal";
 import Table from "../Components/Adminto/Table";
 import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
@@ -14,8 +14,9 @@ import ReactAppend from "../Utils/ReactAppend";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import { LanguageProvider } from "../context/LanguageContext";
 import DragDropImage from "../components/Adminto/form/DragDropImage";
+import SolutionsRest from "../actions/Admin/SolutionsRest";
 
-const servicesRest = new ServicesRest();
+const servicesRest = new SolutionsRest();
 // Componente FeatureCard simplificado
 const FeatureCard = ({
     feature,
@@ -105,7 +106,7 @@ const FeatureCard = ({
         </div>
     );
 };
-const Services = ({ brands }) => {
+const Solutions = ({ brands }) => {
     const gridRef = useRef();
     const modalRef = useRef();
 
@@ -377,7 +378,7 @@ const Services = ({ brands }) => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Servicios"
+                title="Soluciones"
                 rest={servicesRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -398,7 +399,7 @@ const Services = ({ brands }) => {
                         options: {
                             icon: "plus",
                             text: "Agregar",
-                            hint: "Agregar nuevo servicio",
+                            hint: "Agregar nueva solución",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -481,7 +482,7 @@ const Services = ({ brands }) => {
 
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar Servicio" : "Nuevo Servicio"}
+                title={isEditing ? "Editar Solución" : "Nueva Solución"}
                 onSubmit={onModalSubmit}
                 size="lg"
             >
@@ -491,7 +492,7 @@ const Services = ({ brands }) => {
                     <div className="col-md-6">
                         <InputFormGroup
                             eRef={titleRef}
-                            label="Título del servicio"
+                            label="Título de la solución"
                             required
                         />
                         <div className="mb-3">
@@ -617,8 +618,8 @@ const Services = ({ brands }) => {
 CreateReactScript((el, properties) => {
     createRoot(el).render(
         <LanguageProvider>
-            <BaseAdminto {...properties} title="Servicios">
-                <Services {...properties} />
+            <BaseAdminto {...properties} title="Soluciones">
+                <Solutions {...properties} />
             </BaseAdminto>
         </LanguageProvider>
     );

@@ -440,9 +440,9 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_swiper-!~{03o}~.js": {
+  "_swiper-!~{03p}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{03o}~.js"
+    "src": "_swiper-!~{03p}~.js"
   },
   "_swiper-react-D7a-iI6z.js": {
     "file": "assets/swiper-react-D7a-iI6z.js",
@@ -451,9 +451,9 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_tippy-!~{03g}~.js": {
+  "_tippy-!~{03h}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{03g}~.js"
+    "src": "_tippy-!~{03h}~.js"
   },
   "_tippy-react.esm-CHhA99mn.js": {
     "file": "assets/tippy-react.esm-CHhA99mn.js",
@@ -1538,15 +1538,15 @@
     ]
   },
   "resources/js/Admin/Services.jsx": {
-    "file": "assets/Services-CnuztFt5.js",
+    "file": "assets/Services-DJTzd_dk.js",
     "name": "Services",
     "src": "resources/js/Admin/Services.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Admin/FileViewer.jsx",
       "_index-B80Lgev0.js",
-      "_Base-CQLid2dM.js",
       "resources/js/Utils/ReactAppend.jsx",
+      "_Base-CQLid2dM.js",
       "resources/js/components/Adminto/Dx/DxBox.jsx",
       "_sweetalert2.all-Dh0rZL5X.js",
       "resources/js/components/Blog/Results.jsx",
@@ -1557,10 +1557,10 @@
       "_DxButton-CsjWvhyj.js",
       "_CreateReactScript-Bj11ghWz.js",
       "_ReactAppend-C-tNgxIf.js",
-      "_SwitchFormGroup-ChGOZLEW.js",
       "resources/js/components/Blog/Filter.jsx",
-      "_tippy-react.esm-CHhA99mn.js",
+      "_index-CqrOtH36.js",
       "_index-DO3Aws4m.js",
+      "_tippy-react.esm-CHhA99mn.js",
       "_Logout-Cj6nvmS-.js",
       "_main-Br9xqDfn.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
@@ -3185,7 +3185,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-Dr3wPUh9.js",
+    "file": "assets/Modal-IlEDNq44.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -3236,6 +3236,16 @@
     "file": "assets/CheckboxFormGroup-Dr3wPUh9.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/FileViewer.jsx",
+      "_index-B80Lgev0.js"
+    ]
+  },
+  "resources/js/components/Adminto/form/DragDropImage.jsx": {
+    "file": "assets/DragDropImage-Dr3wPUh9.js",
+    "name": "DragDropImage",
+    "src": "resources/js/components/Adminto/form/DragDropImage.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Admin/FileViewer.jsx",
@@ -3315,7 +3325,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-Dr3wPUh9.js",
+    "file": "assets/TextareaFormGroup-IlEDNq44.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -3796,7 +3806,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-IlEDNq44.js",
+    "file": "assets/Modal-Dr3wPUh9.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4207,10 +4217,10 @@
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-Dr3wPUh9.js",
+    "file": "assets/HairGoals-BujIVX9q.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/FileViewer.jsx",
       "_index-B80Lgev0.js"
@@ -4413,7 +4423,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-IlEDNq44.js",
+    "file": "assets/TextareaFormGroup-Dr3wPUh9.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

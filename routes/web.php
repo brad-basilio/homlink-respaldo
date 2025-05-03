@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\LandingHomeController as AdminLandingHomeController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
@@ -82,10 +83,10 @@ use Illuminate\Http\Request;
 // routes/api.php (o web.php)
 // routes/web.php
 Route::post('/set-current-lang', function (Request $request) {
-   // dump($request->all());
+    // dump($request->all());
     $request->validate(['lang_id' => 'required|exists:langs,id']);
     session(['current_lang_id' => $request->lang_id]);
-   // dump(session('current_lang_id'));
+    // dump(session('current_lang_id'));
     return response()->json(['success' => true]);
 })->middleware('web'); // <-- El middleware 'web' es clave
 
@@ -131,7 +132,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/home', [AdminHomeController::class, 'reactView'])->name('Admin/Home.jsx');
     Route::get('/landing_home', [AdminLandingHomeController::class, 'reactView'])->name('Admin/LandingHome.jsx');
     Route::get('/services', [AdminServiceController::class, 'reactView'])->name('Admin/Services.jsx');
-
+    Route::get('/solutions', [AdminSolutionController::class, 'reactView'])->name('Admin/Solutions.jsx');
     Route::get('/facilities', [AdminFacilityController::class, 'reactView'])->name('Admin/Facilities.jsx');
     Route::get('/staff', [AdminStaffController::class, 'reactView'])->name('Admin/Staff.jsx');
     Route::get('/specialities', [AdminSpecialityController::class, 'reactView'])->name('Admin/Specialities.jsx');

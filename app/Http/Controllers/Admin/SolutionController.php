@@ -3,17 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
-use App\Models\Service;
+
+use App\Models\Solution;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 
-class ServiceController extends BasicController
+class SolutionController extends BasicController
 
 {
-    public $model = Service::class;
-    public $reactView = 'Admin/Services';
+    public $model = Solution::class;
+    public $reactView = 'Admin/Solutions';
     public $imageFields = ['image', 'image_secondary', 'image_banner'];
 
     public function beforeSave(Request $request)
@@ -28,7 +29,7 @@ class ServiceController extends BasicController
             foreach ($request->file('gallery') as $file) {
                 $uuid = Crypto::randomUUID();
                 $ext = $file->getClientOriginalExtension();
-                $path = "images/service/{$uuid}.{$ext}";
+                $path = "images/solution/{$uuid}.{$ext}";
                 Storage::put($path, file_get_contents($file));
                 $gallery[] = "{$uuid}.{$ext}";
             }
@@ -64,7 +65,7 @@ class ServiceController extends BasicController
                     $file = $request->file("characteristics.{$index}.image");
                     $uuid = Crypto::randomUUID();
                     $ext = $file->getClientOriginalExtension();
-                    $path = "images/service/{$uuid}.{$ext}";
+                    $path = "images/solution/{$uuid}.{$ext}";
                     Storage::put($path, file_get_contents($file));
                     $image = "{$uuid}.{$ext}";
                 } elseif (!empty($char['existing_image'])) {
@@ -101,7 +102,7 @@ class ServiceController extends BasicController
                     $file = $request->file("benefits.{$index}.image");
                     $uuid = Crypto::randomUUID();
                     $ext = $file->getClientOriginalExtension();
-                    $path = "images/service/{$uuid}.{$ext}";
+                    $path = "images/solution/{$uuid}.{$ext}";
                     Storage::put($path, file_get_contents($file));
                     $image = "{$uuid}.{$ext}";
                 } elseif (!empty($benefit['existing_image'])) {
@@ -125,9 +126,9 @@ class ServiceController extends BasicController
         return $body;
     }
 
-    public function afterSave(Request $request, $service)
+    public function afterSave(Request $request, $solution)
     {
         // Eliminar imágenes marcadas para borrar (si implementas esta función)
-        return $service;
+        return $solution;
     }
 }
