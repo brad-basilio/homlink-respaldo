@@ -42,6 +42,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
         (social) => social.description === "Instagram"
     );
     const Youtube = socials.find((social) => social.description === "Youtube");
+    const Tiktok = socials.find((social) => social.description === "Tiktok");
+    const Whatsapp = socials.find((social) => social.description === "WhatsApp");
 
     const [aboutuses, setAboutuses] = useState(null); // o useState({});
 
@@ -81,52 +83,10 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
     return (
         <>
-            <footer className="bg-[#224483] text-white mt-8 font-poppins ">
+            <footer className="bg-[#3E2F4D]">
                 {" "}
-                {/*lg:mt-[120px] */}
-                <div className="px-[5%] max-w-xl lg:max-w-[82rem]  mx-auto py-10 lg:pt-16 lg:pb-8">
+                {/* <div className="px-[5%] max-w-xl lg:max-w-[82rem]  mx-auto py-10 lg:pt-16 lg:pb-8">
                     <div className=" flex flex-col gap-6 lg:flex-row ">
-                        <div className="lg:w-4/12 lg:px-[2%] ">
-                            <div className=" w-full">
-                                <img
-                                    src="/assets/img/logo-white.png"
-                                    alt="No Pain"
-                                    className="md:w-[170.52px]  lg:w-[300.52px] object-cover grayscale invert brightness-0"
-                                />
-                            </div>
-                            <div className=" w-full mt-6 flex gap-1 ">
-                                <img
-                                    src="/assets/img/icons/visa.svg"
-                                    alt="visa"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                                <img
-                                    src="/assets/img/icons/mastercard.svg"
-                                    alt="mastercard"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                                <img
-                                    src="/assets/img/icons/amex.svg"
-                                    alt="amex"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                                <img
-                                    src="/assets/img/icons/diners.svg"
-                                    alt="diners"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                                <img
-                                    src="/assets/img/icons/yape.svg"
-                                    alt="yape"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                                <img
-                                    src="/assets/img/icons/plin.svg"
-                                    alt="plin"
-                                    className="h-9 rounded-lg overflow-hidden w-auto   object-cover"
-                                />
-                            </div>
-                        </div>
 
                         <div className="flex flex-col gap-6 lg:w-8/12 lg:grid lg:grid-cols-3">
                             {sedesData.map((sede, index) => (
@@ -169,7 +129,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     </p>
                                     {sedesData[0]?.business_hours.map(
                                         (horario, index) => {
-                                            // Dividir solo en el primer ":" encontrado
+                                            
                                             const firstColonIndex =
                                                 horario.indexOf(":");
 
@@ -178,14 +138,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                                     key={`hour-${index}`}
                                                     className="text-[14px] mb-2"
                                                 >
-                                                    {/* Mostrar la parte antes del primer ":" */}
+                                                  
                                                     <p className="font-medium">
                                                         {horario.substring(
                                                             0,
                                                             firstColonIndex + 1
                                                         )}
                                                     </p>
-                                                    {/* Mostrar la parte después del primer ":" */}
+                                                   
                                                     <p className="ml-0">
                                                         {horario
                                                             .substring(
@@ -251,76 +211,189 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         "Nuestras redes"
                                     )}
                                 </p>
-                                <div className="flex gap-4">
-                                    {Facebook && (
-                                        <a
-                                            className="cursor-pointer"
-                                            href={Facebook.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src="/assets/img/icons/facebook.png"
-                                                className="h-8 w-8"
-                                            />
-                                        </a>
-                                    )}
-                                    {Twitter && (
-                                        <a
-                                            className="cursor-pointer"
-                                            href={Twitter.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src="/assets/img/icons/twitter.png"
-                                                className="h-8 w-8"
-                                            />
-                                        </a>
-                                    )}
-
-                                    {Instagram && (
-                                        <a
-                                            className="cursor-pointer"
-                                            href={Instagram.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src="/assets/img/icons/instagram.png"
-                                                className="h-8 w-8"
-                                            />
-                                        </a>
-                                    )}
-                                    {Youtube && (
-                                        <a
-                                            className="cursor-pointer"
-                                            href={Youtube.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            <img
-                                                src="/assets/img/icons/youtube.png"
-                                                className="h-8 w-8"
-                                            />
-                                        </a>
-                                    )}
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className=" bg-[#EFF0F1]">
-                    <div className="px-[5%]  py-3">
-                        <p className=" text-center text-xs text-[#242424] font-medium">
+                </div> */}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:justify-center w-full px-[5%] py-10 md:py-16 text-white">
+                    {/* Columna 1 - Logo y descripción */}
+                    <div className="lg:col-span-2 flex flex-col gap-3 max-w-sm">
+                        <a href="/">
+                            <img
+                                className="min-w-56 w-60"
+                                src="/assets/img/logofooter_senda.svg"
+                                alt="Sedna Logo"
+                            />
+                        </a>
+                        <p className="!font-Poppins_Regular text-white text-sm">
                             {t(
-                                "public.footer.copyright",
-                                "Copyright © 2024 NOPAIN Fisioterapia & Rehabilitación. Reservados todos los derechos."
+                                "public.footer.description",
+                                "Simplifica la tecnología y potencia tu negocio con Sedna. Estamos a solo un clic de distancia."
                             )}
-                            {/*  Copyright © 2025 NOPAIN Fisioterapia & 
-                           <br className="lg:hidden" />
-                            Rehabilitación. Reservados todos los derechos.*/}
                         </p>
+                        <div className="flex flex-row gap-5 text-white mt-3">
+                            {Facebook && (
+                                <a
+                                    href={Facebook.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    
+                                    <i className="fa-brands fa-facebook fa-xl"></i>
+                                </a>
+                            )}
+
+                            {Tiktok && (
+                                <a
+                                    href={Tiktok.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-tiktok fa-xl"></i>
+                                </a>
+                            )} 
+
+                            {Instagram && (
+                                <a
+                                    href={Instagram.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-instagram fa-xl"></i>
+                                </a>
+                            )} 
+
+                            {/* {datosgenerales?.linkedin && (
+                                <a
+                                    href={datosgenerales.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-linkedin fa-xl"></i>
+                                </a>
+                            )} */}
+
+                            {Twitter && (
+                                <a
+                                    href={Twitter.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-twitter fa-xl"></i>
+                                </a>
+                            )} 
+
+                            {Youtube && (
+                                <a
+                                    href={Youtube.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-youtube fa-xl"></i>
+                                </a>
+                            )}
+
+                            {Whatsapp && (
+                                <a
+                                    href={Whatsapp.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <i className="fa-brands fa-whatsapp fa-xl"></i>
+                                </a>
+                            )}
+                        </div>
+                    </div>
+
+                    {/* Columna 2 - Sobre Sedna */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.about", "Sobre Sedna")}
+                        </h3>
+                        <a href="/nuestra-historia" className="cursor-pointer">
+                            {t("public.footer.our_story", "Nuestra Historia")}
+                        </a>
+                        <a href="/alianzas" className="cursor-pointer">
+                            {t(
+                                "public.footer.alliances",
+                                "Alianzas Comerciales"
+                            )}
+                        </a>
+                        <a href="/contacto" className="cursor-pointer">
+                            {t("public.footer.contact_us", "Contactanos")}
+                        </a>
+                    </div>
+
+                    {/* Columna 3 - Portafolio */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.portfolio", "Nuestro Portafolio")}
+                        </h3>
+                        <a href="/soluciones" className="cursor-pointer">
+                            {t("public.footer.solutions", "Soluciones")}
+                        </a>
+                        <a href="/servicios" className="cursor-pointer">
+                            {t("public.footer.services", "Servicios")}
+                        </a>
+                        <a href="/opciones-compra" className="cursor-pointer">
+                            {t(
+                                "public.footer.purchase_options",
+                                "Opciones de compra"
+                            )}
+                        </a>
+                    </div>
+
+                    {/* Columna 4 - Soporte */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.support", "Centro de Soporte")}
+                        </h3>
+                        <a href="/faqs" className="cursor-pointer">
+                            {t(
+                                "public.footer.faqs",
+                                "Preguntas Frecuentes (FAQs)"
+                            )}
+                        </a>
+                        <a href="/blog" className="cursor-pointer">
+                            {t("public.footer.blog", "Perspectivas (Blog)")}
+                        </a>
+                    </div>
+                </div>
+                <div className="bg-[#EBE4F3] text-[#1F1827] py-3 flex items-center justify-center">
+                    <div className="flex flex-col md:flex-row md:justify-between items-center gap-5 w-full px-[5%] font-Poppins_Regular text-sm">
+                        <div className="text-center">
+                            <p>
+                                {t(
+                                    "public.footer.copyright",
+                                    "Copyright © 2025 Sedna. Reservados todos los derechos. Realizado por"
+                                )}
+                                <a
+                                    href="https://www.mundoweb.pe"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#1F1827] border-b border-[#1F1827]"
+                                >
+                                    {" "}
+                                    Mundo Web
+                                </a>
+                            </p>
+                        </div>
+
+                        <div className="flex flex-row gap-4">
+                            <a
+                                onClick={() => openModal(0)}
+                                className="cursor-pointer"
+                            >
+                                {t("public.footer.privacy", "Privacidad")}
+                            </a>
+                            <a
+                                onClick={() => openModal(1)}
+                                className="cursor-pointer"
+                            >
+                                {t("public.footer.terms", "Condiciones de uso")}
+                            </a>
+                        </div>
                     </div>
                 </div>
                 {/* Modal para Términos y Condiciones */}
