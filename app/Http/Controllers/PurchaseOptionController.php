@@ -2,64 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LandingHome;
 use App\Models\PurchaseOption;
+use App\Models\Service;
+use App\Models\Solution;
 use Illuminate\Http\Request;
 
-class PurchaseOptionController extends Controller
+class PurchaseOptionController extends BasicController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    public $model = PurchaseOption::class;
+    public $reactView = 'PurchaseOptions';
+    public $reactRootView = 'public';
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function setReactViewProperties(Request $request)
     {
-        //
-    }
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $purchaseOptions = PurchaseOption::where('status', true)->where('visible', true)->where('lang_id', $langId)->orderBy('updated_at', 'DESC')->get();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(PurchaseOption $purchaseOption)
-    {
-        //
-    }
+        return [
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PurchaseOption $purchaseOption)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, PurchaseOption $purchaseOption)
-    {
-        //
-    }
+            'landing' => $landing,
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(PurchaseOption $purchaseOption)
-    {
-        //
+            'purchaseOptions' => $purchaseOptions,
+
+        ];
     }
 }

@@ -192,6 +192,15 @@ const Menu = ({
                                     {t("admin.sidebar.solutions", "Soluciones")}
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/purchaseOptions"
+                                    icon="mdi mdi-shield-star"
+                                >
+                                    {t(
+                                        "admin.sidebar.purchaseOptions",
+                                        "Opciones de compra"
+                                    )}
+                                </MenuItem>
+                                <MenuItem
                                     href="/admin/specialities"
                                     icon="mdi mdi-tag-faces"
                                 >

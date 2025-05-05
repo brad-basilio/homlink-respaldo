@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\LandingHomeController as AdminLandingHomeController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
+use App\Http\Controllers\Admin\PurchaseOptionController as AdminPurchaseOptionController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
@@ -20,6 +21,9 @@ use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController
 use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\CategoryServiceController as AdminCategoryServiceControllerController;
+use App\Http\Controllers\Admin\CategorySolutionController as AdminCategorySolutionControllerController;
+use App\Http\Controllers\Admin\CategoryPurcharseOptionController as AdminCategoryPurcharseOptionController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
@@ -73,6 +77,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
+use App\Http\Controllers\PurchaseOptionController;
 use App\Http\Controllers\SpecialityController;
 use App\Http\Controllers\LangController;
 use App\Http\Controllers\StaffController;
@@ -82,6 +87,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
 use App\Models\InstagramPost;
+use App\Models\PurchaseOption;
 use Illuminate\Http\Request;
 
 /*
@@ -119,6 +125,7 @@ Route::get('/landing_home/video/{uuid}', [LandingHomeController::class, 'video']
 
 Route::get('/service/media/{uuid}', [ServiceController::class, 'media']);
 Route::get('/solution/media/{uuid}', [SolutionController::class, 'media']);
+Route::get('/purchaseOption/media/{uuid}', [PurchaseOptionController::class, 'media']);
 Route::get('/facility/media/{uuid}', [FacilityController::class, 'media']);
 Route::get('/indicator/media/{uuid}', [IndicatorController::class, 'media']);
 Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
@@ -302,6 +309,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
 
+        Route::post('/category_services/paginate', [AdminCategoryServiceControllerController::class, 'paginate']);
+        Route::post('/category_solutions/paginate', [AdminCategorySolutionControllerController::class, 'paginate']);
+        Route::post('/category_purcharse_options/paginate', [AdminCategoryPurcharseOptionController::class, 'paginate']);
 
         Route::post('/complaints', [AdminComplaintController::class, 'save']);
         Route::post('/complaints/paginate', [AdminComplaintController::class, 'paginate']);
@@ -387,6 +397,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/solutions/status', [AdminSolutionController::class, 'status']);
         Route::patch('/solutions/{field}', [AdminSolutionController::class, 'boolean']);
         Route::delete('/solutions/{id}', [AdminSolutionController::class, 'delete']);
+
+        Route::post('/purchaseOptions', [AdminPurchaseOptionController::class, 'save']);
+        Route::post('/purchaseOptions/paginate', [AdminPurchaseOptionController::class, 'paginate']);
+        Route::patch('/purchaseOptions/status', [AdminPurchaseOptionController::class, 'status']);
+        Route::patch('/purchaseOptions/{field}', [AdminPurchaseOptionController::class, 'boolean']);
+        Route::delete('/purchaseOptions/{id}', [AdminPurchaseOptionController::class, 'delete']);
 
         Route::post('/facilities', [AdminFacilityController::class, 'save']);
         Route::post('/facilities/paginate', [AdminFacilityController::class, 'paginate']);

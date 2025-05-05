@@ -14,6 +14,7 @@ import ReactAppend from "../Utils/ReactAppend";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 import { LanguageProvider } from "../context/LanguageContext";
 import DragDropImage from "../components/Adminto/form/DragDropImage";
+import SelectAPIFormGroupSupport from "../components/Adminto/form/SelectAPIFormGroupSupport";
 
 const servicesRest = new ServicesRest();
 // Componente FeatureCard simplificado
@@ -112,6 +113,7 @@ const Services = ({ brands }) => {
     // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
     const titleRef = useRef();
+    const categoryRef = useRef();
     const descriptionRef = useRef();
     const howItHelpsRef = useRef();
     const descriptionHelpsRef = useRef();
@@ -134,6 +136,7 @@ const Services = ({ brands }) => {
     const [benefits, setBenefits] = useState([
         { title: "", description: "", image: undefined },
     ]);
+    const [selectedCategory, setSelectedCategory] = useState("");
 
     // Funciones para características (simplificadas)
     const addCharacteristic = () => {
@@ -192,6 +195,10 @@ const Services = ({ brands }) => {
         // Resetear valores como en el primer código
         idRef.current.value = data?.id ?? "";
         titleRef.current.value = data?.title ?? "";
+        categoryRef.current.value = data?.category.name ?? "";
+        setSelectedCategory(data?.category.name);
+        setSelectedItem(data);
+
         descriptionRef.current.value = data?.description ?? "";
         howItHelpsRef.current.value = data?.how_it_helps ?? "";
         descriptionHelpsRef.current.value = data?.description_helps ?? "";
@@ -366,6 +373,9 @@ const Services = ({ brands }) => {
             }
         });
 
+        // Separar IDs existentes y nuevos nombres
+        formData.append("category_name", selectedCategory);
+
         const result = await servicesRest.save(formData);
         if (!result) return;
 
@@ -487,8 +497,21 @@ const Services = ({ brands }) => {
             >
                 <input ref={idRef} type="hidden" />
 
-                <div className="row">
+                <div className="row" id="service-container">
                     <div className="col-md-6">
+                        <SelectAPIFormGroupSupport
+                            eRef={categoryRef}
+                            dropdownParent="#service-container"
+                            label="Categoría"
+                            searchAPI="/api/admin/category_services/paginate"
+                            searchBy="name"
+                            allowCreate
+                            onChange={(categoryName) =>
+                                setSelectedCategory(categoryName)
+                            }
+                            initialValue={selectedItem?.category?.name || ""}
+                        />
+
                         <InputFormGroup
                             eRef={titleRef}
                             label="Título del servicio"

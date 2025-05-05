@@ -32,6 +32,7 @@ class Solution extends Model
         'benefits',
         'image_secondary',
         'image_banner',
+        'category_solution_id',
 
     ];
     protected $casts = [
@@ -43,5 +44,10 @@ class Solution extends Model
     public function lang()
     {
         return $this->belongsTo(Lang::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategorySolution::class, 'category_solution_id');
     }
 }

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\BasicController;
+use App\Models\CategoryService;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
+use Illuminate\Support\Str;
 
 class ServiceController extends BasicController
 
@@ -16,12 +18,35 @@ class ServiceController extends BasicController
     public $reactView = 'Admin/Services';
     public $imageFields = ['image', 'image_secondary', 'image_banner'];
 
+    public function setPaginationInstance(string $model)
+    {
+        return $model::with(['category']);
+    }
+
     public function beforeSave(Request $request)
     {
         $body = $request->all();
 
         // Procesar galería de imágenes
         $gallery = [];
+        // En ServiceController.php
+        if ($request->has('category_name')) {
+            $langId = app('current_lang_id'); // Obtener el lang_id del middleware
+
+            $category = CategoryService::firstOrCreate(
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId // Añadir lang_id a la búsqueda/creación
+                ],
+                [
+                    'name' => trim(ucfirst($request->category_name)),
+                    'lang_id' => $langId, // Campo obligatorio
+                    'slug' => Str::slug($request->category_name)
+                ]
+            );
+
+            $body['category_service_id'] = $category->id;
+        }
 
         // Agregar imágenes nuevas
         if ($request->hasFile('gallery')) {

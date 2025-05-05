@@ -12,11 +12,22 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /* 'name',
+        'slug',
+        'description',
+        'visible',
+        'status',
+        'lang_id', */
         Schema::create('category_services', function (Blueprint $table) {
             $table->uuid('id')->default(DB::raw('(UUID())'))->primary();
-            $table->string('title')->nullable();
-            $table->string('description')->nullable();
+            $table->string('name')->nullable();
+            $table->string('slug')->nullable();
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->boolean('visible')->default(true);
+            $table->boolean('status')->default(true);
+            $table->uuid('lang_id')->nullable();
+            $table->foreign('lang_id')->references('id')->on('langs')->onDelete('cascade');
             $table->timestamps();
         });
     }
