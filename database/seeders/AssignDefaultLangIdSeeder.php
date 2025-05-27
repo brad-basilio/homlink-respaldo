@@ -16,6 +16,7 @@ class AssignDefaultLangIdSeeder extends Seeder
     {
         //create a new lang default
         $lang = new Lang();
+        $lang->id = '9ecd416d-3839-4a11-987a-82285e204bfe';
         $lang->name = 'Español';
         $lang->description = 'Idioma por defecto';
         $lang->image = "";
@@ -44,5 +45,7 @@ class AssignDefaultLangIdSeeder extends Seeder
         DB::table('posts')->whereNull('lang_id')->update(['lang_id' => $defaultLang->id]);
         DB::table('landing_homes')->whereNull('lang_id')->update(['lang_id' => $defaultLang->id]);
         DB::table('generals')->whereNull('lang_id')->update(['lang_id' => $defaultLang->id]);
+        DB::table('faqs')->whereNull('lang_id')->update(['lang_id' => $defaultLang->id]);
+        DB::table('core_values')->whereNull('lang_id')->update(['lang_id' => $defaultLang->id]);
     }
 }

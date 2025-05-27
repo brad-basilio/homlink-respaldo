@@ -109,6 +109,7 @@ const FeatureCard = ({
         </div>
     );
 };
+
 const PurchaseOptions = ({ brands }) => {
     const gridRef = useRef();
     const modalRef = useRef();
@@ -139,9 +140,11 @@ const PurchaseOptions = ({ brands }) => {
     const [characteristics, setCharacteristics] = useState([
         { title: "", description: "", image: undefined },
     ]);
+
     const [benefits, setBenefits] = useState([
         { title: "", description: "", image: undefined },
     ]);
+    
     const [requirements, setRequirements] = useState([
         {
             title: "",
@@ -501,6 +504,12 @@ const PurchaseOptions = ({ brands }) => {
         $(modalRef.current).modal("hide");
     };
 
+    const onBooleanChange = async ({ id, field, value }) => {
+        const result = await servicesRest.boolean({ id, field, value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
     return (
         <>
             <Table
@@ -576,6 +585,27 @@ const PurchaseOptions = ({ brands }) => {
                                     onError={(e) =>
                                         (e.target.src =
                                             "/images/default-thumbnail.jpg")
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "featured",
+                        caption: "Destacado",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.featured}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "featured",
+                                            value: e.target.checked,
+                                        })
                                     }
                                 />
                             );

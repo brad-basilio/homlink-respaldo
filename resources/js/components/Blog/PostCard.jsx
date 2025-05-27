@@ -62,26 +62,27 @@ const PostCard = ({
                     className="flex flex-col w-full"
                     variants={contentVariants}
                 >
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-negro line-clamp-2 h-16">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-negro line-clamp-2">
                         <TextWithHighlight text={name} />
                     </h3>
+
                     <motion.p 
-                        className="mt-3 sm:mt-4 md:mt-5 text-sm sm:text-base text-negro line-clamp-4 h-24"
-                        whileHover={{ color: "#3b82f6" }} // Cambio sutil de color al hover
+                        className="mt-2 sm:mt-3 2xl:mt-4 text-sm sm:text-base text-negro line-clamp-4"
                     >
                         {summary || "Sin descripción"}
                     </motion.p>
+                    
                 </motion.div>
 
                 <motion.div 
-                    className="text-sm text-azul font-bold mb-1"
+                    className="flex flex-row"
                     whileHover={{ x: 3 }} // Pequeño movimiento al hover
                 >
-                    {category.name}
+                    <span className="rounded-sm text-sm text-[#3E2F4D] font-medium mb-1 px-3 py-2 bg-[#D7C8E6]">{category.name}</span>
                 </motion.div>
 
                 <motion.div 
-                    className="flex flex-col w-full overflow-hidden rounded-3xl"
+                    className="flex flex-col w-full overflow-hidden rounded-lg"
                     whileHover="hover"
                 >
                     <motion.img
@@ -96,14 +97,15 @@ const PostCard = ({
             </div>
 
             <motion.div 
-                className="flex justify-between items-center mt-4 sm:mt-5 md:mt-6 w-full gap-4"
+                className="flex justify-between items-center mt-2 sm:mt-3 w-full gap-4"
                 variants={contentVariants}
             >
-                <span className="text-xs sm:text-sm text-end font-medium leading-snug text-azul">
+                <span className="text-xs sm:text-sm text-end font-medium leading-snug text-[#3E2F4D]">
                     {moment(post_date).format("ll")}
                 </span>
             </motion.div>
         </motion.a>
+       
     );
 };
 

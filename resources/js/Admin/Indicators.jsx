@@ -101,7 +101,7 @@ const Indicators = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Indicadores"
+                title="Legal"
                 rest={indicatorsRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -121,8 +121,8 @@ const Indicators = () => {
                         location: "after",
                         options: {
                             icon: "plus",
-                            text: "Nuevo indicador",
-                            hint: "Nuevo indicador",
+                            text: "Nuevo termino",
+                            hint: "Nuevo termino",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -133,40 +133,37 @@ const Indicators = () => {
                         caption: "ID",
                         visible: false,
                     },
-                    {
-                        dataField: "symbol",
-                        caption: "Imagen",
-                        width: "60px",
-                        allowFiltering: false,
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                <img
-                                    src={`/api/indicator/media/${data.symbol}`}
-                                    style={{
-                                        width: "50px",
-                                        aspectRatio: 1,
-                                        objectFit: "contain",
-                                        objectPosition: "center",
-                                        borderRadius: "4px",
-                                    }}
-                                />
-                            );
-                        },
-                    },
+                    // {
+                    //     dataField: "symbol",
+                    //     caption: "Imagen",
+                    //     width: "60px",
+                    //     allowFiltering: false,
+                    //     cellTemplate: (container, { data }) => {
+                    //         ReactAppend(
+                    //             container,
+                    //             <img
+                    //                 src={`/api/indicator/media/${data.symbol}`}
+                    //                 style={{
+                    //                     width: "50px",
+                    //                     aspectRatio: 1,
+                    //                     objectFit: "contain",
+                    //                     objectPosition: "center",
+                    //                     borderRadius: "4px",
+                    //                 }}
+                    //             />
+                    //         );
+                    //     },
+                    // },
                     {
                         dataField: "name",
                         caption: "Titulo",
                     },
 
                     {
-                        dataField: "description",
-                        caption: "Descripción",
-                    },
-                    {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
+                        width: "100px",
                         cellTemplate: (container, { data }) => {
                             $(container).empty();
                             ReactAppend(
@@ -203,6 +200,7 @@ const Indicators = () => {
                     // },
                     {
                         caption: "Acciones",
+                        width: "110px",
                         cellTemplate: (container, { data }) => {
                             container.append(
                                 DxButton({
@@ -228,7 +226,7 @@ const Indicators = () => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar indicador" : "Agregar indicador"}
+                title={isEditing ? "Editar término" : "Agregar término"}
                 onSubmit={onModalSubmit}
                 size="md"
             >
@@ -239,7 +237,6 @@ const Indicators = () => {
                         label="Imagen"
                         aspect={1}
                         fit="contain"
-                        required
                         col="col-sm-4"
                     />
                     <div className="col-md-8">
@@ -258,7 +255,7 @@ const Indicators = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Indicadores">
+        <BaseAdminto {...properties} title="Legal">
             <Indicators {...properties} />
         </BaseAdminto>
     );

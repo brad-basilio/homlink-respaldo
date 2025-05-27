@@ -113,8 +113,10 @@ const Services = ({ brands }) => {
     // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
     const titleRef = useRef();
+    const titlesecondRef = useRef();
     const categoryRef = useRef();
     const descriptionRef = useRef();
+    const descriptionsecondRef = useRef();
     const howItHelpsRef = useRef();
     const descriptionHelpsRef = useRef();
     const valuePropositionRef = useRef();
@@ -195,11 +197,13 @@ const Services = ({ brands }) => {
         // Resetear valores como en el primer código
         idRef.current.value = data?.id ?? "";
         titleRef.current.value = data?.title ?? "";
+        titlesecondRef.current.value = data?.title_second ?? "";
         categoryRef.current.value = data?.category.name ?? "";
         setSelectedCategory(data?.category.name);
         setSelectedItem(data);
 
         descriptionRef.current.value = data?.description ?? "";
+        descriptionsecondRef.current.value = data?.description_second ?? "";
         howItHelpsRef.current.value = data?.how_it_helps ?? "";
         descriptionHelpsRef.current.value = data?.description_helps ?? "";
         valuePropositionRef.current.value = data?.value_proposition ?? "";
@@ -273,7 +277,9 @@ const Services = ({ brands }) => {
         const request = {
             id: idRef.current.value || undefined,
             title: titleRef.current.value,
+            title_second: titlesecondRef.current.value,
             description: descriptionRef.current.value,
+            description_second: descriptionsecondRef.current.value,
             how_it_helps: howItHelpsRef.current.value,
             description_helps: descriptionHelpsRef.current.value,
             value_proposition: valuePropositionRef.current.value,
@@ -383,6 +389,12 @@ const Services = ({ brands }) => {
         $(modalRef.current).modal("hide");
     };
 
+    const onBooleanChange = async ({ id, field, value }) => {
+        const result = await servicesRest.boolean({ id, field, value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
     return (
         <>
             <Table
@@ -458,6 +470,27 @@ const Services = ({ brands }) => {
                                     onError={(e) =>
                                         (e.target.src =
                                             "/images/default-thumbnail.jpg")
+                                    }
+                                />
+                            );
+                        },
+                    },
+                    {
+                        dataField: "featured",
+                        caption: "Destacado",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.featured}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "featured",
+                                            value: e.target.checked,
+                                        })
                                     }
                                 />
                             );
@@ -540,6 +573,25 @@ const Services = ({ brands }) => {
                                 ref={descriptionHelpsRef}
                                 className="form-control"
                                 rows={4}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row mt-3">
+                    <div className="col-md-12">
+                        <InputFormGroup
+                            eRef={titlesecondRef}
+                            label="Título complementario"
+                            required
+                        />
+                        <div className="mb-3">
+                            <label className="form-label">Descripción complementaria</label>
+                            <textarea
+                                ref={descriptionsecondRef}
+                                className="form-control"
+                                rows={4}
+                                required
                             />
                         </div>
                     </div>

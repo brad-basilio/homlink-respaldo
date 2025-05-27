@@ -78,6 +78,12 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     const landingHelp = landing?.find(
         (item) => item.correlative === "page_contact_help"
     );
+    const sectionone = landing?.find(
+        (item) => item.correlative === "page_contact_sectionone"
+    );
+    const sectiontwo = landing?.find(
+        (item) => item.correlative === "page_contact_sectiontwo"
+    );
     const sedesValidas = Array.isArray(sedes) ? sedes : [];
 
     const todosHorariosIguales =
@@ -88,10 +94,143 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
         );
 
     const { t } = useTranslation();
+
+    const [openedId, setOpenedId] = useState(sectionone.id);
+
+    const toggleAccordion = (id) => {
+        setOpenedId(openedId === id ? null : id);
+      };
+
+    const ArrowIcon = () => (
+    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+        <mask id="mask0_226_5036" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
+        <rect y="0.984375" width="20" height="20" fill="#D9D9D9"/>
+        </mask>
+        <g mask="url(#mask0_226_5036)">
+        <path d="M13.4791 11.8203H3.33325V10.1536H13.4791L8.81242 5.48698L9.99992 4.32031L16.6666 10.987L9.99992 17.6536L8.81242 16.487L13.4791 11.8203Z" fill="#7D3CB5"/>
+        </g>
+    </svg>
+    );
+
     return (
         <div className="font-poppins text-negro">
             <Header />
-            {sedes && sedes.length > 0 ? (
+
+            <section className="flex flex-col md:justify-center items-center gap-5 2xl:gap-8 px-[5%] pt-10 lg:pt-16">
+                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-2xl 2xl:max-w-3xl md:text-center">
+                    <p className="font-Poppins_Medium text-[#3E2F4D] text-xl 2xl:text-2xl !leading-tight">{landingHero?.subtitle}</p>
+                </div>
+
+                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-3xl 2xl:max-w-4xl md:text-center">
+                    <h2 className="font-Poppins_Medium text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight">{landingHero?.title}</h2>
+                </div>
+        
+                <div className="flex flex-col items-center justify-start w-full max-w-2xl 2xl:max-w-3xl gap-5 md:text-center">
+                    <p className="font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
+                        {landingHero?.description}
+                    </p>
+                </div>
+            </section>
+
+
+            <div className="flex flex-row md:justify-center items-center text-[#3E2F4D] gap-8 2xl:gap-10 px-[5%] pt-10 lg:pt-16">
+                <h2>Contacto con ventas</h2>
+                <h2>Contacto con soporte</h2>
+            </div>
+
+            <section className="px-[5%] xl:px-[8%] pt-10 lg:pt-16">
+                    <div
+                        className="grid grid-cols-1 lg:grid-cols-2 gap-5"
+                    >
+                        <div className="flex flex-col gap-3 items-left justify-center">
+                            <h2 className="font-Poppins_Regular font-semibold text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight !tracking-tight">
+                                {landingHelp.title}
+                            </h2>
+                            <div className="flex flex-col w-full font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
+                                {landingHelp.description}
+                            </div>
+                            <div className="w-full flex">
+                                <a href="/contacto">
+                                    <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
+                                        <p className="leading-none text-white">{landingHelp.subtitle}</p>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div className="flex flex-col w-full max-w-3xl gap-5">
+                                {   
+                                    <div className="mt-6">
+                                        
+                                        {/* Pestaña 1 */}
+                                        <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
+                                            openedId !== sectionone.id ? 'opacity-90 hover:opacity-100' : ''
+                                            }`}>
+                                            <h1
+                                                className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
+                                                openedId === sectionone.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
+                                                }`}
+                                                onClick={() => toggleAccordion(sectionone.id)}
+                                            >
+                                                <span>{sectionone.title}</span>
+                                                <i className={`mdi ${openedId === sectionone.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
+                                            </h1>
+                                            <div
+                                                className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
+                                                openedId === sectionone.id ? 'border-l-2 border-[#4B246D] max-h-[500px] opacity-100 py-3' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
+                                                }`}
+                                            >
+                                                <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
+                                                    {sectionone.description}
+                                                </p>
+                                                <div className="flex">
+                                                    <a href={sectionone.link}  className='flex flex-row gap-2 mt-3 font-semibold font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
+                                                        {sectionone.subtitle} <ArrowIcon />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                
+                                        {/* Pestaña 2 */}
+                                        <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
+                                            openedId !== sectiontwo.id ? 'opacity-90 hover:opacity-100' : ''
+                                            }`}>
+                                            <h1
+                                                className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
+                                                openedId === sectiontwo.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
+                                                }`}
+                                                onClick={() => toggleAccordion(sectiontwo.id)}
+                                            >
+                                                <span>{sectiontwo.title}</span>
+                                                <i className={`mdi ${openedId === sectiontwo.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
+                                            </h1>
+                                            <div
+                                                className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
+                                                openedId === sectiontwo.id ? 'max-h-[500px] opacity-100 py-3 border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
+                                                }`}
+                                            >
+                                                <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
+                                                {sectiontwo.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                  </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col gap-3 items-center justify-start">
+                            <div className="flex flex-col">
+                                <img
+                                className="object-cover w-full h-full rounded-lg overflow-hidden max-w-md mx-auto"
+                                src={`/api/landing_home/media/${landingHelp.image}`}
+                                onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                                />
+                            </div>
+                        </div>
+                    </div>
+            </section>
+
+            {/* {sedes && sedes.length > 0 ? (
                 <motion.div
                     className="min-h-screen bg-white font-sans"
                     initial="hidden"
@@ -99,11 +238,12 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                     variants={containerVariants}
                 >
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+                        
                         <motion.div
                             className="flex flex-col md:flex-row md:gap-16"
                             variants={containerVariants}
                         >
-                            {/* Información de contacto */}
+                          
                             {landingHero && (
                                 <motion.div
                                     className="md:w-1/2 mb-8 md:mb-0"
@@ -208,7 +348,8 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                     </motion.div>
                                 </motion.div>
                             )}
-                            {/* Formulario de contacto */}
+
+                         
                             {landingForm && (
                                 <motion.div
                                     className="md:w-1/2"
@@ -231,7 +372,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                         <ContactForm />
                                     </motion.div>
 
-                                    {/* WhatsApp Section - Mobile */}
+                                   
                                     <motion.div
                                         className="mt-8 flex gap-4 items-center md:hidden p-8"
                                         variants={itemVariants}
@@ -259,117 +400,15 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                     </motion.div>
                                 </motion.div>
                             )}
+
                         </motion.div>
-                        {/* Chat Section */}
-                        {landingHelp && (
-                            <motion.div
-                                className="mt-12 md:mt-16 rounded-3xl overflow-hidden relative"
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true, margin: "-100px" }}
-                                variants={containerVariants}
-                            >
-                                {/* Background image */}
-                                <motion.div
-                                    className="absolute inset-0 z-0"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.8 }}
-                                >
-                                    <img
-                                        src={`/api/landing_home/media/${landingHelp.image}`}
-                                        alt="Background"
-                                        className="w-full h-full object-cover"
-                                    />
-                                </motion.div>
-
-                                {/* Overlay azul */}
-                                <motion.div
-                                    className="absolute inset-0 bg-azul/90 z-10"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ duration: 0.8 }}
-                                />
-
-                                {/* Contenido */}
-                                <motion.div
-                                    className="relative py-8 px-6 text-white text-center z-20"
-                                    variants={containerVariants}
-                                >
-                                    <motion.div
-                                        className="flex justify-center mb-4"
-                                        variants={itemVariants}
-                                    >
-                                        <div className="flex -space-x-2">
-                                            {staff &&
-                                                staff.length > 0 &&
-                                                staff.map((job, index) => (
-                                                    <motion.img
-                                                        key={index}
-                                                        src={`/api/staff/media/${job.image}`}
-                                                        alt={job.name}
-                                                        className="w-14 h-14 object-cover rounded-full border-2 border-white"
-                                                        initial={{
-                                                            opacity: 0,
-                                                            scale: 0.8,
-                                                        }}
-                                                        animate={{
-                                                            opacity: 1,
-                                                            scale: 1,
-                                                        }}
-                                                        transition={{
-                                                            delay: index * 0.1,
-                                                        }}
-                                                        whileHover={{
-                                                            scale: 1.1,
-                                                            zIndex: 1,
-                                                        }}
-                                                    />
-                                                ))}
-                                        </div>
-                                    </motion.div>
-
-                                    <motion.h2
-                                        className="text-2xl font-semibold mb-2 relative"
-                                        variants={slideUp}
-                                    >
-                                        <TextWithHighlight
-                                            text={landingHelp.title}
-                                        />
-                                    </motion.h2>
-
-                                    <motion.p
-                                        className="text-blue-100 mb-6 text-lg max-w-xl mx-auto relative"
-                                        variants={fadeIn}
-                                    >
-                                        {landingHelp.description}
-                                    </motion.p>
-
-                                    <motion.a
-                                        href={whatsapp.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="bg-[#EFF0F1] text-azul font-medium py-1 px-6 rounded-full inline-flex items-center relative hover:bg-gray-100 transition-colors"
-                                        variants={buttonHover}
-                                        whileHover="hover"
-                                        whileTap="tap"
-                                    >
-                                        <div className="bg-[#EFF0F1] w-12 p-2 rounded-full">
-                                            <img
-                                                src="/assets/img/icons/send.png"
-                                                className="h-auto"
-                                            />
-                                        </div>
-                                        {t("public.btn.help", "Ayuda Chat")}
-                                    </motion.a>
-                                </motion.div>
-                            </motion.div>
-                        )}
                     </div>
                 </motion.div>
+
             ) : (
                 <MaintenancePage />
-            )}
+            )} */}
+
             <Footer />
         </div>
     );

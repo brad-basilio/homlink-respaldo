@@ -16,7 +16,7 @@ class SolutionController extends BasicController
 {
     public $model = Solution::class;
     public $reactView = 'Admin/Solutions';
-    public $imageFields = ['image', 'image_secondary', 'image_banner'];
+    public $imageFields = ['image', 'image_secondary', 'image_banner','image_icon'];
 
     public function setPaginationInstance(string $model)
     {

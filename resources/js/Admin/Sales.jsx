@@ -255,7 +255,7 @@ const Sales = ({ statuses }) => {
                         <div className="card">
                             <div className="card-header p-2">
                                 <h5 className="card-title mb-0">
-                                    Detalles de Venta
+                                    Detalles de Venta - Codigo de transaccion Mercado Pago: {`${saleLoaded?.culqi_charge_id}`}
                                 </h5>
                             </div>
                             <div className="card-body p-2">

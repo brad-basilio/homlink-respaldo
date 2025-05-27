@@ -33,6 +33,8 @@ class Service extends Model
         'image_secondary',
         'image_banner',
         'category_service_id',
+        'title_second',
+        'description_second',
 
     ];
     protected $casts = [

@@ -39,7 +39,7 @@ const Results = ({ filter }) => {
 
     return (
         <>
-            <section className="p-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3  gap-8  lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto">
+            <section className="px-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {results.map((item, index) => {
                     return <PostCard key={index} {...item} firstImage />;
                 })}

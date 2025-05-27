@@ -19,5 +19,11 @@ class CoreValue extends Model
         'image',
         'visible',
         'status',
+        'lang_id',
     ];
+
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class);
+    }
 }

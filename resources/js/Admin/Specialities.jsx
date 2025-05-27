@@ -102,7 +102,7 @@ const Specialities = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Especialidades"
+                title="Aliados"
                 rest={specialitiesRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -122,8 +122,8 @@ const Specialities = () => {
                         location: "after",
                         options: {
                             icon: "plus",
-                            text: "Nueva especialidad",
-                            hint: "Nueva especialidad",
+                            text: "Nuevo aliado",
+                            hint: "Nuevo aliado",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -230,7 +230,7 @@ const Specialities = () => {
             <Modal
                 modalRef={modalRef}
                 title={
-                    isEditing ? "Editar especialidad" : "Agregar especialidad"
+                    isEditing ? "Editar aliado" : "Agregar aliado"
                 }
                 onSubmit={onModalSubmit}
                 size="sm"
@@ -261,7 +261,7 @@ const Specialities = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Especialidades">
+        <BaseAdminto {...properties} title="Aliados">
             <Specialities {...properties} />
         </BaseAdminto>
     );

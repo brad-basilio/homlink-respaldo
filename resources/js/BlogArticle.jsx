@@ -120,6 +120,34 @@ const BlogArticle = ({ article, posts, landing }) => {
             });
     };
 
+    const ArrowLeftIcon = ({ width = 24, height = 24, color = "#3E2F4D" }) => (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width={width} 
+          height={height} 
+          viewBox="0 0 24 24" 
+          fill="none"
+        >
+          <mask 
+            id="mask0_202_13054" 
+            style={{ maskType: "alpha" }} 
+            maskUnits="userSpaceOnUse" 
+            x="0" 
+            y="0" 
+            width={width} 
+            height={height}
+          >
+            <rect x={width} width={width} height={height} transform={`rotate(90 ${width} 0)`} fill="#D9D9D9"/>
+          </mask>
+          <g mask="url(#mask0_202_13054)">
+            <path 
+              d="M8.62539 12L14.6254 6L16.0254 7.4L11.4504 12L16.0254 16.6L14.6254 18L8.62539 12Z" 
+              fill={color}
+            />
+          </g>
+        </svg>
+    );
+
     return (
         <>
             <Header />
@@ -127,28 +155,42 @@ const BlogArticle = ({ article, posts, landing }) => {
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="p-[5%] bg-white mt-16"
+                className="px-[5%] bg-white pt-10 lg:pt-16"
             >
-                <div className="max-w-4xl mx-auto">
+                <div className="max-w-5xl mx-auto">
                     <motion.div
                         variants={fadeInUp}
-                        className="mb-8 text-center"
-                    >
-                        <motion.span
-                            className="inline-block px-3 py-1 text-xs font-medium text-white uppercase bg-azul rounded-full"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            {article.category.name}
-                        </motion.span>
+                        className="mb-8 w-auto flex flex-col gap-3"
+                    >   
+                        <a href="/blog" className="flex w-40">
+                            <motion.span
+                                className="w-auto flex flex-row py-1 text-base 2xl:text-lg font-medium text-[#3E2F4D] rounded-full"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <ArrowLeftIcon />
+                                Volver a blog
+                            </motion.span>
+                        </a>
+                        
                         <motion.h1
-                            className="mt-4 text-4xl font-bold leading-tight text-negro"
+                            className="font-Poppins_Medium text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight"
                             variants={fadeInUp}
                         >
                             <TextWithHighlight text={article.name} />
                         </motion.h1>
+
+                        <motion.div className="w-auto">
+                            <motion.span
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <span className="w-auto rounded-lg text-sm text-[#3E2F4D] font-medium mb-1 px-3 py-2 bg-[#D7C8E6]">{article.category.name}</span>
+                            </motion.span>
+                        </motion.div>
+
                         <motion.div
-                            className="flex items-center justify-center mt-2 text-sm text-negro gap-2"
+                            className="flex mt-2 text-sm customtext-neutral-dark gap-2"
                             variants={fadeInUp}
                         >
                             <CalendarClockIcon className="h-4 w-4" />
@@ -175,7 +217,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                     <motion.div
                         variants={fadeInUp}
                         transition={{ delay: 0.4 }}
-                        className="prose max-w-none ql-editor"
+                        className="prose max-w-none ql-editor !p-0 customtext-neutral-dark"
                     >
                         <HtmlContent html={article.description} />
                     </motion.div>
@@ -270,10 +312,10 @@ const BlogArticle = ({ article, posts, landing }) => {
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="mt-8 pt-6 border-slate-200 text-sm font-medium lg:max-w-[82rem] 2xl:max-w-[92rem]  px-[5%] py-8 md:py-12  text-negro mx-auto"
+                className="mt-8 pt-6 border-slate-200 text-sm font-medium px-[5%] py-8 md:py-12  text-negro"
             >
                 <motion.h2
-                    className="w-full  text-[32px] mt-8 lg:mt-0 text-center lg:px-0 lg:text-start leading-[34px] lg:text-5xl lg:leading-[102%]"
+                    className="font-Poppins_Medium text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight"
                     variants={fadeInUp}
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
@@ -282,7 +324,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                 </motion.h2>
 
                 <motion.p
-                    className="hidden lg:flex mt-8 text-center lg:text-left"
+                    className="flex mt-3 text-center lg:text-left text-base font-Poppins_Regular 2xl:text-lg"
                     variants={fadeInUp}
                     whileInView="visible"
                     viewport={{ once: true }}
@@ -292,7 +334,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                 </motion.p>
 
                 <motion.section
-                    className="py-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:px-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto"
+                    className="py-6 grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8"
                     variants={{
                         hidden: { opacity: 0 },
                         visible: {

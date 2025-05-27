@@ -11,6 +11,8 @@ import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
 import FaqsRest from '../Actions/Admin/FaqsRest';
+import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
+import html2string from '../Utils/html2string';
 
 const faqsRest = new FaqsRest()
 
@@ -32,7 +34,8 @@ const Faqs = ({ }) => {
 
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
-    descriptionRef.current.value = data?.description ?? ''
+    // descriptionRef.current.value = data?.description ?? ''
+    descriptionRef.editor.root.innerHTML = data?.description ?? ''
 
     $(modalRef.current).modal('show')
   }
@@ -109,7 +112,12 @@ const Faqs = ({ }) => {
         {
           dataField: 'description',
           caption: 'Respuesta',
-          width: '50%'
+          width: '50%',
+          cellTemplate: (container, {data}) => {
+            ReactAppend(container, <>
+              <span className='text-sm'>{html2string(data.description)}</span>
+            </>)
+          }
         },
         {
           dataField: 'visible',
@@ -144,11 +152,12 @@ const Faqs = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar faq' : 'Agregar faq'} onSubmit={onModalSubmit} size='sm'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar faq' : 'Agregar faq'} onSubmit={onModalSubmit} size='xl'>
       <div className='row' id='testimony-container'>
         <input ref={idRef} type='hidden' />
         <TextareaFormGroup eRef={nameRef} label='Pregunta' rows={2} required />
-        <TextareaFormGroup eRef={descriptionRef} label='Respuesta' rows={3} required />
+        {/* <TextareaFormGroup eRef={descriptionRef} label='Respuesta' rows={3} required /> */}
+        <QuillFormGroup eRef={descriptionRef} label='Respuesta' required />
       </div>
     </Modal>
   </>

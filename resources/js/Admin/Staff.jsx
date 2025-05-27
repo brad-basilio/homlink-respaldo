@@ -70,12 +70,12 @@ const Staff = () => {
         // Resetear formulario
         idRef.current.value = data?.id || "";
         nameRef.current.value = data?.name || "";
-        jobRef.current.value = data?.job || "";
+        // jobRef.current.value = data?.job || "";
         descriptionRef.current.value = data?.description || "";
-        imageRef.current.value = null;
-        if (data?.image) {
-            imageRef.image.src = `/api/staff/media/${data.image}`;
-        }
+        // imageRef.current.value = null;
+        // if (data?.image) {
+        //     imageRef.image.src = `/api/staff/media/${data.image}`;
+        // }
 
         // Cargar características existentes
         if (data?.characteristics && data.characteristics.length > 0) {
@@ -101,7 +101,7 @@ const Staff = () => {
 
         const formData = new FormData();
         formData.append("name", nameRef.current.value);
-        formData.append("job", jobRef.current.value);
+        // formData.append("job", jobRef.current.value);
         formData.append("description", descriptionRef.current.value);
 
         // Si estamos editando, agregar el ID
@@ -110,23 +110,23 @@ const Staff = () => {
         }
 
         // Agregar imagen principal si existe
-        if (imageRef.current.files[0]) {
-            formData.append("image", imageRef.current.files[0]);
-        }
+        // if (imageRef.current.files[0]) {
+        //     formData.append("image", imageRef.current.files[0]);
+        // }
 
         // Agregar características (filtrar vacías)
-        const nonEmptyCharacteristics = characteristics
-            .map((c) => c.value.trim())
-            .filter((c) => c.length > 0);
-        formData.append(
-            "characteristics",
-            JSON.stringify(nonEmptyCharacteristics)
-        );
+        // const nonEmptyCharacteristics = characteristics
+        //     .map((c) => c.value.trim())
+        //     .filter((c) => c.length > 0);
+        // formData.append(
+        //     "characteristics",
+        //     JSON.stringify(nonEmptyCharacteristics)
+        // );
         // Agregar redes sociales (filtrar vacías)
-        const nonEmptySocials = socials
-            .map((s) => s.value.trim())
-            .filter((s) => s.length > 0);
-        formData.append("socials", JSON.stringify(nonEmptySocials));
+        // const nonEmptySocials = socials
+        //     .map((s) => s.value.trim())
+        //     .filter((s) => s.length > 0);
+        // formData.append("socials", JSON.stringify(nonEmptySocials));
 
         // Enviar al backend
         const result = await staffRest.save(formData);
@@ -142,8 +142,8 @@ const Staff = () => {
     // Resto de métodos (delete, boolean change, etc.)
     const onDeleteClicked = async (id) => {
         const { isConfirmed } = await Swal.fire({
-            title: "Eliminar Staff",
-            text: "¿Estás seguro de eliminar este staff?",
+            title: "Eliminar Issues",
+            text: "¿Estás seguro de eliminar este problema?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Sí, eliminar",
@@ -159,7 +159,7 @@ const Staff = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Staff"
+                title="Issues"
                 rest={staffRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -180,7 +180,7 @@ const Staff = () => {
                         options: {
                             icon: "plus",
                             text: "Agregar",
-                            hint: "Agregar nuevo staff",
+                            hint: "Agregar nuevo Issues",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -192,8 +192,8 @@ const Staff = () => {
                         visible: false,
                     },
                     {
-                        dataField: "job",
-                        caption: "Puesto",
+                        dataField: "name",
+                        caption: "Problema",
                         width: "200px",
                     },
                     {
@@ -212,105 +212,105 @@ const Staff = () => {
                             );
                         },
                     },
-                    {
-                        dataField: "characteristics",
-                        caption: "Características",
-                        cellTemplate: (container, { data }) => {
-                            if (!data.characteristics) return;
-                            container.html(
-                                renderToString(
-                                    <ul
-                                        className="m-0 ps-3"
-                                        style={{ listStyle: "none" }}
-                                    >
-                                        {data.characteristics
-                                            .slice(0, 2)
-                                            .map((char, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="text-truncate"
-                                                    style={{
-                                                        maxWidth: "250px",
-                                                    }}
-                                                >
-                                                    <small>• {char}</small>
-                                                </li>
-                                            ))}
-                                        {data.characteristics.length > 2 && (
-                                            <li>
-                                                <small className="text-muted">
-                                                    +
-                                                    {data.characteristics
-                                                        .length - 2}{" "}
-                                                    más...
-                                                </small>
-                                            </li>
-                                        )}
-                                    </ul>
-                                )
-                            );
-                        },
-                    },
-                    {
-                        dataField: "socials",
-                        caption: "Redes sociales",
-                        cellTemplate: (container, { data }) => {
-                            if (!data.socials) return;
-                            container.html(
-                                renderToString(
-                                    <ul
-                                        className="m-0 ps-3"
-                                        style={{ listStyle: "none" }}
-                                    >
-                                        {data.socials
-                                            .slice(0, 2)
-                                            .map((char, i) => (
-                                                <li
-                                                    key={i}
-                                                    className="text-truncate"
-                                                    style={{
-                                                        maxWidth: "250px",
-                                                    }}
-                                                >
-                                                    <small>• {char}</small>
-                                                </li>
-                                            ))}
-                                        {data.socials.length > 2 && (
-                                            <li>
-                                                <small className="text-muted">
-                                                    +{data.socials.length - 2}{" "}
-                                                    más...
-                                                </small>
-                                            </li>
-                                        )}
-                                    </ul>
-                                )
-                            );
-                        },
-                    },
-                    {
-                        dataField: "image",
-                        caption: "Imagen",
-                        width: "100px",
-                        cellTemplate: (container, { data }) => {
-                            ReactAppend(
-                                container,
-                                <img
-                                    src={`/api/staff/media/${data.image}`}
-                                    style={{
-                                        width: "80px",
-                                        height: "45px",
-                                        objectFit: "cover",
-                                        borderRadius: "4px",
-                                    }}
-                                    onError={(e) =>
-                                        (e.target.src =
-                                            "/images/default-thumbnail.jpg")
-                                    }
-                                />
-                            );
-                        },
-                    },
+                    // {
+                    //     dataField: "characteristics",
+                    //     caption: "Características",
+                    //     cellTemplate: (container, { data }) => {
+                    //         if (!data.characteristics) return;
+                    //         container.html(
+                    //             renderToString(
+                    //                 <ul
+                    //                     className="m-0 ps-3"
+                    //                     style={{ listStyle: "none" }}
+                    //                 >
+                    //                     {data.characteristics
+                    //                         .slice(0, 2)
+                    //                         .map((char, i) => (
+                    //                             <li
+                    //                                 key={i}
+                    //                                 className="text-truncate"
+                    //                                 style={{
+                    //                                     maxWidth: "250px",
+                    //                                 }}
+                    //                             >
+                    //                                 <small>• {char}</small>
+                    //                             </li>
+                    //                         ))}
+                    //                     {data.characteristics.length > 2 && (
+                    //                         <li>
+                    //                             <small className="text-muted">
+                    //                                 +
+                    //                                 {data.characteristics
+                    //                                     .length - 2}{" "}
+                    //                                 más...
+                    //                             </small>
+                    //                         </li>
+                    //                     )}
+                    //                 </ul>
+                    //             )
+                    //         );
+                    //     },
+                    // },
+                    // {
+                    //     dataField: "socials",
+                    //     caption: "Redes sociales",
+                    //     cellTemplate: (container, { data }) => {
+                    //         if (!data.socials) return;
+                    //         container.html(
+                    //             renderToString(
+                    //                 <ul
+                    //                     className="m-0 ps-3"
+                    //                     style={{ listStyle: "none" }}
+                    //                 >
+                    //                     {data.socials
+                    //                         .slice(0, 2)
+                    //                         .map((char, i) => (
+                    //                             <li
+                    //                                 key={i}
+                    //                                 className="text-truncate"
+                    //                                 style={{
+                    //                                     maxWidth: "250px",
+                    //                                 }}
+                    //                             >
+                    //                                 <small>• {char}</small>
+                    //                             </li>
+                    //                         ))}
+                    //                     {data.socials.length > 2 && (
+                    //                         <li>
+                    //                             <small className="text-muted">
+                    //                                 +{data.socials.length - 2}{" "}
+                    //                                 más...
+                    //                             </small>
+                    //                         </li>
+                    //                     )}
+                    //                 </ul>
+                    //             )
+                    //         );
+                    //     },
+                    // },
+                    // {
+                    //     dataField: "image",
+                    //     caption: "Imagen",
+                    //     width: "100px",
+                    //     cellTemplate: (container, { data }) => {
+                    //         ReactAppend(
+                    //             container,
+                    //             <img
+                    //                 src={`/api/staff/media/${data.image}`}
+                    //                 style={{
+                    //                     width: "80px",
+                    //                     height: "45px",
+                    //                     objectFit: "cover",
+                    //                     borderRadius: "4px",
+                    //                 }}
+                    //                 onError={(e) =>
+                    //                     (e.target.src =
+                    //                         "/images/default-thumbnail.jpg")
+                    //                 }
+                    //             />
+                    //         );
+                    //     },
+                    // },
                     {
                         caption: "Acciones",
                         width: "100px",
@@ -339,24 +339,24 @@ const Staff = () => {
 
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar Staff" : "Nuevo Staff"}
+                title={isEditing ? "Editar Issues" : "Nuevo Issues"}
                 onSubmit={onModalSubmit}
-                size="lg"
+                size="sm"
             >
                 <input ref={idRef} type="hidden" />
 
                 <div className="row">
-                    <div className="col-md-6">
+                    <div className="col-md-12">
                         <InputFormGroup
                             eRef={nameRef}
-                            label="Nombres del staff"
+                            label="Problema"
                             required
                         />
-                        <InputFormGroup
+                        {/* <InputFormGroup
                             eRef={jobRef}
                             label="Puesto laboral"
                             required
-                        />
+                        /> */}
 
                         <div className="mb-3">
                             <label className="form-label">Descripción</label>
@@ -368,7 +368,7 @@ const Staff = () => {
                             />
                         </div>
 
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                             <label className="form-label">
                                 Características
                             </label>
@@ -406,10 +406,10 @@ const Staff = () => {
                                 <i className="fas fa-plus me-1"></i> Agregar
                                 característica
                             </button>
-                        </div>
+                        </div> */}
                     </div>
 
-                    <div className="col-md-6">
+                    {/* <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageRef}
                             label="Imagen principal"
@@ -447,7 +447,7 @@ const Staff = () => {
                                 social
                             </button>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </Modal>
         </>
@@ -456,7 +456,7 @@ const Staff = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Staffs">
+        <BaseAdminto {...properties} title="Issues">
             <Staff {...properties} />
         </BaseAdminto>
     );

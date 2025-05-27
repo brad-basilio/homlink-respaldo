@@ -135,9 +135,9 @@ const CoreValues = () => {
                             ReactAppend(
                                 container,
                                 <img
-                                    src={`/api/strength/media/${data.image}`}
+                                    src={`/api/core_value/media/${data.image}`}
                                     style={{
-                                        width: "50px",
+                                        width: "90px",
                                         aspectRatio: 1,
                                         objectFit: "contain",
                                         objectPosition: "center",
@@ -158,7 +158,7 @@ const CoreValues = () => {
                         caption: "Descripción",
                         width: "50%",
                     },
-                    /* {
+                    {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
@@ -177,7 +177,7 @@ const CoreValues = () => {
                                 />
                             );
                         },
-                    },*/
+                    },
                     {
                         caption: "Acciones",
                         cellTemplate: (container, { data }) => {
@@ -190,14 +190,14 @@ const CoreValues = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            /* container.append(
+                            container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );*/
+                            );
                         },
                         allowFiltering: false,
                         allowExporting: false,

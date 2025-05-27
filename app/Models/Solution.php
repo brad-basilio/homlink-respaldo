@@ -32,7 +32,10 @@ class Solution extends Model
         'benefits',
         'image_secondary',
         'image_banner',
+        'image_icon',
         'category_solution_id',
+        'title_second',
+        'description_second',
 
     ];
     protected $casts = [

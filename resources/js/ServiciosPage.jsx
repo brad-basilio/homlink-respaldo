@@ -115,7 +115,10 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
     return (
         <div className="font-poppins">
             <Header />
-            <div className="min-h-screen bg-white font-sans">
+            
+
+            <div className="min-h-screen">
+                
                 {/* Hero Image */}
                 {landingHero && (
                     <motion.div
@@ -131,7 +134,9 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                         />
                     </motion.div>
                 )}
+
                 <div className="max-w-6xl mx-auto px-4 lg:px-3 py-8">
+                    
                     {/* Title Section */}
                     {landingHero && (
                         <motion.div
@@ -148,6 +153,8 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                             </motion.h1>
                         </motion.div>
                     )}
+
+
                     {services && (
                         <div className="flex flex-col lg:flex-row lg:gap-12 lg:pt-2 justify-between">
                             {/* Services Menu */}
@@ -381,6 +388,7 @@ const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
+
             <Footer />
         </div>
     );

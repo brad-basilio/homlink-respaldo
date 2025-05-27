@@ -1,5 +1,7 @@
-const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_puntos=false }) => {
+const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_dos_puntos=false }) => {
     // Función para procesar el texto con resaltados
+    const safeText = text || "";
+
     const renderHighlightedText = (textToRender) => {
         const parts = textToRender.split(/(\*[^*]+\*)/g); // separa todo lo entre *...*
 
@@ -15,7 +17,7 @@ const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_p
     };
 
     if (split) {
-        const words = text.split(" ");
+        const words = safeText.split(" ");
         const firstWord = words[0];
         const remainingText = words.slice(1).join(" ");
 
@@ -30,7 +32,7 @@ const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_p
     }
 
     if (split_coma) {
-        const words = text.split(",");
+        const words = safeText.split(",");
         const firstWord = words[0];
         const remainingText = words.slice(1).join(" ");
 
@@ -44,7 +46,7 @@ const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_p
         );
     }
     if (split_dos_puntos) {
-        const words = text.split(":");
+        const words = safeText.split(":");
         const firstWord = words[0];
         const remainingText = words.slice(1).join(" ");
 
@@ -58,7 +60,7 @@ const TextWithHighlight = ({ text, split = false, split_coma = false,split_dos_p
         );
     }
 
-    return <span>{renderHighlightedText(text)}</span>;
+    return <span>{renderHighlightedText(safeText)}</span>;
 };
 
 export default TextWithHighlight;

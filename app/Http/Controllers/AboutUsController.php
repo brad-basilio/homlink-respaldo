@@ -1,31 +1,33 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Aboutus;
-use App\Models\Ad;
-use App\Models\Indicator;
-use App\Models\InstagramPost;
-use App\Models\Item;
-use App\Models\Post;
-use App\Models\Slider;
-use App\Models\Supply;
+use App\Models\LandingHome;
+use App\Models\Staff;
+use App\Models\CoreValue;
+use App\Models\Strength;
 use App\Models\Testimony;
 use Illuminate\Http\Request;
 
 class AboutUsController extends BasicController
-{
+{   
     public $reactView = 'About';
     public $reactRootView = 'public';
 
     public function setReactViewProperties(Request $request)
     {
-
-        $posts = InstagramPost::all();
-        // dump($top_sale);
+        $langId = app('current_lang_id');
+        $landing = LandingHome::where('correlative', 'like', 'page_aboutus%')->where('lang_id', $langId)->get();
+        $issues = Staff::where('visible', true)->where('status', true)->where('lang_id', $langId)->get();
+        $valores = CoreValue::where('visible', true)->where('status', true)->where('lang_id', $langId)->get();
+        $paises = Strength::where('visible', true)->where('status', true)->where('lang_id', $langId)->get();
+        $sectores = Testimony::where('visible', true)->where('status', true)->where('lang_id', $langId)->get();
         return [
-
-            'posts' => $posts
+            'landing' => $landing,
+            'issues' => $issues,
+            'valores' => $valores,
+            'paises' => $paises,
+            'sectores' => $sectores,
         ];
     }
 }

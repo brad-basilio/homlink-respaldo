@@ -115,8 +115,10 @@ const Solutions = ({ brands }) => {
     // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
     const titleRef = useRef();
+    const titlesecondRef = useRef();
     const categoryRef = useRef();
     const descriptionRef = useRef();
+    const descriptionsecondRef = useRef();
     const howItHelpsRef = useRef();
     const descriptionHelpsRef = useRef();
     const valuePropositionRef = useRef();
@@ -124,6 +126,7 @@ const Solutions = ({ brands }) => {
     const customerRelationRef = useRef();
 
     // Refs para imágenes - igual que en el primer código
+    const imageIconRef = useRef();
     const imageRef = useRef();
     const imageSecondaryRef = useRef();
     const imageBannerRef = useRef();
@@ -196,11 +199,13 @@ const Solutions = ({ brands }) => {
         // Resetear valores como en el primer código
         idRef.current.value = data?.id ?? "";
         titleRef.current.value = data?.title ?? "";
+        titlesecondRef.current.value = data?.title_second ?? "";
 
         categoryRef.current.value = data?.category.name ?? "";
         setSelectedCategory(data?.category.name);
         setSelectedItem(data);
         descriptionRef.current.value = data?.description ?? "";
+        descriptionsecondRef.current.value = data?.description_second ?? "";
         howItHelpsRef.current.value = data?.how_it_helps ?? "";
         descriptionHelpsRef.current.value = data?.description_helps ?? "";
         valuePropositionRef.current.value = data?.value_proposition ?? "";
@@ -208,6 +213,9 @@ const Solutions = ({ brands }) => {
         customerRelationRef.current.value = data?.customer_relation ?? "";
 
         // Manejo de imágenes como en el primer código
+        imageIconRef.image.src = `/api/solution/media/${
+            data?.image_icon ?? "undefined"
+        }`;
         imageRef.image.src = `/api/solution/media/${
             data?.image ?? "undefined"
         }`;
@@ -276,7 +284,9 @@ const Solutions = ({ brands }) => {
         const request = {
             id: idRef.current.value || undefined,
             title: titleRef.current.value,
+            title_second: titlesecondRef.current.value,
             description: descriptionRef.current.value,
+            description_second: descriptionsecondRef.current.value,
             how_it_helps: howItHelpsRef.current.value,
             description_helps: descriptionHelpsRef.current.value,
             value_proposition: valuePropositionRef.current.value,
@@ -290,6 +300,9 @@ const Solutions = ({ brands }) => {
         }
 
         // Añadir imágenes como en el primer código
+        const imageicon = imageIconRef.current.files[0];
+        if (imageicon) formData.append("image_icon", imageicon);
+
         const image = imageRef.current.files[0];
         if (image) formData.append("image", image);
 
@@ -381,6 +394,12 @@ const Solutions = ({ brands }) => {
 
         $(gridRef.current).dxDataGrid("instance").refresh();
         $(modalRef.current).modal("hide");
+    };
+
+    const onBooleanChange = async ({ id, field, value }) => {
+        const result = await servicesRest.boolean({ id, field, value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
     };
 
     return (
@@ -545,6 +564,34 @@ const Solutions = ({ brands }) => {
                 </div>
 
                 <div className="row mt-3">
+                    <div className="col-md-12">
+                        <InputFormGroup
+                            eRef={titlesecondRef}
+                            label="Título complementario"
+                            required
+                        />
+                        <div className="mb-3">
+                            <label className="form-label">Descripción complementaria</label>
+                            <textarea
+                                ref={descriptionsecondRef}
+                                className="form-control"
+                                rows={4}
+                                required
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="row mt-3">
+                    <div className="col-md-12">
+                        <div className="col-md-2">
+                            <ImageFormGroup
+                                eRef={imageIconRef}
+                                label="Imagen icono (Card en portada)"
+                                aspect={1 / 1}
+                            />
+                        </div>
+                    </div>
                     <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageRef}
@@ -555,7 +602,7 @@ const Solutions = ({ brands }) => {
                     <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageSecondaryRef}
-                            label="Imagen secundaria"
+                            label="Imagen secundaria (Card en portada)"
                             aspect={16 / 9}
                         />
                     </div>

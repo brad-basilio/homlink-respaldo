@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CatalogController;
@@ -58,6 +59,9 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FaqDetailController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\LegalController;
 use App\Http\Controllers\FormulaController;
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\LoginVuaController;
@@ -65,6 +69,8 @@ use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SolutionController;
+use App\Http\Controllers\PurchaseOptionController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
@@ -93,7 +99,7 @@ Route::post('/set-current-lang', function (Request $request) {
 
 // Public routes
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/about', [AboutController::class, 'reactView'])->name('FisioTerapiaPage.jsx');
+Route::get('/about', [AboutUsController::class, 'reactView'])->name('About.jsx');
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
 Route::get('/services', [ServiceController::class, 'reactView'])->name('ServiciosPage.jsx');
@@ -101,10 +107,16 @@ Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogPr
 Route::get('/instructions', [InstructionController::class, 'reactView'])->name('Instructions.jsx');
 Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');
 Route::get('/product/{slug}', [DetailController::class, 'reactView'])->name('DetailProduct.jsx');
+Route::get('/servicio/{slug}', [ServiceController::class, 'reactView'])->name('DetailService.jsx');
+Route::get('/solucion/{slug}', [SolutionController::class, 'reactView'])->name('DetailSolution.jsx');
+Route::get('/opcion/{slug}', [PurchaseOptionController::class, 'reactView'])->name('DetailPurchaseOption.jsx');
 
 Route::get('/plans', [PlanController::class, 'reactView'])->name('Plans.jsx');
 Route::get('/supplies', [SupplyController::class, 'reactView'])->name('Supplies.jsx');
 Route::get('/faqs', [FaqController::class, 'reactView'])->name('FAQs.jsx');
+Route::get('/faqs/{slug}', [FaqDetailController::class, 'reactView'])->name('DetailFaq.jsx');
+Route::get('/aliances', [PartnerController::class, 'reactView'])->name('Partners.jsx');
+Route::get('/legal', [LegalController::class, 'reactView'])->name('Legal.jsx');
 Route::get('/test', [TestController::class, 'reactView'])->name('Test.jsx');
 Route::get('/test/result/{formula}', [TestResultController::class, 'reactView'])->name('TestResult.jsx');
 //Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');

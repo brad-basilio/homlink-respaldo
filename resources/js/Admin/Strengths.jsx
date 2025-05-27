@@ -93,7 +93,7 @@ const Strengths = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Fortalezas"
+                title="Paises"
                 rest={strengthsRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -148,19 +148,20 @@ const Strengths = () => {
                     },
                     {
                         dataField: "name",
-                        caption: "Fortaleza",
-                        width: "30%",
+                        caption: "Pais",
+                        
                     },
 
-                    {
-                        dataField: "description",
-                        caption: "Descripción",
-                        width: "50%",
-                    },
+                    // {
+                    //     dataField: "description",
+                    //     caption: "Descripción",
+                    //     width: "50%",
+                    // },
                     {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
+                        width: "120px",
                         cellTemplate: (container, { data }) => {
                             $(container).empty();
                             ReactAppend(
@@ -179,6 +180,7 @@ const Strengths = () => {
                     },
                     {
                         caption: "Acciones",
+                        width: "120px",
                         cellTemplate: (container, { data }) => {
                             container.css("text-overflow", "unset");
                             container.append(
@@ -205,7 +207,7 @@ const Strengths = () => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar fortaleza" : "Agregar fortaleza"}
+                title={isEditing ? "Editar pais" : "Agregar pais"}
                 onSubmit={onModalSubmit}
                 size="md"
             >
@@ -213,7 +215,7 @@ const Strengths = () => {
                     <input ref={idRef} type="hidden" />
                     <InputFormGroup
                         eRef={nameRef}
-                        label="Fortaleza"
+                        label="Pais"
                         col="col-12"
                         required
                     />
@@ -238,7 +240,7 @@ const Strengths = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Fortalezas">
+        <BaseAdminto {...properties} title="Paises">
             <Strengths {...properties} />
         </BaseAdminto>
     );
