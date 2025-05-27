@@ -211,6 +211,8 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                                 <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
                                                 {sectiontwo.description}
                                                 </p>
+
+                                                
                                             </div>
                                         </div>
                                   </div>
