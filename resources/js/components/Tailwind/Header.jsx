@@ -278,49 +278,6 @@ const Header = ({
             <div
                 className={`w-full max-w-full relative ${backgroundHeight}`}
             >
-                {/* Fondo dinámico */}
-                {backgroundType === "image" && (
-                    <motion.img
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        src={backgroundSrc}
-                        className={`absolute -z-10 inset-0 w-screen h-full object-cover ${backgroundPosition}`}
-                        alt="Background"
-                    />
-                )}
-                {backgroundType === "video" && (
-                    <motion.video
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8 }}
-                        className={`absolute -z-10 inset-0 w-screen h-full object-cover ${backgroundPosition}`}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="auto"
-                        disablePictureInPicture
-                        disableRemotePlayback
-                        webkit-playsinline="true"
-                    >
-                        <source src={backgroundSrc} type="video/mp4" />
-                    </motion.video>
-                )}
-
-                {(backgroundType === "image" || backgroundType === "video") && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="absolute inset-0"
-                        style={{
-                            background:
-                                "linear-gradient(180deg, rgba(95, 72, 183, 0.75) 6.08%, rgba(96, 72, 183, 0.525) 100%)",
-                        }}
-                    ></motion.div>
-                )}
-
                 <motion.header
                     initial="hidden"
                     animate="visible"
@@ -337,7 +294,7 @@ const Header = ({
                     }`}
                 >
                     <div
-                        className={`px-[5%] w-screen py-4 lg:py-0 lg:max-w-[82rem] 2xl:max-w-[92rem] mx-auto flex justify-between items-center text-[#242424] shadow-lg lg:shadow-none`}
+                        className={`px-[5%] w-full py-4 lg:py-0 flex justify-between items-center text-[#3E2F4D] shadow-lg lg:shadow-none`}
                     >
                         <motion.div
                             variants={itemVariants}
@@ -408,23 +365,18 @@ const Header = ({
                                                 {isActive(path) && (
                                                     <motion.span
                                                         layoutId="activeDot"
-                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"
+                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#3E2F4D] rounded-full"
                                                     />
                                                 )}
                                             </motion.a>
                                             <AnimatePresence>
                                                 {activeMegaMenu === path && (
-                                                    <motion.div
-                                                        initial={{ opacity: 0, y: 10 }}
-                                                        animate={{ opacity: 1, y: 0 }}
-                                                        exit={{ opacity: 0, y: 10 }}
-                                                        className="absolute top-full mt-2 left-0 w-[350px] bg-white shadow-xl rounded-xl p-4 z-50"
-                                                    >
+                                                    <div>
                                                         <MegaMenuPopup 
                                                          isOpen={activeMegaMenu === path} 
                                                          onClose={closeMegaMenu}
                                                         />
-                                                    </motion.div>
+                                                    </div>
                                                 )}
                                             </AnimatePresence>    
                                     </div>
@@ -450,7 +402,9 @@ const Header = ({
                         >
                                 <a href="/contacto">
                                     <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
-                                        <p className="leading-none text-white">Contáctanos</p>
+                                        <p className="leading-none text-white">
+                                            {t("public.header.contact", "Contáctanos")}
+                                        </p>
                                     </div>
                                 </a>
                         </motion.div>

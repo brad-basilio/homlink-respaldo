@@ -311,16 +311,16 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         <h3 className="text-lg pb-3 font-Poppins_Medium">
                             {t("public.footer.about", "Sobre Sedna")}
                         </h3>
-                        <a href="/nuestra-historia" className="cursor-pointer">
+                        <a href="/about" className="cursor-pointer">
                             {t("public.footer.our_story", "Nuestra Historia")}
                         </a>
-                        <a href="/alianzas" className="cursor-pointer">
+                        <a href="/aliances" className="cursor-pointer">
                             {t(
                                 "public.footer.alliances",
                                 "Alianzas Comerciales"
                             )}
                         </a>
-                        <a href="/contacto" className="cursor-pointer">
+                        <a href="/contact" className="cursor-pointer">
                             {t("public.footer.contact_us", "Contactanos")}
                         </a>
                     </div>
