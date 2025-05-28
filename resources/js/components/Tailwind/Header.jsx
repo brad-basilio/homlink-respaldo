@@ -7,6 +7,8 @@ import { TbBrush } from "react-icons/tb";
 import { Trash2 } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 import { LanguageContext } from "../../context/LanguageContext";
+import LanguageDropdown from "./Header/LanguageDropdown";
+import MegaMenuPopup from "./Header/MegaMenuPopup";
 
 const generalRest = new GeneralRest();
 
@@ -254,11 +256,27 @@ const Header = ({
         return cookie ? decodeURIComponent(cookie[1]) : null;
     };
 
+
+    const [activeMegaMenu, setActiveMegaMenu] = useState(null);
+
+    const toggleMegaMenu = (path) => {
+        // Si ya está abierto, ciérralo
+        if (activeMegaMenu === path) {
+            setActiveMegaMenu(null);
+        } else if (["#solutions", "#services", "#options"].includes(path)) {
+            setActiveMegaMenu(path);
+        } else {
+            setActiveMegaMenu(null); // Cierra si es otra ruta
+        }
+    };
+
+    const closeMegaMenu = () => setActiveMegaMenu(null);
+
     return (
         <>
 
             <div
-                className={`w-full max-w-full relative ${backgroundHeight} overflow-clip`}
+                className={`w-full max-w-full relative ${backgroundHeight}`}
             >
                 {/* Fondo dinámico */}
                 {backgroundType === "image" && (
@@ -307,7 +325,7 @@ const Header = ({
                     initial="hidden"
                     animate="visible"
                     variants={containerVariants}
-                    className={`font-poppins static lg:w-full top-0 overflow-hidden z-40 transition-colors duration-300 ${
+                    className={`font-poppins static lg:w-full top-0 z-40 transition-colors duration-300 ${
                         backgroundType === "none"
                             ? "bg-transparent mt-0"
                             : isScrolled
@@ -342,68 +360,74 @@ const Header = ({
                             <nav className="flex gap-2">
                                 {[
                                     "/",
-                                    "/services",
-                                    "/about",
-                                    "/offices",
+                                    "#solutions",
+                                    "#services",
+                                    "#options",
                                     "/contact",
-                                    "/blog",
                                 ].map((path) => {
                                     const text = {
                                         "/": t("public.header.home", "Inicio"),
-                                        "/soluciones": t(
+                                        "#solutions": t(
                                             "public.header.solutions",
                                             "Soluciones"
                                         ),
-                                        "/services": t(
+                                        "#services": t(
                                             "public.header.services",
                                             "Servicios"
                                         ),
-                                        "/options": t(
+                                        "#options": t(
                                             "public.header.options",
                                             "Opciones de compra"
                                         ),
-                                        "/about": t(
-                                            "public.header.aboutus",
-                                            "Nosotros"
-                                        ),
-                                        "/offices": t(
-                                            "public.header.facilities",
-                                            "Instalaciones"
-                                        ),
                                         "/contact": t(
                                             "public.header.contac",
-                                            "Contacto"
-                                        ),
-                                        "/blog": t(
-                                            "public.header.blog",
-                                            "Blog"
+                                            "Ayuda"
                                         ),
                                     }[path];
 
                                     return (
-                                        <motion.a
-                                            key={path}
-                                            href={path}
-                                            onClick={() =>
-                                                handleLinkClick(path)
-                                            }
-                                            variants={itemVariants}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            className={`relative py-2 rounded-full transition-all duration-300 ${
-                                                isActive(path)
-                                                    ? "bg-[#EFF0F1] pl-7 pr-3"
-                                                    : "bg-transparent px-5"
-                                            }`}
-                                        >
-                                            {text}
-                                            {isActive(path) && (
-                                                <motion.span
-                                                    layoutId="activeDot"
-                                                    className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"
-                                                />
-                                            )}
-                                        </motion.a>
+                                        <div key={path} className="relative">
+                                            <motion.a
+                                                key={path}
+                                                href={path}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    toggleMegaMenu(path);
+                                                    handleLinkClick(path);
+                                                }}
+                                                variants={itemVariants}
+                                                whileHover={{ scale: 1.05 }}
+                                                whileTap={{ scale: 0.95 }}
+                                                className={`relative py-2 rounded-full transition-all duration-300 ${
+                                                    isActive(path)
+                                                        ? "bg-[#EFF0F1] pl-7 pr-3"
+                                                        : "bg-transparent px-5"
+                                                }`}
+                                            >
+                                                {text}
+                                                {isActive(path) && (
+                                                    <motion.span
+                                                        layoutId="activeDot"
+                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-[#224483] rounded-full"
+                                                    />
+                                                )}
+                                            </motion.a>
+                                            <AnimatePresence>
+                                                {activeMegaMenu === path && (
+                                                    <motion.div
+                                                        initial={{ opacity: 0, y: 10 }}
+                                                        animate={{ opacity: 1, y: 0 }}
+                                                        exit={{ opacity: 0, y: 10 }}
+                                                        className="absolute top-full mt-2 left-0 w-[350px] bg-white shadow-xl rounded-xl p-4 z-50"
+                                                    >
+                                                        <MegaMenuPopup 
+                                                         isOpen={activeMegaMenu === path} 
+                                                         onClose={closeMegaMenu}
+                                                        />
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>    
+                                    </div>
                                     );
                                 })}
                             </nav>
@@ -411,24 +435,13 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="flex h-full items-center gap-4 justify-end"
+                            className="flex h-full items-center gap-4 justify-end mr-4"
                         >
-                            {selectLanguage &&
-                                languagesSystem &&
-                                languagesSystem?.map((language) => (
-                                    <motion.img
-                                        onClick={() => onUseLanguage(language)}
-                                        key={language.id}
-                                        whileHover={{ y: -2 }}
-                                        src={`/api/lang/media/${language.image}`}
-                                        alt={language.name}
-                                        className={`h-8 w-auto object-cover rounded-lg overflow-hidden${
-                                            selectLanguage?.id === language.id
-                                                ? " border-2 border-[#224483] shadow-2xl"
-                                                : ""
-                                        }`}
-                                    />
-                                ))}
+                            <LanguageDropdown 
+                                languagesSystem={languagesSystem} 
+                                selectLanguage={selectLanguage} 
+                                onUseLanguage={onUseLanguage} 
+                            />
                         </motion.div>
 
                         <motion.div
