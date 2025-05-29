@@ -18,8 +18,15 @@ export default {
                 Poppins_Bold: ["Poppins_Bold"],
             },
             colors: {
-                azul: "#224483",
+                //azul: "#224483",
                 negro: "#242424",
+
+                /**CAMBIO Y GERENCIA */
+                accent:"#D62828",
+                secondary:"#F77F00",
+                primary:"#003049",
+                "neutral-dark":"#0071BC",
+                "neutral-light":"#F2F2F2",
             },
             // Puedes agregar personalizaciones aquí si es necesario
         },

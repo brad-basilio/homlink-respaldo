@@ -24,10 +24,10 @@ const Sliders = () => {
     const idRef = useRef();
     const nameRef = useRef();
     const descriptionRef = useRef();
-    const bgImageRef = useRef();
+    //const bgImageRef = useRef();
     const buttonTextRef = useRef();
     const buttonLinkRef = useRef();
-
+    const imageRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
 
     const onModalOpen = (data) => {
@@ -38,12 +38,13 @@ const Sliders = () => {
         nameRef.current.value = data?.name ?? "";
         descriptionRef.current.value = data?.description ?? "";
         // Configurar video existente si estamos editando
-        if (bgImageRef.current && data?.image) {
-            bgImageRef.current.setVideoSrc(`/api/sliders/media/${data.image}`);
-        }
+        /* if (bgImageRef.current && data?.image) {
+             bgImageRef.current.setVideoSrc(`/api/sliders/media/${data.image}`);
+         }*/
+
         buttonTextRef.current.value = data?.button_text ?? "";
         buttonLinkRef.current.value = data?.button_link ?? "";
-
+        imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
         $(modalRef.current).modal("show");
     };
 
@@ -64,13 +65,16 @@ const Sliders = () => {
         }
 
         // Obtener el archivo de video
-        if (bgImageRef.current) {
-            const videoFile = bgImageRef.current.getFile();
-            if (videoFile) {
-                formData.append("video", videoFile);
-            }
+        /* if (bgImageRef.current) {
+             const videoFile = bgImageRef.current.getFile();
+             if (videoFile) {
+                 formData.append("video", videoFile);
+             }
+         }*/
+        const image = imageRef.current.files[0];
+        if (image) {
+            formData.append("image", image);
         }
-
         const result = await slidersRest.save(formData);
         if (!result) return;
 
@@ -190,8 +194,8 @@ const Sliders = () => {
                                         borderRadius: "4px",
                                     }}
                                     onError={(e) =>
-                                        (e.target.src =
-                                            "/api/cover/thumbnail/null")
+                                    (e.target.src =
+                                        "/api/cover/thumbnail/null")
                                     }
                                 />
                             );
@@ -269,10 +273,16 @@ const Sliders = () => {
             >
                 <div className="row" id="sliders-container">
                     <input ref={idRef} type="hidden" />
-                    <VideoFormGroup
+                    {/*  <VideoFormGroup
                         eRef={bgImageRef}
                         label="Selecciona un video"
                         col="col-12"
+                    /> */}
+                     <ImageFormGroup
+                        eRef={imageRef}
+                        label="Imagen"
+                        aspect={16/9}
+                        col="col-lg-12 col-md-12 col-sm-12"
                     />
 
                     <TextareaFormGroup

@@ -140,12 +140,12 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.dashboard", "Dashboard")}
                                 </MenuItem>
-                                <MenuItem
+                               {/* <MenuItem
                                     href="/admin/langs"
                                     icon="mdi mdi-google-translate"
                                 >
                                     {t("admin.sidebar.languages", "Idiomas")}
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem
                                     href="/admin/messages"
                                     icon="mdi mdi-email-multiple"
@@ -276,7 +276,7 @@ const Menu = ({
                                     </MenuItem>
                                 </MenuItemContainer>*/}
                                 <li className="menu-title">Landing Page</li>
-                                <MenuItem
+                               {/*  <MenuItem
                                     href="/admin/translations"
                                     icon="mdi mdi-translate"
                                 >
@@ -284,7 +284,7 @@ const Menu = ({
                                         "admin.sidebar.translations",
                                         "Traducciones"
                                     )}
-                                </MenuItem>
+                                </MenuItem>*/}
                                 <MenuItem
                                     href="/admin/landing_home"
                                     icon="mdi mdi-tab"
@@ -305,12 +305,12 @@ const Menu = ({
                                 >
                                     Pop-ups
                                 </MenuItem>*/}
-                                {/* <MenuItem
+                                <MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
                                 >
                                     {t("admin.sidebar.pages", "Sliders")}
-                                </MenuItem> */}
+                                </MenuItem> 
                                 {/* <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
