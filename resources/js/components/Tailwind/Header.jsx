@@ -259,6 +259,22 @@ const Header = ({
 
     const [activeMegaMenu, setActiveMegaMenu] = useState(null);
 
+    useEffect(() => {
+        if (activeMegaMenu) {
+          document.body.style.overflow = 'hidden';
+          // Opcional: también podrías querer prevenir el scroll del touch en móviles
+          document.body.style.touchAction = 'none';
+        } else {
+          document.body.style.overflow = '';
+          document.body.style.touchAction = '';
+        }
+      
+        return () => {
+          document.body.style.overflow = '';
+          document.body.style.touchAction = '';
+        };
+      }, [activeMegaMenu]);
+      
     const toggleMegaMenu = (path) => {
         // Si ya está abierto, ciérralo
         if (activeMegaMenu === path) {
