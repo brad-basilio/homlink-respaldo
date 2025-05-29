@@ -328,7 +328,7 @@ const Header = ({
 
                         <motion.div
                             variants={containerVariants}
-                            className="hidden lg:flex py-6 mx-auto justify-center items-center font-normal text-base"
+                            className="hidden xl:flex py-6 mx-auto justify-center items-center font-normal text-base"
                         >
                             <nav className="flex gap-2">
                                 {[
@@ -387,7 +387,7 @@ const Header = ({
                                             </motion.a>
                                             <AnimatePresence>
                                                 {activeMegaMenu === path && (
-                                                    <div>
+                                                    <div className="">
                                                         <MegaMenuPopup 
                                                          isOpen={activeMegaMenu === path} 
                                                          onClose={closeMegaMenu}
@@ -414,7 +414,7 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="hidden md:flex flex-col justify-center items-center font-Poppins_Medium"
+                            className="hidden xl:flex flex-col justify-center items-center font-Poppins_Medium"
                         >
                                 <a href="/contacto">
                                     <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
@@ -427,7 +427,7 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="lg:hidden text-base"
+                            className="xl:hidden text-base"
                         >
                             <div>
                                 <motion.button
