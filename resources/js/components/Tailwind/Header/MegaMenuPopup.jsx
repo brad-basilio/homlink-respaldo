@@ -102,8 +102,16 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
   const currentData = menuData[activeSection] || menuData.infraestructura;
   // 
   return (
-    <div className="fixed bg-black/40 inset-0 z-50 flex items-start justify-center mt-[120px]">
-      <div className="bg-neutral-light px-[5%] 2xl:rounded-b-lg w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed bg-black/40 text-neutral-dark font-paragraph inset-0 z-50 flex items-start justify-center mt-[120px]">
+      <div className="bg-neutral-light px-[5%] relative 2xl:rounded-b-lg w-full max-h-[90vh] overflow-hidden">
+        {/* Imagen de fondo alineada a la derecha debajo del contenido */}
+        <div className="absolute top-0 right-0 h-full z-0 pointer-events-none flex justify-end items-end w-auto">
+          <img
+            src="/assets/cambiogerencia/mask-menu.png"
+            alt="Equipo de Cambio Gerencia"
+            className="h-full object-cover max-w-[60vw] lg:max-w-[40vw] opacity-50"
+          />
+        </div>
         <div className="flex flex-row h-full">
 
           {/* Sidebar Navigation */}
@@ -131,8 +139,8 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
 
             {/* Header */}
             <div className="mb-4">
-              <h2 className="text-2xl 2xl:text-3xl font-Poppins_Medium text-primary mb-1">{currentData.title}</h2>
-              <p className="text-primary text-base 2xl:text-lg font-Poppins_Regular leading-relaxed">{currentData.subtitle}</p>
+              <h2 className="text-[28px] font-semibold font-title text-primary mb-1">{currentData.title}</h2>
+              <p className="text-primary text-base max-w-2xl  leading-relaxed">{currentData.subtitle}</p>
             </div>
 
             {/* Services Grid */}
@@ -151,8 +159,8 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
                     key={index}
                     className={`rounded-lg p-4 2xl:p-6 cursor-pointer transition-colors duration-200 ${colorClass}`}
                   >
-                    <h3 className="text-base 2xl:text-lg font-semibold mb-1 transition-colors duration-200">{service.title}</h3>
-                    <p className="leading-relaxed text-sm 2xl:text-base line-clamp-2 transition-colors duration-200">{service.description}</p>
+                    <h3 className="text-base  font-semibold mb-1 transition-colors duration-200">{service.title}</h3>
+                    <p className="leading-relaxed text-sm  line-clamp-2 transition-colors duration-200">{service.description}</p>
                   </div>
                 );
               })}
