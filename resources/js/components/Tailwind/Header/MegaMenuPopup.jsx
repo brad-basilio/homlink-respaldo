@@ -123,7 +123,7 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
             <div className="flex justify-end mb-1 absolute right-5">
               <button
                 onClick={onClose}
-                className="p-2 text-constrast border border-constrast hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 text-constrast border border-constrast hover:text-constrast  rounded-lg transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
