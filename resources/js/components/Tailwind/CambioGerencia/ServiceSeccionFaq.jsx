@@ -74,12 +74,12 @@ const ServiceSeccionFaq = () => {
           </div>
        
       </div>
-      {/* Card lateral */}      <div className="w-full  mx-auto lg:mx-0">
+      {/* Card lateral */}      <div className="w-full max-w-xs mx-auto lg:mx-0">
         <div className="rounded-2xl overflow-hidden shadow-lg relative bg-white">
           <img
             src="/assets/cambiogerencia/card-contact-2.webp"
             alt="Servicios de RR.HH"
-            className="w-full h-96 md:h-96 object-cover"
+            className="w-full  h-96 md:h-96 object-cover"
           />
           <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-4 md:p-6">
             <h3 className="text-white text-lg md:text-xl font-medium mb-1 drop-shadow">Servicios de RR.HH</h3>
