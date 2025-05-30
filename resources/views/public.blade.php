@@ -42,6 +42,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
+   <!--CAMBIO GERENCIA-->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Añadido para traducir -->
     <script>
         function loadGoogleTranslate() {

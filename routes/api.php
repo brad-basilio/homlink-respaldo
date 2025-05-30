@@ -47,7 +47,7 @@ use App\Http\Controllers\Admin\ItemController as AdminItemController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
-
+use App\Http\Controllers\Admin\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
@@ -86,6 +86,8 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
+
+use App\Http\Controllers\BrandController;
 use App\Models\InstagramPost;
 use App\Models\PurchaseOption;
 use Illuminate\Http\Request;
@@ -144,6 +146,7 @@ Route::get('/ads/media/{uuid}', [AdController::class, 'media']);
 Route::get('/strength/media/{uuid}', [StrengthController::class, 'media']);
 Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media']);
 Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
+Route::get('/brands/media/{uuid}', [BrandController::class, 'media']);
 
 Route::get('/mailing/media/{uuid}', [MailingController::class, 'media']);
 
@@ -322,6 +325,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/complaints/{id}/attachments', [AdminComplaintController::class, 'attachments']);
         Route::patch('/complaints/{id}/update-estado', [AdminComplaintController::class, 'updateEstado']);
 
+        Route::post('/brands', [AdminBrandController::class, 'save']);
+        Route::post('/brands/paginate', [AdminBrandController::class, 'paginate']);
+        Route::patch('/brands/status', [AdminBrandController::class, 'status']);
+        Route::patch('/brands/{field}', [AdminBrandController::class, 'boolean']);
+        Route::delete('/brands/{id}', [AdminBrandController::class, 'delete']);
 
 
 

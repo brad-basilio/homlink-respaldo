@@ -183,9 +183,9 @@ const Sliders = () => {
                         cellTemplate: (container, { data }) => {
                             ReactAppend(
                                 container,
-                                <video
+                                <img
                                     src={`/api/sliders/media/${data.image}`}
-                                    autoPlay
+                                   
                                     style={{
                                         width: "80px",
                                         height: "48px",

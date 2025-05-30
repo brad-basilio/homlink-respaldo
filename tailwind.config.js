@@ -9,13 +9,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                bebas: ["Bebas Neue", "serif"],
-                poppins: ["Aspekta ", "serif"],
-                Poppins_Light: ["Poppins_Light"],
-                Poppins_Regular: ["Poppins_Regular"],
-                Poppins_Medium: ["Poppins_Medium"],
-                Poppins_SemiBold: ["Poppins_SemiBold"],
-                Poppins_Bold: ["Poppins_Bold"],
+                title: ["Archivo", "sans-serif"],
+                paragraph: ["Archivo", "sans-serif"],
             },
             colors: {
                 //azul: "#224483",
@@ -25,6 +20,7 @@ export default {
                 accent:"#D62828",
                 secondary:"#F77F00",
                 primary:"#003049",
+                constrast:"#0082D8",
                 "neutral-dark":"#0071BC",
                 "neutral-light":"#F2F2F2",
             },

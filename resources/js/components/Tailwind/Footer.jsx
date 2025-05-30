@@ -83,156 +83,91 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
     return (
         <>
-            <footer className="bg-[#3E2F4D]">
-                {" "}
-                {/* <div className="px-[5%] max-w-xl lg:max-w-[82rem]  mx-auto py-10 lg:pt-16 lg:pb-8">
-                    <div className=" flex flex-col gap-6 lg:flex-row ">
-
-                        <div className="flex flex-col gap-6 lg:w-8/12 lg:grid lg:grid-cols-3">
-                            {sedesData.map((sede, index) => (
-                                <div
-                                    key={index}
-                                    className="w-full text-white flex flex-col gap-2 mt-0"
-                                >
-                                    <p className="mb-2">
-                                        {cleanText(sede.title) ||
-                                            "Información no disponible"}
-                                    </p>
-                                    {sede.ubications.map((ubication, index) => (
-                                        <p key={index} className="text-[14px]">
-                                            {ubication}
-                                        </p>
-                                    ))}
-
-                                    <p className="flex gap-2 text-[14px]">
-                                        {t("public.form.phone", "Teléfono")}:{" "}
-                                        {sede.phones.map((phone, index) => (
-                                            <p key={index} className="">
-                                                {phone}
-                                            </p>
-                                        ))}
-                                    </p>
-                                    {sede.emails.map((email, index) => (
-                                        <p key={index} className="text-[14px]">
-                                            {email}
-                                        </p>
-                                    ))}
-                                </div>
-                            ))}
-                            {sedesData && sedesData.length > 0 && (
-                                <div className="w-full text-white flex flex-col gap-2">
-                                    <p className="mb-2">
-                                        {t(
-                                            "public.contact.office_hours",
-                                            "Horario de Atención"
-                                        )}
-                                    </p>
-                                    {sedesData[0]?.business_hours.map(
-                                        (horario, index) => {
-                                            
-                                            const firstColonIndex =
-                                                horario.indexOf(":");
-
-                                            return (
-                                                <div
-                                                    key={`hour-${index}`}
-                                                    className="text-[14px] mb-2"
-                                                >
-                                                  
-                                                    <p className="font-medium">
-                                                        {horario.substring(
-                                                            0,
-                                                            firstColonIndex + 1
-                                                        )}
-                                                    </p>
-                                                   
-                                                    <p className="ml-0">
-                                                        {horario
-                                                            .substring(
-                                                                firstColonIndex +
-                                                                    1
-                                                            )
-                                                            .trim()}
-                                                    </p>
-                                                </div>
-                                            );
-                                        }
-                                    )}
-                                </div>
-                            )}
-                            <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2 font-bold">
-                                    {t("public.footer.politycs", "Politicas")}
-                                </p>
-                                <a
-                                    className="text-[14px] cursor-pointer"
-                                    onClick={() => openModal(0)}
-                                >
-                                    {t(
-                                        "public.footer.privacity",
-                                        "Políticas de privacidad"
-                                    )}
-                                </a>
-                                <a
-                                    onClick={() => openModal(1)}
-                                    className="text-[14px] cursor-pointer"
-                                >
-                                    {t(
-                                        "public.form.terms",
-                                        "Términos y Condiciones"
-                                    )}
-                                </a>
-                                <p
-                                    onClick={() => openModal(2)}
-                                    className="text-[14px] cursor-pointer"
-                                >
-                                    {t(
-                                        "public.footer.change",
-                                        "Políticas de cambio"
-                                    )}
-                                </p>
-                                <a
-                                    href="/libro-de-reclamaciones"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[14px]"
-                                >
-                                    {t(
-                                        "public.footer.complaints",
-                                        "Libro de reclamaciones"
-                                    )}
-                                </a>
-                            </div>
-
-                            <div className="w-full text-white flex flex-col gap-2">
-                                <p className="mb-2 font-bold">
-                                    {t(
-                                        "public.footer.socials",
-                                        "Nuestras redes"
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+            <footer className="bg-primary">
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:justify-center w-full px-[5%] py-10 md:py-16 text-white">
                     {/* Columna 1 - Logo y descripción */}
                     <div className="lg:col-span-2 flex flex-col gap-3 max-w-sm">
                         <a href="/">
                             <img
-                                className="min-w-56 w-60"
-                                src="/assets/img/logofooter_senda.svg"
+                                className="min-w-40 w-40"
+                                src="/assets/img/logo-white.png"
                                 alt="Sedna Logo"
                             />
                         </a>
-                        <p className="!font-Poppins_Regular text-white text-sm">
+                        {/*SUBCRIBE FORM*/}
+                        <div className="mt-6">
+                            <h3 className="text-xl font-bold mb-4">Suscríbete y recibe todas nuestras novedades</h3>
+                            <div className="flex flex-col sm:flex-row rounded-full overflow-hidden border border-gray-700 bg-black">
+                                <input
+                                    type="email"
+                                    placeholder="Ingresa tu e-mail"
+                                    className="flex-1 py-3 px-6 bg-black text-white focus:outline-none"
+                                />
+                                <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 flex items-center justify-center transition-colors">
+                                    Suscribirme
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M22 2L11 13"></path>
+                                        <path d="M22 2l-7 20-4-9-9-4 20-7z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Columna 2 - Sobre Sedna */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.about", "Sobre Sedna")}
+                        </h3>
+                        <a href="/about" className="cursor-pointer">
+                            {t("public.footer.our_story", "Nuestra Historia")}
+                        </a>
+                        <a href="/aliances" className="cursor-pointer">
                             {t(
-                                "public.footer.description",
-                                "Simplifica la tecnología y potencia tu negocio con Sedna. Estamos a solo un clic de distancia."
+                                "public.footer.alliances",
+                                "Alianzas Comerciales"
                             )}
-                        </p>
-                        <div className="flex flex-row gap-5 text-white mt-3">
+                        </a>
+                        <a href="/contact" className="cursor-pointer">
+                            {t("public.footer.contact_us", "Contactanos")}
+                        </a>
+                    </div>
+
+                    {/* Columna 3 - Portafolio */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.portfolio", "Nuestro Portafolio")}
+                        </h3>
+                        <a href="/soluciones" className="cursor-pointer">
+                            {t("public.footer.solutions", "Soluciones")}
+                        </a>
+                        <a href="/servicios" className="cursor-pointer">
+                            {t("public.footer.services", "Servicios")}
+                        </a>
+                        <a href="/opciones-compra" className="cursor-pointer">
+                            {t(
+                                "public.footer.purchase_options",
+                                "Opciones de compra"
+                            )}
+                        </a>
+                    </div>
+
+                    {/* Columna 4 - Soporte */}
+                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
+                        <h3 className="text-lg pb-3 font-Poppins_Medium">
+                            {t("public.footer.support", "Centro de Soporte")}
+                        </h3>
+                        <a href="/faqs" className="cursor-pointer">
+                            {t(
+                                "public.footer.faqs",
+                                "Preguntas Frecuentes (FAQs)"
+                            )}
+                        </a>
+                        <a href="/blog" className="cursor-pointer">
+                            {t("public.footer.blog", "Perspectivas (Blog)")}
+                        </a>
+                          <div className="flex flex-row gap-5 text-white mt-3">
                             {Facebook && (
                                 <a
                                     href={Facebook.link}
@@ -304,60 +239,6 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 </a>
                             )}
                         </div>
-                    </div>
-
-                    {/* Columna 2 - Sobre Sedna */}
-                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
-                        <h3 className="text-lg pb-3 font-Poppins_Medium">
-                            {t("public.footer.about", "Sobre Sedna")}
-                        </h3>
-                        <a href="/about" className="cursor-pointer">
-                            {t("public.footer.our_story", "Nuestra Historia")}
-                        </a>
-                        <a href="/aliances" className="cursor-pointer">
-                            {t(
-                                "public.footer.alliances",
-                                "Alianzas Comerciales"
-                            )}
-                        </a>
-                        <a href="/contact" className="cursor-pointer">
-                            {t("public.footer.contact_us", "Contactanos")}
-                        </a>
-                    </div>
-
-                    {/* Columna 3 - Portafolio */}
-                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
-                        <h3 className="text-lg pb-3 font-Poppins_Medium">
-                            {t("public.footer.portfolio", "Nuestro Portafolio")}
-                        </h3>
-                        <a href="/soluciones" className="cursor-pointer">
-                            {t("public.footer.solutions", "Soluciones")}
-                        </a>
-                        <a href="/servicios" className="cursor-pointer">
-                            {t("public.footer.services", "Servicios")}
-                        </a>
-                        <a href="/opciones-compra" className="cursor-pointer">
-                            {t(
-                                "public.footer.purchase_options",
-                                "Opciones de compra"
-                            )}
-                        </a>
-                    </div>
-
-                    {/* Columna 4 - Soporte */}
-                    <div className="flex flex-col gap-2 font-Poppins_Regular text-[15px]">
-                        <h3 className="text-lg pb-3 font-Poppins_Medium">
-                            {t("public.footer.support", "Centro de Soporte")}
-                        </h3>
-                        <a href="/faqs" className="cursor-pointer">
-                            {t(
-                                "public.footer.faqs",
-                                "Preguntas Frecuentes (FAQs)"
-                            )}
-                        </a>
-                        <a href="/blog" className="cursor-pointer">
-                            {t("public.footer.blog", "Perspectivas (Blog)")}
-                        </a>
                     </div>
                 </div>
                 <div className="bg-[#EBE4F3] text-[#1F1827] py-3 flex items-center justify-center">

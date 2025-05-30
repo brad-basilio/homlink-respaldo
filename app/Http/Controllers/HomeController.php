@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aboutus;
 use App\Models\Ad;
+use App\Models\Brand;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
 use App\Models\Item;
@@ -56,6 +57,12 @@ class HomeController extends BasicController
             $solutions_second = $solutions->slice($splitPoint);
         }
 
+
+
+
+        /*CAMBIO Y GERENCIA */
+        $sliders = Slider::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
+       $brands = Brand::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
         return [
 
             'indicators' => $indicators,
@@ -68,8 +75,12 @@ class HomeController extends BasicController
             'solutions' => $solutions,
             'solutions_first' => $solutions_first,
             'solutions_second' => $solutions_second,
-            
-            // 'languagesSystem' => Lang::where('status', true)->where('visible', true)->get(),
+
+            /*CAMBIO Y GERENCIA */
+
+            'sliders' => $sliders,
+            'brands' => $brands,
+           
         ];
     }
 }

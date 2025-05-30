@@ -305,6 +305,15 @@ const Menu = ({
                                 >
                                     Pop-ups
                                 </MenuItem>*/}
+                                 <MenuItem
+                                    href="/admin/brands"
+                                    icon="mdi mdi-translate"
+                                >
+                                    {t(
+                                        "admin.sidebar.translations",
+                                        "Marcas"
+                                    )}
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
