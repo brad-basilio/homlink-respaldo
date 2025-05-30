@@ -21,7 +21,8 @@ export default {
                 secondary:"#F77F00",
                 primary:"#003049",
                 constrast:"#0082D8",
-                "neutral-dark":"#0071BC",
+                "neutral-dark":"#001520",
+                "neutral":"#003049",
                 "neutral-light":"#F2F2F2",
             },
             // Puedes agregar personalizaciones aquí si es necesario

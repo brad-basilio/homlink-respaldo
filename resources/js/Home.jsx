@@ -272,6 +272,7 @@ const Home = ({
 {/*SECCION NOSOTROS */}
 
         <HomeSeccionNosotros/>
+        {/*SECCION SERVICIOS */}
         <HomeSeccionServicios/>
         <HomeSeccionImpacto/>
         <HomeSeccionTestimonios/>
