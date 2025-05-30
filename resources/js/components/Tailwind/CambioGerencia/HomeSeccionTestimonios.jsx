@@ -28,7 +28,7 @@ const testimonios = [
     },
 ];
 
-const HomeSeccionTestimonios = () => {
+const HomeSeccionTestimonios = ({bg_color}) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const swiperRef = useRef(null);
 
@@ -43,7 +43,7 @@ const HomeSeccionTestimonios = () => {
     };
 
     return (
-        <div className="w-full bg-white py-16 md:py-24">
+        <div className={`w-full ${bg_color || "bg-white"} py-16 md:py-24`}>
             <div className="px-[5%] mx-auto flex flex-col md:flex-row items-stretch gap-0 md:gap-12 ">
                 {/* Imagen izquierda */}
                 <div className="order-1 lg:order-none w-full md:w-5/12 flex items-center justify-center mb-10 md:mb-0">
@@ -51,7 +51,7 @@ const HomeSeccionTestimonios = () => {
                         <img
                             src="/assets/cambiogerencia/testimonios.webp"
                             alt="Testimonios"
-                            className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl shadow-lg"
+                            className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl "
                         />
                     </div>
                 </div>
@@ -95,7 +95,7 @@ const HomeSeccionTestimonios = () => {
                         >
                             {testimonios.map((testimonio, idx) => (
                                 <SwiperSlide key={testimonio.id} className='lg:px-8'>
-                                    <div className="bg-white relative  lg:px-8 py-10 flex flex-col gap-4">
+                                    <div className=" relative  lg:px-8 py-10 flex flex-col gap-4">
                                      <div className='absolute top-0 lg:top-4 lg:-left-4'>
                                            <svg width="35" height="25" viewBox="0 0 35 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16.2994 1.83637L13.9957 0.0039087C5.3229 4.71595 1.25754 10.0824 0.173444 16.1034C-0.639627 21.0772 1.39305 25.0039 6.5425 25.0039C10.2013 25.0039 13.7246 22.6479 14.5377 18.7212C15.2153 14.14 12.505 11.3913 9.11723 10.7369C10.4723 6.28663 16.1638 1.83637 16.2994 1.83637ZM27.9534 10.4751C29.444 6.15575 34.8645 1.83637 35 1.83637L32.6963 0.00391197C24.0235 4.71595 19.9582 10.0824 18.8741 16.1034C18.061 21.0772 20.0937 25.0039 25.2431 25.0039C28.902 25.0039 32.4253 22.6479 33.1028 18.7212C33.9159 14.14 31.3412 11.1296 27.9534 10.4751Z" fill="#D62828" />

@@ -105,7 +105,7 @@ const ServiceSeccionMetodologia = () => {
     : (currentStep - 1) * stepGapRem + circleRadiusRem / 2;
 
   return (
-        <section className="w-full bg-white font-paragraph px-[5%] py-16 flex flex-col lg:flex-row items-center gap-12 lg:gap-16  mx-auto">
+        <section className="w-full bg-neutral-light font-paragraph px-[5%] py-20 flex flex-col lg:flex-row items-center gap-12 lg:gap-16  mx-auto">
             {/* Columna izquierda */}
             <div className="flex-1 flex flex-col items-start max-w-xl w-full mb-8 lg:mb-0">
                 <div className="flex items-center gap-2 mb-2">

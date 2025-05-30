@@ -21,7 +21,7 @@ import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSecci
 import HomeSeccionTestimonios from "./components/Tailwind/CambioGerencia/HomeSeccionTestimonios";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 
-const DetailService = ({ landing, services, allServices, linkWhatsApp, randomImage,brands }) => {
+const DetailService = ({ landing, services, allServices, linkWhatsApp, randomImage, brands }) => {
     const landingHero = landing?.find(
         (item) => item.correlative === "page_services_hero"
     );
@@ -108,8 +108,8 @@ const DetailService = ({ landing, services, allServices, linkWhatsApp, randomIma
             <ServiceSeccionBeneficio />
             <ServiceSeccionMetodologia />
             <ServiceSeccionFaq />
-               <HomeSeccionTestimonios/>
-                  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+            <HomeSeccionTestimonios bg_color="bg-neutral-light" />
+            <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
             <Footer />
         </div>
     );
