@@ -99,6 +99,7 @@ Route::post('/set-current-lang', function (Request $request) {
 })->middleware('web'); // <-- El middleware 'web' es clave
 
 // Public routes
+Route::get('/casosdeexito', [PlanController::class, 'reactView'])->name('CasosDeExito.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/about', [AboutUsController::class, 'reactView'])->name('About.jsx');
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');

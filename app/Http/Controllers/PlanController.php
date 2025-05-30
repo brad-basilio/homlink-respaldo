@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 
 class PlanController extends BasicController
 {
-    public $reactView = 'Plans';
+    //public $reactView = 'Plans';
+    public $reactView = 'CasosDeExito';
     public $reactRootView = 'public';
 
     public function setReactViewProperties(Request $request)
