@@ -52,7 +52,7 @@ const ServiceSeccionHero = () => {
                         </h2>
 
                         {/* Párrafo principal */}
-                        <p className="text-neutral mb-10 text-lg">
+                        <p className="text-neutral mb-10 font-light text-base lg:text-lg">
                            Alineamos valores, comportamientos y procesos para garantizar una cultura organizacional que respalde tus desafíos estratégicos.
                         </p>
 
