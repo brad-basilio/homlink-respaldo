@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\LandingHome;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -19,10 +20,11 @@ class ServiceController extends BasicController
         $landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
         $services = Service::where('slug', $request->slug)->where('status', true)->where('visible', true)->where('lang_id', $langId)->with('category')->first();
        // $allServices = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->where('category_service_id', $services->category_service_id)->with('category')->orderBy('updated_at', 'DESC')->get();
-        
+        $brands=Brand::where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         return [
             'landing' => $landing,
             'services' => $services,
+            'brands' => $brands,
         //    'allServices' => $allServices,
         ];
     }
