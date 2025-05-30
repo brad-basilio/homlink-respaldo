@@ -18,12 +18,12 @@ class ServiceController extends BasicController
         $langId = app('current_lang_id');
         $landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
         $services = Service::where('slug', $request->slug)->where('status', true)->where('visible', true)->where('lang_id', $langId)->with('category')->first();
-        $allServices = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->where('category_service_id', $services->category_service_id)->with('category')->orderBy('updated_at', 'DESC')->get();
+       // $allServices = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->where('category_service_id', $services->category_service_id)->with('category')->orderBy('updated_at', 'DESC')->get();
         
         return [
             'landing' => $landing,
             'services' => $services,
-            'allServices' => $allServices,
+        //    'allServices' => $allServices,
         ];
     }
 }
