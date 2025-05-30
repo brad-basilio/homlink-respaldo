@@ -1,4 +1,4 @@
-import{c as S}from"./createLucideIcon-Cx5eUsrb.js";import{c as $,a as q}from"./classes-to-selector-BKG7-jjr.js";import{m,b as E,d as I,f as T}from"./swiper-react-CvDfSz8E.js";/**
+import{c as S}from"./createLucideIcon-Cx5eUsrb.js";import{a as $,c as q}from"./classes-to-selector-DJqJm-4o.js";import{m,b as E,d as I,f as T}from"./swiper-react-CvDfSz8E.js";/**
  * @license lucide-react v0.445.0 - ISC
  *
  * This source code is licensed under the ISC license.
