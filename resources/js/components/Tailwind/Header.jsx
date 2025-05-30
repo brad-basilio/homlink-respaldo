@@ -261,20 +261,20 @@ const Header = ({
 
     useEffect(() => {
         if (activeMegaMenu) {
-          document.body.style.overflow = 'hidden';
-          // Opcional: también podrías querer prevenir el scroll del touch en móviles
-          document.body.style.touchAction = 'none';
+            document.body.style.overflow = 'hidden';
+            // Opcional: también podrías querer prevenir el scroll del touch en móviles
+            document.body.style.touchAction = 'none';
         } else {
-          document.body.style.overflow = '';
-          document.body.style.touchAction = '';
+            document.body.style.overflow = '';
+            document.body.style.touchAction = '';
         }
-      
+
         return () => {
-          document.body.style.overflow = '';
-          document.body.style.touchAction = '';
+            document.body.style.overflow = '';
+            document.body.style.touchAction = '';
         }
-      }, [activeMegaMenu]);
-      
+    }, [activeMegaMenu]);
+
     const toggleMegaMenu = (path) => {
         // Si ya está abierto, ciérralo
         if (activeMegaMenu === path) {
@@ -292,50 +292,69 @@ const Header = ({
         <>
 
             <div
-                className={`w-full max-w-full relative ${backgroundHeight}`}
+                className={`w-full max-w-full relative font-paragraph ${backgroundHeight}`}
             >
                 {/*CINTILLO INICIO */}
-                <div className="bg-primary text-white text-sm py-2 ">
+                <div className="bg-primary text-white text-sm py-3  ">
                     <div className="px-[5%] mx-auto flex justify-between items-center  ">
                         <div className="flex items-center space-x-6">
                             <a href="mailto:info@cambio-gerencia.com" className="flex items-center space-x-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                <svg width="14" height="16" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 3L4.45651 4.96231C5.71935 5.67925 6.28065 5.67925 7.5435 4.96231L11 3" stroke="white" stroke-width="0.75" stroke-linejoin="round" />
+                                    <path d="M5.25 10.25C5.01685 10.247 4.78341 10.2425 4.54942 10.2366C2.97517 10.197 2.18804 10.1772 1.62248 9.6092C1.05692 9.04115 1.04057 8.27435 1.00789 6.7407C0.997375 6.24755 0.99737 5.75735 1.00788 5.26421C1.04057 3.73056 1.05691 2.96374 1.62248 2.39569C2.18804 1.82765 2.97516 1.80786 4.54941 1.76829C5.51965 1.7439 6.48035 1.74391 7.4506 1.7683C9.02485 1.80787 9.81195 1.82766 10.3775 2.3957C10.9431 2.96374 10.9594 3.73057 10.9921 5.26422C10.9969 5.49126 10.9996 5.59825 11 5.75" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M9.5 9C9.5 9.4142 9.1642 9.75 8.75 9.75C8.3358 9.75 8 9.4142 8 9C8 8.5858 8.3358 8.25 8.75 8.25C9.1642 8.25 9.5 8.5858 9.5 9ZM9.5 9V9.25C9.5 9.6642 9.8358 10 10.25 10C10.6642 10 11 9.6642 11 9.25V9C11 7.75735 9.99265 6.75 8.75 6.75C7.50735 6.75 6.5 7.75735 6.5 9C6.5 10.2427 7.50735 11.25 8.75 11.25" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
+
                                 <span>info@cambio-gerencia.com</span>
                             </a>
+                            <span className="mx-1">|</span>
                             <a href="tel:+51935646774" className="flex items-center space-x-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                <svg width="14" height="16" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9.52415 8.7461C10.127 8.17025 10.5 7.37475 10.5 6.4961C10.5 5.6174 10.127 4.82192 9.52415 4.24609M8.5 5.37109C8.80145 5.659 8.98795 6.05675 8.98795 6.4961C8.98795 6.93545 8.80145 7.3332 8.5 7.6211" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M8 4C8 2.82149 8 2.23223 7.6339 1.86611C7.26775 1.5 6.6785 1.5 5.5 1.5H4C2.82149 1.5 2.23223 1.5 1.86611 1.86611C1.5 2.23223 1.5 2.82149 1.5 4V9C1.5 10.1785 1.5 10.7677 1.86611 11.1339C2.23223 11.5 2.82149 11.5 4 11.5H5.5C6.6785 11.5 7.26775 11.5 7.6339 11.1339C8 10.7677 8 10.1785 8 9" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M5.75 1.5H3.75L4 2H5.5L5.75 1.5Z" stroke="white" stroke-width="0.75" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
+
                                 <span>+51 935 646 774</span>
                             </a>
                         </div>
                         <div className="flex items-center space-x-4">
-                            <a href="#" className="hover:text-gray-300" aria-label="Instagram">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            <a href="#" className="hover:text-gray-300  flex gap-2 items-center " aria-label="Instagram">
+                                <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 7.55C5.4375 7.55 4.95 7.1 4.95 6.5C4.95 5.9375 5.4 5.45 6 5.45C6.5625 5.45 7.05 5.9 7.05 6.5C7.05 7.0625 6.5625 7.55 6 7.55Z" fill="white" />
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M7.275 3.95H4.725C4.425 3.9875 4.275 4.025 4.1625 4.0625C4.0125 4.1 3.9 4.175 3.7875 4.2875C3.69848 4.37652 3.65642 4.46554 3.60558 4.57314C3.59218 4.6015 3.57814 4.63122 3.5625 4.6625C3.5567 4.6799 3.55 4.6982 3.54282 4.71782C3.50359 4.825 3.45 4.97141 3.45 5.225V7.775C3.4875 8.075 3.525 8.225 3.5625 8.3375C3.6 8.4875 3.675 8.6 3.7875 8.7125C3.87652 8.80152 3.96554 8.84358 4.07314 8.89442C4.10152 8.90783 4.13119 8.92185 4.1625 8.9375C4.1799 8.9433 4.1982 8.95 4.21782 8.95718C4.325 8.99641 4.47141 9.05 4.725 9.05H7.275C7.575 9.0125 7.725 8.975 7.8375 8.9375C7.9875 8.9 8.1 8.825 8.2125 8.7125C8.30152 8.62348 8.34358 8.53446 8.39442 8.42686C8.40782 8.39849 8.42185 8.3688 8.4375 8.3375C8.4433 8.3201 8.45 8.30179 8.45718 8.28218C8.49641 8.175 8.55 8.02859 8.55 7.775V5.225C8.5125 4.925 8.475 4.775 8.4375 4.6625C8.4 4.5125 8.325 4.4 8.2125 4.2875C8.12348 4.19848 8.03446 4.15642 7.92686 4.10558C7.89852 4.09219 7.86875 4.07813 7.8375 4.0625C7.8201 4.0567 7.8018 4.05 7.78218 4.04282C7.675 4.00359 7.52859 3.95 7.275 3.95ZM6 4.8875C5.1 4.8875 4.3875 5.6 4.3875 6.5C4.3875 7.4 5.1 8.1125 6 8.1125C6.9 8.1125 7.6125 7.4 7.6125 6.5C7.6125 5.6 6.9 4.8875 6 4.8875ZM8.025 4.85C8.025 5.05711 7.85711 5.225 7.65 5.225C7.44289 5.225 7.275 5.05711 7.275 4.85C7.275 4.64289 7.44289 4.475 7.65 4.475C7.85711 4.475 8.025 4.64289 8.025 4.85Z" fill="white" />
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM4.725 3.3875H7.275C7.6125 3.425 7.8375 3.4625 8.025 3.5375C8.25 3.65 8.4 3.725 8.5875 3.9125C8.775 4.1 8.8875 4.2875 8.9625 4.475C9.0375 4.6625 9.1125 4.8875 9.1125 5.225V7.775C9.075 8.1125 9.0375 8.3375 8.9625 8.525C8.85 8.75 8.775 8.9 8.5875 9.0875C8.4 9.275 8.2125 9.3875 8.025 9.4625C7.8375 9.5375 7.6125 9.6125 7.275 9.6125H4.725C4.3875 9.575 4.1625 9.5375 3.975 9.4625C3.75 9.35 3.6 9.275 3.4125 9.0875C3.225 8.9 3.1125 8.7125 3.0375 8.525C2.9625 8.3375 2.8875 8.1125 2.8875 7.775V5.225C2.925 4.8875 2.9625 4.6625 3.0375 4.475C3.15 4.25 3.225 4.1 3.4125 3.9125C3.6 3.725 3.7875 3.6125 3.975 3.5375C4.1625 3.4625 4.3875 3.3875 4.725 3.3875Z" fill="white" />
                                 </svg>
+                                Instagram
                             </a>
-                            <a href="#" className="hover:text-gray-300" aria-label="Facebook">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            <span className="mx-1">|</span>
+                            <a href="#" className="hover:text-gray-300 flex gap-2 items-center " aria-label="Facebook">
+                                <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM6 3.5C7.65 3.5 9 4.85 9 6.5C9 8 7.9125 9.275 6.4125 9.5V7.3625H7.125L7.275 6.5H6.45V5.9375C6.45 5.7125 6.5625 5.4875 6.9375 5.4875H7.3125V4.7375C7.3125 4.7375 6.975 4.6625 6.6375 4.6625C5.9625 4.6625 5.5125 5.075 5.5125 5.825V6.5H4.7625V7.3625H5.5125V9.4625C4.0875 9.2375 3 8 3 6.5C3 4.85 4.35 3.5 6 3.5Z" fill="white" />
                                 </svg>
+                                Facebook
                             </a>
-                            <a href="#" className="hover:text-gray-300" aria-label="LinkedIn">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/>
+                            <span className="mx-1">|</span>
+                            <a href="#" className="hover:text-gray-300 flex gap-2 items-center " aria-label="LinkedIn">
+                                <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM3.075 5.4875V9.5H4.35V5.4875H3.075ZM3 4.2125C3 4.625 3.3 4.925 3.7125 4.925C4.125 4.925 4.425 4.625 4.425 4.2125C4.425 3.8 4.125 3.5 3.7125 3.5C3.3375 3.5 3 3.8 3 4.2125ZM7.725 9.5H8.925V7.025C8.925 5.7875 8.175 5.375 7.4625 5.375C6.825 5.375 6.375 5.7875 6.2625 6.05V5.4875H5.0625V9.5H6.3375V7.3625C6.3375 6.8 6.7125 6.5 7.0875 6.5C7.4625 6.5 7.725 6.6875 7.725 7.325V9.5Z" fill="white" />
                                 </svg>
+                                LinkedIn
                             </a>
-                            <a href="#" className="hover:text-gray-300" aria-label="YouTube">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+                            <span className="mx-1">|</span>
+                            <a href="#" className="hover:text-gray-300 flex gap-2 items-center " aria-label="YouTube">
+                                <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.975 6.5L5.4 5.6V7.4L6.975 6.5Z" fill="white" />
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM8.325 4.5125C8.58751 4.5875 8.775 4.775 8.85 5.0375C9 5.525 9 6.5 9 6.5C9 6.5 9 7.475 8.8875 7.9625C8.8125 8.225 8.625 8.4125 8.3625 8.4875C7.875 8.6 6 8.6 6 8.6C6 8.6 4.0875 8.6 3.6375 8.4875C3.375 8.4125 3.1875 8.225 3.1125 7.9625C3 7.475 3 6.5 3 6.5C3 6.5 3 5.525 3.075 5.0375C3.15 4.775 3.3375 4.5875 3.6 4.5125C4.0875 4.4 5.9625 4.4 5.9625 4.4C5.9625 4.4 7.875 4.4 8.325 4.5125Z" fill="white" />
                                 </svg>
+                                YouTube
                             </a>
-                            <a href="#" className="hover:text-gray-300" aria-label="TikTok">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                            <span className="mx-1">|</span>
+                            <a href="#" className="hover:text-gray-300 flex gap-2 items-center " aria-label="TikTok">
+                                <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M6 0.5C2.68629 0.5 0 3.18629 0 6.5C0 9.81371 2.68629 12.5 6 12.5C9.31371 12.5 12 9.81371 12 6.5C12 3.18629 9.31371 0.5 6 0.5ZM7.16933 3.5C7.16933 3.58916 7.17767 3.67696 7.193 3.76194C7.26679 4.15477 7.49927 4.49189 7.8222 4.70222C8.04769 4.84989 8.31493 4.93488 8.60305 4.93488L8.603 5.16472V5.96574C8.0685 5.96574 7.57299 5.7944 7.16931 5.50463V7.60122C7.16931 8.64743 6.31748 9.5 5.27217 9.5C4.86851 9.5 4.49268 9.37181 4.18506 9.15588C3.69513 8.81179 3.375 8.24342 3.375 7.60122C3.375 6.55362 4.22546 5.70247 5.27077 5.70384C5.35847 5.70384 5.44337 5.71081 5.52689 5.72197V5.96574L5.52383 5.9672L5.52688 5.96713V6.77512C5.44615 6.75004 5.35985 6.73473 5.27077 6.73473C4.79335 6.73473 4.405 7.1234 4.405 7.60122C4.405 7.93418 4.5943 8.22254 4.8699 8.36881C4.87247 8.37234 4.87508 8.37585 4.8777 8.37933L4.88232 8.38542C4.87915 8.3793 4.87549 8.37329 4.8713 8.36742C4.99239 8.4315 5.1288 8.46772 5.27356 8.46772C5.73983 8.46772 6.12124 8.09578 6.13792 7.63327L6.13932 3.5H7.16933Z" fill="white" />
                                 </svg>
+                                TikTok
                             </a>
                         </div>
                     </div>
@@ -345,16 +364,14 @@ const Header = ({
                     initial="hidden"
                     animate="visible"
                     variants={containerVariants}
-                    className={`font-poppins static lg:w-full top-0 z-40 transition-colors duration-300 py-4 ${
-                        backgroundType === "none"
-                            ? "bg-transparent mt-0"
-                            : isScrolled
+                    className={` static lg:w-full top-0 z-40 transition-colors duration-300 py-1 ${backgroundType === "none"
+                        ? "bg-transparent mt-0"
+                        : isScrolled
                             ? "bg-[#224483] pt-0 !mt-0"
                             : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
-                    } ${
-                        isScrolled &&
+                        } ${isScrolled &&
                         "bg-[#224483] pt-0 !mt-0 transition-all duration-150"
-                    }`}
+                        }`}
                 >
                     <div
                         className={`px-[5%] w-full py-4 lg:py-0 flex justify-between items-center text-[#3E2F4D] shadow-lg lg:shadow-none`}
@@ -403,7 +420,7 @@ const Header = ({
                                             "public.header.contac",
                                             "Infoproductos"
                                         ),
-                                           "/contact": t(
+                                        "/contact": t(
                                             "public.header.contac",
                                             "Contacto"
                                         ),
@@ -422,11 +439,10 @@ const Header = ({
                                                 variants={itemVariants}
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
-                                                className={`relative py-2 rounded-full transition-all duration-300 ${
-                                                    isActive(path)
-                                                        ? "bg-neutral-light pl-7 pr-3 text-primary font-semibold"
-                                                        : "bg-transparent px-5 text-primary"
-                                                }`}
+                                                className={`relative py-2 rounded-full transition-all duration-300 ${isActive(path)
+                                                    ? "bg-neutral-light pl-7 pr-3 text-primary font-semibold"
+                                                    : "bg-transparent px-5 text-primary"
+                                                    }`}
                                             >
                                                 {text}
                                                 {isActive(path) && (
@@ -439,14 +455,14 @@ const Header = ({
                                             <AnimatePresence>
                                                 {activeMegaMenu === path && (
                                                     <div className="">
-                                                        <MegaMenuPopup 
-                                                         isOpen={activeMegaMenu === path} 
-                                                         onClose={closeMegaMenu}
+                                                        <MegaMenuPopup
+                                                            isOpen={activeMegaMenu === path}
+                                                            onClose={closeMegaMenu}
                                                         />
                                                     </div>
                                                 )}
-                                            </AnimatePresence>    
-                                    </div>
+                                            </AnimatePresence>
+                                        </div>
                                     );
                                 })}
                             </nav>
@@ -466,16 +482,16 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="hidden xl:flex flex-col justify-center items-center font-Poppins_Medium"
+                            className="hidden xl:flex flex-col justify-center items-center _Medium"
                         >
-                                <a href="/contacto">
-                                    <div className="bg-primary text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
-                                        <p className="leading-none text-white">
-                                            {t("public.header.contact", "Reserva una consulta")}
-                                            <ArrowRight className="inline ml-2" />
-                                        </p>
-                                    </div>
-                                </a>
+                            <a href="/contacto">
+                                <div className="bg-primary text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
+                                    <p className="leading-none text-white">
+                                        {t("public.header.contact", "Reserva una consulta")}
+                                        <ArrowRight className="inline ml-2" />
+                                    </p>
+                                </div>
+                            </a>
                         </motion.div>
 
                         <motion.div
@@ -492,9 +508,8 @@ const Header = ({
                                 >
                                     <div className="text-[#242424]">
                                         <i
-                                            className={`fas ${
-                                                isOpen ? "fa-times" : "fa-bars"
-                                            } text-xl md:text-2xl py-3 px-3`}
+                                            className={`fas ${isOpen ? "fa-times" : "fa-bars"
+                                                } text-xl md:text-2xl py-3 px-3`}
                                         />
                                     </div>
                                 </motion.button>
@@ -543,11 +558,10 @@ const Header = ({
                             animate="visible"
                             exit="exit"
                             variants={menuVariants}
-                            className={`fixed md:top-20 inset-0 text-white z-[999] ${
-                                isScrolled
-                                    ? "top-[3.75rem] bg-[#224483]"
-                                    : "top-28 bg-[#224483]"
-                            } p-[5%] h-max overflow-y-auto`}
+                            className={`fixed md:top-20 inset-0 text-white z-[999] ${isScrolled
+                                ? "top-[3.75rem] bg-[#224483]"
+                                : "top-28 bg-[#224483]"
+                                } p-[5%] h-max overflow-y-auto`}
                         >
                             <motion.ul
                                 variants={containerVariants}
@@ -596,11 +610,10 @@ const Header = ({
                                                     handleLinkClick(path);
                                                     setIsOpen(false);
                                                 }}
-                                                className={`relative py-2 rounded-full transition-all duration-300 ${
-                                                    isActive(path)
-                                                        ? "bg-[#EFF0F1] pl-8 pr-3 text-primary"
-                                                        : "bg-transparent px-5 text-white"
-                                                }`}
+                                                className={`relative py-2 rounded-full transition-all duration-300 ${isActive(path)
+                                                    ? "bg-[#EFF0F1] pl-8 pr-3 text-primary"
+                                                    : "bg-transparent px-5 text-white"
+                                                    }`}
                                             >
                                                 {text}
                                                 {isActive(path) && (
@@ -714,8 +727,8 @@ const Header = ({
                                                         src={`/api/items/media/${item.image}`}
                                                         alt={item.name}
                                                         onError={(e) =>
-                                                            (e.target.src =
-                                                                "/api/cover/thumbnail/null")
+                                                        (e.target.src =
+                                                            "/api/cover/thumbnail/null")
                                                         }
                                                         className="w-20 h-20 md:w-28 md:h-28 lg:w-52 lg:h-52 object-cover rounded-lg"
                                                     />
@@ -749,7 +762,7 @@ const Header = ({
                                                                         S/{" "}
                                                                         {Number(
                                                                             item.price -
-                                                                                item.discount
+                                                                            item.discount
                                                                         ).toFixed(
                                                                             0
                                                                         )}{" "}
@@ -826,19 +839,19 @@ const Header = ({
                                                                     </motion.button>
                                                                     <span className="h-full flex items-center text-xs md:text-base 2xl:text-2xl font-medium">
                                                                         {item.variations &&
-                                                                        item
-                                                                            .variations
-                                                                            .length >
+                                                                            item
+                                                                                .variations
+                                                                                .length >
                                                                             0
                                                                             ? item.variations.reduce(
-                                                                                  (
-                                                                                      sum,
-                                                                                      v
-                                                                                  ) =>
-                                                                                      sum +
-                                                                                      v.quantity,
-                                                                                  0
-                                                                              )
+                                                                                (
+                                                                                    sum,
+                                                                                    v
+                                                                                ) =>
+                                                                                    sum +
+                                                                                    v.quantity,
+                                                                                0
+                                                                            )
                                                                             : item.quantity}
                                                                     </span>
                                                                     <motion.button

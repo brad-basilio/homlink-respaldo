@@ -349,13 +349,13 @@ const SliderInteractive = ({ items, data }) => {
                                 <div
                                     key={`dot-${index}`}
                                     className={`inline-flex mx-1 w-3 h-3 rounded-full ${currentIndex === index + 1
-                                            ? "bg-white h-3 w-5 lg:w-5 lg:h-3 items-center justify-center " //"bg-white h-5 w-5 lg:w-6 lg:h-6 items-center justify-center border-2 border-accent"
-                                            : "bg-white h-3 w-3 lg:w-3 lg:h-3 items-center justify-center"
+                                            ? "bg-white h-2 w-5 lg:w-5 lg:h-2 items-center justify-center " //"bg-white h-5 w-5 lg:w-6 lg:h-6 items-center justify-center border-2 border-accent"
+                                            : "bg-white h-2 w-2 lg:w-2 lg:h-2 items-center justify-center"
                                         }`}
                                     onClick={() => setCurrentIndex(index + 1)}
                                 >
                                     {currentIndex === index + 1 && (
-                                        <div className="!w-5 h-3 bg-accent rounded-full items-center justify-center"></div>
+                                        <div className="!w-5 h-2 bg-accent rounded-full items-center justify-center"></div>
                                     )}
                                 </div>
                             ))}

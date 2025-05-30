@@ -96,8 +96,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             />
                         </a>
                         {/*SUBCRIBE FORM*/}
-                        <div className="mt-6">
-                            <h3 className="text-sm font-semibold mb-4">Suscríbete y recibe todas nuestras novedades</h3>
+                        <div className="mt-6 font-paragraph">
+                            <h3 className="text-sm font-medium mb-4">Suscríbete y recibe todas nuestras novedades</h3>
                             <div className="flex flex-row rounded-lg justify-between py-2 px-2  border  border-white bg-transparent">
                                 <input
                                     type="email"
