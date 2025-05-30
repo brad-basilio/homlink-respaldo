@@ -6,6 +6,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/line-clamp": "^0.4.4",
         "@vitejs/plugin-react": "^4.3.1",
         "autoprefixer": "^10.4.19",
         "axios": "^1.6.4",

@@ -50,25 +50,23 @@ const ServiceSeccionFaq = () => {
     }
     setOpenItems(newOpenItems);
   }
-  return (
-    <section className="w-full font-paragraph bg-white px-[5%] py-16 flex flex-col lg:flex-row gap-20  mx-auto">
+  return (    <section className="w-full font-paragraph bg-white px-[5%] py-12 md:py-16 flex flex-col lg:flex-row gap-10 lg:gap-20 mx-auto">
       {/* FAQ */}
-      <div className="flex-1 w-7/12 ">     <h2 className="text-4xl text-neutral-dark lg:text-[52px] font-medium mb-6 leading-tight italic">
+      <div className="flex-1 w-full lg:w-7/12">     
+        <h2 className="text-3xl md:text-4xl text-neutral-dark lg:text-[52px] font-medium mb-4 md:mb-6 leading-tight italic">
           Preguntas <span className="text-constrast">Frecuentes</span>
         </h2>
           <div className="space-y-4">
             {faqs.map((item) => (
               <div key={item.id} className="border border-neutral-light rounded-lg overflow-hidden">
                 <button
-                  onClick={() => toggleItem(item.id)}
-                  className={`w-full px-6 py-4 text-left  transition-colors duration-200 flex items-center justify-between ${openItems.has(item.id) ? "bg-constrast text-white border-b":"text-gray-900  border-neutral-light bg-neutral-light"}`}
+                  onClick={() => toggleItem(item.id)}                  className={`w-full px-4 md:px-6 py-3 md:py-4 text-left transition-colors duration-200 flex items-center justify-between ${openItems.has(item.id) ? "bg-constrast text-white border-b":"text-neutral-dark border-neutral-light bg-neutral-light"}`}
                 >
-                  <span className="text-lg font-medium pr-4">{item.question}</span>                  <div className="flex-shrink-0">
+                  <span className="text-base md:text-lg font-medium pr-2 md:pr-4">{item.question}</span><div className="flex-shrink-0">
                     {openItems.has(item.id) ? <UpIcon /> : <DownIcon />}
                   </div>
-                </button>                {openItems.has(item.id) && item.answer && (
-                  <div className="px-6 py-6 bg-constrast text-white">
-                    <p className="text-base leading-relaxed">{item.answer}</p>
+                </button>                {openItems.has(item.id) && item.answer && (                  <div className="px-4 md:px-6 py-4 md:py-6 bg-constrast text-white">
+                    <p className="text-sm md:text-base leading-relaxed">{item.answer}</p>
                   </div>
                 )}
               </div>
@@ -76,20 +74,19 @@ const ServiceSeccionFaq = () => {
           </div>
        
       </div>
-      {/* Card lateral */}
-      <div className="w-full max-w-xs mx-auto lg:mx-0">
+      {/* Card lateral */}      <div className="w-full  mx-auto lg:mx-0">
         <div className="rounded-2xl overflow-hidden shadow-lg relative bg-white">
           <img
             src="/assets/cambiogerencia/card-contact-2.webp"
             alt="Servicios de RR.HH"
-            className="w-full h-96 object-cover"
+            className="w-full h-96 md:h-96 object-cover"
           />
-          <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-6">
-            <h3 className="text-white text-xl font-medium mb-1 drop-shadow">Servicios de RR.HH</h3>
-            <p className="text-white text-xs mb-4 drop-shadow">Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor.</p>
+          <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-4 md:p-6">
+            <h3 className="text-white text-lg md:text-xl font-medium mb-1 drop-shadow">Servicios de RR.HH</h3>
+            <p className="text-white text-xs mb-3 md:mb-4 drop-shadow">Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor.</p>
             <a
               href="#"
-              className="inline-block bg-constrast text-white text-base font-semibold rounded-lg px-6 py-3 text-center transition-colors duration-200 hover:bg-primary"
+              className="inline-block bg-constrast text-white text-sm md:text-base font-semibold rounded-lg px-4 md:px-6 py-2 md:py-3 text-center transition-colors duration-200 hover:bg-primary"
             >
               Reserva una consulta
             </a>

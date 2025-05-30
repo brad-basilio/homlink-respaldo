@@ -36,10 +36,17 @@ export default {
                 "neutral-light":"#F2F2F2",
             },
             // Puedes agregar personalizaciones aquí si es necesario
+            lineClamp: {
+                1: '1',
+                2: '2',
+                3: '3',
+                4: '4',
+            },
         },
     },
     plugins: [
         require("tailwindcss-animated"),
+        require('@tailwindcss/line-clamp'),
         function ({ addUtilities }) {
             const newUtilities = {
                 ".scrollbar-hide": {

@@ -4,15 +4,15 @@ const ServiceSeccionEnfoque = () => {
     return (
         <section className="w-full bg-white font-paragraph px-[5%] py-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 max-w-[1600px] mx-auto">
             {/* Imagen */}
-            <div className="flex-1 min-w-[320px] max-w-[600px] w-full">
+            <div className="order-1 lg:order-none min-w-[320px] max-w-[600px] w-full">
                 <img
                     src="/assets/cambiogerencia/enfoque-servicios.webp"
                     alt="Manos con hilos rojos"
-                    className="rounded-xl w-full aspect-[4/3] object-cover shadow-md"
+                    className="rounded-xl w-full aspect-[3/4]  lg:aspect-[5/4] object-cover shadow-md"
                 />
             </div>
             {/* Contenido */}
-            <div className="flex-1 flex flex-col items-start max-w-xl w-full">
+            <div className="flex-1 flex flex-col items-start w-full">
                 <div className="flex items-center gap-2 mb-2">
                     <span>
                         <svg width="18" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +25,7 @@ const ServiceSeccionEnfoque = () => {
                     </span>
                     <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Nuestro enfoque</h3>
                 </div>
-                <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
+                <h2 className="text-[30px] max-w-xl lg:text-[52px] font-medium mb-6 leading-tight italic">
                     ¿Por qué trabajar en la <span className="text-constrast ">cultura organizacional?</span>
                 </h2>
                 <p className="text-lg text-neutral mb-6 font-light">
