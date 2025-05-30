@@ -3,15 +3,15 @@ import { X } from "lucide-react";
 
 const menuData = {
   infraestructura: {
-    title: "Infraestructura",
-    subtitle: "Optimiza tu trabajo con herramientas diseñadas para potenciar la eficiencia y la colaboración.",
+    title: "Servicios",
+    subtitle: "Creamos intervenciones a medida para acompañar procesos de transformación, fortalecer liderazgos y conectar a los equipos con el propósito organizacional",
     services: [
       {
-        title: "Centro de Datos",
-        description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
+        title: "Capacitaciones",
+        description: "Desarrollamos, Habilidades de liderazgo, Equipos de alto desempeño, Competencias blandas, Equipos comerciales y de servicio, Team Building.",
       },
       {
-        title: "Virtualización",
+        title: "Culture360",
         description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
       },
       {
@@ -102,26 +102,18 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
   const currentData = menuData[activeSection] || menuData.infraestructura;
   // 
   return (
-    <div className="fixed bg-black/40 inset-0 z-50 flex items-start justify-center mt-[72px]">
-      <div className="bg-white 2xl:rounded-lg w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed bg-black/40 inset-0 z-50 flex items-start justify-center mt-[120px]">
+      <div className="bg-neutral-light px-[5%] 2xl:rounded-b-lg w-full max-h-[90vh] overflow-hidden">
         <div className="flex flex-row h-full">
-          
+
           {/* Sidebar Navigation */}
-          <div className="w-1/5 bg-gray-50 border-t border-r border-gray-200 p-10 2xl:p-16">
-            <nav className="space-y-1 w-full h-full max-h-96 overflow-y-auto">
-              {navigationItems.map((item) => (
-                <button
-                  key={item.key}
-                  onClick={() => setActiveSection(item.key)}
-                  className={`w-full text-left px-4 py-3 rounded-md text-sm 2xl:text-lg transition-colors ${
-                    activeSection === item.key
-                      ? "bg-blue-100 text-[#3E2F4D] border-l-4 border-[#3E2F4D] font-Poppins_Medium"
-                      : "text-[#3E2F4D] hover:bg-gray-100 hover:font-Poppins_Medium font-Poppins_Regular"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
+          <div className="w-1/5 py-8">
+            <nav className="space-y-1 w-full h-full  overflow-y-auto">
+              <img
+                src="/assets/cambiogerencia/image-menu.webp"
+                alt="Testimonios"
+                className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl shadow-lg"
+              />
             </nav>
           </div>
 
@@ -131,7 +123,7 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
             <div className="flex justify-end mb-1 absolute right-5">
               <button
                 onClick={onClose}
-                className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-2 text-constrast border border-constrast hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -139,21 +131,31 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
 
             {/* Header */}
             <div className="mb-4">
-              <h2 className="text-2xl 2xl:text-3xl font-Poppins_Medium text-[#3E2F4D] mb-1">{currentData.title}</h2>
-              <p className="text-[#5C4774] text-base 2xl:text-lg font-Poppins_Regular leading-relaxed">{currentData.subtitle}</p>
+              <h2 className="text-2xl 2xl:text-3xl font-Poppins_Medium text-primary mb-1">{currentData.title}</h2>
+              <p className="text-primary text-base 2xl:text-lg font-Poppins_Regular leading-relaxed">{currentData.subtitle}</p>
             </div>
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 2xl:gap-8 max-h-96 overflow-y-auto">
-              {currentData.services.map((service, index) => (
-                <div
-                  key={index}
-                  className="bg-white border border-gray-200 hover:bg-[#F5F2F9] rounded-lg p-4 2xl:p-6 cursor-pointer"
-                >
-                  <h3 className="text-base 2xl:text-lg font-semibold text-gray-900 mb-1">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm 2xl:text-base line-clamp-2">{service.description}</p>
-                </div>
-              ))}
+              {currentData.services.map((service, index) => {
+                // Alternar aleatoriamente entre los 3 colores de hover
+                const hoverColors = [
+                  'hover:bg-accent hover:text-white',
+                  'hover:bg-primary hover:text-white',
+                  'hover:bg-constrast hover:text-white',
+                ];
+                // Para que sea "aleatorio" pero consistente en cada render, usar el index y un offset
+                const colorClass = hoverColors[index % hoverColors.length];
+                return (
+                  <div
+                    key={index}
+                    className={`rounded-lg p-4 2xl:p-6 cursor-pointer transition-colors duration-200 ${colorClass}`}
+                  >
+                    <h3 className="text-base 2xl:text-lg font-semibold mb-1 transition-colors duration-200">{service.title}</h3>
+                    <p className="leading-relaxed text-sm 2xl:text-base line-clamp-2 transition-colors duration-200">{service.description}</p>
+                  </div>
+                );
+              })}
             </div>
 
           </div>
