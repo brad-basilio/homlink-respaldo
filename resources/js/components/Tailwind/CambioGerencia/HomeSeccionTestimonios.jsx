@@ -46,12 +46,12 @@ const HomeSeccionTestimonios = () => {
         <div className="w-full bg-white py-16 md:py-24">
             <div className="px-[5%] mx-auto flex flex-col md:flex-row items-stretch gap-0 md:gap-12 ">
                 {/* Imagen izquierda */}
-                <div className="w-full md:w-5/12 flex items-center justify-center mb-10 md:mb-0">
-                    <div className="w-full h-[350px] md:h-[700px] flex items-center justify-center">
+                <div className="order-1 lg:order-none w-full md:w-5/12 flex items-center justify-center mb-10 md:mb-0">
+                    <div className="w-full mt-8 lg:mt-0 lg:h-[700px] flex items-center justify-center">
                         <img
                             src="/assets/cambiogerencia/testimonios.webp"
                             alt="Testimonios"
-                            className="w-auto h-full object-cover rounded-3xl shadow-lg"
+                            className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl shadow-lg"
                         />
                     </div>
                 </div>
@@ -68,13 +68,13 @@ const HomeSeccionTestimonios = () => {
                                     <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
                                 </svg>
                             </span>
-                            <span className="uppercase text-neutral-dark text-lg font-bold">Testimonios</span>
+                            <span className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Testimonios</span>
                         </div>
-                        <h2 className="text-[52px] font-medium mb-6 leading-tight italic">
+                        <h2 className="text-[32px] lg:text-[52px] font-medium mb-6 leading-tight italic">
                             Lo que dicen quienes <br className="hidden md:block" />
                             vivieron la <span className="text-blue-600 italic">experiencia</span>
                         </h2>
-                        <p className="mt-2 text-base md:text-lg text-neutral max-w-xl">
+                        <p className="mt-2  text-lg text-neutral max-w-xl">
                             Conoce cómo hemos transformado realidades organizacionales desde dentro.
                         </p>
                     </div>
@@ -94,9 +94,9 @@ const HomeSeccionTestimonios = () => {
                             className="testimonial-swiper"
                         >
                             {testimonios.map((testimonio, idx) => (
-                                <SwiperSlide key={testimonio.id} className='px-8'>
-                                    <div className="bg-white relative  px-8 py-10 flex flex-col gap-4">
-                                     <div className='absolute top-4 -left-4'>
+                                <SwiperSlide key={testimonio.id} className='lg:px-8'>
+                                    <div className="bg-white relative  lg:px-8 py-10 flex flex-col gap-4">
+                                     <div className='absolute top-0 lg:top-4 lg:-left-4'>
                                            <svg width="35" height="25" viewBox="0 0 35 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M16.2994 1.83637L13.9957 0.0039087C5.3229 4.71595 1.25754 10.0824 0.173444 16.1034C-0.639627 21.0772 1.39305 25.0039 6.5425 25.0039C10.2013 25.0039 13.7246 22.6479 14.5377 18.7212C15.2153 14.14 12.505 11.3913 9.11723 10.7369C10.4723 6.28663 16.1638 1.83637 16.2994 1.83637ZM27.9534 10.4751C29.444 6.15575 34.8645 1.83637 35 1.83637L32.6963 0.00391197C24.0235 4.71595 19.9582 10.0824 18.8741 16.1034C18.061 21.0772 20.0937 25.0039 25.2431 25.0039C28.902 25.0039 32.4253 22.6479 33.1028 18.7212C33.9159 14.14 31.3412 11.1296 27.9534 10.4751Z" fill="#D62828" />
                                         </svg>
@@ -118,7 +118,7 @@ const HomeSeccionTestimonios = () => {
                             ))}
                         </Swiper>
                         {/* Custom pagination, alineada a la derecha */}
-                        <div className="flex gap-2 -mt-8 justify-end absolute bottom-14 right-8 z-[999]">
+                        <div className="flex gap-2 lg:-mt-8 justify-center lg:absolute bottom-14 lg:right-8 z-[999]">
                             {testimonios.map((_, idx) => (
                                 <button
                                     key={idx}

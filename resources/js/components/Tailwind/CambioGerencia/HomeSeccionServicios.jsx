@@ -1,5 +1,7 @@
 import { ArrowRight, PlusIcon } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using a generic icon for all cards for simplicity in this example.
@@ -19,20 +21,35 @@ const ServiceCard = ({
     textColor = "text-slate-800",
     titleColor = "text-slate-900",
     iconBgColor = "bg-red-500",
-    image
+    image,
+    active = false
 }) => {
     // Usar name si existe, sino title
     const cardTitle = name || title;
-    // Si hay imagen, mostrar overlay azul al hover
+    // Si hay imagen, mostrar overlay azul al hover o si está activo
     return (
-        <div className={`relative font-paragraph  customtext-neutral-dark hover:text-white bg-white p-6 rounded-lg shadow-xl flex flex-col h-[350px]  z-10 group overflow-hidden`}>
+        <div
+            className={`relative font-paragraph customtext-neutral-dark bg-white p-6 rounded-lg shadow-xl flex flex-col h-[350px] z-10 group overflow-hidden
+                ${active ? 'text-white scale-105 opacity-100' : ''}
+                ${!active ? 'lg:hover:text-white lg:hover:scale-105 lg:hover:opacity-100' : ''}
+            `}
+            style={{
+                boxShadow: active ? '0 8px 32px 0 rgba(31, 38, 135, 0.37)' : undefined,
+                zIndex: active ? 20 : 10,
+            }}
+        >
             {image && (
                 <div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0"
+                    className={`absolute inset-0 rounded-lg overflow-hidden transition-opacity duration-300 pointer-events-none z-0
+                        ${active ? 'opacity-100' : 'opacity-0'}
+                        lg:group-hover:opacity-100
+                    `}
                     style={{
                         backgroundImage: `linear-gradient(rgba(37,99,235,0.8), rgba(37,99,235,0.9)), url('${image}')`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
+                        borderRadius: '0.5rem',
+                        overflow: 'hidden',
                     }}
                 />
             )}
@@ -90,8 +107,12 @@ const HomeSeccionServicios = () => {
         }
     ];
 
+    // Swiper state for mobile
+    const allServices = [...servicesRow1, ...servicesRow2];
+    const [activeIndex, setActiveIndex] = useState(0);
+
     return (
-        <div className="relative bg-neutral-light py-16 px-4 sm:px-6 lg:py-24 lg:px-8 overflow-hidden">
+        <div className="relative bg-neutral-light py-16  lg:py-24  overflow-hidden">
             {/* Imagen de fondo debajo de los cards */}
             <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
                 <img
@@ -100,9 +121,9 @@ const HomeSeccionServicios = () => {
                     className="w-auto h-full object-cover rounded-xl"
                 />
             </div>
-            <div className="px-[5%] z-10 relative">
+            <div className=" z-10 relative">
                 {/* Header Section */}
-                <div className="text-center mb-12 lg:mb-16">
+                <div className="text-center mb-12 lg:mb-16 px-[5%] mx-auto">
                     <div className="flex w-full justify-center  mb-4">
                         <div className=" mr-2">
                             <span>
@@ -116,9 +137,10 @@ const HomeSeccionServicios = () => {
 
                             </span>
                         </div>
-                        <h3 className="uppercase text-neutral-dark text-lg font-bold">Nosotros</h3>
+                        <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Servicios</h3>
                     </div>
-                     <h2 className="text-[52px] font-medium mb-6 leading-tight italic">
+                     <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
+
                         Lo <span className="text-constrast">humano</span> al centro, <br className="hidden sm:block" />
                         lo estratégico <span className="text-constrast">en acción</span>
                     </h2>
@@ -127,8 +149,78 @@ const HomeSeccionServicios = () => {
                     </p>
                 </div>
 
-                {/* Services Grid - Row 1 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                {/* MOBILE: Swiper para servicios */}
+                <div className="block lg:hidden mb-8 w-full">
+                    <Swiper
+                        spaceBetween={10}
+                        slidesPerView={1.3}
+                        centeredSlides={true}
+                        initialSlide={1}
+                        loop={true}
+                        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                        className="w-full mx-auto"
+                        breakpoints={{
+                            640: { slidesPerView: 3 },
+                            1024: {
+                                slidesPerView: 3.3,
+                                centeredSlides: true,
+                            },
+                        }}
+                    >
+                        {allServices.map((service, idx) => (
+                            <SwiperSlide key={idx} className='overflow-hidden !rounded-lg'>
+                                {({ isActive, isDuplicate }) => (
+                                    <ServiceCard
+                                        {...service}
+                                        active={isActive && !isDuplicate && window.innerWidth < 1024}
+                                    />
+                                )}
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                    {/* Paginación tipo dots */}
+                  {/*  <div className="flex justify-center mt-4 gap-2 px-[5%]">
+                        {allServices.map((_, idx) => (
+                            <button
+                                key={idx}
+                                className={`w-3 h-3 rounded-full ${activeIndex === idx ? 'bg-accent' : 'bg-neutral'} transition-all`}
+                                onClick={() => setActiveIndex(idx)}
+                                aria-label={`Ir al servicio ${idx + 1}`}
+                            />
+                        ))}
+                    </div> */}
+                </div>
+
+                {/* MOBILE: Card de RR.HH debajo del swiper */}
+                <div className="block lg:hidden mb-8 px-[5%]">
+                    <div
+                        className={`relative font-paragraph rounded-lg shadow-xl overflow-hidden flex flex-col h-full transition-all duration-300 z-10`}
+                    >
+                        {/* Overlay gradiente negro a transparente de abajo hacia arriba */}
+                        <div
+                            className="absolute inset-0 transition-opacity duration-300 pointer-events-none "
+                            style={{
+                                background: "linear-gradient(to top, rgba(0,0,0), #ffffff)"
+                            }}
+                        />
+                        <img
+                            src={"assets/cambiogerencia/card-contact.webp"}
+                            alt={"Servicios de RR.HH"}
+                            className="w-full h-[300px] object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
+                            onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/cccccc/808080?text=Imagen+no+disponible"; }}
+                        />
+                        <div className="p-6 flex flex-col flex-grow z-20 absolute bottom-0 text-white">
+                            <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
+                            <p className={`text-xs mb-4 flex-grow text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
+                            <a href="#" className={`mt-auto flex gap-2 py-3 items-end justify-center rounded-lg font-semibold bg-constrast`}>
+                                Reserva una consulta <ArrowRight />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {/* DESKTOP: Grids como antes */}
+                <div className="hidden px-[5%] mx-auto lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                     {servicesRow1.map((service, index) => (
                         <ServiceCard
                             key={index}
@@ -147,8 +239,6 @@ const HomeSeccionServicios = () => {
                                 background: "linear-gradient(to top, rgba(0,0,0), #ffffff)"
                             }}
                         />
-
-
                         <img
                             src={"assets/cambiogerencia/card-contact.webp"}
                             alt={"Servicios de RR.HH"}
@@ -165,8 +255,7 @@ const HomeSeccionServicios = () => {
                     </div>
                 </div>
 
-                {/* Services Grid - Row 2 */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="hidden  px-[5%] mx-auto lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {servicesRow2.map((service, index) => (
                         <ServiceCard
                             key={index}

@@ -98,14 +98,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         {/*SUBCRIBE FORM*/}
                         <div className="mt-6 font-paragraph">
                             <h3 className="text-sm font-medium mb-4">Suscríbete y recibe todas nuestras novedades</h3>
-                            <div className="flex flex-row rounded-lg justify-between py-2 px-2  border  border-white bg-transparent">
+                            <div className="flex flex-row rounded-lg lg:justify-between py-2 lg:px-2  border  border-white bg-transparent">
                                 <input
                                     type="email"
                                     placeholder="Ingresa tu e-mail"
-                                    className=" px-4 py-2 bg-transparent text-white focus:outline-none"
+                                    className=" px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none"
                                 />
 
-                                <button className="bg-accent text-white px-4 rounded-md  py-2 flex items-center justify-center transition-colors">
+                                <button className="bg-accent text-sm lg:text-base text-white px-4 rounded-md  py-2 flex items-center justify-center transition-colors">
                                     Suscribirme
                                     <Send className="ml-2" size={16} />
                                 </button>
@@ -115,14 +115,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                     </div>
 
                     {/* Columna 2 - Sobre Sedna */}
-                    <div className="flex flex-col gap-2 font-paragraph text-[15px]">
+                    <div className="hidden lg:flex flex-col gap-2 font-paragraph text-[15px]">
 
                     </div>
 
-                    <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+                    <div className="lg:col-span-2 grid grid-cols-2 gap-8 lg:gap-4">
                         {/* Columna 3 - Portafolio */}
-                        <div className="flex flex-col gap-2 font-paragraph text-[15px]">
-                            <h3 className="text-base  font-title font-bold mb-3">
+                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
+                            <h3 className="  font-title font-bold mb-3">
                                 Ubícanos
                             </h3>
                             <p className="cursor-pointer">
@@ -131,13 +131,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             <p className="cursor-pointer">
                                 Teléfono: +51 915 968 941
                             </p>
-                            <p className="cursor-pointer">
-                                Correo: cambiogerencia@mail.com
+                            <p className="cursor-pointer ">
+                                Correo: 
+                                <span className="block line-clamp-1">cambiogerencia@mail.com</span>
                             </p>
                         </div>
 
                         {/* Columna 4 - Soporte */}
-                        <div className="flex flex-col gap-2 font-paragraph text-[15px]">
+                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
                             <h3 className="text-base  font-title font-bold mb-3">
                                 Políticas
                             </h3>
@@ -155,7 +156,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </a>
 
                         </div>
-                        <div className="flex flex-col gap-2 font-paragraph text-[15px]">
+                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
                             <h3 className="text-base  font-title font-bold mb-3">
                                 Horario de atención
                             </h3>
@@ -167,7 +168,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </p>
 
                         </div>
-                          <div className="flex flex-col gap-2 font-paragraph text-[15px]">
+                          <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
                             <h3 className="text-base  font-title font-bold mb-3">
                                Nuestras redes
                             </h3>
@@ -250,7 +251,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                     </div>
                 </div>
                 <div className="bg-neutral-light text-primary py-3 flex items-center justify-center">
-                    <div className="text-center gap-5 w-full px-[5%] font-paragraph font-medium text-sm">
+                    <div className="text-center gap-5 w-full px-[5%] font-paragraph font-medium text-[10px] lg:text-sm">
                         Copyright <span className="text-accent">©</span> 2025 Cambio & Gerencia. Reservados todos los derechos.
                       {/*  <div className="flex flex-row gap-4">
                             <a

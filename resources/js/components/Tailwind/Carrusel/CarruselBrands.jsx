@@ -39,7 +39,7 @@ const CarruselBrands = ({ items, data }) => {
 
             <div className="bg-constrast py-6 md:py-8">
                 <div className="mx-auto px-[5%] 2xl:pl-[5%] ">
-                    <div className="relative flex items-center justify-center">
+                    <div className="relative flex flex-col lg:flex-row items-center justify-center">
 
                         <h2 className="text-lg leading-tight md:text-lg text-start font-semibold font-title  text-white ">
                             {data?.title}
@@ -54,7 +54,7 @@ autoplay={{
                             }}
                             loop={true}
                             spaceBetween={30}
-                            slidesPerView={1}
+                            slidesPerView={1.5}
                             onSwiper={(swiper) => (swiperRef.current = swiper)}
                             breakpoints={{
                                 640: { slidesPerView: 3 },

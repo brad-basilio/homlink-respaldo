@@ -255,13 +255,13 @@ const SliderInteractive = ({ items, data }) => {
                             />
 
 
-                            <div className="absolute inset-0 bg-primary/40 "></div>
+                            <div className="absolute inset-0 bg-primary/60 "></div>
 
 
-                            <div className={`relative w-full px-primary 2xl:px-0 2xl:max-w-7xl  mx-auto  h-[530px] md:h-[600px] flex flex-col items-start justify-end md:justify-center ${isDarkBg ? "text-white" : "customtext-neutral-dark"}`}>
-                                <div className="flex flex-col gap-5 lg:gap-10 items-center w-full">
+                            <div className={`relative w-full px-primary 2xl:px-0 2xl:max-w-7xl mx-auto h-[530px] md:h-[600px] flex flex-col items-center md:items-start justify-end md:justify-center ${isDarkBg ? "text-white" : "customtext-neutral-dark"}`}>
+                                <div className="flex flex-col gap-5 lg:gap-10 items-center w-full text-center md:text-left">
                                     <h2
-                                        className={` text-center font-title uppercase text-lg flex gap-2 leading-tight sm:text-lg md:text-lg tracking-normal font-medium text-white`}
+                                        className={`font-title uppercase text-sm flex gap-2 leading-tight sm:text-lg md:text-lg tracking-normal font-medium text-white justify-center md:justify-start`}
                                         style={{
                                             textShadow: "0 0 20px rgba(0, 0, 0, .25)",
                                         }}
@@ -274,34 +274,29 @@ const SliderInteractive = ({ items, data }) => {
                                                 <path d="M7.49991 6.25781C5.37954 6.25781 3.6543 7.98306 3.6543 10.1034C3.6543 10.5624 4.02725 10.9354 4.48627 10.9354C4.9453 10.9354 5.31825 10.5624 5.31825 10.1034C5.31825 8.9011 6.29628 7.92177 7.49991 7.92177C8.70353 7.92177 9.68156 8.8998 9.68156 10.1034C9.68156 10.9432 8.14671 11.9108 6.66272 12.8458C6.33019 13.0558 5.98722 13.2709 5.64296 13.4965C5.81248 13.9855 6.03026 14.5059 6.31454 15.047C6.72531 14.7732 7.1426 14.5111 7.55077 14.2542C9.58768 12.971 11.3468 11.8626 11.3468 10.1034C11.3455 7.98306 9.62158 6.25781 7.49991 6.25781Z" fill="#D62828" />
                                                 <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
                                             </svg>
-
                                         </span>
                                         {item.name}
                                     </h2>
                                     <p
-                                        className={`w-full md:max-w-5xl italic font-semibold text-[60px] leading-tight font-paragraph text-white`}
+                                        className={`w-full px-primary mx-auto md:max-w-5xl italic font-semibold text-4xl lg:text-[60px] leading-tight font-paragraph text-white`}
                                         style={{
                                             textShadow: "0 0 20px rgba(0, 0, 0, .25)",
                                         }}
                                     >
                                         {item.description}
                                     </p>
-                                    {item.button_text && item.button_link && (<div className="flex flex-row gap-5 md:gap-10 justify-center items-start">
-                                        <a
-                                            href={item.button_link}
-                                            ref={(el) =>
-                                                (buttonsRef.current[index] = el)
-                                            }
-                                            className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300"
-                                        >
-                                            {item.button_text}
-                                            <ArrowRight
-                                                width={"1.25rem"}
-                                                className=" "
-                                            />
-                                        </a>
-                                    </div>)}
-
+                                    {item.button_text && item.button_link && (
+                                        <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">
+                                            <a
+                                                href={item.button_link}
+                                                ref={(el) => (buttonsRef.current[index] = el)}
+                                                className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300"
+                                            >
+                                                {item.button_text}
+                                                <ArrowRight width={"1.25rem"} className=" " />
+                                            </a>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -348,9 +343,9 @@ const SliderInteractive = ({ items, data }) => {
                             {items.map((_, index) => (
                                 <div
                                     key={`dot-${index}`}
-                                    className={`inline-flex mx-1 w-3 h-3 rounded-full ${currentIndex === index + 1
-                                            ? "bg-white h-2 w-5 lg:w-5 lg:h-2 items-center justify-center " //"bg-white h-5 w-5 lg:w-6 lg:h-6 items-center justify-center border-2 border-accent"
-                                            : "bg-white h-2 w-2 lg:w-2 lg:h-2 items-center justify-center"
+                                    className={`inline-flex mx-1 w-2 h-2 rounded-full ${currentIndex === index + 1
+                                            ? "bg-white h-2 w-5  items-center justify-center " //"bg-white h-5 w-5 lg:w-6 lg:h-6 items-center justify-center border-2 border-accent"
+                                            : "bg-white h-2 w-2  items-center justify-center"
                                         }`}
                                     onClick={() => setCurrentIndex(index + 1)}
                                 >

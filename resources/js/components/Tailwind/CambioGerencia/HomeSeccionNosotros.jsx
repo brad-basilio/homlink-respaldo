@@ -12,21 +12,18 @@ const HomeSeccionNosotros = () => {
                 />
             </div>
 
-            <div className="container mx-auto px-4 lg:px-6 relative z-10">
+            <div className=" relative z-10">
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Columna izquierda - Imágenes */}
-                    <div className="lg:w-1/2 relative">
+                    <div className="order-1 lg:order-none lg:w-1/2 relative">
                         {/* Imagen principal grande */}
-                        <div className="rounded-xl overflow-hidden shadow-lg">
+                        <div className="rounded-3xl overflow-hidden p-4 shadow-lg">
                             <img
                                 src="/assets/cambiogerencia/nosotros.webp"
                                 alt="Equipo de Cambio Gerencia"
                                 className="w-full h-auto object-cover rounded-xl"
                             />
                         </div>
-
-
-
                     </div>
 
                     {/* Columna derecha - Texto */}
@@ -45,11 +42,11 @@ const HomeSeccionNosotros = () => {
 
                                 </span>
                             </div>
-                            <h3 className="uppercase text-neutral-dark text-lg font-bold">Nosotros</h3>
+                            <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Nosotros</h3>
                         </div>
 
                         {/* Título principal */}
-                        <h2 className="text-[52px] font-medium mb-6 leading-tight italic">
+                        <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
                             <span className="text-neutral-dark">Somos agentes del </span>
                             <span className="text-constrast">cambio humano</span>
                         </h2>
@@ -106,10 +103,10 @@ const HomeSeccionNosotros = () => {
                         </div>
 
                         {/* Botón "Sobre nosotros" */}
-                        <div>
+                        <div className='w-full'>
                             <a
                                 href="/nosotros"
-                                className="inline-flex items-center bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
+                                className="  w-full flex items-center justify-center lg:max-w-max bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
                             >
                                 <span className="font-medium">Sobre nosotros</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

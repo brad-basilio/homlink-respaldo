@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 const HomeSeccionBlog = () => {
   return (
-    <section className="w-full bg-neutral-light py-12 px-4 sm:px-8 font-paragraph">
+    <section className="w-full bg-neutral-light px-[5%] font-paragraph py-10">
       {/* Header */}
       <header className="mb-12 text-center">
         <div className="flex justify-center items-center gap-2 mb-2">
@@ -15,79 +17,116 @@ const HomeSeccionBlog = () => {
               <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
             </svg>
           </span>
-          <span className="uppercase text-neutral-dark text-lg font-bold">Blog</span>
+          <span className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Blog</span>
         </div>
-        <h2 className="text-[52px] font-medium mb-6 leading-tight italic">
+        <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
           Ideas que <span className="text-constrast italic">transforman</span>
         </h2>
-        <p className="text-base sm:text-lg text-neutral">
+        <p className="text-lg text-neutral">
           Reflexiones, herramientas y aprendizajes para liderar el cambio desde lo humano.
         </p>
       </header>
 
-      {/* Cards */}
-      <div className="px-[5%] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        {/* Card 1 */}
-        <article className="bg-transparent rounded-xl overflow-hidden flex flex-col">
-          <img
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80"
-            alt="Personas en reunión con maqueta de molino"
-            className=" w-full object-cover aspect-[4/3]"
-          />
-          <div className="p-6 flex flex-col flex-1 bg-transparent">
-            <span className="text-accent text-sm font-bold mb-1">Guía práctica</span>
-            <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug">
-              Cómo construir una cultura organizacional saludable
-            </h2>
-            <p className="text-neutral text-base mb-4 flex-1">
-              5 claves para alinear valores, comportamientos y propósito dentro de tu equipo.
-            </p>
-            <a href="#" className="text-constrast font-semibold hover:underline text-base mt-auto">
-              Leer +
-            </a>
+      {/* Cards Swiper en mobile, grid en desktop */}
+      {(() => {
+        const posts = [
+          {
+            img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+            alt: "Personas en reunión con maqueta de molino",
+            tag: "Guía práctica",
+            title: "Cómo construir una cultura organizacional saludable",
+            desc: "5 claves para alinear valores, comportamientos y propósito dentro de tu equipo.",
+            link: "#",
+          },
+          {
+            img: "https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=600&q=80",
+            alt: "Personas con post-its en pizarra de cristal",
+            tag: "Artículo de opinión",
+            title: "El liderazgo consciente en tiempos de incertidumbre",
+            desc: "Explora el rol de los líderes que inspiran desde la empatía, la visión y la escucha.",
+            link: "#",
+          },
+          {
+            img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80",
+            alt: "Mano apilando bloques de madera con iconos",
+            tag: "Caso de éxito",
+            title: "Caso real: Transformamos la cultura de una empresa en 6…",
+            desc: "Conoce cómo ayudamos a una empresa del sector retail a lograr mayor compromiso y cohesión.",
+            link: "#",
+          },
+        ];
+        const [currentIndex, setCurrentIndex] = useState(0);
+        return <>
+          {/* Swiper mobile */}
+          <div className="block md:hidden">
+            <Swiper
+              spaceBetween={16}
+              slidesPerView={1.1}
+              centeredSlides={true}
+              onSlideChange={swiper => setCurrentIndex(swiper.realIndex)}
+              className="w-full"
+              loop={true}
+              loopedSlides={posts.length}
+              watchSlidesProgress={true}
+              watchOverflow={false}
+            >
+              {posts.map((post, idx) => (
+                <SwiperSlide key={idx}>
+                  <article className="rounded-xl overflow-hidden flex flex-col bg-white">
+                    <img
+                      src={post.img}
+                      alt={post.alt}
+                      className="w-full object-cover aspect-[4/3]"
+                    />
+                    <div className="p-6 flex flex-col flex-1">
+                      <span className="text-accent text-sm font-bold mb-1">{post.tag}</span>
+                      <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug">{post.title}</h2>
+                      <p className="text-neutral text-base mb-4 flex-1">{post.desc}</p>
+                      <a href={post.link} className="text-constrast font-semibold hover:underline text-base mt-auto">Leer +</a>
+                    </div>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            {/* Pagination dots custom */}
+            <div className="flex justify-center mt-4">
+              {posts.map((_, index) => (
+                <div
+                  key={`dot-${index}`}
+                  className={`inline-flex mx-1 w-2 h-2 rounded-full ${currentIndex === index
+                    ? "bg-white h-2 w-5 items-center justify-center"
+                    : "bg-white h-2 w-2 items-center justify-center"
+                  }`}
+                  onClick={() => setCurrentIndex(index)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {currentIndex === index && (
+                    <div className="!w-5 h-2 bg-accent rounded-full items-center justify-center"></div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </article>
-        {/* Card 2 */}
-        <article className=" rounded-xl overflow-hidden flex flex-col">
-          <img
-            src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=600&q=80"
-            alt="Personas con post-its en pizarra de cristal"
-            className="w-full aspect-[4/3] object-cover"
-          />
-          <div className="p-6 flex flex-col flex-1">
-            <span className="text-accent text-sm font-bold mb-1">Artículo de opinión</span>
-            <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug">
-              El liderazgo consciente en tiempos de incertidumbre
-            </h2>
-            <p className="text-neutral text-base mb-4 flex-1">
-              Explora el rol de los líderes que inspiran desde la empatía, la visión y la escucha.
-            </p>
-            <a href="#" className="text-constrast font-semibold hover:underline text-base mt-auto">
-              Leer +
-            </a>
+          {/* Grid desktop */}
+          <div className="hidden md:grid mx-auto grid-cols-1 md:grid-cols-3 gap-8">
+            {posts.map((post, idx) => (
+              <article key={idx} className="rounded-xl overflow-hidden flex flex-col bg-white">
+                <img
+                  src={post.img}
+                  alt={post.alt}
+                  className="w-full object-cover aspect-[4/3]"
+                />
+                <div className="p-6 flex flex-col flex-1">
+                  <span className="text-accent text-sm font-bold mb-1">{post.tag}</span>
+                  <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug">{post.title}</h2>
+                  <p className="text-neutral text-base mb-4 flex-1">{post.desc}</p>
+                  <a href={post.link} className="text-constrast font-semibold hover:underline text-base mt-auto">Leer +</a>
+                </div>
+              </article>
+            ))}
           </div>
-        </article>
-        {/* Card 3 */}
-        <article className=" rounded-xl overflow-hidden flex flex-col">
-          <img
-            src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80"
-            alt="Mano apilando bloques de madera con iconos"
-            className="w-full aspect-[4/3] object-cover"
-          />
-          <div className="p-6 flex flex-col flex-1">
-            <span className="text-accent text-sm font-bold mb-1">Caso de éxito</span>
-            <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug">
-              Caso real: Transformamos la cultura de una empresa en 6…
-            </h2>
-            <p className="text-neutral text-base mb-4 flex-1">
-              Conoce cómo ayudamos a una empresa del sector retail a lograr mayor compromiso y cohesión.
-            </p>
-            <a href="#" className="text-constrast font-semibold hover:underline text-base mt-auto">
-              Leer +
-            </a>
-          </div>
-        </article>
-      </div>
+        </>;
+      })()}
     </section>
   );
 };

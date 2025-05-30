@@ -1,5 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using generic icons that somewhat resemble the ones in the image.
@@ -29,7 +31,7 @@ const IconSatisfaccion = () => (
 
 
 const StatCard = ({ icon, title, percentage, description }) => (
-  <div className="flex flex-col items-center text-center md:items-start md:text-left font-paragraph">
+  <div className="flex flex-col items-start md:text-left font-paragraph">
     <div className='flex gap-2 items-center border-b border-white/20 pb-4'>
       <div className="bg-accent p-3 rounded-full  inline-block">
         {icon}
@@ -95,9 +97,9 @@ const HomeSeccionImpacto = () => {
 
                 </span>
               </div>
-              <h3 className="uppercase text-white text-lg font-bold">Impacto</h3>
+              <h3 className="uppercase text-white text-sm lg:text-lg font-bold">Impacto</h3>
             </div>
-            <h2 className="text-[52px] font-medium mb-6 leading-tight italic">
+            <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
               <span className='text-accent'>Resultados</span> que <br className="hidden sm:block" />
               hablan por sí solos
             </h2>
@@ -112,8 +114,29 @@ const HomeSeccionImpacto = () => {
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
+        {/* Stats Swiper en mobile, grid en desktop */}
+        <div className="block lg:hidden">
+          <Swiper
+            spaceBetween={10}
+            slidesPerView={1.2}
+            centeredSlides={false}
+            className="w-full"
+          >
+            {stats.map((stat, index) => (
+              <SwiperSlide key={index}>
+                <div className="  w-full flex items-center justify-center">
+                  <StatCard
+                    icon={stat.icon}
+                    title={stat.title}
+                    percentage={stat.percentage}
+                    description={stat.description}
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {stats.map((stat, index) => (
             <StatCard
               key={index}
