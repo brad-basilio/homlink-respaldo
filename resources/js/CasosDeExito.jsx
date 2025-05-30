@@ -151,7 +151,7 @@ const CasosDeExito = () => {
                     </div>
                      <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
 
-                        Nuestros <span className="text-constrast">casos de éxito</span><br/> más destacados
+                        Nuestros <span className="text-constrast">casos de éxito</span><br className="hidden lg:block"/> más destacados
 
                     </h2>
                     
