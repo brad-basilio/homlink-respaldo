@@ -27,12 +27,12 @@ const PostCard = ({
     };
 
     const imageVariants = {
-        hover: { 
+        hover: {
             scale: 1.05,
-            transition: { 
+            transition: {
                 duration: 0.4,
                 ease: [0.25, 0.1, 0.25, 1]
-            } 
+            }
         }
     };
 
@@ -48,8 +48,8 @@ const PostCard = ({
     };
 
     return (
-        <motion.a 
-            href={`/blog/${slug}`} 
+        <motion.a
+            href={`/blog/${slug}`}
             className="flex flex-col self-stretch my-auto w-full mt-6"
             initial="hidden"
             animate="visible"
@@ -58,30 +58,22 @@ const PostCard = ({
             transition={{ type: "spring", stiffness: 400 }}
         >
             <div className={`flex flex-col gap-4 ${firstImage && "flex-col-reverse"}`}>
-                <motion.div 
-                    className="flex flex-col w-full"
-                    variants={contentVariants}
-                >
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-semibold text-negro line-clamp-2">
-                        <TextWithHighlight text={name} />
+                <div className="space-y-4">
+                    <span className="inline-block  py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                        {category?.name}
+                    </span>
+                    <h3 className="font-title line-clamp-2 text-2xl lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
+                        {name}
                     </h3>
+                    <p className="font-title line-clamp-2 text-neutral-dark text-base leading-relaxed " dangerouslySetInnerHTML={{ __html: summary }}>
 
-                    <motion.p 
-                        className="mt-2 sm:mt-3 2xl:mt-4 text-sm sm:text-base text-negro line-clamp-4"
-                    >
-                        {summary || "Sin descripción"}
-                    </motion.p>
-                    
-                </motion.div>
+                    </p>
+                    <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
+                        Leer +
+                    </button>
+                </div>
 
-                <motion.div 
-                    className="flex flex-row"
-                    whileHover={{ x: 3 }} // Pequeño movimiento al hover
-                >
-                    <span className="rounded-sm text-sm text-[#3E2F4D] font-medium mb-1 px-3 py-2 bg-[#D7C8E6]">{category.name}</span>
-                </motion.div>
-
-                <motion.div 
+                <motion.div
                     className="flex flex-col w-full overflow-hidden rounded-lg"
                     whileHover="hover"
                 >
@@ -96,16 +88,9 @@ const PostCard = ({
                 </motion.div>
             </div>
 
-            <motion.div 
-                className="flex justify-between items-center mt-2 sm:mt-3 w-full gap-4"
-                variants={contentVariants}
-            >
-                <span className="text-xs sm:text-sm text-end font-medium leading-snug text-[#3E2F4D]">
-                    {moment(post_date).format("ll")}
-                </span>
-            </motion.div>
+
         </motion.a>
-       
+
     );
 };
 

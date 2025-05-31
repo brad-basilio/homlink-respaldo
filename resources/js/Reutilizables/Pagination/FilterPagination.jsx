@@ -35,7 +35,7 @@ const FilterPagination = ({ current, setCurrent, pages }) => {
               </li>
             }
             return <li key={`item-${i}`} className={(i + 1) > current - 4 && (i + 1) < current + 4 ? 'block' : 'hidden'}>
-              <button aria-current="page" className={`cursor-pointer z-10 flex items-center justify-center px-4 h-10 w-10 leading-tight rounded-full ${current == i + 1 ? 'bg-[#D7C8E6] text-[#3E2F4D] cursor-default' : 'bg-gray-100 text-negro hover:text-negro'}`} onClick={() => setCurrent(i + 1)} type='button'>{i + 1}</button>
+              <button aria-current="page" className={`cursor-pointer z-10 flex items-center justify-center px-4 h-10 w-10 leading-tight rounded-full ${current == i + 1 ? 'bg-neutral-light text-neutral cursor-default' : 'bg-gray-100 text-negro hover:text-negro'}`} onClick={() => setCurrent(i + 1)} type='button'>{i + 1}</button>
             </li>
           })
         }

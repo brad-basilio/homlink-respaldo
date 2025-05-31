@@ -10,7 +10,9 @@ import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoProvider } from "./context/CarritoContext";
 import MaintenancePage from "./Utils/MaintenancePage";
-function Blog({ categories, postRecent, landing }) {
+import SliderInteractive from "./components/Tailwind/Sliders/SliderInteractive";
+import FilterAgencia from "./components/Blog/FilterAgencia";
+function Blog({ categories, postRecent, landing,sliders }) {
 
     const landingsuscription = landing?.find(
         (item) => item.correlative === "page_blog_suscription"
@@ -25,12 +27,22 @@ function Blog({ categories, postRecent, landing }) {
     return (
         <div>
             <Header />
+            <SliderInteractive
+                items={sliders}
+                data={{
+                    infiniteLoop: "si",
+                    paginationAlignment: "center",
+                    showNavigation: "no",
+                    navigationAlignment: "center"
+                }}
+            />
             
             {postRecent && postRecent.length > 0 ? (
                 <>
                     <BlogHeader postRecent={postRecent} landing={landing} />
                     
-                    <Filter
+                  <div className="bg-neutral-light">
+                      <FilterAgencia
                         categories={categories}
                         filter={filter}
                         setFilter={setFilter}
@@ -38,24 +50,9 @@ function Blog({ categories, postRecent, landing }) {
                     />
 
                     <Results filter={filter} />
+                  </div>
 
-                    <section className="flex flex-col gap-6 px-[5%] py-12 lg:py-40 bg-cover bg-center" style={{ backgroundImage: `url('/api/landing_home/media/${landingsuscription?.image}')` }}>
-                        <div className="flex flex-col gap-4 xl:gap-6 max-w-2xl mx-auto text-center">
-                            <p className='font-Poppins_Regular font-semibold text-[#5C4774]'>{landingsuscription?.title}</p>
-                            <h2 className="font-Poppins_Regular font-semibold text-[#1F1827] text-2xl md:text-3xl 2xl:text-4xl !leading-tight">
-                                {landingsuscription?.description}
-                            </h2>
-                            <div className="relative bg-[#F5F2F9] mt-2 p-2 w-full max-w-lg mx-auto rounded-lg flex flex-col md:flex-row gap-5">
-                                <input className="w-full font-Poppins_Regular bg-[#F5F2F9] outline-none ring-transparent focus:ring-transparent border-transparent focus:border-transparent p-2"
-                                    placeholder="Ingresa tu e-mail"
-                                />
-
-                                <button className="min-w-40 bg-[#7B5E9A] rounded-md py-3 text-white font-Poppins_SemiBold" >
-                                    Suscribirse
-                                </button>
-                            </div>
-                        </div>
-                    </section>
+                   
 
                 </>
             ) : (

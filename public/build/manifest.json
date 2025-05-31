@@ -233,13 +233,12 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_PostCard-CiUDSP04.js": {
-    "file": "assets/PostCard-CiUDSP04.js",
+  "_PostCard-CazClUUT.js": {
+    "file": "assets/PostCard-CazClUUT.js",
     "name": "PostCard",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js",
-      "_TextWithHighlight-DAk9q59f.js",
       "_proxy-Dd0brM4l.js"
     ]
   },
@@ -293,6 +292,16 @@
       "_tippy-react.esm-CHhA99mn.js",
       "_index-B80Lgev0.js",
       "_main-Br9xqDfn.js"
+    ]
+  },
+  "_SliderInteractive-DiU5gbTc.js": {
+    "file": "assets/SliderInteractive-DiU5gbTc.js",
+    "name": "SliderInteractive",
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js",
+      "_Header-6sBH5ZXz.js",
+      "_chevron-right-0iiQU9Ek.js"
     ]
   },
   "_SupplieCard-Dx140z5C.js": {
@@ -496,13 +505,13 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_swiper-!~{03S}~.js": {
+  "_swiper-!~{03T}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{03S}~.js"
+    "src": "_swiper-!~{03T}~.js"
   },
-  "_tippy-!~{03L}~.js": {
+  "_tippy-!~{03M}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{03L}~.js"
+    "src": "_tippy-!~{03M}~.js"
   },
   "_tippy-react.esm-CHhA99mn.js": {
     "file": "assets/tippy-react.esm-CHhA99mn.js",
@@ -2168,7 +2177,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-avwj8xl3.js",
+    "file": "assets/Blog-CTkA6w1V.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -2180,24 +2189,25 @@
       "_Base-BtcQFIcT.js",
       "_sweetalert2.all-Dh0rZL5X.js",
       "resources/js/components/Blog/Results.jsx",
-      "_useTranslation-eU9E4S-_.js",
       "_proxy-Dd0brM4l.js",
-      "_PostCard-CiUDSP04.js",
+      "resources/js/components/Blog/Filter.jsx",
+      "_PostCard-CazClUUT.js",
       "_Header-6sBH5ZXz.js",
       "_Footer-Cm2dnub9.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_MaintenancePage-BsehoM9e.js",
+      "_SliderInteractive-DiU5gbTc.js",
+      "_useTranslation-eU9E4S-_.js",
       "_index.esm-CTa_PdWD.js",
       "_axios-B4uVmeYG.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_main-Br9xqDfn.js",
       "_index-DO3Aws4m.js",
-      "resources/js/components/Blog/Filter.jsx",
-      "_TextWithHighlight-DAk9q59f.js",
       "_createLucideIcon-Cx5eUsrb.js",
       "_index-B1nVdsa0.js",
       "_index-CqrOtH36.js",
-      "_HtmlContent-2skeoskK.js"
+      "_HtmlContent-2skeoskK.js",
+      "_chevron-right-0iiQU9Ek.js"
     ],
     "css": [
       "swiper.css",
@@ -2205,7 +2215,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-DC78kZSN.js",
+    "file": "assets/BlogArticle-xa0rzhQR.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2220,7 +2230,7 @@
       "_Header-6sBH5ZXz.js",
       "_Footer-Cm2dnub9.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
-      "_PostCard-CiUDSP04.js",
+      "_PostCard-CazClUUT.js",
       "_TextWithHighlight-DAk9q59f.js",
       "_proxy-Dd0brM4l.js",
       "_createLucideIcon-Cx5eUsrb.js",
@@ -2804,7 +2814,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-CyjOED_v.js",
+    "file": "assets/Home-IoejPeS6.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -2826,7 +2836,7 @@
       "_index-B1nVdsa0.js",
       "_ModalAppointment-wMko1i9Z.js",
       "resources/js/Utils/BlurText.jsx",
-      "_chevron-right-0iiQU9Ek.js",
+      "_SliderInteractive-DiU5gbTc.js",
       "_CarruselBrands-BjhvjW15.js",
       "_HomeSeccionNosotros-2Tjhke5W.js",
       "_createLucideIcon-Cx5eUsrb.js",
@@ -2844,6 +2854,7 @@
       "_AppointmentsRest-uOBo3G3_.js",
       "_TextWithHighlight-DAk9q59f.js",
       "_chevron-down-CyYB_9vX.js",
+      "_chevron-right-0iiQU9Ek.js",
       "_autoplay-CbceOsnl.js",
       "_pagination-WltqHbDk.js",
       "_classes-to-selector-DnJ6h1_g.js"
@@ -3666,7 +3677,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-DPLUwAPo.js",
+    "file": "assets/Modal-CXP54urq.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -3714,7 +3725,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-DPLUwAPo.js",
+    "file": "assets/CheckboxFormGroup-CXP54urq.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -3798,7 +3809,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-DPLUwAPo.js",
+    "file": "assets/SelectFormGroup-CXP54urq.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -3818,7 +3829,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
+    "file": "assets/TextareaFormGroup-CXP54urq.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -3888,6 +3899,18 @@
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js",
+      "_axios-B4uVmeYG.js"
+    ]
+  },
+  "resources/js/components/Blog/FilterAgencia.jsx": {
+    "file": "assets/FilterAgencia-Ot5LDKel.js",
+    "name": "FilterAgencia",
+    "src": "resources/js/components/Blog/FilterAgencia.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js",
+      "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js"
     ]
   },
@@ -4299,7 +4322,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-CXP54urq.js",
+    "file": "assets/Modal-DPLUwAPo.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4902,13 +4925,15 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-DPLUwAPo.js",
+    "file": "assets/Fragrance-DZtc9IZM.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-B80Lgev0.js"
+      "_tippy-react.esm-CHhA99mn.js",
+      "_index-B80Lgev0.js",
+      "_index-DO3Aws4m.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -5056,7 +5081,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-CXP54urq.js",
+    "file": "assets/CheckboxFormGroup-DPLUwAPo.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -5108,7 +5133,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-CXP54urq.js",
+    "file": "assets/SelectFormGroup-DPLUwAPo.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -5118,7 +5143,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-CXP54urq.js",
+    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

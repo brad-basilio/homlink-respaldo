@@ -85,23 +85,154 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
 
     return (
         <div>
-            
-            <section className="flex flex-col md:justify-center items-center gap-5 2xl:gap-8 px-[5%] pt-10 lg:pt-16">
-                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-2xl 2xl:max-w-3xl md:text-center">
-                    <p className="font-Poppins_Medium text-[#3E2F4D] text-xl 2xl:text-2xl !leading-tight">{landingHero?.subtitle}</p>
-                </div>
 
-                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-3xl 2xl:max-w-4xl md:text-center">
-                    <h2 className="font-Poppins_Medium text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight">{landingHero?.title}</h2>
+
+
+            {/* Sección Noticias Destacadas */}
+            <motion.section
+                className="px-[5%] py-10 lg:py-10"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <div className=" mx-auto">
+                    {/* Header */}
+                    <motion.div className="mb-12" variants={itemVariants}>
+                        <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-tight italic">
+                            Noticias <span className="text-constrast">destacas</span>
+                        </h2>
+                        <p className="font-paragraph text-lg text-neutral max-w-2xl">
+                            Reflexiones, herramientas y aprendizajes para liderar el cambio desde lo humano.
+                        </p>
+                    </motion.div>
+
+                    {/* Grid de artículos */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* Artículo principal (izquierda) */}
+                        <motion.div
+                            className="group cursor-pointer"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
+                            <motion.div
+                                className="relative overflow-hidden rounded-2xl mb-6"
+                                variants={imageHoverVariants}
+                            >
+                                <img
+                                    src={`/api/posts/media/${postRecent[0]?.image}`}
+                                    alt="Cultura organizacional"
+                                    className="w-full  aspect-[16/10] object-cover"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent group-hover:from-black/30 transition-all duration-300"></div>
+                            </motion.div>
+
+                            <div className="space-y-4">
+                                <span className="inline-block  py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                    {postRecent[0]?.category.name}
+                                </span>
+                                <h3 className="font-title text-2xl lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
+                                    {postRecent[0]?.name}
+                                </h3>
+                                <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[0]?.description }}>
+
+                                </p>
+                                <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
+                                    Leer +
+                                </button>
+                            </div>
+                        </motion.div>
+
+                        {/* Artículos secundarios (derecha) */}
+                        <div className="space-y-8 h-full grid grid-cols-1 ">
+                            {/* Artículo 1 */}
+                            {postRecent[1] && (
+                                <motion.div
+                                className="group cursor-pointer"
+                                variants={itemVariants}
+                                whileHover="hover"
+                            >
+                                <motion.div
+                                    className="flex flex-col sm:flex-row gap-6"
+                                    variants={cardHoverVariants}
+                                >
+                                    <motion.div
+                                        className="relative overflow-hidden rounded-xl flex-shrink-0 w-full lg:w-72"
+                                        variants={imageHoverVariants}
+                                    >
+                                        <img
+                                            src={`/api/posts/media/${postRecent[1]?.image}`}
+                                            alt="Liderazgo consciente"
+                                            className="w-full aspect-square object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent group-hover:from-black/20 transition-all duration-300"></div>
+                                    </motion.div>
+
+                                    <div className="flex-1 space-y-3">
+                                        <span className="inline-block py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                            {postRecent[1]?.category.name}
+                                        </span>
+                                        <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
+                                            {postRecent[1]?.name}
+                                        </h3>
+                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[1]?.description }}>
+
+                                        </p>
+                                       <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
+                                            Leer +
+                                         
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                            )}
+
+                            {/* Artículo 2 */}
+                            {postRecent[2] && (  <motion.div
+                                className="group cursor-pointer"
+                                variants={itemVariants}
+                                whileHover="hover"
+                            >
+                                <motion.div
+                                    className="flex flex-col sm:flex-row gap-6"
+                                    variants={cardHoverVariants}
+                                >
+                                    <motion.div
+                                        className="relative overflow-hidden rounded-xl flex-shrink-0 w-full lg:w-72"
+                                        variants={imageHoverVariants}
+                                    >
+                                        <img
+                                            src={`/api/posts/media/${postRecent[2]?.image}`}
+                                            alt="Liderazgo consciente"
+                                            className="w-full aspect-square object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent group-hover:from-black/20 transition-all duration-300"></div>
+                                    </motion.div>
+
+                                    <div className="flex-1 space-y-3">
+                                        <span className="inline-block py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                            {postRecent[2]?.category.name}
+                                        </span>
+                                        <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
+                                            {postRecent[2]?.name}
+                                        </h3>
+                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[2]?.description }}>
+
+                                        </p>
+                                       <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
+                                            Leer +
+                                         
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            </motion.div>)}
+                            
+                        </div>
+                    </div>
                 </div>
-        
-                <div className="flex flex-col items-center justify-start w-full max-w-2xl 2xl:max-w-3xl gap-5 md:text-center">
-                    <p className="font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
-                        {landingHero?.description}
-                    </p>
-                </div>
-            </section>
-           
+            </motion.section>
+
+
+
         </div>
     );
 };

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
 use App\Models\LandingHome;
+use App\Models\Slider;
 
 class BlogController extends PublicController
 {
@@ -27,10 +28,15 @@ class BlogController extends PublicController
             ->get();
         $postRecent = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(3)->get();
         $landing = LandingHome::where('correlative', 'like', 'page_blog%')->where('lang_id', $langId)->get();
+       $sliders=Slider::where('status', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+       
         return [
             'categories' => $categories,
             'postRecent' => $postRecent,
-            'landing' => $landing
+            'landing' => $landing,
+            'sliders' => $sliders
         ];
     }
 }
