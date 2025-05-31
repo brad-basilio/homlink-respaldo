@@ -267,8 +267,8 @@ const Home = ({
                     navigationAlignment: "center"
                 }}
             />
-
         <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+
 {/*SECCION NOSOTROS */}
 
         <HomeSeccionNosotros/>

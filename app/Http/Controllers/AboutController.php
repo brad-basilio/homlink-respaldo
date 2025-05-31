@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aboutus;
+use App\Models\Brand;
 use App\Models\General;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
@@ -16,7 +17,7 @@ use Illuminate\Http\Request;
 
 class AboutController extends BasicController
 {
-    public $reactView = 'FisioTerapiaPage';
+    public $reactView = 'About';
     public $reactRootView = 'public';
 
     public function setReactViewProperties(Request $request)
@@ -56,11 +57,16 @@ class AboutController extends BasicController
                 ->where('lang_id', $defaultLangId)
                 ->get();
         }*/
+        $brands = Brand::where('visible', true)
+            ->where('status', true)
+           
+            ->get();
 
         return [
             'landing' => $landing,
             'staffData' => $staffData,
             'specialities' => $specialities,
+            'brands' => $brands,
         ];
     }
 }
