@@ -2,7 +2,7 @@ import React from 'react';
 
 const HomeSeccionNosotros = () => {
     return (
-        <div className="relative bg-white pb-24 pt-12 md:pt-16 px-[5%] font-paragraph ">
+        <div className="relative bg-white  py-12 md:pt-16 px-[5%] font-paragraph ">
             {/* Curva decorativa en la parte inferior */}
             <div className="absolute top-0 left-0 w-full h-24">
                 <img
@@ -17,7 +17,7 @@ const HomeSeccionNosotros = () => {
                     {/* Columna izquierda - Imágenes */}
                     <div className="order-1 lg:order-none lg:w-1/2 relative">
                         {/* Imagen principal grande */}
-                        <div className="rounded-3xl overflow-hidden p-4 shadow-lg">
+                        <div className="rounded-3xl overflow-hidden ">
                             <img
                                 src="/assets/cambiogerencia/nosotros.webp"
                                 alt="Equipo de Cambio Gerencia"
