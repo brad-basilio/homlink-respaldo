@@ -1,6 +1,7 @@
 import React from "react";
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
-const ServiceSeccionEnfoque = () => {
+const ServiceSeccionEnfoque = ({service}) => {
     return (
         <section className="w-full bg-white font-paragraph px-[5%] py-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 max-w-[1600px] mx-auto">
             {/* Imagen */}
@@ -26,36 +27,24 @@ const ServiceSeccionEnfoque = () => {
                     <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Nuestro enfoque</h3>
                 </div>
                 <h2 className="text-[30px] max-w-xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-                    ¿Por qué trabajar en la <span className="text-constrast ">cultura organizacional?</span>
+                    <TextWithHighlight text={service?.title_approach} />
+                 
                 </h2>
                 <p className="text-lg text-neutral mb-6 font-light">
-                    La cultura organizacional son las formas de pensar y actuar que definen a tu empresa. En Culture 360 diseñamos procesos para alinear comportamientos y valores con tus objetivos estratégicos, garantizando una apropiación efectiva y sostenible.
+{service?.description_approach}
                 </p>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-4 mb-8 w-full max-w-md text-base">
-                    <div className="flex items-center gap-4">
+
+                    {service?.characteristics_approach?.map((value, index) => (
+ <div className="flex items-center gap-4">
                         <span className="text-accent">
                             <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                         </span>
-                        <span className=" text-neutral-dark">Innovación</span>
+                        <span className=" text-neutral-dark">{value.title}</span>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <span className="text-accent">
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        </span>
-                        <span className=" text-neutral-dark">Agilidad</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <span className="text-accent">
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        </span>
-                        <span className=" text-neutral-dark">Flexibilidad</span>
-                    </div>
-                    <div className="flex items-center gap-4">
-                        <span className="text-accent">
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        </span>
-                        <span className=" text-neutral-dark">Visión Global</span>
-                    </div>
+                   ) )}
+                   
+                   
                 </div>
                 <div className='w-full'>
                     <a

@@ -1,5 +1,6 @@
 import { Users } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
 
 const steps = [
@@ -52,7 +53,7 @@ const IconUsers = (color = "#fff") => (
 );
 
 
-const ServiceSeccionMetodologia = () => {
+const ServiceSeccionMetodologia = ({service}) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [stepAnimation, setStepAnimation] = useState(true);
     const [transitionState, setTransitionState] = useState('idle'); // 'idle', 'fade-out', 'changing', 'fade-in'
@@ -116,13 +117,14 @@ const ServiceSeccionMetodologia = () => {
                                 <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
                             </svg>
                         </span>
-                        <span className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Culture 360</span>
+                        <span className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">{service?.name}</span>
                     </div>
-                    <h2 className="text-3xl md:text-4xl text-neutral-dark lg:text-[52px] font-medium mb-4 md:mb-6 leading-tight italic">
-                        Metodología <br /> <span className="text-constrast">paso a paso</span>
+                    <h2 className="text-[30px]  lg:text-[52px] font-medium max-w-sm mb-6 leading-tight italic">
+                       <TextWithHighlight text={service?.title_methodology}  />
+                       
                     </h2>
                     <p className="text-base md:text-lg text-neutral mb-6">
-                        Alineamos valores, comportamientos y procesos para garantizar una cultura organizacional que respalde tus desafíos estratégicos.
+{service?.description_methodology}
                     </p>
                     <div className='w-full'>
                         <a
@@ -190,9 +192,10 @@ const ServiceSeccionMetodologia = () => {
               `}</style>
 
                         <div className="space-y-8">
-                            {steps.map((step, index) => {
-                                const isActive = step.number <= currentStep;
-                                const isCurrent = step.number === currentStep;
+                            {service?.steps_methodology.map((step, index) => {
+                                index = index + 1; // Ajustar el índice para que comience en 1
+                                const isActive = index <= currentStep;
+                                const isCurrent = index=== currentStep;
 
                                 // Animaciones para el paso actual
                                 const iconAnim = isCurrent && stepAnimation ? "animate-fade-in-up" : "";
@@ -201,9 +204,9 @@ const ServiceSeccionMetodologia = () => {
 
                                 return (
                                     <div
-                                        key={step.number}
+                                        key={index}
                                         className="relative flex items-start gap-6 cursor-pointer"
-                                        onClick={() => handleStepClick(step.number)}>
+                                        onClick={() => handleStepClick(index)}>
                                         {/* Step Circle */}                      <div
                                             className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-700 transform ${isCurrent
                                                 ? "bg-accent scale-110 shadow-lg "
@@ -221,10 +224,10 @@ const ServiceSeccionMetodologia = () => {
                                                     }}>
                                                 </div>
                                             )}
-
-                                            <Users
-                                                className={`w-6 h-6 transition-colors duration-500 ${isActive ? "text-white" : "text-accent"
-                                                    }`}
+                                            <img
+                                                src={`/api/service/media/${step?.image}`}
+                                                alt={step?.title}
+                                                className="w-6 h-6 object-cover rounded-xl"
                                             />
 
                                             {/* Ripple effect mejorado para el paso actual */}
@@ -247,7 +250,7 @@ const ServiceSeccionMetodologia = () => {
                                                 className={`text-xs md:text-sm font-semibold uppercase tracking-wide mb-1 transition-colors duration-500 ${isCurrent ? "text-accent" : isActive ? "text-accent" : "text-neutral-dark"
                                                     } ${titleAnim} relative`}
                                             >
-                                                <span className="relative z-10">PASO {step.number}</span>
+                                                <span className="relative z-10">PASO {index}</span>
                                                 {isCurrent && <span className="absolute bottom-0 left-0 h-[2px] bg-accent w-12" style={{ animation: 'grow 0.6s 0.4s forwards' }}></span>}
                                             </div>
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
 const beneficios = [
     {
@@ -42,7 +43,7 @@ const IconUsers = () => (
     <svg width="50" height="50" fill="none" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#D62828" /><path d="M21.333 22.667v-1.334A2.667 2.667 0 0 0 18.667 18.667h-5.334A2.667 2.667 0 0 0 10.667 21.333v1.334M16 16a3.333 3.333 0 1 0 0-6.667 3.333 3.333 0 0 0 0 6.667z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
 );
 
-const ServiceSeccionBeneficio = () => {
+const ServiceSeccionBeneficio = ({ service }) => {
     // Detectar si estamos en vista móvil
     const [isMobile, setIsMobile] = useState(false);
 
@@ -51,13 +52,13 @@ const ServiceSeccionBeneficio = () => {
         const checkIsMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
-        
+
         // Verificar inmediatamente
         checkIsMobile();
-        
+
         // Actualizar en cambio de tamaño de ventana
         window.addEventListener('resize', checkIsMobile);
-        
+
         // Limpiar event listener
         return () => window.removeEventListener('resize', checkIsMobile);
     }, []);
@@ -85,44 +86,55 @@ const ServiceSeccionBeneficio = () => {
                         </span>
                         <span className="uppercase text-white text-sm lg:text-lg font-bold">Beneficios</span>
                     </div>
-                    <h2 className="text-2xl text-white lg:text-[52px] font-medium mb-6 leading-tight italic">
-                        Beneficios de trabajar<br className="hidden md:block" /> con <span className="text-accent">Culture 360</span>
+                    <h2 className="text-2xl mx-auto text-white lg:text-[52px] font-medium mb-6 leading-tight italic max-w-lg ">
+                        <TextWithHighlight text={service?.title_benefits} color="bg-accent" />
+
                     </h2>
                 </div>
 
                 {/* Vista móvil con swiper */}
                 {isMobile ? (
                     <div className="font-paragraph">                        <Swiper
-                            spaceBetween={16}
-                            slidesPerView={1.5}
-                            centeredSlides={true}
-                            loop={true}
-                            className="mySwiper"
-                            grabCursor={true}
-                        >
-                            {beneficios.map((b, i) => (
-                                <SwiperSlide key={i}>
-                                    <div className="bg-white/5 font-paragraph group min-h-[220px] hover:bg-primary rounded-2xl p-5 md:p-7 flex flex-col h-full backdrop-blur-sm transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
-                        <div className="mb-3 md:mb-4 transform group-hover:scale-105 transition-transform duration-300">
-                                            {b.icon === "stack" ? <IconStack  /> : <IconUsers  />}
-                                        </div>
-                                        <h3 className="text-white text-base md:text-lg font-medium mb-1 md:mb-2 leading-snug line-clamp-2">{b.title}</h3>
-                                        <p className="text-white text-sm md:text-base font-light line-clamp-3">{b.desc}</p>
+                        spaceBetween={16}
+                        slidesPerView={1.5}
+                        centeredSlides={true}
+                        loop={true}
+                        className="mySwiper"
+                        grabCursor={true}
+                    >
+                        {service?.benefits.map((b, i) => (
+                            <SwiperSlide key={i}>
+                                <div className="bg-white/5 font-paragraph group min-h-[220px] hover:bg-primary rounded-2xl p-5 md:p-7 flex flex-col h-full backdrop-blur-sm transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
+                                    <div className="bg-accent rounded-full p-3 mr-4  h-12 w-12 flex items-center justify-center mb-4">
+                                        <img
+                                            src={`/api/service/media/${b?.image}`}
+                                            alt={b?.title}
+                                            className="w-6 h-6 object-cover rounded-xl"
+                                        />
+
                                     </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                                    <h3 className="text-white text-base md:text-lg font-medium mb-1 md:mb-2 leading-snug line-clamp-2">{b.title}</h3>
+                                    <p className="text-white text-sm md:text-base font-light line-clamp-3">{b.description}</p>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                     </div>
                 ) : (
                     /* Vista desktop con grid */
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-paragraph">
-                        {beneficios.map((b, i) => (                            <div key={i} className="bg-white/5 group hover:bg-primary rounded-2xl p-5 md:p-7 flex flex-col h-full backdrop-blur-sm transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
-                                <div className="mb-3 md:mb-4 transform group-hover:scale-105 transition-transform duration-300">
-                                    {b.icon === "stack" ? <IconStack /> : <IconUsers />}
-                                </div>
-                                <h3 className="text-white text-xl md:text-2xl font-medium mb-2 leading-snug line-clamp-2">{b.title}</h3>
-                                <p className="text-white text-base md:text-lg font-light line-clamp-3">{b.desc}</p>
+                        {service?.benefits.map((b, i) => (<div key={i} className="bg-white/5 group hover:bg-primary rounded-2xl p-5 md:p-7 flex flex-col h-full backdrop-blur-sm transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl">
+                            <div className="bg-accent rounded-full p-3 mr-4 h-12 w-12 flex items-center justify-center mb-4">
+                                <img
+                                    src={`/api/service/media/${b?.image}`}
+                                    alt={b?.title}
+                                    className="w-6 h-6 object-cover rounded-xl"
+                                />
+
                             </div>
+                            <h3 className="text-white text-xl md:text-2xl font-medium mb-2 leading-snug line-clamp-2">{b.title}</h3>
+                            <p className="text-white text-base md:text-lg font-light line-clamp-3">{b.description}</p>
+                        </div>
                         ))}
                     </div>
                 )}            </div>

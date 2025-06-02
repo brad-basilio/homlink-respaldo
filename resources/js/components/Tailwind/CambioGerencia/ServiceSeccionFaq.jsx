@@ -1,33 +1,6 @@
 import React, { useState } from "react";
 
-const faqs = [
-  {
-    id: 1,
-    question: "¿Ut sed felis eu odio aliquam consectetur at et quam?",
-    answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
-  },
-  {
-    id: 2,
-    question: "¿Cómo puedo empezar a utilizar sus servicios?",
-    answer:
-      "Ofrecemos una gama completa de soluciones de RR. HH. diseñadas para satisfacer las necesidades cambiantes de empresas y empleados. Nuestros servicios incluyen la contratación estratégica.",
-  },
-  {
-    id: 3,
-    question: "¿Donec sagittis, enim id vehicula efficitur, mauris felis egestas nulla?",
-    answer: "Mauris felis egestas nulla, id vehicula enim efficitur sagittis. Donec vel ligula ac eros tempor finibus.",
-  },
-  {
-    id: 4,
-    question: "¿Ut sed felis eu odio aliquam consectetur at et quam?",
-    answer: "Ut sed felis eu odio aliquam consectetur. Vivamus vel quam in massa venenatis tempor. Nullam at est metus.",
-  },
-  {
-    id: 5,
-    question: "¿Donec sagittis, enim id vehicula efficitur, mauris felis egestas nulla?",
-    answer: "Praesent vitae nisl eros. Cras non magna lectus. Morbi vitae aliquam augue, ac faucibus dui.",
-  },
-];
+
 
 const DownIcon = () => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#0090E3"/><path d="M8 10l4 4 4-4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -36,7 +9,7 @@ const UpIcon = () => (
   <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828"/><path d="M16 14l-4-4-4 4" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
 );
 
-const ServiceSeccionFaq = () => {
+const ServiceSeccionFaq = ({faqs=[]}) => {
   // Inicializamos openItems como un Set vacío para evitar errores
   const [openItems, setOpenItems] = useState(new Set());
 
@@ -62,11 +35,11 @@ const ServiceSeccionFaq = () => {
                 <button
                   onClick={() => toggleItem(item.id)}                  className={`w-full px-4 md:px-6 py-3 md:py-4 text-left transition-colors duration-200 flex items-center justify-between ${openItems.has(item.id) ? "bg-constrast text-white border-b":"text-neutral-dark border-neutral-light bg-neutral-light"}`}
                 >
-                  <span className="text-base md:text-lg font-medium pr-2 md:pr-4">{item.question}</span><div className="flex-shrink-0">
+                  <span className="text-base md:text-lg font-medium pr-2 md:pr-4">{item.name}</span><div className="flex-shrink-0">
                     {openItems.has(item.id) ? <UpIcon /> : <DownIcon />}
                   </div>
-                </button>                {openItems.has(item.id) && item.answer && (                  <div className="px-4 md:px-6 py-4 md:py-6 bg-constrast text-white">
-                    <p className="text-sm md:text-base leading-relaxed">{item.answer}</p>
+                </button>                {openItems.has(item.id) && item.description && (                  <div className="px-4 md:px-6 py-4 md:py-6 bg-constrast text-white">
+                    <p className="text-sm md:text-base leading-relaxed">{item.description}</p>
                   </div>
                 )}
               </div>

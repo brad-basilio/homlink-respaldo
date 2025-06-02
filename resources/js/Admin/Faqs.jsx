@@ -13,10 +13,11 @@ import Swal from 'sweetalert2';
 import FaqsRest from '../Actions/Admin/FaqsRest';
 import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
 import html2string from '../Utils/html2string';
+import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
 
 const faqsRest = new FaqsRest()
 
-const Faqs = ({ }) => {
+const Faqs = ({services }) => {
 
   const gridRef = useRef()
   const modalRef = useRef()
@@ -25,7 +26,9 @@ const Faqs = ({ }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
+  const serviceRef = useRef();
 
+  const [selectedService, setSelectedService] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
 
   const onModalOpen = (data) => {
@@ -34,8 +37,11 @@ const Faqs = ({ }) => {
 
     idRef.current.value = data?.id ?? ''
     nameRef.current.value = data?.name ?? ''
-    // descriptionRef.current.value = data?.description ?? ''
-    descriptionRef.editor.root.innerHTML = data?.description ?? ''
+    descriptionRef.current.value = data?.description ?? ''
+    //descriptionRef.editor.root.innerHTML = data?.description ?? ''
+      $(serviceRef.current)
+            .val(data?.service_id || null)
+            .trigger("change");
 
     $(modalRef.current).modal('show')
   }
@@ -47,6 +53,7 @@ const Faqs = ({ }) => {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
       description: descriptionRef.current.value,
+      service_id: serviceRef.current.value || undefined
     }
 
     const result = await faqsRest.save(request)
@@ -103,6 +110,10 @@ const Faqs = ({ }) => {
           dataField: 'id',
           caption: 'ID',
           visible: false
+        }, {
+          dataField: 'service.name',
+          caption: 'Servicio',
+          width: '40%'
         },
         {
           dataField: 'name',
@@ -152,12 +163,27 @@ const Faqs = ({ }) => {
           allowExporting: false
         }
       ]} />
-    <Modal modalRef={modalRef} title={isEditing ? 'Editar faq' : 'Agregar faq'} onSubmit={onModalSubmit} size='xl'>
+    <Modal modalRef={modalRef} title={isEditing ? 'Editar faq' : 'Agregar faq'} onSubmit={onModalSubmit} size='lg'>
       <div className='row' id='testimony-container'>
         <input ref={idRef} type='hidden' />
+         <SelectFormGroup
+                            eRef={serviceRef}
+                            label="Servicio"
+                            required
+                            dropdownParent="#testimony-container"
+                            onChange={(e) =>
+                                setSelectedService(e.target.value)
+                            }
+                        >
+                            {services.map((item, index) => (
+                                <option key={index} value={item.id}>
+                                    {item.name}
+                                </option>
+                            ))}
+                        </SelectFormGroup>
         <TextareaFormGroup eRef={nameRef} label='Pregunta' rows={2} required />
-        {/* <TextareaFormGroup eRef={descriptionRef} label='Respuesta' rows={3} required /> */}
-        <QuillFormGroup eRef={descriptionRef} label='Respuesta' required />
+        <TextareaFormGroup eRef={descriptionRef} label='Respuesta' rows={3} required /> 
+       {/* <QuillFormGroup eRef={descriptionRef} label='Respuesta' required /> */}
       </div>
     </Modal>
   </>

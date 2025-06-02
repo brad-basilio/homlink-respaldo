@@ -102,7 +102,7 @@ Route::post('/set-current-lang', function (Request $request) {
 Route::get('/detallecasosdeexito', [PlanController::class, 'reactView'])->name('DetalleCasoExito.jsx');
 Route::get('/casosdeexito', [PlanController::class, 'reactView'])->name('CasosDeExito.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
+Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
 Route::get('/services', [ServiceController::class, 'reactView'])->name('DetailService.jsx');

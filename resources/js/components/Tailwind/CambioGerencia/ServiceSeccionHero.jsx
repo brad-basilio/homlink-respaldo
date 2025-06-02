@@ -1,6 +1,7 @@
 import React from 'react';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const ServiceSeccionHero = () => {
+const ServiceSeccionHero = ({ service }) => {
     return (
         <div className="relative bg-neutral-light pb-24 pt-12  md:pt-16 px-[5%] font-paragraph ">
             {/* Curva decorativa en la parte inferior */}
@@ -9,6 +10,7 @@ const ServiceSeccionHero = () => {
                     src="/assets/cambiogerencia/mask-servicios.png"
                     alt="Equipo de Cambio Gerencia"
                     className="w-auto h-full object-cover rounded-xl"
+                    loading='lazy'
                 />
             </div>
 
@@ -19,7 +21,7 @@ const ServiceSeccionHero = () => {
                         {/* Imagen principal grande */}
                         <div className="rounded-3xl overflow-hidden ">
                             <img
-                                src="/assets/cambiogerencia/hero-servicios.webp"
+                                src={`/api/service/media/${service?.image}`}
                                 alt="Equipo de Cambio Gerencia"
                                 className="w-full h-auto object-cover rounded-xl"
                             />
@@ -42,21 +44,21 @@ const ServiceSeccionHero = () => {
 
                                 </span>
                             </div>
-                            <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Culture 360</h3>
+                            <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">{service?.name}</h3>
                         </div>
 
                         {/* Título principal */}
                         <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-                            <span className="text-neutral-dark">Transformamos tu cultura organizacional para </span>
-                            <span className="text-constrast">impulsar la evolución de tu empresa</span>
+                            <TextWithHighlight text={service?.title} />
+
                         </h2>
 
                         {/* Párrafo principal */}
                         <p className="text-neutral mb-10 font-light text-base lg:text-lg">
-                           Alineamos valores, comportamientos y procesos para garantizar una cultura organizacional que respalde tus desafíos estratégicos.
+                            {service?.description}
                         </p>
 
-                   
+
 
                         {/* Botón "Sobre nosotros" */}
                         <div className='w-full'>

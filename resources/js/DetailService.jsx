@@ -92,11 +92,11 @@ const DetailService = ({ landing, services, allServices, linkWhatsApp, randomIma
     return (
         <div className="font-poppins">
             <Header />
-            <ServiceSeccionHero />
-            <ServiceSeccionEnfoque />
-            <ServiceSeccionBeneficio />
-            <ServiceSeccionMetodologia />
-            <ServiceSeccionFaq />
+            <ServiceSeccionHero service={services} />
+            <ServiceSeccionEnfoque service={services} />
+            <ServiceSeccionBeneficio service={services} />
+            <ServiceSeccionMetodologia service={services} />
+            <ServiceSeccionFaq faqs={services?.faqs} />
             <HomeSeccionTestimonios data={landing} bg_color="bg-neutral-light" testimonios={testimonios} />
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
             <Footer />

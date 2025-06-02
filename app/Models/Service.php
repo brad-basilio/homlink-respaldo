@@ -30,8 +30,8 @@ class Service extends Model
         'innovation_focus',
         'customer_relation',*/
         'benefits',
-        /*  'image_secondary',
-        'image_banner',
+        'image_secondary',
+        /*'image_banner',
         'category_service_id',
         'title_second',
         'description_second',*/
@@ -61,5 +61,10 @@ class Service extends Model
     public function category()
     {
         return $this->belongsTo(CategoryService::class, 'category_service_id');
+    }
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class);
     }
 }

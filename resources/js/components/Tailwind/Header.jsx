@@ -173,16 +173,19 @@ const Header = ({
     const [socials, setSocials] = useState([]);
     const [languagesSystem, setLanguagesSystem] = useState([]);
     const [generals, setGenerals] = useState([]);
+    const [servicesData, setServicesData] = useState([]);
     useEffect(() => {
         const fetchSocials = async () => {
             try {
                 const data = await generalRest.getSocials();
                 const dataGenerals = await generalRest.getGenerals();
+                const dataServices = await generalRest.getServices();
 
                 //const languages = await generalRest.getLanguages();
                 setSocials(data);
                 setGenerals(dataGenerals);
-             
+                console.log("dataServices:", dataServices);
+                setServicesData(dataServices);
                 //  setLanguagesSystem(languages);
             } catch (error) {
                 console.error("Error fetching socials:", error);
@@ -291,7 +294,7 @@ const Header = ({
         // Si ya está abierto, ciérralo
         if (activeMegaMenu === path) {
             setActiveMegaMenu(null);
-        } else if (["#solutions", "#services", "#options"].includes(path)) {
+        } else if (["#services"].includes(path)) {
             setActiveMegaMenu(path);
         } else {
             setActiveMegaMenu(null); // Cierra si es otra ruta
@@ -424,32 +427,33 @@ const Header = ({
                         >
                             <nav className="flex gap-2">
                                 {[
-                                    "/",
-                                    "#solutions",
-                                    "#services",
-                                    "#options",
-                                    "/contact",
+                                    "/nosotros",
+                                     "#services",
+                                    "/casosdeexito",
+                                    "/blog",
+                                    "/infoproductos",
+                                    "/contacto",
                                 ].map((path) => {
                                     const text = {
-                                        "/": t("public.header.home", "Nosotros"),
-                                        "#solutions": t(
-                                            "public.header.solutions",
-                                            "Servicios"
-                                        ),
+                                        "/nosotros": t("public.header.home", "Nosotros"),
                                         "#services": t(
                                             "public.header.services",
+                                            "Servicios"
+                                        ),
+                                        "/casosdeexito": t(
+                                            "public.header.solutions",
                                             "Casos de éxito"
                                         ),
-                                        "#options": t(
+                                        "/blog": t(
                                             "public.header.options",
                                             "Blog"
                                         ),
-                                        "/contact": t(
-                                            "public.header.contac",
+                                        "/infoproductos": t(
+                                            "public.header.infoproducts",
                                             "Infoproductos"
                                         ),
-                                        "/contact": t(
-                                            "public.header.contac",
+                                        "/contacto": t(
+                                            "public.header.contact",
                                             "Contacto"
                                         ),
                                     }[path];
@@ -460,9 +464,15 @@ const Header = ({
                                                 key={path}
                                                 href={path}
                                                 onClick={(e) => {
-                                                    e.preventDefault();
-                                                    toggleMegaMenu(path);
-                                                    handleLinkClick(path);
+                                                    if (path.startsWith('#')) {
+                                                        e.preventDefault();
+                                                        toggleMegaMenu(path);
+                                                        handleLinkClick(path);
+                                                    } else {
+                                                        // Para URLs normales, navega directamente
+                                                        handleLinkClick(path);
+                                                        window.location.href = path;
+                                                    }
                                                 }}
                                                 variants={itemVariants}
                                                 whileHover={{ scale: 1.05 }}
@@ -486,6 +496,7 @@ const Header = ({
                                                         <MegaMenuPopup
                                                             isOpen={activeMegaMenu === path}
                                                             onClose={closeMegaMenu}
+                                                            data={servicesData}
                                                         />
                                                     </div>
                                                 )}
@@ -596,32 +607,33 @@ const Header = ({
                                 className="flex flex-col gap-4 items-center justify-center"
                             >
                                 {[
-                                    "/",
-                                    "#solutions",
+                                    "/nosotros",
                                     "#services",
-                                    "#options",
-                                    "/contact",
+                                    "/casosdeexito",
+                                    "/blog",
+                                    "/infoproductos",
+                                    "/contacto",
                                 ].map((path) => {
                                     const text = {
-                                        "/": t("public.header.home", "Nosotros"),
-                                        "#solutions": t(
-                                            "public.header.solutions",
-                                            "Servicios"
-                                        ),
+                                        "/nosotros": t("public.header.home", "Nosotros"),
                                         "#services": t(
                                             "public.header.services",
+                                            "Servicios"
+                                        ),
+                                        "/casosdeexito": t(
+                                            "public.header.solutions",
                                             "Casos de éxito"
                                         ),
-                                        "#options": t(
+                                        "/blog": t(
                                             "public.header.options",
                                             "Blog"
                                         ),
-                                        "/contact": t(
-                                            "public.header.contac",
+                                        "/infoproductos": t(
+                                            "public.header.infoproducts",
                                             "Infoproductos"
                                         ),
-                                        "/contact": t(
-                                            "public.header.contac",
+                                        "/contacto": t(
+                                            "public.header.contact",
                                             "Contacto"
                                         ),
                                     }[path];
@@ -633,9 +645,18 @@ const Header = ({
                                         >
                                             <a
                                                 href={path}
-                                                onClick={() => {
-                                                    handleLinkClick(path);
-                                                    setIsOpen(false);
+                                                onClick={(e) => {
+                                                    if (path.startsWith('#')) {
+                                                        e.preventDefault();
+                                                        handleLinkClick(path);
+                                                        setIsOpen(false);
+                                                        // Scroll to anchor if needed
+                                                    } else {
+                                                        // Navega directamente
+                                                        handleLinkClick(path);
+                                                        window.location.href = path;
+                                                        setIsOpen(false);
+                                                    }
                                                 }}
                                                 className={`relative py-2 rounded-full transition-all duration-300 ${isActive(path)
                                                     ? "bg-[#EFF0F1] pl-8 pr-3 text-primary"

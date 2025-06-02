@@ -18,5 +18,16 @@ class Faq extends Model
         'description',
         'visible',
         'status',
+        'service_id',
+        'lang_id',
     ];
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
+    }
+    public function lang()
+    {
+        return $this->belongsTo(Lang::class, 'lang_id');
+    }
 }

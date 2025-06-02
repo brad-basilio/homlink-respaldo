@@ -87,10 +87,31 @@ class GeneralRest extends BasicRest {
         }
     };
 
-     getGenerals = async () => {
+    getGenerals = async () => {
         try {
             const { status, result } = await Fetch(
                 `/api/${this.path}/get-generals`,
+                {
+                    method: "GET",
+                }
+            );
+
+            if (!status)
+                throw new Error(
+                    result?.message ?? "Ocurrió un error al consultar"
+                );
+
+            return result?.data ?? [];
+        } catch (error) {
+            console.error("Error en getGenerals:", error);
+            return [];
+        }
+    };
+
+    getServices = async () => {
+        try {
+            const { status, result } = await Fetch(
+                `/api/${this.path}/get-services`,
                 {
                     method: "GET",
                 }

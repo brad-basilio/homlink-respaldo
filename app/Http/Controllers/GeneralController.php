@@ -10,6 +10,7 @@ use App\Models\Facility;
 use App\Models\General;
 use App\Models\Indicator;
 use App\Models\Lang;
+use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Social;
 use Exception;
@@ -127,6 +128,28 @@ class GeneralController extends BasicController
         try {
         
             $data = General::where('status', true)->where('lang_id', app('current_lang_id'))->get();
+       
+            $response->data = $data;//, 'sedes' => $data3
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
+    }
+
+     public function getServices(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+        
+            $data = Service::where('lang_id', app('current_lang_id'))->get();
        
             $response->data = $data;//, 'sedes' => $data3
             $response->status = 200;

@@ -126,7 +126,7 @@ const CaseCard = ({ title, image, type, description }) => {
     );
 };
 
-const CasosDeExito = () => {
+const CasosDeExito = ({ testimonios, landing }) => {
     return (
         <>
             <Header />
@@ -172,7 +172,7 @@ const CasosDeExito = () => {
 
 
             </section>
-            <HomeSeccionTestimonios />
+            <HomeSeccionTestimonios testimonios={testimonios} data={landing} />
             <Footer />
         </>
     );

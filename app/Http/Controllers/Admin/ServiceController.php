@@ -26,7 +26,7 @@ class ServiceController extends BasicController
     public function beforeSave(Request $request)
     {
         $body = $request->all();
-
+dump($body);
         // Procesar galería de imágenes
         $gallery = [];
         // En ServiceController.php
@@ -108,10 +108,17 @@ class ServiceController extends BasicController
                         'image' => $image
                     ];
                 }*/
+
+                 if ($title) {
+                    $processedCharacteristics[] = [
+                        'title' => $title
+                      
+                    ];
+                }
             }
         }
        // $body['characteristics'] = $processedCharacteristics;
-         $body['characteristics_approach'] = $processedCharacteristics;
+        $body['characteristics_approach'] = $processedCharacteristics;
 
         // Procesar beneficios (similar a características)
         $processedBenefits = [];

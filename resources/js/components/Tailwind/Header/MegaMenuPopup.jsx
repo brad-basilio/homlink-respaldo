@@ -94,12 +94,13 @@ const navigationItems = [
   { key: "energia", label: "Energía" },
 ];
 
-const MegaMenuPopup = ({ isOpen, onClose }) => {
+const MegaMenuPopup = ({ isOpen, onClose ,data}) => {
   const [activeSection, setActiveSection] = useState("infraestructura");
 
   if (!isOpen) return null;
 
   const currentData = menuData[activeSection] || menuData.infraestructura;
+  console.log("Datos del menú actual:", data);
   // 
   return (
     <div className="fixed bg-black/40 text-neutral-dark font-paragraph inset-0 z-50 flex items-start justify-center mt-[120px]">
@@ -145,7 +146,7 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 2xl:gap-8 max-h-96 overflow-y-auto">
-              {currentData.services.map((service, index) => {
+              {data?.map((service, index) => {
                 // Alternar aleatoriamente entre los 3 colores de hover
                 const hoverColors = [
                   'hover:bg-accent hover:text-white',
@@ -155,13 +156,14 @@ const MegaMenuPopup = ({ isOpen, onClose }) => {
                 // Para que sea "aleatorio" pero consistente en cada render, usar el index y un offset
                 const colorClass = hoverColors[index % hoverColors.length];
                 return (
-                  <div
+                  <a
+                  href={`/servicio/${service.slug}`}
                     key={index}
-                    className={`rounded-lg p-4 2xl:p-6 cursor-pointer transition-colors duration-200 ${colorClass}`}
+                    className={`block rounded-lg p-4 2xl:p-6 cursor-pointer transition-colors duration-200 ${colorClass}`}
                   >
-                    <h3 className="text-base  font-semibold mb-1 transition-colors duration-200">{service.title}</h3>
+                    <h3 className="text-base  font-semibold mb-1 transition-colors duration-200">{service?.name}</h3>
                     <p className="leading-relaxed text-sm  line-clamp-2 transition-colors duration-200">{service.description}</p>
-                  </div>
+                  </a>
                 );
               })}
             </div>
