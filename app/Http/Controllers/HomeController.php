@@ -31,56 +31,21 @@ class HomeController extends BasicController
 
         $langId = app('current_lang_id');
 
-        /*ESTO ES PARA NO PAIN */
-
-        $indicators = Indicator::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
         $landing = LandingHome::where('correlative', 'like', 'page_home%')->where('lang_id', $langId)->get();
-        $benefits = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
-        $testimonies = Testimony::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
-        $staff_boss = Staff::where('status', true)->where('visible', true)->where('job', 'LIKE', 'Director%')->where('lang_id', $langId)->first();
-        
-        $options = PurchaseOption::where('status', true)->where('visible', true)->where('featured', true)->where('lang_id', $langId)->with('category')->orderBy('created_at', 'DESC')->limit(20)->get();
-        $services = Service::where('status', true)->where('visible', true)->where('featured', true)->where('lang_id', $langId)->with('category')->orderBy('created_at', 'DESC')->limit(20)->get();
-        $solutions = Solution::where('status', true)->where('visible', true)->where('lang_id', $langId)->with('category')->orderBy('created_at', 'DESC')->limit(28)->get();
-
-        $totalSolutions = $solutions->count();
-
-        if ($totalSolutions <= 3) {
-            // Caso 1: 4 o menos - un solo grupo
-            $solutions_first = $solutions;
-            $solutions_second = collect(); // Grupo vacío
-        } else {
-            // Caso 2: Más de 4 - dividir en dos grupos
-            $splitPoint = ceil($totalSolutions / 2); // Redondea hacia arriba para impares
-            
-            $solutions_first = $solutions->take($splitPoint);
-            $solutions_second = $solutions->slice($splitPoint);
-        }
-
-
-
-
         /*CAMBIO Y GERENCIA */
         $sliders = Slider::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
-       $brands = Brand::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
+        $brands = Brand::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
+        $strengths = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
+        $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(3)->get();
+        $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
+
         return [
-
-            'indicators' => $indicators,
             'landing' => $landing,
-            'benefits' => $benefits,
-            'services' => $services,
-            'testimonies' => $testimonies,
-            'staff_boss' => $staff_boss,
-            'options' => $options,
-            'solutions' => $solutions,
-            'solutions_first' => $solutions_first,
-            'solutions_second' => $solutions_second,
-
-            /*CAMBIO Y GERENCIA */
-
             'sliders' => $sliders,
             'brands' => $brands,
-           
+            'strengths' => $strengths,
+            'posts' => $posts,
+            'testimonios' => $testimonios,
         ];
     }
 }

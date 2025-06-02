@@ -2,6 +2,7 @@ import { ArrowRight, PlusIcon } from 'lucide-react';
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using a generic icon for all cards for simplicity in this example.
@@ -59,13 +60,13 @@ const ServiceCard = ({
             <h3 className={`text-[28px] font-medium mb-2  z-10 relative`}>{cardTitle}</h3>
             <p className={` mb-4 flex-grow  z-10 relative`}>{description}</p>
             <a href="#" className={`mt-auto  font-semibold flex gap-2  z-10 relative`}>
-               <PlusIcon/>  más información
+                <PlusIcon />  más información
             </a>
         </div>
     );
 };
 
-const HomeSeccionServicios = () => {
+const HomeSeccionServicios = ({ data }) => {
     const servicesRow1 = [
         {
             name: "Capacitaciones",
@@ -139,13 +140,12 @@ const HomeSeccionServicios = () => {
                         </div>
                         <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Servicios</h3>
                     </div>
-                     <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
+                    <h2 className="text-4xl lg:text-[52px]  font-medium mb-6 leading-tight italic">
+                        <TextWithHighlight text={data?.title} split_coma={true}/>
 
-                        Lo <span className="text-constrast">humano</span> al centro, <br className="hidden sm:block" />
-                        lo estratégico <span className="text-constrast">en acción</span>
                     </h2>
                     <p className="mt-4 text-lg text-neutral max-w-3xl mx-auto">
-                        Creamos intervenciones a medida para acompañar procesos de transformación, fortalecer liderazgos y conectar a los equipos con el propósito organizacional.
+                        {data?.description}
                     </p>
                 </div>
 
@@ -179,7 +179,7 @@ const HomeSeccionServicios = () => {
                         ))}
                     </Swiper>
                     {/* Paginación tipo dots */}
-                  {/*  <div className="flex justify-center mt-4 gap-2 px-[5%]">
+                    {/*  <div className="flex justify-center mt-4 gap-2 px-[5%]">
                         {allServices.map((_, idx) => (
                             <button
                                 key={idx}

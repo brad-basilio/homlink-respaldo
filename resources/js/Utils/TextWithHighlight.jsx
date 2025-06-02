@@ -1,4 +1,4 @@
-const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_dos_puntos=false }) => {
+const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_dos_puntos=false,color="bg-constrast" }) => {
     // Función para procesar el texto con resaltados
     const safeText = text || "";
 
@@ -7,7 +7,7 @@ const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_
 
         return parts.map((part, index) =>
             part.startsWith("*") && part.endsWith("*") ? (
-                <span key={index} className="bg-gradient-to-r from-[#7B94B1] to-[#B27BA8] bg-clip-text text-transparent">
+                <span key={index} className={`${color} bg-clip-text text-transparent`}>
                     {part.slice(1, -1)}
                 </span>
             ) : (
@@ -23,7 +23,7 @@ const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_
 
         return (
             <div className="flex flex-col">
-                <span className="block">{firstWord}</span>
+                <span className="block">  {renderHighlightedText(firstWord)}</span>
                 <span className="block">
                     {renderHighlightedText(remainingText)}
                 </span>
@@ -38,7 +38,7 @@ const TextWithHighlight = ({ text = "", split = false, split_coma = false,split_
 
         return (
             <div className="flex flex-col">
-                <span className="block">{firstWord}</span>
+                <span className="block">{renderHighlightedText(firstWord)}</span>
                 <span className="block">
                     {renderHighlightedText(remainingText)}
                 </span>

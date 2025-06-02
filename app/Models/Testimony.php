@@ -17,6 +17,7 @@ class Testimony extends Model
         'name',
         'correlative',
         'description',
+        'position',
         'visible',
         'status',
         'image',

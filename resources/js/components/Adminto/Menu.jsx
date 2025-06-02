@@ -332,28 +332,28 @@ const Menu = ({
                                 >
                                     {t(
                                         "admin.sidebar.indicators",
-                                        "Legal"
+                                        "Indicadores"
                                     )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/strengths"
                                     icon="mdi mdi-cards-heart"
                                 >
-                                    {t("admin.sidebar.benefits", "Paises")}
+                                    {t("admin.sidebar.benefits", "Fortalezas")}
                                 </MenuItem>
-                                <MenuItem
+                               {/** <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
-                                    Valores
-                                </MenuItem>
+                                    Core_values
+                                </MenuItem>*/} 
                                 <MenuItem
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"
                                 >
                                     {t(
                                         "admin.sidebar.testimonials",
-                                        "Sectores"
+                                        "Testimonios"
                                     )}
                                 </MenuItem>
                                 {/* <MenuItem

@@ -22,7 +22,8 @@ const Testimonies = ({}) => {
     // Form elements ref
     const idRef = useRef();
     const nameRef = useRef();
-    // const correlativeRef = useRef();
+    const correlativeRef = useRef();
+    const positionRef = useRef();
     const descriptionRef = useRef();
     const imageRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
@@ -33,8 +34,9 @@ const Testimonies = ({}) => {
         
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
-        // correlativeRef.current.value = data?.correlative ?? "";
-        // descriptionRef.current.value = data?.description ?? "";
+        correlativeRef.current.value = data?.correlative ?? "";
+        positionRef.current.value = data?.position ?? "";
+        descriptionRef.current.value = data?.description ?? "";
         imageRef.image.src = `/api/testimony/media/${data?.image}`;
         imageRef.current.value = null;
 
@@ -47,8 +49,9 @@ const Testimonies = ({}) => {
         const request = {
             id: idRef.current.value || undefined,
             name: nameRef.current.value,
-            // correlative: correlativeRef.current.value,
-            // description: descriptionRef.current.value,
+            correlative: correlativeRef.current.value,
+            position: positionRef.current.value,
+        description: descriptionRef.current.value,
         };
         const formData = new FormData();
         for (const key in request) {
@@ -78,8 +81,8 @@ const Testimonies = ({}) => {
 
     const onDeleteClicked = async (id) => {
         const { isConfirmed } = await Swal.fire({
-            title: "Eliminar sector",
-            text: "¿Estas seguro de eliminar este sector?",
+            title: "Eliminar testimonio",
+            text: "¿Estas seguro de eliminar este testimonio?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonText: "Si, eliminar",
@@ -95,7 +98,7 @@ const Testimonies = ({}) => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Sectores"
+                title="Testimonios"
                 rest={testimoniesRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -115,8 +118,8 @@ const Testimonies = ({}) => {
                         location: "after",
                         options: {
                             icon: "plus",
-                            text: "Nuevo sector",
-                            hint: "Nuevo sector",
+                            text: "Nuevo testimonio",
+                            hint: "Nuevo testimonio",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -129,7 +132,7 @@ const Testimonies = ({}) => {
                     },
                     {
                         dataField: "name",
-                        caption: "Sector",
+                        caption: "Nombre",
                         cellTemplate: (container, { data }) => {
                             ReactAppend(
                                 container,
@@ -218,7 +221,7 @@ const Testimonies = ({}) => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar sector" : "Agregar sector"}
+                title={isEditing ? "Editar testimonio" : "Agregar testimonio"}
                 onSubmit={onModalSubmit}
                 size="md"
             >
@@ -229,7 +232,7 @@ const Testimonies = ({}) => {
                         label="Imagen"
                         col="col-md-4"
                         aspect={1}
-                        fit="contain"
+                        fit="cover"
                         required
                     />
 
@@ -239,13 +242,19 @@ const Testimonies = ({}) => {
                             label="Nombre"
                             required
                         />
-                        {/* <InputFormGroup
-                            eRef={correlativeRef}
-                            label="Ubicación"
+                         <InputFormGroup
+                            eRef={positionRef}
+                            label="Cargo"
                             required
-                        /> */}
+                        />
+                    <InputFormGroup
+                            eRef={correlativeRef}
+                            label="Empresa"
+                            required
+                        />
+                         
                     </div>
-                    {/* <TextareaFormGroup
+                    <TextareaFormGroup
                         type="text"
                         eRef={descriptionRef}
                         label="Descripción"
@@ -253,7 +262,7 @@ const Testimonies = ({}) => {
                         placeholder="Ingresa el texto"
                         required
                         col="col-12"
-                    /> */}
+                    />
                 </div>
             </Modal>
         </>
@@ -262,7 +271,7 @@ const Testimonies = ({}) => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Sectores">
+        <BaseAdminto {...properties} title="Testimonios">
             <Testimonies {...properties} />
         </BaseAdminto>
     );

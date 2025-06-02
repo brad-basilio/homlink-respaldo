@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using generic icons that somewhat resemble the ones in the image.
@@ -43,7 +44,7 @@ const StatCard = ({ icon, title, percentage, description }) => (
   </div>
 );
 
-const HomeSeccionImpacto = () => {
+const HomeSeccionImpacto = ({data}) => {
   const stats = [
     {
       icon: <IconIncorporacion />,
@@ -75,7 +76,7 @@ const HomeSeccionImpacto = () => {
     <div className="bg-primary font-paragraph text-white py-16 px-4 sm:px-6 lg:py-24 lg:px-8 relative">
       <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
         <img
-          src="/assets/cambiogerencia/mask-impacto.webp"
+            src={`/api/landing_home/media/${data?.image}`}
           alt="Equipo de Cambio Gerencia"
           className="w-full h-full object-cover rounded-xl opacity-30"
         />
@@ -99,12 +100,12 @@ const HomeSeccionImpacto = () => {
               </div>
               <h3 className="uppercase text-white text-sm lg:text-lg font-bold">Impacto</h3>
             </div>
-            <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-              <span className='text-accent'>Resultados</span> que <br className="hidden sm:block" />
-              hablan por sí solos
+            <h2 className="text-4xl lg:text-[52px] max-w-lg font-medium mb-6 leading-tight italic">
+                <TextWithHighlight text={data?.title} color="bg-accent" />
+          
             </h2>
             <p className="mt-4 text-lg text-white max-w-xl">
-              Más de 100 organizaciones han confiado en nosotros para rediseñar su cultura y potenciar sus equipos.
+              {data?.description}
             </p>
           </div>
           <div className="flex-shrink-0">

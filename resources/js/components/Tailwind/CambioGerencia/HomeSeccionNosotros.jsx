@@ -1,6 +1,7 @@
 import React from 'react';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const HomeSeccionNosotros = () => {
+const HomeSeccionNosotros = ({ data, strengths }) => {
     return (
         <div className="relative bg-white  py-12 md:pt-16 px-[5%] font-paragraph ">
             {/* Curva decorativa en la parte inferior */}
@@ -19,8 +20,8 @@ const HomeSeccionNosotros = () => {
                         {/* Imagen principal grande */}
                         <div className="rounded-3xl overflow-hidden ">
                             <img
-                                src="/assets/cambiogerencia/nosotros.webp"
-                                alt="Equipo de Cambio Gerencia"
+                                src={`/api/landing_home/media/${data?.image}`}
+                                alt={data?.title}
                                 className="w-full h-auto object-cover rounded-xl"
                             />
                         </div>
@@ -47,59 +48,39 @@ const HomeSeccionNosotros = () => {
 
                         {/* Título principal */}
                         <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-                            <span className="text-neutral-dark">Somos agentes del </span>
-                            <span className="text-constrast">cambio humano</span>
+                            <TextWithHighlight text={data?.title} />
+
                         </h2>
 
                         {/* Párrafo principal */}
                         <p className="text-neutral mb-10 text-lg">
-                            Creemos que las verdaderas transformaciones comienzan con las personas.
-                            Desde hace más de 6 años acompañamos a organizaciones a reconectar con
-                            su propósito, potenciar a sus equipos y diseñar culturas más conscientes.
+                            {data?.description}
                         </p>
 
                         {/* Bloques de características con iconos */}
                         <div className="space-y-8 mb-10">
                             {/* Bloque 1 */}
-                            <div className="flex items-start">
-                                <div className="bg-accent rounded-full p-3 mr-4">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                            {strengths?.map((strength, index) => (
 
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-neutral-dark mb-2">Conectando talento con oportunidad</h4>
-                                    <p className="text-neutral">
-                                        Cerramos la brecha entre profesionales capacitados
-                                        que prosperan asegurando lo correcto.
-                                    </p>
-                                </div>
-                            </div>
+                                <div className="flex items-start">
+                                    <div className="bg-accent rounded-full p-3 mr-4">
+                                        <img
+                                            src={`/api/strength/media/${strength?.image}`}
+                                            alt={strength?.title}
+                                            className="w-6 h-6 object-cover rounded-xl"
+                                        />
 
-                            {/* Bloque 2 */}
-                            <div className="flex items-start">
-                                <div className="bg-accent rounded-full p-3 mr-4">
-                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.5 11C15.5 9.067 13.933 7.5 12 7.5C10.067 7.5 8.5 9.067 8.5 11C8.5 12.933 10.067 14.5 12 14.5C13.933 14.5 15.5 12.933 15.5 11Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M15.483 11.3499C15.805 11.4475 16.1465 11.5 16.5003 11.5C18.4333 11.5 20.0003 9.933 20.0003 8C20.0003 6.067 18.4333 4.5 16.5003 4.5C14.6854 4.5 13.1931 5.8814 13.0176 7.65013" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M10.9827 7.65013C10.8072 5.8814 9.31492 4.5 7.5 4.5C5.567 4.5 4 6.067 4 8C4 9.933 5.567 11.5 7.5 11.5C7.85381 11.5 8.19535 11.4475 8.51727 11.3499" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M22 16.5C22 13.7386 19.5376 11.5 16.5 11.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M17.5 19.5C17.5 16.7386 15.0376 14.5 12 14.5C8.96243 14.5 6.5 16.7386 6.5 19.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path d="M7.5 11.5C4.46243 11.5 2 13.7386 2 16.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    </svg>
+                                    </div>
+                                    <div>
+                                        <h4 className="text-xl font-bold text-neutral-dark mb-2"> {strength?.name}</h4>
+                                        <p className="text-neutral">
+                                            {strength?.description}
+                                        </p>
+                                    </div>
+                                </div>
+                            ))}
 
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-bold text-neutral-dark mb-2">Su socio en el éxito laboral</h4>
-                                    <p className="text-neutral">
-                                        Cerramos la brecha entre profesionales capacitados
-                                        que prosperan asegurando lo correcto.
-                                    </p>
-                                </div>
-                            </div>
+
                         </div>
 
                         {/* Botón "Sobre nosotros" */}

@@ -111,60 +111,36 @@ const Home = ({
     linkWhatsApp,
     randomImage,
     showSlogan = true,
-    indicators,
+  
     landing,
-    benefits,
-    services,
-    testimonies,
-    staff_boss,
-    options,
-    solutions,
-    solutions_first,
-    solutions_second,
+
     sliders,
     brands,
+    posts= [],
+
+    strengths= [],
+    testimonios= []
 }) => {
     const { t, loading, error } = useTranslation();
     const tipoSlider = "nopain";
-    const landingHero = landing?.find(
-        (item) => item.correlative === "page_home_hero"
+    const landingNosotros = landing?.find(
+        (item) => item.correlative === "page_home_nosotros"
     );
-    const landingBenefits = landing?.find(
-        (item) => item.correlative === "page_home_sectiontwo"
+
+    const landingServicios = landing?.find(
+        (item) => item.correlative === "page_home_servicios"
     );
-    const landingServices = landing?.find(
-        (item) => item.correlative === "page_home_services"
+
+    const landingImpacto = landing?.find(
+        (item) => item.correlative === "page_home_impacto"
     );
-    const landingTestimonies = landing?.find(
-        (item) => item.correlative === "page_home_sectionfour"
+    const landingTestimonios = landing?.find(
+        (item) => item.correlative === "page_home_testimonios"
     );
-    const landingCaracters = landing?.find(
-        (item) => item.correlative === "page_home_caracters"
+    const landingBlog = landing?.find(
+        (item) => item.correlative === "page_home_blog"
     );
-    const landingCaractersOne = landing?.find(
-        (item) => item.correlative === "page_home_caracters_one"
-    );
-    const landingCaractersTwo = landing?.find(
-        (item) => item.correlative === "page_home_caracters_two"
-    );
-    const landingCaractersTree = landing?.find(
-        (item) => item.correlative === "page_home_caracters_tree"
-    );
-    const landingCaractersFour = landing?.find(
-        (item) => item.correlative === "page_home_caracters_four"
-    );
-    const landingContactOne = landing?.find(
-        (item) => item.correlative === "page_home_contact_one"
-    );
-    const landingContactTwo = landing?.find(
-        (item) => item.correlative === "page_home_contact_two"
-    );
-    const landingContactTree = landing?.find(
-        (item) => item.correlative === "page_home_contact_tree"
-    );
-    const landingContact = landing?.find(
-        (item) => item.correlative === "page_home_contact"
-    );
+   
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -251,8 +227,8 @@ const Home = ({
         </svg>
       );
 
-      const solutionsArrayPrim = Object.values(solutions_first || {});
-      const solutionsArray = Object.values(solutions_second || {});
+   
+   
     return (
         <div>
             <Header showSlogan={showSlogan}></Header>
@@ -271,14 +247,14 @@ const Home = ({
 
 {/*SECCION NOSOTROS */}
 
-        <HomeSeccionNosotros/>
+        <HomeSeccionNosotros data={landingNosotros} strengths={strengths}/>
         {/*SECCION SERVICIOS */}
-        <HomeSeccionServicios/>
-        <HomeSeccionImpacto/>
-        <HomeSeccionTestimonios/>
-        <HomeSeccionBlog/>
-        
-       
+        <HomeSeccionServicios data={landingServicios}/>
+        <HomeSeccionImpacto data={landingImpacto}/>
+        <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios}/>
+        <HomeSeccionBlog data={landingBlog} posts={posts}/>
+
+
             <Footer />
             {/* Modal */}
             <ModalAppointment

@@ -3,32 +3,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const testimonios = [
-    {
-        id: 1,
-        texto: "Trabajar con Cambio Gerencia ha sido una experiencia transformadora para nuestro equipo. Su enfoque centrado en lo humano nos ha permitido redescubrir nuestro propósito organizacional y mejorar significativamente nuestro clima laboral.",
-        nombre: "María González",
-        cargo: "Directora de Recursos Humanos",
-        empresa: "Empresa Líder S.A.",
-    },
-    {
-        id: 2,
-        texto: "El programa de capacitación que diseñaron para nosotros fue exactamente lo que necesitábamos. Lograron entender perfectamente nuestras necesidades y crear soluciones a medida que han tenido un impacto real en nuestros indicadores de desempeño.",
-        nombre: "Carlos Rodríguez",
-        cargo: "Gerente General",
-        empresa: "Innovación Global",
-    },
-    {
-        id: 3,
-        texto: "Su metodología para transformar la cultura organizacional es excepcional. En menos de 6 meses hemos visto cambios sustanciales en la forma en que nuestros equipos colaboran y se comunican entre sí. Recomendamos totalmente sus servicios.",
-        nombre: "Ana Martínez",
-        cargo: "CEO",
-        empresa: "Grupo Evolución",
-    },
-];
 
-const HomeSeccionTestimonios = ({bg_color}) => {
+
+const HomeSeccionTestimonios = ({ bg_color, data, testimonios }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const swiperRef = useRef(null);
 
@@ -49,8 +28,8 @@ const HomeSeccionTestimonios = ({bg_color}) => {
                 <div className="order-1 lg:order-none w-full md:w-5/12 flex items-center justify-center mb-10 md:mb-0">
                     <div className="w-full mt-8 lg:mt-0 lg:h-[700px] flex items-center justify-center">
                         <img
-                            src="/assets/cambiogerencia/testimonios.webp"
-                            alt="Testimonios"
+                            src={`/api/landing_home/media/${data?.image}`}
+                            alt={data?.title}
                             className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl "
                         />
                     </div>
@@ -70,12 +49,12 @@ const HomeSeccionTestimonios = ({bg_color}) => {
                             </span>
                             <span className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Testimonios</span>
                         </div>
-                        <h2 className="text-[32px] lg:text-[52px] font-medium mb-6 leading-tight italic">
-                            Lo que dicen quienes <br className="hidden md:block" />
-                            vivieron la <span className="text-blue-600 italic">experiencia</span>
+                        <h2 className="text-[32px] lg:text-[52px] max-w-xl font-medium mb-6 leading-tight italic">
+                            <TextWithHighlight text={data?.title} />
+
                         </h2>
                         <p className="mt-2  text-lg text-neutral max-w-xl">
-                            Conoce cómo hemos transformado realidades organizacionales desde dentro.
+                            {data?.description}
                         </p>
                     </div>
                     <div className="relative">
@@ -93,24 +72,29 @@ const HomeSeccionTestimonios = ({bg_color}) => {
                             onSlideChange={handleSlideChange}
                             className="testimonial-swiper"
                         >
-                            {testimonios.map((testimonio, idx) => (
+                            {testimonios?.map((testimonio, idx) => (
                                 <SwiperSlide key={testimonio.id} className='lg:px-8'>
                                     <div className=" relative  lg:px-8 py-10 flex flex-col gap-4">
-                                     <div className='absolute top-0 lg:top-4 lg:-left-4'>
-                                           <svg width="35" height="25" viewBox="0 0 35 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M16.2994 1.83637L13.9957 0.0039087C5.3229 4.71595 1.25754 10.0824 0.173444 16.1034C-0.639627 21.0772 1.39305 25.0039 6.5425 25.0039C10.2013 25.0039 13.7246 22.6479 14.5377 18.7212C15.2153 14.14 12.505 11.3913 9.11723 10.7369C10.4723 6.28663 16.1638 1.83637 16.2994 1.83637ZM27.9534 10.4751C29.444 6.15575 34.8645 1.83637 35 1.83637L32.6963 0.00391197C24.0235 4.71595 19.9582 10.0824 18.8741 16.1034C18.061 21.0772 20.0937 25.0039 25.2431 25.0039C28.902 25.0039 32.4253 22.6479 33.1028 18.7212C33.9159 14.14 31.3412 11.1296 27.9534 10.4751Z" fill="#D62828" />
-                                        </svg>
-                                     </div>
+                                        <div className='absolute top-0 lg:top-4 lg:-left-4'>
+                                            <svg width="35" height="25" viewBox="0 0 35 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M16.2994 1.83637L13.9957 0.0039087C5.3229 4.71595 1.25754 10.0824 0.173444 16.1034C-0.639627 21.0772 1.39305 25.0039 6.5425 25.0039C10.2013 25.0039 13.7246 22.6479 14.5377 18.7212C15.2153 14.14 12.505 11.3913 9.11723 10.7369C10.4723 6.28663 16.1638 1.83637 16.2994 1.83637ZM27.9534 10.4751C29.444 6.15575 34.8645 1.83637 35 1.83637L32.6963 0.00391197C24.0235 4.71595 19.9582 10.0824 18.8741 16.1034C18.061 21.0772 20.0937 25.0039 25.2431 25.0039C28.902 25.0039 32.4253 22.6479 33.1028 18.7212C33.9159 14.14 31.3412 11.1296 27.9534 10.4751Z" fill="#D62828" />
+                                            </svg>
+                                        </div>
 
-                                        <p className="text-2xl text-neutral-dark  mb-4">{testimonio.texto}</p>
+                                        <p className="text-2xl text-neutral-dark  mb-4">{testimonio?.description}</p>
                                         <div className="flex items-center gap-3 mt-2">
                                             <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-bold text-blue-600 text-lg uppercase">
-                                                {testimonio.nombre.split(' ').map(n => n[0]).join('')}
+                                                <img
+                                                    src={`/api/testimony/media/${testimonio?.image}`}
+                                                    alt={testimonio?.name}
+                                                    className="w-6 h-6 object-cover rounded-xl"
+                                                />
+
                                             </div>
                                             <div>
-                                                <div className="font-bold text-neutral-dark">{testimonio.nombre}</div>
-                                                <div className="text-sm text-accent font-medium">{testimonio.cargo}</div>
-                                              
+                                                <div className="font-bold text-neutral-dark">{testimonio?.name}</div>
+                                                <div className="text-sm text-accent font-medium">{testimonio?.position}, {testimonio?.correlative}</div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -128,7 +112,7 @@ const HomeSeccionTestimonios = ({bg_color}) => {
                                             ? 'bg-accent w-6 h-2'
                                             : 'bg-neutral-light w-2 h-2'
                                         }`}
-                                  
+
                                     aria-label={`Ir al testimonio ${idx + 1}`}
                                 />
                             ))}
@@ -136,7 +120,7 @@ const HomeSeccionTestimonios = ({bg_color}) => {
                     </div>
                 </div>
             </div>
-          
+
         </div>
     );
 };

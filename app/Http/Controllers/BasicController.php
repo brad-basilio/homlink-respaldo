@@ -171,6 +171,7 @@ class BasicController extends Controller
       'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
       'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
       'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
+      'socials'=>Social::where('status', true)->where('visible', true)->get(),
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
