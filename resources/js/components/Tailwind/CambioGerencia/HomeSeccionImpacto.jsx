@@ -34,9 +34,14 @@ const IconSatisfaccion = () => (
 const StatCard = ({ icon, title, percentage, description }) => (
   <div className="flex flex-col items-start md:text-left font-paragraph">
     <div className='flex gap-2 items-center border-b border-white/20 pb-4'>
-      <div className="bg-accent p-3 rounded-full  inline-block">
-        {icon}
-      </div>
+      <div className="bg-accent rounded-full p-3 mr-4">
+                                        <img
+                                            src={`/api/indicator/media/${icon}`}
+                                            alt={title}
+                                            className="w-6 h-6 object-cover rounded-xl"
+                                        />
+
+                                    </div>
       <h3 className="text-xl font-medium text-white mb-2">{title}</h3>
     </div>
     <p className="text-5xl font-bold text-white mb-3 mt-4">{percentage} <span className='text-accent'>%</span></p>
@@ -44,7 +49,7 @@ const StatCard = ({ icon, title, percentage, description }) => (
   </div>
 );
 
-const HomeSeccionImpacto = ({data}) => {
+const HomeSeccionImpacto = ({data,indicators}) => {
   const stats = [
     {
       icon: <IconIncorporacion />,
@@ -123,14 +128,14 @@ const HomeSeccionImpacto = ({data}) => {
             centeredSlides={false}
             className="w-full"
           >
-            {stats.map((stat, index) => (
+            {indicators?.map((stat, index) => (
               <SwiperSlide key={index}>
                 <div className="  w-full flex items-center justify-center">
                   <StatCard
-                    icon={stat.icon}
-                    title={stat.title}
-                    percentage={stat.percentage}
-                    description={stat.description}
+                    icon={stat?.symbol}
+                    title={stat?.name}
+                    percentage={stat?.percentage}
+                    description={stat?.description}
                   />
                 </div>
               </SwiperSlide>
@@ -138,13 +143,13 @@ const HomeSeccionImpacto = ({data}) => {
           </Swiper>
         </div>
         <div className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-          {stats.map((stat, index) => (
+          {indicators?.map((stat, index) => (
             <StatCard
               key={index}
-              icon={stat.icon}
-              title={stat.title}
-              percentage={stat.percentage}
-              description={stat.description}
+              icon={stat?.symbol}
+              title={stat?.name}
+              percentage={stat?.percentage}
+              description={stat?.description}
             />
           ))}
         </div>

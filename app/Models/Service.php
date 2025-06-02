@@ -24,23 +24,33 @@ class Service extends Model
         'featured',
         'lang_id',
         //SEDNA
-        'how_it_helps',
+        /* 'how_it_helps',
         'description_helps',
         'value_proposition',
         'innovation_focus',
-        'customer_relation',
+        'customer_relation',*/
         'benefits',
-        'image_secondary',
+        /*  'image_secondary',
         'image_banner',
         'category_service_id',
         'title_second',
-        'description_second',
+        'description_second',*/
+        'name',
+        'title_approach',
+        'description_approach',
+        'characteristics_approach',
+        'title_benefits',
+        'title_methodology',
+        'description_methodology',
+        'steps_methodology',
 
     ];
     protected $casts = [
         'characteristics' => 'array', // Convierte automáticamente el JSON a array de PHP
         'gallery' => 'array',
-        'benefits' => 'array'
+        'benefits' => 'array',
+        'steps_methodology' => 'array',
+        'characteristics_approach' => 'array',
     ];
 
     public function lang()

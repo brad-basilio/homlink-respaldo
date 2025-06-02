@@ -17,6 +17,7 @@ class Indicator extends Model
         'symbol',
         'name',
         'description',
+        'percentage',
         'visible',
         'status',
         'lang_id',

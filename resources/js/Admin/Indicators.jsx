@@ -23,6 +23,7 @@ const Indicators = () => {
     const idRef = useRef();
     const symbolRef = useRef();
     const nameRef = useRef();
+    const percentageRef = useRef();
     const descriptionRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -36,6 +37,7 @@ const Indicators = () => {
         symbolRef.image.src = `/api/indicator/media/${data?.symbol}`;
         symbolRef.current.value = null;
         nameRef.current.value = data?.name ?? "";
+        percentageRef.current.value = data?.percentage ?? "";
         descriptionRef.current.value = data?.description ?? "";
 
         $(modalRef.current).modal("show");
@@ -48,6 +50,7 @@ const Indicators = () => {
             id: idRef.current.value || undefined,
             // symbol: symbolRef.current.value,
             name: nameRef.current.value,
+            percentage: percentageRef.current.value,
             description: descriptionRef.current.value,
         };
         const formData = new FormData();
@@ -101,7 +104,7 @@ const Indicators = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Legal"
+                title="Indicadores"
                 rest={indicatorsRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -121,8 +124,8 @@ const Indicators = () => {
                         location: "after",
                         options: {
                             icon: "plus",
-                            text: "Nuevo termino",
-                            hint: "Nuevo termino",
+                            text: "Nuevo indicador",
+                            hint: "Nuevo indicador",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -133,30 +136,36 @@ const Indicators = () => {
                         caption: "ID",
                         visible: false,
                     },
-                    // {
-                    //     dataField: "symbol",
-                    //     caption: "Imagen",
-                    //     width: "60px",
-                    //     allowFiltering: false,
-                    //     cellTemplate: (container, { data }) => {
-                    //         ReactAppend(
-                    //             container,
-                    //             <img
-                    //                 src={`/api/indicator/media/${data.symbol}`}
-                    //                 style={{
-                    //                     width: "50px",
-                    //                     aspectRatio: 1,
-                    //                     objectFit: "contain",
-                    //                     objectPosition: "center",
-                    //                     borderRadius: "4px",
-                    //                 }}
-                    //             />
-                    //         );
-                    //     },
-                    // },
+                     {
+                       dataField: "symbol",
+                        caption: "Imagen",
+                        width: "60px",
+                    allowFiltering: false,
+                       cellTemplate: (container, { data }) => {
+                         ReactAppend(
+                                container,
+                              <img
+                               style={{
+                                     aspectRatio: 1,
+                                        objectFit: "contain",
+                                      objectPosition: "center",
+                                    borderRadius: "4px",
+                                   }}
+                               />
+                            );
+                        },
+                     },
                     {
                         dataField: "name",
                         caption: "Titulo",
+                    },
+                      {
+                        dataField: "percentage",
+                        caption: "Porcentaje",
+                    },
+                      {
+                        dataField: "description",
+                        caption: "Descripción",
                     },
 
                     {
@@ -236,12 +245,19 @@ const Indicators = () => {
                         eRef={symbolRef}
                         label="Imagen"
                         aspect={1}
-                        fit="contain"
+                        fit="cover"
                         col="col-sm-4"
                     />
                     <div className="col-md-8">
                         <InputFormGroup eRef={nameRef} label="Título" />
                         {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
+                       
+                         <InputFormGroup
+
+                            eRef={percentageRef}
+                            type="number"
+                            label="Porcentaje"
+                        />
                         <TextareaFormGroup
                             eRef={descriptionRef}
                             label="Descripción"
@@ -255,7 +271,7 @@ const Indicators = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Legal">
+        <BaseAdminto {...properties} title="Indicadores">
             <Indicators {...properties} />
         </BaseAdminto>
     );

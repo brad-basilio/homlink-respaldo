@@ -119,7 +119,8 @@ const Home = ({
     posts= [],
 
     strengths= [],
-    testimonios= []
+    testimonios= [],
+    indicators= [],
 }) => {
     const { t, loading, error } = useTranslation();
     const tipoSlider = "nopain";
@@ -250,7 +251,7 @@ const Home = ({
         <HomeSeccionNosotros data={landingNosotros} strengths={strengths}/>
         {/*SECCION SERVICIOS */}
         <HomeSeccionServicios data={landingServicios}/>
-        <HomeSeccionImpacto data={landingImpacto}/>
+        <HomeSeccionImpacto data={landingImpacto} indicators={indicators}/>
         <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios}/>
         <HomeSeccionBlog data={landingBlog} posts={posts}/>
 

@@ -30,7 +30,7 @@ class ServiceController extends BasicController
         // Procesar galería de imágenes
         $gallery = [];
         // En ServiceController.php
-        if ($request->has('category_name')) {
+      /*  if ($request->has('category_name')) {
             $langId = app('current_lang_id'); // Obtener el lang_id del middleware
 
             $category = CategoryService::firstOrCreate(
@@ -46,7 +46,7 @@ class ServiceController extends BasicController
             );
 
             $body['category_service_id'] = $category->id;
-        }
+        }*/
 
         // Agregar imágenes nuevas
         if ($request->hasFile('gallery')) {
@@ -81,7 +81,7 @@ class ServiceController extends BasicController
 
             foreach ($characteristics as $index => $char) {
                 $title = trim($char['title'] ?? '');
-                $description = trim($char['description'] ?? '');
+              /*  $description = trim($char['description'] ?? '');
                 $image = null;
 
                 // Procesar imagen si se subió
@@ -107,10 +107,11 @@ class ServiceController extends BasicController
                         'description' => $description,
                         'image' => $image
                     ];
-                }
+                }*/
             }
         }
-        $body['characteristics'] = $processedCharacteristics;
+       // $body['characteristics'] = $processedCharacteristics;
+         $body['characteristics_approach'] = $processedCharacteristics;
 
         // Procesar beneficios (similar a características)
         $processedBenefits = [];
@@ -146,6 +147,41 @@ class ServiceController extends BasicController
             }
         }
         $body['benefits'] = $processedBenefits;
+
+
+        $processedSteps = [];
+        if ($request->has('steps')) {
+            $steps = $request->steps;
+
+            foreach ($steps as $index => $step) {
+                $title = trim($step['title'] ?? '');
+                $description = trim($step['description'] ?? '');
+                $image = null;
+
+                if ($request->hasFile("steps.{$index}.image")) {
+                    $file = $request->file("steps.{$index}.image");
+                    $uuid = Crypto::randomUUID();
+                    $ext = $file->getClientOriginalExtension();
+                    $path = "images/service/{$uuid}.{$ext}";
+                    Storage::put($path, file_get_contents($file));
+                    $image = "{$uuid}.{$ext}";
+                } elseif (!empty($step['existing_image'])) {
+                    $image = $step['existing_image'];
+                } else {
+                    // No hay imagen
+                    $image = null;
+                }
+
+                if ($title || $description || $image) {
+                    $processedSteps[] = [
+                        'title' => $title,
+                        'description' => $description,
+                        'image' => $image
+                    ];
+                }
+            }
+        }
+        $body['steps_methodology'] = $processedSteps;
 
         return $body;
     }

@@ -75,6 +75,15 @@
       "tippy.css"
     ]
   },
+  "_DragDropImage-BzrJOcw6.js": {
+    "file": "assets/DragDropImage-BzrJOcw6.js",
+    "name": "DragDropImage",
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js",
+      "_index-CqrOtH36.js"
+    ]
+  },
   "_DxButton-CsjWvhyj.js": {
     "file": "assets/DxButton-CsjWvhyj.js",
     "name": "DxButton"
@@ -267,14 +276,13 @@
       "resources/js/Utils/ReactAppend.jsx"
     ]
   },
-  "_SelectAPIFormGroupSupport-DC_Yo552.js": {
-    "file": "assets/SelectAPIFormGroupSupport-DC_Yo552.js",
+  "_SelectAPIFormGroupSupport-Cjvz0F7p.js": {
+    "file": "assets/SelectAPIFormGroupSupport-Cjvz0F7p.js",
     "name": "SelectAPIFormGroupSupport",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-B80Lgev0.js",
-      "_index-CqrOtH36.js",
       "_tippy-react.esm-CHhA99mn.js",
+      "_index-B80Lgev0.js",
       "_main-Br9xqDfn.js"
     ]
   },
@@ -1295,7 +1303,7 @@
     ]
   },
   "resources/js/Admin/Indicators.jsx": {
-    "file": "assets/Indicators-ClnXWzAU.js",
+    "file": "assets/Indicators-C-u65Qc-.js",
     "name": "Indicators",
     "src": "resources/js/Admin/Indicators.jsx",
     "isEntry": true,
@@ -1571,7 +1579,7 @@
     ]
   },
   "resources/js/Admin/PurchaseOptions.jsx": {
-    "file": "assets/PurchaseOptions-CNeGgz8j.js",
+    "file": "assets/PurchaseOptions-B2ERlO6u.js",
     "name": "PurchaseOptions",
     "src": "resources/js/Admin/PurchaseOptions.jsx",
     "isEntry": true,
@@ -1591,8 +1599,9 @@
       "_ReactAppend-C-tNgxIf.js",
       "_SwitchFormGroup-DPs-YKLp.js",
       "resources/js/components/Blog/Filter.jsx",
-      "_SelectAPIFormGroupSupport-DC_Yo552.js",
+      "_DragDropImage-BzrJOcw6.js",
       "resources/js/components/Blog/Results.jsx",
+      "_SelectAPIFormGroupSupport-Cjvz0F7p.js",
       "_index-DO3Aws4m.js",
       "_tippy-react.esm-CHhA99mn.js",
       "_Logout-Cj6nvmS-.js",
@@ -1678,7 +1687,7 @@
     ]
   },
   "resources/js/Admin/Services.jsx": {
-    "file": "assets/Services-DtaukC3N.js",
+    "file": "assets/Services-LG1BweD2.js",
     "name": "Services",
     "src": "resources/js/Admin/Services.jsx",
     "isEntry": true,
@@ -1699,14 +1708,14 @@
       "_ReactAppend-C-tNgxIf.js",
       "_SwitchFormGroup-DPs-YKLp.js",
       "resources/js/components/Blog/Filter.jsx",
-      "_SelectAPIFormGroupSupport-DC_Yo552.js",
+      "_DragDropImage-BzrJOcw6.js",
+      "_main-Br9xqDfn.js",
       "_index-DO3Aws4m.js",
       "_tippy-react.esm-CHhA99mn.js",
       "_Logout-Cj6nvmS-.js",
-      "_main-Br9xqDfn.js",
-      "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_index.esm-CTa_PdWD.js",
       "_axios-B4uVmeYG.js",
+      "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_useTranslation-eU9E4S-_.js",
       "_index-CqrOtH36.js"
     ],
@@ -1825,7 +1834,7 @@
     ]
   },
   "resources/js/Admin/Solutions.jsx": {
-    "file": "assets/Solutions-D5CEyFii.js",
+    "file": "assets/Solutions-D2DIsZWT.js",
     "name": "Solutions",
     "src": "resources/js/Admin/Solutions.jsx",
     "isEntry": true,
@@ -1844,8 +1853,9 @@
       "_CreateReactScript-Bj11ghWz.js",
       "_ReactAppend-C-tNgxIf.js",
       "resources/js/components/Blog/Filter.jsx",
-      "_SelectAPIFormGroupSupport-DC_Yo552.js",
+      "_DragDropImage-BzrJOcw6.js",
       "resources/js/components/Blog/Results.jsx",
+      "_SelectAPIFormGroupSupport-Cjvz0F7p.js",
       "_index-DO3Aws4m.js",
       "_tippy-react.esm-CHhA99mn.js",
       "_Logout-Cj6nvmS-.js",
@@ -2588,7 +2598,7 @@
     ]
   },
   "resources/js/DetailService.jsx": {
-    "file": "assets/DetailService-DjKi4aKA.js",
+    "file": "assets/DetailService-ZEdhM51w.js",
     "name": "DetailService",
     "src": "resources/js/DetailService.jsx",
     "isEntry": true,
@@ -2820,7 +2830,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-BTjzPebZ.js",
+    "file": "assets/Home-DdS0ILWD.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3731,7 +3741,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-DPLUwAPo.js",
+    "file": "assets/CheckboxFormGroup-CXP54urq.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -3771,7 +3781,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-DPLUwAPo.js",
+    "file": "assets/PasswordFormGroup-CXP54urq.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -3781,7 +3791,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-DPLUwAPo.js",
+    "file": "assets/QuillFormGroup-CXP54urq.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -3791,7 +3801,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Blwd7Hve.js",
+    "file": "assets/SelectAPIFormGroup-CM8yGicn.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -3815,7 +3825,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-DPLUwAPo.js",
+    "file": "assets/SelectFormGroup-CXP54urq.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -3835,7 +3845,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
+    "file": "assets/TextareaFormGroup-CXP54urq.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4917,10 +4927,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-Dgrx6Pb_.js",
+    "file": "assets/Email-CJwPBRg5.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js",
@@ -4941,10 +4951,10 @@
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-DPLUwAPo.js",
+    "file": "assets/HairGoals-COkjni3M.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js"
@@ -5085,7 +5095,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-CXP54urq.js",
+    "file": "assets/CheckboxFormGroup-DPLUwAPo.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -5105,7 +5115,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-CXP54urq.js",
+    "file": "assets/PasswordFormGroup-DPLUwAPo.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -5115,7 +5125,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-CXP54urq.js",
+    "file": "assets/QuillFormGroup-DPLUwAPo.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -5125,7 +5135,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-CM8yGicn.js",
+    "file": "assets/SelectAPIFormGroup-Blwd7Hve.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -5137,7 +5147,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-CXP54urq.js",
+    "file": "assets/SelectFormGroup-DPLUwAPo.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -5147,7 +5157,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-CXP54urq.js",
+    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

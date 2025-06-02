@@ -21,19 +21,8 @@ import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSecci
 import HomeSeccionTestimonios from "./components/Tailwind/CambioGerencia/HomeSeccionTestimonios";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 
-const DetailService = ({ landing, services, allServices, linkWhatsApp, randomImage, brands }) => {
-    const landingHero = landing?.find(
-        (item) => item.correlative === "page_services_hero"
-    );
-    const landingFooter = landing?.find(
-        (item) => item.correlative === "page_services_contact"
-    );
-    const landingCardone = landing?.find(
-        (item) => item.correlative === "page_services_contact_one"
-    );
-    const landingCardsecond = landing?.find(
-        (item) => item.correlative === "page_services_contact_two"
-    );
+const DetailService = ({ landing, services, allServices, linkWhatsApp, randomImage, brands,testimonios }) => {
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const [showServicesMenu, setShowServicesMenu] = useState(false);
@@ -108,7 +97,7 @@ const DetailService = ({ landing, services, allServices, linkWhatsApp, randomIma
             <ServiceSeccionBeneficio />
             <ServiceSeccionMetodologia />
             <ServiceSeccionFaq />
-            <HomeSeccionTestimonios bg_color="bg-neutral-light" />
+            <HomeSeccionTestimonios data={landing} bg_color="bg-neutral-light" testimonios={testimonios} />
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
             <Footer />
         </div>

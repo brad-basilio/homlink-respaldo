@@ -29,6 +29,10 @@ const FeatureCard = ({
     benefits,
     addCharacteristic,
     addBenefit,
+
+    addStep,
+    steps,
+
 }) => {
     const handleFieldChange = (field, value) => {
         onUpdate(index, field, value);
@@ -42,37 +46,51 @@ const FeatureCard = ({
         <div className="card mb-3">
             <div className="card-body">
                 <div className="row">
-                    <div className="col-md-6">
-                        <InputFormGroup
-                            label="Título"
-                            value={feature.title}
-                            onChange={(e) =>
-                                handleFieldChange("title", e.target.value)
-                            }
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">Descripción</label>
-                            <textarea
-                                className="form-control"
-                                rows={3}
-                                value={feature.description}
+
+                    {(type === "characteristic" ? (
+                        <div className="col-md-12">
+                            <InputFormGroup
+                                label="Título"
+                                value={feature.title}
                                 onChange={(e) =>
-                                    handleFieldChange(
-                                        "description",
-                                        e.target.value
-                                    )
+                                    handleFieldChange("title", e.target.value)
                                 }
                             />
-                        </div>
-                    </div>
-                    <div className="col-md-6">
-                        <DragDropImage
-                            label="Imagen"
-                            currentImage={feature.image}
-                            onChange={handleImageChange}
-                            aspect={16 / 9}
-                        />
-                    </div>
+                        </div>) : (
+                        <>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Título"
+                                    value={feature.title}
+                                    onChange={(e) =>
+                                        handleFieldChange("title", e.target.value)
+                                    }
+                                />
+                                <div className="mb-3">
+                                    <label className="form-label">Descripción</label>
+                                    <textarea
+                                        className="form-control"
+                                        rows={3}
+                                        value={feature.description}
+                                        onChange={(e) =>
+                                            handleFieldChange(
+                                                "description",
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <DragDropImage
+                                    label="Imagen"
+                                    currentImage={feature.image}
+                                    onChange={handleImageChange}
+                                    aspect={16 / 9}
+                                />
+                            </div>
+                        </>
+                    ))}
                 </div>
                 <div className="d-flex justify-content-between">
                     <button
@@ -85,20 +103,24 @@ const FeatureCard = ({
                     </button>
                     {(type === "characteristic" &&
                         index === characteristics.length - 1) ||
-                    (type === "benefit" && index === benefits.length - 1) ? (
+                        (type === "benefit" && index === benefits.length - 1) || (type === "step" && index === steps.length - 1) ? (
                         <button
                             type="button"
                             className="btn btn-sm btn-outline-primary"
                             onClick={
                                 type === "characteristic"
                                     ? addCharacteristic
-                                    : addBenefit
+                                    : type === "benefit"
+                                        ? addBenefit
+                                        : addStep
                             }
                         >
                             Agregar{" "}
                             {type === "characteristic"
                                 ? "Característica"
-                                : "Beneficio"}
+                                : type === "benefit"
+                                    ? "Beneficio"
+                                    : "Paso"}
                         </button>
                     ) : null}
                 </div>
@@ -109,36 +131,56 @@ const FeatureCard = ({
 const Services = ({ brands }) => {
     const gridRef = useRef();
     const modalRef = useRef();
-
+    /* 'name',
+            'title_approach',
+            'description_approach',
+            'characteristics_approach',
+            'title_benefits',
+            'title_methodology',
+            'description_methodology',
+            'steps_methodology', */
     // Form elements ref - Siguiendo el patrón del primer código
     const idRef = useRef();
+    // Refs para los campos de texto - igual que en el primer código
+    const nameRef = useRef();
     const titleRef = useRef();
-    const titlesecondRef = useRef();
-    const categoryRef = useRef();
+    // const titlesecondRef = useRef();
+    //const categoryRef = useRef();
     const descriptionRef = useRef();
-    const descriptionsecondRef = useRef();
-    const howItHelpsRef = useRef();
-    const descriptionHelpsRef = useRef();
-    const valuePropositionRef = useRef();
-    const innovationFocusRef = useRef();
-    const customerRelationRef = useRef();
+    //const descriptionsecondRef = useRef();
+    //const howItHelpsRef = useRef();
+    //const descriptionHelpsRef = useRef();
+    // const valuePropositionRef = useRef();
+    // const innovationFocusRef = useRef();
+    // const customerRelationRef = useRef();
+
+    const title_approachRef = useRef();
+    const description_approachRef = useRef();
+
+    const title_benefitsRef = useRef();
+    const title_methodologyRef = useRef();
+    const description_methodologyRef = useRef();
 
     // Refs para imágenes - igual que en el primer código
     const imageRef = useRef();
     const imageSecondaryRef = useRef();
-    const imageBannerRef = useRef();
+    // const imageBannerRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
+    // const [selectedItem, setSelectedItem] = useState(null);
 
     // Estados para características y beneficios
     const [characteristics, setCharacteristics] = useState([
-        { title: "", description: "", image: undefined },
+        { title: "" },
     ]);
     const [benefits, setBenefits] = useState([
         { title: "", description: "", image: undefined },
     ]);
-    const [selectedCategory, setSelectedCategory] = useState("");
+
+    const [steps, setSteps] = useState([
+        { title: "", description: "", image: undefined },
+    ]);
+    //const [selectedCategory, setSelectedCategory] = useState("");
 
     // Funciones para características (simplificadas)
     const addCharacteristic = () => {
@@ -146,8 +188,8 @@ const Services = ({ brands }) => {
             ...characteristics,
             {
                 title: "",
-                description: "",
-                image: undefined,
+                // description: "",
+                // image: undefined,
             },
         ]);
     };
@@ -189,6 +231,32 @@ const Services = ({ brands }) => {
         setBenefits(benefits.filter((_, i) => i !== index));
     };
 
+
+
+    const addStep = () => {
+        setSteps([
+            ...steps,
+            {
+                title: "",
+                description: "",
+                image: undefined,
+            },
+        ]);
+    };
+    const updateStep = useCallback((index, field, value) => {
+        setSteps((prev) => {
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [field]: value };
+            return updated;
+        });
+    }, []);
+
+    const removeStep = (index) => {
+        if (steps.length <= 1) return;
+        setSteps(steps.filter((_, i) => i !== index));
+    };
+
+
     // Cargar datos al editar - similar al primer código
     const onModalOpen = (data) => {
         if (data?.id) setIsEditing(true);
@@ -196,28 +264,33 @@ const Services = ({ brands }) => {
 
         // Resetear valores como en el primer código
         idRef.current.value = data?.id ?? "";
+        nameRef.current.value = data?.name ?? "";
         titleRef.current.value = data?.title ?? "";
-        titlesecondRef.current.value = data?.title_second ?? "";
-        categoryRef.current.value = data?.category.name ?? "";
-        setSelectedCategory(data?.category.name);
-        setSelectedItem(data);
+        //titlesecondRef.current.value = data?.title_second ?? "";
+        // categoryRef.current.value = data?.category.name ?? "";
+        // setSelectedCategory(data?.category.name);
+        // setSelectedItem(data);
 
         descriptionRef.current.value = data?.description ?? "";
-        descriptionsecondRef.current.value = data?.description_second ?? "";
-        howItHelpsRef.current.value = data?.how_it_helps ?? "";
-        descriptionHelpsRef.current.value = data?.description_helps ?? "";
-        valuePropositionRef.current.value = data?.value_proposition ?? "";
-        innovationFocusRef.current.value = data?.innovation_focus ?? "";
-        customerRelationRef.current.value = data?.customer_relation ?? "";
+        // descriptionsecondRef.current.value = data?.description_second ?? "";
+        //howItHelpsRef.current.value = data?.how_it_helps ?? "";
+        // descriptionHelpsRef.current.value = data?.description_helps ?? "";
+        //valuePropositionRef.current.value = data?.value_proposition ?? "";
+        // innovationFocusRef.current.value = data?.innovation_focus ?? "";
+        //customerRelationRef.current.value = data?.customer_relation ?? "";
 
+        title_approachRef.current.value = data?.title_approach ?? "";
+        description_approachRef.current.value = data?.description_approach ?? "";
+
+        title_benefitsRef.current.value = data?.title_benefits ?? "";
+        title_methodologyRef.current.value = data?.title_methodology ?? "";
+        description_methodologyRef.current.value = data?.description_methodology ?? "";
         // Manejo de imágenes como en el primer código
         imageRef.image.src = `/api/service/media/${data?.image ?? "undefined"}`;
-        imageSecondaryRef.image.src = `/api/service/media/${
-            data?.image_secondary ?? "undefined"
-        }`;
-        imageBannerRef.image.src = `/api/service/media/${
-            data?.image_banner ?? "undefined"
-        }`;
+         imageSecondaryRef.image.src = `/api/service/media/${data?.image_secondary ?? "undefined"
+             }`;
+        /* imageBannerRef.image.src = `/api/service/media/${data?.image_banner ?? "undefined"
+             }`;*/
 
         // Cargar características y beneficios si existen
         /*if (data?.characteristics) {
@@ -244,12 +317,12 @@ const Services = ({ brands }) => {
             );
         }*/
         // En onModalOpen, al cargar características y beneficios
-        if (data?.characteristics) {
+        if (data?.characteristics_approach) {
             setCharacteristics(
-                data.characteristics.map((char) => ({
+                data.characteristics_approach.map((char) => ({
                     title: char.title,
-                    description: char.description,
-                    image: char.image, // Guardar directamente el string del nombre de archivo
+                    // description: char.description,
+                    // image: char.image, // Guardar directamente el string del nombre de archivo
                 }))
             );
         }
@@ -257,6 +330,16 @@ const Services = ({ brands }) => {
         if (data?.benefits) {
             setBenefits(
                 data.benefits.map((char) => ({
+                    title: char.title,
+                    description: char.description,
+                    image: char.image, // Guardar directamente el string del nombre de archivo
+                }))
+            );
+        }
+
+        if (data?.steps_methodology) {
+            setSteps(
+                data.steps_methodology.map((char) => ({
                     title: char.title,
                     description: char.description,
                     image: char.image, // Guardar directamente el string del nombre de archivo
@@ -276,15 +359,22 @@ const Services = ({ brands }) => {
         // Campos básicos como en el primer código
         const request = {
             id: idRef.current.value || undefined,
+            name: nameRef.current.value,
             title: titleRef.current.value,
-            title_second: titlesecondRef.current.value,
+            //title_second: titlesecondRef.current.value,
             description: descriptionRef.current.value,
-            description_second: descriptionsecondRef.current.value,
-            how_it_helps: howItHelpsRef.current.value,
-            description_helps: descriptionHelpsRef.current.value,
-            value_proposition: valuePropositionRef.current.value,
-            innovation_focus: innovationFocusRef.current.value,
-            customer_relation: customerRelationRef.current.value,
+            //  description_second: descriptionsecondRef.current.value,
+            //how_it_helps: howItHelpsRef.current.value,
+            // description_helps: descriptionHelpsRef.current.value,
+            // value_proposition: valuePropositionRef.current.value,
+            // innovation_focus: innovationFocusRef.current.value,
+            //customer_relation: customerRelationRef.current.value,
+
+            title_approach: title_approachRef.current.value,
+            description_approach: description_approachRef.current.value,
+            title_benefits: title_benefitsRef.current.value,
+            title_methodology: title_methodologyRef.current.value,
+            description_methodology: description_methodologyRef.current.value,
         };
 
         // Añadir campos básicos al formData
@@ -297,62 +387,35 @@ const Services = ({ brands }) => {
         if (image) formData.append("image", image);
 
         const imageSecondary = imageSecondaryRef.current.files[0];
-        if (imageSecondary) formData.append("image_secondary", imageSecondary);
+          if (imageSecondary) formData.append("image_secondary", imageSecondary);
 
-        const imageBanner = imageBannerRef.current.files[0];
-        if (imageBanner) formData.append("image_banner", imageBanner);
+        /* const imageBanner = imageBannerRef.current.files[0];
+         if (imageBanner) formData.append("image_banner", imageBanner);*/
 
-        // Añadir características y beneficios
-        /* characteristics.forEach((char, index) => {
-            formData.append(`characteristics[${index}][title]`, char.title);
-            formData.append(
-                `characteristics[${index}][description]`,
-                char.description
-            );
-            if (char.image?.file) {
-                formData.append(
-                    `characteristics[${index}][image]`,
-                    char.image.file
-                );
-            }
-        });
 
-        benefits.forEach((benefit, index) => {
-            formData.append(`benefits[${index}][title]`, benefit.title);
-            formData.append(
-                `benefits[${index}][description]`,
-                benefit.description
-            );
-            if (benefit.image?.file) {
-                formData.append(
-                    `benefits[${index}][image]`,
-                    benefit.image.file
-                );
-            }
-        });*/
         // Dentro de onModalSubmit, al procesar características
         characteristics.forEach((char, index) => {
             formData.append(`characteristics[${index}][title]`, char.title);
-            formData.append(
-                `characteristics[${index}][description]`,
-                char.description
-            );
-
-            if (char.image) {
-                if (char.image.file) {
-                    formData.append(
-                        `characteristics[${index}][image]`,
-                        char.image.file
-                    );
-                }
-                // Si es una imagen existente (viene del servidor como string)
-                else if (typeof char.image === "string") {
-                    formData.append(
-                        `characteristics[${index}][existing_image]`,
-                        char.image
-                    );
-                }
-            }
+            /*  formData.append(
+                  `characteristics[${index}][description]`,
+                  char.description
+              );
+  
+              if (char.image) {
+                  if (char.image.file) {
+                      formData.append(
+                          `characteristics[${index}][image]`,
+                          char.image.file
+                      );
+                  }
+                  // Si es una imagen existente (viene del servidor como string)
+                  else if (typeof char.image === "string") {
+                      formData.append(
+                          `characteristics[${index}][existing_image]`,
+                          char.image
+                      );
+                  }
+              }*/
         });
 
         benefits.forEach((char, index) => {
@@ -379,8 +442,32 @@ const Services = ({ brands }) => {
             }
         });
 
+        steps.forEach((char, index) => {
+            formData.append(`steps[${index}][title]`, char.title);
+            formData.append(
+                `steps[${index}][description]`,
+                char.description
+            );
+
+            if (char.image) {
+                if (char.image.file) {
+                    formData.append(
+                        `steps[${index}][image]`,
+                        char.image.file
+                    );
+                }
+                // Si es una imagen existente (viene del servidor como string)
+                else if (typeof char.image === "string") {
+                    formData.append(
+                        `steps[${index}][existing_image]`,
+                        char.image
+                    );
+                }
+            }
+        });
+
         // Separar IDs existentes y nuevos nombres
-        formData.append("category_name", selectedCategory);
+        // formData.append("category_name", selectedCategory);
 
         const result = await servicesRest.save(formData);
         if (!result) return;
@@ -468,8 +555,8 @@ const Services = ({ brands }) => {
                                         borderRadius: "4px",
                                     }}
                                     onError={(e) =>
-                                        (e.target.src =
-                                            "/images/default-thumbnail.jpg")
+                                    (e.target.src =
+                                        "/images/default-thumbnail.jpg")
                                     }
                                 />
                             );
@@ -532,7 +619,7 @@ const Services = ({ brands }) => {
 
                 <div className="row" id="service-container">
                     <div className="col-md-6">
-                        <SelectAPIFormGroupSupport
+                        {/* <SelectAPIFormGroupSupport
                             eRef={categoryRef}
                             dropdownParent="#service-container"
                             label="Categoría"
@@ -543,8 +630,12 @@ const Services = ({ brands }) => {
                                 setSelectedCategory(categoryName)
                             }
                             initialValue={selectedItem?.category?.name || ""}
+                        /> */}
+                        <InputFormGroup
+                            eRef={nameRef}
+                            label="Nombre del servicio"
+                            required
                         />
-
                         <InputFormGroup
                             eRef={titleRef}
                             label="Título del servicio"
@@ -559,8 +650,19 @@ const Services = ({ brands }) => {
                                 required
                             />
                         </div>
+
+                        <ImageFormGroup
+                            eRef={imageRef}
+                            label="Imagen principal"
+                            aspect={16 / 9}
+                        />
+                         <ImageFormGroup
+                            eRef={imageSecondaryRef}
+                            label="Icono del servicio"
+                            aspect={1}
+                        />
                     </div>
-                    <div className="col-md-6">
+                    {/*  <div className="col-md-6">
                         <InputFormGroup
                             eRef={howItHelpsRef}
                             label="Cómo ayuda"
@@ -575,10 +677,44 @@ const Services = ({ brands }) => {
                                 rows={4}
                             />
                         </div>
+                    </div> */}
+                    <div className="col-md-6">
+                        <InputFormGroup
+                            eRef={title_approachRef}
+                            label="Título del enfoque"
+                            required
+                        />
+                        <div className="mb-3">
+                            <label className="form-label">
+                                Descripción del enfoque
+                            </label>
+                            <textarea
+                                ref={description_approachRef}
+                                className="form-control"
+                                rows={4}
+                                required
+                            />
+                        </div>
+  <h5 className="mb-3 mt-4">Caracteristicas</h5>
+                        {characteristics.map((char, index) => (
+                            <FeatureCard
+                                key={`char-${index}`}
+                                feature={char}
+                                index={index}
+                                onUpdate={updateCharacteristic}
+                                onRemove={removeCharacteristic}
+                                canRemove={characteristics.length > 1}
+                                type="characteristic"
+                                characteristics={characteristics}
+                                // benefits={benefits}
+                                addCharacteristic={addCharacteristic}
+                            // addBenefit={addBenefit}
+                            />
+                        ))}
                     </div>
                 </div>
 
-                <div className="row mt-3">
+                {/*                <div className="row mt-3">
                     <div className="col-md-12">
                         <InputFormGroup
                             eRef={titlesecondRef}
@@ -595,9 +731,10 @@ const Services = ({ brands }) => {
                             />
                         </div>
                     </div>
-                </div>
+                </div> */}
 
-                <div className="row mt-3">
+
+                {/*   <div className="row mt-3">
                     <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageRef}
@@ -605,7 +742,7 @@ const Services = ({ brands }) => {
                             aspect={16 / 9}
                         />
                     </div>
-                    <div className="col-md-6">
+                 <div className="col-md-6">
                         <ImageFormGroup
                             eRef={imageSecondaryRef}
                             label="Imagen secundaria"
@@ -619,10 +756,54 @@ const Services = ({ brands }) => {
                             aspect={16 / 9}
                         />
                     </div>
-                </div>
+                </div> */}
 
                 <div className="row mt-3">
-                    <div className="col-12">
+
+                    <div className="col-md-12">
+                        <InputFormGroup
+                            eRef={title_methodologyRef}
+                            label="Título de metodología"
+                            required
+                        />
+                    </div>
+                    <div className="col-md-12">
+                        <div className="mb-3">
+                            <label className="form-label">
+                                Descripción de metodología
+                            </label>
+                            <textarea
+                                ref={description_methodologyRef}
+                                className="form-control"
+                                rows={4}
+                                required
+                            />
+                        </div>
+                    </div>
+                      <h5 className="mb-3 mt-4">Paso a paso</h5>
+                    {steps.map((step, index) => (
+                        <FeatureCard
+                            key={`step-${index}`}
+                            feature={step}
+                            index={index}
+                            onUpdate={updateStep}
+                            onRemove={removeStep}
+                            canRemove={steps.length > 1}
+                            type="step"
+                            // characteristics={characteristics}
+                            //benefits={benefits}
+                            //addCharacteristic={addCharacteristic}
+                            addStep={addStep}
+                            steps={steps}
+                        />
+                    ))}
+                </div>
+
+
+
+
+                <div className="row mt-3">
+                    {/* <div className="col-12">
                         <InputFormGroup
                             eRef={valuePropositionRef}
                             label="Propuesta de valor"
@@ -644,10 +825,10 @@ const Services = ({ brands }) => {
                             />
                         ))}
                     </div>
+                 */}
                 </div>
-
                 <div className="row mt-3">
-                    <div className="col-md-6">
+                    {/*  <div className="col-md-6">
                         <InputFormGroup
                             eRef={innovationFocusRef}
                             label="Enfoque de innovación"
@@ -664,8 +845,15 @@ const Services = ({ brands }) => {
                                 rows={5}
                             />
                         </div>
-                    </div>
+                    </div> */}
                     <div className="col-md-12">
+                        <div className="col-md-12">
+                            <InputFormGroup
+                                eRef={title_benefitsRef}
+                                label="Título de beneficios"
+                                required
+                            />
+                        </div>
                         <h5 className="mb-3 mt-4">Beneficios</h5>
                         {benefits.map((benefit, index) => (
                             <FeatureCard
@@ -676,9 +864,9 @@ const Services = ({ brands }) => {
                                 onRemove={removeBenefit}
                                 canRemove={benefits.length > 1}
                                 type="benefit"
-                                characteristics={characteristics}
+                                // characteristics={characteristics}
                                 benefits={benefits}
-                                addCharacteristic={addCharacteristic}
+                                //addCharacteristic={addCharacteristic}
                                 addBenefit={addBenefit}
                             />
                         ))}
