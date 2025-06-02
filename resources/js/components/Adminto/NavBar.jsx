@@ -51,7 +51,7 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
     return (
         <div className="navbar-custom">
             <ul className="list-unstyled topnav-menu float-end mb-0">
-                <li className="dropdown notification-list topbar-dropdown ">
+               {/* <li className="dropdown notification-list topbar-dropdown ">
                     <div className=" ">
                         <div className="d-flex gap-0 align-items-center justify-content-center ">
                             {languagesSystem.map((language) => (
@@ -82,7 +82,7 @@ const NavBar = ({ session = {}, title = "Pagina", languagesSystem }) => {
                             ))}
                         </div>
                     </div>
-                </li>
+                </li> */}
                 <li className="dropdown notification-list topbar-dropdown">
                     {/*
                       <li className="notification-list topbar-dropdown d-none d-lg-block">

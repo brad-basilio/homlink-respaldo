@@ -74,12 +74,12 @@ const casos = [
 ];
 
 // Componente para la tarjeta de caso de éxito
-const CaseCard = ({ title, image, type, description }) => {
+const CaseCard = ({ slug,title, image, description }) => {
     return (
-        <div className="relative group overflow-hidden rounded-lg shadow-lg font-paragraph">
+        <a href={`/casos-de-exito/${slug}`} className="relative block group overflow-hidden rounded-lg shadow-lg font-paragraph">
             {/* Imagen de fondo */}
             <img
-                src={image}
+                src={`/api/success_story/media/${image}`}
                 alt={title}
                 className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
             />
@@ -87,53 +87,53 @@ const CaseCard = ({ title, image, type, description }) => {
             <div className="absolute inset-0 font-paragraph italic  bg-black/50 flex items-end justify-end p-6 transition-all duration-300 group-hover:hidden group-hover:opacity-0 z-10">
                 <div className="flex gap-2">
                     <h3 className="text-white text-xl font-medium mb-2 leading-tight">
-                        {title}
+                        {(title || "").replace(/\*/g, "")}
                     </h3>
 
                     <div className="flex justify-end">
-                        <div className="bg-accent transition-colors h-10 w-10 duration-300 rounded-lg p-2 text-white">
-                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <a  href={`/casos-de-exito/${slug}`} className="bg-accent transition-colors h-10 w-10 duration-300 rounded-lg p-2 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
 
             {/* Overlay azulado en hover - muestra título, descripción y botón */}
             <div className="absolute inset-0 bg-constrast  opacity-0 flex items-end  justify-end p-6  group-hover:bg-opacity-80 group-hover:opacity-100 transition-all duration-500 z-[999]">
-               <div className="flex  gap-4 w-full">
-                 <div>
-                    <h3 className="text-white italic text-2xl line-clamp-2 font-medium mb-2 leading-tight transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                        {title}
-                    </h3>
-                    {description && (
-                        <p className="text-white/90 line-clamp-1 text-sm mb-3 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
-                            {description}
-                        </p>
-                    )}
-                </div>
-                <div className="flex justify-end transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-150">
-                    <div className="bg-accent  transition-colors w-10 h-10 duration-300 rounded-lg p-2 text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
+                <div className="flex  gap-4 w-full">
+                    <div>
+                        <h3 className="text-white italic text-2xl line-clamp-2 font-medium mb-2 leading-tight transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                             {(title || "").replace(/\*/g, "")}
+                        </h3>
+                        {description && (
+                            <p className="text-white/90 line-clamp-1 text-sm mb-3 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
+                                {description}
+                            </p>
+                        )}
+                    </div>
+                    <div className="flex justify-end transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-150">
+                        <a  href={`/casos-de-exito/${slug}`} className="bg-accent  transition-colors w-10 h-10 duration-300 rounded-lg p-2 text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
                 </div>
-               </div>
             </div>
-        </div>
+        </a>
     );
 };
 
-const CasosDeExito = ({ testimonios, landing }) => {
+const CasosDeExito = ({ testimonios, landing, successStories }) => {
     return (
         <>
             <Header />
             <section className="w-full bg-white font-paragraph px-[5%] py-16 md:py-20">
                 {/* Título de la sección */}
 
-                 <div className="text-center mb-12 lg:mb-16 px-[5%] mx-auto">
+                <div className="text-center mb-12 lg:mb-16 px-[5%] mx-auto">
                     <div className="flex w-full justify-center  mb-4">
                         <div className=" mr-2">
                             <span>
@@ -149,25 +149,27 @@ const CasosDeExito = ({ testimonios, landing }) => {
                         </div>
                         <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Casos de éxito</h3>
                     </div>
-                     <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
+                    <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
 
-                        Nuestros <span className="text-constrast">casos de éxito</span><br className="hidden lg:block"/> más destacados
+                        Nuestros <span className="text-constrast">casos de éxito</span><br className="hidden lg:block" /> más destacados
 
                     </h2>
-                    
+
                 </div>
-              
+
 
                 {/* Grid de casos de éxito */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">        {casos.map((caso) => (
-                    <CaseCard
-                        key={caso.id}
-                        title={caso.title}
-                        image={caso.image}
-                        type={caso.type}
-                        description={caso.description}
-                    />
-                ))}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    {successStories?.map((caso) => (
+                        <CaseCard
+                            key={caso?.id}
+                            title={caso?.name}
+                            slug={caso?.slug}
+                            image={caso?.image}
+                            description={caso?.summary}
+                        />
+                    ))}
                 </div>
 
 

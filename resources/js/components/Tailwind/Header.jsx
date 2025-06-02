@@ -429,7 +429,7 @@ const Header = ({
                                 {[
                                     "/nosotros",
                                      "#services",
-                                    "/casosdeexito",
+                                    "/casos-de-exito",
                                     "/blog",
                                     "/infoproductos",
                                     "/contacto",
@@ -440,7 +440,7 @@ const Header = ({
                                             "public.header.services",
                                             "Servicios"
                                         ),
-                                        "/casosdeexito": t(
+                                        "/casos-de-exito": t(
                                             "public.header.solutions",
                                             "Casos de éxito"
                                         ),
@@ -609,7 +609,7 @@ const Header = ({
                                 {[
                                     "/nosotros",
                                     "#services",
-                                    "/casosdeexito",
+                                    "/casos-de-exito",
                                     "/blog",
                                     "/infoproductos",
                                     "/contacto",
@@ -620,7 +620,7 @@ const Header = ({
                                             "public.header.services",
                                             "Servicios"
                                         ),
-                                        "/casosdeexito": t(
+                                        "/casos-de-exito": t(
                                             "public.header.solutions",
                                             "Casos de éxito"
                                         ),

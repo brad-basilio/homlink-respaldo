@@ -15,6 +15,8 @@ use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController
 use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
 
+use App\Http\Controllers\Admin\SuccessStoryController as AdminSuccessStoryController;
+
 use App\Http\Controllers\Admin\IndicatorController as AdminIndicatorController;
 use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
@@ -58,6 +60,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DetailController;
+use App\Http\Controllers\DetailSuccessStoryController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FaqDetailController;
@@ -72,10 +75,12 @@ use App\Http\Controllers\PopupController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\PurchaseOptionController;
+use App\Http\Controllers\SuccessStoryController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\ThankController;
+use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
 /*
@@ -99,8 +104,9 @@ Route::post('/set-current-lang', function (Request $request) {
 })->middleware('web'); // <-- El middleware 'web' es clave
 
 // Public routes
-Route::get('/detallecasosdeexito', [PlanController::class, 'reactView'])->name('DetalleCasoExito.jsx');
-Route::get('/casosdeexito', [PlanController::class, 'reactView'])->name('CasosDeExito.jsx');
+//Route::get('/detallecasosdeexito', [PlanController::class, 'reactView'])->name('DetalleCasoExito.jsx');
+Route::get('/casos-de-exito/{slug}', [DetailSuccessStoryController::class, 'reactView'])->name('DetalleCasoExito.jsx');
+Route::get('/casos-de-exito', [SuccessStoryController::class, 'reactView'])->name('CasosDeExito.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');
@@ -162,6 +168,8 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/specialities', [AdminSpecialityController::class, 'reactView'])->name('Admin/Specialities.jsx');
     Route::get('/langs', [AdminLangController::class, 'reactView'])->name('Admin/Langs.jsx');
     Route::get('/appointments', [AdminAppointmentController::class, 'reactView'])->name('Admin/Appointments.jsx');
+
+Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactView'])->name('Admin/SuccessStories.jsx');
 
     Route::get('/sales', [AdminSaleController::class, 'reactView'])->name('Admin/Sales.jsx');
     Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');

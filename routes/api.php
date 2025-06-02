@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\SolutionController as AdminSolutionController;
 use App\Http\Controllers\Admin\PurchaseOptionController as AdminPurchaseOptionController;
 use App\Http\Controllers\Admin\FacilityController as AdminFacilityController;
 
+use App\Http\Controllers\Admin\SuccessStoryController as AdminSuccessStoryController;
+
 use App\Http\Controllers\Admin\StaffController as AdminStaffController;
 use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController;
 use App\Http\Controllers\Admin\LangController as AdminLangController;
@@ -88,6 +90,7 @@ use App\Http\Controllers\TestimonyController;
 use App\Http\Controllers\UserFormulasController;
 
 use App\Http\Controllers\BrandController;
+use App\Http\Controllers\SuccessStoryController;
 use App\Models\InstagramPost;
 use App\Models\PurchaseOption;
 use Illuminate\Http\Request;
@@ -136,6 +139,8 @@ Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
 Route::get('/staff/media/{uuid}', [StaffController::class, 'media']);
 Route::get('/speciality/media/{uuid}', [SpecialityController::class, 'media']);
 Route::get('/lang/media/{uuid}', [LangController::class, 'media']);
+
+Route::get('/success_story/media/{uuid}', [SuccessStoryController::class, 'media']);
 
 Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
@@ -279,6 +284,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('/appointments/status', [AdminAppointmentController::class, 'status']);
         Route::patch('/appointments/{field}', [AdminAppointmentController::class, 'boolean']);
         Route::delete('/appointments/{id}', [AdminAppointmentController::class, 'delete']);
+
+
+         Route::post('/success_stories', [AdminSuccessStoryController::class, 'save']);
+        Route::post('/success_stories/paginate', [AdminSuccessStoryController::class, 'paginate']);
+        Route::patch('/success_stories/status', [AdminSuccessStoryController::class, 'status']);
+        Route::patch('/success_stories/{field}', [AdminSuccessStoryController::class, 'boolean']);
+        Route::delete('/success_stories/{id}', [AdminSuccessStoryController::class, 'delete']);
 
         Route::post('/subscriptions/paginate', [AdminSubscriptionController::class, 'paginate']);
         Route::patch('/subscriptions/status', [AdminSubscriptionController::class, 'status']);

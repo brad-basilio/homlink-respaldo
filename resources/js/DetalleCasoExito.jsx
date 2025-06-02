@@ -8,7 +8,10 @@ import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 import { ArrowRight } from "lucide-react";
 import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
+import TextWithHighlight from "./Utils/TextWithHighlight";
 const DetalleCasoExito = ({
+  successStory,
+  successStoryRecents = [],
   proyectoInfo = {
     categoria: "Recursos Humanos",
     cliente: "Mundomedic",
@@ -156,12 +159,12 @@ const DetalleCasoExito = ({
     setOpenItems(newOpenItems);
   }
 
-  const CaseCard = ({ title, image, type, description }) => {
+  const CaseCard = ({ title, image, description }) => {
     return (
-      <div className="relative group overflow-hidden rounded-lg shadow-lg font-paragraph">
+      <a href={`/casos-de-exito/${slug}`} className="relative group overflow-hidden rounded-lg shadow-lg font-paragraph">
         {/* Imagen de fondo */}
         <img
-          src={image}
+           src={`/api/success_story/media/${image}`}
           alt={title}
           className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -169,15 +172,15 @@ const DetalleCasoExito = ({
         <div className="absolute inset-0 font-paragraph italic  bg-black/50 flex items-end justify-end p-6 transition-all duration-300 group-hover:hidden group-hover:opacity-0 z-10">
           <div className="flex gap-2">
             <h3 className="text-white text-xl font-medium mb-2 leading-tight">
-              {title}
+              {(title || "").replace(/\*/g, "")}
             </h3>
 
             <div className="flex justify-end">
-              <div className="bg-accent transition-colors h-10 w-10 duration-300 rounded-lg p-2 text-white">
+             <a  href={`/casos-de-exito/${slug}`} className="bg-accent transition-colors h-10 w-10 duration-300 rounded-lg p-2 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </div>
+              </a>
             </div>
           </div>
         </div>
@@ -187,7 +190,7 @@ const DetalleCasoExito = ({
           <div className="flex  gap-4 w-full">
             <div>
               <h3 className="text-white italic text-2xl line-clamp-2 font-medium mb-2 leading-tight transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                {title}
+                {(title || "").replace(/\*/g, "")}
               </h3>
               {description && (
                 <p className="text-white/90 line-clamp-1 text-sm mb-3 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100">
@@ -196,15 +199,15 @@ const DetalleCasoExito = ({
               )}
             </div>
             <div className="flex justify-end transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-150">
-              <div className="bg-accent  transition-colors w-10 h-10 duration-300 rounded-lg p-2 text-white">
+              <a  href={`/casos-de-exito/${slug}`} className="bg-accent  transition-colors w-10 h-10 duration-300 rounded-lg p-2 text-white">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-              </div>
+              </a>
             </div>
           </div>
         </div>
-      </div>
+      </a>
     );
   };
 
@@ -222,27 +225,27 @@ const DetalleCasoExito = ({
               <div className="space-y-2 bg-white p-4 rounded-lg">
                 <div className="border-b-2 border-neutral-light pb-2">
                   <p className="text-xs font-semibold text-constrast mb-1">Categoría</p>
-                  <p className="text-base text-neutral font-normal">{proyectoInfo.categoria}</p>
+                  <p className="text-base text-neutral font-normal">{successStory?.category_project}</p>
                 </div>
 
                 <div className="border-b-2 border-neutral-light pb-2">
                   <p className="text-xs font-semibold text-constrast mb-1">Cliente</p>
-                  <p className="text-base text-neutral font-normal">{proyectoInfo.cliente}</p>
+                  <p className="text-base text-neutral font-normal">{successStory?.client_project}</p>
                 </div>
 
                 <div className="border-b-2 border-neutral-light pb-2">
                   <p className="text-xs font-semibold text-constrast mb-1">Fecha de inicio</p>
-                  <p className="text-base text-neutral font-normal">{proyectoInfo.fecha_inicio}</p>
+                  <p className="text-base text-neutral font-normal">{successStory?.date_start_project}</p>
                 </div>
 
                 <div className="border-b-2 border-neutral-light pb-2">
                   <p className="text-xs font-semibold text-constrast mb-1">Fecha de finalización</p>
-                  <p className="text-base text-neutral font-normal">{proyectoInfo.fecha_final}</p>
+                  <p className="text-base text-neutral font-normal">{successStory?.date_end_project}</p>
                 </div>
 
                 <div>
                   <p className="text-xs font-semibold text-constrast mb-1">Duración</p>
-                  <p className="text-base text-neutral font-normal">{proyectoInfo.duracion}</p>
+                  <p className="text-base text-neutral font-normal">{successStory?.duration}</p>
                 </div>
               </div>
 
@@ -252,21 +255,21 @@ const DetalleCasoExito = ({
             <div className="w-full  bg-neutral-light shadow-md rounded-lg p-6 h-fit">
               <div className="flex items-center justify-center mb-4">
                 <img
-                  src="/assets/cambiogerencia/sourcegraph.png"
-                  alt={empresa.nombre}
+                  src={`/api/success_story/media/${successStory?.company_logo}`}
+                  alt={successStory?.company_name}
                   className="h-28  object-cover "
                 />
               </div>
 
-              <h4 className="text-center text-2xl font-medium text-neutral mb-2">{empresa.nombre}</h4>
-              <p className="text-sm text-center text-neutral-dark mb-6">{empresa.descripcion}</p>
+              <h4 className="text-center text-2xl font-medium text-neutral mb-2">{successStory?.company_name}</h4>
+              <p className="text-sm text-center text-neutral-dark mb-6">{successStory?.company_summary}</p>
 
               <div className="mb-8">
                 <div className="flex justify-center items-center mb-2">
-                  <span className="text-6xl  font-medium text-neutral-dark">{empresa.porcentaje} <span className="text-accent">%</span></span>
+                  <span className="text-6xl  font-medium text-neutral-dark">{successStory?.company_percentage} <span className="text-accent">%</span></span>
                   <span></span>
                 </div>
-                <p className="text-sm text-neutral-dark">{empresa.porcentajeTexto}</p>
+                <p className="text-sm text-neutral-dark">{successStory?.company_description_percentage}</p>
               </div>
 
               <div>
@@ -320,8 +323,8 @@ const DetalleCasoExito = ({
             {/* Imagen de proyecto */}
             <div className="hidden lg:flex flex-1 rounded-lg overflow-hidden mb-8">
               <img
-                src="/assets/cambiogerencia/hero-nosotros.webp"
-                alt="Proyecto de Recursos Humanos"
+                src={`/api/success_story/media/${successStory?.image}`}
+                alt={successStory?.name}
                 className="w-full aspect-[16/7] object-cover"
               />
             </div>
@@ -342,13 +345,12 @@ const DetalleCasoExito = ({
             </div>
 
             <h2 className="text-[40px]  lg:text-[52px] font-medium mb-6 leading-tight italic">
-              Soluciones de <span className="text-constrast">RR.HH</span> para el éxito de las fuerzas de trabajo
+              <TextWithHighlight text={successStory?.name} />
+
             </h2>
 
             <div className="space-y-6 mb-8 font-light">
-              <p className="text-neutral-dark ">{contenido.descripcion}</p>
-              <p className="text-neutral-dark">{contenido.desafios}</p>
-              <p className="text-neutral-dark">{contenido.resultados}</p>
+              <p className="text-neutral-dark ">{successStory?.description}</p>
             </div>
             <div className=" lg:hidden flex gap-10 mb-10 flex-col">
               <div className="w-full  bg-neutral-light shadow-md rounded-lg p-6 h-fit">
@@ -357,27 +359,27 @@ const DetalleCasoExito = ({
                 <div className="space-y-2 bg-white p-4 rounded-lg">
                   <div className="border-b-2 border-neutral-light pb-2">
                     <p className="text-xs font-semibold text-constrast mb-1">Categoría</p>
-                    <p className="text-base text-neutral font-normal">{proyectoInfo.categoria}</p>
+                    <p className="text-base text-neutral font-normal">{successStory?.category_project}</p>
                   </div>
 
                   <div className="border-b-2 border-neutral-light pb-2">
                     <p className="text-xs font-semibold text-constrast mb-1">Cliente</p>
-                    <p className="text-base text-neutral font-normal">{proyectoInfo.cliente}</p>
+                    <p className="text-base text-neutral font-normal">{successStory?.client_project}</p>
                   </div>
 
                   <div className="border-b-2 border-neutral-light pb-2">
                     <p className="text-xs font-semibold text-constrast mb-1">Fecha de inicio</p>
-                    <p className="text-base text-neutral font-normal">{proyectoInfo.fecha_inicio}</p>
+                    <p className="text-base text-neutral font-normal">{successStory?.date_start_project}</p>
                   </div>
 
                   <div className="border-b-2 border-neutral-light pb-2">
                     <p className="text-xs font-semibold text-constrast mb-1">Fecha de finalización</p>
-                    <p className="text-base text-neutral font-normal">{proyectoInfo.fecha_final}</p>
+                    <p className="text-base text-neutral font-normal">{successStory?.date_end_project}</p>
                   </div>
 
                   <div>
                     <p className="text-xs font-semibold text-constrast mb-1">Duración</p>
-                    <p className="text-base text-neutral font-normal">{proyectoInfo.duracion}</p>
+                    <p className="text-base text-neutral font-normal">{successStory?.duration}</p>
                   </div>
 
                 </div>
@@ -401,21 +403,21 @@ const DetalleCasoExito = ({
               <div id="empresa-info" className="hidden w-full  bg-neutral-light shadow-md rounded-lg p-6 h-fit">
                 <div className="flex items-center justify-center mb-4">
                   <img
-                    src="/assets/cambiogerencia/sourcegraph.png"
-                    alt={empresa.nombre}
+                    src={`/api/success_story/media/${successStory?.company_logo}`}
+                    alt={successStory?.company_name}
                     className="h-28  object-cover "
                   />
                 </div>
 
-                <h4 className="text-center text-2xl font-medium text-neutral mb-2">{empresa.nombre}</h4>
-                <p className="text-sm text-center text-neutral-dark mb-6">{empresa.descripcion}</p>
+                <h4 className="text-center text-2xl font-medium text-neutral mb-2">{successStory?.company_name}</h4>
+                <p className="text-sm text-center text-neutral-dark mb-6">{successStory?.company_summary}</p>
 
                 <div className="mb-8">
                   <div className="flex justify-center items-center mb-2">
-                    <span className="text-6xl  font-medium text-neutral-dark">{empresa.porcentaje} <span className="text-accent">%</span></span>
+                    <span className="text-6xl  font-medium text-neutral-dark">{successStory?.company_percentage} <span className="text-accent">%</span></span>
                     <span></span>
                   </div>
-                  <p className="text-sm text-neutral-dark">{empresa.porcentajeTexto}</p>
+                  <p className="text-sm text-neutral-dark">{successStory?.company_description_percentage}</p>
                 </div>
 
                 <div>
@@ -433,15 +435,20 @@ const DetalleCasoExito = ({
                 </div>
               </div>
             </div>
-            <h2 className="text-[32px] lg:text-[40px] font-medium text-neutral-dark mb-4">{subtitulo1}</h2>
-            <p className="text-neutral-dark font-light mb-8">{contenido1}</p>
+            <h2 className="text-[32px] lg:text-[40px] font-medium text-neutral-dark mb-4">{successStory?.title_benefits}</h2>
+            <p className="text-neutral-dark font-light mb-8">{successStory?.description_benefits}</p>
 
             {/* Beneficios */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-              {benefits.map((benefit, index) => (
+              {successStory?.benefits?.map((benefit, index) => (
                 <div key={index} className="flex gap-4 text-neutral p-4 rounded-xl bg-neutral-light group hover:text-white hover:bg-constrast transition-colors duration-200">
-                  <div className="flex-shrink-0">
-                    {benefit.icon === "people" ? <IconPeople /> : <IconTarget />}
+                  <div className="bg-accent rounded-full h-12 w-12 flex items-center justify-center mr-4 flex-shrink-0">
+                    <img
+                      src={`/api/success_story/media/${benefit?.image}`}
+                      alt={benefit?.title}
+                      className="w-6 h-6 object-cover rounded-xl"
+                    />
+
                   </div>
                   <div>
                     <h3 className="font-medium text-xl  mb-1">{benefit.title}</h3>
@@ -451,7 +458,7 @@ const DetalleCasoExito = ({
               ))}
             </div>
 
-            <p className="text-neutral-dark font-light mb-8">{contenido.descripcion}</p>
+        {/*    <p className="text-neutral-dark font-light mb-8">{contenido.descripcion}</p> */}
 
 
 
@@ -459,21 +466,21 @@ const DetalleCasoExito = ({
             <section className="w-full py-10  lg:px-12 mb-10  lg:bg-primary rounded-xl text-neutral-dark lg:text-white flex flex-col lg:flex-row gap-10">
 
               <div className="w-full ">
-                <h2 className="text-[32px] font-medium mb-4">{seccionAzul.titulo}</h2>
-                <p className="mb-8  font-light ">{seccionAzul.descripcion}</p>
+                <h2 className="text-[32px] font-medium mb-4">{successStory?.title_challenges}</h2>
+                <p className="mb-8  font-light ">{successStory?.description_challenges}</p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 ">
                   <div>
                     <h3 className="font-medium text-xl mb-4">Solución del proyecto</h3>
                     <ul className="space-y-3">
-                      {seccionAzul.solucion.map((item, index) => (
+                      {successStory?.solutions?.map((item, index) => (
                         <li key={index} className="flex items-start gap-2">
 
                           <span className="text-accent">
                             <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                           </span>
 
-                          <p className="text-sm">{item}</p>
+                          <p className="text-sm">{item?.title}</p>
                         </li>
                       ))}
                     </ul>
@@ -481,14 +488,14 @@ const DetalleCasoExito = ({
                   <div>
                     <h3 className="font-medium text-xl mb-4">Desafío del proyecto</h3>
                     <ul className="space-y-3">
-                      {seccionAzul.desafio.map((item, index) => (
+                      {successStory?.challenges?.map((item, index) => (
                         <li key={index} className="flex items-start gap-2">
 
                           <span className="text-accent">
                             <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                           </span>
 
-                          <p className="text-sm">{item}</p>
+                          <p className="text-sm">{item?.title}</p>
                         </li>
                       ))}
                     </ul>
@@ -497,8 +504,8 @@ const DetalleCasoExito = ({
               </div>
               <div className="hidden lg:flex h-[350px]">
                 <img
-                  src="/assets/cambiogerencia/exito-azul.webp"
-                  alt="Manos con hilos rojos"
+                  src={`/api/success_story/media/${successStory?.image_challenges}`}
+                  alt={successStory?.title_challenges}
                   className="rounded-xl h-full w-full  object-cover shadow-md"
                 />
               </div>
@@ -533,7 +540,7 @@ const DetalleCasoExito = ({
 
 
 
-              {/* Sección de preguntas frecuentes */}
+              {/* Sección de preguntas frecuentes 
 
               <div className="flex-1 w-full">
                 <h2 className="text-3xl md:text-4xl text-neutral-dark lg:text-[52px] font-medium mb-4 md:mb-6 leading-tight italic">
@@ -556,7 +563,7 @@ const DetalleCasoExito = ({
                   ))}
                 </div>
 
-              </div>
+              </div>*/}
             </section>
 
 
@@ -589,13 +596,14 @@ const DetalleCasoExito = ({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {casosSimilares.map((caso, index) => (
+            {successStoryRecents.map((caso, index) => (
               <CaseCard
                 key={caso.id}
-                title={caso.title}
-                image={caso.image}
-                type={caso.type}
-                description={caso.description}
+                slug={caso?.slug}
+                title={caso?.name}
+                image={caso?.image}
+               
+                description={caso?.description}
               />
             ))}
           </div>

@@ -21,12 +21,10 @@ class PlanController extends BasicController
             ->where('status', true)
             ->where('visible', true)
             ->get();
-         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
-          $landing = LandingHome::where('correlative', '=', 'page_home_testimonios')->where('lang_id', $langId)->first();
+      
         return [
             'renewals' => $renewals,
-            'testimonios' => $testimonios,
-            'landing' => $landing
+          
         ];
     }
 }
