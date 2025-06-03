@@ -1,107 +1,14 @@
 import React, { useState } from "react";
 import { X } from "lucide-react";
 
-const menuData = {
-  infraestructura: {
-    title: "Servicios",
-    subtitle: "Creamos intervenciones a medida para acompañar procesos de transformación, fortalecer liderazgos y conectar a los equipos con el propósito organizacional",
-    services: [
-      {
-        title: "Capacitaciones",
-        description: "Desarrollamos, Habilidades de liderazgo, Equipos de alto desempeño, Competencias blandas, Equipos comerciales y de servicio, Team Building.",
-      },
-      {
-        title: "Culture360",
-        description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
-      },
-      {
-        title: "Redes",
-        description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
-      },
-      {
-        title: "Servidores",
-        description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
-      },
-      {
-        title: "aaaaaa",
-        description: "Proin dui augue, eleifend ac feugiat ut, dignissim quis augue. Pellentesque ac enim convallis.",
-      },
-    ],
-    additional: {
-      title: "Almacenamiento",
-      description: "Complemento de Cloud Pak for Business Automation para automatizar flujos de trabajo.",
-    },
-  },
-  productividad: {
-    title: "Productividad",
-    subtitle: "Herramientas y soluciones para maximizar la eficiencia de tu equipo de trabajo.",
-    services: [
-      {
-        title: "Colaboración",
-        description: "Plataformas integradas para trabajo en equipo y comunicación efectiva.",
-      },
-      {
-        title: "Automatización",
-        description: "Procesos automatizados que reducen tareas repetitivas y errores.",
-      },
-      {
-        title: "Análisis",
-        description: "Herramientas de análisis para tomar decisiones basadas en datos.",
-      },
-      {
-        title: "Gestión",
-        description: "Sistemas de gestión empresarial para optimizar recursos.",
-      },
-    ],
-    additional: {
-      title: "Integración",
-      description: "Conecta todas tus herramientas en un ecosistema unificado.",
-    },
-  },
-  seguridad: {
-    title: "Seguridad",
-    subtitle: "Protege tu información y sistemas con las mejores prácticas de ciberseguridad.",
-    services: [
-      {
-        title: "Firewall",
-        description: "Protección perimetral avanzada contra amenazas externas.",
-      },
-      {
-        title: "Antivirus",
-        description: "Detección y eliminación de malware en tiempo real.",
-      },
-      {
-        title: "Backup",
-        description: "Respaldo automático y recuperación de datos críticos.",
-      },
-      {
-        title: "Monitoreo",
-        description: "Supervisión continua de la seguridad de tu infraestructura.",
-      },
-    ],
-    additional: {
-      title: "Auditoría",
-      description: "Evaluación completa de vulnerabilidades y cumplimiento normativo.",
-    },
-  },
-};
 
-const navigationItems = [
-  { key: "infraestructura", label: "Infraestructura" },
-  { key: "productividad", label: "Productividad" },
-  { key: "seguridad", label: "Seguridad" },
-  { key: "transformacion", label: "Transformación Digital" },
-  { key: "energia", label: "Energía" },
-];
 
-const MegaMenuPopup = ({ isOpen, onClose ,data}) => {
-  const [activeSection, setActiveSection] = useState("infraestructura");
+
+const MegaMenuPopup = ({ info, isOpen, onClose, data }) => {
+ 
 
   if (!isOpen) return null;
-
-  const currentData = menuData[activeSection] || menuData.infraestructura;
-  console.log("Datos del menú actual:", data);
-  // 
+ 
   return (
     <div className="fixed bg-black/40 text-neutral-dark font-paragraph inset-0 z-50 flex items-start justify-center mt-[120px]">
       <div className="bg-neutral-light px-[5%] relative 2xl:rounded-b-lg w-full max-h-[90vh] overflow-hidden">
@@ -119,8 +26,8 @@ const MegaMenuPopup = ({ isOpen, onClose ,data}) => {
           <div className="w-1/5 py-8">
             <nav className="space-y-1 w-full h-full  overflow-y-auto">
               <img
-                src="/assets/cambiogerencia/image-menu.webp"
-                alt="Testimonios"
+                src={`/api/landing_home/media/${info?.image}`}
+                alt={info?.title}
                 className="w-full lg:w-auto  h-auto lg:h-full object-cover rounded-3xl shadow-lg"
               />
             </nav>
@@ -140,8 +47,8 @@ const MegaMenuPopup = ({ isOpen, onClose ,data}) => {
 
             {/* Header */}
             <div className="mb-4">
-              <h2 className="text-[28px] font-semibold font-title text-primary mb-1">{currentData.title}</h2>
-              <p className="text-primary text-base max-w-2xl  leading-relaxed">{currentData.subtitle}</p>
+              <h2 className="text-[28px] font-semibold font-title text-primary mb-1">{info?.title}</h2>
+              <p className="text-primary text-base max-w-2xl  leading-relaxed">{info?.description}</p>
             </div>
 
             {/* Services Grid */}
@@ -157,7 +64,7 @@ const MegaMenuPopup = ({ isOpen, onClose ,data}) => {
                 const colorClass = hoverColors[index % hoverColors.length];
                 return (
                   <a
-                  href={`/servicio/${service.slug}`}
+                    href={`/servicio/${service.slug}`}
                     key={index}
                     className={`block rounded-lg p-4 2xl:p-6 cursor-pointer transition-colors duration-200 ${colorClass}`}
                   >

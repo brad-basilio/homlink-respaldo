@@ -159,7 +159,7 @@ const DetalleCasoExito = ({
     setOpenItems(newOpenItems);
   }
 
-  const CaseCard = ({ title, image, description }) => {
+  const CaseCard = ({ title,slug, image, description }) => {
     return (
       <a href={`/casos-de-exito/${slug}`} className="relative group overflow-hidden rounded-lg shadow-lg font-paragraph">
         {/* Imagen de fondo */}

@@ -24,8 +24,6 @@ class DetailSuccessStoryController extends BasicController
         $successStory = SuccessStory::where('slug', $request->slug)->first();
 
         $successStoryRecents = SuccessStory::where('visible', true)
-            ->where('status')
-         
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();

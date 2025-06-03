@@ -1,50 +1,10 @@
 import React from "react";
 
-const staff = [
-    {
-        name: "Juan Danon",
-        role: "Fundador & CEO",
-        image: "/assets/cambiogerencia/staff1.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Marta Cortés",
-        role: "Técnica",
-        image: "/assets/cambiogerencia/staff2.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Mia Man",
-        role: "Admin. de oficina",
-        image: "/assets/cambiogerencia/staff3.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Lisa Rose",
-        role: "Admin. de producto",
-        image: "/assets/cambiogerencia/staff4.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Juan Tom Valdez",
-        role: "RRHH",
-        image: "/assets/cambiogerencia/staff5.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Ale Gomez",
-        role: "Asistente de Atención al Cliente",
-        image: "/assets/cambiogerencia/staff6.jpg",
-        linkedin: "#"
-    },
-    {
-        name: "Mia Man",
-        role: "Admin. de oficina",
-        image: "/assets/cambiogerencia/staff7.jpg",
-        linkedin: "#"
-    },
-];
 
+
+
+
+const AboutSeccionStaff = ({staff}) => {
 const IconLinkedin = () => (
     <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M0.33252 12.5C0.33252 5.87258 5.7051 0.5 12.3325 0.5C18.9599 0.5 24.3325 5.87258 24.3325 12.5C24.3325 19.1274 18.9599 24.5 12.3325 24.5C5.7051 24.5 0.33252 19.1274 0.33252 12.5ZM6.48252 10.475V18.5H9.03252V10.475H6.48252ZM6.33252 7.925C6.33252 8.75 6.93252 9.35 7.75752 9.35C8.58252 9.35 9.18252 8.75 9.18252 7.925C9.18252 7.1 8.58252 6.5 7.75752 6.5C7.00752 6.5 6.33252 7.1 6.33252 7.925ZM15.7825 18.5H18.1825V13.55C18.1825 11.075 16.6825 10.25 15.2575 10.25C13.9825 10.25 13.0825 11.075 12.8575 11.6V10.475H10.4575V18.5H13.0075V14.225C13.0075 13.1 13.7575 12.5 14.5075 12.5C15.2575 12.5 15.7825 12.875 15.7825 14.15V18.5Z" fill="#D62828" />
@@ -79,8 +39,51 @@ function getStaffRows(staff) {
     return rows;
 }
 
-const AboutSeccionStaff = () => {
+
     const staffRows = getStaffRows(staff);
+    // Iconos para redes sociales
+    const socialIcons = {
+            linkedin: (
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="current" xmlns="http://www.w3.org/2000/svg">
+                <path fillRule="evenodd" clipRule="evenodd" d="M0.33252 12.5C0.33252 5.87258 5.7051 0.5 12.3325 0.5C18.9599 0.5 24.3325 5.87258 24.3325 12.5C24.3325 19.1274 18.9599 24.5 12.3325 24.5C5.7051 24.5 0.33252 19.1274 0.33252 12.5ZM6.48252 10.475V18.5H9.03252V10.475H6.48252ZM6.33252 7.925C6.33252 8.75 6.93252 9.35 7.75752 9.35C8.58252 9.35 9.18252 8.75 9.18252 7.925C9.18252 7.1 8.58252 6.5 7.75752 6.5C7.00752 6.5 6.33252 7.1 6.33252 7.925ZM15.7825 18.5H18.1825V13.55C18.1825 11.075 16.6825 10.25 15.2575 10.25C13.9825 10.25 13.0825 11.075 12.8575 11.6V10.475H10.4575V18.5H13.0075V14.225C13.0075 13.1 13.7575 12.5 14.5075 12.5C15.2575 12.5 15.7825 12.875 15.7825 14.15V18.5Z" fill="current" />
+            </svg>
+        ),
+        facebook: (
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="current" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.3325 12.5C24.3325 5.87258 18.9599 0.5 12.3325 0.5C5.7051 0.5 0.33252 5.87258 0.33252 12.5C0.33252 18.4915 4.78652 23.4362 10.5825 24.3672V16.0859H7.58252V12.5H10.5825V9.9375C10.5825 6.96094 12.4181 5.3125 15.0919 5.3125C16.3731 5.3125 17.7075 5.54688 17.7075 5.54688V8.45312H16.2931C14.8999 8.45312 14.5825 9.27344 14.5825 10.1172V12.5H17.5744L17.1175 16.0859H14.5825V24.3672C20.3785 23.4362 24.3325 18.4915 24.3325 12.5Z" fill="current"/>
+                <path d="M17.1175 16.0859L17.5744 12.5H14.5825V10.1172C14.5825 9.27344 14.8999 8.45312 16.2931 8.45312H17.7075V5.54688C17.7075 5.54688 16.3731 5.3125 15.0919 5.3125C12.4181 5.3125 10.5825 6.96094 10.5825 9.9375V12.5H7.58252V16.0859H10.5825V24.3672C11.1585 24.4562 11.7451 24.5 12.3325 24.5C12.9199 24.5 13.5065 24.4562 14.0825 24.3672V16.0859H17.1175Z" fill="white"/>
+            </svg>
+        ),
+        twitter: (
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.3325 4.55705C23.4125 4.94805 22.4325 5.21305 21.4125 5.33205C22.4525 4.72305 23.2525 3.75805 23.6625 2.60705C22.6825 3.17205 21.5925 3.58205 20.4125 3.80705C19.4825 2.83705 18.1325 2.25005 16.6625 2.25005C13.8725 2.25005 11.6625 4.46005 11.6625 7.25005C11.6625 7.64105 11.7025 8.02105 11.7825 8.38705C7.72852 8.17705 4.10852 6.25705 1.68252 3.27705C1.25252 3.97705 1.00252 4.79705 1.00252 5.67205C1.00252 7.29705 1.87252 8.72305 3.16252 9.54705C2.31252 9.52705 1.50252 9.29705 0.78252 8.92705V8.98705C0.78252 11.357 2.39252 13.357 4.66252 13.797C4.28252 13.897 3.87252 13.947 3.44252 13.947C3.14252 13.947 2.85252 13.917 2.57252 13.857C3.16252 15.827 4.89252 17.247 6.98252 17.287C5.38252 18.577 3.35252 19.357 1.16252 19.357C0.77252 19.357 0.39252 19.337 0.0125198 19.297C2.12252 20.697 4.64252 21.5 7.33252 21.5C16.6525 21.5 21.6625 13.997 21.6625 7.80705C21.6625 7.59705 21.6625 7.38705 21.6525 7.17705C22.6425 6.45705 23.5025 5.57705 24.3325 4.55705Z" fill="current"/>
+            </svg>
+        ),
+        instagram: (
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="current" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2.5" y="2.5" width="20" height="20" rx="5" fill="current"/>
+                <circle cx="12.5" cy="12.5" r="5" fill="white"/>
+                <circle cx="18.5" cy="6.5" r="1.5" fill="white"/>
+            </svg>
+        ),
+        default: (
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="current" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12.5" cy="12.5" r="12" fill="current"/>
+                <text x="50%" y="55%" textAnchor="middle" fill="#fff" fontSize="10" fontFamily="Arial" dy=".3em">SOC</text>
+            </svg>
+        ),
+    };
+
+    // Detecta el tipo de red social por la url
+    function getSocialType(url) {
+        if (!url) return "default";
+        if (url.includes("linkedin.com")) return "linkedin";
+        if (url.includes("facebook.com")) return "facebook";
+        if (url.includes("twitter.com") || url.includes("x.com")) return "twitter";
+        if (url.includes("instagram.com")) return "instagram";
+        return "default";
+    }
+
     return (
         <section className="w-full bg-white px-[5%] py-20">
             <div className="text-center mb-12">
@@ -114,10 +117,10 @@ const AboutSeccionStaff = () => {
                                         : 'lg:grid-cols-3'
                             }`}
                     >
-                        {row.map((person, idx) => (
+                        {row?.map((person, idx) => (
                             <div key={idx} className=" rounded-xl overflow-hidden  group flex flex-col">
                                 <img
-                                    src={person.image}
+                                    src={`/api/staff/media/${person.image}`}
                                     alt={person.name}
                                     className="w-full  rounded-xl aspect-[14/16] object-cover"
                                 />
@@ -125,11 +128,26 @@ const AboutSeccionStaff = () => {
                                     <div>
                                         <div className="flex items-center gap-2">
                                             <span className="text-neutral text-2xl font-medium">{person.name}</span>
-                                            <a href={person.linkedin} target="_blank" rel="noopener noreferrer" className="ml-auto">
-                                                <IconLinkedin />
-                                            </a>
+                                            <div className="flex gap-2 ml-auto ">
+                                                {Array.isArray(person.socials) && person.socials.map((social, i) => {
+                                                    const url = typeof social === "string" ? social : social?.value;
+                                                    const type = getSocialType(url);
+                                                    return url ? (
+                                                        <a
+                                                            key={i}
+                                                            href={url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="fill-accent"
+                                                            title={type.charAt(0).toUpperCase() + type.slice(1)}
+                                                        >
+                                                            {socialIcons[type] || socialIcons.default}
+                                                        </a>
+                                                    ) : null;
+                                                })}
+                                            </div>
                                         </div>
-                                        <span className="text-neutral-dark text-xs">{person.role}</span>
+                                        <span className="text-neutral-dark text-xs">{person.job}</span>
                                     </div>
                                 </div>
                             </div>

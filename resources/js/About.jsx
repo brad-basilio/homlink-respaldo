@@ -16,71 +16,44 @@ import AboutSeccionWhy from "./components/Tailwind/CambioGerencia/AboutSeccionWh
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 import AboutSeccionStaff from "./components/Tailwind/CambioGerencia/AboutSeccionStaff";
 
-const AboutUs = ({ about, landing, issues, valores, paises, sectores, brands }) => {
+const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) => {
 
-  const landingHero = landing?.find(
-    (item) => item.correlative === "page_aboutus_hero"
+   const mision= aboutus?.find(
+        (item) => item.correlative === "mision"
+    );
+    const vision = aboutus?.find(
+        (item) => item.correlative === "vision"
+    );
+ const valor = aboutus?.find(
+        (item) => item.correlative === "valor"
+    );
+
+    const beneficios_clave = aboutus?.find(
+        (item) => item.correlative === "beneficios_clave"
+    );
+
+    const landingNosotros = landing?.find(
+        (item) => item.correlative === "page_aboutus_nosotros"
+    );
+  const landingVision = landing?.find(
+    (item) => item.correlative === "page_aboutus_vision"
   );
 
-  const landingHistory = landing?.find(
-    (item) => item.correlative === "page_aboutus_history"
+  const landingEligenos = landing?.find(
+    (item) => item.correlative === "page_aboutus_eligenos"
   );
 
-  const landingIssues = landing?.find(
-    (item) => item.correlative === "page_aboutus_issues"
-  );
-
-  const landingComment = landing?.find(
-    (item) => item.correlative === "page_aboutus_comment"
-  );
-
-  const landingValues = landing?.find(
-    (item) => item.correlative === "page_aboutus_values"
-  );
-
-  const landingSrategy = landing?.find(
-    (item) => item.correlative === "page_aboutus_strategy"
-  );
-
-  const landingStatics = landing?.find(
-    (item) => item.correlative === "page_aboutus_stadistic"
-  );
-
-  const landingCarrusel = landing?.find(
-    (item) => item.correlative === "page_aboutus_carrusel"
-  );
-
-  const landingRuta = landing?.find(
-    (item) => item.correlative === "page_aboutus_ruta"
-  );
-
-  const landingBanner = landing?.find(
-    (item) => item.correlative === "page_aboutus_banner"
-  );
-
-  const landingFooter = landing?.find(
-    (item) => item.correlative === "page_aboutus_footer"
-  );
-
-  const landingFooterOne = landing?.find(
-    (item) => item.correlative === "page_aboutus_footer_cardone"
-  );
-
-  const landingFooterTwo = landing?.find(
-    (item) => item.correlative === "page_aboutus_footer_cardtwo"
-  );
 
 
   return (
     <>
       <Header />
 
-      <HomeSeccionNosotros />
-      <AboutSeccionVision />
-      <AboutSeccionWhy />
-     
-      <AboutSeccionStaff />
-              <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+      <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
+      <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
+      <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} />
+      <AboutSeccionStaff staff={staff} />
+      <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
 
       <Footer />
     </>

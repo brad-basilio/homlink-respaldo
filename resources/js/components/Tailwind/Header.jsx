@@ -174,18 +174,22 @@ const Header = ({
     const [languagesSystem, setLanguagesSystem] = useState([]);
     const [generals, setGenerals] = useState([]);
     const [servicesData, setServicesData] = useState([]);
+    const [modalData, setModalData] = useState([]);
+
     useEffect(() => {
         const fetchSocials = async () => {
             try {
                 const data = await generalRest.getSocials();
                 const dataGenerals = await generalRest.getGenerals();
                 const dataServices = await generalRest.getServices();
+                const dataModal = await generalRest.getModal();
 
                 //const languages = await generalRest.getLanguages();
                 setSocials(data);
                 setGenerals(dataGenerals);
-                console.log("dataServices:", dataServices);
+     
                 setServicesData(dataServices);
+                setModalData(dataModal);
                 //  setLanguagesSystem(languages);
             } catch (error) {
                 console.error("Error fetching socials:", error);
@@ -494,6 +498,7 @@ const Header = ({
                                                 {activeMegaMenu === path && (
                                                     <div className="">
                                                         <MegaMenuPopup
+                                                        info={modalData}
                                                             isOpen={activeMegaMenu === path}
                                                             onClose={closeMegaMenu}
                                                             data={servicesData}

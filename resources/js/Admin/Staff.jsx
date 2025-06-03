@@ -23,7 +23,7 @@ const Staff = () => {
     const idRef = useRef();
     const nameRef = useRef();
     const jobRef = useRef();
-    const descriptionRef = useRef();
+    //const descriptionRef = useRef();
     const imageRef = useRef();
 
     const [characteristics, setCharacteristics] = useState([{ value: "" }]);
@@ -70,12 +70,12 @@ const Staff = () => {
         // Resetear formulario
         idRef.current.value = data?.id || "";
         nameRef.current.value = data?.name || "";
-        // jobRef.current.value = data?.job || "";
-        descriptionRef.current.value = data?.description || "";
-        // imageRef.current.value = null;
-        // if (data?.image) {
-        //     imageRef.image.src = `/api/staff/media/${data.image}`;
-        // }
+        jobRef.current.value = data?.job || "";
+        //descriptionRef.current.value = data?.description || "";
+        imageRef.current.value = null;
+        if (data?.image) {
+            imageRef.image.src = `/api/staff/media/${data.image}`;
+        }
 
         // Cargar características existentes
         if (data?.characteristics && data.characteristics.length > 0) {
@@ -101,8 +101,8 @@ const Staff = () => {
 
         const formData = new FormData();
         formData.append("name", nameRef.current.value);
-        // formData.append("job", jobRef.current.value);
-        formData.append("description", descriptionRef.current.value);
+        formData.append("job", jobRef.current.value);
+        // formData.append("description", descriptionRef.current.value);
 
         // Si estamos editando, agregar el ID
         if (isEditing) {
@@ -110,9 +110,9 @@ const Staff = () => {
         }
 
         // Agregar imagen principal si existe
-        // if (imageRef.current.files[0]) {
-        //     formData.append("image", imageRef.current.files[0]);
-        // }
+        if (imageRef.current.files[0]) {
+            formData.append("image", imageRef.current.files[0]);
+        }
 
         // Agregar características (filtrar vacías)
         // const nonEmptyCharacteristics = characteristics
@@ -123,10 +123,10 @@ const Staff = () => {
         //     JSON.stringify(nonEmptyCharacteristics)
         // );
         // Agregar redes sociales (filtrar vacías)
-        // const nonEmptySocials = socials
-        //     .map((s) => s.value.trim())
-        //     .filter((s) => s.length > 0);
-        // formData.append("socials", JSON.stringify(nonEmptySocials));
+        const nonEmptySocials = socials
+            .map((s) => s.value.trim())
+            .filter((s) => s.length > 0);
+        formData.append("socials", JSON.stringify(nonEmptySocials));
 
         // Enviar al backend
         const result = await staffRest.save(formData);
@@ -142,7 +142,7 @@ const Staff = () => {
     // Resto de métodos (delete, boolean change, etc.)
     const onDeleteClicked = async (id) => {
         const { isConfirmed } = await Swal.fire({
-            title: "Eliminar Issues",
+            title: "Eliminar Staff",
             text: "¿Estás seguro de eliminar este problema?",
             icon: "warning",
             showCancelButton: true,
@@ -159,7 +159,7 @@ const Staff = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Issues"
+                title="Staff"
                 rest={staffRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -180,7 +180,7 @@ const Staff = () => {
                         options: {
                             icon: "plus",
                             text: "Agregar",
-                            hint: "Agregar nuevo Issues",
+                            hint: "Agregar nuevo Staff",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -193,10 +193,10 @@ const Staff = () => {
                     },
                     {
                         dataField: "name",
-                        caption: "Problema",
+                        caption: "Nombre",
                         width: "200px",
                     },
-                    {
+                    {/*
                         dataField: "description",
                         caption: "Descripción",
                         cellTemplate: (container, { data }) => {
@@ -211,7 +211,7 @@ const Staff = () => {
                                 )
                             );
                         },
-                    },
+                    */},
                     // {
                     //     dataField: "characteristics",
                     //     caption: "Características",
@@ -251,66 +251,65 @@ const Staff = () => {
                     //         );
                     //     },
                     // },
-                    // {
-                    //     dataField: "socials",
-                    //     caption: "Redes sociales",
-                    //     cellTemplate: (container, { data }) => {
-                    //         if (!data.socials) return;
-                    //         container.html(
-                    //             renderToString(
-                    //                 <ul
-                    //                     className="m-0 ps-3"
-                    //                     style={{ listStyle: "none" }}
-                    //                 >
-                    //                     {data.socials
-                    //                         .slice(0, 2)
-                    //                         .map((char, i) => (
-                    //                             <li
-                    //                                 key={i}
-                    //                                 className="text-truncate"
-                    //                                 style={{
-                    //                                     maxWidth: "250px",
-                    //                                 }}
-                    //                             >
-                    //                                 <small>• {char}</small>
-                    //                             </li>
-                    //                         ))}
-                    //                     {data.socials.length > 2 && (
-                    //                         <li>
-                    //                             <small className="text-muted">
-                    //                                 +{data.socials.length - 2}{" "}
-                    //                                 más...
-                    //                             </small>
-                    //                         </li>
-                    //                     )}
-                    //                 </ul>
-                    //             )
-                    //         );
-                    //     },
-                    // },
-                    // {
-                    //     dataField: "image",
-                    //     caption: "Imagen",
-                    //     width: "100px",
-                    //     cellTemplate: (container, { data }) => {
-                    //         ReactAppend(
-                    //             container,
-                    //             <img
-                    //                 src={`/api/staff/media/${data.image}`}
-                    //                 style={{
-                    //                     width: "80px",
-                    //                     height: "45px",
-                    //                     objectFit: "cover",
-                    //                     borderRadius: "4px",
-                    //                 }}
-                    //                 onError={(e) =>
-                    //                     (e.target.src =
-                    //                         "/images/default-thumbnail.jpg")
-                    //                 }
-                    //             />
-                    //         );
-                    //     },
-                    // },
+                 {
+                     dataField: "socials",
+                 caption: "Redes sociales",
+                     cellTemplate: (container, { data }) => {
+                         if (!data.socials) return;
+                         container.html(
+                             renderToString(
+                         <ul
+                                    className="m-0 ps-3"
+                                    >
+                                     {data.socials
+                                             .slice(0, 2)
+                                          .map((char, i) => (
+                                   <li
+                                                 key={i}
+                                                     className="text-truncate"
+                    style={{
+                                                     maxWidth: "250px",
+                                                   }}
+                                            >
+                                           <small>• {char}</small>
+                                                </li>
+                                    ))}
+                                        {data.socials.length > 2 && (
+                                            <li>
+                                                <small className="text-muted">
+                                                 +{data.socials.length - 2}{" "}
+                                                 más...
+                                   </small>
+                                        </li>
+                                        )}
+                                </ul>
+                             )
+                        );
+                     },
+                 },
+                     {
+                         dataField: "image",
+                         caption: "Imagen",
+                         width: "100px",
+                         cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                             <img
+                             src={`/api/staff/media/${data.image}`}
+                     style={{
+                                        width: "80px",
+                                 height: "45px",
+                                    objectFit: "cover",
+                                   borderRadius: "4px",
+                        }}
+                          onError={(e) =>
+                                   (e.target.src =
+                                      "/images/default-thumbnail.jpg")
+                                }
+                                 />
+                             );
+                         },
+                     },
                     {
                         caption: "Acciones",
                         width: "100px",
@@ -339,26 +338,65 @@ const Staff = () => {
 
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar Issues" : "Nuevo Issues"}
+                title={isEditing ? "Editar Staff" : "Nuevo Staff"}
                 onSubmit={onModalSubmit}
-                size="sm"
+                size="lg"
             >
                 <input ref={idRef} type="hidden" />
 
                 <div className="row">
-                    <div className="col-md-12">
+                    <div className="col-md-6">
+                         <ImageFormGroup
+                            eRef={imageRef}
+                            label="Imagen principal"
+                            aspect={1}
+                          
+                        />
+                    </div>
+                    <div className="col-md-6">
                         <InputFormGroup
                             eRef={nameRef}
-                            label="Problema"
+                            label="Nombre"
                             required
                         />
-                        {/* <InputFormGroup
+                         <InputFormGroup
                             eRef={jobRef}
                             label="Puesto laboral"
                             required
-                        /> */}
-
-                        <div className="mb-3">
+                        /> 
+   <div className="mb-3">
+                            <label className="form-label">Redes sociales</label>
+                            {socials.map((social, index) => (
+                                <div key={index} className="input-group mb-2">
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="Ej: https://linkedin.com/in/tu-perfil"
+                                        value={social.value}
+                                        onChange={(e) =>
+                                            updateSocial(index, e.target.value)
+                                        }
+                                    />
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-danger"
+                                        onClick={() => removeSocial(index)}
+                                        disabled={socials.length <= 1}
+                                    >
+                                        <i className="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            ))}
+                            <button
+                                type="button"
+                                className="btn btn-sm btn-outline-primary"
+                                onClick={addSocial}
+                            >
+                                <i className="fas fa-plus me-1"></i> Agregar red
+                                social
+                            </button>
+                        </div>
+                       {/* <div className="mb-3">
                             <label className="form-label">Descripción</label>
                             <textarea
                                 ref={descriptionRef}
@@ -366,7 +404,7 @@ const Staff = () => {
                                 rows={4}
                                 required
                             />
-                        </div>
+                        </div> */}
 
                         {/* <div className="mb-3">
                             <label className="form-label">
@@ -409,45 +447,7 @@ const Staff = () => {
                         </div> */}
                     </div>
 
-                    {/* <div className="col-md-6">
-                        <ImageFormGroup
-                            eRef={imageRef}
-                            label="Imagen principal"
-                            aspect={1}
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">Redes sociales</label>
-                            {socials.map((social, index) => (
-                                <div key={index} className="input-group mb-2">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        placeholder="Ej: https://web.facebook.com/nopainperu"
-                                        value={social.value}
-                                        onChange={(e) =>
-                                            updateSocial(index, e.target.value)
-                                        }
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-outline-danger"
-                                        onClick={() => removeSocial(index)}
-                                        disabled={socials.length <= 1}
-                                    >
-                                        <i className="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            ))}
-                            <button
-                                type="button"
-                                className="btn btn-sm btn-outline-primary"
-                                onClick={addSocial}
-                            >
-                                <i className="fas fa-plus me-1"></i> Agregar red
-                                social
-                            </button>
-                        </div>
-                    </div> */}
+                 
                 </div>
             </Modal>
         </>
@@ -456,7 +456,7 @@ const Staff = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Issues">
+        <BaseAdminto {...properties} title="Staff">
             <Staff {...properties} />
         </BaseAdminto>
     );

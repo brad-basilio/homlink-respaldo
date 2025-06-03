@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
 const IconStack = () => (
     <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent">
@@ -19,7 +20,7 @@ const IconUsers = () => (
     </span>
 );
 
-const AboutSeccionVision = () => {
+const AboutSeccionVision = ({ data, vision, mision, valor }) => {
     return (
         <section className="w-full font-paragraph bg-white px-[5%] py-10 flex flex-col lg:flex-row gap-8 items-center">
             {/* Columna izquierda  */}
@@ -41,10 +42,11 @@ const AboutSeccionVision = () => {
                 </div>
 
                 <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-                    Somos agentes<br />del <span className="text-constrast italic font-normal">cambio<br />humano</span>
+                    <TextWithHighlight text={data?.title} />
+
                 </h2>
                 <p className="text-neutral-dark text-base font-light mb-8 max-w-md">
-                    Visualizamos un mundo donde las empresas y las personas prosperen juntas mediante conexiones que fomenten la innovación, el crecimiento y el éxito.
+                    {data?.description}
                 </p>
                 {/* Botón "Sobre nosotros" */}
                 <div className='w-full'>
@@ -75,7 +77,7 @@ const AboutSeccionVision = () => {
                         </div>
                         <div>
                             <h3 className=" text-lg font-semibold mb-1">Nuestra misión</h3>
-                            <p className=" text-base">Nutrimos, desarrollamos y mejoramos el talento a través de programas de aprendizaje y capacitación estratégica.</p>
+                            <p className=" text-base">{mision?.description}</p>
                         </div>
                     </div>
                     {/* Visión */}
@@ -90,7 +92,7 @@ const AboutSeccionVision = () => {
                         </div>
                         <div>
                             <h3 className=" text-lg font-semibold mb-1">Nuestra visión</h3>
-                            <p className=" text-base">Nutrimos, desarrollamos y mejoramos el talento a través de programas de aprendizaje y capacitación estratégica.</p>
+                            <p className=" text-base">{vision?.description}</p>
                         </div>
                     </div>
                     {/* Valor */}
@@ -105,7 +107,7 @@ const AboutSeccionVision = () => {
                         </div>
                         <div>
                             <h3 className=" text-lg font-semibold mb-1">Nuestro valor</h3>
-                            <p className=" text-base">Nutrimos, desarrollamos y mejoramos el talento a través de programas de aprendizaje y capacitación estratégica.</p>
+                            <p className=" text-base">{valor?.description}</p>
                         </div>
                     </div>
                 </div>
@@ -115,8 +117,8 @@ const AboutSeccionVision = () => {
             <div className="flex-1 max-w-md w-full flex items-center justify-center">
                 <div className="rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm">
                     <img
-                        src="/assets/cambiogerencia/vision.webp"
-                        alt="Agente del cambio humano"
+                        src={`/api/landing_home/media/${data?.image}`}
+                        alt={data?.title}
                         className="w-full  object-cover"
                     />
                 </div>

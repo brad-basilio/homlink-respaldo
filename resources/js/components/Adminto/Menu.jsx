@@ -156,7 +156,7 @@ const Menu = ({
 
                                     {t("admin.sidebar.messages", "Mensajes")}
                                 </MenuItem>
-                                <MenuItem
+                               {/* <MenuItem
                                     href="/admin/appointments"
                                     icon="mdi mdi-android-messages"
                                 >
@@ -165,7 +165,7 @@ const Menu = ({
                                     </span>
 
                                     {t("admin.sidebar.appointments", "Citas")}
-                                </MenuItem>
+                                </MenuItem> */}
                                 <MenuItem
                                     href="/admin/complaints"
                                     icon="mdi mdi-book-open-page-variant"
@@ -229,7 +229,7 @@ const Menu = ({
                                     href="/admin/staff"
                                     icon="mdi mdi-account-heart"
                                 >
-                                    {t("admin.sidebar.staff", "Problemas")}
+                                    {t("admin.sidebar.staff", "Staff")}
                                 </MenuItem>
                                 {/* <MenuItem
                                     href="/admin/sales"
@@ -298,14 +298,14 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.pages", "Páginas")}
                                 </MenuItem>
-                                {/*    <MenuItem
+                                  <MenuItem
                                     href="/admin/subscriptions"
                                     icon="mdi mdi-email-multiple"
                                 >
                                     Subscripciones
                                 </MenuItem>
                                 
-                                
+                                {/*
                                 <MenuItem
                                     href="/admin/ads"
                                     icon="mdi mdi-google-ads"
@@ -318,7 +318,7 @@ const Menu = ({
                                 >
                                     {t(
                                         "admin.sidebar.translations",
-                                        "Marcas"
+                                        "Empresas"
                                     )}
                                 </MenuItem>
                                 <MenuItem
@@ -327,12 +327,12 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.pages", "Sliders")}
                                 </MenuItem> 
-                                {/* <MenuItem
+                                 <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
                                 >
-                                    Nosotros
-                                </MenuItem> */}
+                                    Nosotros (normas)
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/indicators"
                                     icon="mdi mdi-checkbox-marked-outline"
@@ -348,12 +348,12 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.benefits", "Fortalezas")}
                                 </MenuItem>
-                               {/** <MenuItem
+                             <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
-                                    Core_values
-                                </MenuItem>*/} 
+                                    Pilares de Acción
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/testimonies"
                                     icon="mdi mdi-forum"

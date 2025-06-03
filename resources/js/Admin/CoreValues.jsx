@@ -34,7 +34,7 @@ const CoreValues = () => {
 
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
-        imageRef.image.src = `/api/strength/media/${data?.image}`;
+        imageRef.image.src = `/api/core_value/media/${data?.image}`;
         imageRef.current.value = null;
         descriptionRef.current.value = data?.description ?? "";
 
@@ -94,7 +94,7 @@ const CoreValues = () => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Valores"
+                title="Pilares de acción"
                 rest={coreValuesRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -149,7 +149,7 @@ const CoreValues = () => {
                     },
                     {
                         dataField: "name",
-                        caption: "Fortaleza",
+                        caption: "Pilar de acción",
                         width: "30%",
                     },
 
@@ -206,31 +206,38 @@ const CoreValues = () => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar valor" : "Agregar valor"}
+                title={isEditing ? "Editar pilar de acción" : "Agregar pilar de acción"}
                 onSubmit={onModalSubmit}
                 size="md"
             >
                 <div className="row" id="faqs-container">
                     <input ref={idRef} type="hidden" />
-                    <InputFormGroup
+                    <div className="col-8">
+  <InputFormGroup
                         eRef={nameRef}
-                        label="Valor"
-                        col="col-12"
+                        label="Pilar de acción"
+                      
                         required
                     />
-                    <ImageFormGroup
+                     <TextareaFormGroup
+                        eRef={descriptionRef}
+                        label="Descripción"
+                        rows={3}
+                      
+                    />
+                    </div>
+                  
+                   <div className="col-md-4 ">
+                     <ImageFormGroup
                         eRef={imageRef}
                         label="Imagen"
-                        col="col-md-4"
+                       
                         aspect={1}
                         fit="contain"
                         required
                     />
-                    <TextareaFormGroup
-                        eRef={descriptionRef}
-                        label="Descripción"
-                        rows={3}
-                    />
+                   </div>
+                   
                 </div>
             </Modal>
         </>
@@ -239,7 +246,7 @@ const CoreValues = () => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Valores">
+        <BaseAdminto {...properties} title="Pilares de acción">
             <CoreValues {...properties} />
         </BaseAdminto>
     );

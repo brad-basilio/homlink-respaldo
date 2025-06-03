@@ -9,6 +9,7 @@ use App\Models\dxDataGrid;
 use App\Models\Facility;
 use App\Models\General;
 use App\Models\Indicator;
+use App\Models\LandingHome;
 use App\Models\Lang;
 use App\Models\Service;
 use App\Models\Slider;
@@ -103,11 +104,11 @@ class GeneralController extends BasicController
         $response = new Response();
         try {
             $data = Aboutus::all();
-           $data2 = General::where('lang_id', app('current_lang_id'))->get();
+            $data2 = General::where('lang_id', app('current_lang_id'))->get();
             //$data2 = General::where('visible', true)->where('status', true)->get();
-          //  $data3 = Facility::where('visible', true)->where('status', true)->where('lang_id', app('current_lang_id'))->get();
+            //  $data3 = Facility::where('visible', true)->where('status', true)->where('lang_id', app('current_lang_id'))->get();
             // dump($data);
-            $response->data = ['aboutus' => $data, 'generals' => $data2];//, 'sedes' => $data3
+            $response->data = ['aboutus' => $data, 'generals' => $data2]; //, 'sedes' => $data3
             $response->status = 200;
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {
@@ -126,10 +127,10 @@ class GeneralController extends BasicController
     {
         $response = new Response();
         try {
-        
+
             $data = General::where('status', true)->where('lang_id', app('current_lang_id'))->get();
-       
-            $response->data = $data;//, 'sedes' => $data3
+
+            $response->data = $data; //, 'sedes' => $data3
             $response->status = 200;
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {
@@ -144,14 +145,37 @@ class GeneralController extends BasicController
         }
     }
 
-     public function getServices(Request $request): HttpResponse|ResponseFactory
+    public function getServices(Request $request): HttpResponse|ResponseFactory
     {
         $response = new Response();
         try {
-        
+
             $data = Service::where('lang_id', app('current_lang_id'))->get();
-       
-            $response->data = $data;//, 'sedes' => $data3
+
+            $response->data = $data; //, 'sedes' => $data3
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
+
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
+    }
+
+    public function getModal(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+            $langId = app('current_lang_id');
+
+            $data =  LandingHome::where('correlative', 'like', 'page_services_modal')->where('lang_id', $langId)->first();
+
+            $response->data = $data; //, 'sedes' => $data3
             $response->status = 200;
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {
