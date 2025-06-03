@@ -232,7 +232,7 @@ const Generals = ({ generals }) => {
                             SEO (Metatags)
                         </button>
                     </li>
-                    <li className="nav-item" role="presentation" hidden>
+                    <li className="nav-item" role="presentation">
                         {" "}
                         {/* Quitar el hidden para que se muestren las opciones */}
                         <button

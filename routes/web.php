@@ -113,7 +113,7 @@ Route::get('/casos-de-exito', [SuccessStoryController::class, 'reactView'])->nam
 Route::get('/infoproductos', [InfoproductController::class, 'reactView'])->name('Infoproductos.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
-Route::get('/contact', [ContactController::class, 'reactView'])->name('Contacto.jsx');
+Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
 Route::get('/services', [ServiceController::class, 'reactView'])->name('DetailService.jsx');
 Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogProducts.jsx');
@@ -135,7 +135,7 @@ Route::get('/test/result/{formula}', [TestResultController::class, 'reactView'])
 //Route::get('/about', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/blog', [BlogController::class, 'reactView'])->name('Blog.jsx');
 Route::get('/blog/{slug}', [ArticleController::class, 'reactView'])->name('BlogArticle.jsx');
-Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contact.jsx');
+//Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contact.jsx');
 Route::get('/libro-de-reclamaciones', [ComplaintController::class, 'reactView'])->name('LibroDeReclamaciones.jsx');
 // Vistas maquetadas finalizadas
 Route::get('/checkout', [CheckoutController::class, 'reactView'])->name('Checkout.jsx');

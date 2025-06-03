@@ -22,7 +22,7 @@ class InfoproductController extends PublicController
         $langId = app('current_lang_id');
         $categories = InfoproductCategory::all();
        
-        $landing = LandingHome::where('correlative', 'like', 'page_blog%')->where('lang_id', $langId)->get();
+        $landing = LandingHome::where('correlative', '=', 'page_infoproducts_banner')->where('lang_id', $langId)->first();
         
         // Obtener los sliders y añadir button_text y button_link personalizados
         $productosRecientes = Post::where('status', true)

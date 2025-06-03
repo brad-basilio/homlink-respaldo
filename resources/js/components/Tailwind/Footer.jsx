@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
 
 import Tippy from "@tippyjs/react";
@@ -6,6 +6,8 @@ import HtmlContent from "../../Utils/HtmlContent";
 import GeneralRest from "../../actions/GeneralRest";
 import { Send, X } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
+import Swal from "sweetalert2";
+import SubscriptionsRest from "../../Actions/SubscriptionsRest";
 
 ReactModal.setAppElement("#app");
 
@@ -80,6 +82,36 @@ const Footer = ({ terms, footerLinks = [] }) => {
             .replace(/\*(.*?)\*/g, "$1") // *texto*
             .replace(/[*]+/g, ""); // Cualquier asterisco suelto
     };
+    const subscriptionsRest = new SubscriptionsRest();
+    const emailRef = useRef();
+
+
+    const [saving, setSaving] = useState();
+
+    const onEmailSubmit = async (e) => {
+        e.preventDefault();
+        setSaving(true);
+
+        const request = {
+            email: emailRef.current.value,
+            status: 1,
+        };
+        const result = await subscriptionsRest.save(request);
+        setSaving(false);
+
+        if (!result) return;
+
+        Swal.fire({
+            title: "¡Éxito!",
+            text: `Te has suscrito correctamente al blog de ${Global.APP_NAME}.`,
+            icon: "success",
+            confirmButtonText: "Ok",
+        });
+
+
+        emailRef.current.value = null;
+    };
+
 
     return (
         <>
@@ -98,19 +130,50 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         {/*SUBCRIBE FORM*/}
                         <div className="mt-6 font-paragraph">
                             <h3 className="text-sm font-medium mb-4">Suscríbete y recibe todas nuestras novedades</h3>
+                              <form onSubmit={onEmailSubmit}>
                             <div className="flex flex-row rounded-lg lg:justify-between py-2 lg:px-2  border  border-white bg-transparent">
-                                <input
-                                    type="email"
-                                    placeholder="Ingresa tu e-mail"
-                                    className=" px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none"
-                                />
+                              
+                                    <input
+                                        ref={emailRef}
+                                        disabled={saving}
+                                        type="email"
+                                        placeholder="Ingresa tu e-mail"
+                                        className=" px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none"
+                                    />
 
-                                <button className="bg-accent text-sm lg:text-base text-white px-4 rounded-md  py-2 flex items-center justify-center transition-colors">
-                                    Suscribirme
-                                    <Send className="ml-2" size={16} />
-                                </button>
+                                    <button disabled={saving} className="bg-accent text-sm lg:text-base text-white px-4 rounded-md  py-2 flex items-center justify-center transition-colors">
 
-                            </div>
+                                        {saving ? (
+                                            <span className="flex items-center gap-2">
+                                                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                                                    <circle
+                                                        className="opacity-25"
+                                                        cx="12"
+                                                        cy="12"
+                                                        r="10"
+                                                        stroke="currentColor"
+                                                        strokeWidth="4"
+                                                        fill="none"
+                                                    />
+                                                    <path
+                                                        className="opacity-75"
+                                                        fill="currentColor"
+                                                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                                    />
+                                                </svg>
+                                                Enviando...
+                                            </span>
+                                        ) : (
+                                            <>
+                                                Suscribirme <Send className="ml-2" size={16} />
+                                            </>
+                                        )}
+
+
+
+                                    </button>
+                               
+                            </div> </form>
                         </div>
                     </div>
 
@@ -132,7 +195,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 Teléfono: +51 915 968 941
                             </p>
                             <p className="cursor-pointer ">
-                                Correo: 
+                                Correo:
                                 <span className="block line-clamp-1">cambiogerencia@mail.com</span>
                             </p>
                         </div>
@@ -142,16 +205,16 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             <h3 className="text-base  font-title font-bold mb-3">
                                 Políticas
                             </h3>
-                            <a href="/faqs" className="cursor-pointer">
+                            <a onClick={() => openModal(0)} className="cursor-pointer">
                                 Políticas de privacidad
                             </a>
-                            <a href="/blog" className="cursor-pointer">
+                            <a onClick={() => openModal(1)} className="cursor-pointer">
                                 Términos y Condiciones
                             </a>
-                            <a href="/blog" className="cursor-pointer">
+                            <a onClick={() => openModal(2)} className="cursor-pointer">
                                 Políticas de cambio
                             </a>
-                            <a href="/blog" className="cursor-pointer">
+                            <a href="/libro-reclamaciones" className="cursor-pointer">
                                 Libro de reclamaciones
                             </a>
 
@@ -168,44 +231,44 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </p>
 
                         </div>
-                          <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
+                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
                             <h3 className="text-base  font-title font-bold mb-3">
-                               Nuestras redes
+                                Nuestras redes
                             </h3>
                             <div className="flex flex-row gap-5 text-white mt-3">
 
-                            {Facebook && (
-                                <a
-                                    href={Facebook.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
+                                {Facebook && (
+                                    <a
+                                        href={Facebook.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
 
-                                    <i className="fa-brands fa-facebook fa-xl"></i>
-                                </a>
-                            )}
+                                        <i className="fa-brands fa-facebook fa-xl"></i>
+                                    </a>
+                                )}
 
-                            {Tiktok && (
-                                <a
-                                    href={Tiktok.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-tiktok fa-xl"></i>
-                                </a>
-                            )}
+                                {Tiktok && (
+                                    <a
+                                        href={Tiktok.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i className="fa-brands fa-tiktok fa-xl"></i>
+                                    </a>
+                                )}
 
-                            {Instagram && (
-                                <a
-                                    href={Instagram.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-instagram fa-xl"></i>
-                                </a>
-                            )}
+                                {Instagram && (
+                                    <a
+                                        href={Instagram.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i className="fa-brands fa-instagram fa-xl"></i>
+                                    </a>
+                                )}
 
-                            {/* {datosgenerales?.linkedin && (
+                                {/* {datosgenerales?.linkedin && (
                                 <a
                                     href={datosgenerales.linkedin}
                                     target="_blank"
@@ -215,45 +278,45 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 </a>
                             )} */}
 
-                            {Twitter && (
-                                <a
-                                    href={Twitter.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-twitter fa-xl"></i>
-                                </a>
-                            )}
+                                {Twitter && (
+                                    <a
+                                        href={Twitter.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i className="fa-brands fa-twitter fa-xl"></i>
+                                    </a>
+                                )}
 
-                            {Youtube && (
-                                <a
-                                    href={Youtube.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-youtube fa-xl"></i>
-                                </a>
-                            )}
+                                {Youtube && (
+                                    <a
+                                        href={Youtube.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i className="fa-brands fa-youtube fa-xl"></i>
+                                    </a>
+                                )}
 
-                            {Whatsapp && (
-                                <a
-                                    href={Whatsapp.link}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-whatsapp fa-xl"></i>
-                                </a>
-                            )}
+                                {Whatsapp && (
+                                    <a
+                                        href={Whatsapp.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        <i className="fa-brands fa-whatsapp fa-xl"></i>
+                                    </a>
+                                )}
+                            </div>
+
                         </div>
 
-                        </div>
-                        
                     </div>
                 </div>
                 <div className="bg-neutral-light text-primary py-3 flex items-center justify-center">
                     <div className="text-center gap-5 w-full px-[5%] font-paragraph font-medium text-[10px] lg:text-sm">
                         Copyright <span className="text-accent">©</span> 2025 Cambio & Gerencia. Reservados todos los derechos.
-                      {/*  <div className="flex flex-row gap-4">
+                        {/*  <div className="flex flex-row gap-4">
                             <a
                                 onClick={() => openModal(0)}
                                 className="cursor-pointer"

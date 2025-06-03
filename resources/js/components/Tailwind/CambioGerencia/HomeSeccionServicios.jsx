@@ -67,46 +67,7 @@ const ServiceCard = ({
 };
 
 const HomeSeccionServicios = ({ data }) => {
-    const servicesRow1 = [
-        {
-            name: "Capacitaciones",
-            description: "Desarrollamos, Habilidades de liderazgo, Equipos de alto desempeño, Competencias blandas, Equipos comerciales y de servicio, Team Building.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-        {
-            name: "Total Change",
-            description: "Gestión soft de la transformación digital, enean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-        {
-            name: "Culture360",
-            description: "Transformamos la cultura organizacional, orem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-    ];
-
-    const servicesRow2 = [
-        {
-            name: "PeoplePower",
-            description: "Potenciamos la gestión de procesos de clima y desarrollo del potencial, enean commodo ligula eget dolor. Aenean massa. Cum sociis.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-        {
-            name: "ConnectCI",
-            description: "Potenciamiento y diseño estratégico de la comunicación interna, enean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-        {
-            name: "Trust & Connect",
-            description: "Gestión reputacional, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.",
-            image: "assets/cambiogerencia/image-card.webp",
-        },
-        {
-            name: "XP Co-Lab",
-            description: "Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus.",
-            image: "assets/cambiogerencia/image-card.webp",
-        }
-    ];
+  
 
     // Swiper state for mobile
     const allServices = [...servicesRow1, ...servicesRow2];

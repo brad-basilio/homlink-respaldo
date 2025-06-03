@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, ChevronDown } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import { Send, ChevronDown, ArrowRight } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import Base from "./Components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
@@ -11,6 +11,8 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import ContactForm from "./Components/Contact/ContactForm";
 import MaintenancePage from "./Utils/MaintenancePage";
 import { useTranslation } from "./hooks/useTranslation";
+import MessagesRest from "./Actions/MessagesRest";
+import Swal from "sweetalert2";
 
 // Animaciones
 const containerVariants = {
@@ -69,7 +71,7 @@ const buttonHover = {
 };
 
 const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
-    const landingHero = landing?.find(
+/*    const landingHero = landing?.find(
         (item) => item.correlative === "page_contact_hero"
     );
     const landingForm = landing?.find(
@@ -95,354 +97,175 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     );
     const sectionfive = landing?.find(
         (item) => item.correlative === "page_contact_sectionfive"
-    );
+    ); */
+const messagesRest = new MessagesRest();
 
-    const sedesValidas = Array.isArray(sedes) ? sedes : [];
 
-    const todosHorariosIguales =
-        sedesValidas.length > 0 &&
-        sedesValidas.every(
-            (sede, _, arr) =>
-                JSON.stringify(sede.horario) === JSON.stringify(arr[0].horario)
-        );
+const nameRef = useRef()
+  const phoneRef = useRef()
+  const emailRef = useRef()
+  const descriptionRef = useRef()
+    const lastnameRef = useRef()
 
-    const { t } = useTranslation();
+  const [sending, setSending] = useState(false)
 
-    const [openedId, setOpenedId] = useState(sectionone.id);
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    if (sending) return
+    setSending(true)
 
-    const [activeTab, setActiveTab] = useState("ventas");
+    const request = {
+      name: nameRef.current.value + ' ' + lastnameRef.current.value,
+      subject: phoneRef.current.value,
+      email: emailRef.current.value,
+      description: descriptionRef.current.value,
+     
+    }
 
-    const toggleAccordion = (id) => {
-        setOpenedId(openedId === id ? null : id);
-      };
+    const result = await messagesRest.save(request);
+    setSending(false)
 
-    const ArrowIcon = () => (
-    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-        <mask id="mask0_226_5036" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
-        <rect y="0.984375" width="20" height="20" fill="#D9D9D9"/>
-        </mask>
-        <g mask="url(#mask0_226_5036)">
-        <path d="M13.4791 11.8203H3.33325V10.1536H13.4791L8.81242 5.48698L9.99992 4.32031L16.6666 10.987L9.99992 17.6536L8.81242 16.487L13.4791 11.8203Z" fill="#7D3CB5"/>
-        </g>
-    </svg>
-    );
+    if (!result) return
 
-    const VentasContent = () => {
-        // Estado para controlar qué formulario mostrar
-        const [activeForm, setActiveForm] = useState(null);
-    
-        // Efecto para actualizar el formulario activo cuando cambia el acordeón
-        useEffect(() => {
-            if (openedId === sectionfour.id) {
-                setActiveForm('form1');
-            } else if (openedId === sectionfive.id) {
-                setActiveForm('form2');
-            } else {
-                setActiveForm(null);
-            }
-        }, [openedId]);
-    
-        return (
-            <section className="px-[5%] xl:px-[8%] py-10 lg:py-16">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-10 xl:gap-16">
-                    <div className="flex flex-col gap-3 items-left justify-center">
-                        <h2 className="font-Poppins_Regular font-semibold text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight !tracking-tight">
-                            {landingVentas.title}
-                        </h2>
-                        <div className="flex flex-col w-full font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
-                            {landingVentas.description}
-                        </div>
-                        <div className="w-full flex">
-                            <a href={landingVentas.link}>
-                                <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
-                                    <p className="leading-none text-white">{landingVentas.subtitle}</p>
-                                </div>
-                            </a>
-                        </div>
-    
-                        <div className="flex flex-col w-full max-w-3xl gap-5">
-                            <div className="mt-6">
-                                {/* Pestaña 1 */}
-                                <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
-                                    openedId !== sectiontree.id ? 'opacity-90 hover:opacity-100' : ''
-                                    }`}>
-                                    <h1
-                                        className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
-                                        openedId === sectiontree.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
-                                        }`}
-                                        onClick={() => toggleAccordion(sectiontree.id)}
-                                    >
-                                        <span>{sectiontree.title}</span>
-                                        <i className={`mdi ${openedId === sectiontree.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
-                                    </h1>
-                                    <div
-                                        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        openedId === sectiontree.id ? 'border-l-2 border-[#4B246D] max-h-[500px] opacity-100 py-3' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
-                                        }`}
-                                    >
-                                        <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                            {sectiontree.description}
-                                        </p>
-                                        <div className="flex">
-                                            <a href={sectiontree.link} className='flex flex-row gap-2 mt-3 font-semibold font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                                {sectiontree.subtitle} <ArrowIcon />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                                {/* Pestaña 2 - Al desplegarse mostrará Formulario 1 */}
-                                <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
-                                    openedId !== sectionfour.id ? 'opacity-90 hover:opacity-100' : ''
-                                    }`}>
-                                    <h1
-                                        className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
-                                        openedId === sectionfour.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
-                                        }`}
-                                        onClick={() => toggleAccordion(sectionfour.id)}
-                                    >
-                                        <span>{sectionfour.title}</span>
-                                        <i className={`mdi ${openedId === sectionfour.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
-                                    </h1>
-                                    <div
-                                        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        openedId === sectionfour.id ? 'max-h-[500px] opacity-100 py-3 border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
-                                        }`}
-                                    >
-                                        <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                        {sectionfour.description}
-                                        </p>
-                                    </div>
-                                </div>
-    
-                                {/* Pestaña 3 - Al desplegarse mostrará Formulario 2 */}
-                                <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
-                                    openedId !== sectionfive.id ? 'opacity-90 hover:opacity-100' : ''
-                                    }`}>
-                                    <h1
-                                        className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
-                                        openedId === sectionfive.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
-                                        }`}
-                                        onClick={() => toggleAccordion(sectionfive.id)}
-                                    >
-                                        <span>{sectionfive.title}</span>
-                                        <i className={`mdi ${openedId === sectionfive.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
-                                    </h1>
-                                    <div
-                                        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        openedId === sectionfive.id ? 'max-h-[500px] opacity-100 py-3 border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
-                                        }`}
-                                    >
-                                        <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                        {sectionfive.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div className="flex flex-col gap-3 items-center justify-start">
-                        <div className="flex flex-col w-full">
-                            {activeForm === null ? (
-                                // Mostrar imagen por defecto cuando no hay acordeón desplegado
-                                <img
-                                    className="object-cover w-full h-full rounded-lg overflow-hidden max-w-md mx-auto"
-                                    src={`/api/landing_home/media/${landingVentas.image}`}
-                                    onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
-                                />
-                            ) : activeForm === 'form1' ? (
-                                // Formulario 1 (para el segundo ítem del acordeón)
-                                <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-                                    <h3 className="text-xl font-semibold mb-4 text-[#4B246D]">Formulario de Contacto 1</h3>
-                                    <form className="space-y-4">
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Nombre</label>
-                                            <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Email</label>
-                                            <input type="email" className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Mensaje</label>
-                                            <textarea rows="4" className="mt-1 block w-full border border-gray-300 rounded-md p-2"></textarea>
-                                        </div>
-                                        <button type="submit" className="bg-[#7B5E9A] text-white px-4 py-2 rounded-md">
-                                            Enviar
-                                        </button>
-                                    </form>
-                                </div>
-                            ) : (
-                                // Formulario 2 (para el tercer ítem del acordeón)
-                                <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
-                                    <h3 className="text-xl font-semibold mb-4 text-[#4B246D]">Formulario de Contacto 2</h3>
-                                    <form className="space-y-4">
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Empresa</label>
-                                            <input type="text" className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Teléfono</label>
-                                            <input type="tel" className="mt-1 block w-full border border-gray-300 rounded-md p-2" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm font-medium text-[#5C4774]">Servicio de interés</label>
-                                            <select className="mt-1 block w-full border border-gray-300 rounded-md p-2">
-                                                <option>Seleccione...</option>
-                                                <option>Servicio 1</option>
-                                                <option>Servicio 2</option>
-                                            </select>
-                                        </div>
-                                        <button type="submit" className="bg-[#7B5E9A] text-white px-4 py-2 rounded-md">
-                                            Solicitar información
-                                        </button>
-                                    </form>
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </section>
-        );
-    };
+    Swal.fire({
+      icon: 'success',
+      title: 'Mensaje enviado',
+      text: 'Tu mensaje ha sido enviado correctamente. ¡Nos pondremos en contacto contigo pronto!',
+      showConfirmButton: false,
+      timer: 3000
+    })
 
-    const SoporteContent = () => (
-        <section className="px-[5%] xl:px-[8%] py-10 lg:py-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                <div className="flex flex-col gap-3 items-left justify-center">
-                    <h2 className="font-Poppins_Regular font-semibold text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight !tracking-tight">
-                        {landingSoporte.title}
-                    </h2>
-                    <div className="flex flex-col w-full font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
-                        {landingSoporte.description}
-                    </div>
-                    <div className="w-full flex">
-                        <a href={landingSoporte.link}>
-                            <div className="bg-[#7B5E9A] text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
-                                <p className="leading-none text-white">{landingSoporte.subtitle}</p>
-                            </div>
-                        </a>
-                    </div>
+    if (data.redirect) {
+      location.href = data.redirect
+    }
 
-                    <div className="flex flex-col w-full max-w-3xl gap-5">
-                        {   
-                            <div className="mt-6">
-                                {/* Pestaña 1 */}
-                                <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
-                                    openedId !== sectionone.id ? 'opacity-90 hover:opacity-100' : ''
-                                    }`}>
-                                    <h1
-                                        className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
-                                        openedId === sectionone.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
-                                        }`}
-                                        onClick={() => toggleAccordion(sectionone.id)}
-                                    >
-                                        <span>{sectionone.title}</span>
-                                        <i className={`mdi ${openedId === sectionone.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
-                                    </h1>
-                                    <div
-                                        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        openedId === sectionone.id ? 'border-l-2 border-[#4B246D] max-h-[500px] opacity-100 py-3' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
-                                        }`}
-                                    >
-                                        <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                            {sectionone.description}
-                                        </p>
-                                        <div className="flex">
-                                            <a href={sectionone.link}  className='flex flex-row gap-2 mt-3 font-semibold font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                                {sectionone.subtitle} <ArrowIcon />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                        
-                                {/* Pestaña 2 */}
-                                <div className={`bg-white rounded-xl text-[#3E2F4D] shadow-md transition-all duration-300 ${
-                                    openedId !== sectiontwo.id ? 'opacity-90 hover:opacity-100' : ''
-                                    }`}>
-                                    <h1
-                                        className={`flex justify-between font-Poppins_Regular font-semibold px-6 py-4 bg-[#F5F2F9] cursor-pointer text-base 2xl:text-xl ${
-                                        openedId === sectiontwo.id ? 'border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400'
-                                        }`}
-                                        onClick={() => toggleAccordion(sectiontwo.id)}
-                                    >
-                                        <span>{sectiontwo.title}</span>
-                                        <i className={`mdi ${openedId === sectiontwo.id ? 'mdi-arrow-up' : 'mdi-arrow-down'}`}></i>
-                                    </h1>
-                                    <div
-                                        className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${
-                                        openedId === sectiontwo.id ? 'max-h-[500px] opacity-100 py-3 border-l-2 border-[#4B246D]' : 'border-l-2 border-slate-400 max-h-0 opacity-0 py-0'
-                                        }`}
-                                    >
-                                        <p className='font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                        {sectiontwo.description}
-                                        </p>
+    nameRef.current.value = null
+    phoneRef.current.value = null
+    emailRef.current.value = null
+    descriptionRef.current.value = null
+  }
 
-                                        <div className="flex">
-                                            <a href={sectiontwo.link}  className='flex flex-row gap-2 mt-3 font-semibold font-Poppins_Regular text-base 2xl:text-lg text-[#4B246D]'>
-                                                {sectiontwo.subtitle} <ArrowIcon />
-                                            </a>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>
 
-                <div className="flex flex-col gap-3 items-center justify-start">
-                    <div className="flex flex-col">
-                        <img
-                        className="object-cover w-full h-full rounded-lg overflow-hidden max-w-md mx-auto"
-                        src={`/api/landing_home/media/${landingSoporte.image}`}
-                        onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
-                        />
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
 
+
+
+
+   
+
+  
+ 
     return (
-        <div className="font-poppins text-negro">
+        <div className="font-paragraph text-neutral-dark min-h-screen  ">
             <Header />
+            <main className="flex flex-col items-center justify-center min-h-[80vh] py-16 ">
+                <div className="w-full px-[5%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 bg-transparent">
+                    {/* Left: Contact Form */}
+                    <div className="bg-neutral-light rounded-2xl p-8 flex flex-col justify-between shadow-md min-h-[500px]">
+                        <div>
+                           
+                         <div className="flex items-center mb-4">
+                            <div className=" mr-2">
+                                <span>
+                                    <svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.50225 0C5.95566 0 4.69727 1.2584 4.69727 2.80499C4.69727 4.35158 5.95566 5.60998 7.50225 5.60998C9.04885 5.60998 10.3072 4.35158 10.3072 2.80499C10.3072 1.2584 9.04885 0 7.50225 0Z" fill="#D62828" />
+                                        <path d="M7.50112 24.0025C3.65842 24.0025 0.759766 22.4639 0.759766 20.4219C0.759766 19.9629 1.13269 19.59 1.59168 19.59C2.05066 19.59 2.42359 19.9629 2.42359 20.4219C2.42359 21.203 4.40166 22.3387 7.49981 22.3387C10.5993 22.3387 12.576 21.2043 12.576 20.4219C12.576 19.8743 12.4874 19.3657 12.3048 18.8689C12.147 18.4373 12.3674 17.9601 12.799 17.801C13.2306 17.6432 13.7092 17.8636 13.8669 18.2952C14.1147 18.9693 14.2399 19.6839 14.2399 20.4206C14.2425 22.4639 11.3451 24.0025 7.50112 24.0025Z" fill="#D62828" />
+                                        <path d="M11.4896 21.804C12.3046 21.4414 12.7754 20.9968 12.8132 20.6225C5.70098 16.9581 5.32021 11.2634 5.32021 10.1015C5.32021 9.64249 4.94725 9.26953 4.48823 9.26953C4.02921 9.26953 3.65625 9.64249 3.65625 10.1015C3.65625 11.4082 4.06181 17.6884 11.4896 21.804Z" fill="#D62828" />
+                                        <path d="M7.49991 6.25781C5.37954 6.25781 3.6543 7.98306 3.6543 10.1034C3.6543 10.5624 4.02725 10.9354 4.48627 10.9354C4.9453 10.9354 5.31825 10.5624 5.31825 10.1034C5.31825 8.9011 6.29628 7.92177 7.49991 7.92177C8.70353 7.92177 9.68156 8.8998 9.68156 10.1034C9.68156 10.9432 8.14671 11.9108 6.66272 12.8458C6.33019 13.0558 5.98722 13.2709 5.64296 13.4965C5.81248 13.9855 6.03026 14.5059 6.31454 15.047C6.72531 14.7732 7.1426 14.5111 7.55077 14.2542C9.58768 12.971 11.3468 11.8626 11.3468 10.1034C11.3455 7.98306 9.62158 6.25781 7.49991 6.25781Z" fill="#D62828" />
+                                        <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
+                                    </svg>
 
-            <section className="flex flex-col md:justify-center items-center gap-5 2xl:gap-8 px-[5%] pt-10 lg:pt-16">
-                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-2xl 2xl:max-w-3xl md:text-center">
-                    <p className="font-Poppins_Medium text-[#3E2F4D] text-xl 2xl:text-2xl !leading-tight">{landingHero?.subtitle}</p>
+                                </span>
+                            </div>
+                            <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Contáctanos</h3>
+                        </div>
+
+                        {/* Título principal */}
+                        <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
+                            Soluciones de <span className="text-blue-600">RR.HH</span> simplificadas<br />contáctenos ahora
+
+                        </h2>
+                          <p className="mt-4 text-lg text-neutral max-w-3xl mx-auto">
+                                Conectamos el talento con la oportunidad, fomentando el crecimiento, el éxito y un futuro más brillante para las personas y las empresas.
+                            </p>
+                        </div>
+
+
+                        
+                        {/* Contact Form */}
+                        <form onSubmit={onSubmit} className="w-full flex flex-col gap-4 mt-2">
+                            <div className="flex gap-3">
+                                <input ref={nameRef} type="text" placeholder="Nombre" className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200" />
+                                <input ref={lastnameRef} type="text" placeholder="Apellido" className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200" />
+                            </div>
+                            <div className="flex gap-3">
+                                <input ref={phoneRef} type="text" placeholder="Teléfono" className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200" />
+                                <input ref={emailRef} type="email" placeholder="Correo electrónico" className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200" />
+                            </div>
+                            <textarea ref={descriptionRef} placeholder="Escribir mensaje" rows={4} className="border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none" />
+                            <button type="submit" className="mt-2 bg-accent max-w-max text-white font-semibold rounded-md px-6 py-3 flex items-center justify-center gap-2 transition-all">
+                                Enviar mensaje <ArrowRight  />
+                            </button>
+                        </form>
+                    </div>
+                    {/* Right: Map and Info Cards */}
+                    <div className="flex flex-col gap-6">
+                        {/* Map */}
+                        <div className="rounded-2xl overflow-hidden shadow-md w-full h-72 md:h-full min-h-[300px]">
+                            <iframe
+                                title="Ubicación Lima"
+                                src="https://www.google.com/maps?q=-12.0972,-77.0337&z=12&output=embed"
+                                width="100%"
+                                height="100%"
+                                className="w-full h-full border-0"
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                        {/* Info Cards */}
+                        <div className="flex flex-col gap-3">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {/* Email */}
+                                <div className="flex items-center gap-3 bg-white rounded-xl p-4 shadow border border-[#f3f4f6]">
+                                    <span className="bg-[#e53935] text-white rounded-full p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25H4.5a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-.659 1.591l-7.5 7.5a2.25 2.25 0 01-3.182 0l-7.5-7.5A2.25 2.25 0 012.25 6.993V6.75" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold text-[#111827]">Correo electrónico</div>
+                                        <div className="text-[#374151] text-sm">info@cambiogerencia.com</div>
+                                    </div>
+                                </div>
+                                {/* Phone */}
+                                <div className="flex items-center gap-3 bg-white rounded-xl p-4 shadow border border-[#f3f4f6]">
+                                    <span className="bg-[#e53935] text-white rounded-full p-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75v10.5A2.25 2.25 0 004.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75m-19.5 0A2.25 2.25 0 014.5 4.5h15a2.25 2.25 0 012.25 2.25m-19.5 0v.243a2.25 2.25 0 00.659 1.591l7.5 7.5a2.25 2.25 0 003.182 0l7.5-7.5a2.25 2.25 0 00.659-1.591V6.75" />
+                                        </svg>
+                                    </span>
+                                    <div>
+                                        <div className="font-semibold text-[#111827]">Contacto</div>
+                                        <div className="text-[#374151] text-sm">+51 935 646 774</div>
+                                    </div>
+                                </div>
+                            </div>
+                            {/* Location */}
+                            <div className="flex items-center gap-3 bg-white rounded-xl p-4 shadow border border-[#f3f4f6]">
+                                <span className="bg-[#e53935] text-white rounded-full p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-4.556 0-8.25 3.694-8.25 8.25 0 5.25 8.25 11.25 8.25 11.25s8.25-6 8.25-11.25c0-4.556-3.694-8.25-8.25-8.25zm0 10.5a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" />
+                                    </svg>
+                                </span>
+                                <div>
+                                    <div className="font-semibold text-[#111827]">Ubicación</div>
+                                    <div className="text-[#374151] text-sm">Av. Javier Prado 3245 - San Isidro - Lima, Perú</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div className="flex flex-row items-start justify-start md:justify-center w-full max-w-3xl 2xl:max-w-4xl md:text-center">
-                    <h2 className="font-Poppins_Medium text-[#3E2F4D] text-3xl sm:text-4xl lg:text-[44px] !leading-tight">{landingHero?.title}</h2>
-                </div>
-        
-                <div className="flex flex-col items-center justify-start w-full max-w-2xl 2xl:max-w-3xl gap-5 md:text-center">
-                    <p className="font-Poppins_Regular text-base 2xl:text-lg text-[#5C4774]">
-                        {landingHero?.description}
-                    </p>
-                </div>
-            </section>
-
-
-            <div className="flex flex-row md:justify-center items-center text-[#3E2F4D] gap-3 md:gap-8 2xl:gap-10 px-[5%] pt-10 lg:pt-16">
-                <button 
-                    className={`text-base xl:text-xl font-medium pb-2 ${activeTab === "ventas" ? "border-b-2 border-[#4B246D] text-[#4B246D]" : "text-[#7B5E9A]"}`}
-                    onClick={() => setActiveTab("ventas")}
-                >
-                    Contacto con ventas
-                </button>
-                <button 
-                    className={`text-base xl:text-xl font-medium pb-2 ${activeTab === "soporte" ? "border-b-2 border-[#4B246D] text-[#4B246D]" : "text-[#7B5E9A]"}`}
-                    onClick={() => setActiveTab("soporte")}
-                >
-                    Contacto con soporte
-                </button>
-            </div>
-
-            {activeTab === "ventas" ? <VentasContent /> : <SoporteContent />}
-
+            </main>
             <Footer />
         </div>
     );

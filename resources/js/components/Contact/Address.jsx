@@ -11,7 +11,7 @@ const ContactItem = ({ icon: Icon, title, children }) => (
 );
 
 const Address = ({ generals }) => {
-  const location = (generals.find(x => x.correlative == 'location')?.description ?? '0,0').split(',').map(x => Number(x.trim()));
+  const location = (generals?.find(x => x.correlative == 'location')?.description ?? '0,0').split(',').map(x => Number(x.trim()));
   const lat = location[0];
   const lng = location[1];
 
@@ -30,16 +30,16 @@ const Address = ({ generals }) => {
         <div className="flex flex-wrap -mx-4">
           <div className="w-full md:w-1/3 px-4 mb-8 md:mb-0">
             <ContactItem icon={MapPin} title="Dirección">
-              {generals.find(x => x.correlative == 'address')?.description}
+              {generals?.find(x => x.correlative == 'address')?.description}
             </ContactItem>
 
             <ContactItem icon={Phone} title="Contacto">
-              {generals.find(x => x.correlative == 'phone_contact')?.description?.split(',').map((x, index) => <p key={index}>{x.trim()}</p>)}
-              {generals.find(x => x.correlative == 'email_contact')?.description?.split(',').map((x, index) => <p key={index}>{x.trim()}</p>)}
+              {generals?.find(x => x.correlative == 'phone_contact')?.description?.split(',').map((x, index) => <p key={index}>{x.trim()}</p>)}
+              {generals?.find(x => x.correlative == 'email_contact')?.description?.split(',').map((x, index) => <p key={index}>{x.trim()}</p>)}
             </ContactItem>
 
             <ContactItem icon={Clock} title="Horario de Funcionamiento">
-              {generals.find(x => x.correlative == 'opening_hours')?.description?.split('\n').map((x, index) => <p key={index}>{x.trim()}</p>)}
+              {generals?.find(x => x.correlative == 'opening_hours')?.description?.split('\n').map((x, index) => <p key={index}>{x.trim()}</p>)}
             </ContactItem>
           </div>
 

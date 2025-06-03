@@ -100,11 +100,12 @@ const LandingHome = ({
     const pageNames = {
         home: "Inicio",
         services: "Servicios",
-        solutions: "Soluciones",
-        purchase: "Opciones de compra",
-        partners: "Aliados comerciales",
+        infoproducts: "InfoProductos",
+       // solutions: "Soluciones",
+       // purchase: "Opciones de compra",
+       // partners: "Aliados comerciales",
         aboutus: "Nosotros",
-        faqs: "Faqs",
+        //faqs: "Faqs",
         contact: "Contacto",
         blog: "Blog",
     };
