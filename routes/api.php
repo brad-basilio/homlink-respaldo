@@ -160,8 +160,8 @@ Route::get('/strength/media/{uuid}', [StrengthController::class, 'media']);
 Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media']);
 Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
 Route::get('/brands/media/{uuid}', [BrandController::class, 'media']);
-
-Route::get('/mailing/media/{uuid}', [MailingController::class, 'media']);
+Route::get('/brands/media/{uuid}', [BrandController::class, 'media']);
+Route::get('/infoproducts/media/{uuid}', [InfoproductController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
 Route::post('/infoproducts/paginate', [InfoproductController::class, 'paginate']);

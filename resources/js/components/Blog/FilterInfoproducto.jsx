@@ -86,9 +86,6 @@ const FilterInfoproducto = ({ categories, filter, setFilter, landing }) => {
 
                                 }))
                             }
-                            variants={itemVariants}
-                            whileHover="hover"
-                            whileTap="tap"
                             variants={buttonHover}
                             initial={{ scale: 0.9 }}
                             animate={{ scale: 1 }}
@@ -115,9 +112,6 @@ const FilterInfoproducto = ({ categories, filter, setFilter, landing }) => {
                                                 : item.id,
                                     }))
                                 }
-                                variants={itemVariants}
-                                whileHover="hover"
-                                whileTap="tap"
                                 variants={buttonHover}
                                 initial={{ scale: 0.9 }}
                                 animate={{ scale: 1 }}
@@ -136,10 +130,9 @@ const FilterInfoproducto = ({ categories, filter, setFilter, landing }) => {
                 <motion.label
                     htmlFor="txt-search"
                     className="col-span-1 px-6 h-max py-4 flex items-center rounded-3xl bg-[#F5F2F9] min-w-[350px] sm:min-w-[500px] max-w-2xl "
-                    variants={itemVariants}
+                    variants={inputFocus}
                     whileHover={{ y: -3 }}
                     whileFocus="focus"
-                    variants={inputFocus}
                 >
                     <motion.i
                         className="fas fa-search text-negro mr-2"

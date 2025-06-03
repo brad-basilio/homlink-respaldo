@@ -2,34 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Infoproduct;
 use App\Models\InfoproductCategory;
-use App\Models\LandingHome;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Post;
+use App\Models\LandingHome;
+use App\Models\Slider;
 
-class InfoproductController extends BasicController
+class InfoproductController extends PublicController
 {
+    public $reactView = 'Infoproductos';
+    public $reactRootView = 'public';
     public $model = Infoproduct::class;
-    public $prefix4filter = 'infoproducts';
-      public $reactView = 'Infoproductos';
 
     public function setReactViewProperties(Request $request)
     {
         $langId = app('current_lang_id');
-        $categories = InfoproductCategory::select([
-            DB::raw('DISTINCT(infoproduct_categories.id)'),
-            'infoproduct_categories.name'
-        ])
-            ->join('infoproducts', 'infoproducts.category_id', 'infoproduct_categories.id')
-            ->where('infoproduct_categories.visible', true)
-         
-            ->where('infoproduct_categories.status', true)
-            ->get();
-        $productosRecientes = Infoproduct::where('status', true)->with('category')->limit(3)->get();
+        $categories = InfoproductCategory::all();
+       
         $landing = LandingHome::where('correlative', 'like', 'page_blog%')->where('lang_id', $langId)->get();
         
-      
+        // Obtener los sliders y añadir button_text y button_link personalizados
+        $productosRecientes = Post::where('status', true)
+            ->orderBy('created_at', 'desc')
+            ->with('category')
+            ->limit(3)
+            ->get();
 
 
         return [

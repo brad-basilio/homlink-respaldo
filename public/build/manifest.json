@@ -284,6 +284,18 @@
       "resources/js/Utils/ReactAppend.jsx"
     ]
   },
+  "_ResultsInfoProducto-Dolezo-d.js": {
+    "file": "assets/ResultsInfoProducto-Dolezo-d.js",
+    "name": "ResultsInfoProducto",
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js",
+      "_useTranslation-eU9E4S-_.js",
+      "_proxy-Dd0brM4l.js",
+      "_ArrayJoin-BCnGeNfK.js",
+      "resources/js/components/Blog/Results.jsx"
+    ]
+  },
   "_SelectAPIFormGroupSupport-Cjvz0F7p.js": {
     "file": "assets/SelectAPIFormGroupSupport-Cjvz0F7p.js",
     "name": "SelectAPIFormGroupSupport",
@@ -523,13 +535,13 @@
       "_index-B80Lgev0.js"
     ]
   },
-  "_swiper-!~{03Z}~.js": {
+  "_swiper-!~{03$}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{03Z}~.js"
+    "src": "_swiper-!~{03$}~.js"
   },
-  "_tippy-!~{03S}~.js": {
+  "_tippy-!~{03U}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{03S}~.js"
+    "src": "_tippy-!~{03U}~.js"
   },
   "_tippy-react.esm-CHhA99mn.js": {
     "file": "assets/tippy-react.esm-CHhA99mn.js",
@@ -3002,10 +3014,10 @@
       "tippy.css"
     ]
   },
-  "resources/js/InfoProductos.jsx": {
-    "file": "assets/InfoProductos-iX2TDf-S.js",
-    "name": "InfoProductos",
-    "src": "resources/js/InfoProductos.jsx",
+  "resources/js/InfoProductos3.jsx": {
+    "file": "assets/InfoProductos3-CH6-OQ4L.js",
+    "name": "InfoProductos3",
+    "src": "resources/js/InfoProductos3.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -3017,20 +3029,58 @@
       "_Footer-CIDAp87O.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_MaintenancePage-BsehoM9e.js",
-      "_useTranslation-eU9E4S-_.js",
-      "_proxy-Dd0brM4l.js",
-      "_ArrayJoin-BCnGeNfK.js",
-      "resources/js/components/Blog/Results.jsx",
+      "_ResultsInfoProducto-Dolezo-d.js",
       "_index.esm-CTa_PdWD.js",
       "_axios-B4uVmeYG.js",
       "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
       "_main-Br9xqDfn.js",
       "_index-DO3Aws4m.js",
       "resources/js/components/Blog/Filter.jsx",
+      "resources/js/components/Blog/Results.jsx",
+      "_useTranslation-eU9E4S-_.js",
       "_createLucideIcon-Cx5eUsrb.js",
+      "_proxy-Dd0brM4l.js",
       "_index-B1nVdsa0.js",
       "_index-CqrOtH36.js",
-      "_HtmlContent-2skeoskK.js"
+      "_HtmlContent-2skeoskK.js",
+      "_ArrayJoin-BCnGeNfK.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
+    ]
+  },
+  "resources/js/Infoproductos.jsx": {
+    "file": "assets/Infoproductos-CN50aSEZ.js",
+    "name": "Infoproductos",
+    "src": "resources/js/Infoproductos.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js",
+      "_CreateReactScript-Bj11ghWz.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_Base-BtcQFIcT.js",
+      "_sweetalert2.all-Dh0rZL5X.js",
+      "resources/js/components/Blog/Results.jsx",
+      "resources/js/components/Blog/Filter.jsx",
+      "_Header-Bx-oAsbu.js",
+      "_Footer-CIDAp87O.js",
+      "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
+      "_MaintenancePage-BsehoM9e.js",
+      "_ResultsInfoProducto-Dolezo-d.js",
+      "_index.esm-CTa_PdWD.js",
+      "_axios-B4uVmeYG.js",
+      "____vite-browser-external_commonjs-proxy-C9-083JZ.js",
+      "_main-Br9xqDfn.js",
+      "_index-DO3Aws4m.js",
+      "_useTranslation-eU9E4S-_.js",
+      "_createLucideIcon-Cx5eUsrb.js",
+      "_proxy-Dd0brM4l.js",
+      "_index-B1nVdsa0.js",
+      "_index-CqrOtH36.js",
+      "_HtmlContent-2skeoskK.js",
+      "_ArrayJoin-BCnGeNfK.js"
     ],
     "css": [
       "swiper.css",
@@ -3928,7 +3978,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-DPLUwAPo.js",
+    "file": "assets/InputFormGroup-CXP54urq.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -3958,7 +4008,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Blwd7Hve.js",
+    "file": "assets/SelectAPIFormGroup-CM8yGicn.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -3982,7 +4032,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-DPLUwAPo.js",
+    "file": "assets/SelectFormGroup-CXP54urq.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -4002,7 +4052,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
+    "file": "assets/TextareaFormGroup-CXP54urq.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4263,7 +4313,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-DPLUwAPo.js",
+    "file": "assets/DataGrid-CXP54urq.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -4482,6 +4532,16 @@
   "resources/js/components/Home/images/vegan.svg": {
     "file": "vegan.svg",
     "src": "resources/js/components/Home/images/vegan.svg"
+  },
+  "resources/js/components/InfoProductos/InfoProductoCard.jsx": {
+    "file": "assets/InfoProductoCard-DPLUwAPo.js",
+    "name": "InfoProductoCard",
+    "src": "resources/js/components/InfoProductos/InfoProductoCard.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-B80Lgev0.js"
+    ]
   },
   "resources/js/components/InfoProductos/ResultsInfoProducto.jsx": {
     "file": "assets/ResultsInfoProducto-BPNASXWX.js",
@@ -4815,7 +4875,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-CXP54urq.js",
+    "file": "assets/DataGrid-DPLUwAPo.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5143,10 +5203,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-C4rpGMJP.js",
+    "file": "assets/HairType-BbusGoaO.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js",
@@ -5156,10 +5216,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-DPLUwAPo.js",
+    "file": "assets/Main-BpVSc9Su.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js"
@@ -5179,10 +5239,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-DPLUwAPo.js",
+    "file": "assets/Treatment-B6Q4KpPA.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-B80Lgev0.js"
@@ -5287,7 +5347,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-CXP54urq.js",
+    "file": "assets/InputFormGroup-DPLUwAPo.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -5317,7 +5377,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-CM8yGicn.js",
+    "file": "assets/SelectAPIFormGroup-Blwd7Hve.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -5329,7 +5389,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-CXP54urq.js",
+    "file": "assets/SelectFormGroup-DPLUwAPo.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -5339,7 +5399,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-CXP54urq.js",
+    "file": "assets/TextareaFormGroup-DPLUwAPo.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

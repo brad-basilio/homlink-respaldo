@@ -1,7 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import FilterPagination from "../../Reutilizables/Pagination/FilterPagination";
-// Debes crear este componente para mostrar cada producto
-// import InfoProductoCard from "./InfoProductoCard";
+import InfoProductoCard from "./InfoProductoCard";
 import InfoproductsRest from "../../Actions/InfoproductsRest";
 import ArrayJoin from "../../Utils/ArrayJoin";
 
@@ -18,7 +18,7 @@ const ResultsInfoProducto = ({ filter }) => {
             ["summary", "contains", filter.search],
         ];
         if (filter.category) {
-            filter2search.push(["category.id", "=", filter.category]);
+            filter2search.push(["category_id", "=", filter.category]);
         }
 
         productosRest
@@ -40,11 +40,17 @@ const ResultsInfoProducto = ({ filter }) => {
 
     return (
         <>
-            <section className="px-[5%] pt-0 grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {results.map((item, index) => {
-                    // Reemplaza por tu componente InfoProductoCard
-                    return <div key={index}>{item.name}</div>;
-                })}
+            <section className="px-[5%] pt-0 min-h-[300px] grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {results.length > 0 ? (
+                    results.map((item, index) => (
+                        <InfoProductoCard key={item.id || index} {...item} />
+                    ))
+                ) : (
+                    <div className="col-span-full flex flex-col items-center justify-center py-16">
+                        <img src="/assets/img/empty-box.svg" alt="Sin resultados" className="w-32 h-32 mb-4 animate-bounce" />
+                        <p className="text-slate-400 text-lg">No se encontraron resultados</p>
+                    </div>
+                )}
             </section>
             <div className="p-[5%]">
                 <FilterPagination

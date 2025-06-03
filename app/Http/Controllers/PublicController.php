@@ -225,7 +225,10 @@ class PublicController extends Controller
                 }
             }
             $table = $this->prefix4filter ?: (new $this->model)->getTable();
-            $instance->where($table . '.lang_id', $langId);
+            // Solo agregar filtro lang_id si la tabla tiene esa columna
+            if (\Schema::hasColumn($table, 'lang_id')) {
+                $instance->where($table . '.lang_id', $langId);
+            }
 
             if ($request->filter) {
                 $instance->where(function ($query) use ($request) {
