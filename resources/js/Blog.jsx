@@ -35,6 +35,7 @@ function Blog({ categories, postRecent, landing,sliders }) {
                     showNavigation: "no",
                     navigationAlignment: "center"
                 }}
+                current="posts"
             />
             
             {postRecent && postRecent.length > 0 ? (

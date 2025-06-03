@@ -22,6 +22,7 @@ class Post extends Model
         'slug',
         'content',
         'post_date',
+        'featured',
         'status',
         'lang_id'
     ];

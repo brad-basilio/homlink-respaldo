@@ -86,7 +86,11 @@ const Posts = ({ }) => {
     if (!result) return
     $(gridRef.current).dxDataGrid('instance').refresh()
   }
-
+ const onBooleanChange = async ({ id, field, value }) => {
+        const result = await postsRest.boolean({ id, field, value });
+        if (!result) return;
+        $(gridRef.current).dxDataGrid("instance").refresh();
+    };
   const onDeleteClicked = async (id) => {
     const { isConfirmed } = await Swal.fire({
       title: 'Eliminar registro',
@@ -151,6 +155,27 @@ const Posts = ({ }) => {
             ReactAppend(container, <img src={`/api/posts/media/${data.image}`} style={{ width: '80px', height: '48px', objectFit: 'cover', objectPosition: 'center', borderRadius: '4px' }} onError={e => e.target.src = '/api/cover/thumbnail/null'} />)
           }
         },
+         {
+                        dataField: "featured",
+                        caption: "Destacado",
+                        dataType: "boolean",
+                        width: "80px",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <SwitchFormGroup
+                                    checked={data.featured}
+                                    onChange={(e) =>
+                                        onBooleanChange({
+                                            id: data.id,
+                                            field: "featured",
+                                            value: e.target.checked,
+                                        })
+                                    }
+                                />
+                            );
+                        },
+                    },
         {
           caption: 'Acciones',
           cellTemplate: (container, { data }) => {

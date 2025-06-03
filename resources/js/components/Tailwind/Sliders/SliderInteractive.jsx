@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { adjustTextColor } from "../../../Functions/adjustTextColor.js";
 import Global from "../../../Utils/Global";
 
-const SliderInteractive = ({ items, data }) => {
+const SliderInteractive = ({ items, data, current="sliders" }) => {
     //TODO: Validación y conversión de infiniteLoop
     const parseInfiniteLoop = (value) => {
         const validTrueValues = ["true", "si"];
@@ -218,7 +218,7 @@ const SliderInteractive = ({ items, data }) => {
     useEffect(() => {
         const currentItem = duplicatedItems[currentIndex];
         if (currentItem?.bg_image) {
-            checkImageDarkness(`/storage/images/slider/${currentItem.bg_image}`);
+            checkImageDarkness(`/api/${current}/media/${currentItem.bg_image}`);
         }
     }, [currentIndex, duplicatedItems]);
 
@@ -247,7 +247,7 @@ const SliderInteractive = ({ items, data }) => {
                             className="w-full h-[589px] lg:h-auto  flex-shrink-0 relative"
                         >
                             <img
-                                src={`/api/sliders/media/${item.image || "undefined"
+                                src={`/api/${current}/media/${item.image || "undefined"
                                     }`}
                                 alt={item.name}
                                 loading="lazy"
@@ -278,7 +278,7 @@ const SliderInteractive = ({ items, data }) => {
                                         {item.name}
                                     </h2>
                                     <p
-                                        className={`w-full px-primary mx-auto md:max-w-5xl italic font-semibold text-4xl lg:text-[60px] leading-tight font-paragraph text-white`}
+                                        className={`w-full text-center px-primary mx-auto md:max-w-5xl italic font-semibold text-4xl lg:text-[60px] leading-tight font-paragraph text-white`}
                                         style={{
                                             textShadow: "0 0 20px rgba(0, 0, 0, .25)",
                                         }}
