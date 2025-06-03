@@ -23,11 +23,13 @@ use App\Http\Controllers\Admin\SpecialityController as AdminSpecialityController
 use App\Http\Controllers\Admin\LangController as AdminLangController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\InfoproductCategoryController as AdminInfoproductCategoryController;
 use App\Http\Controllers\Admin\CategoryServiceController as AdminCategoryServiceControllerController;
 use App\Http\Controllers\Admin\CategorySolutionController as AdminCategorySolutionControllerController;
 use App\Http\Controllers\Admin\CategoryPurcharseOptionController as AdminCategoryPurcharseOptionController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\InfoproductController as AdminInfoproductController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
 use App\Http\Controllers\Admin\TranslationController as AdminTranslationController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
@@ -76,6 +78,7 @@ use App\Http\Controllers\LandingHomeController;
 use App\Http\Controllers\MailingController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\InfoproductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
@@ -143,7 +146,9 @@ Route::get('/lang/media/{uuid}', [LangController::class, 'media']);
 
 Route::get('/success_story/media/{uuid}', [SuccessStoryController::class, 'media']);
 
-Route::get('/posts/media/{uuid}', [AdminPostController::class, 'media']);
+Route::get('/posts/media/{uuid}', [PostController::class, 'media']);
+Route::get('/infoproducts/media/{uuid}', [InfoproductController::class, 'media']);
+
 Route::get('/items/media/{uuid}', [ItemController::class, 'media']);
 Route::get('/item_images/media/{uuid}', [ItemImageController::class, 'media']);
 Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
@@ -159,6 +164,7 @@ Route::get('/brands/media/{uuid}', [BrandController::class, 'media']);
 Route::get('/mailing/media/{uuid}', [MailingController::class, 'media']);
 
 Route::post('/posts/paginate', [PostController::class, 'paginate']);
+Route::post('/infoproducts/paginate', [InfoproductController::class, 'paginate']);
 Route::post('/items/paginate', [ItemController::class, 'paginate']);
 Route::post('/supplies/paginate', [SupplyController::class, 'paginate']);
 
@@ -206,6 +212,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/posts/status', [AdminPostController::class, 'status']);
         Route::patch('/posts/{field}', [AdminPostController::class, 'boolean']);
         Route::delete('/posts/{id}', [AdminPostController::class, 'delete']);
+
+        Route::post('/infoproducts', [AdminInfoproductController::class, 'save']);
+        Route::post('/infoproducts/paginate', [AdminInfoproductController::class, 'paginate']);
+        Route::patch('/infoproducts/status', [AdminInfoproductController::class, 'status']);
+        Route::patch('/infoproducts/{field}', [AdminInfoproductController::class, 'boolean']);
+        Route::delete('/infoproducts/{id}', [AdminInfoproductController::class, 'delete']);
 
         Route::post('/items', [AdminItemController::class, 'save']);
         Route::post('/items/paginate', [AdminItemController::class, 'paginate']);
@@ -326,6 +338,13 @@ Route::middleware('auth')->group(function () {
         Route::patch('/categories/status', [AdminCategoryController::class, 'status']);
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
+
+        Route::post('/infoproductcategories', [AdminInfoproductCategoryController::class, 'save']);
+        Route::post('/infoproductcategories/paginate', [AdminInfoproductCategoryController::class, 'paginate']);
+        Route::patch('/infoproductcategories/status', [AdminInfoproductCategoryController::class, 'status']);
+        Route::patch('/infoproductcategories/{field}', [AdminInfoproductCategoryController::class, 'boolean']);
+        Route::delete('/infoproductcategories/{id}', [AdminInfoproductCategoryController::class, 'delete']);
+
 
         Route::post('/category_services/paginate', [AdminCategoryServiceControllerController::class, 'paginate']);
         Route::post('/category_solutions/paginate', [AdminCategorySolutionControllerController::class, 'paginate']);

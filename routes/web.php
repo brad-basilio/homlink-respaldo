@@ -22,8 +22,10 @@ use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\SubscriptionController as AdminSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\InfoproductCategoryController as AdminInfoproductCategoryController;
 use App\Http\Controllers\Admin\ComplaintController as AdminComplaintController;
 use App\Http\Controllers\Admin\PostController as AdminPostController;
+use App\Http\Controllers\Admin\InfoproductController as AdminInfoproductController;
 use App\Http\Controllers\Admin\SocialController as AdminSocialController;
 use App\Http\Controllers\Admin\TranslationController as AdminTranslationController;
 use App\Http\Controllers\Admin\StrengthController as AdminStrengthController;
@@ -173,6 +175,7 @@ Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactVie
 
     Route::get('/sales', [AdminSaleController::class, 'reactView'])->name('Admin/Sales.jsx');
     Route::get('/posts', [AdminPostController::class, 'reactView'])->name('Admin/Posts.jsx');
+ Route::get('/infoproducts', [AdminInfoproductController::class, 'reactView'])->name('Admin/Infoproducts.jsx');
     Route::get('/items', [AdminItemController::class, 'reactView'])->name('Admin/Items.jsx');
     Route::get('/colors', [AdminItemColorController::class, 'reactView'])->name('Admin/Colors.jsx');
     Route::get('/instagram_posts', [AdminInstagramPostsController::class, 'reactView'])->name('Admin/InstagramPosts.jsx');
@@ -192,6 +195,9 @@ Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactVie
     Route::get('/sliders', [AdminSliderController::class, 'reactView'])->name('Admin/Sliders.jsx');
     Route::get('/testimonies', [AdminTestimonyController::class, 'reactView'])->name('Admin/Testimonies.jsx');
     Route::get('/categories', [AdminCategoryController::class, 'reactView'])->name('Admin/Categories.jsx');
+    Route::get('/infoproductcategories', [AdminInfoproductCategoryController::class, 'reactView'])->name('Admin/InfoproductCategories.jsx');
+
+
     Route::get('/complaints', [AdminComplaintController::class, 'reactView'])->name('Admin/Complaints.jsx');
 
     Route::get('/tags', [AdminTagController::class, 'reactView'])->name('Admin/Tags.jsx');

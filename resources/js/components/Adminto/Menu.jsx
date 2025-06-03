@@ -372,12 +372,41 @@ const Menu = ({
                                         "Categorias"
                                     )}
                                 </MenuItem> */}
+                                <MenuItemContainer
+                                    title="InfoProductos"
+                                    icon="mdi mdi-cube"
+                                >
+                                     <MenuItem
+                                        href="/admin/infoproductcategories"
+                                        icon="mdi mdi-clipboard-list-outline"
+                                    >
+                                        Categorias
+                                    </MenuItem>
+                                <MenuItem
+                                    href="/admin/infoproducts"
+                                    icon="mdi mdi-book-open-page-variant"
+                                >
+                                    Productos
+                                </MenuItem>
+                                </MenuItemContainer>
+                                <MenuItemContainer
+                                    title="Blog"
+                                    icon="mdi mdi-cube"
+                                >
+                                     <MenuItem
+                                        href="/admin/categories"
+                                        icon="mdi mdi-clipboard-list-outline"
+                                    >
+                                        Categorias
+                                    </MenuItem>
                                 <MenuItem
                                     href="/admin/posts"
                                     icon="mdi mdi-book-open-page-variant"
                                 >
                                     {t("admin.sidebar.posts", "Posts")}
                                 </MenuItem>
+                                </MenuItemContainer>
+                                 
 
                                 <MenuItem
                                     href="/admin/faqs"
