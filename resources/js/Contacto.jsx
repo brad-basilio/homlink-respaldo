@@ -161,6 +161,15 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     ); */
 const messagesRest = new MessagesRest();
 
+// Opción 1: Deshabilitar notificaciones automáticas para usar notificaciones personalizadas
+messagesRest.enableNotifications = false;
+
+// Opción 2: Usando method chaining (alternativa más elegante)
+// const messagesRest = new MessagesRest().withoutNotifications();
+
+// Opción 3: Usando el método setNotifications
+// const messagesRest = new MessagesRest().setNotifications(false);
+
 
 const nameRef = useRef()
   const phoneRef = useRef()
@@ -169,6 +178,25 @@ const nameRef = useRef()
     const lastnameRef = useRef()
 
   const [sending, setSending] = useState(false)
+
+  // Función para limpiar el formulario
+  const clearForm = () => {
+    const fields = [nameRef, lastnameRef, phoneRef, emailRef, descriptionRef];
+    
+    fields.forEach((ref, index) => {
+      if (ref.current) {
+        // Pequeño delay para crear efecto de limpieza secuencial
+        setTimeout(() => {
+          ref.current.value = "";
+          // Opcional: agregar una pequeña animación visual
+          ref.current.style.transform = 'scale(0.98)';
+          setTimeout(() => {
+            ref.current.style.transform = 'scale(1)';
+          }, 100);
+        }, index * 50);
+      }
+    });
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -186,8 +214,18 @@ const nameRef = useRef()
     const result = await messagesRest.save(request);
     setSending(false)
 
-    if (!result) return
+    if (!result) {
+      // Mostrar error personalizado ya que las notificaciones automáticas están deshabilitadas
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.',
+        confirmButtonText: 'Entendido'
+      })
+      return
+    }
 
+    // Mostrar éxito personalizado
     Swal.fire({
       icon: 'success',
       title: 'Mensaje enviado',
@@ -196,14 +234,13 @@ const nameRef = useRef()
       timer: 3000
     })
 
-    if (data.redirect) {
-      location.href = data.redirect
+    // Verificar si hay redirección (usar result en lugar de data)
+    if (result.redirect) {
+      location.href = result.redirect
     }
 
-    nameRef.current.value = null
-    phoneRef.current.value = null
-    emailRef.current.value = null
-    descriptionRef.current.value = null
+    // Limpiar los campos del formulario
+    clearForm()
   }
 
 
@@ -314,6 +351,7 @@ const nameRef = useRef()
                                     initial="rest"
                                     whileFocus="focus"
                                     whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                                 <motion.input 
                                     ref={lastnameRef} 
@@ -324,6 +362,7 @@ const nameRef = useRef()
                                     initial="rest"
                                     whileFocus="focus"
                                     whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                             </motion.div>
                             <motion.div 
@@ -339,6 +378,7 @@ const nameRef = useRef()
                                     initial="rest"
                                     whileFocus="focus"
                                     whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                                 <motion.input 
                                     ref={emailRef} 
@@ -349,6 +389,7 @@ const nameRef = useRef()
                                     initial="rest"
                                     whileFocus="focus"
                                     whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                             </motion.div>
                             <motion.textarea 
@@ -359,6 +400,7 @@ const nameRef = useRef()
                                 variants={itemVariants}
                                 whileFocus={{ scale: 1.01 }}
                                 whileHover={{ scale: 1.01 }}
+                                style={{ transition: 'transform 0.2s ease-in-out' }}
                             />
                             <motion.button 
                                 type="submit" 

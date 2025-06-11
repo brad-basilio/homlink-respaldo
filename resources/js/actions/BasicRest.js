@@ -5,6 +5,13 @@ let controller = new AbortController();
 class BasicRest {
     path = null;
     hasFiles = false;
+    
+    /**
+     * Controla si se muestran notificaciones automáticas
+     * true = Muestra notificaciones automáticas
+     * false = No muestra notificaciones (permite manejar notificaciones personalizadas)
+     */
+    enableNotifications = true;
 
     paginate = async (params) => {
         controller.abort("Nothing");
@@ -54,22 +61,29 @@ class BasicRest {
                     result?.message || "Ocurrio un error inesperado"
                 );
 
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Correcto",
-                body: result.message,
-                type: "success",
-            });
+            // Solo mostrar notificación si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Correcto",
+                    body: result.message,
+                    type: "success",
+                });
+            }
+            
             callback?.();
             console.log(result);
             return result;
         } catch (error) {
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
+            // Solo mostrar notificación de error si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Error",
+                    body: error.message,
+                    type: "danger",
+                });
+            }
             return null;
         }
     };
@@ -88,21 +102,27 @@ class BasicRest {
                     result?.message ?? "Ocurrio un error inesperado"
                 );
 
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Correcto",
-                body: result.message,
-                type: "success",
-            });
+            // Solo mostrar notificación si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Correcto",
+                    body: result.message,
+                    type: "success",
+                });
+            }
 
             return true;
         } catch (error) {
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
+            // Solo mostrar notificación de error si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Error",
+                    body: error.message,
+                    type: "danger",
+                });
+            }
 
             return false;
         }
@@ -122,21 +142,27 @@ class BasicRest {
                     result?.message ?? "Ocurrio un error inesperado"
                 );
 
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Correcto",
-                body: result.message,
-                type: "success",
-            });
+            // Solo mostrar notificación si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Correcto",
+                    body: result.message,
+                    type: "success",
+                });
+            }
 
             return true;
         } catch (error) {
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
+            // Solo mostrar notificación de error si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Error",
+                    body: error.message,
+                    type: "danger",
+                });
+            }
 
             return false;
         }
@@ -155,21 +181,27 @@ class BasicRest {
                     result?.message ?? "Ocurrio un error inesperado"
                 );
 
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Correcto",
-                body: result.message,
-                type: "success",
-            });
+            // Solo mostrar notificación si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Correcto",
+                    body: result.message,
+                    type: "success",
+                });
+            }
 
             return true;
         } catch (error) {
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
+            // Solo mostrar notificación de error si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Error",
+                    body: error.message,
+                    type: "danger",
+                });
+            }
 
             return false;
         }
@@ -219,15 +251,46 @@ class BasicRest {
 
             return await response.json();
         } catch (error) {
-            Notify.add({
-                icon: "/assets/img/icon.png",
-                title: "Error",
-                body: error.message,
-                type: "danger",
-            });
+            // Solo mostrar notificación de error si está habilitado
+            if (this.enableNotifications) {
+                Notify.add({
+                    icon: "/assets/img/icon.png",
+                    title: "Error",
+                    body: error.message,
+                    type: "danger",
+                });
+            }
             return null;
         }
     };
+
+    /**
+     * Habilita las notificaciones automáticas
+     * @returns {BasicRest} Retorna la instancia para method chaining
+     */
+    withNotifications() {
+        this.enableNotifications = true;
+        return this;
+    }
+
+    /**
+     * Deshabilita las notificaciones automáticas
+     * @returns {BasicRest} Retorna la instancia para method chaining
+     */
+    withoutNotifications() {
+        this.enableNotifications = false;
+        return this;
+    }
+
+    /**
+     * Configura si mostrar notificaciones automáticas
+     * @param {boolean} enabled - true para habilitar, false para deshabilitar
+     * @returns {BasicRest} Retorna la instancia para method chaining
+     */
+    setNotifications(enabled) {
+        this.enableNotifications = enabled;
+        return this;
+    }
 }
 
 export default BasicRest;

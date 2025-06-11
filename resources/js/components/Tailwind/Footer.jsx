@@ -9,6 +9,7 @@ import { Send, X } from "lucide-react";
 import { useTranslation } from "../../hooks/useTranslation";
 import Swal from "sweetalert2";
 import SubscriptionsRest from "../../Actions/SubscriptionsRest";
+import Global from "../../Utils/Global";
 
 ReactModal.setAppElement("#app");
 
