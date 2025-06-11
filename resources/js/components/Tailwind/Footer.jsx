@@ -19,6 +19,10 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
     const generalRest = new GeneralRest();
+    
+    // Configurar notificaciones para GeneralRest (principalmente para consistencia)
+    // Las consultas GET normalmente solo muestran errores, no éxitos
+    generalRest.enableNotifications = false;
     const links = {};
     /* footerLinks.forEach((fl) => {
         links[fl.correlative] = fl.description;
@@ -85,33 +89,66 @@ const Footer = ({ terms, footerLinks = [] }) => {
             .replace(/[*]+/g, ""); // Cualquier asterisco suelto
     };
     const subscriptionsRest = new SubscriptionsRest();
+    
+    // Deshabilitar notificaciones automáticas para usar SweetAlert personalizado
+    // Esto permite mostrar mensajes más amigables y consistentes con el diseño
+    subscriptionsRest.enableNotifications = false;
+    
     const emailRef = useRef();
 
 
-    const [saving, setSaving] = useState();
+    const [saving, setSaving] = useState(false);
+
+    // Función para limpiar el formulario de suscripción
+    const clearEmailForm = () => {
+        if (emailRef.current) {
+            emailRef.current.value = "";
+            // Pequeña animación de limpieza
+            emailRef.current.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                emailRef.current.style.transform = 'scale(1)';
+            }, 100);
+        }
+    };
 
     const onEmailSubmit = async (e) => {
         e.preventDefault();
+        if (saving) return; // Prevenir múltiples envíos
         setSaving(true);
 
         const request = {
             email: emailRef.current.value,
             status: 1,
         };
+        
         const result = await subscriptionsRest.save(request);
         setSaving(false);
 
-        if (!result) return;
+        if (!result) {
+            // Mostrar error personalizado
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.",
+                icon: "error",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#d33"
+            });
+            return;
+        }
 
+        // Mostrar éxito personalizado
         Swal.fire({
             title: "¡Éxito!",
             text: `Te has suscrito correctamente al blog de ${Global.APP_NAME}.`,
             icon: "success",
             confirmButtonText: "Ok",
+            confirmButtonColor: "#10b981",
+            timer: 4000,
+            timerProgressBar: true
         });
 
-
-        emailRef.current.value = null;
+        // Limpiar el campo del email
+        clearEmailForm();
     };
 
 
@@ -140,11 +177,25 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         disabled={saving}
                                         type="email"
                                         placeholder="Ingresa tu e-mail"
-                                        className=" px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none"
+                                        className="px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none transition-all duration-200"
+                                        style={{ 
+                                            transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+                                            boxShadow: 'none'
+                                        }}
+                                      
+                                        onBlur={(e) => {
+                                            e.target.style.boxShadow = 'none';
+                                            e.target.style.transform = 'scale(1)';
+                                        }}
                                     />
 
-                                    <button disabled={saving} className="bg-accent text-sm lg:text-base text-white px-4 rounded-md  py-2 flex items-center justify-center transition-colors">
-
+                                    <button 
+                                        disabled={saving} 
+                                        className="bg-accent text-sm lg:text-base text-white px-4 rounded-md py-2 flex items-center justify-center transition-all duration-200 hover:bg-accent/90 hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                                        style={{ 
+                                            transition: 'all 0.2s ease-in-out'
+                                        }}
+                                    >
                                         {saving ? (
                                             <span className="flex items-center gap-2">
                                                 <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
@@ -167,12 +218,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                             </span>
                                         ) : (
                                             <>
-                                                Suscribirme <Send className="ml-2" size={16} />
+                                                Suscribirme <Send className="ml-2 transition-transform duration-200 group-hover:translate-x-1" size={16} />
                                             </>
                                         )}
-
-
-
                                     </button>
                                
                             </div> </form>
