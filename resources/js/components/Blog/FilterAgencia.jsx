@@ -66,10 +66,15 @@ const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
             <div className="flex flex-col lg:flex-row justify-between">
                 <motion.div className="mb-12" variants={itemVariants}>
                     <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-tight italic">
-                        Todas  <span className="text-constrast">nuestas noticias</span>
+                        <TextWithHighlight
+                            text={landing?.title || ""}
+                           
+                        />
+                       
                     </h2>
                     <p className="font-paragraph text-lg text-neutral max-w-2xl">
-                        Reflexiones, herramientas y aprendizajes para liderar el cambio desde lo humano.
+                        {landing?.description || ""}
+                     
                     </p>
                 </motion.div>
                 {/* Campo de búsqueda */}

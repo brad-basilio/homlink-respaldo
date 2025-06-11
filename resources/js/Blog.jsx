@@ -14,8 +14,11 @@ import SliderInteractive from "./components/Tailwind/Sliders/SliderInteractive";
 import FilterAgencia from "./components/Blog/FilterAgencia";
 function Blog({ categories, postRecent, landing,sliders }) {
 
-    const landingsuscription = landing?.find(
-        (item) => item.correlative === "page_blog_suscription"
+    const landingDestacados = landing?.find(
+        (item) => item.correlative === "page_blog_destacados"
+    );
+    const landingTodos = landing?.find(
+        (item) => item.correlative === "page_blog_todos"
     );
 
     const [filter, setFilter] = useState({
@@ -40,14 +43,14 @@ function Blog({ categories, postRecent, landing,sliders }) {
             
             {postRecent && postRecent.length > 0 ? (
                 <>
-                    <BlogHeader postRecent={postRecent} landing={landing} />
+                    <BlogHeader postRecent={postRecent} landing={landingDestacados} />
                     
                   <div className="bg-neutral-light">
                       <FilterAgencia
                         categories={categories}
                         filter={filter}
                         setFilter={setFilter}
-                        landing={landing}
+                        landing={landingTodos}
                     />
 
                     <Results filter={filter} />

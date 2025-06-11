@@ -28,6 +28,9 @@ class ContactController extends BasicController
             ->take(3)
             ->get();
         $whatsapp = Social::where('status', true)->where('visible', true)->where('description', '=', 'WhatsApp')->first();
+        
+        
+        
         return [
             'landing' => $landing,
             'sedes' => $sedes,

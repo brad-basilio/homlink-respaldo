@@ -99,10 +99,12 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                     {/* Header */}
                     <motion.div className="mb-12" variants={itemVariants}>
                         <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-tight italic">
-                            Noticias <span className="text-constrast">destacas</span>
+                            <TextWithHighlight text={landing?.title} highlight="destacas" />
+                        
                         </h2>
                         <p className="font-paragraph text-lg text-neutral max-w-2xl">
-                            Reflexiones, herramientas y aprendizajes para liderar el cambio desde lo humano.
+                            {landing?.description}
+                           
                         </p>
                     </motion.div>
 

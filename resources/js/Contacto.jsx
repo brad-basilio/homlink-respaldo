@@ -13,6 +13,7 @@ import MaintenancePage from "./Utils/MaintenancePage";
 import { useTranslation } from "./hooks/useTranslation";
 import MessagesRest from "./Actions/MessagesRest";
 import Swal from "sweetalert2";
+import GeneralRest from "./actions/GeneralRest";
 
 // Animaciones mejoradas
 const containerVariants = {
@@ -246,11 +247,43 @@ const nameRef = useRef()
 
 
 
+const generalRest = new GeneralRest();
+const [aboutuses, setAboutuses] = useState([]);
 
-
+     useEffect(() => {
+           const fetchAboutuses = async () => {
+               try {
+                   const data = await generalRest.getAboutuses();
+                   setAboutuses(data);
+               } catch (error) {
+                   console.error("Error fetching about:", error);
+               }
+           };
    
+           fetchAboutuses();
+       }, []);
+   
+ 
+       const generalsData = aboutuses?.generals || [];
 
-  
+  //location = -12.08572604235328,-76.99121088594794
+
+  const location = generalsData.find(item => item.correlative === "location")?.value || "-12.08572604235328,-76.99121088594794";
+  const mapSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&q=${location}`;
+  const mapSrcWithZoom = `${mapSrc}&zoom=12`;
+  const mapSrcWithOutput = `${mapSrc}&output=embed`;
+  const mapSrcWithEmbed = `${mapSrc}&embed=true`;
+  const mapSrcWithLocation = `https://www.google.com/maps?q=${location}&z=12&output=embed`;
+  const mapSrcWithLocationAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed`;
+  const mapSrcWithLocationAndEmbed = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true`;
+  const mapSrcWithLocationAndOutput = `https://www.google.com/maps?q=${location}&z=12&output=embed`;
+  const mapSrcWithLocationAndEmbedAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true`;
+  const mapSrcWithLocationAndEmbedAndOutput = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true`;
+  const mapSrcWithLocationAndEmbedAndOutputAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true`;
+  const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKey = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p`;
+  const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutput = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed`;
+  const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbed = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true`;
+  const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbedAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true&zoom=12`;
  
     return (
         <motion.div 
@@ -462,7 +495,7 @@ const nameRef = useRef()
                         >
                             <iframe
                                 title="Ubicación Lima"
-                                src="https://www.google.com/maps?q=-12.0972,-77.0337&z=12&output=embed"
+                                src={mapSrcWithLocationAndEmbedAndOutput}
                                 width="100%"
                                 height="100%"
                                 className="w-full h-full border-0"
@@ -512,7 +545,7 @@ const nameRef = useRef()
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.3 }}
                                         >
-                                            info@cambiogerencia.com
+                                           {generalsData.find(item => item.correlative === "email_contact")?.description || ""}
                                         </motion.div>
                                     </div>
                                 </motion.div>
@@ -546,7 +579,7 @@ const nameRef = useRef()
                                             animate={{ opacity: 1, x: 0 }}
                                             transition={{ delay: 0.3 }}
                                         >
-                                            +51 935 646 774
+                                            {generalsData.find(item => item.correlative === "phone_contact")?.description || ""}
                                         </motion.div>
                                     </div>
                                 </motion.div>
@@ -584,7 +617,7 @@ const nameRef = useRef()
                                         animate={{ opacity: 1, x: 0 }}
                                         transition={{ delay: 0.3 }}
                                     >
-                                        Av. Javier Prado 3245 - San Isidro - Lima, Perú
+                                        {generalsData.find(item => item.correlative === "address")?.description || "Lima, Perú"}
                                     </motion.div>
                                 </div>
                             </motion.div>

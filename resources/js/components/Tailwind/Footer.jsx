@@ -239,14 +239,15 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 Ubícanos
                             </h3>
                             <p className="cursor-pointer">
-                                Av. Javier Prado 3245
+                                {generalsData.find(item => item.correlative === "address")?.description || ""}
                             </p>
                             <p className="cursor-pointer">
-                                Teléfono: +51 915 968 941
+                                Teléfono: {generalsData.find(item => item.correlative === "support_phone")?.description || ""}
                             </p>
                             <p className="cursor-pointer ">
                                 Correo:
-                                <span className="block line-clamp-1">cambiogerencia@mail.com</span>
+                                <span className="block line-clamp-1">  {generalsData.find(item => item.correlative === "support_email")?.description || "Lima, Perú"}
+                               </span>
                             </p>
                         </div>
 
@@ -274,10 +275,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 Horario de atención
                             </h3>
                             <p className="cursor-pointer">
-                                Lunes a Viernes: 9:00 AM - 6:00 PM
-                            </p>
-                            <p className="cursor-pointer">
-                                Sábados: 10:00 AM - 2:00 PM
+                                {generalsData.find(item => item.correlative === "opening_hours")?.description || "Lima, Perú"}
+                               
                             </p>
 
                         </div>

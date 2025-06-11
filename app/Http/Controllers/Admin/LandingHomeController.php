@@ -202,8 +202,23 @@ class LandingHomeController extends BasicController
         return $body;
     }
 
-    public function afterSave(Request $request, $landingHome)
+    public function afterSave(Request $request, $landingHome, ?bool $isNew)
     {
+        // Procesar imagen
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images/landing_home', 'public');
+            $landingHome->image = $imagePath;
+        }
+
+        // Procesar video
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('videos/landing_home', 'public');
+            $landingHome->video = $videoPath;
+        }
+
+        // Guardar cambios
+        $landingHome->save();
+    
         // Eliminar archivos antiguos si se subieron nuevos
         if ($request->has('delete_existing_image') && $request->delete_existing_image) {
             Storage::delete("images/landing_home/{$request->delete_existing_image}");
