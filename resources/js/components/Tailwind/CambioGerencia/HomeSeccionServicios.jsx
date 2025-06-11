@@ -66,11 +66,12 @@ const ServiceCard = ({
     );
 };
 
-const HomeSeccionServicios = ({ data }) => {
-  
+const HomeSeccionServicios = ({ data, allServices }) => {
+    // Dividir allServices en dos arrays para la versión desktop
+    const servicesRow1 = allServices ? allServices.slice(0, Math.ceil(allServices.length / 2)-1) : [];
+    const servicesRow2 = allServices ? allServices.slice(Math.ceil(allServices.length / 2)+1) : [];
 
     // Swiper state for mobile
-    const allServices = [...servicesRow1, ...servicesRow2];
     const [activeIndex, setActiveIndex] = useState(0);
 
     return (

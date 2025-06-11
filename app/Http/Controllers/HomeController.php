@@ -39,6 +39,8 @@ class HomeController extends BasicController
         $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(3)->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
 $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
+
+$allServices = Service::where('status', true)->where('lang_id', $langId)->get();
         return [
             'landing' => $landing,
             'sliders' => $sliders,
@@ -47,6 +49,7 @@ $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get()
             'posts' => $posts,
             'testimonios' => $testimonios,
             'indicators' => $indicators,
+            'allServices' => $allServices,
         ];
     }
 }
