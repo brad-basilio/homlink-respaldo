@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import ReactModal from "react-modal";
+import { motion, AnimatePresence } from "framer-motion";
 
 import Tippy from "@tippyjs/react";
 import HtmlContent from "../../Utils/HtmlContent";
@@ -313,6 +314,36 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
                     </div>
                 </div>
+                    {Whatsapp && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                            className="flex justify-end w-full mx-auto z-[100] relative"
+                        >
+                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
+                                <a
+                                    target="_blank"
+                                    id="whatsapp-toggle"
+                                    href={Whatsapp.link}
+                                >
+                                    <motion.img
+                                        animate={{
+                                            y: [0, -10, 0],
+                                        }}
+                                        transition={{
+                                            duration: 1.5,
+                                            repeat: Infinity,
+                                            repeatType: "loop",
+                                        }}
+                                        src="/assets/img/icons/WhatsApp.svg"
+                                        alt="whatsapp"
+                                        className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]"
+                                    />
+                                </a>
+                            </div>
+                        </motion.div>
+                    )}
                 <div className="bg-neutral-light text-primary py-3 flex items-center justify-center">
                     <div className="text-center gap-5 w-full px-[5%] font-paragraph font-medium text-[10px] lg:text-sm">
                         Copyright <span className="text-accent">©</span> 2025 Cambio & Gerencia. Reservados todos los derechos.

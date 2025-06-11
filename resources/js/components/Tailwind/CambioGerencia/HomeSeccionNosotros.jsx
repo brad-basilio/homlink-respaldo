@@ -67,7 +67,7 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                                         <img
                                             src={`/api/strength/media/${strength?.image}`}
                                             alt={strength?.title}
-                                            className="w-6 h-6 object-cover rounded-xl"
+                                            className="min-w-6 min-h-6 max-w-6 max-h-6 object-cover rounded-xl"
                                         />
 
                                     </div>

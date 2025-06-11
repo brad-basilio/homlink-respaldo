@@ -47,7 +47,7 @@ const ResultsInfoProducto = ({ filter }) => {
                     ))
                 ) : (
                     <div className="col-span-full flex flex-col items-center justify-center py-16">
-                        <img src="/assets/img/empty-box.svg" alt="Sin resultados" className="w-32 h-32 mb-4 animate-bounce" />
+                        <img src="/assets/img/empty-box.png" alt="Sin resultados" className="w-32 h-32 mb-4 animate-bounce" />
                         <p className="text-slate-400 text-lg">No se encontraron resultados</p>
                     </div>
                 )}

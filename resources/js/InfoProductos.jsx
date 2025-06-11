@@ -27,7 +27,7 @@ function InfoProductos({ categories, productosRecientes, landing, sliders }) {
             <Header />
             <div
                 key={`slide-banner`}
-                className="w-full h-[589px] lg:h-auto flex-shrink-0 relative"
+                className="w-full h-[589px] lg:h-auto flex-shrink-0 relative  bg-neutral-light"
             >
                 <img
                     src={`/api/landing_home/media/${landing?.image || "undefined"}`}
@@ -39,7 +39,7 @@ function InfoProductos({ categories, productosRecientes, landing, sliders }) {
                 {/* Gradiente entre bg-primary y bg-contrast */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary to-constrast opacity-80"></div>
 
-                <div className="relative w-full px-primary 2xl:px-0 2xl:max-w-7xl mx-auto h-[530px] md:h-[600px] flex flex-col items-center md:items-start justify-end md:justify-center text-white">
+                <div className="relative w-full px-primary px-[5%]     mx-auto h-[530px] md:h-[600px] flex flex-col items-center md:items-start justify-end md:justify-center text-white">
                     <div className="flex max-w-lg flex-col gap-5 lg:gap-10 items-start w-full text-start md:text-left">
                         <h2
                             className="font-title uppercase text-sm flex gap-2 leading-tight sm:text-lg md:text-lg tracking-normal font-medium text-white justify-center md:justify-start"

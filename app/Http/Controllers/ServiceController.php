@@ -24,7 +24,7 @@ class ServiceController extends BasicController
         // $allServices = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->where('category_service_id', $services->category_service_id)->with('category')->orderBy('updated_at', 'DESC')->get();
         $brands = Brand::where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
-dump($services);
+//dump($services);
         return [
             'landing' => $landing,
             'services' => $services,

@@ -547,137 +547,272 @@ const Header = ({
                                     ref={btnToggleRef}
                                     onClick={toggleMenu}
                                     whileTap={{ scale: 0.9 }}
-                                    className="text-white menu-toggle rounded-lg h-[50px] w-[50px] flex items-center justify-center bg-primary"
+                                    whileHover={{ scale: 1.05 }}
+                                    className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30 border border-white/20"
                                     aria-label="Toggle menu"
                                 >
-                                    <div className="text-white">
-                                        <i
-                                            className={`fas ${isOpen ? "fa-times" : "fa-bars"
-                                                } text-xl md:text-2xl py-3 px-3`}
-                                        />
-                                    </div>
+                                    <motion.div 
+                                        animate={{ rotate: isOpen ? 180 : 0 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="text-white"
+                                    >
+                                        {isOpen ? (
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        ) : (
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                                            </svg>
+                                        )}
+                                    </motion.div>
                                 </motion.button>
                             </div>
                         </motion.div>
                     </div>
 
-                    {WhatsApp && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                            className="flex justify-end w-full mx-auto z-[100] relative"
-                        >
-                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
-                                <a
-                                    target="_blank"
-                                    id="whatsapp-toggle"
-                                    href={WhatsApp.link}
-                                >
-                                    <motion.img
-                                        animate={{
-                                            y: [0, -10, 0],
-                                        }}
-                                        transition={{
-                                            duration: 1.5,
-                                            repeat: Infinity,
-                                            repeatType: "loop",
-                                        }}
-                                        src="/assets/img/icons/WhatsApp.svg"
-                                        alt="whatsapp"
-                                        className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]"
-                                    />
-                                </a>
-                            </div>
-                        </motion.div>
-                    )}
+                
                 </motion.header>
 
                 {/* Menú móvil */}
                 <AnimatePresence>
                     {isOpen && (
-                        <motion.div
-                            ref={menuRef}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            variants={menuVariants}
-                            className={`fixed md:top-20 inset-0 text-white z-[999] ${isScrolled
-                                ? "top-[4rem] bg-primary"
-                                : "top-[120px] bg-primary"
-                                } p-[5%] h-max overflow-y-auto`}
-                        >
-                            <motion.ul
-                                variants={containerVariants}
-                                className="flex flex-col gap-4 items-center justify-center"
+                        <>
+                            {/* Overlay con blur */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[998]"
+                                onClick={() => setIsOpen(false)}
+                            />
+                            
+                            <motion.div
+                                ref={menuRef}
+                                initial={{ opacity: 0, y: -100, scale: 0.95 }}
+                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                exit={{ opacity: 0, y: -100, scale: 0.95 }}
+                                transition={{ 
+                                    type: "spring", 
+                                    damping: 25, 
+                                    stiffness: 200,
+                                    duration: 0.4
+                                }}
+                                className={`fixed left-[5%] right-[5%] ${isScrolled
+                                    ? "top-20" 
+                                    : "top-[120px]"
+                                } z-[999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-140px)] overflow-y-auto`}
                             >
-                                {[
-                                    "/nosotros",
-                                    "#services",
-                                    "/casos-de-exito",
-                                    "/blog",
-                                    "/infoproductos",
-                                    "/contacto",
-                                ].map((path) => {
-                                    const text = {
-                                        "/nosotros": t("public.header.home", "Nosotros"),
-                                        "#services": t(
-                                            "public.header.services",
-                                            "Servicios"
-                                        ),
-                                        "/casos-de-exito": t(
-                                            "public.header.solutions",
-                                            "Casos de éxito"
-                                        ),
-                                        "/blog": t(
-                                            "public.header.options",
-                                            "Blog"
-                                        ),
-                                        "/infoproductos": t(
-                                            "public.header.infoproducts",
-                                            "Infoproductos"
-                                        ),
-                                        "/contacto": t(
-                                            "public.header.contact",
-                                            "Contacto"
-                                        ),
-                                    }[path];
-
-                                    return (
-                                        <motion.li
-                                            key={path}
-                                            variants={itemVariants}
+                                {/* Header del menú */}
+                                <div className="bg-gradient-to-r from-primary to-accent p-6 text-white">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h3 className="text-lg font-semibold">Navegación</h3>
+                                            <p className="text-sm opacity-90">Explora nuestros servicios</p>
+                                        </div>
+                                        <motion.button
+                                            whileHover={{ scale: 1.1 }}
+                                            whileTap={{ scale: 0.9 }}
+                                            onClick={() => setIsOpen(false)}
+                                            className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center"
                                         >
-                                            <a
-                                                href={path}
-                                                onClick={(e) => {
-                                                    if (path.startsWith('#')) {
-                                                        e.preventDefault();
-                                                        handleLinkClick(path);
-                                                        setIsOpen(false);
-                                                        // Scroll to anchor if needed
-                                                    } else {
-                                                        // Navega directamente
-                                                        handleLinkClick(path);
-                                                        window.location.href = path;
-                                                        setIsOpen(false);
-                                                    }
-                                                }}
-                                                className={`relative py-2 rounded-full transition-all duration-300 ${isActive(path)
-                                                    ? "bg-[#EFF0F1] pl-8 pr-3 text-primary"
-                                                    : "bg-transparent px-5 text-white"
-                                                    }`}
-                                            >
-                                                {text}
-                                                {isActive(path) && (
-                                                    <span className="absolute left-3 ml-2 top-[50%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-primary rounded-full"></span>
-                                                )}
-                                            </a>
-                                        </motion.li>
-                                    );
-                                })}
-                            </motion.ul>
-                        </motion.div>
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </motion.button>
+                                    </div>
+                                </div>
+
+                                {/* Contenido del menú */}
+                                <div className="p-6">
+                                    <motion.ul
+                                        variants={containerVariants}
+                                        className="space-y-3"
+                                    >
+                                        {[
+                                            { path: "/nosotros", color: "from-blue-500 to-blue-600" },
+                                            { path: "#services", color: "from-purple-500 to-purple-600", hasSubmenu: true },
+                                            { path: "/casos-de-exito", color: "from-green-500 to-green-600" },
+                                            { path: "/blog", color: "from-orange-500 to-orange-600" },
+                                            { path: "/infoproductos", color: "from-pink-500 to-pink-600" },
+                                            { path: "/contacto", color: "from-red-500 to-red-600" },
+                                        ].map((item, index) => {
+                                            const text = {
+                                                "/nosotros": t("public.header.home", "Nosotros"),
+                                                "#services": t("public.header.services", "Servicios"),
+                                                "/casos-de-exito": t("public.header.solutions", "Casos de éxito"),
+                                                "/blog": t("public.header.options", "Blog"),
+                                                "/infoproductos": t("public.header.infoproducts", "Infoproductos"),
+                                                "/contacto": t("public.header.contact", "Contacto"),
+                                            }[item.path];
+
+                                            return (
+                                                <motion.li
+                                                    key={item.path}
+                                                    variants={itemVariants}
+                                                    whileHover={{ scale: 1.02 }}
+                                                    whileTap={{ scale: 0.98 }}
+                                                >
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            if (item.path.startsWith('#')) {
+                                                                if (item.hasSubmenu) {
+                                                                    toggleMegaMenu(item.path);
+                                                                }
+                                                                handleLinkClick(item.path);
+                                                            } else {
+                                                                handleLinkClick(item.path);
+                                                                window.location.href = item.path;
+                                                                setIsOpen(false);
+                                                            }
+                                                        }}
+                                                        className={`w-full group relative flex items-center p-4 rounded-xl transition-all duration-300 ${
+                                                            isActive(item.path) || activeMegaMenu === item.path
+                                                                ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg"
+                                                                : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary"
+                                                        }`}
+                                                    >
+                                                        {/* Texto */}
+                                                        <div className="flex-1 text-left">
+                                                            <span className={`font-medium text-base ${
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "group-hover:text-primary"
+                                                            }`}>
+                                                                {text}
+                                                            </span>
+                                                            {item.path === "#services" && (
+                                                                <p className={`text-xs mt-1 ${
+                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
+                                                                }`}>
+                                                                    Descubre nuestras soluciones
+                                                                </p>
+                                                            )}
+                                                        </div>
+                                                        
+                                                        {/* Flecha o indicador de submenú */}
+                                                        <motion.div
+                                                            className={`transition-colors duration-300 ${
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-400 group-hover:text-primary"
+                                                            }`}
+                                                        >
+                                                            {item.hasSubmenu ? (
+                                                                <motion.div
+                                                                    animate={{ rotate: activeMegaMenu === item.path ? 180 : 0 }}
+                                                                    transition={{ duration: 0.2 }}
+                                                                >
+                                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                                    </svg>
+                                                                </motion.div>
+                                                            ) : (
+                                                                <ArrowRight className="w-5 h-5" />
+                                                            )}
+                                                        </motion.div>
+
+                                                        {/* Indicador activo */}
+                                                        {(isActive(item.path) || activeMegaMenu === item.path) && (
+                                                            <motion.div
+                                                                layoutId="activeMobileDot"
+                                                                className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-full"
+                                                            />
+                                                        )}
+                                                    </button>
+
+                                                    {/* Submenú de servicios para móvil */}
+                                                    <AnimatePresence>
+                                                        {item.hasSubmenu && activeMegaMenu === item.path && (
+                                                            <motion.div
+                                                                initial={{ opacity: 0, height: 0 }}
+                                                                animate={{ opacity: 1, height: "auto" }}
+                                                                exit={{ opacity: 0, height: 0 }}
+                                                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                                                className="mt-3 overflow-hidden"
+                                                            >
+                                                                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-4 border border-blue-100">
+                                                                    <h4 className="text-sm font-semibold text-gray-700 mb-3">
+                                                                        Nuestros Servicios
+                                                                    </h4>
+                                                                    <div className="grid grid-cols-1 gap-2">
+                                                                        {servicesData && servicesData.slice(0, 6).map((service, serviceIndex) => (
+                                                                            <motion.button
+                                                                                key={serviceIndex}
+                                                                                onClick={() => {
+                                                                                    window.location.href = `/servicio/${service.slug || service.id}`;
+                                                                                    setIsOpen(false);
+                                                                                }}
+                                                                                whileHover={{ scale: 1.02 }}
+                                                                                whileTap={{ scale: 0.98 }}
+                                                                                className="flex items-center p-3 bg-white rounded-lg hover:bg-blue-50 transition-colors duration-200 border border-gray-100 hover:border-blue-200 text-left w-full"
+                                                                            >
+                                                                                <div className="flex-1 min-w-0">
+                                                                                    <p className="font-medium text-gray-800 text-sm truncate">
+                                                                                        {service.name || service.title}
+                                                                                    </p>
+                                                                                    {service.description && (
+                                                                                        <p className="text-xs text-gray-500 truncate">
+                                                                                            {service.description.substring(0, 50)}...
+                                                                                        </p>
+                                                                                    )}
+                                                                                </div>
+                                                                                <svg className="w-4 h-4 text-gray-400 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                                                                </svg>
+                                                                            </motion.button>
+                                                                        ))}
+                                                                    </div>
+                                                                 
+                                                                </div>
+                                                            </motion.div>
+                                                        )}
+                                                    </AnimatePresence>
+                                                </motion.li>
+                                            );
+                                        })}
+                                    </motion.ul>
+
+                                    {/* CTA Button */}
+                                    <motion.div
+                                        variants={itemVariants}
+                                        className="mt-6 pt-6 border-t border-gray-200"
+                                    >
+                                        <motion.button
+                                            onClick={() => {
+                                                window.location.href = "/contacto";
+                                                setIsOpen(false);
+                                            }}
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="flex items-center justify-center w-full bg-gradient-to-r from-accent to-primary text-white font-semibold py-4 px-6 rounded-xl shadow-lg"
+                                        >
+                                            Reserva una consulta
+                                            <ArrowRight className="ml-2 w-5 h-5" />
+                                        </motion.button>
+                                    </motion.div>
+
+                                    {/* Info adicional */}
+                                    <motion.div
+                                        variants={itemVariants}
+                                        className="mt-4 text-center"
+                                    >
+                                        <p className="text-sm text-gray-500">
+                                            ¿Necesitas ayuda? Contáctanos
+                                        </p>
+                                        <div className="flex items-center justify-center space-x-4 mt-2">
+                                            {ContactEmail && (
+                                                <a href={`mailto:${ContactEmail.description}`} className="text-xs text-primary hover:underline">
+                                                    {ContactEmail.description}
+                                                </a>
+                                            )}
+                                            {ContactNumber && (
+                                                <a href={`tel:${ContactNumber.description}`} className="text-xs text-primary hover:underline">
+                                                    {ContactNumber.description}
+                                                </a>
+                                            )}
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            </motion.div>
+                        </>
                     )}
                 </AnimatePresence>
 
