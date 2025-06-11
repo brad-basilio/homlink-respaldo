@@ -109,7 +109,8 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                     {/* Grid de artículos */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         {/* Artículo principal (izquierda) */}
-                        <motion.div
+                        <motion.a
+                         href={`/blog/${postRecent[0]?.slug}`}
                             className="group cursor-pointer"
                             variants={itemVariants}
                             whileHover="hover"
@@ -140,7 +141,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                     Leer +
                                 </button>
                             </div>
-                        </motion.div>
+                        </motion.a>
 
                         {/* Artículos secundarios (derecha) */}
                         <div className="space-y-8 h-full grid grid-cols-1 ">

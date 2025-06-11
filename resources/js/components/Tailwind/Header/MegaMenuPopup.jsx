@@ -10,7 +10,7 @@ const MegaMenuPopup = ({ info, isOpen, onClose, data }) => {
   if (!isOpen) return null;
  
   return (
-    <div className="fixed bg-black/40 text-neutral-dark font-paragraph inset-0 z-50 flex items-start justify-center mt-[120px]">
+    <div className="fixed bg-black/40 text-neutral-dark font-paragraph inset-0 z-[9999] flex items-start justify-center mt-[120px] backdrop-blur">
       <div className="bg-neutral-light px-[5%] relative 2xl:rounded-b-lg w-full max-h-[90vh] overflow-hidden">
         {/* Imagen de fondo alineada a la derecha debajo del contenido */}
         <div className="absolute top-0 right-0 h-full z-0 pointer-events-none flex justify-end items-end w-auto">

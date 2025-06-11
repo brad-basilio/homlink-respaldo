@@ -38,7 +38,7 @@ class BlogController extends PublicController
             ->get()
             ->map(function($post) {
                 $post->button_text = "Ver más aquí";
-                $post->button_link = "/post/{$post->slug}";
+                $post->button_link = "/blog/{$post->slug}";
                
                 $post->description = $post->name;
                  $post->name="Blog";
