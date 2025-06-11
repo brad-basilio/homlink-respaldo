@@ -49,7 +49,7 @@ class MessageContactNotification extends Notification implements ShouldQueue
                 'nombre' => $this->message->name,
                 'descripcion' => $this->message->description,
                 'email' => $this->message->email,
-                'telefono' => $this->message->phone,
+                'telefono' => $this->message->subject,
                 'year'         => date('Y'),
                 'fecha_contacto' => $this->message->created_at
                     ? $this->message->created_at->translatedFormat('d \d\e F \d\e\l Y')

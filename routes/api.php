@@ -52,6 +52,7 @@ use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
+use App\Http\Controllers\Admin\NotificationVariableController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 
@@ -193,6 +194,7 @@ Route::prefix('/culqi')->group(function () {
 Route::get('/sales/notify/{code}', [SaleController::class, 'notify']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/notification-variables/{type}', [NotificationVariableController::class, 'variables']);
     Route::delete('logout', [AuthController::class, 'destroy'])
         ->name('logout');
 

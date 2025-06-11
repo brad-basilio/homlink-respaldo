@@ -5,8 +5,8 @@ class Global {
     static APP_URL = null;
     static WA_URL = null;
     static APP_DOMAIN = null;
-    static APP_NAME = "WeFem";
-    static APP_CORRELATIVE = "WeFem";
+    static APP_NAME = null;
+    static APP_CORRELATIVE = null;
     static GMAPS_API_KEY = null;
 
     static set = (name, value) => {

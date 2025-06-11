@@ -171,7 +171,7 @@ class BasicController extends Controller
       'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
       'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
       'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
-      'socials'=>Social::where('status', true)->where('visible', true)->get(),
+      'socials' => Social::where('status', true)->where('visible', true)->get(),
       'global' => [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
@@ -347,6 +347,7 @@ class BasicController extends Controller
 
       // Crear o actualizar registro
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
+      $isNew = !$jpa; // Determinar si es un nuevo registro
       if (!$jpa) {
         $body['slug'] = Crypto::randomUUID();
         $jpa = $this->model::create($body);
@@ -368,7 +369,7 @@ class BasicController extends Controller
       }
 
       // Post-guardado
-      $data = $this->afterSave($request, $jpa);
+      $data = $this->afterSave($request, $jpa, $isNew);
       if ($data) {
         $response->data = $data;
       }
@@ -387,7 +388,7 @@ class BasicController extends Controller
   }
 
 
-  public function afterSave(Request $request, object $jpa)
+  public function afterSave(Request $request, object $jpa, ?bool $isNew)
   {
     return null;
   }

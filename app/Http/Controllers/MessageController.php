@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Message;
 use App\Http\Requests\StoreMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use App\Notifications\MessageContactNotification;
 use Illuminate\Http\Request;
 
 class MessageController extends BasicController
@@ -18,8 +19,7 @@ class MessageController extends BasicController
             'name.string' => 'El nombre debe ser una cadena de texto.',
             'email.email' => 'El correo electrónico debe tener el formato user@domain.com.',
             'email.max' => 'El correo electrónico no debe exceder los 320 caracteres.',
-            'subject.required' => 'El asunto es obligatorio.',
-            'subject.string' => 'El asunto debe ser una cadena de texto.',
+           
             'description.required' => 'El mensaje es obligatorio.',
             'description.string' => 'El mensaje debe ser una cadena de texto.'
         ];
@@ -35,8 +35,9 @@ class MessageController extends BasicController
         return $validatedData;
     }
 
-    public function afterSave(Request $request, object $jpa)
+    public function afterSave(Request $request, object $jpa, ?bool $isNew)
     {
-        MailingController::notifyContact($jpa);
+        //MailingController::notifyContact($jpa);
+        $jpa->notify(new MessageContactNotification($jpa));
     }
 }

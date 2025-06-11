@@ -65,10 +65,10 @@ const Login = ({}) => {
 
     return (
         <>
-            <div className=" w-full px-[5%] min-h-screen flex items-center mx-auto py-16 bg-[#F3E5FF]">
+            <div className=" w-full px-[5%] min-h-screen flex items-center mx-auto py-16 bg-light">
                 <div className="max-w-5xl mx-auto p-8 lg:grid lg:grid-cols-2 gap-8 bg-white rounded-xl">
                     <div className="hidden lg:block">
-                        <video
+                      {/*  <video
                             autoPlay
                             loop
                             muted
@@ -76,7 +76,12 @@ const Login = ({}) => {
                             className="h-[400px] w-full object-cover rounded-xl"
                         >
                             <source src="/assets/img/backgrounds/login.mp4" />
-                        </video>
+                        </video> */}
+                        <img
+                            src="/assets/cambiogerencia/nosotros.webp"
+                            alt="Imagen decorativa"
+                            className="h-[400px] w-full object-contain rounded-xl"
+                        />
                     </div>
                     <div className="flex items-center justify-center px-8">
                         <div className="mx-auto w-full max-w-md space-y-6">
@@ -84,7 +89,7 @@ const Login = ({}) => {
                                 <h1 className="text-3xl font-bold text-center">
                                     Bienvenido a {" "}
                                     <span className="text-azul">
-                                        NoPain
+                                        {Global.APP_NAME}
                                     </span>
                                 </h1>
                             </div>
@@ -127,20 +132,21 @@ const Login = ({}) => {
                                             Guardar mis datos
                                         </label>
                                     </div>
-                                    <a
+                                  {/*  <a
                                         href="/forgot-password"
                                         className="text-sm flex gap-2
                                     items-center justify-center text-azul font-semibold hover:text-azul  "
                                     >
                                         Olvidé mi contraseña
-                                    </a>
+                                    </a> */}
                                 </div>
-                                <button
+                                 <button
                                     type="submit"
                                     className="w-full rounded-xl font-semibold  bg-primary px-4 py-2 text-white hover:opacity-90 focus:outline-none focus:ring-2 transition-all duration-300"
                                 >
                                     Ingresar
                                 </button>
+                               {/*
                                 <div>
                                     {" "}
                                     <div className="row mt-3">
@@ -154,7 +160,7 @@ const Login = ({}) => {
                                             </a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </form>
                         </div>
                     </div>

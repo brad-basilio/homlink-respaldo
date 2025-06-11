@@ -11,14 +11,58 @@ import TextareaFormGroup from "../Components/Adminto/form/TextareaFormGroup";
 import Global from "../Utils/Global";
 import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
 import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
+import TinyMCEFormGroup from "../components/Adminto/form/TinyMCEFormGroup";
 
 const generalsRest = new GeneralsRest();
 
 const Generals = ({ generals }) => {
     const location =
         generals.find((x) => x.correlative == "location")?.description ?? "0,0";
-
+    // Filtrar solo los generales que son plantillas de email (excluyendo correo de soporte)
+    const emailTemplates = generals.filter(g => g.correlative.endsWith('_email') && g.correlative !== 'support_email');
+    
+    const [showPreview, setShowPreview] = useState(false);
+    const [selectedEmailCorrelative, setSelectedEmailCorrelative] = useState(emailTemplates[0]?.correlative || "");
+    const [templateVariables, setTemplateVariables] = useState({});
+    const [loadingVars, setLoadingVars] = useState(false);
+    const [varsError, setVarsError] = useState(null);
+    // Fetch variables for selected template
+    useEffect(() => {
+        if (!selectedEmailCorrelative) return;
+        // Map correlatives to API types
+        const correlativeToType = {
+            purchase_summary_email: "purchase_summary",
+            order_status_changed_email: "order_status_changed",
+            blog_published_email: "blog_published",
+            claim_email: "claim",
+            password_changed_email: "password_changed",
+            reset_password_email: "password_reset",
+            subscription_email: "subscription",
+            verify_account_email: "verify_account",
+        };
+        const type = correlativeToType[selectedEmailCorrelative];
+        if (!type) {
+            setTemplateVariables({});
+            return;
+        }
+        setLoadingVars(true);
+        setVarsError(null);
+        fetch(`/api/notification-variables/${type}`)
+            .then(res => res.json())
+            .then(data => {
+                setTemplateVariables(data.variables || {});
+                setLoadingVars(false);
+            })
+            .catch(err => {
+                setVarsError("No se pudieron cargar las variables.");
+                setLoadingVars(false);
+            });
+    }, [selectedEmailCorrelative]);
     const [formData, setFormData] = useState({
+
+        email_templates: Object.fromEntries(
+            emailTemplates.map(t => [t.correlative, t.description ?? ""])
+        ),
         phones: generals
             .find((x) => x.correlative == "phone_contact")
             ?.description?.split(",")
@@ -104,6 +148,12 @@ const Generals = ({ generals }) => {
         e.preventDefault();
         try {
             await generalsRest.save([
+                // Guardar solo el template seleccionado
+                ...Object.keys(formData.email_templates).map(correlative => ({
+                    correlative,
+                    name: emailTemplates.find(t => t.correlative === correlative)?.name || correlative,
+                    description: formData.email_templates[correlative],
+                })),
                 {
                     correlative: "phone_contact",
                     name: "Teléfono de contacto",
@@ -198,9 +248,8 @@ const Generals = ({ generals }) => {
                         {" "}
                         {/* Quitar el hidden para que se muestren las opciones */}
                         <button
-                            className={`nav-link ${
-                                activeTab === "contact" ? "active" : ""
-                            }`}
+                            className={`nav-link ${activeTab === "contact" ? "active" : ""
+                                }`}
                             onClick={() => setActiveTab("contact")}
                             type="button"
                             role="tab"
@@ -210,9 +259,8 @@ const Generals = ({ generals }) => {
                     </li>
                     <li className="nav-item" role="presentation">
                         <button
-                            className={`nav-link ${
-                                activeTab === "policies" ? "active" : ""
-                            }`}
+                            className={`nav-link ${activeTab === "policies" ? "active" : ""
+                                }`}
                             onClick={() => setActiveTab("policies")}
                             type="button"
                             role="tab"
@@ -222,9 +270,8 @@ const Generals = ({ generals }) => {
                     </li>
                     <li className="nav-item" role="presentation">
                         <button
-                            className={`nav-link ${
-                                activeTab === "seo" ? "active" : ""
-                            }`}
+                            className={`nav-link ${activeTab === "seo" ? "active" : ""
+                                }`}
                             onClick={() => setActiveTab("seo")}
                             type="button"
                             role="tab"
@@ -236,9 +283,8 @@ const Generals = ({ generals }) => {
                         {" "}
                         {/* Quitar el hidden para que se muestren las opciones */}
                         <button
-                            className={`nav-link ${
-                                activeTab === "location" ? "active" : ""
-                            }`}
+                            className={`nav-link ${activeTab === "location" ? "active" : ""
+                                }`}
                             onClick={() => setActiveTab("location")}
                             type="button"
                             role="tab"
@@ -246,13 +292,22 @@ const Generals = ({ generals }) => {
                             Ubicación
                         </button>
                     </li>
+                    <li className="nav-item" role="presentation">
+                        <button
+                            className={`nav-link ${activeTab === "email" ? "active" : ""}`}
+                            onClick={() => setActiveTab("email")}
+                            type="button"
+                            role="tab"
+                        >
+                            Email
+                        </button>
+                    </li>
                 </ul>
 
                 <div className="tab-content" id="contactTabsContent">
                     <div
-                        className={`tab-pane fade ${
-                            activeTab === "contact" ? "show active" : ""
-                        }`}
+                        className={`tab-pane fade ${activeTab === "contact" ? "show active" : ""
+                            }`}
                         role="tabpanel"
                     >
                         <div className="row">
@@ -432,9 +487,8 @@ const Generals = ({ generals }) => {
                     </div>
 
                     <div
-                        className={`tab-pane fade ${
-                            activeTab === "policies" ? "show active" : ""
-                        }`}
+                        className={`tab-pane fade ${activeTab === "policies" ? "show active" : ""
+                            }`}
                         role="tabpanel"
                     >
                         <div className="mb-3">
@@ -476,9 +530,8 @@ const Generals = ({ generals }) => {
                     </div>
 
                     <div
-                        className={`tab-pane fade ${
-                            activeTab === "seo" ? "show active" : ""
-                        }`}
+                        className={`tab-pane fade ${activeTab === "seo" ? "show active" : ""
+                            }`}
                         role="tabpanel"
                     >
                         <InputFormGroup
@@ -526,9 +579,8 @@ const Generals = ({ generals }) => {
                     </div>
 
                     <div
-                        className={`tab-pane fade ${
-                            activeTab === "location" ? "show active" : ""
-                        }`}
+                        className={`tab-pane fade ${activeTab === "location" ? "show active" : ""
+                            }`}
                         role="tabpanel"
                     >
                         <LoadScript googleMapsApiKey={Global.GMAPS_API_KEY}>
@@ -548,6 +600,80 @@ const Generals = ({ generals }) => {
                             Haz clic en el mapa para seleccionar la ubicación.
                         </small>
                     </div>
+
+
+                    <div
+                        className={`tab-pane fade ${activeTab === "email" ? "show active" : ""}`}
+                        role="tabpanel"
+                    >
+                        <div className="mb-3">
+                            <label htmlFor="email_correlative" className="form-label">
+                                Tipo de Email <span className="badge bg-info">{emailTemplates.length} disponibles</span>
+                            </label>
+                            
+                            {emailTemplates.length === 0 ? (
+                                <div className="alert alert-warning">
+                                    <strong>No se encontraron plantillas de email.</strong><br/>
+                                    Asegúrate de que el seeder se haya ejecutado correctamente: <code>php artisan db:seed --class=EmailsGeneralSeeder</code>
+                                </div>
+                            ) : (
+                                <>
+                                    <select
+                                        id="email_correlative"
+                                        className="form-select mb-3"
+                                        value={selectedEmailCorrelative}
+                                        onChange={e => setSelectedEmailCorrelative(e.target.value)}
+                                    >
+                                        <option value="">Selecciona un template</option>
+                                        {emailTemplates.map(t => (
+                                            <option key={t.correlative} value={t.correlative}>
+                                                {t.name || t.correlative.replace(/_/g, ' ').replace(/email/g, '').trim()}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    
+                                    {selectedEmailCorrelative && (
+                                        <TinyMCEFormGroup
+                                            label={
+                                                <>
+                                                    Plantilla de Email (HTML seguro, variables: <code>{`{{variable}}`}</code>)
+                                                    <small className="d-block text-muted">
+                                                        No se permite código PHP ni Blade. Solo variables seguras.<br />
+                                                        {loadingVars && <span>Cargando variables...</span>}
+                                                        {varsError && <span className="text-danger">{varsError}</span>}
+                                                        {!loadingVars && !varsError && (
+                                                            <>
+                                                                <b>Variables disponibles:</b>{" "}
+                                                                {Object.keys(templateVariables).length === 0
+                                                                    ? <span>No hay variables para esta notificación.</span>
+                                                                    : Object.entries(templateVariables).map(([key, desc]) => (
+                                                                        <span key={key} style={{ display: 'inline-block', marginRight: 8 }}>
+                                                                            <code>{`{{${key}}}`}</code> <span className="text-muted">({desc})</span>{" "}
+                                                                        </span>
+                                                                    ))
+                                                                }
+                                                            </>
+                                                        )}
+                                                    </small>
+                                                </>
+                                            }
+                                            value={formData.email_templates[selectedEmailCorrelative] || ""}
+                                            onChange={content => setFormData({
+                                                ...formData,
+                                                email_templates: {
+                                                    ...formData.email_templates,
+                                                    [selectedEmailCorrelative]: content
+                                                }
+                                            })}
+                                        />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+
+
                 </div>
 
                 <button type="submit" className="btn btn-primary mt-3">
