@@ -3,6 +3,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
+import { WhatsAppButtonWithArrow } from '../../Shared/WhatsAppButton';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using generic icons that somewhat resemble the ones in the image.
@@ -50,32 +51,7 @@ const StatCard = ({ icon, title, percentage, description }) => (
 );
 
 const HomeSeccionImpacto = ({data,indicators}) => {
-  const stats = [
-    {
-      icon: <IconIncorporacion />,
-      title: "Incorporación sin problemas",
-      percentage: 75,
-      description: "Los nuevos empleados se sienten valorados y seguros al comenzar su trayectoria."
-    },
-    {
-      icon: <IconCompromiso />,
-      title: "Compromiso de los empleados",
-      percentage: 90,
-      description: "Aumente la motivación y la productividad fomentando una cultura de reconocimiento."
-    },
-    {
-      icon: <IconCrecimiento />,
-      title: "Crecimiento y desarrollo",
-      percentage: 80,
-      description: "Ayude a los empleados a alcanzar su máximo potencial mediante capacitación."
-    },
-    {
-      icon: <IconSatisfaccion />,
-      title: "Satisfacción en el lugar de trabajo",
-      percentage: 85,
-      description: "Crear un ambiente de trabajo positivo que priorice el bienestar de los empleados."
-    }
-  ];
+
 
   return (
     <div className="bg-primary font-paragraph text-white py-16 px-4 sm:px-6 lg:py-24 lg:px-8 relative">
@@ -114,9 +90,9 @@ const HomeSeccionImpacto = ({data,indicators}) => {
             </p>
           </div>
           <div className="flex-shrink-0">
-            <button className="bg-accent flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
-              Solicita una consulta gratuita <ArrowRight />
-            </button>
+            <WhatsAppButtonWithArrow variant="accent" className="bg-accent flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
+              Solicita una consulta gratuita
+            </WhatsAppButtonWithArrow>
           </div>
         </div>
 

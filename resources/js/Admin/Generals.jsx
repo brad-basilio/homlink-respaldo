@@ -20,7 +20,7 @@ const Generals = ({ generals }) => {
         generals.find((x) => x.correlative == "location")?.description ?? "0,0";
     // Filtrar solo los generales que son plantillas de email (excluyendo correo de soporte)
     const emailTemplates = generals.filter(g => g.correlative.endsWith('_email') && g.correlative !== 'support_email');
-    
+
     const [showPreview, setShowPreview] = useState(false);
     const [selectedEmailCorrelative, setSelectedEmailCorrelative] = useState(emailTemplates[0]?.correlative || "");
     const [templateVariables, setTemplateVariables] = useState({});
@@ -63,6 +63,10 @@ const Generals = ({ generals }) => {
         email_templates: Object.fromEntries(
             emailTemplates.map(t => [t.correlative, t.description ?? ""])
         ),
+        whatsapp_phone:
+            generals.find((x) => x.correlative == "whatsapp_phone")?.description ?? "",
+        whatsapp_message:
+            generals.find((x) => x.correlative == "whatsapp_message")?.description ?? "",
         phones: generals
             .find((x) => x.correlative == "phone_contact")
             ?.description?.split(",")
@@ -154,6 +158,16 @@ const Generals = ({ generals }) => {
                     name: emailTemplates.find(t => t.correlative === correlative)?.name || correlative,
                     description: formData.email_templates[correlative],
                 })),
+                {
+                    correlative: "whatsapp_phone",
+                    name: "Número de WhatsApp",
+                    description: formData.whatsapp_phone,
+                },
+                {
+                    correlative: "whatsapp_message",
+                    name: "Mensaje de WhatsApp",
+                    description: formData.whatsapp_message,
+                },
                 {
                     correlative: "phone_contact",
                     name: "Teléfono de contacto",
@@ -484,6 +498,51 @@ const Generals = ({ generals }) => {
                                 required
                             />
                         </div>
+                        <div className="mb-3">
+                            <label
+                                htmlFor="whatsapp_phone"
+                                className="form-label"
+                            >
+                                Número de WhatsApp
+                            </label>
+                            <input
+                                type="tel"
+                                className="form-control"
+                                id="whatsapp_phone"
+                                value={formData.whatsapp_phone}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        whatsapp_phone: e.target.value,
+                                    })
+                                }
+                            />
+                            <small className="form-text text-muted">
+                                Este número se utilizará para recibir consultas a través de WhatsApp.
+                            </small>
+                        </div>
+                        <div className="mb-3">
+                            <label
+                                htmlFor="whatsapp_message"
+                                className="form-label"
+                            >
+                                Mensaje de WhatsApp
+                            </label>
+                            <textarea
+                                className="form-control"
+                                id="whatsapp_message"
+                                value={formData.whatsapp_message}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        whatsapp_message: e.target.value,
+                                    })
+                                }
+                            ></textarea>
+                            <small className="form-text text-muted">
+                                Este mensaje se enviará automáticamente al iniciar una conversación.
+                            </small>
+                        </div>
                     </div>
 
                     <div
@@ -610,10 +669,10 @@ const Generals = ({ generals }) => {
                             <label htmlFor="email_correlative" className="form-label">
                                 Tipo de Email <span className="badge bg-info">{emailTemplates.length} disponibles</span>
                             </label>
-                            
+
                             {emailTemplates.length === 0 ? (
                                 <div className="alert alert-warning">
-                                    <strong>No se encontraron plantillas de email.</strong><br/>
+                                    <strong>No se encontraron plantillas de email.</strong><br />
                                     Asegúrate de que el seeder se haya ejecutado correctamente: <code>php artisan db:seed --class=EmailsGeneralSeeder</code>
                                 </div>
                             ) : (
@@ -631,7 +690,7 @@ const Generals = ({ generals }) => {
                                             </option>
                                         ))}
                                     </select>
-                                    
+
                                     {selectedEmailCorrelative && (
                                         <TinyMCEFormGroup
                                             label={

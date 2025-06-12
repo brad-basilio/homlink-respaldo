@@ -1,59 +1,14 @@
 import { Users } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
+import { WhatsAppButtonWithArrow } from "../../Shared/WhatsAppButton";
 
 
-const steps = [
-    {
-        number: 1,
-        title: "Diagnóstico cultural inicial",
-        description: "Alineamos valores, comportamientos y procesos para garantizar una cultura organizacional sólida.",
-        fullDescription:
-            "Realizamos un análisis profundo de la cultura actual de tu organización, identificando fortalezas, oportunidades de mejora y alineación con los objetivos estratégicos.",
-    },
-    {
-        number: 2,
-        title: "Definición de valores y conductas clave",
-        description: "Establecemos los pilares fundamentales que guiarán el comportamiento organizacional.",
-        fullDescription:
-            "Trabajamos contigo para definir valores auténticos y conductas específicas que reflejen la identidad y aspiraciones de tu empresa.",
-    },
-    {
-        number: 3,
-        title: "Ajuste de políticas y procesos de RR.HH.",
-        description: "Alineamos las prácticas de recursos humanos con la nueva cultura organizacional.",
-        fullDescription:
-            "Revisamos y ajustamos políticas, procesos de selección, evaluación y desarrollo para que sean coherentes con los valores definidos.",
-    },
-    {
-        number: 4,
-        title: "Formación y fortalecimiento de liderazgo",
-        description: "Capacitamos a los líderes para que sean embajadores de la cultura organizacional.",
-        fullDescription:
-            "Desarrollamos programas de formación específicos para líderes, dotándolos de herramientas para liderar el cambio cultural.",
-    },
-    {
-        number: 5,
-        title: "Plan de comunicación interna",
-        description: "Diseñamos estrategias de comunicación para difundir y reforzar la cultura.",
-        fullDescription:
-            "Creamos un plan integral de comunicación que asegure que todos los colaboradores comprendan y adopten la nueva cultura.",
-    },
-    {
-        number: 6,
-        title: "Medición de resultados y sostenibilidad",
-        description: "Implementamos métricas para evaluar el impacto y garantizar la continuidad.",
-        fullDescription:
-            "Establecemos indicadores clave y procesos de seguimiento para medir el éxito del cambio cultural y asegurar su sostenibilidad.",
-    },
-]
 
-const IconUsers = (color = "#fff") => (
-    <svg width="28" height="28" fill="none" viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill={color} /><path d="M21.333 22.667v-1.334A2.667 2.667 0 0 0 18.667 18.667h-5.334A2.667 2.667 0 0 0 10.667 21.333v1.334M16 16a3.333 3.333 0 1 0 0-6.667 3.333 3.333 0 0 0 0 6.667z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-);
 
 
 const ServiceSeccionMetodologia = ({service}) => {
+    const [steps,setSteps]= useState(service?.steps_methodology || []);
     const [currentStep, setCurrentStep] = useState(1);
     const [stepAnimation, setStepAnimation] = useState(true);
     const [transitionState, setTransitionState] = useState('idle'); // 'idle', 'fade-out', 'changing', 'fade-in'
@@ -127,15 +82,11 @@ const ServiceSeccionMetodologia = ({service}) => {
 {service?.description_methodology}
                     </p>
                     <div className='w-full'>
-                        <a
-                            href="/nosotros"
-                            className="w-full flex items-center justify-center lg:max-w-max bg-accent hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
-                        > <span className="font-medium hidden lg:flex">Conoce cómo aplicarlo en tu empresa</span>
+                          <WhatsAppButtonWithArrow variant="accent" className="bg-accent flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
+                                                               <span className="font-medium hidden lg:flex">Conoce cómo aplicarlo en tu empresa</span>
                             <span className="font-medium lg:hidden">Aplicalo a tu empresa</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </a>
+                                                                </WhatsAppButtonWithArrow>
+                       
                     </div>
                 </div>
 

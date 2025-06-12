@@ -111,7 +111,7 @@ class SliderController extends BasicController
                 $jpa->update(['slug' => $slug]);
             }
 
-            $data = $this->afterSave($request, $jpa);
+            $data = $this->afterSave($request, $jpa, false);
             if ($data) {
                 $response->data = $data;
             }

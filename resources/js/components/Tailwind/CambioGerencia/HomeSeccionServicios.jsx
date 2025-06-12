@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
+import WhatsAppButton from '../../Shared/WhatsAppButton';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using a generic icon for all cards for simplicity in this example.
@@ -174,9 +175,14 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <div className="p-6 flex flex-col flex-grow z-20 absolute bottom-0 text-white">
                             <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                             <p className={`text-xs mb-4 flex-grow text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                            <a href="#" className={`mt-auto flex gap-2 py-3 items-end justify-center rounded-lg font-semibold bg-constrast`}>
-                                Reserva una consulta <ArrowRight />
-                            </a>
+                            <WhatsAppButton 
+                                variant="secondary" 
+                                size="medium"
+                                className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
+                                showIcon={true}
+                            >
+                                Reserva una consulta
+                            </WhatsAppButton>
                         </div>
                     </div>
                 </div>
@@ -210,9 +216,14 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <div className="p-6 flex flex-col flex-grow z-20  absolute bottom-0 text-white">
                             <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                             <p className={`text-xs mb-4 flex-grow  text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                            <a href="#" className={`mt-auto flex gap-2 py-3 items-end justify-center rounded-lg font-semibold  bg-constrast`}>
-                                Reserva una consulta <ArrowRight />
-                            </a>
+                            <WhatsAppButton 
+                                variant="secondary" 
+                                size="medium"
+                                className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
+                                showIcon={true}
+                            >
+                                Reserva una consulta
+                            </WhatsAppButton>
                         </div>
                     </div>
                 </div>

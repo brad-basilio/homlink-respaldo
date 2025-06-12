@@ -9,6 +9,7 @@ import { useTranslation } from "../../hooks/useTranslation";
 import { LanguageContext } from "../../context/LanguageContext";
 import LanguageDropdown from "./Header/LanguageDropdown";
 import MegaMenuPopup from "./Header/MegaMenuPopup";
+import WhatsAppButton, { WhatsAppButtonWithArrow } from "../Shared/WhatsAppButton";
 
 const generalRest = new GeneralRest();
 
@@ -528,14 +529,13 @@ const Header = ({
                             variants={itemVariants}
                             className="hidden xl:flex flex-col justify-center items-center _Medium"
                         >
-                            <a href="/contacto">
-                                <div className="bg-primary text-base 2xl:text-lg px-4 py-3 my-auto rounded-md">
-                                    <p className="leading-none text-white">
-                                        {t("public.header.contact", "Reserva una consulta")}
-                                        <ArrowRight className="inline ml-2" />
-                                    </p>
-                                </div>
-                            </a>
+                            <WhatsAppButtonWithArrow
+                                variant="primary"
+                                size="medium"
+                                className="text-base 2xl:text-lg"
+                            >
+                                Reserva una consulta
+                            </WhatsAppButtonWithArrow>
                         </motion.div>
 
                         <motion.div
@@ -775,18 +775,13 @@ const Header = ({
                                         variants={itemVariants}
                                         className="mt-6 pt-6 border-t border-gray-200"
                                     >
-                                        <motion.button
-                                            onClick={() => {
-                                                window.location.href = "/contacto";
-                                                setIsOpen(false);
-                                            }}
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            className="flex items-center justify-center w-full bg-gradient-to-r from-accent to-primary text-white font-semibold py-4 px-6 rounded-xl shadow-lg"
+                                        <WhatsAppButtonWithArrow
+                                            variant="primary"
+                                            size="large"
+                                            className="w-full bg-gradient-to-r from-accent to-primary"
                                         >
                                             Reserva una consulta
-                                            <ArrowRight className="ml-2 w-5 h-5" />
-                                        </motion.button>
+                                        </WhatsAppButtonWithArrow>
                                     </motion.div>
 
                                     {/* Info adicional */}

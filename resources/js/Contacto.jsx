@@ -133,13 +133,14 @@ const cardHover = {
 };
 
 const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
-/*    const landingHero = landing?.find(
-        (item) => item.correlative === "page_contact_hero"
+  const landingFormulario = landing?.find(
+        (item) => item.correlative === "page_contact_formulario"
     );
-    const landingForm = landing?.find(
+ 
+   /*     const landingForm = landing?.find(
         (item) => item.correlative === "page_contact_form"
     );
-    const landingSoporte = landing?.find(
+     const landingSoporte = landing?.find(
         (item) => item.correlative === "page_contact_help"
     );
     const sectionone = landing?.find(
@@ -342,22 +343,18 @@ const [aboutuses, setAboutuses] = useState([]);
                             className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic"
                             variants={itemVariants}
                         >
-                            Soluciones de{" "}
-                            <motion.span 
-                                className="text-blue-600"
-                                whileHover={{ scale: 1.05 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                RR.HH
-                            </motion.span>{" "}
-                            simplificadas<br />contáctenos ahora
+<TextWithHighlight text={landingFormulario?.title || "Contáctenos"} highlight="RR.HH" />
+
+
+                            
+                       
                         </motion.h2>
                           
                         <motion.p 
                             className="mt-4 text-lg text-neutral max-w-3xl mx-auto"
                             variants={itemVariants}
                         >
-                            Conectamos el talento con la oportunidad, fomentando el crecimiento, el éxito y un futuro más brillante para las personas y las empresas.
+                            {landingFormulario?.description || ""}
                         </motion.p>
                         </div>
 

@@ -1,5 +1,6 @@
 import React from "react";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
+import { WhatsAppButtonWithArrow } from "../../Shared/WhatsAppButton";
 
 const ServiceSeccionEnfoque = ({service}) => {
     return (
@@ -47,15 +48,10 @@ const ServiceSeccionEnfoque = ({service}) => {
                    
                 </div>
                 <div className='w-full'>
-                    <a
-                        href="/nosotros"
-                        className="  w-full flex items-center justify-center lg:max-w-max bg-accent hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
-                    >
-                        <span className="font-medium">Solicita una consulta gratuita</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                    </a>
+                    <WhatsAppButtonWithArrow variant="accent" className="bg-accent flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
+                                                            Solicita una consulta gratuita
+                                                          </WhatsAppButtonWithArrow>
+                                            
                 </div>
             </div>
         </section>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import WhatsAppButton from "../../Shared/WhatsAppButton";
 
 
 
@@ -53,16 +54,17 @@ const ServiceSeccionFaq = ({faqs=[]}) => {
             src="/assets/cambiogerencia/card-contact-2.webp"
             alt="Servicios de RR.HH"
             className="w-full  h-96 md:h-96 object-cover"
-          />
-          <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-4 md:p-6">
+          />          <div className="absolute inset-0 bg-black/30 flex flex-col justify-end p-4 md:p-6">
             <h3 className="text-white text-lg md:text-xl font-medium mb-1 drop-shadow">Servicios de RR.HH</h3>
             <p className="text-white text-xs mb-3 md:mb-4 drop-shadow">Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor.</p>
-            <a
-              href="#"
-              className="inline-block bg-constrast text-white text-sm md:text-base font-semibold rounded-lg px-4 md:px-6 py-2 md:py-3 text-center transition-colors duration-200 hover:bg-primary"
+            <WhatsAppButton 
+              variant="constrast" 
+              size="medium"
+              className="bg-constrast text-white hover:bg-primary border-none"
+              showIcon={true}
             >
               Reserva una consulta
-            </a>
+            </WhatsAppButton>
           </div>
         </div>
       </div>

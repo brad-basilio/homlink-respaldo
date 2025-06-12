@@ -289,6 +289,8 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
                                         <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">
                                             <a
                                                 href={item.button_link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
                                                 ref={(el) => (buttonsRef.current[index] = el)}
                                                 className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300"
                                             >

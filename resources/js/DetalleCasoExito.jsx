@@ -9,110 +9,13 @@ import Footer from "./components/Tailwind/Footer";
 import { ArrowRight } from "lucide-react";
 import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
 import TextWithHighlight from "./Utils/TextWithHighlight";
+import WhatsAppButton from "./components/Shared/WhatsAppButton";
 const DetalleCasoExito = ({
   successStory,
   successStoryRecents = [],
-  proyectoInfo = {
-    categoria: "Recursos Humanos",
-    cliente: "Mundomedic",
-    fecha_inicio: "22 de enero de 2023",
-    fecha_final: "30 de marzo de 2023",
-    duracion: "2 meses"
-  },
-  titulo = "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-  contenido = {
-    descripcion: "Nuestro equipo diseñó un programa de RR.HH con estrategias generalizadas implementados para la fuerza laboral, adaptados a las necesidades de su empresa para usted. Desde la selección de talento hasta la capacitación de empleados y el establecimiento de procesos, le brindamos las herramientas necesarias para crear una manera operativa.",
-    desafios: "Al comprender los desafíos únicos de la organización, proporcionamos soluciones personalizadas que impulsaron el crecimiento, atrajeron a los talentos clave y fortalecieron la cultura laboral. La fuerza laboral. Este enfoque dio resultados concretos reflejados en la gestión de recursos humanos.",
-    resultados: "Este programa brinda orientación a profesionales en la formulación de soluciones integradas de RR. HH. en empresas o en tu organización. Colaboraremos mano a mano con el cliente para identificar los principales retos y guiarles, implementando cambios específicos para la optimización, el crecimiento de los empleados, y rapidez de lanzamiento normativo.",
-  },
-  subtitulo1 = "Aenean vel vestibulum lorem",
-  contenido1 = "Nos asociamos con empresas de diversos sectores, proporcionando soluciones innovadoras que resultan en un mayor productividad, crecimiento y éxito. Visualizamos un mundo donde las empresas y las personas prosperen juntas hacia las operaciones que fomenten la innovación, la creatividad y el éxito.",
-  benefits = [
-    {
-      icon: "people",
-      title: "Fuerza laboral mejorada",
-      description: "Optimiza la fuerza de trabajo para evitar desaciertos"
-    },
-    {
-      icon: "target",
-      title: "Mayor retención de empleados",
-      description: "Optimiza la fuerza de trabajo para evitar desaciertos"
-    },
-    {
-      icon: "target",
-      title: "Reclutamiento optimizado",
-      description: "Con éxito a través de profesionales cualificados"
-    },
-    {
-      icon: "target",
-      title: "Reclutamiento optimizado",
-      description: "Con éxito a través de profesionales cualificados"
-    }
-  ],
-  seccionAzul = {
-    titulo: "Etiam sit amet dapibus augue",
-    descripcion: "Ofrecemos soluciones en RR. HH. personalizadas, diseñadas para adaptarse a los requisitos específicos de cada empresa. Desde la selección de talento hasta la capacitación de empleados, nuestros servicios integran las mejores prácticas de la fuerza laboral, el conocimiento normativo y la visión a largo plazo.",
-    solucion: [
-      "Asignamos equipos mixtos de consultores con experiencia de negocios y servicios integrales.",
-      "Una alta calidad de consultoría tailored y personalizada hecha para la empresa."
-    ],
-    desafio: [
-      "Manejo de cumplimiento y optimización del resultado.",
-      "Estrategias en RR.HH. para impulsar la productividad de los empleados."
-    ],
-    imagen: "/assets/cambiogerencia/proceso-rrhh.jpg"
-  },
-  casosSimilares = [
-    {
-      id: 1,
-      type: "solution",
-      title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-      description: "Comienza la brecha entre profesionales cualificados...",
-      image: "/assets/cambiogerencia/caso-1.webp",
-    },
-    {
-      id: 2,
-      type: "strategy",
-      title: "Estrategias de desarollo profesional RR.HH para el éxito",
-      description: "Comienza la brecha entre profesionales cualificados...",
-      image: "/assets/cambiogerencia/caso-2.webp",
-    },
-    {
-      id: 3,
-      type: "solution",
-      title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-      description: "Comienza la brecha entre profesionales cualificados...",
-      image: "/assets/cambiogerencia/caso-3.webp",
-    },
-  ],
-  faqs = [
-    {
-      id: 1,
-      question: "¿Ut sed felis eu odio aliquam consectetur at et quam?",
-      answer: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.",
-    },
-    {
-      id: 2,
-      question: "¿Cómo puedo empezar a utilizar sus servicios?",
-      answer:
-        "Ofrecemos una gama completa de soluciones de RR. HH. diseñadas para satisfacer las necesidades cambiantes de empresas y empleados. Nuestros servicios incluyen la contratación estratégica.",
-    },
-    {
-      id: 3,
-      question: "¿Donec sagittis, enim id vehicula efficitur, mauris felis egestas nulla?",
-      answer: "Mauris felis egestas nulla, id vehicula enim efficitur sagittis. Donec vel ligula ac eros tempor finibus.",
-    },
-    {
-      id: 4,
-      question: "¿Ut sed felis eu odio aliquam consectetur at et quam?",
-      answer: "Ut sed felis eu odio aliquam consectetur. Vivamus vel quam in massa venenatis tempor. Nullam at est metus.",
-    },
-    {
-      id: 5,
-      question: "¿Donec sagittis, enim id vehicula efficitur, mauris felis egestas nulla?",
-      answer: "Praesent vitae nisl eros. Cras non magna lectus. Morbi vitae aliquam augue, ac faucibus dui.",
-    },
-  ],
+ 
+  
+  
   empresa = {
     nombre: "Sourcegraph S.A.",
     descripcion: "ABCD Emprendiendo sistemas desde el 2022",
@@ -296,9 +199,8 @@ const DetalleCasoExito = ({
                 style={{
                   background: "linear-gradient(to top, rgba(0,0,0), #ffffff)"
                 }}
-              />
-              <img
-                src={"assets/cambiogerencia/card-contact.webp"}
+              />              <img
+                src={"/assets/cambiogerencia/card-contact.webp"}
                 alt={"Servicios de RR.HH"}
                 className="w-full h-[300px] object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/cccccc/808080?text=Imagen+no+disponible"; }}
@@ -306,9 +208,14 @@ const DetalleCasoExito = ({
               <div className="p-6 flex flex-col flex-grow z-20  absolute bottom-0 text-white">
                 <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                 <p className={`text-xs mb-4 flex-grow  text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                <a href="#" className={`mt-auto flex gap-2 py-3 items-end justify-center rounded-lg font-semibold  bg-constrast`}>
-                  Reserva una consulta <ArrowRight />
-                </a>
+                <WhatsAppButton 
+                  variant="constrast" 
+                  size="medium"
+                  className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
+                  showIcon={true}
+                >
+                  Reserva una consulta
+                </WhatsAppButton>
               </div>
             </div>
           </div>
@@ -518,8 +425,7 @@ const DetalleCasoExito = ({
                   style={{
                     background: "linear-gradient(to top, rgba(0,0,0), #ffffff)"
                   }}
-                />
-                <img
+                />                <img
                   src={"assets/cambiogerencia/card-contact.webp"}
                   alt={"Servicios de RR.HH"}
                   className="w-full h-[350px] object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
@@ -528,9 +434,14 @@ const DetalleCasoExito = ({
                 <div className="p-6 flex flex-col flex-grow z-20  absolute bottom-0 text-white">
                   <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                   <p className={`text-xs mb-4 flex-grow  text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                  <a href="#" className={`mt-auto flex gap-2 py-3 items-end justify-center rounded-lg font-semibold  bg-constrast`}>
-                    Reserva una consulta <ArrowRight />
-                  </a>
+                  <WhatsAppButton 
+                    variant="secondary" 
+                    size="medium"
+                    className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
+                    showIcon={true}
+                  >
+                    Reserva una consulta
+                  </WhatsAppButton>
                 </div>
               </div>
             </section>
