@@ -20,12 +20,13 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SoDe\Extend\Crypto;
 use SoDe\Extend\Response;
 use SoDe\Extend\Text;
-use Illuminate\Support\Facades\Schema;
+
 use Illuminate\Support\Str;
 
 
@@ -159,17 +160,26 @@ class PublicController extends Controller
 
     public function reactView(Request $request)
     {
+        $properties = [];
+        
+        // Only fetch user permissions if authenticated
+        if (Auth::check()) {
+            $user = Auth::user();
+            $user->getAllPermissions();
+            $properties['session'] = $user;
+        }
 
-        if (Auth::check()) Auth::user()->getAllPermissions();
-
-        $properties = [
-            'session' => Auth::user(),
-            'messagesCount' => Message::where('status', true)->where('seen', false)->count(),
-            'citasCount' => Appointment::where('status', true)->where('seen', false)->count(),
-            'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
-            'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
-            'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
-            'global' => [
+        // Use a database transaction to reuse the same connection for all queries
+        DB::connection()->transaction(function() use (&$properties) {
+            // Execute all queries within the same connection
+            $properties['messagesCount'] = Message::where('status', true)->where('seen', false)->count();
+            $properties['citasCount'] = Appointment::where('status', true)->where('seen', false)->count();
+            $properties['reclamosCount'] = Complaint::where('estado', '=', 'pendiente')->count();
+            $properties['linkWhatsApp'] = Social::where('description', '=', 'WhatsApp')->first();
+            $properties['randomImage'] = Service::where('status', true)->where('visible', true)->inRandomOrder()->first();
+        });
+        
+        $properties['global'] = [
                 'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
                 'APP_NAME' => env('APP_NAME', 'Trasciende'),
                 'APP_URL' => env('APP_URL'),
@@ -177,7 +187,6 @@ class PublicController extends Controller
                 'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
                 'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
                 'GMAPS_API_KEY' => env('GMAPS_API_KEY')
-            ],
         ];
         $reactViewProperties = $this->setReactViewProperties($request);
         if (\is_array($reactViewProperties)) {

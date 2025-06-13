@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Observers\SaleCreationObserver;
 use App\Observers\SaleStatusObserver;
 use App\Observers\UserNameObserver;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Configure database to disconnect idle connections
+        DB::disconnect();
+        
+        // Add event listener to close connections after request is processed
+        app()->terminating(function () {
+            DB::disconnect();
+        });
 
         Sale::observe([
             SaleCreationObserver::class,

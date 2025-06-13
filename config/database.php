@@ -60,7 +60,15 @@ return [
             'engine' => null,
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+                // Close idle connections after 60 seconds
+                PDO::ATTR_TIMEOUT => env('DB_IDLE_TIMEOUT', 60),
+                PDO::ATTR_PERSISTENT => false, // Disable persistent connections
             ]) : [],
+            // Connection pooling settings
+            'pool' => [
+                'min' => env('DB_MIN_CONNECTIONS', 5),
+                'max' => env('DB_MAX_CONNECTIONS', 20),
+            ],
         ],
 
 
