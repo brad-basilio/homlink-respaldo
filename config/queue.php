@@ -38,8 +38,10 @@ return [
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
-            'retry_after' => 90,
-            'after_commit' => false,
+            'retry_after' => 300,    // Aumentado a 300 segundos (5 minutos) para entornos cPanel
+            'after_commit' => true,  // Manejo de transacciones más seguro
+            'block_for' => null,     // Evita bloqueo excesivo
+            'max_attempts' => 5,     // Aumentar intentos antes de considerar fallido
         ],
 
         'beanstalkd' => [

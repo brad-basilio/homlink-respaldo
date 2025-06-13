@@ -31,7 +31,7 @@ const Menu = ({
         <div
             className="left-side-menu"
             style={{
-                background: "#224483 ",
+                background: "#003049 ",
             }}
         >
             <div className="h-100" data-simplebar>
@@ -181,13 +181,13 @@ const Menu = ({
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/services"
-                                    icon="mdi mdi-shield-star"
+                                    icon="mdi mdi-star-cog"
                                 >
                                     {t("admin.sidebar.services", "Servicios")}
                                 </MenuItem>
                                  <MenuItem
                                     href="/admin/success_stories"
-                                    icon="mdi mdi-shield-star"
+                                    icon="mdi mdi-trophy-award"
                                 >
                                    Casos de éxito
                                 </MenuItem>
@@ -314,7 +314,7 @@ const Menu = ({
                                 </MenuItem>*/}
                                  <MenuItem
                                     href="/admin/brands"
-                                    icon="mdi mdi-translate"
+                                    icon="mdi mdi-domain"
                                 >
                                     {t(
                                         "admin.sidebar.translations",
@@ -356,7 +356,7 @@ const Menu = ({
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/testimonies"
-                                    icon="mdi mdi-forum"
+                                    icon="mdi mdi-comment-account"
                                 >
                                     {t(
                                         "admin.sidebar.testimonials",
@@ -384,14 +384,14 @@ const Menu = ({
                                     </MenuItem>
                                 <MenuItem
                                     href="/admin/infoproducts"
-                                    icon="mdi mdi-book-open-page-variant"
+                                    icon="mdi mdi-shopping"
                                 >
                                     Productos
                                 </MenuItem>
                                 </MenuItemContainer>
                                 <MenuItemContainer
                                     title="Blog"
-                                    icon="mdi mdi-cube"
+                                    icon="mdi mdi-newspaper"
                                 >
                                      <MenuItem
                                         href="/admin/categories"
