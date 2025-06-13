@@ -421,7 +421,7 @@ const Header = ({
                                     whileHover={{ scale: 1.05 }}
                                     src="/assets/img/logo.svg"
                                     alt="Sedna Logo"
-                                    className="object-cover object-top h-12 xs:h-14 sm:h-16 w-full"
+                                    className="object-cover object-top h-12 max-h-12  sm:h-16 sm:max-h-16 w-full"
                                 />
                             </a>
                         </motion.div>
