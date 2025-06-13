@@ -173,7 +173,7 @@ class PurchaseOptionController extends BasicController
         return $body;
     }
 
-    public function afterSave(Request $request, $solution)
+    public function afterSave(Request $request, $solution,?bool $isNew)
     {
         // Eliminar imágenes marcadas para borrar (si implementas esta función)
         return $solution;

@@ -160,19 +160,28 @@ class BasicController extends Controller
 
   public function reactView(Request $request)
   {
+    $properties = [];
+    
+    // Only fetch user permissions if authenticated
+    if (Auth::check()) {
+      $user = Auth::user();
+      $user->getAllPermissions();
+      $properties['session'] = $user;
+    }
 
-    if (Auth::check()) Auth::user()->getAllPermissions();
-
-    $properties = [
-      'session' => Auth::user(),
-      'messagesCount' => Message::where('status', true)->where('seen', false)->count(),
-      'citasCount' => Appointment::where('status', true)->where('seen', false)->count(),
-      'languagesSystem' => Lang::where('status', true)->where('visible', true)->get(),
-      'reclamosCount' => Complaint::where('estado', '=', 'pendiente')->count(),
-      'linkWhatsApp' => Social::where('description', '=', 'WhatsApp')->first(),
-      'randomImage' => Service::where('status', true)->where('visible', true)->inRandomOrder()->first(),
-      'socials' => Social::where('status', true)->where('visible', true)->get(),
-      'global' => [
+    // Use a database transaction to reuse the same connection for all queries
+    DB::connection()->transaction(function() use (&$properties) {
+      // Execute all queries within the same connection to reduce the number of active connections
+      $properties['messagesCount'] = Message::where('status', true)->where('seen', false)->count();
+      $properties['citasCount'] = Appointment::where('status', true)->where('seen', false)->count();
+      $properties['languagesSystem'] = Lang::where('status', true)->where('visible', true)->get();
+      $properties['reclamosCount'] = Complaint::where('estado', '=', 'pendiente')->count();
+      $properties['linkWhatsApp'] = Social::where('description', '=', 'WhatsApp')->first();
+      $properties['randomImage'] = Service::where('status', true)->where('visible', true)->inRandomOrder()->first();
+      $properties['socials'] = Social::where('status', true)->where('visible', true)->get();
+    });
+    
+    $properties['global'] = [
         'PUBLIC_RSA_KEY' => Controller::$PUBLIC_RSA_KEY,
         'APP_NAME' => env('APP_NAME', 'Trasciende'),
         'APP_URL' => env('APP_URL'),
@@ -180,7 +189,6 @@ class BasicController extends Controller
         'APP_CORRELATIVE' => env('APP_CORRELATIVE'),
         'APP_PROTOCOL' => env('APP_PROTOCOL', 'https'),
         'GMAPS_API_KEY' => env('GMAPS_API_KEY')
-      ],
     ];
     $reactViewProperties = $this->setReactViewProperties($request);
     if (\is_array($reactViewProperties)) {
@@ -199,13 +207,15 @@ class BasicController extends Controller
   {
     $response = new dxResponse();
     try {
-
-      //$instance = $this->setPaginationInstance($this->model);
-      // Obtener los with desde el request (si no se envían, será un array vacío)
-      // [NUEVO] Obtener el idioma actual
-      $langId = app('current_lang_id'); // Ya lo establece el middleware
-
-
+      // [NUEVO] Obtener el idioma actual - verificando si el binding existe
+      $langId = null;
+      if (app()->bound('current_lang_id')) {
+        $langId = app('current_lang_id');
+      }
+      
+      // Use a single database connection for all queries in this method
+      DB::connection()->beginTransaction();
+      
       // [MODIFICADO] Aplicar with dinámicamente + filtro de idioma
       $instance = $this->setPaginationInstance($this->model)
         ->when($langId && Schema::hasColumn((new $this->model)->getTable(), 'lang_id'), function ($query) use ($langId) {
@@ -289,9 +299,19 @@ class BasicController extends Controller
       $response->data = $jpas;
       $response->summary = $this->setPaginationSummary($request, $instance);
       $response->totalCount = $totalCount;
+      
+      // Commit the transaction on success
+      if (DB::connection()->transactionLevel() > 0) {
+        DB::connection()->commit();
+      }
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage() . ' Ln.' . $th->getLine();
+      
+      // Rollback on error
+      if (DB::connection()->transactionLevel() > 0) {
+        DB::connection()->rollBack();
+      }
     } finally {
       return response(
         $response->toArray(),
@@ -309,6 +329,9 @@ class BasicController extends Controller
   {
     $response = new Response();
     try {
+      // Start a transaction to ensure all database operations use the same connection
+      DB::connection()->beginTransaction();
+      
       $body = $this->beforeSave($request);
 
       $snake_case = Text::camelToSnakeCase(str_replace('App\\Models\\', '', $this->model));
@@ -339,7 +362,10 @@ class BasicController extends Controller
       }
 
       // Asignar lang_id si el modelo lo tiene y no fue enviado
-      $langId = app('current_lang_id');
+      $langId = null;
+      if (app()->bound('current_lang_id')) {
+        $langId = app('current_lang_id');
+      }
       $table = (new $this->model)->getTable();
       if (Schema::hasColumn($table, 'lang_id') && !isset($body['lang_id'])) {
         $body['lang_id'] = $langId;
@@ -376,6 +402,9 @@ class BasicController extends Controller
 
       $response->status = 200;
       $response->message = 'Operacion correcta';
+      
+      // Commit the transaction on success
+      DB::connection()->commit();
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage();
@@ -397,6 +426,9 @@ class BasicController extends Controller
   {
     $response = new Response();
     try {
+      // Start a transaction to ensure all database operations use the same connection
+      DB::connection()->beginTransaction();
+      
       $this->model::where('id', $request->id)
         ->update([
           'status' => $request->status ? 0 : 1
@@ -404,9 +436,17 @@ class BasicController extends Controller
 
       $response->status = 200;
       $response->message = 'Operacion correcta';
+      
+      // Commit the transaction on success
+      DB::connection()->commit();
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage();
+      
+      // Rollback on error
+      if (DB::connection()->transactionLevel() > 0) {
+        DB::connection()->rollBack();
+      }
     } finally {
       return response(
         $response->toArray(),
@@ -419,6 +459,9 @@ class BasicController extends Controller
   {
     $response = new Response();
     try {
+      // Start a transaction to ensure all database operations use the same connection
+      DB::connection()->beginTransaction();
+      
       $data = [];
       $data[$request->field] = $request->value;
 
@@ -427,9 +470,17 @@ class BasicController extends Controller
 
       $response->status = 200;
       $response->message = 'Operacion correcta';
+      
+      // Commit the transaction on success
+      DB::connection()->commit();
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage();
+      
+      // Rollback on error
+      if (DB::connection()->transactionLevel() > 0) {
+        DB::connection()->rollBack();
+      }
     } finally {
       return response(
         $response->toArray(),
@@ -442,6 +493,9 @@ class BasicController extends Controller
   {
     $response = new Response();
     try {
+      // Start a transaction to ensure all database operations use the same connection
+      DB::connection()->beginTransaction();
+      
       $deleted = $this->softDeletion
         ? $this->model::where('id', $id)
         ->update(['status' => false])
@@ -452,9 +506,17 @@ class BasicController extends Controller
 
       $response->status = 200;
       $response->message = 'Operacion correcta';
+      
+      // Commit the transaction on success
+      DB::connection()->commit();
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage();
+      
+      // Rollback on error
+      if (DB::connection()->transactionLevel() > 0) {
+        DB::connection()->rollBack();
+      }
     } finally {
       return response(
         $response->toArray(),
