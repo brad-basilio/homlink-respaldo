@@ -306,16 +306,18 @@ const Generals = ({ generals }) => {
                             Ubicación
                         </button>
                     </li>
-                    <li className="nav-item" role="presentation">
-                        <button
-                            className={`nav-link ${activeTab === "email" ? "active" : ""}`}
-                            onClick={() => setActiveTab("email")}
-                            type="button"
-                            role="tab"
-                        >
-                            Email
-                        </button>
-                    </li>
+                    {Global.APP_CORRELATIVE === "cambioDev" && (
+                        <li className="nav-item" role="presentation">
+                            <button
+                                className={`nav-link ${activeTab === "email" ? "active" : ""}`}
+                                onClick={() => setActiveTab("email")}
+                                type="button"
+                                role="tab"
+                            >
+                                Email
+                            </button>
+                        </li>
+                    )}
                 </ul>
 
                 <div className="tab-content" id="contactTabsContent">
