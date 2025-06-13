@@ -35,9 +35,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
         emailRef.current.value = null;
     };
 
-    const landingHero = landing.find(
-        (item) => item.correlative === "page_blog_hero"
-    );
+    
 
     // Animaciones
     const containerVariants = {

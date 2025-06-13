@@ -4,9 +4,7 @@ import TextWithHighlight from "../../Utils/TextWithHighlight";
 import { useTranslation } from "../../hooks/useTranslation";
 
 const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
-    const landingFooter = landing.find(
-        (item) => item.correlative === "page_blog_footer"
-    );
+  
 
     // Animaciones
     const containerVariants = {
