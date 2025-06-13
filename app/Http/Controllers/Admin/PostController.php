@@ -50,7 +50,7 @@ class PostController extends BasicController
         });
     }*/
 
-     public function afterSave(Request $request, object $jpa, ?bool $isNew)
+    public function afterSave(Request $request, object $jpa, ?bool $isNew)
     {
         $tags = \explode(',', $request->tags ?? '');
 

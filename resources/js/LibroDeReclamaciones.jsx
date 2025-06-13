@@ -36,10 +36,9 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
         telefono: "",
         email: "",
         direccion: "",
-        //departamento: "",
-
-        //provincia: "",
-        //distrito: "",
+        departamento: "",
+        provincia: "",
+        distrito: "",
         // Datos del reclamo
         sede: "",
         servicio: "",
@@ -62,6 +61,13 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
     const [captchaActual, setCaptchaActual] = useState("");
     const [mostrarTerminos, setMostrarTerminos] = useState(false);
     const [formTouched, setFormTouched] = useState(false);
+    
+    // Estados para ubigeo
+    const [ubigeoData, setUbigeoData] = useState([]);
+    const [departamentos, setDepartamentos] = useState([]);
+    const [provincias, setProvincias] = useState([]);
+    const [distritos, setDistritos] = useState([]);
+    const [loadingUbigeo, setLoadingUbigeo] = useState(true);
 
     const fileInputRef = useRef(null);
 
@@ -82,7 +88,86 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
     // Generar captcha al montar el componente
     useEffect(() => {
         generarCaptcha();
+        cargarUbigeoData();
     }, []);
+
+    // Cargar datos de ubigeo
+    const cargarUbigeoData = async () => {
+        try {
+            setLoadingUbigeo(true);
+            const response = await fetch('/ubigeo.json');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('Datos de ubigeo cargados:', data.length, 'registros');
+            
+            setUbigeoData(data);
+            
+            // Extraer departamentos únicos
+            const deptosUnicos = [...new Set(data.map(item => item.departamento))]
+                .filter(dept => dept) // Filtrar valores vacíos
+                .sort()
+                .map(dept => ({ value: dept, label: dept }));
+            
+            setDepartamentos(deptosUnicos);
+            console.log('Departamentos cargados:', deptosUnicos.length);
+        } catch (error) {
+            console.error('Error al cargar datos de ubigeo:', error);
+            setLoadingUbigeo(false);
+        } finally {
+            setLoadingUbigeo(false);
+        }
+    };
+
+    // Actualizar provincias cuando cambia el departamento
+    useEffect(() => {
+        if (formData.departamento && ubigeoData.length > 0) {
+            console.log('Filtrando provincias para departamento:', formData.departamento);
+            
+            const provinciasFiltradas = ubigeoData
+                .filter(item => item.departamento === formData.departamento)
+                .map(item => item.provincia);
+            
+            const provinciasUnicas = [...new Set(provinciasFiltradas)]
+                .filter(prov => prov) // Filtrar valores vacíos
+                .sort()
+                .map(prov => ({ value: prov, label: prov }));
+            
+            console.log('Provincias encontradas:', provinciasUnicas.length);
+            setProvincias(provinciasUnicas);
+            setDistritos([]); // Limpiar distritos
+        } else {
+            setProvincias([]);
+            setDistritos([]);
+        }
+    }, [formData.departamento, ubigeoData]);
+
+    // Actualizar distritos cuando cambia la provincia
+    useEffect(() => {
+        if (formData.provincia && formData.departamento && ubigeoData.length > 0) {
+            console.log('Filtrando distritos para:', formData.departamento, '>', formData.provincia);
+            
+            const distritosFiltrados = ubigeoData
+                .filter(item => 
+                    item.departamento === formData.departamento && 
+                    item.provincia === formData.provincia
+                )
+                .map(item => item.distrito);
+            
+            const distritosUnicos = [...new Set(distritosFiltrados)]
+                .filter(dist => dist) // Filtrar valores vacíos
+                .sort()
+                .map(dist => ({ value: dist, label: dist }));
+            
+            console.log('Distritos encontrados:', distritosUnicos.length);
+            setDistritos(distritosUnicos);
+        } else {
+            setDistritos([]);
+        }
+    }, [formData.provincia, formData.departamento, ubigeoData]);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -222,7 +307,10 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
             "telefono",
             "email",
             "direccion",
-            "sede",
+            "departamento",
+            "provincia",
+            "distrito",
+            //"sede",
             "servicio",
             "fechaIncidente",
             "detalleReclamo",
@@ -325,12 +413,12 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                             />
                         </div>
                     ) : (
-                        <FileText className="w-5 h-5 mr-2 text-gray-500 flex-shrink-0" />
+                        <FileText className="w-5 h-5 mr-2 text-neutral-dark flex-shrink-0" />
                     )}
 
                     <div className="min-w-0">
                         <p className="text-sm truncate">{file.name}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-neutral-dark">
                             {(file.size / 1024 / 1024).toFixed(2)} MB •{" "}
                             {file.type}
                         </p>
@@ -482,6 +570,9 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                 ["Teléfono", formData.telefono || ""],
                 ["Email", formData.email || ""],
                 ["Dirección", formData.direccion || ""],
+                ["Departamento", formData.departamento || ""],
+                ["Provincia", formData.provincia || ""],
+                ["Distrito", formData.distrito || ""],
             ],
             headStyles: {
                 fillColor: [34, 68, 131],
@@ -563,27 +654,27 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                 <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg border border-gray-200">
                     <div className="text-center py-10">
                         <div className="flex justify-center mb-6">
-                            <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
-                                <CheckCircle className="w-12 h-12 text-[#224483]" />
+                            <div className="w-20 h-20 bg-neutral-light rounded-full flex items-center justify-center">
+                                <CheckCircle className="w-12 h-12 text-primary" />
                             </div>
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-800 mb-4">
+                        <h2 className="text-3xl font-bold text-neutral-dark mb-4">
                             ¡Reclamo Registrado Exitosamente!
                         </h2>
-                        <div className="mb-6 p-6 border-2 border-[#224483] rounded-lg inline-block bg-blue-50">
-                            <p className="text-lg font-semibold text-gray-800 mb-1">
+                        <div className="mb-6 p-6 border-2 border-primary rounded-lg inline-block bg-neutral-light">
+                            <p className="text-lg font-semibold text-neutral-dark mb-1">
                                 Número de Reclamo:{" "}
-                                <span className="text-[#224483] text-xl">
+                                <span className="text-primary text-xl">
                                     {numeroReclamo}
                                 </span>
                             </p>
-                            <p className="text-sm text-gray-600">
+                            <p className="text-sm text-neutral-dark">
                                 Guarde este número para futuras consultas
                             </p>
                             <div className="mt-4 flex justify-center">
                                 {/* <button
                                     onClick={generarPDF}
-                                    className="flex items-center text-[#224483] hover:text-blue-800 font-medium"
+                                    className="flex items-center text-primary hover:text-blue-800 font-medium"
                                 >
                                     <FileText className="w-4 h-4 mr-1" />
                                     Descargar comprobante
@@ -592,7 +683,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                         </div>
 
                         <div className="max-w-2xl mx-auto mb-8 text-left p-6 bg-gray-50 rounded-lg border border-gray-200">
-                            <h3 className="font-bold text-lg mb-3 text-gray-800 border-b pb-2">
+                            <h3 className="font-bold text-lg mb-3 text-neutral-dark border-b pb-2">
                                 Resumen de su reclamo:
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -618,12 +709,12 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     </p>
                                 </div>
                                 <div>
-                                    <p className="mb-2">
+                                  {/*  <p className="mb-2">
                                         <span className="font-semibold">
                                             Sede:
                                         </span>{" "}
                                         {formData.sede}
-                                    </p>
+                                    </p> */}
                                     <p className="mb-2">
                                         <span className="font-semibold">
                                             Servicio:
@@ -671,13 +762,13 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                             )}
                         </div>
 
-                        <div className="flex items-center justify-center p-4 bg-blue-50 rounded-xl mb-8 max-w-2xl mx-auto border border-blue-200">
+                        <div className="flex items-center justify-center p-4 bg-neutral-light rounded-xl mb-8 max-w-2xl mx-auto border border-blue-200">
                             <div className="flex items-start">
                                 <div>
-                                    <p className="text-[#224483] font-medium mb-1">
+                                    <p className="text-primary font-medium mb-1">
                                         Plazo de atención:
                                     </p>
-                                    <p className="text-[#224483] text-sm">
+                                    <p className="text-primary text-sm">
                                         De acuerdo con el Código de Protección y
                                         Defensa del Consumidor, su caso será
                                         atendido en un plazo máximo de{" "}
@@ -722,7 +813,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     setCaptchaValue("");
                                     generarCaptcha();
                                 }}
-                                className="px-6 py-3 bg-[#224483] text-white rounded-xl hover:hover:bg-blue-900 transition-colors font-semibold"
+                                className="px-6 py-3 bg-primary text-white rounded-xl hover:hover:bg-constrast transition-colors font-semibold"
                             >
                                 Registrar nuevo reclamo
                             </button>
@@ -748,19 +839,19 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                 <div className="flex flex-col md:flex-row justify-between items-center border-b border-gray-200 pb-6 mb-6">
                     <div className="flex items-center mb-4 md:mb-0">
                         <div>
-                            <h1 className="text-2xl font-bold text-gray-800">
+                            <h1 className="text-2xl font-bold text-neutral-dark">
                                 LIBRO DE RECLAMACIONES
                             </h1>
                         </div>
                     </div>
                     <div className="text-right">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-dark">
                             Fecha: {fechaActual}
                         </p>
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-neutral-dark">
                             Hora: {horaActual}
                         </p>
-                        <p className="text-sm font-medium text-[#224483] mt-1">
+                        <p className="text-sm font-medium text-primary mt-1">
                             Hoja de Reclamación
                         </p>
                     </div>
@@ -768,7 +859,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
 
                 {/* Barra de progreso */}
                 <div className="mb-6">
-                    <div className="flex justify-between text-xs text-gray-500 mb-1">
+                    <div className="flex justify-between text-xs text-neutral-dark mb-1">
                         <span>Progreso del formulario</span>
                         <span>
                             {
@@ -780,12 +871,12 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         key !== "captchaResuelto"
                                 ).length
                             }{" "}
-                            de 14 campos completados
+                            de 16 campos completados
                         </span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                         <div
-                            className="bg-[#224483] h-2.5 rounded-full"
+                            className="bg-primary h-2.5 rounded-full"
                             style={{
                                 width: `${Math.min(
                                     100,
@@ -824,7 +915,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     </div>
                 </div>
 
-                <div className="mb-6 text-sm text-gray-600 border-b pb-2">
+                <div className="mb-6 text-sm text-neutral-dark border-b pb-2">
                     <p className="font-medium mb-1">
                         Campos obligatorios{" "}
                         <span className="text-red-500">*</span>
@@ -838,8 +929,8 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                 <form onSubmit={handleSubmit} className="space-y-8">
                     {/* 1. IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE */}
                     <div className=" rounded-xl p-6 shadow-xl ">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-[#224483] text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                        <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
+                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 1
                             </span>
                             IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE
@@ -861,7 +952,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.nombre
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 />
                                 {errores.nombre && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -884,7 +975,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.apellido
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 />
                                 {errores.apellido && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -909,7 +1000,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.tipoDocumento
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 >
                                     <option value="dni">DNI</option>
                                     <option value="ce">
@@ -940,7 +1031,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                             errores.numeroDocumento
                                                 ? "border-red-500"
                                                 : "border-gray-300"
-                                        } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                        } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                     />
                                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                         <HelpCircle
@@ -981,7 +1072,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.telefono
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 />
                                 {errores.telefono && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -1005,7 +1096,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.email
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 />
                                 {errores.email && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -1013,8 +1104,120 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     </p>
                                 )}
                             </div>
-                        </div>
+                       
 
+                        
+
+                        {/* Ubigeo: Departamento, Provincia, Distrito */}
+                       
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-2">
+                                    Departamento{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    name="departamento"
+                                    value={formData.departamento}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={loadingUbigeo}
+                                    className={`w-full px-4 py-2 border ${
+                                        errores.departamento
+                                            ? "border-red-500"
+                                            : "border-gray-300"
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0 ${
+                                        loadingUbigeo ? "bg-gray-100 cursor-wait" : ""
+                                    }`}
+                                >
+                                    <option value="">
+                                        {loadingUbigeo ? "Cargando..." : "Seleccione departamento"}
+                                    </option>
+                                    {departamentos.map((dep) => (
+                                        <option key={dep.value} value={dep.value}>
+                                            {dep.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errores.departamento && (
+                                    <p className="text-red-500 text-xs mt-1 error-message">
+                                        {errores.departamento}
+                                    </p>
+                                )}
+                            </div>
+                            
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-2">
+                                    Provincia{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    name="provincia"
+                                    value={formData.provincia}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={!formData.departamento || loadingUbigeo}
+                                    className={`w-full px-4 py-2 border ${
+                                        errores.provincia
+                                            ? "border-red-500"
+                                            : "border-gray-300"
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0 ${
+                                        (!formData.departamento || loadingUbigeo) ? "bg-gray-100 cursor-not-allowed" : ""
+                                    }`}
+                                >
+                                    <option value="">
+                                        {!formData.departamento 
+                                            ? "Seleccione departamento primero" 
+                                            : "Seleccione provincia"}
+                                    </option>
+                                    {provincias.map((prov) => (
+                                        <option key={prov.value} value={prov.value}>
+                                            {prov.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errores.provincia && (
+                                    <p className="text-red-500 text-xs mt-1 error-message">
+                                        {errores.provincia}
+                                    </p>
+                                )}
+                            </div>
+                            
+                            <div>
+                                <label className="block text-gray-700 font-medium mb-2">
+                                    Distrito{" "}
+                                    <span className="text-red-500">*</span>
+                                </label>
+                                <select
+                                    name="distrito"
+                                    value={formData.distrito}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={!formData.provincia || loadingUbigeo}
+                                    className={`w-full px-4 py-2 border ${
+                                        errores.distrito
+                                            ? "border-red-500"
+                                            : "border-gray-300"
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0 ${
+                                        (!formData.provincia || loadingUbigeo) ? "bg-gray-100 cursor-not-allowed" : ""
+                                    }`}
+                                >
+                                    <option value="">
+                                        {!formData.provincia 
+                                            ? "Seleccione provincia primero" 
+                                            : "Seleccione distrito"}
+                                    </option>
+                                    {distritos.map((dist) => (
+                                        <option key={dist.value} value={dist.value}>
+                                            {dist.label}
+                                        </option>
+                                    ))}
+                                </select>
+                                {errores.distrito && (
+                                    <p className="text-red-500 text-xs mt-1 error-message">
+                                        {errores.distrito}
+                                    </p>
+                                )}
+                            </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 font-medium mb-2">
                                 Dirección{" "}
@@ -1031,7 +1234,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     errores.direccion
                                         ? "border-red-500"
                                         : "border-gray-300"
-                                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                             />
                             {errores.direccion && (
                                 <p className="text-red-500 text-xs mt-1 error-message">
@@ -1040,123 +1243,19 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                             )}
                         </div>
                     </div>
-
-                    {/*      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div>
-                                <label className="block text-gray-700 font-medium mb-2">
-                                    Departamento{" "}
-                                    <span className="text-red-500">*</span>
-                                </label>
-                                <select
-                                    name="departamento"
-                                    value={formData.departamento}
-                                    onChange={handleChange}
-                                    required
-                                    className={`w-full px-4 py-2 border ${
-                                        errores.departamento
-                                            ? "border-red-500"
-                                            : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
-                                >
-                                    <option value="">Seleccione</option>
-                                    {departamentos.map((dep) => (
-                                        <option key={dep} value={dep}>
-                                            {dep}
-                                        </option>
-                                    ))}
-                                </select>
-                                {errores.departamento && (
-                                    <p className="text-red-500 text-xs mt-1 error-message">
-                                        {errores.departamento}
-                                    </p>
-                                )}
-                            </div>
-                            <div>
-                                <label className="block text-gray-700 font-medium mb-2">
-                                    Provincia{" "}
-                                    <span className="text-red-500">*</span>
-                                </label>
-                                <select
-                                    name="provincia"
-                                    value={formData.provincia}
-                                    onChange={handleChange}
-                                    required
-                                    disabled={!formData.departamento}
-                                    className={`w-full px-4 py-2 border ${
-                                        errores.provincia
-                                            ? "border-red-500"
-                                            : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                                        !formData.departamento
-                                            ? "bg-gray-100"
-                                            : ""
-                                    }`}
-                                >
-                                    <option value="">Seleccione</option>
-                                    {formData.departamento &&
-                                        provincias[formData.departamento]?.map(
-                                            (prov) => (
-                                                <option key={prov} value={prov}>
-                                                    {prov}
-                                                </option>
-                                            )
-                                        )}
-                                </select>
-                                {errores.provincia && (
-                                    <p className="text-red-500 text-xs mt-1 error-message">
-                                        {errores.provincia}
-                                    </p>
-                                )}
-                            </div>
-                            <div>
-                                <label className="block text-gray-700 font-medium mb-2">
-                                    Distrito{" "}
-                                    <span className="text-red-500">*</span>
-                                </label>
-                                <select
-                                    name="distrito"
-                                    value={formData.distrito}
-                                    onChange={handleChange}
-                                    required
-                                    disabled={!formData.provincia}
-                                    className={`w-full px-4 py-2 border ${
-                                        errores.distrito
-                                            ? "border-red-500"
-                                            : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                                        !formData.provincia ? "bg-gray-100" : ""
-                                    }`}
-                                >
-                                    <option value="">Seleccione</option>
-                                    {formData.provincia &&
-                                        distritos[formData.provincia]?.map(
-                                            (dist) => (
-                                                <option key={dist} value={dist}>
-                                                    {dist}
-                                                </option>
-                                            )
-                                        )}
-                                </select>
-                                {errores.distrito && (
-                                    <p className="text-red-500 text-xs mt-1 error-message">
-                                        {errores.distrito}
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-*/}
+                            </div>      
                     {/* 2. IDENTIFICACIÓN DEL BIEN CONTRATADO */}
                     <div className="rounded-xl p-6 shadow-xl">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-[#224483] text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                        <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
+                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 2
                             </span>
                             IDENTIFICACIÓN DEL BIEN CONTRATADO
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
+                           {sedes?.length > 0 && (
+    <div>
                                 <label className="block text-gray-700 font-medium mb-2">
                                     Sede donde ocurrió el incidente{" "}
                                     <span className="text-red-500">*</span>
@@ -1170,7 +1269,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.sede
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 >
                                     <option value="">
                                         Seleccione una sede
@@ -1190,9 +1289,12 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     </p>
                                 )}
                             </div>
-                            <div>
+                           )}
+                           
+                        
+                            <div className="lg:col-span-2">
                                 <label className="block text-gray-700 font-medium mb-2">
-                                    Servicio relacionado{" "}
+                                     ¿Fue un producto o Servicio?{" "}
                                     <span className="text-red-500">*</span>
                                 </label>
                                 <select
@@ -1204,19 +1306,32 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.servicio
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 >
                                     <option value="">
-                                        Seleccione un servicio
+                                       Seleccione tipo de bien contratado
                                     </option>
-                                    {servicios.map((servicio) => (
+                                     <option
+                                            
+                                            value={"servicio"}
+                                        >
+                                           Servicio
+                                        </option>
+                                          <option
+                                            
+                                            value={"producto"}
+                                        >
+                                           Producto
+                                        </option>
+
+                                    {/*servicios.map((servicio) => (
                                         <option
                                             key={servicio.id}
                                             value={servicio.title}
                                         >
                                             {servicio.title}
                                         </option>
-                                    ))}
+                                    ))*/}
                                 </select>
                                 {errores.servicio && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -1243,7 +1358,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         errores.fechaIncidente
                                             ? "border-red-500"
                                             : "border-gray-300"
-                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 />
                                 {errores.fechaIncidente && (
                                     <p className="text-red-500 text-xs mt-1 error-message">
@@ -1260,7 +1375,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     name="horaIncidente"
                                     value={formData.horaIncidente}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0"
                                 />
                             </div>
                         </div>
@@ -1268,8 +1383,8 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
 
                     {/* 3. DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR */}
                     <div className="rounded-xl p-6 shadow-xl">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-[#224483] text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                        <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
+                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 3
                             </span>
                             DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR
@@ -1295,7 +1410,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         <span className="font-medium">
                                             Reclamo
                                         </span>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm text-neutral-dark">
                                             Disconformidad relacionada a los
                                             productos o servicios.
                                         </p>
@@ -1316,7 +1431,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         <span className="font-medium">
                                             Queja
                                         </span>
-                                        <p className="text-sm text-gray-500">
+                                        <p className="text-sm text-neutral-dark">
                                             Disconformidad no relacionada a los
                                             productos o servicios, o malestar
                                             por la atención.
@@ -1340,7 +1455,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     errores.detalleReclamo
                                         ? "border-red-500"
                                         : "border-gray-300"
-                                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 placeholder="Describa con detalle su reclamo o queja..."
                             ></textarea>
                             {errores.detalleReclamo && (
@@ -1348,7 +1463,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     {errores.detalleReclamo}
                                 </p>
                             )}
-                            <p className="text-xs text-gray-500 mt-1">
+                            <p className="text-xs text-neutral-dark mt-1">
                                 Mínimo 10 caracteres. Sea lo más específico
                                 posible.
                             </p>
@@ -1368,7 +1483,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     errores.pedido
                                         ? "border-red-500"
                                         : "border-gray-300"
-                                } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                 placeholder="Indique qué solución espera recibir..."
                             ></textarea>
                             {errores.pedido && (
@@ -1391,7 +1506,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     <Upload className="w-4 h-4 mr-2" />
                                     Adjuntar archivos
                                 </button>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-neutral-dark">
                                     Máximo 3 archivos (JPG, PNG, PDF - 5MB máx.
                                     c/u)
                                 </span>
@@ -1422,11 +1537,11 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                                 className="flex items-center justify-between bg-gray-50 p-2 rounded border"
                                             >
                                                 <div className="flex items-center">
-                                                    <FileText className="w-4 h-4 mr-2 text-gray-500" />
+                                                    <FileText className="w-4 h-4 mr-2 text-neutral-dark" />
                                                     <span className="text-sm truncate max-w-xs">
                                                         {file.name}
                                                     </span>
-                                                    <span className="text-xs text-gray-500 ml-2">
+                                                    <span className="text-xs text-neutral-dark ml-2">
                                                         (
                                                         {(
                                                             file.size /
@@ -1454,8 +1569,8 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     </div>
 
                     <div className="rounded-xl p-6 shadow-xl">
-                        <h2 className="text-lg font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <Shield className="w-5 h-5 mr-2 text-blue-600" />
+                        <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
+                            <Shield className="w-5 h-5 mr-2 text-primary" />
                             VERIFICACIÓN DE SEGURIDAD
                         </h2>
 
@@ -1504,7 +1619,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                 >
                                     Ingrese el código mostrado{" "}
                                     <span className="text-red-500">*</span>
-                                    <span className="block text-xs font-normal text-gray-500 mt-1">
+                                    <span className="block text-xs font-normal text-neutral-dark mt-1">
                                         (Distingue entre mayúsculas y
                                         minúsculas)
                                     </span>
@@ -1540,7 +1655,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                             errores.captcha
                                                 ? "border-red-500"
                                                 : "border-gray-300"
-                                        } rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                        } rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-light0`}
                                         placeholder="Ingrese el código"
                                         aria-describedby="captcha-help"
                                         maxLength="6"
@@ -1575,7 +1690,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                 )}
                                 <p
                                     id="captcha-help"
-                                    className="text-xs text-gray-500 mt-1"
+                                    className="text-xs text-neutral-dark mt-1"
                                 >
                                     Por seguridad, ingrese el código que aparece
                                     en la imagen.
@@ -1618,7 +1733,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                 <button
                                     type="button"
                                     onClick={() => setMostrarTerminos(true)}
-                                    className="text-blue-600 hover:underline font-medium"
+                                    className="text-primary hover:underline font-medium"
                                 >
                                     términos y condiciones
                                 </button>{" "}
@@ -1644,7 +1759,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                             onClick={() =>
                                                 setMostrarTerminos(false)
                                             }
-                                            className="text-gray-500 hover:text-gray-700"
+                                            className="text-neutral-dark hover:text-gray-700"
                                         >
                                             <X className="w-5 h-5" />
                                         </button>
@@ -1670,7 +1785,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                                     return newErrors;
                                                 });
                                             }}
-                                            className="px-4 py-2 bg-[#224483] text-white rounded-md hover:bg-blue-900 transition-colors"
+                                            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-constrast transition-colors"
                                         >
                                             Aceptar
                                         </button>
@@ -1681,10 +1796,10 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     </div>
 
                     {/* Información legal */}
-                    <div className="bg-blue-50 p-4 rounded-xl mb-6 border-l-4 border-blue-400">
+                    <div className="bg-neutral-light p-4 rounded-xl mb-6 border-l-4 border-blue-400">
                         <div className="flex">
-                            <AlertCircle className="w-6 h-6 text-[#224483] mr-2 flex-shrink-0" />
-                            <div className="text-sm text-[#224483]">
+                            <AlertCircle className="w-6 h-6 text-primary mr-2 flex-shrink-0" />
+                            <div className="text-sm text-primary">
                                 <p className="font-semibold mb-1">
                                     INFORMACIÓN IMPORTANTE:
                                 </p>
@@ -1723,7 +1838,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                         onClick={() =>
                                             setShowConfirmation(false)
                                         }
-                                        className="text-gray-500 hover:text-gray-700"
+                                        className="text-neutral-dark hover:text-gray-700"
                                     >
                                         <X className="w-5 h-5" />
                                     </button>
@@ -1746,7 +1861,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                             setShowConfirmation(false);
                                             handleSubmit(e);
                                         }}
-                                        className="px-4 py-2 bg-[#224483] text-white rounded-md hover:bg-blue-900"
+                                        className="px-4 py-2 bg-primary text-white rounded-md hover:bg-constrast"
                                     >
                                         Confirmar envío
                                     </button>
@@ -1759,7 +1874,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     <button
                         type="button" // Cambiado a type="button" para evitar envío directo
                         onClick={() => setShowConfirmation(true)}
-                        className="px-8 py-3 bg-[#224483] text-white rounded-md hover:hover:bg-blue-900 transition-colors font-semibold text-lg shadow-md hover:shadow-lg"
+                        className="px-8 py-3 bg-primary text-white rounded-md hover:hover:bg-constrast transition-colors font-semibold text-lg shadow-md hover:shadow-lg"
                     >
                         Enviar Reclamo
                     </button>

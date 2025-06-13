@@ -265,7 +265,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             <a onClick={() => openModal(2)} className="cursor-pointer">
                                 Políticas de cambio
                             </a>
-                            <a href="/libro-reclamaciones" className="cursor-pointer">
+                            <a href="/libro-de-reclamaciones" className="cursor-pointer">
                                 Libro de reclamaciones
                             </a>
 

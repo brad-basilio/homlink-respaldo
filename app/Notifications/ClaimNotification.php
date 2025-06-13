@@ -43,7 +43,7 @@ class ClaimNotification extends Notification implements ShouldQueue
             'descripcion_producto' => 'Descripción del producto',
             'tipo_reclamo'         => 'Tipo de reclamo',
             'fecha_ocurrencia'     => 'Fecha de ocurrencia',
-            'numero_pedido'        => 'Número de pedido',
+            'pedido'               => 'Pedido',
             'detalle_reclamo'      => 'Detalle del reclamo',
         ];
     }
@@ -54,24 +54,24 @@ class ClaimNotification extends Notification implements ShouldQueue
             ? \App\Helpers\Text::replaceData($template->description, [
                 'nombre' => $this->complaint->nombre,
                 'tipo_documento' => $this->complaint->tipo_documento,
-                'numero_identidad' => $this->complaint->numero_identidad,
-                'celular' => $this->complaint->celular,
-                'correo_electronico' => $this->complaint->correo_electronico,
+                'numero_identidad' => $this->complaint->numero_documento,
+                'celular' => $this->complaint->telefono,
+                'correo_electronico' => $this->complaint->email,
                 'departamento' => $this->complaint->departamento,
                 'provincia' => $this->complaint->provincia,
                 'distrito' => $this->complaint->distrito,
                 'direccion' => $this->complaint->direccion,
-                'tipo_producto' => $this->complaint->tipo_producto,
-                'monto_reclamado' => number_format($this->complaint->monto_reclamado, 2),
-                'descripcion_producto' => $this->complaint->descripcion_producto,
+                'tipo_producto' => $this->complaint->servicio,
+               // 'monto_reclamado' => number_format($this->complaint->monto_reclamado, 2),
+                //'descripcion_producto' => $this->complaint->descripcion_producto,
                 'tipo_reclamo' => $this->complaint->tipo_reclamo,
-                'fecha_ocurrencia' => date('d \d\e F \d\e\l Y', strtotime($this->complaint->fecha_ocurrencia)),
-                'numero_pedido' => $this->complaint->numero_pedido,
+                'fecha_ocurrencia' => date('d \d\e F \d\e\l Y', strtotime($this->complaint->fecha_incidente)),
+                'pedido' => $this->complaint->pedido,
                 'detalle_reclamo' => $this->complaint->detalle_reclamo,
                 'year' => date('Y'),
                 'fecha_reclamo' => date('d \d\e F \d\e\l Y', strtotime($this->complaint->created_at)),
             ])
             : 'Plantilla no encontrada';
-        return (new RawHtmlMail($body, 'Hemos recibido tu reclamo',$this->complaint->correo_electronico));
+        return (new RawHtmlMail($body, 'Hemos recibido tu reclamo',$this->complaint->email));
     }
 }

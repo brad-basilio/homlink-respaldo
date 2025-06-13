@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Admin
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
@@ -217,3 +218,17 @@ Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactVie
 
 
 Route::get('/mailing/new-formula', fn() => view('mailing.new-formula'));
+
+// Ruta para servir el archivo ubigeo.json
+Route::get('/api/ubigeo', function () {
+    try {
+        $ubigeoPath = public_path('ubigeo.json');
+        if (file_exists($ubigeoPath)) {
+            $ubigeoData = json_decode(file_get_contents($ubigeoPath), true);
+            return response()->json($ubigeoData);
+        }
+        return response()->json(['error' => 'Archivo ubigeo no encontrado'], 404);
+    } catch (Exception $e) {
+        return response()->json(['error' => 'Error al cargar ubigeo'], 500);
+    }
+});

@@ -48,7 +48,10 @@ class ComplaintController extends BasicController
             'telefono' => 'required|string|max:20',
             'email' => 'required|email|max:100',
             'direccion' => 'required|string|max:255',
-            'sede' => 'required|string|max:100',
+            'departamento' => 'required|string|max:100',
+            'provincia' => 'required|string|max:100',
+            'distrito' => 'required|string|max:100',
+            'sede' => 'nullable|string|max:100',
             'servicio' => 'required|string|max:100',
             'tipoReclamo' => 'required|in:queja,reclamo',
             'fechaIncidente' => 'required|date',
@@ -67,6 +70,9 @@ class ComplaintController extends BasicController
                 'telefono' => $validated['telefono'],
                 'email' => $validated['email'],
                 'direccion' => $validated['direccion'],
+                'departamento' => $validated['departamento'],
+                'provincia' => $validated['provincia'],
+                'distrito' => $validated['distrito'],
                 'sede' => $validated['sede'],
                 'servicio' => $validated['servicio'],
                 'tipo_reclamo' => $validated['tipoReclamo'],
@@ -101,7 +107,7 @@ class ComplaintController extends BasicController
                     }
                 }
             }
-
+   $complaint->notify(new \App\Notifications\ClaimNotification($complaint));
             return response()->json([
                 'success' => true,
                 'numero_reclamo' => $complaint->numero_reclamo,
