@@ -3,27 +3,42 @@ import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
 const HomeSeccionNosotros = ({ data, strengths }) => {
     return (
-        <div className="relative bg-white  py-12 md:pt-16 px-[5%] font-paragraph ">
+        <div className="relative bg-white py-12 md:pt-16 px-[5%] font-paragraph ">
             {/* Curva decorativa en la parte inferior */}
             <div className="absolute top-0 left-0 w-full h-24">
                 <img
                     src="/assets/cambiogerencia/mask-nosotros.webp"
                     alt="Equipo de Cambio Gerencia"
                     className="w-full h-auto object-cover rounded-xl"
+                    style={{ WebkitMaskImage: 'none' }}
                 />
             </div>
 
-            <div className=" relative z-10">
-                <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+            <div className="relative z-10">
+                <div
+                    className="flex flex-col lg:flex-row gap-8 lg:gap-16"
+                    style={{ gap: '2rem', WebkitGap: '2rem' }} // Safari gap fix
+                >
                     {/* Columna izquierda - Imágenes */}
                     <div className="order-1 lg:order-none lg:w-1/2 relative">
-                        { /* Imagen principal grande */}
-                        <div className="rounded-3xl overflow-hidden relative">
+                        {/* Imagen principal grande */}
+                        <div
+                            className="rounded-3xl overflow-hidden relative h-[320px] md:h-[400px] lg:h-[480px] flex items-center justify-center"
+                            style={{ minHeight: '280px', maxHeight: '520px', WebkitOverflowScrolling: 'touch' }}
+                        >
                             <img
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
-                                className="w-full h-full object-cover "
-                             
+                                className="w-full h-full object-cover"
+                                style={{
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                    height: '100%',
+                                    maxWidth: '100%',
+                                    maxHeight: '100%',
+                                    
+                                    display: 'block',
+                                }}
                             />
                         </div>
                     </div>
