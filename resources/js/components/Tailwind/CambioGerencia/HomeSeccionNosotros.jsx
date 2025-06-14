@@ -22,8 +22,8 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                             <img
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
-                                className="w-full object-cover rounded-xl"
-                                style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
+                                className="w-full h-full object-cover "
+                             
                             />
                         </div>
                     </div>
