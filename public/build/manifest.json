@@ -129,8 +129,8 @@
       "_phone-B_ERI8hO.js"
     ]
   },
-  "_HomeSeccionNosotros-p2wShfF0.js": {
-    "file": "assets/HomeSeccionNosotros-p2wShfF0.js",
+  "_HomeSeccionNosotros-DNIlfQ8N.js": {
+    "file": "assets/HomeSeccionNosotros-DNIlfQ8N.js",
     "name": "HomeSeccionNosotros",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -653,7 +653,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-Bj9iFT3l.js",
+    "file": "assets/About-BHlO8mXy.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -668,7 +668,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "resources/js/components/Blog/Filter.jsx",
       "resources/js/components/Tailwind/CambioGerencia/AboutSeccionWhy.jsx",
-      "_HomeSeccionNosotros-p2wShfF0.js",
+      "_HomeSeccionNosotros-DNIlfQ8N.js",
       "_index.esm-zkRd-kwu.js",
       "_TextWithHighlight-CCbr48HD.js",
       "_CarruselBrands-Dq7hRlpI.js",
@@ -3016,7 +3016,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-B2p3TJBt.js",
+    "file": "assets/Home-CLpefXOE.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3040,7 +3040,7 @@
       "resources/js/Utils/BlurText.jsx",
       "_SliderInteractive-C3uyLeae.js",
       "_CarruselBrands-Dq7hRlpI.js",
-      "_HomeSeccionNosotros-p2wShfF0.js",
+      "_HomeSeccionNosotros-DNIlfQ8N.js",
       "_TextWithHighlight-CCbr48HD.js",
       "_createLucideIcon-D_WcjKff.js",
       "_HomeSeccionTestimonios-CLl1qO49.js",
@@ -3970,7 +3970,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4018,7 +4018,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4661,7 +4661,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4755,7 +4755,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5164,7 +5164,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5450,7 +5450,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,

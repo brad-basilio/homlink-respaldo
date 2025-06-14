@@ -17,12 +17,13 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                     {/* Columna izquierda - Imágenes */}
                     <div className="order-1 lg:order-none lg:w-1/2 relative">
-                        {/* Imagen principal grande */}
-                        <div className="rounded-3xl overflow-hidden ">
+                        { /* Imagen principal grande */}
+                        <div className="rounded-3xl overflow-hidden relative">
                             <img
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
-                                className="w-full h-auto object-cover rounded-xl"
+                                className="w-full object-cover rounded-xl"
+                                style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
                             />
                         </div>
                     </div>
