@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
-import WhatsAppButton from '../../Shared/WhatsAppButton';
+import WhatsAppButton, { WhatsAppButtonWithArrow } from '../../Shared/WhatsAppButton';
 
 // Placeholder SVGs for icons (replace with your actual icons if available)
 // Using a generic icon for all cards for simplicity in this example.
@@ -69,8 +69,8 @@ const ServiceCard = ({
 
 const HomeSeccionServicios = ({ data, allServices }) => {
     // Dividir allServices en dos arrays para la versión desktop
-    const servicesRow1 = allServices ? allServices.slice(0, Math.ceil(allServices.length / 2)-1) : [];
-    const servicesRow2 = allServices ? allServices.slice(Math.ceil(allServices.length / 2)+1) : [];
+    const servicesRow1 = allServices ? allServices.slice(0, Math.ceil(allServices.length / 2) - 1) : [];
+    const servicesRow2 = allServices ? allServices.slice(Math.ceil(allServices.length / 2) + 1) : [];
 
     // Swiper state for mobile
     const [activeIndex, setActiveIndex] = useState(0);
@@ -104,7 +104,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Servicios</h3>
                     </div>
                     <h2 className="text-4xl lg:text-[52px]  font-medium mb-6 leading-tight italic">
-                        <TextWithHighlight text={data?.title} split_coma={true}/>
+                        <TextWithHighlight text={data?.title} split_coma={true} />
 
                     </h2>
                     <p className="mt-4 text-lg text-neutral max-w-3xl mx-auto">
@@ -157,7 +157,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                 {/* MOBILE: Card de RR.HH debajo del swiper */}
                 <div className="block lg:hidden mb-8 px-[5%]">
                     <div
-                        className={`relative font-paragraph rounded-lg shadow-xl overflow-hidden flex flex-col h-full transition-all duration-300 z-10`}
+                        className={`relative font-paragraph rounded-lg shadow-xl overflow-hidden flex flex-col h-[350px] transition-all duration-300 z-10`}
                     >
                         {/* Overlay gradiente negro a transparente de abajo hacia arriba */}
                         <div
@@ -169,20 +169,17 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <img
                             src={"assets/cambiogerencia/card-contact.webp"}
                             alt={"Servicios de RR.HH"}
-                            className="w-full h-[300px] object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
+                            className="w-full h-full object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
                             onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/cccccc/808080?text=Imagen+no+disponible"; }}
                         />
                         <div className="p-6 flex flex-col flex-grow z-20 absolute bottom-0 text-white">
                             <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                             <p className={`text-xs mb-4 flex-grow text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                            <WhatsAppButton 
-                                variant="secondary" 
-                                size="medium"
-                                className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
-                                showIcon={true}
-                            >
+
+                            <WhatsAppButtonWithArrow variant="constrast" className="bg-constrast flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
                                 Reserva una consulta
-                            </WhatsAppButton>
+                            </WhatsAppButtonWithArrow>
+
                         </div>
                     </div>
                 </div>
@@ -198,7 +195,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         />
                     ))}
                     <div
-                        className={`relative font-paragraph rounded-lg shadow-xl overflow-hidden flex flex-col h-full  transition-all duration-300 z-10`}
+                        className={`relative h-[350px] font-paragraph rounded-lg shadow-xl overflow-hidden flex flex-col  transition-all duration-300 z-10`}
                     >
                         {/* Overlay gradiente negro a transparente de abajo hacia arriba */}
                         <div
@@ -210,20 +207,15 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <img
                             src={"assets/cambiogerencia/card-contact.webp"}
                             alt={"Servicios de RR.HH"}
-                            className="w-full h-[300px] object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
+                            className="w-full h-full object-cover z-10 relative group-hover:opacity-0 transition-opacity duration-300"
                             onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/cccccc/808080?text=Imagen+no+disponible"; }}
                         />
                         <div className="p-6 flex flex-col flex-grow z-20  absolute bottom-0 text-white">
                             <h3 className={`text-xl font-medium mb-2 `}>Servicios de RR.HH</h3>
                             <p className={`text-xs mb-4 flex-grow  text-white`}>Herramientas ágiles para la gestión del talent, enean commodo ligula eget dolor. </p>
-                            <WhatsAppButton 
-                                variant="secondary" 
-                                size="medium"
-                                className="mt-auto bg-constrast text-white hover:bg-constrast/90 border-none"
-                                showIcon={true}
-                            >
+                            <WhatsAppButtonWithArrow variant="constrast" className="bg-constrast flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-primary transition duration-300 ease-in-out text-sm sm:text-base">
                                 Reserva una consulta
-                            </WhatsAppButton>
+                            </WhatsAppButtonWithArrow>
                         </div>
                     </div>
                 </div>

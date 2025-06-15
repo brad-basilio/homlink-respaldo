@@ -58,7 +58,9 @@ const HomeSeccionBlog = ({ data, posts }) => {
                     <div className="p-6 flex flex-col flex-1">
                       <span className="text-accent text-sm font-bold mb-1">{post?.category.name}</span>
                       <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug line-clamp-3">{post?.name}</h2>
-                      <p className="text-neutral text-base mb-4 flex-1 line-clamp-2" dangerouslySetInnerHTML={{ __html: post?.description }}></p>
+                      <p className="text-neutral text-base mb-4 flex-1 line-clamp-2" >
+                        { post?.summary }
+                      </p>
                       <a href={`/post/${post?.slug}`} className="text-constrast font-semibold hover:underline text-base mt-auto">Leer +</a>
                     </div>
                   </article>
@@ -97,7 +99,9 @@ const HomeSeccionBlog = ({ data, posts }) => {
                 <div className="p-6 flex flex-col flex-1">
                   <span className="text-accent text-sm font-bold mb-1">{post?.category.name}</span>
                   <h2 className="text-xl font-bold text-neutral-dark mb-2 leading-snug line-clamp-3">{post?.name}</h2>
-                  <p className="text-neutral text-base mb-4 flex-1 line-clamp-2" dangerouslySetInnerHTML={{ __html: post?.description }}></p>
+                  <p className="text-neutral text-base mb-4 flex-1 line-clamp-2" >
+                    {  post?.summary }
+                  </p>
                   <a href={`/post/${post?.slug}`} className="text-constrast font-semibold hover:underline text-base mt-auto">Leer +</a>
                 </div>
               </article>

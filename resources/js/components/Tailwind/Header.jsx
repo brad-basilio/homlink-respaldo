@@ -548,7 +548,7 @@ const Header = ({
                                     onClick={toggleMenu}
                                     whileTap={{ scale: 0.9 }}
                                     whileHover={{ scale: 1.05 }}
-                                    className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-gradient-to-br from-primary to-accent shadow-lg shadow-primary/30 border border-white/20"
+                                    className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-gradient-to-br from-primary to-primary shadow-lg shadow-primary/30 border border-white/20"
                                     aria-label="Toggle menu"
                                 >
                                     <motion.div 
@@ -601,10 +601,10 @@ const Header = ({
                                 className={`fixed left-[5%] right-[5%] ${isScrolled
                                     ? "top-20" 
                                     : "top-[120px]"
-                                } z-[999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-140px)] overflow-y-auto`}
+                                } z-[9999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-140px)] overflow-y-auto`}
                             >
                                 {/* Header del menú */}
-                                <div className="bg-gradient-to-r from-primary to-accent p-6 text-white">
+                                <div className="bg-gradient-to-r from-primary to-constrast p-6 text-white">
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <h3 className="text-lg font-semibold">Navegación</h3>
@@ -630,12 +630,12 @@ const Header = ({
                                         className="space-y-3"
                                     >
                                         {[
-                                            { path: "/nosotros", color: "from-blue-500 to-blue-600" },
-                                            { path: "#services", color: "from-purple-500 to-purple-600", hasSubmenu: true },
-                                            { path: "/casos-de-exito", color: "from-green-500 to-green-600" },
-                                            { path: "/blog", color: "from-orange-500 to-orange-600" },
-                                            { path: "/infoproductos", color: "from-pink-500 to-pink-600" },
-                                            { path: "/contacto", color: "from-red-500 to-red-600" },
+                                            { path: "/nosotros", color: "bg-white" },
+                                            { path: "#services", color: "bg-white", hasSubmenu: true },
+                                            { path: "/casos-de-exito", color: "bg-white" },
+                                            { path: "/blog", color: "bg-white" },
+                                            { path: "/infoproductos", color: "bg-white" },
+                                            { path: "/contacto", color: "bg-white" },
                                         ].map((item, index) => {
                                             const text = {
                                                 "/nosotros": t("public.header.home", "Nosotros"),
@@ -667,22 +667,22 @@ const Header = ({
                                                                 setIsOpen(false);
                                                             }
                                                         }}
-                                                        className={`w-full group relative flex items-center p-4 rounded-xl transition-all duration-300 ${
+                                                        className={`w-full group relative overflow-hidden flex items-center p-4 rounded-xl transition-all duration-300 ${
                                                             isActive(item.path) || activeMegaMenu === item.path
-                                                                ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg"
+                                                                ? "text-primary shadow-lg"
                                                                 : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary"
                                                         }`}
                                                     >
                                                         {/* Texto */}
                                                         <div className="flex-1 text-left">
                                                             <span className={`font-medium text-base ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "group-hover:text-primary"
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "group-hover:text-primary"
                                                             }`}>
                                                                 {text}
                                                             </span>
                                                             {item.path === "#services" && (
                                                                 <p className={`text-xs mt-1 ${
-                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
+                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "text-gray-500"
                                                                 }`}>
                                                                     Descubre nuestras soluciones
                                                                 </p>
@@ -692,7 +692,7 @@ const Header = ({
                                                         {/* Flecha o indicador de submenú */}
                                                         <motion.div
                                                             className={`transition-colors duration-300 ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-400 group-hover:text-primary"
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "text-gray-400 group-hover:text-primary"
                                                             }`}
                                                         >
                                                             {item.hasSubmenu ? (
@@ -713,7 +713,7 @@ const Header = ({
                                                         {(isActive(item.path) || activeMegaMenu === item.path) && (
                                                             <motion.div
                                                                 layoutId="activeMobileDot"
-                                                                className="absolute left-2 top-1/2 -translate-y-1/2 w-1 h-8 bg-white rounded-full"
+                                                                className="absolute h-full w-2 bg-primary left-0"
                                                             />
                                                         )}
                                                     </button>
@@ -776,9 +776,9 @@ const Header = ({
                                         className="mt-6 pt-6 border-t border-gray-200"
                                     >
                                         <WhatsAppButtonWithArrow
-                                            variant="primary"
+                                            variant="accent"
                                             size="large"
-                                            className="w-full bg-gradient-to-r from-accent to-primary"
+                                            className="w-full bg-accent"
                                         >
                                             Reserva una consulta
                                         </WhatsAppButtonWithArrow>

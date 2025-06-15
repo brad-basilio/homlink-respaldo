@@ -134,8 +134,8 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                 <h3 className="font-title text-2xl lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                     {postRecent[0]?.name}
                                 </h3>
-                                <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[0]?.description }}>
-
+                                <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" >
+{postRecent[0]?.summary}
                                 </p>
                                 <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
                                     Leer +
@@ -175,7 +175,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                         <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                             {postRecent[1]?.name}
                                         </h3>
-                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[1]?.description }}>
+                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[1]?.summary }}>
 
                                         </p>
                                        <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
@@ -216,7 +216,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                         <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                             {postRecent[2]?.name}
                                         </h3>
-                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[2]?.description }}>
+                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[2]?.summary }}>
 
                                         </p>
                                        <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">

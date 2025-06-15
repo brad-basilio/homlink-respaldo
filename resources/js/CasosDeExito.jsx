@@ -7,71 +7,7 @@ import Footer from "./components/Tailwind/Footer";
 import Header from "./components/Tailwind/Header";
 import TestimonioSection from "./components/Home/TestimonioSection";
 import HomeSeccionTestimonios from "./components/Tailwind/CambioGerencia/HomeSeccionTestimonios";
-const casos = [
-    {
-        id: 1,
-        type: "solution",
-        title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-1.webp",
-    },
-    {
-        id: 2,
-        type: "strategy",
-        title: "Estrategias de desarollo profesional RR.HH para el éxito",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-2.webp",
-    },
-    {
-        id: 3,
-        type: "solution",
-        title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-3.webp",
-    },
-    {
-        id: 4,
-        type: "strategy",
-        title: "Estrategias de desarollo profesional RR.HH para el éxito",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-1.webp",
-    },
-    {
-        id: 5,
-        type: "solution",
-        title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-2.webp",
-    },
-    {
-        id: 6,
-        type: "solution",
-        title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-3.webp",
-    },
-    {
-        id: 7,
-        type: "solution",
-        title: "Soluciones de RR.HH para el éxito de las fuerzas de trabajo",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-1.webp",
-    },
-    {
-        id: 8,
-        type: "strategy",
-        title: "Estrategias de desarollo profesional RR.HH para el éxito",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-2.webp",
-    },
-    {
-        id: 8,
-        type: "strategy",
-        title: "Estrategias de desarollo profesional RR.HH para el éxito",
-        description: "Comienza la brecha entre profesionales cualificados...",
-        image: "/assets/cambiogerencia/caso-3.webp",
-    },
-];
+
 
 // Componente para la tarjeta de caso de éxito
 const CaseCard = ({ slug,title, image, description }) => {
