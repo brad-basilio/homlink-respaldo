@@ -23,22 +23,13 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                     <div className="order-1 lg:order-none lg:w-1/2 relative">
                         {/* Imagen principal grande */}
                         <div
-                            className="rounded-3xl overflow-hidden relative h-[320px] md:h-[400px] lg:h-[480px] flex items-center justify-center"
-                            style={{ minHeight: '280px', maxHeight: '520px', WebkitOverflowScrolling: 'touch' }}
+                            className="rounded-3xl overflow-hidden relative flex items-center justify-center"
                         >
                             <img
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
                                 className="w-full h-full object-cover"
-                                style={{
-                                    objectFit: 'cover',
-                                    width: '100%',
-                                    height: '100%',
-                                    maxWidth: '100%',
-                                    maxHeight: '100%',
-                                    
-                                    display: 'block',
-                                }}
+                               
                             />
                         </div>
                     </div>
