@@ -49,7 +49,7 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
                     {data?.description}
                 </p>
                 {/* Botón "Sobre nosotros" */}
-                <div className='w-full'>
+               {/* <div className='w-full'>
                     <a
                         href="/nosotros"
                         className="  w-full flex items-center justify-center lg:max-w-max bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
@@ -59,7 +59,7 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
                     </a>
-                </div>
+                </div> */}
             </div>
 
             {/* Columna central: tarjetas visión/misión/valor */}
