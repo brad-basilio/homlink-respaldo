@@ -629,7 +629,10 @@ const Header = ({
                                 <div className="p-6 min-h-[200px]">
                                     <motion.ul
                                         variants={containerVariants}
+                                        initial="hidden"
+                                        animate="visible"
                                         className="space-y-3"
+                                        style={{ opacity: 1, visibility: 'visible' }}
                                     >
                                         {[
                                             { path: "/nosotros", color: "bg-white" },
@@ -652,8 +655,11 @@ const Header = ({
                                                 <motion.li
                                                     key={item.path}
                                                     variants={itemVariants}
+                                                    initial="hidden"
+                                                    animate="visible"
                                                     whileHover={{ scale: 1.02 }}
                                                     whileTap={{ scale: 0.98 }}
+                                                    style={{ opacity: 1, visibility: 'visible' }}
                                                 >
                                                     <button
                                                         onClick={(e) => {
@@ -678,14 +684,14 @@ const Header = ({
                                                         {/* Texto */}
                                                         <div className="flex-1 text-left">
                                                             <span className={`font-medium text-base ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-700 group-hover:text-primary"
-                                                            }`}>
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "!text-white" : "!text-gray-700 group-hover:!text-primary"
+                                                            }`} style={{ opacity: 1, visibility: 'visible' }}>
                                                                 {text || item.path}
                                                             </span>
                                                             {item.path === "#services" && (
                                                                 <p className={`text-xs mt-1 ${
                                                                     isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
-                                                                }`}>
+                                                                }`} style={{ opacity: 1, visibility: 'visible' }}>
                                                                     Descubre nuestras soluciones
                                                                 </p>
                                                             )}
@@ -766,7 +772,10 @@ const Header = ({
                                     {/* CTA Button */}
                                     <motion.div
                                         variants={itemVariants}
+                                        initial="hidden"
+                                        animate="visible"
                                         className="mt-6 pt-6 border-t border-gray-200"
+                                        style={{ opacity: 1, visibility: 'visible' }}
                                     >
                                         <WhatsAppButtonWithArrow
                                             variant="accent"
@@ -780,7 +789,10 @@ const Header = ({
                                     {/* Info adicional */}
                                     <motion.div
                                         variants={itemVariants}
+                                        initial="hidden"
+                                        animate="visible"
                                         className="mt-4 text-center"
+                                        style={{ opacity: 1, visibility: 'visible' }}
                                     >
                                         <p className="text-sm text-gray-500">
                                             ¿Necesitas ayuda? Contáctanos
