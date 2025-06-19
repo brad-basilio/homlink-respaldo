@@ -19,10 +19,10 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
     const infiniteLoop = parseInfiniteLoop(data?.infiniteLoop);
 
     const [currentIndex, setCurrentIndex] = useState(1);
-    const sliderRef = useRef(null);
-    const isDragging = useRef(false);
+    const sliderRef = useRef(null);    const isDragging = useRef(false);
     const startX = useRef(0);
     const currentTranslate = useRef(0);
+    const isClickingButton = useRef(false);
 
     const duplicatedItems = [items[items.length - 1], ...items, items[0]];
     const validAlignments = ["center", "left", "right"];
@@ -45,17 +45,23 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         setCurrentIndex((prevIndex) =>
             prevIndex === 0 ? duplicatedItems.length - 1 : prevIndex - 1
         );
-    };
-
-    // Handle touch events for mobile
+    };    // Handle touch events for mobile
     const handleTouchStart = (e) => {
+        // Verificar si el toque comenzó en un botón o enlace
+        const target = e.target.closest('a, button');
+        if (target) {
+            isClickingButton.current = true;
+            return;
+        }
+        
+        isClickingButton.current = false;
         isDragging.current = true;
         startX.current = e.touches[0].pageX;
         sliderRef.current.style.transition = "none";
     };
 
     const handleTouchMove = (e) => {
-        if (!isDragging.current) return;
+        if (!isDragging.current || isClickingButton.current) return;
 
         const deltaX = e.touches[0].pageX - startX.current;
         currentTranslate.current =
@@ -64,7 +70,10 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
     };
 
     const handleTouchEnd = () => {
-        if (!isDragging.current) return;
+        if (!isDragging.current || isClickingButton.current) {
+            isClickingButton.current = false;
+            return;
+        }
 
         isDragging.current = false;
         sliderRef.current.style.transition = "transform 0.5s ease-in-out";
@@ -90,13 +99,21 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
 
     // Mouse events for desktop
     const handleMouseDown = (e) => {
+        // Verificar si el clic comenzó en un botón o enlace
+        const target = e.target.closest('a, button');
+        if (target) {
+            isClickingButton.current = true;
+            return;
+        }
+        
+        isClickingButton.current = false;
         isDragging.current = true;
         startX.current = e.pageX;
         sliderRef.current.style.transition = "none";
     };
 
     const handleMouseMove = (e) => {
-        if (!isDragging.current) return;
+        if (!isDragging.current || isClickingButton.current) return;
 
         const deltaX = e.pageX - startX.current;
         currentTranslate.current =
@@ -105,7 +122,10 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
     };
 
     const handleMouseUp = () => {
-        if (!isDragging.current) return;
+        if (!isDragging.current || isClickingButton.current) {
+            isClickingButton.current = false;
+            return;
+        }
 
         isDragging.current = false;
         sliderRef.current.style.transition = "transform 0.5s ease-in-out";
@@ -127,10 +147,8 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         }
 
         sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-    };
-
-    const handleMouseLeave = () => {
-        if (isDragging.current) {
+    };    const handleMouseLeave = () => {
+        if (isDragging.current && !isClickingButton.current) {
             handleMouseUp();
         }
     };
@@ -286,12 +304,23 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
                                         {item.description}
                                     </p>
                                     {item.button_text && item.button_link && (
-                                        <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">
-                                            <a
+                                        <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">                                            <a
                                                 href={item.button_link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 ref={(el) => (buttonsRef.current[index] = el)}
+                                                onClick={(e) => {
+                                                    // Prevenir que el clic se propague y afecte el slider
+                                                    e.stopPropagation();
+                                                }}
+                                                onMouseDown={(e) => {
+                                                    // Prevenir que el mousedown se propague al slider
+                                                    e.stopPropagation();
+                                                }}
+                                                onTouchStart={(e) => {
+                                                    // Prevenir que el touchstart se propague al slider
+                                                    e.stopPropagation();
+                                                }}
                                                 className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300"
                                             >
                                                 {item.button_text}

@@ -336,8 +336,8 @@
       "_main-Y8JAyXgE.js"
     ]
   },
-  "_SliderInteractive-u4D4LFer.js": {
-    "file": "assets/SliderInteractive-u4D4LFer.js",
+  "_SliderInteractive-De6buJCO.js": {
+    "file": "assets/SliderInteractive-De6buJCO.js",
     "name": "SliderInteractive",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -2348,7 +2348,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-DKFEuaYu.js",
+    "file": "assets/Blog-DyHZwxqn.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -2369,7 +2369,7 @@
       "_Footer-Cw8rufDe.js",
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_MaintenancePage-BOY49r__.js",
-      "_SliderInteractive-u4D4LFer.js",
+      "_SliderInteractive-De6buJCO.js",
       "_useTranslation-CZbMeh78.js",
       "_index.esm-zkRd-kwu.js",
       "_axios-B4uVmeYG.js",
@@ -3016,7 +3016,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-BVoj7jG_.js",
+    "file": "assets/Home-C5JrqcPt.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3038,7 +3038,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-B8oeIoeg.js",
       "resources/js/Utils/BlurText.jsx",
-      "_SliderInteractive-u4D4LFer.js",
+      "_SliderInteractive-De6buJCO.js",
       "_CarruselBrands-Dq7hRlpI.js",
       "_HomeSeccionNosotros-Bf9PAZUv.js",
       "_TextWithHighlight-CCbr48HD.js",
@@ -4048,7 +4048,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4755,7 +4755,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5164,7 +5164,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5329,10 +5329,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5460,7 +5460,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
