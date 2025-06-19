@@ -49,7 +49,7 @@ const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) 
     <>
       <Header />
 
-      <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
+      <HomeSeccionNosotros data={landingNosotros} strengths={strengths} button_about={false}/>
       <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
       <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} />
       <AboutSeccionStaff staff={staff} />

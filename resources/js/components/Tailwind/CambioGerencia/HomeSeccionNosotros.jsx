@@ -1,7 +1,7 @@
 import React from 'react';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const HomeSeccionNosotros = ({ data, strengths }) => {
+const HomeSeccionNosotros = ({ data, strengths, button_about = true }) => {
     return (
         <div className="relative bg-white py-12 md:pt-16 px-[5%] font-paragraph ">
             {/* Curva decorativa en la parte inferior */}
@@ -29,7 +29,7 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
                                 className="w-full h-full object-cover"
-                               
+
                             />
                         </div>
                     </div>
@@ -91,17 +91,19 @@ const HomeSeccionNosotros = ({ data, strengths }) => {
                         </div>
 
                         {/* Botón "Sobre nosotros" */}
-                        <div className='w-full'>
-                            <a
-                                href="/nosotros"
-                                className="  w-full flex items-center justify-center lg:max-w-max bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
-                            >
-                                <span className="font-medium">Sobre nosotros</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </a>
-                        </div>
+                        {button_about && (
+                            <div className='w-full'>
+                                <a
+                                    href="/nosotros"
+                                    className="  w-full flex items-center justify-center lg:max-w-max bg-primary hover:bg-opacity-90 text-white py-3 px-6 rounded-lg transition-colors"
+                                >
+                                    <span className="font-medium">Sobre nosotros</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
