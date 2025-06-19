@@ -47,8 +47,8 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         );
     };    // Handle touch events for mobile
     const handleTouchStart = (e) => {
-        // Verificar si el toque comenzó en un botón o enlace
-        const target = e.target.closest('a, button');
+        // Verificar si el toque comenzó en un botón, enlace o su contenedor
+        const target = e.target.closest('a, button, [class*="pointer-events-auto"]');
         if (target) {
             isClickingButton.current = true;
             return;
@@ -57,16 +57,18 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         isClickingButton.current = false;
         isDragging.current = true;
         startX.current = e.touches[0].pageX;
-        sliderRef.current.style.transition = "none";
-    };
-
-    const handleTouchMove = (e) => {
+        if (sliderRef.current) {
+            sliderRef.current.style.transition = "none";
+        }
+    };    const handleTouchMove = (e) => {
         if (!isDragging.current || isClickingButton.current) return;
 
         const deltaX = e.touches[0].pageX - startX.current;
         currentTranslate.current =
             -currentIndex * 100 + (deltaX / window.innerWidth) * 100;
-        sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
+        if (sliderRef.current) {
+            sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
+        }
     };
 
     const handleTouchEnd = () => {
@@ -76,7 +78,9 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         }
 
         isDragging.current = false;
-        sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+        if (sliderRef.current) {
+            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+        }
 
         const threshold = 20;
         const deltaX = Math.abs(
@@ -94,13 +98,13 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
             setCurrentIndex(currentIndex);
         }
 
-        sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-    };
-
-    // Mouse events for desktop
+        if (sliderRef.current) {
+            sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+    };// Mouse events for desktop
     const handleMouseDown = (e) => {
-        // Verificar si el clic comenzó en un botón o enlace
-        const target = e.target.closest('a, button');
+        // Verificar si el clic comenzó en un botón, enlace o su contenedor
+        const target = e.target.closest('a, button, [class*="pointer-events-auto"]');
         if (target) {
             isClickingButton.current = true;
             return;
@@ -109,16 +113,18 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         isClickingButton.current = false;
         isDragging.current = true;
         startX.current = e.pageX;
-        sliderRef.current.style.transition = "none";
-    };
-
-    const handleMouseMove = (e) => {
+        if (sliderRef.current) {
+            sliderRef.current.style.transition = "none";
+        }
+    };    const handleMouseMove = (e) => {
         if (!isDragging.current || isClickingButton.current) return;
 
         const deltaX = e.pageX - startX.current;
         currentTranslate.current =
             -currentIndex * 100 + (deltaX / window.innerWidth) * 100;
-        sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
+        if (sliderRef.current) {
+            sliderRef.current.style.transform = `translateX(${currentTranslate.current}%)`;
+        }
     };
 
     const handleMouseUp = () => {
@@ -128,7 +134,9 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
         }
 
         isDragging.current = false;
-        sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+        if (sliderRef.current) {
+            sliderRef.current.style.transition = "transform 0.5s ease-in-out";
+        }
 
         const threshold = 20;
         const deltaX = Math.abs(
@@ -146,8 +154,10 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
             setCurrentIndex(currentIndex);
         }
 
-        sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
-    };    const handleMouseLeave = () => {
+        if (sliderRef.current) {
+            sliderRef.current.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+    };const handleMouseLeave = () => {
         if (isDragging.current && !isClickingButton.current) {
             handleMouseUp();
         }
@@ -302,30 +312,29 @@ const SliderInteractive = ({ items, data, current="sliders" }) => {
                                         }}
                                     >
                                         {item.description}
-                                    </p>
-                                    {item.button_text && item.button_link && (
-                                        <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">                                            <a
-                                                href={item.button_link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                ref={(el) => (buttonsRef.current[index] = el)}
-                                                onClick={(e) => {
-                                                    // Prevenir que el clic se propague y afecte el slider
-                                                    e.stopPropagation();
-                                                }}
-                                                onMouseDown={(e) => {
-                                                    // Prevenir que el mousedown se propague al slider
-                                                    e.stopPropagation();
-                                                }}
-                                                onTouchStart={(e) => {
-                                                    // Prevenir que el touchstart se propague al slider
-                                                    e.stopPropagation();
-                                                }}
-                                                className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300"
+                                    </p>                                    {item.button_text && item.button_link && (
+                                        <div className="flex flex-row gap-5 md:gap-10 justify-center md:justify-start items-start">
+                                            <div 
+                                                onTouchStart={(e) => e.stopPropagation()}
+                                                onTouchMove={(e) => e.stopPropagation()}
+                                                onTouchEnd={(e) => e.stopPropagation()}
+                                                onMouseDown={(e) => e.stopPropagation()}
+                                                onMouseMove={(e) => e.stopPropagation()}
+                                                onMouseUp={(e) => e.stopPropagation()}
+                                                className="pointer-events-auto"
                                             >
-                                                {item.button_text}
-                                                <ArrowRight width={"1.25rem"} className=" " />
-                                            </a>
+                                                <a
+                                                    href={item.button_link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    ref={(el) => (buttonsRef.current[index] = el)}
+                                                    className="bg-accent border-none flex flex-row items-center gap-3 px-10 py-4 text-lg rounded-xl tracking-wide font-semibold hover:bg-primary transition-all duration-300 touch-manipulation"
+                                                    style={{ touchAction: 'manipulation' }}
+                                                >
+                                                    {item.button_text}
+                                                    <ArrowRight width={"1.25rem"} className=" " />
+                                                </a>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
