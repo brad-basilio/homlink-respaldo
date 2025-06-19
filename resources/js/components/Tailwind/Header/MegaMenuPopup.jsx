@@ -17,7 +17,7 @@ const MegaMenuPopup = ({ info, isOpen, onClose, data }) => {
           <img
             src="/assets/cambiogerencia/mask-menu.png"
             alt="Equipo de Cambio Gerencia"
-            className="h-full object-cover max-w-[60vw] lg:max-w-[60vw] opacity-50"
+            className="h-full max-h-[90vh] object-cover max-w-[60vw]  lg:max-w-[60vw] opacity-50"
           />
         </div>
         <div className="flex flex-row h-full">
