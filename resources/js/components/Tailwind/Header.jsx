@@ -310,7 +310,7 @@ const Header = ({
 
     return (
         <>
-            <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight}`}>
+            <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight} z-[9999]`}>
                 {/* CINTILLO INICIO */}
                 <div className="bg-primary text-white text-xs md:text-sm py-2 md:py-3">
                     <div className="px-[5%] mx-auto flex flex-row items-center justify-center md:justify-between">
@@ -400,7 +400,7 @@ const Header = ({
                     initial="hidden"
                     animate="visible"
                     variants={containerVariants}
-                    className={` static lg:w-full top-0 z-40 transition-colors duration-300 py-1 ${backgroundType === "none"
+                    className={` static lg:w-full top-0 z-[9998] transition-colors duration-300 py-1 ${backgroundType === "none"
                         ? "bg-transparent mt-0"
                         : isScrolled
                             ? "bg-primary pt-0 !mt-0"
@@ -583,7 +583,8 @@ const Header = ({
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[998]"
+                                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]"
+                                style={{ zIndex: 99998 }}
                                 onClick={() => setIsOpen(false)}
                             />
                             
@@ -599,9 +600,10 @@ const Header = ({
                                     duration: 0.4
                                 }}
                                 className={`fixed left-[5%] right-[5%] ${isScrolled
-                                    ? "top-20" 
-                                    : "top-[120px]"
-                                } z-[9999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-140px)] overflow-y-auto`}
+                                    ? "top-16" 
+                                    : "top-[100px]"
+                                } z-[99999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto`}
+                                style={{ zIndex: 99999 }}
                             >
                                 {/* Header del menú */}
                                 <div className="bg-gradient-to-r from-primary to-constrast p-6 text-white">
@@ -624,7 +626,7 @@ const Header = ({
                                 </div>
 
                                 {/* Contenido del menú */}
-                                <div className="p-6">
+                                <div className="p-6 min-h-[200px]">
                                     <motion.ul
                                         variants={containerVariants}
                                         className="space-y-3"
@@ -669,20 +671,20 @@ const Header = ({
                                                         }}
                                                         className={`w-full group relative overflow-hidden flex items-center p-4 rounded-xl transition-all duration-300 ${
                                                             isActive(item.path) || activeMegaMenu === item.path
-                                                                ? "text-primary shadow-lg"
-                                                                : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary"
+                                                                ? "bg-accent text-white border-2 border-accent shadow-lg"
+                                                                : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary border-2 border-transparent"
                                                         }`}
                                                     >
                                                         {/* Texto */}
                                                         <div className="flex-1 text-left">
                                                             <span className={`font-medium text-base ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "group-hover:text-primary"
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-700 group-hover:text-primary"
                                                             }`}>
-                                                                {text}
+                                                                {text || item.path}
                                                             </span>
                                                             {item.path === "#services" && (
                                                                 <p className={`text-xs mt-1 ${
-                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "text-gray-500"
+                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
                                                                 }`}>
                                                                     Descubre nuestras soluciones
                                                                 </p>
@@ -692,7 +694,7 @@ const Header = ({
                                                         {/* Flecha o indicador de submenú */}
                                                         <motion.div
                                                             className={`transition-colors duration-300 ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-primary" : "text-gray-400 group-hover:text-primary"
+                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-400 group-hover:text-primary"
                                                             }`}
                                                         >
                                                             {item.hasSubmenu ? (
@@ -708,14 +710,6 @@ const Header = ({
                                                                 <ArrowRight className="w-5 h-5" />
                                                             )}
                                                         </motion.div>
-
-                                                        {/* Indicador activo */}
-                                                        {(isActive(item.path) || activeMegaMenu === item.path) && (
-                                                            <motion.div
-                                                                layoutId="activeMobileDot"
-                                                                className="absolute h-full w-2 bg-primary left-0"
-                                                            />
-                                                        )}
                                                     </button>
 
                                                     {/* Submenú de servicios para móvil */}
@@ -760,7 +754,6 @@ const Header = ({
                                                                             </motion.button>
                                                                         ))}
                                                                     </div>
-                                                                 
                                                                 </div>
                                                             </motion.div>
                                                         )}
