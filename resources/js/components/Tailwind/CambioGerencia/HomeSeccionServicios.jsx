@@ -62,7 +62,7 @@ const ServiceCard = ({
             </div>
             <h3 className={`text-[28px] font-medium mb-2  z-10 relative`}>{cardTitle}</h3>
             <p className={` mb-4 flex-grow  z-10 relative`}>{description}</p>
-            <a href="#" className={`mt-auto  font-semibold flex gap-2  z-10 relative`}>
+            <a  href={`/servicio/${slug}`} className={`mt-auto  font-semibold flex gap-2  z-10 relative`}>
                 <PlusIcon />  más información
             </a>
         </a>
