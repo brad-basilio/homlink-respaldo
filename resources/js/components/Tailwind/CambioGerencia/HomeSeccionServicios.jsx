@@ -18,6 +18,7 @@ const ServiceCard = ({
     name,
     title,
     description,
+    slug,
     linkText = "+ información",
     bgColor = "bg-white",
     textColor = "text-slate-800",
@@ -30,8 +31,9 @@ const ServiceCard = ({
     const cardTitle = name || title;
     // Si hay imagen, mostrar overlay azul al hover o si está activo
     return (
-        <div
-            className={`relative font-paragraph customtext-neutral-dark bg-white p-6 rounded-lg shadow-xl flex flex-col h-[350px] z-10 group overflow-hidden
+        <a
+         href={`/servicio/${slug}`}
+            className={` relative font-paragraph customtext-neutral-dark bg-white p-6 rounded-lg shadow-xl flex flex-col h-[350px] z-10 group overflow-hidden
                 ${active ? 'text-white scale-105 opacity-100' : ''}
                 ${!active ? 'lg:hover:text-white lg:hover:scale-105 lg:hover:opacity-100' : ''}
             `}
@@ -63,7 +65,7 @@ const ServiceCard = ({
             <a href="#" className={`mt-auto  font-semibold flex gap-2  z-10 relative`}>
                 <PlusIcon />  más información
             </a>
-        </div>
+        </a>
     );
 };
 
@@ -192,6 +194,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                             name={service.name}
                             description={service.description}
                             image={service.image}
+                            slug={service.slug}
                         />
                     ))}
                     <div
@@ -227,6 +230,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                             name={service.name}
                             description={service.description}
                             image={service.image}
+                            slug={service.slug}
                         />
                     ))}
                 </div>
