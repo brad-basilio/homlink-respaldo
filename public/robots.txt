@@ -1,7 +1,8 @@
 User-agent: *
 Disallow: /login
-Disallow: /test
-Disallow: /supplies
-Disallow: /faqs
-Allow: /
-Sitemap: https://vua.pe/sitemap.xml
+Allow: /nosotros
+Allow: /casos-de-exito
+Allow: /blog
+Allow: /infoproductos
+Allow: /contacto
+Sitemap: https://cyg.com.pe/sitemap.xml
