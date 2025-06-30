@@ -44,7 +44,7 @@ const Sliders = () => {
 
         buttonTextRef.current.value = data?.button_text ?? "";
         buttonLinkRef.current.value = data?.button_link ?? "";
-        imageRef.image.src = `/api/items/media/${data?.image ?? "undefined"}`;
+        imageRef.image.src = `/api/sliders/media/${data?.image ?? "undefined"}`;
         $(modalRef.current).modal("show");
     };
 

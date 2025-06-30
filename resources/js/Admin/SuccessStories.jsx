@@ -108,7 +108,7 @@ const FeatureCard = ({
                         onClick={() => onRemove(index)}
                         disabled={!canRemove}
                     >
-                        Eliminar
+                        <i className="fa fa-trash"></i> 
                     </button>
                     {(type === "characteristic" &&
                         index === characteristics.length - 1) ||
@@ -128,7 +128,7 @@ const FeatureCard = ({
                                                 : addSolution
                             }
                         >
-                            Agregar{" "}
+                            +{" "}
                             {type === "characteristic"
                                 ? "Característica"
                                 : type === "benefit"

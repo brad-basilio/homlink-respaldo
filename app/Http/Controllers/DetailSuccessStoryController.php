@@ -23,6 +23,20 @@ class DetailSuccessStoryController extends BasicController
         $landing = LandingHome::where('correlative', '=', 'page_home_testimonios')->where('lang_id', $langId)->first();
         $successStory = SuccessStory::where('slug', $request->slug)->first();
 
+        // Obtener los servicios relacionados si existen
+        $relatedServices = [];
+        if ($successStory && $successStory->services) {
+            $serviceIds = is_array($successStory->services) 
+                ? $successStory->services 
+                : explode(',', $successStory->services);
+            
+            $relatedServices = Service::whereIn('id', $serviceIds)
+                ->where('status', true)
+                ->where('visible', true)
+                ->select('id', 'name', 'title', 'description', 'slug','image_secondary')
+                ->get();
+        }
+
         $successStoryRecents = SuccessStory::where('visible', true)
             ->orderBy('created_at', 'desc')
             ->take(3)
@@ -32,6 +46,7 @@ class DetailSuccessStoryController extends BasicController
         return [
             'landing' => $landing,
             'successStory' => $successStory,
+            'relatedServices' => $relatedServices,
             'successStoryRecents' => $successStoryRecents,
          
             //    'allServices' => $allServices,

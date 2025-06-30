@@ -13,16 +13,11 @@ import WhatsAppButton, { WhatsAppButtonWithArrow } from "./components/Shared/Wha
 const DetalleCasoExito = ({
   successStory,
   successStoryRecents = [],
+  relatedServices = [],
 
 
 
-  empresa = {
-    nombre: "Sourcegraph S.A.",
-    descripcion: "ABCD Emprendiendo sistemas desde el 2022",
-    porcentaje: "60",
-    porcentajeTexto: "Disminución del porcentaje de errores todavía respecto al 60% de codificaciones de industrias similares.",
-    productos: ["Total Change", "Priorize Base"]
-  }
+  
 }) => {
   // Iconos para los beneficios
   const IconPeople = () => (
@@ -114,6 +109,7 @@ const DetalleCasoExito = ({
     );
   };
 
+ 
   return (
     <>
       <Header />
@@ -178,14 +174,23 @@ const DetalleCasoExito = ({
               <div>
                 <h5 className="text-xl text-center font-medium text-neutral-dark mb-3">Productos o servicios utilizados</h5>
                 <ul className="space-y-2">
-                  {empresa.productos.map((producto, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-accent">
-                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                      </span>
-                      <span className="text-base">{producto}</span>
+                  {relatedServices && relatedServices.length > 0 ? (
+                    relatedServices.map((service, index) => (
+                      <a href={`/servicio/${service.slug}`} target="_blank" rel="noopener noreferrer" key={index} className="flex items-center gap-2">
+                        <span className="bg-accent rounded-full p-1">
+                          <img src={`/api/service/media/${service?.image_secondary}`} 
+                          alt={service.name || service.title} className="w-4 h-4 rounded-full" 
+                          onError={e => e.target.src = '/api/cover/thumbnail/null'}
+                          loading="lazy" />
+                        </span>
+                        <span className="text-base">{service.name || service.title}</span>
+                      </a>
+                    ))
+                  ) : (
+                    <li className="flex items-center gap-2">
+                      <span className="text-neutral-dark text-sm">No hay servicios asociados</span>
                     </li>
-                  ))}
+                  )}
                 </ul>
               </div>
             </div>
@@ -332,14 +337,23 @@ const DetalleCasoExito = ({
                 <div>
                   <h5 className="text-xl text-center font-medium text-neutral-dark mb-3">Productos o servicios utilizados</h5>
                   <ul className="space-y-2">
-                    {empresa.productos.map((producto, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <span className="text-accent">
-                          <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    {relatedServices && relatedServices.length > 0 ? (
+                      relatedServices.map((service, index) => (
+                      <a href={`/servicio/${service.slug}`} target="_blank" rel="noopener noreferrer" key={index} className="flex items-center gap-2">
+                        <span className="bg-accent rounded-full p-1">
+                          <img src={`/api/service/media/${service?.image_secondary}`} 
+                          alt={service.name || service.title} className="w-4 h-4 rounded-full" 
+                          onError={e => e.target.src = '/api/cover/thumbnail/null'}
+                          loading="lazy" />
                         </span>
-                        <span className="text-base">{producto}</span>
+                        <span className="text-base">{service.name || service.title}</span>
+                      </a>
+                      ))
+                    ) : (
+                      <li className="flex items-center gap-2">
+                        <span className="text-neutral-dark text-sm">No hay servicios asociados</span>
                       </li>
-                    ))}
+                    )}
                   </ul>
                 </div>
               </div>

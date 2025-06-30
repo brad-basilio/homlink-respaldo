@@ -205,10 +205,10 @@ class LandingHomeController extends BasicController
     public function afterSave(Request $request, $landingHome, ?bool $isNew)
     {
         // Procesar imagen
-        if ($request->hasFile('image')) {
+      /*  if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images/landing_home', 'public');
             $landingHome->image = $imagePath;
-        }
+        }*/
 
         // Procesar video
         if ($request->hasFile('video')) {

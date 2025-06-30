@@ -34,6 +34,7 @@ const EditableCell = ({
 
     const isBaseLanguage = currentLangId === defaultLangId;
     const isTranslatable = !isBaseLanguage;
+   
 
     const handleSave = () => {
         onSave(field, tempValue);
@@ -82,6 +83,7 @@ const LandingHome = ({
     const [activeTab, setActiveTab] = useState("home");
     const [isEditing, setIsEditing] = useState(false);
     const [isVideo, setIsVideo] = useState(false);
+    const [currentImageSrc, setCurrentImageSrc] = useState("");
     const [items, setItems] = useState(initialItems);
     const [translations, setTranslations] = useState({});
     const [isLoading, setIsLoading] = useState(false);
@@ -95,7 +97,7 @@ const LandingHome = ({
     const videoRef = useRef(null);
     const linkRef = useRef(null);
     const is_videoRef = useRef(null);
-
+ const [sourceLoading, setSourceLoading] = useState(null);  
     // Nombres de las páginas para los tabs
     const pageNames = {
         home: "Inicio",
@@ -180,38 +182,89 @@ const LandingHome = ({
     useEffect(() => {
         console.log("Items agrupados:", groupedItems);
         console.log("Items en home:", groupedItems.home?.length);
-    }, [groupedItems]);
+        console.log("Total items:", items.length);
+    }, [groupedItems, items]);
+
+    // Efecto para forzar re-render cuando cambian los items
+    useEffect(() => {
+        console.log("Items cambiaron, total:", items.length);
+    }, [items]);
 
     const onModalOpen = (data) => {
-        if (data?.id) setIsEditing(true);
-        else setIsEditing(false);
+        if (data?.id) {
+            setIsEditing(true);
+        } else {
+            setIsEditing(false);
+            // Limpiar formulario para nuevo elemento
+            setTimeout(() => {
+                if (idRef.current) idRef.current.value = "";
+                if (titleRef.current) titleRef.current.value = "";
+                if (subtitleRef.current) subtitleRef.current.value = "";
+                if (descriptionRef.current) descriptionRef.current.value = "";
+                if (linkRef.current) linkRef.current.value = "";
+                if (is_videoRef.current) is_videoRef.current.checked = false;
+                if (imageRef.current) {
+                    imageRef.current.value = "";
+                    // Esperar un poco para que el componente esté montado
+                    setTimeout(() => {
+                        if (imageRef.current && imageRef.current.image) {
+                            imageRef.current.image.src = "";
+                        }
+                    }, 50);
+                }
+                setIsVideo(false);
+            }, 50);
+        }
+
+        // Resetear el estado de video primero
+        const isVideoChecked = data?.is_video === "1" || data?.is_video === 1;
+        setIsVideo(isVideoChecked);
 
         setTimeout(() => {
-            if (idRef.current) idRef.current.value = data?.id ?? "";
-            if (titleRef.current) titleRef.current.value = data?.title ?? "";
-            if (subtitleRef.current)
-                subtitleRef.current.value = data?.subtitle ?? "";
-            if (descriptionRef.current)
-                descriptionRef.current.value = data?.description ?? "";
-            if (linkRef.current) linkRef.current.value = data?.link ?? "";
+            if (data?.id) {
+                if (idRef.current) idRef.current.value = data?.id ?? "";
+                if (titleRef.current) titleRef.current.value = data?.title ?? "";
+                if (subtitleRef.current)
+                    subtitleRef.current.value = data?.subtitle ?? "";
+                if (descriptionRef.current)
+                    descriptionRef.current.value = data?.description ?? "";
+                if (linkRef.current) linkRef.current.value = data?.link ?? "";
 
-            const isVideoChecked =
-                data?.is_video === "1" || data?.is_video === 1;
-            if (is_videoRef.current) {
-                is_videoRef.current.checked = isVideoChecked;
-                setIsVideo(isVideoChecked);
+                if (is_videoRef.current) {
+                    is_videoRef.current.checked = isVideoChecked;
+                }
+
+                // Manejar carga de imagen/video
+                if (isVideoChecked && videoRef.current && data?.video) {
+                    videoRef.current.setVideoSrc(
+                        `/api/landing_home/video/${data.video}`
+                    );
+                } else if (!isVideoChecked && imageRef.current && data?.image) {
+                    // Esperar un poco más para que el componente esté completamente montado
+                    setTimeout(() => {
+                        if (imageRef.current ) {
+                            const imageSrc = `/api/landing_home/media/${data.image}`;
+                            console.log('Cargando imagen en modal:', imageSrc);
+                            console.log('ImageRef.current:', imageRef.current);
+                            console.log('ImageRef.current.image:', imageRef.current.image);
+                            imageRef.current.src = imageSrc;
+                            setSourceLoading(imageSrc);
+                        } else {
+                            console.log('ImageRef o image no disponible:', {
+                                imageRef: !!imageRef.current,
+                                image: !!(imageRef.current && imageRef.current.image)
+                            });
+                        }
+                    }, 100);
+                      
+                 
+                }
             }
+        }, 300); // Aumentar el timeout para asegurar que el ImageFormGroup esté completamente montado
 
-            if (isVideoChecked && videoRef.current && data?.video) {
-                videoRef.current.setVideoSrc(
-                    `/api/landing_home/video/${data.video}`
-                );
-            } else if (imageRef.current && data?.image) {
-                imageRef.current.src = `/api/landing_home/media/${data?.image}`;
-            }
-        }, 100);
-
-        $(modalRef.current).modal("show");
+        // Mostrar el modal usando Bootstrap 5
+        const modalInstance = new bootstrap.Modal(modalRef.current);
+        modalInstance.show();
     };
 
     const onModalSubmit = async (e) => {
@@ -239,17 +292,118 @@ const LandingHome = ({
             if (isVideo && videoRef.current) {
                 const videoFile = videoRef.current.getFile();
                 if (videoFile) formData.append("video", videoFile);
-            } else if (imageRef.current?.files?.[0]) {
+            } else if (!isVideo && imageRef.current?.files?.[0]) {
                 formData.append("image", imageRef.current.files[0]);
             }
 
             const result = await landingHomeRest.save(formData);
-            if (!result) return;
+            if (!result) {
+                Notify.error("Error al guardar la sección");
+                return;
+            }
 
-            const updatedItems = await landingHomeRest.getAll();
-            if (updatedItems) setItems(updatedItems);
+            console.log("Resultado del save:", result);
 
-            $(modalRef.current).modal("hide");
+            // Actualizar el estado local inmediatamente
+            if (isEditing) {
+                // Actualizar elemento existente
+                setItems(prevItems => 
+                    prevItems.map(item => 
+                        item.id === result.data.id ? result.data : item
+                    )
+                );
+            } else {
+                // Agregar nuevo elemento
+                setItems(prevItems => [result.data, ...prevItems]);
+            }
+
+            // También intentar recargar desde el servidor como backup
+            try {
+                const updatedItems = await landingHomeRest.paginate({
+                    page: 1,
+                    per_page: 1000,
+                    search: '',
+                    orderBy: 'created_at',
+                    order: 'desc'
+                });
+                
+                console.log("Respuesta completa de paginate:", updatedItems);
+                
+                if (updatedItems) {
+                    let newItems = null;
+                    
+                    if (updatedItems.data && Array.isArray(updatedItems.data)) {
+                        newItems = updatedItems.data;
+                    } else if (updatedItems.result && updatedItems.result.data && Array.isArray(updatedItems.result.data)) {
+                        newItems = updatedItems.result.data;
+                    } else if (Array.isArray(updatedItems)) {
+                        newItems = updatedItems;
+                    }
+                    
+                    console.log("Items extraídos:", newItems);
+                    
+                    if (newItems && newItems.length >= 0) {
+                        setItems(newItems);
+                        console.log("Items actualizados desde servidor:", newItems.length);
+                    }
+                }
+            } catch (serverError) {
+                console.warn("Error al recargar desde servidor, usando actualización local", serverError);
+            }
+
+            // Cerrar el modal INMEDIATAMENTE después de guardar
+            try {
+                // Método 1: Simular click en el botón de cerrar
+                const closeButton = modalRef.current.querySelector('.btn-close');
+                if (closeButton) {
+                    closeButton.click();
+                } else {
+                    // Método 2: Simular click en el botón cancelar del footer
+                    const cancelButton = modalRef.current.querySelector('[data-bs-dismiss="modal"]');
+                    if (cancelButton) {
+                        cancelButton.click();
+                    } else {
+                        // Método 3: Bootstrap directo
+                        const modal = bootstrap.Modal.getInstance(modalRef.current);
+                        if (modal) {
+                            modal.hide();
+                        } else {
+                            const modalInstance = new bootstrap.Modal(modalRef.current);
+                            modalInstance.hide();
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('Error al cerrar modal:', error);
+                // Último fallback con jQuery
+                $(modalRef.current).modal("hide");
+            }
+            
+            // Limpiar el formulario DESPUÉS de cerrar el modal
+            setTimeout(() => {
+                if (idRef.current) idRef.current.value = "";
+                if (titleRef.current) titleRef.current.value = "";
+                if (subtitleRef.current) subtitleRef.current.value = "";
+                if (descriptionRef.current) descriptionRef.current.value = "";
+                if (linkRef.current) linkRef.current.value = "";
+                if (is_videoRef.current) is_videoRef.current.checked = false;
+                if (imageRef.current) {
+                    imageRef.current.value = "";
+                    // Limpiar la imagen mostrada después de un breve delay
+                    setTimeout(() => {
+                        if (imageRef.current && imageRef.current.image) {
+                            imageRef.current.image.src = "";
+                        }
+                    }, 50);
+                }
+                if (videoRef.current && typeof videoRef.current.clearVideo === 'function') {
+                    videoRef.current.clearVideo();
+                }
+                setIsVideo(false);
+                setIsEditing(false);
+                setSourceLoading(null);
+            }, 200);
+
             Notify.success("Sección guardada correctamente");
         } catch (error) {
             console.error("Error al enviar el formulario:", error);
@@ -310,15 +464,46 @@ const LandingHome = ({
     };
 
     const onVisibleChange = async ({ id, value }) => {
-        const result = await landingHomeRest.boolean({
-            id,
-            field: "visible",
-            value,
-        });
-        if (!result) return;
+        try {
+            const result = await landingHomeRest.boolean({
+                id,
+                field: "visible",
+                value,
+            });
+            if (!result) {
+                Notify.error("Error al cambiar visibilidad");
+                return;
+            }
 
-        const updatedItems = await landingHomeRest.getAll();
-        if (updatedItems) setItems(updatedItems);
+            const updatedItems = await landingHomeRest.paginate({
+                page: 1,
+                per_page: 1000,
+                search: '',
+                orderBy: 'created_at',
+                order: 'desc'
+            });
+            
+            if (updatedItems) {
+                let newItems = null;
+                if (updatedItems.data && Array.isArray(updatedItems.data)) {
+                    newItems = updatedItems.data;
+                } else if (updatedItems.result && updatedItems.result.data && Array.isArray(updatedItems.result.data)) {
+                    newItems = updatedItems.result.data;
+                } else if (Array.isArray(updatedItems)) {
+                    newItems = updatedItems;
+                }
+                
+                if (newItems && newItems.length >= 0) {
+                    setItems(newItems);
+                    console.log("Items actualizados después de cambiar visibilidad");
+                }
+            }
+            
+            Notify.success("Visibilidad actualizada correctamente");
+        } catch (error) {
+            console.error("Error al cambiar visibilidad:", error);
+            Notify.error("Error al cambiar visibilidad");
+        }
     };
 
     const onDeleteClicked = async (id) => {
@@ -332,12 +517,42 @@ const LandingHome = ({
         });
         if (!isConfirmed) return;
 
-        const result = await landingHomeRest.delete(id);
-        if (!result) return;
+        try {
+            const result = await landingHomeRest.delete(id);
+            if (!result) {
+                Notify.error("Error al eliminar la sección");
+                return;
+            }
 
-        const updatedItems = await landingHomeRest.getAll();
-        if (updatedItems) setItems(updatedItems);
-        Notify.success("Sección eliminada correctamente");
+            const updatedItems = await landingHomeRest.paginate({
+                page: 1,
+                per_page: 1000,
+                search: '',
+                orderBy: 'created_at',
+                order: 'desc'
+            });
+            
+            if (updatedItems) {
+                let newItems = null;
+                if (updatedItems.data && Array.isArray(updatedItems.data)) {
+                    newItems = updatedItems.data;
+                } else if (updatedItems.result && updatedItems.result.data && Array.isArray(updatedItems.result.data)) {
+                    newItems = updatedItems.result.data;
+                } else if (Array.isArray(updatedItems)) {
+                    newItems = updatedItems;
+                }
+                
+                if (newItems && newItems.length >= 0) {
+                    setItems(newItems);
+                    console.log("Items actualizados después de eliminar");
+                }
+            }
+            
+            Notify.success("Sección eliminada correctamente");
+        } catch (error) {
+            console.error("Error al eliminar:", error);
+            Notify.error("Error al eliminar la sección");
+        }
     };
 
     const isTranslationMode = current_lang_id !== default_lang_id;
@@ -737,7 +952,8 @@ const LandingHome = ({
                                 col="col-12"
                                 aspect={16 / 9}
                                 fit="contain"
-                                required={!isEditing}
+                                src={sourceLoading}
+                                //required={!isEditing}
                             />
                         ) : (
                             <VideoFormGroup
