@@ -220,8 +220,6 @@ const Header = ({
     const ContactNumber = generals.find((general) => general.correlative === "phone_contact");
     const ContactEmail = generals.find((general) => general.correlative === "email_contact");
 
-    
-    
     useEffect(() => {
         const currentPath = window.location.pathname;
         setActiveLink(currentPath);

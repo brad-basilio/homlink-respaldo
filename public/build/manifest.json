@@ -554,13 +554,13 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{041}~.js": {
+  "_swiper-!~{042}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{041}~.js"
+    "src": "_swiper-!~{042}~.js"
   },
-  "_tippy-!~{03W}~.js": {
+  "_tippy-!~{03X}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{03W}~.js"
+    "src": "_tippy-!~{03X}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -627,25 +627,25 @@
     "src": "node_modules/html2canvas/dist/html2canvas.esm.js",
     "isDynamicEntry": true
   },
-  "public/assets/fonts/Poppins-Bold.woff": {
-    "file": "Poppins-Bold.woff",
-    "src": "public/assets/fonts/Poppins-Bold.woff"
+  "public/assets/fonts/general-sans/GeneralSans-Bold.woff2": {
+    "file": "GeneralSans-Bold.woff2",
+    "src": "public/assets/fonts/general-sans/GeneralSans-Bold.woff2"
   },
-  "public/assets/fonts/Poppins-Light.woff": {
-    "file": "Poppins-Light.woff",
-    "src": "public/assets/fonts/Poppins-Light.woff"
+  "public/assets/fonts/general-sans/GeneralSans-Light.woff2": {
+    "file": "GeneralSans-Light.woff2",
+    "src": "public/assets/fonts/general-sans/GeneralSans-Light.woff2"
   },
-  "public/assets/fonts/Poppins-Medium.woff": {
-    "file": "Poppins-Medium.woff",
-    "src": "public/assets/fonts/Poppins-Medium.woff"
+  "public/assets/fonts/general-sans/GeneralSans-Medium.woff2": {
+    "file": "GeneralSans-Medium.woff2",
+    "src": "public/assets/fonts/general-sans/GeneralSans-Medium.woff2"
   },
-  "public/assets/fonts/Poppins-Regular.woff": {
-    "file": "Poppins-Regular.woff",
-    "src": "public/assets/fonts/Poppins-Regular.woff"
+  "public/assets/fonts/general-sans/GeneralSans-Regular.woff2": {
+    "file": "GeneralSans-Regular.woff2",
+    "src": "public/assets/fonts/general-sans/GeneralSans-Regular.woff2"
   },
-  "public/assets/fonts/Poppins-SemiBold.woff": {
-    "file": "Poppins-SemiBold.woff",
-    "src": "public/assets/fonts/Poppins-SemiBold.woff"
+  "public/assets/fonts/general-sans/GeneralSans-Semibold.woff2": {
+    "file": "GeneralSans-Semibold.woff2",
+    "src": "public/assets/fonts/general-sans/GeneralSans-Semibold.woff2"
   },
   "resources/css/app.css": {
     "file": "app.css",
@@ -3971,7 +3971,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4019,7 +4019,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4059,7 +4059,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4069,7 +4069,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4123,7 +4123,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
+    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4662,7 +4662,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4756,7 +4756,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5065,6 +5065,22 @@
       "_index-RYns6xqu.js"
     ]
   },
+  "resources/js/components/Tailwind/Header_cyg.jsx": {
+    "file": "assets/Header_cyg-ZkmDcMVO.js",
+    "name": "Header_cyg",
+    "src": "resources/js/components/Tailwind/Header_cyg.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js",
+      "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
+      "_main-Y8JAyXgE.js",
+      "resources/js/components/Blog/Results.jsx",
+      "resources/js/components/Blog/Filter.jsx",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
+      "_axios-B4uVmeYG.js"
+    ]
+  },
   "resources/js/components/Tailwind/Instructions/TestProduct.jsx": {
     "file": "assets/TestProduct-CTHAAt_s.js",
     "name": "TestProduct",
@@ -5165,7 +5181,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5297,20 +5313,22 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-Dwtff5Cv.js",
+    "file": "assets/Fragrance-CWZ5d7UB.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js"
+      "_tippy-react.esm-DYFqe69e.js",
+      "_index-RYns6xqu.js",
+      "_index-CXU7o9CY.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-Dwtff5Cv.js",
+    "file": "assets/HairGoals-nPfRvZqW.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5330,10 +5348,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5451,7 +5469,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -5471,7 +5489,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -5481,7 +5499,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -5513,7 +5531,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
+    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

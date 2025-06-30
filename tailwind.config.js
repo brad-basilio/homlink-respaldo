@@ -19,21 +19,22 @@ export default {
                 'fade-in-up': 'fade-in-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) both',
             },
             fontFamily: {
-                title: ["Archivo", "sans-serif"],
-                paragraph: ["Archivo", "sans-serif"],
+                title: ["GeneralSans", "sans-serif"],
+                paragraph: ["GeneralSans", "sans-serif"],
+
             },
             colors: {
                 //azul: "#224483",
                 negro: "#242424",
 
                 /**CAMBIO Y GERENCIA */
-                accent:"#D62828",
-                secondary:"#F77F00",
-                primary:"#003049",
-                constrast:"#0082D8",
-                "neutral-dark":"#001520",
-                "neutral":"#003049",
-                "neutral-light":"#F2F2F2",
+                accent:"#1A1A1A",
+                secondary:"#BBFF52",
+                primary:"#F9F3E0",
+                constrast:"#7E5AFB",
+                "neutral-dark":"#0C0C0C",
+                "neutral":"#ECE6FE",
+                "neutral-light":"#222222",
             },
             // Puedes agregar personalizaciones aquí si es necesario
             lineClamp: {
