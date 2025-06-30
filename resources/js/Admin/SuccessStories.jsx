@@ -8,13 +8,15 @@ import Modal from "../Components/Adminto/Modal";
 import Table from "../Components/Adminto/Table";
 import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
 import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
+import SelectAPIFormGroup from "../Components/Adminto/form/SelectAPIFormGroup";
 import DxButton from "../Components/dx/DxButton";
 import CreateReactScript from "../Utils/CreateReactScript";
 import ReactAppend from "../Utils/ReactAppend";
-import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
+
 import { LanguageProvider } from "../context/LanguageContext";
 import DragDropImage from "../components/Adminto/form/DragDropImage";
-import SelectAPIFormGroupSupport from "../components/Adminto/form/SelectAPIFormGroupSupport";
+import SetSelectValue from "../Utils/SetSelectValue";
+
 import SuccessStoriesRest from "../actions/Admin/SuccessStoriesRest";
 
 const successStoriesRest = new SuccessStoriesRest();
@@ -64,7 +66,7 @@ const FeatureCard = ({
                             />
                         </div>) : (
                         <>
-                            <div className="col-md-6">
+                            <div className="col-md-9">
                                 <InputFormGroup
                                     label="Título"
                                     value={feature.title}
@@ -76,7 +78,7 @@ const FeatureCard = ({
                                     <label className="form-label">Descripción</label>
                                     <textarea
                                         className="form-control"
-                                        rows={3}
+                                        rows={4}
                                         value={feature.description}
                                         onChange={(e) =>
                                             handleFieldChange(
@@ -87,13 +89,13 @@ const FeatureCard = ({
                                     />
                                 </div>
                             </div>
-                            <div className="col-md-6">
+                            <div className="col-md-3">
                                 <DragDropImage
                                     current={"success_story"}
                                     label="Imagen"
                                     currentImage={feature.image}
                                     onChange={handleImageChange}
-                                    aspect={16 / 9}
+                                    aspect={1}
                                 />
                             </div>
                         </>
@@ -174,6 +176,7 @@ const SuccessStories = ({ brands }) => {
     const company_summaryRef = useRef();
     const company_percentageRef = useRef();
     const company_description_percentageRef = useRef();
+    const servicesRef = useRef();
 
 
     const imageRef = useRef();
@@ -300,7 +303,7 @@ const SuccessStories = ({ brands }) => {
 
 
 
-    const onModalOpen = (data) => {
+    const onModalOpen = async (data) => {
         if (data?.id) setIsEditing(true);
         else setIsEditing(false);
 
@@ -332,6 +335,41 @@ const SuccessStories = ({ brands }) => {
         company_summaryRef.current.value = data?.company_summary ?? "";
         company_percentageRef.current.value = data?.company_percentage ?? "";
         company_description_percentageRef.current.value = data?.company_description_percentage ?? "";
+
+        // Manejar servicios - obtener datos completos por IDs
+        if (data?.services && data.services.length > 0) {
+            try {
+                let serviceIds = [];
+                
+                // Verificar si es un string separado por comas o un array
+                if (typeof data.services === 'string') {
+                    // Si es string, dividir por comas y limpiar espacios
+                    serviceIds = data.services.split(',').map(id => id.trim()).filter(id => id);
+                } else if (Array.isArray(data.services)) {
+                    // Si es array, extraer IDs si son objetos o usar directamente si son strings
+                    serviceIds = data.services.map(service => 
+                        typeof service === 'object' ? service.id : service
+                    );
+                }
+                
+                console.log('Service IDs extraídos:', serviceIds);
+                
+                if (serviceIds.length > 0) {
+                    const servicesToSet = await successStoriesRest.getServicesByIds(serviceIds);
+                    console.log('Servicios cargados:', servicesToSet);
+                    SetSelectValue(servicesRef.current, servicesToSet, "id", "name");
+                } else {
+                    SetSelectValue(servicesRef.current, [], "id", "name");
+                }
+            } catch (error) {
+                console.error('Error al cargar servicios:', error);
+                // Fallback: si hay error, limpiar el select
+                SetSelectValue(servicesRef.current, [], "id", "name");
+            }
+        } else {
+            // Si no hay servicios, limpiar el select
+            SetSelectValue(servicesRef.current, [], "id", "name");
+        }
 
         // Manejo de imágenes como en el primer código
         imageRef.image.src = `/api/success_story/media/${data?.image ?? "undefined"}`;
@@ -407,6 +445,7 @@ const SuccessStories = ({ brands }) => {
             company_summary: company_summaryRef.current.value,
             company_percentage: company_percentageRef.current.value,
             company_description_percentage: company_description_percentageRef.current.value,
+            services: $(servicesRef.current).val(),
         };
 
         // Añadir campos básicos al formData
@@ -474,6 +513,21 @@ const SuccessStories = ({ brands }) => {
         const result = await successStoriesRest.boolean({ id, field, value });
         if (!result) return;
         $(gridRef.current).dxDataGrid("instance").refresh();
+    };
+
+    const onDeleteClicked = async (id) => {
+        const { isConfirmed } = await Swal.fire({
+            title: 'Eliminar registro',
+            text: '¿Estás seguro de eliminar este caso de éxito?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        });
+        if (!isConfirmed) return;
+        const result = await successStoriesRest.delete(id);
+        if (!result) return;
+        $(gridRef.current).dxDataGrid('instance').refresh();
     };
 
     return (
@@ -591,118 +645,148 @@ const SuccessStories = ({ brands }) => {
             >
                 <input ref={idRef} type="hidden" />
 
-                <div className="row" id="service-container">
-                    <div className="col-md-3">
-                        <div className="bg-light p-3 rounded mb-4">
-                            <InputFormGroup
-                                eRef={category_projectRef}
-                                label="Categoría del proyecto"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={client_projectRef}
-                                label="Cliente del proyecto"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={date_start_projectRef}
-                                label="Fecha de inicio del proyecto"
-                                type="date"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={date_end_projectRef}
-                                label="Fecha de finalización del proyecto"
-                                type="date"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={durationRef}
-                                label="Duración del proyecto"
-                                type="text"
-                                required
-                            />
+                <div className="row" id="success-stories-container">
+                    {/* Columna izquierda - Información del proyecto y empresa */}
+                    <div className="col-md-4">
+                        {/* Información del proyecto */}
+                        <div className="card mb-4">
+                            <div className="card-header">
+                                <h6 className="mb-0">Información del Proyecto</h6>
+                            </div>
+                            <div className="card-body">
+                                <InputFormGroup
+                                    eRef={category_projectRef}
+                                    label="Categoría del proyecto"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={client_projectRef}
+                                    label="Cliente del proyecto"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={date_start_projectRef}
+                                    label="Fecha de inicio"
+                                    type="date"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={date_end_projectRef}
+                                    label="Fecha de finalización"
+                                    type="date"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={durationRef}
+                                    label="Duración del proyecto"
+                                    type="text"
+                                    required
+                                />
+                            </div>
                         </div>
 
-                        <div className="bg-light p-3 rounded">
-                            <ImageFormGroup
-                                eRef={company_logoRef}
-                                label="Logo de la empresa"
-                                aspect={16 / 9}
-                            />
-                            <InputFormGroup
-                                eRef={company_nameRef}
-                                label="Nombre de la empresa"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={company_summaryRef}
-                                label="Resumen de la empresa"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={company_percentageRef}
-                                label="Porcentaje de éxito"
-                                type="number"
-                                required
-                            />
-                            <InputFormGroup
-                                eRef={company_description_percentageRef}
-                                label="Descripción del porcentaje de éxito"
-                                required
-                            />
+                        {/* Información de la empresa */}
+                        <div className="card">
+                            <div className="card-header">
+                                <h6 className="mb-0">Información de la Empresa</h6>
+                            </div>
+                            <div className="card-body">
+                                <ImageFormGroup
+                                    eRef={company_logoRef}
+                                    label="Logo de la empresa"
+                                    aspect={16 / 9}
+                                />
+                                <InputFormGroup
+                                    eRef={company_nameRef}
+                                    label="Nombre de la empresa"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={company_summaryRef}
+                                    label="Resumen de la empresa"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={company_percentageRef}
+                                    label="Porcentaje de éxito"
+                                    type="number"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={company_description_percentageRef}
+                                    label="Descripción del porcentaje de éxito"
+                                    required
+                                />
+                                <SelectAPIFormGroup 
+                                    eRef={servicesRef} 
+                                    searchAPI='/api/admin/services/paginate' 
+                                    searchBy='name' 
+                                    label='Servicios incluidos' 
+                                    dropdownParent='#success-stories-container' 
+                                    tags
+                                    multiple 
+                                />
+                            </div>
                         </div>
-
                     </div>
 
-                    <div className="col-md-9">
-                        <ImageFormGroup
-                            eRef={imageRef}
-                            label="Imagen principal"
-                            aspect={16 / 9}
-                        />
-
-                        <InputFormGroup
-                            eRef={nameRef}
-                            label="Nombre del Caso de éxtio"
-                            required
-                        />
-                        <InputFormGroup
-                            eRef={summaryRef}
-                            label="Resumen del Caso de éxtio"
-                            required
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">Descripción</label>
-                            <textarea
-                                ref={descriptionRef}
-                                className="form-control"
-                                rows={4}
-                                required
-                            />
-                        </div>
-                        <div className="row mt-3">
-
-                            <div className="col-md-12">
-                                <div className="col-md-12">
-                                    <InputFormGroup
-                                        eRef={title_benefitsRef}
-                                        label="Título de beneficios"
+                    {/* Columna derecha - Contenido principal */}
+                    <div className="col-md-8">
+                        {/* Información básica del caso de éxito */}
+                        <div className="card mb-4">
+                            <div className="card-header">
+                                <h6 className="mb-0">Información General</h6>
+                            </div>
+                            <div className="card-body">
+                                <ImageFormGroup
+                                    eRef={imageRef}
+                                    label="Imagen principal"
+                                    aspect={16 / 9}
+                                />
+                                <InputFormGroup
+                                    eRef={nameRef}
+                                    label="Nombre del Caso de éxito"
+                                    required
+                                />
+                                <InputFormGroup
+                                    eRef={summaryRef}
+                                    label="Resumen del Caso de éxito"
+                                    required
+                                />
+                                <div className="mb-3">
+                                    <label className="form-label">Descripción *</label>
+                                    <textarea
+                                        ref={descriptionRef}
+                                        className="form-control"
+                                        rows={4}
                                         required
                                     />
-                                    <div className="mb-3">
-                                        <label className="form-label">
-                                            Descripción de beneficios
-                                        </label>
-                                        <textarea
-                                            ref={description_benefitsRef}
-                                            className="form-control"
-                                            rows={4}
-                                            required
-                                        />
-                                    </div>
                                 </div>
-                                <h5 className="mb-3 mt-4">Beneficios</h5>
+                            </div>
+                        </div>
+
+                        {/* Sección de beneficios */}
+                        <div className="card mb-4">
+                            <div className="card-header">
+                                <h6 className="mb-0">Beneficios</h6>
+                            </div>
+                            <div className="card-body">
+                                <InputFormGroup
+                                    eRef={title_benefitsRef}
+                                    label="Título de beneficios"
+                                    required
+                                />
+                                <div className="mb-3">
+                                    <label className="form-label">Descripción de beneficios *</label>
+                                    <textarea
+                                        ref={description_benefitsRef}
+                                        className="form-control"
+                                        rows={3}
+                                        required
+                                    />
+                                </div>
+                                
+                                <h6 className="mb-3">Lista de Beneficios</h6>
                                 {benefits.map((benefit, index) => (
                                     <FeatureCard
                                         key={`benefit-${index}`}
@@ -712,92 +796,83 @@ const SuccessStories = ({ brands }) => {
                                         onRemove={removeBenefit}
                                         canRemove={benefits.length > 1}
                                         type="benefit"
-                                        // characteristics={characteristics}
                                         benefits={benefits}
-                                        //addCharacteristic={addCharacteristic}
                                         addBenefit={addBenefit}
                                     />
                                 ))}
                             </div>
                         </div>
 
-                        <div className="row mt-4 bg-primary p-2 rounded mb-4">
-                            <div className="col-md-8 ">
-                                <InputFormGroup
-                                    eRef={title_challengesRef}
-                                    label="Título del desafío"
-                                    required
-                                />
-                                <div className="mb-3">
-                                    <label className="form-label">
-                                        Descripción del desafío
-                                    </label>
-                                    <textarea
-                                        ref={description_challengesRef}
-                                        className="form-control"
-                                        rows={4}
-                                        required
-                                    />
-                                </div>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <h5 className="mb-3 mt-4">Soluciones</h5>
-                                        {solutions.map((char, index) => (
-                                            <FeatureCard
-                                                key={`char-${index}`}
-                                                feature={char}
-                                                index={index}
-                                                onUpdate={updateSolution}
-                                                onRemove={removeSolution}
-                                                canRemove={solutions.length > 1}
-                                                type="solution"
-                                                solutions={solutions}
-                                                addSolution={addSolution}
-                                            />
-                                        ))}
-                                    </div>
-                                    <div className="col-md-6">
-
-                                        <h5 className="mb-3 mt-4">Desafíos</h5>
-                                        {challenges.map((char, index) => (
-                                            <FeatureCard
-                                                key={`char-${index}`}
-                                                feature={char}
-                                                index={index}
-                                                onUpdate={updateChallenge}
-                                                onRemove={removeChallenge}
-                                                canRemove={challenges.length > 1}
-                                                type="challenge"
-                                                challenges={challenges}
-                                                addChallenge={addChallenge}
-                                            />
-                                        ))}
-                                    </div>
-                                </div>
-
-
-
-
+                        {/* Sección de desafíos y soluciones */}
+                        <div className="card">
+                            <div className="card-header bg-primary text-white">
+                                <h6 className="mb-0 text-white">Desafíos y Soluciones</h6>
                             </div>
-                            <div className="col-md-4">
-
-                                <ImageFormGroup
-                                    eRef={image_challengesRef}
-                                    label="Imagen del desafío"
-                                    aspect={9 / 16}
-                                />
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <InputFormGroup
+                                            eRef={title_challengesRef}
+                                            label="Título del desafío"
+                                            required
+                                        />
+                                        <div className="mb-4">
+                                            <label className="form-label">Descripción del desafío *</label>
+                                            <textarea
+                                                ref={description_challengesRef}
+                                                className="form-control"
+                                                rows={3}
+                                                required
+                                            />
+                                        </div>
+                                        
+                                        <div className="row">
+                                            <div className="col-md-6">
+                                                <h6 className="mb-3">Desafíos</h6>
+                                                {challenges.map((char, index) => (
+                                                    <FeatureCard
+                                                        key={`challenge-${index}`}
+                                                        feature={char}
+                                                        index={index}
+                                                        onUpdate={updateChallenge}
+                                                        onRemove={removeChallenge}
+                                                        canRemove={challenges.length > 1}
+                                                        type="challenge"
+                                                        challenges={challenges}
+                                                        addChallenge={addChallenge}
+                                                    />
+                                                ))}
+                                            </div>
+                                            <div className="col-md-6">
+                                                <h6 className="mb-3">Soluciones</h6>
+                                                {solutions.map((char, index) => (
+                                                    <FeatureCard
+                                                        key={`solution-${index}`}
+                                                        feature={char}
+                                                        index={index}
+                                                        onUpdate={updateSolution}
+                                                        onRemove={removeSolution}
+                                                        canRemove={solutions.length > 1}
+                                                        type="solution"
+                                                        solutions={solutions}
+                                                        addSolution={addSolution}
+                                                    />
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <ImageFormGroup
+                                            eRef={image_challengesRef}
+                                            label="Imagen del desafío"
+                                            aspect={9 / 16}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-
-
-
                     </div>
-
-
                 </div>
-
-
             </Modal>
         </>
     );

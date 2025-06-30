@@ -39,6 +39,8 @@ const DragDropImage = ({
                     aspectRatio: aspect,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
+                    backdropFilter: "blur(5px)",
+                    backgroundColor: "rgba(0, 0, 0, 0.2)",
                     backgroundImage: currentImage
                         ? `url(${
                               typeof currentImage === "string"
