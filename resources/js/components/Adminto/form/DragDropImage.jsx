@@ -51,13 +51,19 @@ const DragDropImage = ({
                 <input {...getInputProps()} />
 
                 {!currentImage && (
-                    <div>
+                    <div className="aspect-square">
                         {isDragActive ? (
                             <p>Suelta la imagen aquí...</p>
                         ) : (
-                            <p>
-                                Arrastra una imagen o haz clic para seleccionar
-                            </p>
+                             <img  className="d-block" src="/api/service/media/undefined" alt="aspect-video"  style={{
+        width: '100%',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        aspectRatio:1,
+        objectFit: 'cover',
+    
+        objectPosition: 'center'
+      }} />
                         )}
                     </div>
                 )}

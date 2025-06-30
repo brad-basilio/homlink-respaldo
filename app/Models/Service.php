@@ -31,7 +31,7 @@ class Service extends Model
         'customer_relation',*/
         'benefits',
         'image_secondary',
-        /*'image_banner',
+        'image_banner',/*
         'category_service_id',
         'title_second',
         'description_second',*/

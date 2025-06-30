@@ -26,7 +26,7 @@ class ServiceController extends BasicController
     public function beforeSave(Request $request)
     {
         $body = $request->all();
-dump($body);
+
         // Procesar galería de imágenes
         $gallery = [];
         // En ServiceController.php

@@ -2,15 +2,20 @@ import React from "react";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 import { WhatsAppButtonWithArrow } from "../../Shared/WhatsAppButton";
 
-const ServiceSeccionEnfoque = ({service}) => {
+const ServiceSeccionEnfoque = ({ service }) => {
     return (
         <section className="w-full bg-white font-paragraph px-[5%] py-12 flex flex-col lg:flex-row items-center gap-12 lg:gap-16 max-w-[1600px] mx-auto">
             {/* Imagen */}
             <div className="order-1 lg:order-none min-w-[320px] max-w-[600px] w-full">
                 <img
-                    src="/assets/cambiogerencia/enfoque-servicios.webp"
+                    src={`/api/service/media/${service?.image_banner}`}
                     alt="Manos con hilos rojos"
                     className="rounded-xl w-full aspect-[3/4]  lg:aspect-[5/4] object-cover shadow-md"
+
+                    onError={(e) =>
+                    (e.target.src =
+                        "/assets/cambiogerencia/enfoque-servicios.webp")
+                    }
                 />
             </div>
             {/* Contenido */}
@@ -29,29 +34,29 @@ const ServiceSeccionEnfoque = ({service}) => {
                 </div>
                 <h2 className="text-[30px] max-w-xl lg:text-[52px] font-medium mb-6 leading-tight italic">
                     <TextWithHighlight text={service?.title_approach} />
-                 
+
                 </h2>
                 <p className="text-lg text-neutral mb-6 font-light">
-{service?.description_approach}
+                    {service?.description_approach}
                 </p>
                 <div className="grid grid-cols-2 gap-x-8 gap-y-4 mb-8 w-full max-w-md text-base">
 
                     {service?.characteristics_approach?.map((value, index) => (
- <div className="flex items-center gap-4">
-                        <span className="text-accent">
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        </span>
-                        <span className=" text-neutral-dark">{value.title}</span>
-                    </div>
-                   ) )}
-                   
-                   
+                        <div className="flex items-center gap-4">
+                            <span className="text-accent">
+                                <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#D62828" /><path d="M8.5 12.5l2 2 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                            </span>
+                            <span className=" text-neutral-dark">{value.title}</span>
+                        </div>
+                    ))}
+
+
                 </div>
                 <div className='w-full'>
                     <WhatsAppButtonWithArrow variant="accent" className="bg-accent flex items-center gap-2 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-red-600 transition duration-300 ease-in-out text-sm sm:text-base">
-                                                            Solicita una consulta gratuita
-                                                          </WhatsAppButtonWithArrow>
-                                            
+                        Solicita una consulta gratuita
+                    </WhatsAppButtonWithArrow>
+
                 </div>
             </div>
         </section>

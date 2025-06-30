@@ -29,10 +29,8 @@ const FeatureCard = ({
     benefits,
     addCharacteristic,
     addBenefit,
-
     addStep,
     steps,
-
 }) => {
     const handleFieldChange = (field, value) => {
         onUpdate(index, field, value);
@@ -42,88 +40,110 @@ const FeatureCard = ({
         onUpdate(index, "image", imageData);
     };
 
-    return (
-        <div className="card mb-3">
-            <div className="card-body">
-                <div className="row">
+    const getCardIcon = () => {
+        switch (type) {
+            case "characteristic": return "fas fa-check-circle text-success";
+            case "benefit": return "fas fa-star text-warning";
+            case "step": return "fas fa-arrow-right text-primary";
+            default: return "fas fa-circle";
+        }
+    };
 
-                    {(type === "characteristic" ? (
-                        <div className="col-md-12">
+    const getCardTitle = () => {
+        switch (type) {
+            case "characteristic": return "Característica";
+            case "benefit": return "Beneficio";
+            case "step": return "Paso";
+            default: return "Item";
+        }
+    };
+
+    return (
+        <div className="card border shadow-sm h-100">
+            <div className="card-header bg-transparent border-bottom-0 pb-0">
+                <div className="d-flex align-items-center justify-content-between">
+                    <h6 className="card-title mb-0">
+                        <i className={getCardIcon() + " me-2"}></i>
+                        {getCardTitle()} {index + 1}
+                    </h6>
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-outline-danger rounded-circle d-flex align-items-center justify-content-center"
+                        onClick={() => onRemove(index)}
+                        disabled={!canRemove}
+                        title="Eliminar"
+                        style={{ width: '30px', height: '30px' }}
+                    >
+                        <i className="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div className="card-body pt-2">
+                {type === "characteristic" ? (
+                    <div className="mb-3">
+                        <InputFormGroup
+                            label="Título de la característica"
+                            value={feature.title}
+                            onChange={(e) =>
+                                handleFieldChange("title", e.target.value)
+                            }
+                            placeholder="Ingresa el título..."
+                        />
+                    </div>
+                ) : (
+                    <div className="row">
+                        <div className="col-lg-8 mb-3">
                             <InputFormGroup
                                 label="Título"
                                 value={feature.title}
                                 onChange={(e) =>
                                     handleFieldChange("title", e.target.value)
                                 }
+                                placeholder="Ingresa el título..."
                             />
-                        </div>) : (
-                        <>
-                            <div className="col-md-6">
-                                <InputFormGroup
-                                    label="Título"
-                                    value={feature.title}
-                                    onChange={(e) =>
-                                        handleFieldChange("title", e.target.value)
-                                    }
-                                />
-                                <div className="mb-3">
-                                    <label className="form-label">Descripción</label>
-                                    <textarea
-                                        className="form-control"
-                                        rows={3}
-                                        value={feature.description}
-                                        onChange={(e) =>
-                                            handleFieldChange(
-                                                "description",
-                                                e.target.value
-                                            )
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <DragDropImage
-                                    label="Imagen"
-                                    currentImage={feature.image}
-                                    onChange={handleImageChange}
-                                    aspect={16 / 9}
-                                />
-                            </div>
-                        </>
-                    ))}
-                </div>
-                <div className="d-flex justify-content-between">
+
+                            <label className="form-label fw-semibold">Descripción</label>
+                            <textarea
+                                className="form-control"
+                                rows={3}
+                                value={feature.description}
+                                onChange={(e) =>
+                                    handleFieldChange("description", e.target.value)
+                                }
+                                placeholder="Describe brevemente..."
+                            />
+                        </div>
+
+                        <div className="col-lg-3">
+                            <DragDropImage
+                                label="Imagen"
+                                currentImage={feature.image}
+                                onChange={handleImageChange}
+                                aspect={1}
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+            <div className="card-footer bg-transparent border-top-0 pt-0">
+                {(type === "characteristic" && index === characteristics.length - 1) ||
+                    (type === "benefit" && index === benefits.length - 1) ||
+                    (type === "step" && index === steps.length - 1) ? (
                     <button
                         type="button"
-                        className="btn btn-sm btn-outline-danger"
-                        onClick={() => onRemove(index)}
-                        disabled={!canRemove}
-                    >
-                        Eliminar
-                    </button>
-                    {(type === "characteristic" &&
-                        index === characteristics.length - 1) ||
-                        (type === "benefit" && index === benefits.length - 1) || (type === "step" && index === steps.length - 1) ? (
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-outline-primary"
-                            onClick={
-                                type === "characteristic"
-                                    ? addCharacteristic
-                                    : type === "benefit"
-                                        ? addBenefit
-                                        : addStep
-                            }
-                        >
-                            Agregar{" "}
-                            {type === "characteristic"
-                                ? "Característica"
+                        className="btn btn-sm btn-outline-primary w-100"
+                        onClick={
+                            type === "characteristic"
+                                ? addCharacteristic
                                 : type === "benefit"
-                                    ? "Beneficio"
-                                    : "Paso"}
-                        </button>
-                    ) : null}
-                </div>
+                                    ? addBenefit
+                                    : addStep
+                        }
+                    >
+                        <i className="fas fa-plus me-2"></i>
+                        Agregar {getCardTitle()}
+                    </button>
+                ) : null}
             </div>
         </div>
     );
@@ -163,6 +183,7 @@ const Services = ({ brands }) => {
 
     // Refs para imágenes - igual que en el primer código
     const imageRef = useRef();
+    const imageEnfoqueRef = useRef();
     const imageSecondaryRef = useRef();
     // const imageBannerRef = useRef();
 
@@ -287,8 +308,9 @@ const Services = ({ brands }) => {
         description_methodologyRef.current.value = data?.description_methodology ?? "";
         // Manejo de imágenes como en el primer código
         imageRef.image.src = `/api/service/media/${data?.image ?? "undefined"}`;
-         imageSecondaryRef.image.src = `/api/service/media/${data?.image_secondary ?? "undefined"
-             }`;
+        imageEnfoqueRef.image.src = `/api/service/media/${data?.image_banner ?? "undefined"}`;
+        imageSecondaryRef.image.src = `/api/service/media/${data?.image_secondary ?? "undefined"
+            }`;
         /* imageBannerRef.image.src = `/api/service/media/${data?.image_banner ?? "undefined"
              }`;*/
 
@@ -386,8 +408,11 @@ const Services = ({ brands }) => {
         const image = imageRef.current.files[0];
         if (image) formData.append("image", image);
 
+        const imageEnfoque = imageEnfoqueRef.current.files[0];
+        if (imageEnfoque) formData.append("image_banner", imageEnfoque);
+
         const imageSecondary = imageSecondaryRef.current.files[0];
-          if (imageSecondary) formData.append("image_secondary", imageSecondary);
+        if (imageSecondary) formData.append("image_secondary", imageSecondary);
 
         /* const imageBanner = imageBannerRef.current.files[0];
          if (imageBanner) formData.append("image_banner", imageBanner);*/
@@ -482,6 +507,21 @@ const Services = ({ brands }) => {
         $(gridRef.current).dxDataGrid("instance").refresh();
     };
 
+
+      const onDeleteClicked = async (id) => {
+            const { isConfirmed } = await Swal.fire({
+                title: "Eliminar Servicio",
+                text: "¿Estás seguro de eliminar este Servicio?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar",
+            });
+            if (!isConfirmed) return;
+            const result = await servicesRest.delete(id);
+            if (!result) return;
+            $(gridRef.current).dxDataGrid("instance").refresh();
+        };
     return (
         <>
             <Table
@@ -517,6 +557,11 @@ const Services = ({ brands }) => {
                         dataField: "id",
                         caption: "ID",
                         visible: false,
+                    },
+                    {
+                        dataField: "name",
+                        caption: "Nombre del servicio",
+                        width: "200px",
                     },
                     {
                         dataField: "title",
@@ -613,263 +658,276 @@ const Services = ({ brands }) => {
                 modalRef={modalRef}
                 title={isEditing ? "Editar Servicio" : "Nuevo Servicio"}
                 onSubmit={onModalSubmit}
-                size="lg"
+                size="xl"
             >
                 <input ref={idRef} type="hidden" />
 
-                <div className="row" id="service-container">
-                    <div className="col-md-6">
-                        {/* <SelectAPIFormGroupSupport
-                            eRef={categoryRef}
-                            dropdownParent="#service-container"
-                            label="Categoría"
-                            searchAPI="/api/admin/category_services/paginate"
-                            searchBy="name"
-                            allowCreate
-                            onChange={(categoryName) =>
-                                setSelectedCategory(categoryName)
-                            }
-                            initialValue={selectedItem?.category?.name || ""}
-                        /> */}
-                        <InputFormGroup
-                            eRef={nameRef}
-                            label="Nombre del servicio"
-                            required
-                        />
-                        <InputFormGroup
-                            eRef={titleRef}
-                            label="Título del servicio"
-                            required
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">Descripción</label>
-                            <textarea
-                                ref={descriptionRef}
-                                className="form-control"
-                                rows={4}
-                                required
-                            />
-                        </div>
+                {/* Pestañas de navegación */}
+                <ul className="nav nav-tabs nav-justified" id="serviceModalTabs" role="tablist">
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link active" id="basic-tab" data-bs-toggle="tab" data-bs-target="#basic-tab-pane" type="button" role="tab">
+                            <i className="fas fa-info-circle me-1"></i>
+                            Información Básica
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link" id="approach-tab" data-bs-toggle="tab" data-bs-target="#approach-tab-pane" type="button" role="tab">
+                            <i className="fas fa-bullseye me-1"></i>
+                            Enfoque
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link" id="benefits-tab" data-bs-toggle="tab" data-bs-target="#benefits-tab-pane" type="button" role="tab">
+                            <i className="fas fa-star me-1"></i>
+                            Beneficios
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button className="nav-link" id="methodology-tab" data-bs-toggle="tab" data-bs-target="#methodology-tab-pane" type="button" role="tab">
+                            <i className="fas fa-tasks me-1"></i>
+                            Metodología
+                        </button>
+                    </li>
 
-                        <ImageFormGroup
-                            eRef={imageRef}
-                            label="Imagen principal"
-                            aspect={16 / 9}
-                        />
-                         <ImageFormGroup
-                            eRef={imageSecondaryRef}
-                            label="Icono del servicio"
-                            aspect={1}
-                        />
-                    </div>
-                    {/*  <div className="col-md-6">
-                        <InputFormGroup
-                            eRef={howItHelpsRef}
-                            label="Cómo ayuda"
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">
-                                Descripción de ayuda
-                            </label>
-                            <textarea
-                                ref={descriptionHelpsRef}
-                                className="form-control"
-                                rows={4}
-                            />
-                        </div>
-                    </div> */}
-                    <div className="col-md-6">
-                        <InputFormGroup
-                            eRef={title_approachRef}
-                            label="Título del enfoque"
-                            required
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">
-                                Descripción del enfoque
-                            </label>
-                            <textarea
-                                ref={description_approachRef}
-                                className="form-control"
-                                rows={4}
-                                required
-                            />
-                        </div>
-  <h5 className="mb-3 mt-4">Caracteristicas</h5>
-                        {characteristics.map((char, index) => (
-                            <FeatureCard
-                                key={`char-${index}`}
-                                feature={char}
-                                index={index}
-                                onUpdate={updateCharacteristic}
-                                onRemove={removeCharacteristic}
-                                canRemove={characteristics.length > 1}
-                                type="characteristic"
-                                characteristics={characteristics}
-                                // benefits={benefits}
-                                addCharacteristic={addCharacteristic}
-                            // addBenefit={addBenefit}
-                            />
-                        ))}
-                    </div>
-                </div>
+                </ul>
 
-                {/*                <div className="row mt-3">
-                    <div className="col-md-12">
-                        <InputFormGroup
-                            eRef={titlesecondRef}
-                            label="Título complementario"
-                            required
-                        />
-                        <div className="mb-3">
-                            <label className="form-label">Descripción complementaria</label>
-                            <textarea
-                                ref={descriptionsecondRef}
-                                className="form-control"
-                                rows={4}
-                                required
-                            />
+                {/* Contenido de las pestañas */}
+                <div className="tab-content mt-3" id="serviceModalTabsContent">
+
+                    {/* Pestaña 1: Información Básica */}
+                    <div className="tab-pane fade show active" id="basic-tab-pane" role="tabpanel" aria-labelledby="basic-tab">
+                        <div className="card border-0 bg-light">
+                            <div className="card-body">
+                                <h5 className="card-title text-primary mb-3">
+                                    <i className="fas fa-info-circle me-2"></i>
+                                    Información General del Servicio
+                                </h5>
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        <div className="mb-4">
+                                            <h6 className="fw-bold text-muted mb-3">Datos Principales</h6>
+                                            <InputFormGroup
+                                                eRef={nameRef}
+                                                label="Nombre del servicio"
+                                                required
+                                            />
+                                            <InputFormGroup
+                                                eRef={titleRef}
+                                                label="Título del servicio"
+                                                required
+                                            />
+                                            <div className="mb-3">
+                                                <label className="form-label fw-semibold">Descripción del servicio</label>
+                                                <textarea
+                                                    ref={descriptionRef}
+                                                    className="form-control"
+                                                    rows={4}
+                                                    placeholder="Describe brevemente el servicio..."
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-lg-6">
+                                        <div className="mb-4">
+                                            <h6 className="fw-bold text-muted mb-3">Imágenes del Servicio</h6>
+                                            <div className="row">
+                                                <div className="mb-3 col-lg-6">
+                                                    <ImageFormGroup
+                                                        eRef={imageRef}
+                                                        label="Imagen principal"
+                                                        aspect={1}
+                                                    />
+                                                    <small className="text-muted">
+                                                        <i className="fas fa-info-circle me-1"></i>
+                                                        Imagen que representa el servicio
+                                                    </small>
+                                                </div>
+                                                <div className="mb-3 col-lg-6">
+                                                    <ImageFormGroup
+                                                        eRef={imageSecondaryRef}
+                                                        label="Icono del servicio"
+                                                        aspect={1}
+                                                    />
+                                                    <small className="text-muted">
+                                                        <i className="fas fa-info-circle me-1"></i>
+                                                        Icono cuadrado para representar el servicio
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div> */}
 
+                    {/* Pestaña 2: Enfoque */}
+                    <div className="tab-pane fade" id="approach-tab-pane" role="tabpanel" aria-labelledby="approach-tab">
+                        <div className="card border-0 bg-light">
+                            <div className="card-body">
+                                <h5 className="card-title text-primary mb-3">
+                                    <i className="fas fa-bullseye me-2"></i>
+                                    Enfoque del Servicio
+                                </h5>
+                                <div className="row mb-4">
+                                    <div className="col-lg-8">
+                                        <InputFormGroup
+                                            eRef={title_approachRef}
+                                            label="Título del enfoque"
+                                            required
+                                        />
 
-                {/*   <div className="row mt-3">
-                    <div className="col-md-6">
-                        <ImageFormGroup
-                            eRef={imageRef}
-                            label="Imagen principal"
-                            aspect={16 / 9}
-                        />
-                    </div>
-                 <div className="col-md-6">
-                        <ImageFormGroup
-                            eRef={imageSecondaryRef}
-                            label="Imagen secundaria"
-                            aspect={16 / 9}
-                        />
-                    </div>
-                    <div className="col-md-12 mt-3">
-                        <ImageFormGroup
-                            eRef={imageBannerRef}
-                            label="Banner"
-                            aspect={16 / 9}
-                        />
-                    </div>
-                </div> */}
+                                        <div className="mb-3">
+                                            <label className="form-label fw-semibold">Descripción del enfoque</label>
+                                            <textarea
+                                                ref={description_approachRef}
+                                                className="form-control"
+                                                rows={6}
+                                                placeholder="Explica el enfoque del servicio..."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className=" col-lg-4">
+                                        <ImageFormGroup
+                                            eRef={imageEnfoqueRef}
+                                            label="Imagen del enfoque al servicio"
+                                            aspect={4 / 3}
+                                        />
 
-                <div className="row mt-3">
+                                    </div>
+                                </div>
 
-                    <div className="col-md-12">
-                        <InputFormGroup
-                            eRef={title_methodologyRef}
-                            label="Título de metodología"
-                            required
-                        />
-                    </div>
-                    <div className="col-md-12">
-                        <div className="mb-3">
-                            <label className="form-label">
-                                Descripción de metodología
-                            </label>
-                            <textarea
-                                ref={description_methodologyRef}
-                                className="form-control"
-                                rows={4}
-                                required
-                            />
+                                <div className="border-top pt-4">
+                                    <h6 className="fw-bold text-muted mb-3">
+                                        <i className="fas fa-list-check me-2"></i>
+                                        Características del Enfoque
+                                    </h6>
+                                    <div className="row">
+                                        {characteristics.map((char, index) => (
+                                            <div key={`char-${index}`} className="col-lg-6 mb-3">
+                                                <FeatureCard
+                                                    feature={char}
+                                                    index={index}
+                                                    onUpdate={updateCharacteristic}
+                                                    onRemove={removeCharacteristic}
+                                                    canRemove={characteristics.length > 1}
+                                                    type="characteristic"
+                                                    characteristics={characteristics}
+                                                    addCharacteristic={addCharacteristic}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                      <h5 className="mb-3 mt-4">Paso a paso</h5>
-                    {steps.map((step, index) => (
-                        <FeatureCard
-                            key={`step-${index}`}
-                            feature={step}
-                            index={index}
-                            onUpdate={updateStep}
-                            onRemove={removeStep}
-                            canRemove={steps.length > 1}
-                            type="step"
-                            // characteristics={characteristics}
-                            //benefits={benefits}
-                            //addCharacteristic={addCharacteristic}
-                            addStep={addStep}
-                            steps={steps}
-                        />
-                    ))}
-                </div>
 
+                    {/* Pestaña 3: Metodología */}
+                    <div className="tab-pane fade" id="methodology-tab-pane" role="tabpanel" aria-labelledby="methodology-tab">
+                        <div className="card border-0 bg-light">
+                            <div className="card-body">
+                                <h5 className="card-title text-primary mb-3">
+                                    <i className="fas fa-tasks me-2"></i>
+                                    Metodología del Servicio
+                                </h5>
+                                <div className="row mb-4">
+                                    <div className="col-lg-12">
+                                        <InputFormGroup
+                                            eRef={title_methodologyRef}
+                                            label="Título de metodología"
+                                            required
+                                        />
+                                    </div>
+                                    <div className="col-lg-12">
+                                        <div className="mb-3">
+                                            <label className="form-label fw-semibold">Descripción de metodología</label>
+                                            <textarea
+                                                ref={description_methodologyRef}
+                                                className="form-control"
+                                                rows={4}
+                                                placeholder="Describe la metodología utilizada..."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
-
-
-                <div className="row mt-3">
-                    {/* <div className="col-12">
-                        <InputFormGroup
-                            eRef={valuePropositionRef}
-                            label="Propuesta de valor"
-                        />
-                        <h5 className="mb-3">Características</h5>
-                        {characteristics.map((char, index) => (
-                            <FeatureCard
-                                key={`char-${index}`}
-                                feature={char}
-                                index={index}
-                                onUpdate={updateCharacteristic}
-                                onRemove={removeCharacteristic}
-                                canRemove={characteristics.length > 1}
-                                type="characteristic"
-                                characteristics={characteristics}
-                                benefits={benefits}
-                                addCharacteristic={addCharacteristic}
-                                addBenefit={addBenefit}
-                            />
-                        ))}
-                    </div>
-                 */}
-                </div>
-                <div className="row mt-3">
-                    {/*  <div className="col-md-6">
-                        <InputFormGroup
-                            eRef={innovationFocusRef}
-                            label="Enfoque de innovación"
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <div className="mb-3">
-                            <label className="form-label">
-                                Relación con el cliente
-                            </label>
-                            <textarea
-                                ref={customerRelationRef}
-                                className="form-control"
-                                rows={5}
-                            />
+                                <div className="border-top pt-4">
+                                    <h6 className="fw-bold text-muted mb-3">
+                                        <i className="fas fa-route me-2"></i>
+                                        Pasos de la Metodología
+                                    </h6>
+                                    <div className="row">
+                                        {steps.map((step, index) => (
+                                            <div key={`step-${index}`} className="col-lg-6 mb-3">
+                                                <div className="position-relative">
+                                                    <span className="badge bg-primary position-absolute" style={{ top: '-5px', left: '-5px', zIndex: 10 }}>
+                                                        {index + 1}
+                                                    </span>
+                                                    <FeatureCard
+                                                        feature={step}
+                                                        index={index}
+                                                        onUpdate={updateStep}
+                                                        onRemove={removeStep}
+                                                        canRemove={steps.length > 1}
+                                                        type="step"
+                                                        addStep={addStep}
+                                                        steps={steps}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div> */}
-                    <div className="col-md-12">
-                        <div className="col-md-12">
-                            <InputFormGroup
-                                eRef={title_benefitsRef}
-                                label="Título de beneficios"
-                                required
-                            />
+                    </div>
+
+                    {/* Pestaña 4: Beneficios */}
+                    <div className="tab-pane fade" id="benefits-tab-pane" role="tabpanel" aria-labelledby="benefits-tab">
+                        <div className="card border-0 bg-light">
+                            <div className="card-body">
+                                <h5 className="card-title text-primary mb-3">
+                                    <i className="fas fa-star me-2"></i>
+                                    Beneficios del Servicio
+                                </h5>
+                                <div className="row mb-4">
+                                    <div className="col-lg-12">
+                                        <InputFormGroup
+                                            eRef={title_benefitsRef}
+                                            label="Título de beneficios"
+                                            required
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="border-top pt-4">
+                                    <h6 className="fw-bold text-muted mb-3">
+                                        <i className="fas fa-thumbs-up me-2"></i>
+                                        Lista de Beneficios
+                                    </h6>
+                                    <div className="row">
+                                        {benefits.map((benefit, index) => (
+                                            <div key={`benefit-${index}`} className="col-lg-6 mb-3">
+                                                <FeatureCard
+                                                    feature={benefit}
+                                                    index={index}
+                                                    onUpdate={updateBenefit}
+                                                    onRemove={removeBenefit}
+                                                    canRemove={benefits.length > 1}
+                                                    type="benefit"
+                                                    benefits={benefits}
+                                                    addBenefit={addBenefit}
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h5 className="mb-3 mt-4">Beneficios</h5>
-                        {benefits.map((benefit, index) => (
-                            <FeatureCard
-                                key={`benefit-${index}`}
-                                feature={benefit}
-                                index={index}
-                                onUpdate={updateBenefit}
-                                onRemove={removeBenefit}
-                                canRemove={benefits.length > 1}
-                                type="benefit"
-                                // characteristics={characteristics}
-                                benefits={benefits}
-                                //addCharacteristic={addCharacteristic}
-                                addBenefit={addBenefit}
-                            />
-                        ))}
                     </div>
                 </div>
             </Modal>
