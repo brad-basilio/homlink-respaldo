@@ -33,7 +33,8 @@ const ImageFormGroup = ({ id, col, label, eRef, required = false, onChange = () 
         cursor: 'pointer',
         aspectRatio: aspect,
         objectFit: fit,
-        objectPosition: 'center'
+        objectPosition: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
       }} />
     </label>
     <input ref={eRef} id={id} type="file" src="" alt="" hidden accept="image/*" onChange={onImageChange} />

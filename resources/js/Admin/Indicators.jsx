@@ -136,34 +136,44 @@ const Indicators = () => {
                         caption: "ID",
                         visible: false,
                     },
-                     {
-                       dataField: "symbol",
+                    {
+                        dataField: "symbol",
                         caption: "Imagen",
                         width: "60px",
-                    allowFiltering: false,
-                       cellTemplate: (container, { data }) => {
-                         ReactAppend(
+                        allowFiltering: false,
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
                                 container,
-                              <img
-                               style={{
-                                     aspectRatio: 1,
-                                        objectFit: "contain",
-                                      objectPosition: "center",
-                                    borderRadius: "4px",
-                                   }}
-                               />
+                                <img
+                                    style={{
+                                       
+                                        objectFit: "cover",
+                                        objectPosition: "center",
+                                      
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                        width: "100%",
+                                        height: "auto",
+                                    }}
+                                    src={`/api/indicator/media/${data.symbol}`}
+                                    alt={data.name}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
+                                  
+                                />
                             );
                         },
-                     },
+                    },
                     {
                         dataField: "name",
                         caption: "Titulo",
                     },
-                      {
+                    {
                         dataField: "percentage",
                         caption: "Porcentaje",
                     },
-                      {
+                    {
                         dataField: "description",
                         caption: "Descripción",
                     },
@@ -251,8 +261,8 @@ const Indicators = () => {
                     <div className="col-md-8">
                         <InputFormGroup eRef={nameRef} label="Título" />
                         {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
-                       
-                         <InputFormGroup
+
+                        <InputFormGroup
 
                             eRef={percentageRef}
                             type="number"

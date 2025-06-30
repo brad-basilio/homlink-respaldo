@@ -135,14 +135,21 @@ const CoreValues = () => {
                             ReactAppend(
                                 container,
                                 <img
-                                    src={`/api/core_value/media/${data.image}`}
-                                    style={{
-                                        width: "90px",
-                                        aspectRatio: 1,
-                                        objectFit: "contain",
+                                   style={{
+                                       
+                                        objectFit: "cover",
                                         objectPosition: "center",
-                                        borderRadius: "4px",
+                                      
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                        width: "100%",
+                                        height: "auto",
                                     }}
+                                    src={`/api/core_value/media/${data.image}`}
+                                    alt={data.name}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                             );
                         },

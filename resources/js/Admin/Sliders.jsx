@@ -192,6 +192,7 @@ const Sliders = () => {
                                         objectFit: "cover",
                                         objectPosition: "center",
                                         borderRadius: "4px",
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
                                     }}
                                     onError={(e) =>
                                     (e.target.src =

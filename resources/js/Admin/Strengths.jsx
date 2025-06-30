@@ -134,14 +134,21 @@ const Strengths = () => {
                             ReactAppend(
                                 container,
                                 <img
-                                    src={`/api/strength/media/${data.image}`}
                                     style={{
-                                        width: "50px",
-                                        aspectRatio: 1,
-                                        objectFit: "contain",
+                                       
+                                        objectFit: "cover",
                                         objectPosition: "center",
-                                        borderRadius: "4px",
+                                      
+                                        backgroundColor: "rgba(0, 0, 0, 0.1)",
+                                        width: "100%",
+                                        height: "auto",
                                     }}
+                                    src={`/api/strength/media/${data.image}`}
+                                    alt={data.name}
+                                    onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                             );
                         },
