@@ -20,7 +20,7 @@ export default {
             },
             fontFamily: {
                 title: ["GeneralSans", "sans-serif"],
-                paragraph: ["GeneralSans", "sans-serif"],
+                paragraph: ["Archivo", "sans-serif"],
 
             },
             colors: {

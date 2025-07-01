@@ -188,7 +188,7 @@ const Header = ({
                 //const languages = await generalRest.getLanguages();
                 setSocials(data);
                 setGenerals(dataGenerals);
-     
+
                 setServicesData(dataServices);
                 setModalData(dataModal);
                 //  setLanguagesSystem(languages);
@@ -220,8 +220,8 @@ const Header = ({
     const ContactNumber = generals.find((general) => general.correlative === "phone_contact");
     const ContactEmail = generals.find((general) => general.correlative === "email_contact");
 
-    
-    
+    const Cintillo = generals.find((general) => general.correlative === "cintillo");
+
     useEffect(() => {
         const currentPath = window.location.pathname;
         setActiveLink(currentPath);
@@ -309,91 +309,35 @@ const Header = ({
     };
 
     const closeMegaMenu = () => setActiveMegaMenu(null);
-
+    const renderHighlightedText = (textToRender) => {
+        if (!textToRender) return null;
+        const parts = textToRender.split(/(\*[^*]+\*)/g); // separa todo lo entre *...*
+        return parts.map((part, index) =>
+            part.startsWith("*") && part.endsWith("*") ? (
+                <span key={index} className={`text-secondary`}>
+                    {part.slice(1, -1)}
+                </span>
+            ) : (
+                <span key={index}>{part}</span>
+            )
+        );
+    };
     return (
         <>
             <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight} z-[9999]`}>
                 {/* CINTILLO INICIO */}
-                <div className="bg-primary text-white text-xs md:text-sm py-2 md:py-3">
-                    <div className="px-[5%] mx-auto flex flex-row items-center justify-center md:justify-between">
-                        {/* Solo email y teléfono en mobile, todo en desktop */}
-                        <div className="flex flex-1 items-center justify-center gap-2 md:justify-start md:gap-4">
-                            <a href={`mailto:${ContactEmail?.description}`} className="flex items-center space-x-1">
-                                <svg width="14" height="16" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1 3L4.45651 4.96231C5.71935 5.67925 6.28065 5.67925 7.5435 4.96231L11 3" stroke="white" strokeWidth="0.75" strokeLinejoin="round" />
-                                    <path d="M5.25 10.25C5.01685 10.247 4.78341 10.2425 4.54942 10.2366C2.97517 10.197 2.18804 10.1772 1.62248 9.6092C1.05692 9.04115 1.04057 8.27435 1.00789 6.7407C0.997375 6.24755 0.99737 5.75735 1.00788 5.26421C1.04057 3.73056 1.05691 2.96374 1.62248 2.39569C2.18804 1.82765 2.97516 1.80786 4.54941 1.76829C5.51965 1.7439 6.48035 1.74391 7.4506 1.7683C9.02485 1.80787 9.81195 1.82766 10.3775 2.3957C10.9431 2.96374 10.9594 3.73057 10.9921 5.26422C10.9969 5.49126 10.9996 5.59825 11 5.75" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M9.5 9C9.5 9.4142 9.1642 9.75 8.75 9.75C8.3358 9.75 8 9.4142 8 9C8 8.5858 8.3358 8.25 8.75 8.25C9.1642 8.25 9.5 8.5858 9.5 9ZM9.5 9V9.25C9.5 9.6642 9.8358 10 10.25 10C10.6642 10 11 9.6642 11 9.25V9C11 7.75735 9.99265 6.75 8.75 6.75C7.50735 6.75 6.5 7.75735 6.5 9C6.5 10.2427 7.50735 11.25 8.75 11.25" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <span className="text-xs lg:text-base">{ContactEmail?.description}</span>
-                            </a>
-                            <span className="mx-1">|</span>
-                            <a href={`tel:${ContactNumber?.description}`} className="flex items-center  space-x-1">
-                                <svg width="14" height="16" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M9.52415 8.7461C10.127 8.17025 10.5 7.37475 10.5 6.4961C10.5 5.6174 10.127 4.82192 9.52415 4.24609M8.5 5.37109C8.80145 5.659 8.98795 6.05675 8.98795 6.4961C8.98795 6.93545 8.80145 7.3332 8.5 7.6211" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M8 4C8 2.82149 8 2.23223 7.6339 1.86611C7.26775 1.5 6.6785 1.5 5.5 1.5H4C2.82149 1.5 2.23223 1.5 1.86611 1.86611C1.5 2.23223 1.5 2.82149 1.5 4V9C1.5 10.1785 1.5 10.7677 1.86611 11.1339C2.23223 11.5 2.82149 11.5 4 11.5H5.5C6.6785 11.5 7.26775 11.5 7.6339 11.1339C8 10.7677 8 10.1785 8 9" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M5.75 1.5H3.75L4 2H5.5L5.75 1.5Z" stroke="white" strokeWidth="0.75" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <span className="text-xs lg:text-base">{ContactNumber?.description}</span>
-                            </a>
-                        </div>
-                        {/* Íconos sociales solo en desktop */}
-                        <div className="hidden md:flex items-center space-x-4">
-                            {/* Instagram */}
-                            {Instagram && (
-                                <>
-                                    <a href={Instagram.link} target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 flex gap-2 items-center " aria-label="Instagram">
-                                        <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 7.55C5.4375 7.55 4.95 7.1 4.95 6.5C4.95 5.9375 5.4 5.45 6 5.45C6.5625 5.45 7.05 5.9 7.05 6.5C7.05 7.0625 6.5625 7.55 6 7.55Z" fill="white" />
-                                            <path fillRule="evenodd" clipRule="evenodd" d="M7.275 3.95H4.725C4.425 3.9875 4.275 4.025 4.1625 4.0625C4.0125 4.1 3.9 4.175 3.7875 4.2875C3.69848 4.37652 3.65642 4.46554 3.60558 4.57314C3.59218 4.6015 3.57814 4.63122 3.5625 4.6625C3.5567 4.6799 3.55 4.6982 3.54282 4.71782C3.50359 4.825 3.45 4.97141 3.45 5.225V7.775C3.4875 8.075 3.525 8.225 3.5625 8.3375C3.6 8.4875 3.675 8.6 3.7875 8.7125C3.87652 8.80152 3.96554 8.84358 4.07314 8.89442C4.10152 8.90783 4.13119 8.92185 4.1625 8.9375C4.1799 8.9433 4.1982 8.95 4.21782 8.95718C4.325 8.99641 4.47141 9.05 4.725 9.05H7.275C7.575 9.0125 7.725 8.975 7.8375 8.9375C7.9875 8.9 8.1 8.825 8.2125 8.7125C8.30152 8.62348 8.34358 8.53446 8.39442 8.42686C8.40782 8.39849 8.42185 8.3688 8.4375 8.3375C8.4433 8.3201 8.45 8.30179 8.45718 8.28218C8.49641 8.175 8.55 8.02859 8.55 7.775V5.225C8.5125 4.925 8.475 4.775 8.4375 4.6625C8.4 4.5125 8.325 4.4 8.2125 4.2875C8.12348 4.19848 8.03446 4.15642 7.92686 4.10558C7.89852 4.09219 7.86875 4.07813 7.8375 4.0625C7.8201 4.0567 7.8018 4.05 7.78218 4.04282C7.675 4.00359 7.52859 3.95 7.275 3.95ZM6 4.8875C5.1 4.8875 4.3875 5.6 4.3875 6.5C4.3875 7.4 5.1 8.1125 6 8.1125C6.9 8.1125 7.6125 7.4 7.6125 6.5C7.6125 5.6 6.9 4.8875 6 4.8875ZM8.025 4.85C8.025 5.05711 7.85711 5.225 7.65 5.225C7.44289 5.225 7.275 5.05711 7.275 4.85C7.275 4.64289 7.44289 4.475 7.65 4.475C7.85711 4.475 8.025 4.64289 8.025 4.85Z" fill="white" />
-                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM4.725 3.3875H7.275C7.6125 3.425 7.8375 3.4625 8.025 3.5375C8.25 3.65 8.4 3.725 8.5875 3.9125C8.775 4.1 8.8875 4.2875 8.9625 4.475C9.0375 4.6625 9.1125 4.8875 9.1125 5.225V7.775C9.075 8.1125 9.0375 8.3375 8.9625 8.525C8.85 8.75 8.775 8.9 8.5875 9.0875C8.4 9.275 8.2125 9.3875 8.025 9.4625C7.8375 9.5375 7.6125 9.6125 7.275 9.6125H4.725C4.3875 9.575 4.1625 9.5375 3.975 9.4625C3.75 9.35 3.6 9.275 3.4125 9.0875C3.225 8.9 3.1125 8.7125 3.0375 8.525C2.9625 8.3375 2.8875 8.1125 2.8875 7.775V5.225C2.925 4.8875 2.9625 4.6625 3.0375 4.475C3.15 4.25 3.225 4.1 3.4125 3.9125C3.6 3.725 3.7875 3.6125 3.975 3.5375C4.1625 3.4625 4.3875 3.3875 4.725 3.3875Z" fill="white" />
-                                        </svg>
-                                        Instagram
-                                    </a>
-                                    <span className="mx-1">|</span></>)}
-                            {/* Facebook */}
-                            {Facebook && (
-                                <>
-                                    <a href={Facebook.link} target="_blank" rel="noopener noreferrer"  className="hover:text-gray-300 flex gap-2 items-center " aria-label="Facebook">
-                                        <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM6 3.5C7.65 3.5 9 4.85 9 6.5C9 8 7.9125 9.275 6.4125 9.5V7.3625H7.125L7.275 6.5H6.45V5.9375C6.45 5.7125 6.5625 5.4875 6.9375 5.4875H7.3125V4.7375C7.3125 4.7375 6.975 4.6625 6.6375 4.6625C5.9625 4.6625 5.5125 5.075 5.5125 5.825V6.5H4.7625V7.3625H5.5125V9.4625C4.0875 9.2375 3 8 3 6.5C3 4.85 4.35 3.5 6 3.5Z" fill="white" />
-                                        </svg>
-                                        Facebook
-                                    </a>
-                                    <span className="mx-1">|</span>
-                                </>
-                            )}
-                            {/* LinkedIn */}
-                            {LinkedIn && (<>
-                                <a href={LinkedIn.link} target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 flex gap-2 items-center " aria-label="LinkedIn">
-                                    <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM3.075 5.4875V9.5H4.35V5.4875H3.075ZM3 4.2125C3 4.625 3.3 4.925 3.7125 4.925C4.125 4.925 4.425 4.625 4.425 4.2125C4.425 3.8 4.125 3.5 3.7125 3.5C3.3375 3.5 3 3.8 3 4.2125ZM7.725 9.5H8.925V7.025C8.925 5.7875 8.175 5.375 7.4625 5.375C6.825 5.375 6.375 5.7875 6.2625 6.05V5.4875H5.0625V9.5H6.3375V7.3625C6.3375 6.8 6.7125 6.5 7.0875 6.5C7.4625 6.5 7.725 6.6875 7.725 7.325V9.5Z" fill="white" />
-                                    </svg>
-                                    LinkedIn
-                                </a>
-                                <span className="mx-1">|</span>
-                            </>)}
-                            {/* YouTube */}
-                            {YouTube && (
-                                <>
-                                    <a href={YouTube.link} target="_blank" rel="noopener noreferrer" className="hover:text-gray-300 flex gap-2 items-center " aria-label="YouTube">
-                                        <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6.975 6.5L5.4 5.6V7.4L6.975 6.5Z" fill="white" />
-                                            <path fillRule="evenodd" clipRule="evenodd" d="M0 6.5C0 3.18629 2.68629 0.5 6 0.5C9.31371 0.5 12 3.18629 12 6.5C12 9.81371 9.31371 12.5 6 12.5C2.68629 12.5 0 9.81371 0 6.5ZM8.325 4.5125C8.58751 4.5875 8.775 4.775 8.85 5.0375C9 5.525 9 6.5 9 6.5C9 6.5 9 7.475 8.8875 7.9625C8.8125 8.225 8.625 8.4125 8.3625 8.4875C7.875 8.6 6 8.6 6 8.6C6 8.6 4.0875 8.6 3.6375 8.4875C3.375 8.4125 3.1875 8.225 3.1125 7.9625C3 7.475 3 6.5 3 6.5C3 6.5 3 5.525 3.075 5.0375C3.15 4.775 3.3375 4.5875 3.6 4.5125C4.0875 4.4 5.9625 4.4 5.9625 4.4C5.9625 4.4 7.875 4.4 8.325 4.5125Z" fill="white" />
-                                        </svg>
-                                        YouTube
-                                    </a>
-                                    <span className="mx-1">|</span>
-                                </>
-                            )}
-                            {/* TikTok */}
-                            {TikTok && (
-                                <a href={TikTok.link} target="_blank" rel="noopener noreferrer"  className="hover:text-gray-300 flex gap-2 items-center " aria-label="TikTok">
-                                    <svg width="25" height="25" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path fillRule="evenodd" clipRule="evenodd" d="M6 0.5C2.68629 0.5 0 3.18629 0 6.5C0 9.81371 2.68629 12.5 6 12.5C9.31371 12.5 12 9.81371 12 6.5C12 3.18629 9.31371 0.5 6 0.5ZM7.16933 3.5C7.16933 3.58916 7.17767 3.67696 7.193 3.76194C7.26679 4.15477 7.49927 4.49189 7.8222 4.70222C8.04769 4.84989 8.31493 4.93488 8.60305 4.93488L8.603 5.16472V5.96574C8.0685 5.96574 7.57299 5.7944 7.16931 5.50463V7.60122C7.16931 8.64743 6.31748 9.5 5.27217 9.5C4.86851 9.5 4.49268 9.37181 4.18506 9.15588C3.69513 8.81179 3.375 8.24342 3.375 7.60122C3.375 6.55362 4.22546 5.70247 5.27077 5.70384C5.35847 5.70384 5.44337 5.71081 5.52689 5.72197V5.96574L5.52383 5.9672L5.52688 5.96713V6.77512C5.44615 6.75004 5.35985 6.73473 5.27077 6.73473C4.79335 6.73473 4.405 7.1234 4.405 7.60122C4.405 7.93418 4.5943 8.22254 4.8699 8.36881C4.87247 8.37234 4.87508 8.37585 4.8777 8.37933L4.88232 8.38542C4.87915 8.3793 4.87549 8.37329 4.8713 8.36742C4.99239 8.4315 5.1288 8.46772 5.27356 8.46772C5.73983 8.46772 6.12124 8.09578 6.13792 7.63327L6.13932 3.5H7.16933Z" fill="white" />
-                                    </svg>
-                                    TikTok
-                                </a>
-                            )}
+                <div className="bg-accent relative  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
+                    <div className="absolute top-0 left-0 flex justify-end w-full h-full z-0 pointer-events-none">
+                        <img
+                            src={`/assets/cambiafx/cintillo-overlay.png`}
+                            alt="overlay Image"
+                            className="h-full  object-cover rounded-xl "
+                        />
+                    </div>
+                    <div className="px-[5%] mx-auto  flex flex-row items-center justify-center ">
+                        <div className="flex items-center gap-2 relative">
+                            <img src="/assets/cambiafx/cintillo.webp" alt="Cintillo Icon" className="w-10 absolute top-0 -left-10 transform scale-y-[-1] rotate-90" />
+                            <h1 className="font-bold text-sm ">{renderHighlightedText(Cintillo?.description)}</h1>
                         </div>
                     </div>
                 </div>
@@ -403,10 +347,10 @@ const Header = ({
                     animate="visible"
                     variants={containerVariants}
                     className={` static lg:w-full top-0 z-[9998] transition-colors duration-300 py-1 ${backgroundType === "none"
-                        ? "bg-transparent mt-0"
+                        ? "bg-primary mt-0"
                         : isScrolled
                             ? "bg-primary pt-0 !mt-0"
-                            : "bg-transparent top-4 pt-8 md:pt-14 lg:pt-10"
+                            : "bg-primary top-4 pt-8 md:pt-14 lg:pt-10"
                         } ${isScrolled &&
                         "bg-primary pt-0 !mt-0 transition-all duration-150"
                         }`}
@@ -423,7 +367,7 @@ const Header = ({
                                     whileHover={{ scale: 1.05 }}
                                     src="/assets/img/logo.svg"
                                     alt="Sedna Logo"
-                                    className="object-cover object-top h-12 max-h-12 w-auto  sm:h-16 sm:max-h-16 "
+                                    className="object-cover object-top h-12 max-h-12 w-auto  sm:h-12 sm:max-h-12 "
                                 />
                             </a>
                         </motion.div>
@@ -435,34 +379,26 @@ const Header = ({
                             <nav className="flex gap-2">
                                 {[
                                     "/nosotros",
-                                     "#services",
-                                    "/casos-de-exito",
-                                    "/blog",
-                                    "/infoproductos",
+                                    "/services",
                                     "/contacto",
+                                    "/blog",
                                 ].map((path) => {
                                     const text = {
                                         "/nosotros": t("public.header.home", "Nosotros"),
-                                        "#services": t(
+                                        "/services": t(
                                             "public.header.services",
                                             "Servicios"
+                                        ), "/contacto": t(
+                                            "public.header.contact",
+                                            "Contacto"
                                         ),
-                                        "/casos-de-exito": t(
-                                            "public.header.solutions",
-                                            "Casos de éxito"
-                                        ),
+                                       
                                         "/blog": t(
                                             "public.header.options",
                                             "Blog"
                                         ),
-                                        "/infoproductos": t(
-                                            "public.header.infoproducts",
-                                            "Infoproductos"
-                                        ),
-                                        "/contacto": t(
-                                            "public.header.contact",
-                                            "Contacto"
-                                        ),
+                                       
+                                       
                                     }[path];
 
                                     return (
@@ -484,16 +420,16 @@ const Header = ({
                                                 variants={itemVariants}
                                                 whileHover={{ scale: 1.05 }}
                                                 whileTap={{ scale: 0.95 }}
-                                                className={`relative py-2 rounded-full transition-all duration-300 ${isActive(path)
-                                                    ? "bg-neutral-light pl-7 pr-3 text-primary font-semibold"
-                                                    : "bg-transparent px-5 text-primary"
+                                                className={`relative uppercase py-2 rounded-full transition-all duration-300 ${isActive(path)
+                                                    ? "bg-constrast pl-7 pr-3 text-white font-semibold"
+                                                    : "bg-transparent px-5 text-neutral-dark"
                                                     }`}
                                             >
                                                 {text}
                                                 {isActive(path) && (
                                                     <motion.span
                                                         layoutId="activeDot"
-                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-accent rounded-full"
+                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-secondary rounded-full"
                                                     />
                                                 )}
                                             </motion.a>
@@ -501,7 +437,7 @@ const Header = ({
                                                 {activeMegaMenu === path && (
                                                     <div className="">
                                                         <MegaMenuPopup
-                                                        info={modalData}
+                                                            info={modalData}
                                                             isOpen={activeMegaMenu === path}
                                                             onClose={closeMegaMenu}
                                                             data={servicesData}
@@ -529,15 +465,21 @@ const Header = ({
 
                         <motion.div
                             variants={itemVariants}
-                            className="hidden xl:flex flex-col justify-center items-center _Medium"
+                            className="hidden xl:flex gap-4 justify-center items-center _Medium"
                         >
-                            <WhatsAppButtonWithArrow
+                          {/*  <WhatsAppButtonWithArrow
                                 variant="primary"
                                 size="medium"
                                 className="text-base 2xl:text-lg"
                             >
                                 Reserva una consulta
-                            </WhatsAppButtonWithArrow>
+                            </WhatsAppButtonWithArrow> */}
+                            <button className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full">
+                             ¿Eres nuevo? registrate
+                            </button>
+                              <button className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full">
+                             iniciar operación
+                            </button>
                         </motion.div>
 
                         <motion.div
@@ -553,7 +495,7 @@ const Header = ({
                                     className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-gradient-to-br from-primary to-primary shadow-lg shadow-primary/30 border border-white/20"
                                     aria-label="Toggle menu"
                                 >
-                                    <motion.div 
+                                    <motion.div
                                         animate={{ rotate: isOpen ? 180 : 0 }}
                                         transition={{ duration: 0.3 }}
                                         className="text-white"
@@ -573,7 +515,7 @@ const Header = ({
                         </motion.div>
                     </div>
 
-                
+
                 </motion.header>
 
                 {/* Menú móvil */}
@@ -589,22 +531,22 @@ const Header = ({
                                 style={{ zIndex: 99998 }}
                                 onClick={() => setIsOpen(false)}
                             />
-                            
+
                             <motion.div
                                 ref={menuRef}
                                 initial={{ opacity: 0, y: -100, scale: 0.95 }}
                                 animate={{ opacity: 1, y: 0, scale: 1 }}
                                 exit={{ opacity: 0, y: -100, scale: 0.95 }}
-                                transition={{ 
-                                    type: "spring", 
-                                    damping: 25, 
+                                transition={{
+                                    type: "spring",
+                                    damping: 25,
                                     stiffness: 200,
                                     duration: 0.4
                                 }}
                                 className={`fixed left-[5%] right-[5%] ${isScrolled
-                                    ? "top-16" 
+                                    ? "top-16"
                                     : "top-[100px]"
-                                } z-[99999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto`}
+                                    } z-[99999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto`}
                                 style={{ zIndex: 99999 }}
                             >
                                 {/* Header del menú */}
@@ -677,33 +619,29 @@ const Header = ({
                                                                 setIsOpen(false);
                                                             }
                                                         }}
-                                                        className={`w-full group relative overflow-hidden flex items-center p-4 rounded-xl transition-all duration-300 ${
-                                                            isActive(item.path) || activeMegaMenu === item.path
+                                                        className={`w-full group relative overflow-hidden flex items-center p-4 rounded-xl transition-all duration-300 ${isActive(item.path) || activeMegaMenu === item.path
                                                                 ? "bg-accent text-white border-2 border-accent shadow-lg"
                                                                 : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary border-2 border-transparent"
-                                                        }`}
+                                                            }`}
                                                     >
                                                         {/* Texto */}
                                                         <div className="flex-1 text-left">
-                                                            <span className={`font-medium text-base ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "!text-white" : "!text-gray-700 group-hover:!text-primary"
-                                                            }`} style={{ opacity: 1, visibility: 'visible' }}>
+                                                            <span className={`font-medium text-base ${isActive(item.path) || activeMegaMenu === item.path ? "!text-white" : "!text-gray-700 group-hover:!text-primary"
+                                                                }`} style={{ opacity: 1, visibility: 'visible' }}>
                                                                 {text || item.path}
                                                             </span>
                                                             {item.path === "#services" && (
-                                                                <p className={`text-xs mt-1 ${
-                                                                    isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
-                                                                }`} style={{ opacity: 1, visibility: 'visible' }}>
+                                                                <p className={`text-xs mt-1 ${isActive(item.path) || activeMegaMenu === item.path ? "text-white/80" : "text-gray-500"
+                                                                    }`} style={{ opacity: 1, visibility: 'visible' }}>
                                                                     Descubre nuestras soluciones
                                                                 </p>
                                                             )}
                                                         </div>
-                                                        
+
                                                         {/* Flecha o indicador de submenú */}
                                                         <motion.div
-                                                            className={`transition-colors duration-300 ${
-                                                                isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-400 group-hover:text-primary"
-                                                            }`}
+                                                            className={`transition-colors duration-300 ${isActive(item.path) || activeMegaMenu === item.path ? "text-white" : "text-gray-400 group-hover:text-primary"
+                                                                }`}
                                                         >
                                                             {item.hasSubmenu ? (
                                                                 <motion.div

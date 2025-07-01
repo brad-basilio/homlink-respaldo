@@ -40,6 +40,11 @@ class GeneralSeeder extends Seeder
                 'name' => 'Número de soporte',
                 'description' => '+51 945 622 983'
             ],
+             [
+                'correlative' => 'cintillo',
+                'name' => 'Cintillo',
+                'description' => 'Aprovecha *Cupones* Exclusivos Para Cambiar Dólares a Soles'
+            ],
             [
                 'correlative' => 'support_email',
                 'name' => 'Correo de soporte',
