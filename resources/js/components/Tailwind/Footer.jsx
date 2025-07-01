@@ -19,7 +19,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
     const generalRest = new GeneralRest();
-    
+
     // Configurar notificaciones para GeneralRest (principalmente para consistencia)
     // Las consultas GET normalmente solo muestran errores, no éxitos
     generalRest.enableNotifications = false;
@@ -89,11 +89,11 @@ const Footer = ({ terms, footerLinks = [] }) => {
             .replace(/[*]+/g, ""); // Cualquier asterisco suelto
     };
     const subscriptionsRest = new SubscriptionsRest();
-    
+
     // Deshabilitar notificaciones automáticas para usar SweetAlert personalizado
     // Esto permite mostrar mensajes más amigables y consistentes con el diseño
     subscriptionsRest.enableNotifications = false;
-    
+
     const emailRef = useRef();
 
 
@@ -120,7 +120,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
             email: emailRef.current.value,
             status: 1,
         };
-        
+
         const result = await subscriptionsRest.save(request);
         setSaving(false);
 
@@ -154,263 +154,126 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
     return (
         <>
-            <footer className="bg-primary">
+            <footer className="bg-neutral-dark text-white font-title">
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 md:justify-center w-full px-[5%] py-10 md:py-16 text-white">
-                    {/* Columna 1 - Logo y descripción */}
-                    <div className="lg:col-span-2 flex flex-col gap-3 max-w-sm justify-between">
+                <div className="flex gap-10 w-full px-[5%] py-16">
+                    {/* Columna 1 - Logo, App Badges y Suscripción */}
+                    <div className="w-6/12 flex flex-col gap-6">
                         <a href="/">
                             <img
-                                className="min-w-40 w-40"
+                                className="h-14"
                                 src="/assets/img/logo-white.png"
-                                alt="Sedna Logo"
+                                alt="CambiaFX Logo"
                             />
                         </a>
-                        {/*SUBCRIBE FORM*/}
-                        <div className="mt-6 font-paragraph">
-                            <h3 className="text-sm font-medium mb-4">Suscríbete y recibe todas nuestras novedades</h3>
-                              <form onSubmit={onEmailSubmit}>
-                            <div className="flex flex-row rounded-lg lg:justify-between py-2 lg:px-2  border  border-white bg-transparent">
-                              
+                        <div className="flex flex-wrap gap-2">
+                            <a href="#" target="_blank" rel="noopener noreferrer">
+                                <img src="/assets/cambiafx/google_play.png" alt="Google Play" className="h-10" />
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer">
+                                <img src="/assets/cambiafx/apple_store.png" alt="App Store" className="h-10" />
+                            </a>
+                            <a href="#" target="_blank" rel="noopener noreferrer">
+                                <img src="/assets/cambiafx/app_gallery.png" alt="App Gallery" className="h-10" />
+                            </a>
+                        </div>
+                        <div className="mt-4 max-w-md">
+                            <h3 className="text-xl font-medium mb-2">Suscríbete</h3>
+                            <p className="text-base text-neutral mb-4">Recibe actualizaciones, tips de finanzas y cupones de mejor tipo de cambio.</p>
+                            <form onSubmit={onEmailSubmit}>
+                                <div className="flex items-center bg-white rounded-full p-1">
                                     <input
                                         ref={emailRef}
                                         disabled={saving}
                                         type="email"
-                                        placeholder="Ingresa tu e-mail"
-                                        className="px-4 w-7/12 lg:w-full py-2 bg-transparent text-white focus:outline-none transition-all duration-200"
-                                        style={{ 
-                                            transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
-                                            boxShadow: 'none'
-                                        }}
-                                      
-                                        onBlur={(e) => {
-                                            e.target.style.boxShadow = 'none';
-                                            e.target.style.transform = 'scale(1)';
-                                        }}
+                                        placeholder="Correo"
+                                        className="flex-grow px-4 py-2 placeholder:text-neutral-light bg-transparent text-neutral-light focus:outline-none"
                                     />
-
-                                    <button 
-                                        disabled={saving} 
-                                        className="bg-accent text-sm lg:text-base text-white px-4 rounded-md py-2 flex items-center justify-center transition-all duration-200 hover:bg-accent/90 hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-                                        style={{ 
-                                            transition: 'all 0.2s ease-in-out'
-                                        }}
+                                    <button
+                                        disabled={saving}
+                                        className="bg-secondary text-neutral-light font-bold text-sm px-6 py-3 rounded-full hover:bg-[#b7f556] transition-colors"
                                     >
-                                        {saving ? (
-                                            <span className="flex items-center gap-2">
-                                                <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
-                                                    <circle
-                                                        className="opacity-25"
-                                                        cx="12"
-                                                        cy="12"
-                                                        r="10"
-                                                        stroke="currentColor"
-                                                        strokeWidth="4"
-                                                        fill="none"
-                                                    />
-                                                    <path
-                                                        className="opacity-75"
-                                                        fill="currentColor"
-                                                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                                                    />
-                                                </svg>
-                                                Enviando...
-                                            </span>
-                                        ) : (
-                                            <>
-                                                Suscribirme <Send className="ml-2 transition-transform duration-200 group-hover:translate-x-1" size={16} />
-                                            </>
-                                        )}
+                                        {saving ? 'Enviando...' : 'SUSCRIBIRME'}
                                     </button>
-                               
-                            </div> </form>
+                                </div>
+                            </form>
+                            <div className="flex items-center mt-4">
+                                <input type="checkbox" id="terms-checkbox" className="h-3 w-3 text-lime-400 !bg-transparent border-neutral-light rounded focus:ring-lime-500" />
+                                <label htmlFor="terms-checkbox" className="ml-2 text-xs text-neutral">He leído y acepto la Política de Privacidad y los Términos y Condiciones</label>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Columna 2 - Sobre Sedna */}
-                    <div className="hidden lg:flex flex-col gap-2 font-paragraph text-[15px]">
-
-                    </div>
-
-                    <div className="lg:col-span-2 grid grid-cols-2 gap-8 lg:gap-4">
-                        {/* Columna 3 - Portafolio */}
-                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
-                            <h3 className="  font-title font-bold mb-3">
-                                Ubícanos
+                    {/* Columna 2 - Horario de Atención */}
+                    <div className="w-6/12 flex flex-wrap justify-end">
+                        <div className="w-6/12 flex flex-col gap-2 text-sm">
+                            <h3 className="text-xl font-medium mb-4">
+                                Horario de Atención
                             </h3>
-                            <p className="cursor-pointer">
-                                {generalsData.find(item => item.correlative === "address")?.description || ""}
-                            </p>
-                            <p className="cursor-pointer">
-                                Teléfono: {generalsData.find(item => item.correlative === "support_phone")?.description || ""}
-                            </p>
-                            <p className="cursor-pointer ">
-                                Correo:
-                                <span className="block line-clamp-1">  {generalsData.find(item => item.correlative === "support_email")?.description || "Lima, Perú"}
-                               </span>
-                            </p>
+                            <p><strong className="font-medium">Lunes a viernes:</strong><br />9:00 a.m. - 7:00 p.m.</p>
+                            <p className="mt-2"><strong className="font-medium">Sábados:</strong><br />10:00 a.m. - 1:00 p.m.</p>
+                            <p className="mt-2"><strong className="font-medium">Otros Horarios:</strong><br />Abonamos el día siguiente hábil</p>
+                            <p className="mt-2"><strong className="font-medium">No atendemos:</strong><br />Domingos y feriados</p>
                         </div>
 
-                        {/* Columna 4 - Soporte */}
-                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
-                            <h3 className="text-base  font-title font-bold mb-3">
-                                Políticas
+                        {/* Columna 3 - Legal */}
+                        <div className="w-4/12 flex flex-col gap-2 text-sm">
+                            <h3 className="text-xl font-medium mb-4">
+                                Legal
                             </h3>
-                            <a onClick={() => openModal(0)} className="cursor-pointer">
-                                Políticas de privacidad
-                            </a>
-                            <a onClick={() => openModal(1)} className="cursor-pointer">
-                                Términos y Condiciones
-                            </a>
-                            <a onClick={() => openModal(2)} className="cursor-pointer">
-                                Políticas de cambio
-                            </a>
-                            <a href="/libro-de-reclamaciones" className="cursor-pointer">
-                                Libro de reclamaciones
-                            </a>
-
+                            <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary">Política de Privacidad</a>
+                            <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary">Términos y Condiciones</a>
+                            <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary">Libro de Reclamaciones</a>
+                            <div className="mt-4">
+                                <p className="font-medium">Registrada en la SBS</p>
+                                <p>Resolución 04993-2018</p>
+                            </div>
                         </div>
-                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
-                            <h3 className="text-base  font-title font-bold mb-3">
-                                Horario de atención
-                            </h3>
-                            <p className="cursor-pointer">
-                                {generalsData.find(item => item.correlative === "opening_hours")?.description || "Lima, Perú"}
-                               
-                            </p>
 
-                        </div>
-                        <div className="flex flex-col gap-2 font-paragraph text-sm lg:text-[15px]">
-                            <h3 className="text-base  font-title font-bold mb-3">
-                                Nuestras redes
-                            </h3>
-                            <div className="flex flex-row gap-5 text-white mt-3">
+                        {/* Columna 4 - Contacto y Redes */}
+                        <div className="w-6/12 flex flex-col gap-4 text-sm">
+                            <div className="flex items-start gap-1">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.3481 17.8052C10.9867 18.1435 10.5037 18.3327 10.0009 18.3327C9.49817 18.3327 9.01517 18.1435 8.65375 17.8052C5.34418 14.6877 0.908967 11.2051 3.07189 6.14907C4.24136 3.41532 7.04862 1.66602 10.0009 1.66602C12.9532 1.66602 15.7605 3.41532 16.93 6.14907C19.0902 11.1988 14.6658 14.6984 11.3481 17.8052Z" fill="white" stroke="#0C0C0C" stroke-width="1.25" />
+                                    <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" fill="#1A1A1A" />
+                                </svg>
 
-                                {Facebook && (
-                                    <a
-                                        href={Facebook.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-
-                                        <i className="fa-brands fa-facebook fa-xl"></i>
-                                    </a>
-                                )}
-
-                                {Tiktok && (
-                                    <a
-                                        href={Tiktok.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <i className="fa-brands fa-tiktok fa-xl"></i>
-                                    </a>
-                                )}
-
-                                {Instagram && (
-                                    <a
-                                        href={Instagram.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <i className="fa-brands fa-instagram fa-xl"></i>
-                                    </a>
-                                )}
-
-                                {/* {datosgenerales?.linkedin && (
-                                <a
-                                    href={datosgenerales.linkedin}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                >
-                                    <i className="fa-brands fa-linkedin fa-xl"></i>
-                                </a>
-                            )} */}
-
-                                {Twitter && (
-                                    <a
-                                        href={Twitter.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <i className="fa-brands fa-twitter fa-xl"></i>
-                                    </a>
-                                )}
-
-                                {Youtube && (
-                                    <a
-                                        href={Youtube.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <i className="fa-brands fa-youtube fa-xl"></i>
-                                    </a>
-                                )}
-
-                                {Whatsapp && (
-                                    <a
-                                        href={Whatsapp.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        <i className="fa-brands fa-whatsapp fa-xl"></i>
-                                    </a>
-                                )}
+                                <p>Av. Javier Prado Este N.560,<br />Oficina 2302 San Isidro - Lima - Perú</p>
                             </div>
 
                         </div>
+                        <div className="w-4/12 flex items-center gap-3">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1.67916 11.229C1.73363 13.7837 1.76087 15.0609 2.70348 16.0072C3.64608 16.9534 4.95796 16.9863 7.58171 17.0522C9.19877 17.0928 10.7999 17.0928 12.417 17.0522C15.0408 16.9863 16.3526 16.9534 17.2953 16.0072C18.2378 15.0609 18.2651 13.7837 18.3195 11.229C18.3371 10.4076 18.3371 9.5911 18.3195 8.76968C18.2651 6.21507 18.2378 4.93776 17.2953 3.99157C16.3526 3.04537 15.0408 3.01242 12.417 2.94649C10.7999 2.90586 9.19876 2.90586 7.5817 2.94648C4.95796 3.0124 3.64608 3.04536 2.70347 3.99156C1.76087 4.93775 1.73363 6.21506 1.67915 8.76968C1.66163 9.5911 1.66164 10.4076 1.67916 11.229Z" fill="white" stroke="#1A1A1A" stroke-width="1.25" stroke-linejoin="round" />
+                                <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" stroke-width="1.25" stroke-linejoin="round" />
+                            </svg>
 
+
+                            <a href="mailto:hola@cambiafx.pe" className="hover:text-secondary">hola@cambiafx.pe</a>
+                        </div>
                     </div>
                 </div>
-                    {Whatsapp && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5 }}
-                            className="flex justify-end w-full mx-auto z-[100] relative"
-                        >
-                            <div className="fixed bottom-3 right-2 md:bottom-[1rem] lg:bottom-[2rem] lg:right-3 z-20 cursor-pointer">
-                                <a
-                                    target="_blank"
-                                    id="whatsapp-toggle"
-                                    href={Whatsapp.link}
-                                >
-                                    <motion.img
-                                        animate={{
-                                            y: [0, -10, 0],
-                                        }}
-                                        transition={{
-                                            duration: 1.5,
-                                            repeat: Infinity,
-                                            repeatType: "loop",
-                                        }}
-                                        src="/assets/img/icons/WhatsApp_fx.svg"
-                                        alt="whatsapp"
-                                        className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]"
-                                    />
-                                </a>
-                            </div>
-                        </motion.div>
-                    )}
-                <div className="bg-neutral-light text-primary py-3 flex items-center justify-center">
-                    <div className="text-center gap-5 w-full px-[5%] font-paragraph font-medium text-[10px] lg:text-sm">
-                        Copyright <span className="text-accent">©</span> 2025 Cambio & Gerencia. Reservados todos los derechos.
-                        {/*  <div className="flex flex-row gap-4">
-                            <a
-                                onClick={() => openModal(0)}
-                                className="cursor-pointer"
-                            >
-                                {t("public.footer.privacy", "Privacidad")}
-                            </a>
-                            <a
-                                onClick={() => openModal(1)}
-                                className="cursor-pointer"
-                            >
-                                {t("public.footer.terms", "Condiciones de uso")}
-                            </a>
-                        </div>*/}
+
+                <div className="">
+                    <div className="w-full px-[5%] mx-auto ">
+                        <div className=" h-0.5 bg-neutral">
+
+                        </div>
+                    </div>
+                    <div className="flex flex-col md:flex-row justify-between items-center w-full px-[5%] py-4 text-center md:text-left">
+                        <p className="text-base text-neutral mb-4 md:mb-0">
+                            Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957
+                        </p>
+                        <div className="flex items-center gap-3">
+                            <a href="#" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-solid fa-phone"></i></a>
+                            <a href={Facebook?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-facebook-f"></i></a>
+                            <a href={Instagram?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-instagram"></i></a>
+                            <a href="#" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-linkedin-in"></i></a>
+                            <a href={Whatsapp?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-whatsapp"></i></a>
+                        </div>
                     </div>
                 </div>
+
                 {/* Modal para Términos y Condiciones */}
                 {Object.keys(policyItems).map((key, index) => {
                     const title = policyItems[key];
@@ -424,7 +287,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             onRequestClose={closeModal}
                             contentLabel={title}
                             className="fixed top-[5%] left-1/2 -translate-x-1/2 bg-white p-6 rounded-3xl shadow-lg w-[95%] max-w-4xl max-h-[90vh] mb-10 overflow-y-auto scrollbar-hide"
-                            overlayClassName="fixed inset-0 bg-black bg-opacity-50 z-50 overflow-auto  scrollbar-hide "
+                            overlayClassName="fixed inset-0 bg-neutral-dark bg-opacity-50 z-50 overflow-auto  scrollbar-hide "
                         >
                             <button
                                 onClick={closeModal}

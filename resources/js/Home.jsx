@@ -44,6 +44,7 @@ import FuncionSection from "./components/Tailwind/CambiaFX/FuncionSection";
 import CuponesSection from "./components/Tailwind/CambiaFX/CuponesSection";
 import PilaresSection from "./components/Tailwind/CambiaFX/PilaresSection";
 import EmpresasSection from "./components/Tailwind/CambiaFX/EmpresasSection";
+import BlogSection from "./components/Tailwind/CambiaFX/BlogSection";
 
 
 // Animaciones para textos (en loop)
@@ -275,18 +276,19 @@ const Home = ({
 <CuponesSection/>
 <PilaresSection/>
 <EmpresasSection/>
+<BlogSection/>
 
-
+{/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
 
-            {/*SECCION NOSOTROS */}
+         
 
             <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
-            {/*SECCION SERVICIOS */}
+   
             <HomeSeccionServicios data={landingServicios} allServices={allServices} />
             <HomeSeccionImpacto data={landingImpacto} indicators={indicators} />
             <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios} />
-            <HomeSeccionBlog data={landingBlog} posts={posts} />
+            <HomeSeccionBlog data={landingBlog} posts={posts} /> */}
 
 
             <Footer />

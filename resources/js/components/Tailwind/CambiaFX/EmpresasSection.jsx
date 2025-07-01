@@ -2,8 +2,8 @@ import React from "react";
 
 const EmpresasSection = () => {
     return (
-        <section className="w-full bg-primary py-24 flex justify-center items-center font-title">
-            <div className="relative  w-full max-w-6xl rounded-[56px] bg-constrast  flex flex-col md:flex-row items-center px-6 md:px-16 py-10 min-h-[380px]">
+        <section className="w-full bg-primary py-24 flex justify-center items-center font-title px-[5%] mx-auto">
+            <div className="relative  w-full px-16 rounded-[56px] bg-constrast  flex flex-col md:flex-row items-center  py-10 min-h-[380px]">
                 {/* Fondo decorativo */}
                 <div className="absolute h-full w-auto right-0 z-0  overflow-hidden rounded-[56px]">
                     <svg className="z-0" width="726" height="406" viewBox="0 0 726 406" fill="none" xmlns="http://www.w3.org/2000/svg">
