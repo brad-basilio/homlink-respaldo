@@ -42,6 +42,8 @@ import HeroSecction from "./components/Tailwind/CambiaFX/HeroSecction";
 import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
 import FuncionSection from "./components/Tailwind/CambiaFX/FuncionSection";
 import CuponesSection from "./components/Tailwind/CambiaFX/CuponesSection";
+import PilaresSection from "./components/Tailwind/CambiaFX/PilaresSection";
+import EmpresasSection from "./components/Tailwind/CambiaFX/EmpresasSection";
 
 
 // Animaciones para textos (en loop)
@@ -271,6 +273,8 @@ const Home = ({
           <PrimeraOperacionSection/>
           <FuncionSection/>
 <CuponesSection/>
+<PilaresSection/>
+<EmpresasSection/>
 
 
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
