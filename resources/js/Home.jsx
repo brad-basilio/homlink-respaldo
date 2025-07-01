@@ -38,6 +38,10 @@ import HomeSeccionImpacto from "./components/Tailwind/CambioGerencia/HomeSeccion
 import HomeSeccionServicios from "./components/Tailwind/CambioGerencia/HomeSeccionServicios";
 import HomeSeccionTestimonios from "./components/Tailwind/CambioGerencia/HomeSeccionTestimonios";
 import HomeSeccionBlog from "./components/Tailwind/CambioGerencia/HomeSeccionBlog";
+import HeroSecction from "./components/Tailwind/CambiaFX/HeroSecction";
+import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
+import FuncionSection from "./components/Tailwind/CambiaFX/FuncionSection";
+import CuponesSection from "./components/Tailwind/CambiaFX/CuponesSection";
 
 
 // Animaciones para textos (en loop)
@@ -111,17 +115,17 @@ const Home = ({
     linkWhatsApp,
     randomImage,
     showSlogan = true,
-  
+
     landing,
 
     sliders,
     brands,
-    posts= [],
+    posts = [],
 
-    strengths= [],
-    testimonios= [],
-    indicators= [],
-    allServices= [],
+    strengths = [],
+    testimonios = [],
+    indicators = [],
+    allServices = [],
 }) => {
     const { t, loading, error } = useTranslation();
     const tipoSlider = "nopain";
@@ -142,7 +146,7 @@ const Home = ({
     const landingBlog = landing?.find(
         (item) => item.correlative === "page_home_blog"
     );
-   
+
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
@@ -163,98 +167,97 @@ const Home = ({
     const [slidesPerView, setSlidesPerView] = useState(4);
     const topSwiperRef = useRef(null);
     const bottomSwiperRef = useRef(null);
-  
+
     // Función para determinar el número de slides por vista según el ancho de la pantalla
     const getCurrentSlidesPerView = () => {
-      const width = window.innerWidth;
-      if (width >= 1450) return 5;
-      if (width >= 1150) return 4;
-      if (width >= 950) return 3;
-      if (width >= 650) return 2;
-      return 1;
+        const width = window.innerWidth;
+        if (width >= 1450) return 5;
+        if (width >= 1150) return 4;
+        if (width >= 950) return 3;
+        if (width >= 650) return 2;
+        return 1;
     };
 
     useEffect(() => {
         const handleResize = () => {
-          const newSlidesPerView = getCurrentSlidesPerView();
-          if (newSlidesPerView !== slidesPerView) {
-            setSlidesPerView(newSlidesPerView);
-          }
+            const newSlidesPerView = getCurrentSlidesPerView();
+            if (newSlidesPerView !== slidesPerView) {
+                setSlidesPerView(newSlidesPerView);
+            }
         };
-    
+
         // Establecer el valor inicial
         setSlidesPerView(getCurrentSlidesPerView());
-    
+
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-      }, [slidesPerView]);
-    
-      // Función para sincronizar los carruseles
-      const syncSwipers = (sourceSwiper, targetSwiper) => {
+    }, [slidesPerView]);
+
+    // Función para sincronizar los carruseles
+    const syncSwipers = (sourceSwiper, targetSwiper) => {
         if (!allowSync || !sourceSwiper || !targetSwiper) return;
-        
+
         const totalSlides = sourceSwiper.slides.length;
         const activeIndex = sourceSwiper.activeIndex;
         const currentSlidesPerView = sourceSwiper.params.slidesPerView;
-        
+
         // Calculamos la posición correspondiente en el otro carrusel
         let targetIndex = totalSlides - activeIndex - currentSlidesPerView;
-        
+
         // Aseguramos que el índice esté dentro de los límites
         targetIndex = Math.max(0, Math.min(targetIndex, totalSlides - currentSlidesPerView));
-        
+
         // Movemos el carrusel objetivo sin disparar eventos
         setAllowSync(false);
         targetSwiper.slideTo(targetIndex, sourceSwiper.params.speed, false);
         setTimeout(() => {
-          setAllowSync(true);
+            setAllowSync(true);
         }, sourceSwiper.params.speed + 50);
-      };
+    };
 
-      const handleImageError = (e) => {
+    const handleImageError = (e) => {
         e.target.onerror = null;
         e.target.src = "/api/cover/thumbnail/null";
-      };
+    };
 
-      const swiperRef = useRef(null);
+    const swiperRef = useRef(null);
 
-      const ArrowIcon = () => (
+    const ArrowIcon = () => (
         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-          <mask id="mask0_226_5036" style={{maskType: 'alpha'}} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
-            <rect y="0.984375" width="20" height="20" fill="#D9D9D9"/>
-          </mask>
-          <g mask="url(#mask0_226_5036)">
-            <path d="M13.4791 11.8203H3.33325V10.1536H13.4791L8.81242 5.48698L9.99992 4.32031L16.6666 10.987L9.99992 17.6536L8.81242 16.487L13.4791 11.8203Z" fill="#7D3CB5"/>
-          </g>
+            <mask id="mask0_226_5036" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
+                <rect y="0.984375" width="20" height="20" fill="#D9D9D9" />
+            </mask>
+            <g mask="url(#mask0_226_5036)">
+                <path d="M13.4791 11.8203H3.33325V10.1536H13.4791L8.81242 5.48698L9.99992 4.32031L16.6666 10.987L9.99992 17.6536L8.81242 16.487L13.4791 11.8203Z" fill="#7D3CB5" />
+            </g>
         </svg>
-      );
+    );
 
-   
-   
+
+
     return (
         <div>
             <Header showSlogan={showSlogan}></Header>
 
-              <div className="bg-constrast  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
-                   
-                    <div className="px-[5%] mx-auto  flex flex-row items-center justify-start font-paragraph">
-                        <div className="flex items-start gap-2 relative">
-                            <ul className="flex flex-row items-center gap-4 uppercase font-medium text-sm">
-                                <li>
-                                    Personas
-                                </li>
-                                <li className="">
-                                    Empresas
-                                </li>
-                            </ul>
-                         
-                            
-                        </div>
+            <div className="bg-constrast  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
+
+                <div className="px-[5%] mx-auto  flex flex-row items-center justify-start font-paragraph">
+                    <div className="flex items-start gap-2 relative">
+                        <ul className="flex flex-row items-center gap-4 uppercase font-medium text-sm">
+                            <li>
+                                Personas
+                            </li>
+                            <li className="">
+                                Empresas
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-            {/* SLIDER*/}
-            <SliderInteractive
+            {/* SECCIÓN CAMBIO FX */}
+            <HeroSecction />
+            {/* SLIDER  <SliderInteractive
                 items={sliders}
                 data={{
                     infiniteLoop: "si",
@@ -262,17 +265,24 @@ const Home = ({
                     showNavigation: "no",
                     navigationAlignment: "center"
                 }}
-            />
-        <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+            />*/}
 
-{/*SECCION NOSOTROS */}
+            {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
+          <PrimeraOperacionSection/>
+          <FuncionSection/>
+<CuponesSection/>
 
-        <HomeSeccionNosotros data={landingNosotros} strengths={strengths}/>
-        {/*SECCION SERVICIOS */}
-        <HomeSeccionServicios data={landingServicios} allServices={allServices}/>
-        <HomeSeccionImpacto data={landingImpacto} indicators={indicators}/>
-        <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios}/>
-        <HomeSeccionBlog data={landingBlog} posts={posts}/>
+
+            <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+
+            {/*SECCION NOSOTROS */}
+
+            <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
+            {/*SECCION SERVICIOS */}
+            <HomeSeccionServicios data={landingServicios} allServices={allServices} />
+            <HomeSeccionImpacto data={landingImpacto} indicators={indicators} />
+            <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios} />
+            <HomeSeccionBlog data={landingBlog} posts={posts} />
 
 
             <Footer />

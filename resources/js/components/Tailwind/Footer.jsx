@@ -384,7 +384,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                             repeat: Infinity,
                                             repeatType: "loop",
                                         }}
-                                        src="/assets/img/icons/WhatsApp.svg"
+                                        src="/assets/img/icons/WhatsApp_fx.svg"
                                         alt="whatsapp"
                                         className="mr-3 w-16 h-16 md:w-[80px] md:h-[80px]"
                                     />
