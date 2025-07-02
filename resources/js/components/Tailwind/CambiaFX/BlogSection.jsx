@@ -87,7 +87,7 @@ const BlogSection = () => {
                       </div>
                     ) : (
                       <div
-                        className="text-white font-bold text-base md:text-lg transition-all duration-700 ease-[cubic-bezier(.4,1.2,.6,1)] rotate-180 flex items-center justify-center h-full w-full overflow-hidden text-ellipsis whitespace-nowrap"
+                        className="text-white font-medium text-base md:text-lg transition-all duration-700 ease-[cubic-bezier(.4,1.2,.6,1)] -rotate-180 flex items-center justify-center h-full w-full overflow-hidden text-ellipsis whitespace-nowrap"
                         style={{
                           writingMode: "vertical-rl",
                           textOrientation: "mixed",
@@ -95,7 +95,7 @@ const BlogSection = () => {
                           alignItems: "center",
                           justifyContent: "center",
                           textAlign: "center",
-                          transition: "all 0.7s cubic-bezier(.4,1.2,.6,1)"
+                          
                         }}
                       >
                         {card.title}
