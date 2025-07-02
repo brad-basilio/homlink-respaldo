@@ -88,19 +88,20 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
 
             {/* Sección Noticias Destacadas */}
             <motion.section
-                className="px-[5%] py-10 lg:py-10"
+                className="px-[5%] py-10 lg:py-10 !font-title bg-neutral-dark"
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
             >
                 <div className=" mx-auto">
+                      <p className="text-sm font-medium tracking-widest text-secondary mb-2 uppercase">LO ÚLTIMO</p>
                     {/* Header */}
                     <motion.div className="mb-12" variants={itemVariants}>
-                        <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-tight italic">
-                            <TextWithHighlight text={landing?.title} highlight="destacas" />
+                          <h1 className="text-4xl md:text-[60px] font-title font-medium text-white leading-tight mb-4">
+                            <TextWithHighlight text={landing?.title} highlight="destacas" color="bg-white font-semibold" />
                         
-                        </h2>
-                        <p className="font-paragraph text-lg text-neutral max-w-2xl">
+                        </h1>
+                        <p className=" text-lg text-white max-w-2xl">
                             {landing?.description}
                            
                         </p>
@@ -128,17 +129,17 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                             </motion.div>
 
                             <div className="space-y-4">
-                                <span className="inline-block  py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                <span className="inline-block  py-1 text-secondary tracking-[8%] uppercase  text-sm  font-medium rounded-ful">
                                     {postRecent[0]?.category.name}
                                 </span>
                                 <h3 className="font-title text-2xl lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                     {postRecent[0]?.name}
                                 </h3>
-                                <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" >
+                                <p className="font-title text-white text-base leading-relaxed line-clamp-3" >
 {postRecent[0]?.summary}
                                 </p>
-                                <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
-                                    Leer +
+                                <button className="inline-flex items-center gap-2 bg-constrast p-3 rounded-full text-white text-sm font-medium tracking-[8%] uppercase  hover:gap-3 transition-all duration-300">
+                                   LEER MÁS
                                 </button>
                             </div>
                         </motion.a>
@@ -169,17 +170,17 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                     </motion.div>
 
                                     <div className="flex-1 space-y-3">
-                                        <span className="inline-block py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                        <span className="inline-block py-1 text-secondary tracking-[8%] uppercase  text-sm  font-medium rounded-ful">
                                             {postRecent[1]?.category.name}
                                         </span>
                                         <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                             {postRecent[1]?.name}
                                         </h3>
-                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[1]?.summary }}>
+                                        <p className="font-title text-white text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[1]?.summary }}>
 
                                         </p>
-                                       <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
-                                            Leer +
+                                       <button className="inline-flex items-center gap-2 bg-constrast p-3  rounded-full text-white text-sm font-medium tracking-[8%] uppercase  hover:gap-3 transition-all duration-300">
+                                           LEER MÁS
                                          
                                         </button>
                                     </div>
@@ -210,18 +211,17 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                     </motion.div>
 
                                     <div className="flex-1 space-y-3">
-                                        <span className="inline-block py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                                        <span className="inline-block py-1 text-secondary tracking-[8%] uppercase  text-sm  font-medium rounded-ful">
                                             {postRecent[2]?.category.name}
                                         </span>
                                         <h3 className="font-title text-2xl  line-clamp-3  lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
                                             {postRecent[2]?.name}
                                         </h3>
-                                        <p className="font-title text-neutral-dark text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[2]?.summary }}>
+                                        <p className="font-title text-white text-base leading-relaxed line-clamp-3" dangerouslySetInnerHTML={{ __html: postRecent[2]?.summary }}>
 
                                         </p>
-                                       <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
-                                            Leer +
-                                         
+                                       <button className="inline-flex items-center gap-2 bg-constrast p-3 text-sm font-medium tracking-[8%] uppercase rounded-full text-white  hover:gap-3 transition-all duration-300">
+                                           LEER MÁS
                                         </button>
                                     </div>
                                 </motion.div>

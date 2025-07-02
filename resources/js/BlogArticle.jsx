@@ -68,7 +68,7 @@ const Toast = ({ show, message }) => {
                     className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center justify-center pointer-events-none z-50"
                 >
                     <motion.div
-                        className="bg-azul text-white px-6 py-3 rounded-lg shadow-xl flex items-center gap-2"
+                        className="bg-azul text-neutral-dark px-6 py-3 rounded-lg shadow-xl flex items-center gap-2"
                         initial={{ scale: 0.8 }}
                         animate={{ scale: 1 }}
                         exit={{ scale: 0.8 }}
@@ -160,7 +160,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="px-[5%] bg-white pt-10 lg:pt-16 pb-8"
+                className="px-[5%] bg-white pt-10 lg:pt-16 pb-8 font-title"
             >
                 <div className="max-w-5xl mx-auto"
                 >
@@ -170,7 +170,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                     >   
                         <motion.a 
                             href="/blog" 
-                            className="flex w-auto items-center gap-2 text-primary hover:text-accent transition-colors duration-200"
+                            className="flex w-auto items-center gap-2 text-neutral-dark hover:text-accent transition-colors duration-200"
                             whileHover={{ x: -5 }}
                             whileTap={{ scale: 0.95 }}
                         >
@@ -182,11 +182,10 @@ const BlogArticle = ({ article, posts, landing }) => {
                         
                         <motion.div className="w-auto mb-2">
                             <motion.span
-                                className="inline-block rounded-lg text-sm text-primary font-semibold px-4 py-2 bg-neutral-light border border-primary/20"
+                                className="inline-block rounded-lg text-sm text-neutral font-semibold px-4 py-2 bg-constrast border border-primary/20"
                                 whileHover={{ 
                                     scale: 1.05,
-                                    backgroundColor: "#003049",
-                                    color: "#F2F2F2"
+                                   
                                 }}
                                 transition={{ duration: 0.2 }}
                             >
@@ -195,7 +194,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                         </motion.div>
                         
                         <motion.h1
-                            className="font-Poppins_Medium text-primary text-3xl sm:text-4xl lg:text-[48px] xl:text-[52px] !leading-tight mb-4"
+                            className=" text-neutral-dark text-3xl sm:text-4xl lg:text-[48px] xl:text-[52px] !leading-tight mb-4"
                             variants={fadeInUp}
                         >
                             <TextWithHighlight text={article.name} />
@@ -516,7 +515,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                                 transition={{ delay: 0.8 }}
                             >
                                 <motion.h3
-                                    className="text-xl font-semibold text-primary"
+                                    className="text-xl font-semibold text-neutral-dark"
                                     whileHover={{ x: 2 }}
                                 >
                                     ¿Te gustó este artículo? ¡Compártelo!
@@ -524,7 +523,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                                 
                                 <div className="flex flex-wrap gap-3">
                                     {[
-                                        { type: "copy", label: "Copiar enlace", icon: Link, color: "bg-gray-100 hover:bg-gray-200 text-gray-700" },
+                                        { type: "copy", label: "Copiar enlace", icon: Link, color: "bg-gray-100 hover:bg-gray-200 text-neutral-dark" },
                                         { type: "linkedin", label: "LinkedIn", icon: Linkedin, color: "bg-blue-600 hover:bg-blue-700 text-white" },
                                         { type: "twitter", label: "Twitter", icon: Twitter, color: "bg-blue-400 hover:bg-blue-500 text-white" },
                                         { type: "facebook", label: "Facebook", icon: Facebook, color: "bg-blue-800 hover:bg-blue-900 text-white" },
@@ -564,25 +563,25 @@ const BlogArticle = ({ article, posts, landing }) => {
                 initial="hidden"
                 animate="visible"
                 variants={staggerContainer}
-                className="mt-8 pt-6 bg-neutral-light text-sm font-medium px-[5%] py-8 md:py-12  text-negro"
+                className="mt-8 pt-6 bg-constrast text-sm font-title font-medium px-[5%] py-8 md:py-12  text-neutral-dark"
             >
                 <motion.h2
-                    className="font-Poppins_Medium text-primary text-3xl sm:text-4xl lg:text-[44px] !leading-tight"
+                    className=" text-white text-3xl sm:text-4xl lg:text-[44px] !leading-tight"
                     variants={fadeInUp}
                     whileInView="visible"
                     viewport={{ once: true, margin: "-100px" }}
                 >
-                    <TextWithHighlight text={landing?.title} />
+                    <TextWithHighlight text={landing?.title || "Ver más *noticias*"} color="bg-neutral font-semibold" />
                 </motion.h2>
 
                 <motion.p
-                    className="flex mt-3 text-center lg:text-left text-base font-Poppins_Regular 2xl:text-lg"
+                    className="flex mt-3 text-center lg:text-left text-base  2xl:text-lg text-white"
                     variants={fadeInUp}
                     whileInView="visible"
                     viewport={{ once: true }}
                     transition={{ delay: 0.2 }}
                 >
-                    {landing?.description}
+                    {landing?.description || "Descubre más artículos interesantes y mantente al día con nuestras últimas noticias y actualizaciones."}
                 </motion.p>
 
                 <motion.section
@@ -605,7 +604,7 @@ const BlogArticle = ({ article, posts, landing }) => {
                             whileHover={{ y: -5 }}
                           
                         >
-                            <PostCard {...item} firstImage />
+                            <PostCard {...item} firstImage classTitle="text-white" classDescription="text-white" classBtn="bg-neutral-dark" classCategory="text-neutral-dark" />
                         </motion.div>
                     ))}
                 </motion.section>

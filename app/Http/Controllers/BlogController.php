@@ -26,7 +26,7 @@ class BlogController extends PublicController
             ->where('posts.lang_id', $langId)
             ->where('categories.status', true)
             ->get();
-        $postRecent = Post::where('status', true)->where('featured', true)->with('category')->where('lang_id', $langId)->limit(3)->get();
+        $postRecent = Post::where('status', true)->with('category')->where('lang_id', $langId)->latest()->take(3)->get();
         $landing = LandingHome::where('correlative', 'like', 'page_blog%')->where('lang_id', $langId)->get();
         
         // Obtener los sliders y añadir button_text y button_link personalizados

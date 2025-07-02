@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 class ServiceController extends BasicController
 {
     public $model = Service::class;
-    // public $reactView = 'ServiciosPage';
-    public $reactView = 'DetailService';
+    public $reactView = 'ServiciosPage';
+   // public $reactView = 'DetailService';
     public $reactRootView = 'public';
 
     public function setReactViewProperties(Request $request)

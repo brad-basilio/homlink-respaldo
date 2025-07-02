@@ -56,27 +56,28 @@ const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
     const { t } = useTranslation();
     return (
         <motion.section
-            className="py-8 xl:py-12 px-[5%]"
+            className="py-8 xl:py-12 px-[5%] font-title"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
         >
-            <div className="flex flex-col lg:flex-row justify-between">
+            <div className="flex flex-col lg:flex-row justify-between items-center">
                 <motion.div className="mb-12" variants={itemVariants}>
-                    <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-tight italic">
+                    <h2 className="text-4xl lg:text-[48px] font-medium mb-4 leading-[94%] ">
                         <TextWithHighlight
                             text={landing?.title || ""}
+                            color="bg-neutral-dark font-semibold"
                            
                         />
                        
                     </h2>
-                    <p className="font-paragraph text-lg text-neutral max-w-2xl">
+                    <p className=" text-lg text-neutral-light max-w-2xl">
                         {landing?.description || ""}
                      
                     </p>
                 </motion.div>
-                {/* Campo de búsqueda */}
-                <motion.label
+                {/* Campo de búsqueda
+                     <motion.label
                     htmlFor="txt-search"
                     className="col-span-1 px-6 h-max py-4 flex items-center rounded-3xl bg-[#F5F2F9] min-w-[350px] sm:min-w-[500px] max-w-2xl "
                     variants={itemVariants}
@@ -108,6 +109,12 @@ const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
                         }}
                     />
                 </motion.label>
+                */}
+
+                <button className="uppercase bg-secondary font-medium max-h-max text-sm tracking-[8%] px-6 py-3 rounded-full hover:bg-constrast transition-colors duration-300">
+                    quiero suscribirme al blog
+                </button>
+           
             </div>
 
 
@@ -119,11 +126,11 @@ const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
                     className="flex flex-wrap  gap-3 justify-start  "
                     variants={containerVariants}
                 >
-                    <div className="flex ">
+                    <div className="flex p-2 bg-white rounded-xl">
                         <motion.button
 
-                            className={`px-4 py-2.5 text-neutral  border-b-2 ${filter.category===null
-                                ? "  border-accent"
+                            className={`px-4 py-2.5 text-neutral-light rounded-lg    ${filter.category===null
+                                ? "  bg-secondary"
                                 : ""
                                 }`}
                             onClick={() =>
@@ -149,8 +156,8 @@ const FilterAgencia = ({ categories, filter, setFilter, landing }) => {
                         {categories.map((item, index) => (
                             <motion.button
                                 key={index}
-                                className={`px-4 py-2.5 text-neutral  border-b-2 ${item.id == filter.category
-                                    ? "  border-accent"
+                                className={`px-4 py-2.5 text-neutral-light rounded-lg  ${item.id == filter.category
+                                    ? "  bg-secondary"
                                     : ""
                                     }`}
                                 onClick={() =>

@@ -116,7 +116,7 @@ Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
-Route::get('/services', [ServiceController::class, 'reactView'])->name('DetailService.jsx');
+Route::get('/services', [ServiceController::class, 'reactView'])->name('ServiciosPage.jsx');
 Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogProducts.jsx');
 Route::get('/instructions', [InstructionController::class, 'reactView'])->name('Instructions.jsx');
 Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');

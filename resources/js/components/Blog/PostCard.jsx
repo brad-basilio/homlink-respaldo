@@ -12,6 +12,10 @@ const PostCard = ({
     image,
     post_date,
     firstImage = false,
+    classCategory,
+    classTitle,
+    classDescription,
+    classBtn
 }) => {
     // Animaciones
     const cardVariants = {
@@ -50,7 +54,7 @@ const PostCard = ({
     return (
         <motion.a
             href={`/blog/${slug}`}
-            className="flex flex-col self-stretch my-auto w-full mt-6"
+            className="flex flex-col self-stretch my-auto w-full mt-6 font-title"
             initial="hidden"
             animate="visible"
             variants={cardVariants}
@@ -59,18 +63,18 @@ const PostCard = ({
         >
             <div className={`flex flex-col gap-4 ${firstImage && "flex-col-reverse"}`}>
                 <div className="space-y-4">
-                    <span className="inline-block  py-1 text-accent  text-lg font-paragraph font-bold rounded-full">
+                    <span className={`inline-block  py-1 text-constrast  text-sm tracking-[8%] uppercase font-medium rounded-full ${classCategory}`}>
                         {category?.name}
                     </span>
-                    <h3 className="font-title line-clamp-2 text-2xl lg:text-[28px] font-medium text-neutral group-hover:text-constrast transition-colors duration-300">
+                    <h3 className={` font-title line-clamp-2 text-2xl lg:text-[28px] font-medium text-neutral-dark group-hover:text-constrast transition-colors duration-300 ${classTitle}`}>
                         {name}
                     </h3>
-                    <p className="font-title line-clamp-2 text-neutral-dark text-base leading-relaxed " dangerouslySetInnerHTML={{ __html: summary }}>
+                    <p className={`font-title line-clamp-2 text-neutral-light text-lg leading-relaxed ${classDescription}`} dangerouslySetInnerHTML={{ __html: summary }}>
 
                     </p>
-                    <button className="inline-flex items-center gap-2 text-constrast text-lg font-semibold font-paragraph hover:gap-3 transition-all duration-300">
-                        Leer +
-                    </button>
+                   <button className={`inline-flex items-center gap-2 bg-constrast p-3 rounded-full text-white text-sm font-medium tracking-[8%] uppercase  hover:gap-3 transition-all duration-300 ${classBtn}`}>
+                                   LEER MÁS
+                                </button>
                 </div>
 
                 <motion.div

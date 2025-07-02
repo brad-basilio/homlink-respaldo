@@ -58,6 +58,8 @@ const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) 
      {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
 
 <CarruselCoreValues items={core_values} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+      
+      
       <Footer />
     </>
   );
