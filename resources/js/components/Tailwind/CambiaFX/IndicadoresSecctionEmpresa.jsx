@@ -109,7 +109,7 @@ export default function IndicadoresSecctionEmpresa() {
                             </svg>
 
                         </div>
-                        <div className="text-4xl md:text-5xl font-bold text-[#7B61FF] mb-2">+500</div>
+                         <div className="text-4xl md:text-[56px] font-semibold text-neutral-dark mb-2"><span className='text-constrast'>+</span>500</div>
                         <div className="text-neutral-dark font-medium">
                             <span className="font-bold">mil</span> operaciones atendidas<br />exitosamente
                         </div>

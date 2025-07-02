@@ -20,19 +20,19 @@ export default function HeroSecctionEmpresa() {
                 {/* Izquierda: Texto principal */}
                 <div className='w-7/12'>
 
-                    <h1 className="text-4xl md:text-[52px] font-title font-medium text-white leading-tight mb-4">
+                    <h1 className="text-6xl font-title font-medium text-white  mb-4">
                         Cambia <span className="text-white font-semibold">FX Empresas</span>
 
                     </h1>
-                    <p className="text-2xl font-medium uppercase tracking-[8%] text-secondary mb-6 max-w-lg">
+                    <p className="text-2xl font-medium uppercase tracking-[8%] text-secondary mb-6 max-w-xl">
                         Eres empresa, contactanos y consigue
                         el mejor tipo de  cambio aquí
                     </p>
-                    <div className='flex gap-12 h-[300px] mt-20 relative'>
+                    <div className='flex gap-12 h-[200px] mt-20 relative'>
 
 
 
-                        <svg className="min-w-[1200px]  absolute -left-20 top-10" width="926" height="403" viewBox="0 0 926 403" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className="min-w-[1200px]  absolute -left-20 top-0" width="926" height="403" viewBox="0 0 926 403" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M924.055 462.4C900.707 459.83 866.658 453.823 828.33 438.329C760.933 411.086 719.891 370.505 691.805 342.171C658.213 308.282 631.732 281.565 616.981 236.737C615.825 233.225 581.958 167.894 619.675 128.377C657.399 88.8538 712.426 124.699 720.361 185.585C728.297 246.472 704.465 279.287 675.606 302.167C634.672 334.622 581.94 332.044 541.272 326.599C363.832 302.829 272.359 196.573 102.482 126.709C11.5098 89.295 -212.004 -26.776 -346.999 31.9512" stroke="#719931" stroke-opacity="0.24" stroke-width="29.8691" stroke-miterlimit="10" />
                         </svg>
 
