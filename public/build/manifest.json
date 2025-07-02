@@ -89,14 +89,6 @@
     "file": "assets/DxButton-CsjWvhyj.js",
     "name": "DxButton"
   },
-  "_EmpresasSection-7ihnRgFa.js": {
-    "file": "assets/EmpresasSection-7ihnRgFa.js",
-    "name": "EmpresasSection",
-    "imports": [
-      "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js"
-    ]
-  },
   "_Footer-w4AsPg4f.js": {
     "file": "assets/Footer-w4AsPg4f.js",
     "name": "Footer",
@@ -110,6 +102,14 @@
       "_sweetalert2.all-DJo0UVK6.js",
       "resources/js/components/Blog/Results.jsx",
       "_CreateReactScript-BuKYEKxn.js"
+    ]
+  },
+  "_FuncionSection-DD4OkESv.js": {
+    "file": "assets/FuncionSection-DD4OkESv.js",
+    "name": "FuncionSection",
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
     ]
   },
   "_Header-imJWZ1dd.js": {
@@ -544,13 +544,13 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{04k}~.js": {
+  "_swiper-!~{04l}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{04k}~.js"
+    "src": "_swiper-!~{04l}~.js"
   },
-  "_tippy-!~{04d}~.js": {
+  "_tippy-!~{04e}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{04d}~.js"
+    "src": "_tippy-!~{04e}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -3006,7 +3006,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-D3s6nDxu.js",
+    "file": "assets/Home-D3o9ESkS.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3028,7 +3028,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-B3bhWOn2.js",
       "resources/js/Utils/BlurText.jsx",
-      "_EmpresasSection-7ihnRgFa.js",
+      "_FuncionSection-DD4OkESv.js",
       "_CintilloSection-CYOBDhSJ.js",
       "_index-CXU7o9CY.js",
       "resources/js/components/Blog/Filter.jsx",
@@ -3052,7 +3052,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-CaiWndLv.js",
+    "file": "assets/HomeEmpresa-na0GLMtY.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3074,7 +3074,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-B3bhWOn2.js",
       "resources/js/Utils/BlurText.jsx",
-      "_EmpresasSection-7ihnRgFa.js",
+      "_FuncionSection-DD4OkESv.js",
       "_CintilloSection-CYOBDhSJ.js",
       "_navigation-UUd-hTXs.js",
       "_pagination-BLZ4Z3t3.js",
@@ -4005,7 +4005,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4083,7 +4083,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4103,7 +4103,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4157,7 +4157,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
+    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4429,7 +4429,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-B0ALEkqN.js",
+    "file": "assets/DataGrid-Dwtff5Cv.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -4696,7 +4696,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4819,6 +4819,16 @@
       "_index-RYns6xqu.js",
       "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js"
+    ]
+  },
+  "resources/js/components/Tailwind/CambiaFX/BannerFxEmpresas.jsx": {
+    "file": "assets/BannerFxEmpresas-Dwtff5Cv.js",
+    "name": "BannerFxEmpresas",
+    "src": "resources/js/components/Tailwind/CambiaFX/BannerFxEmpresas.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
     ]
   },
   "resources/js/components/Tailwind/CambiaFX/BeneficiosSecctionEmpresa.jsx": {
@@ -5198,7 +5208,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dwtff5Cv.js",
+    "file": "assets/DataGrid-B0ALEkqN.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5585,10 +5595,10 @@
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-CnD_D-a9.js",
+    "file": "assets/ScalpType-Chu0TyCG.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5706,7 +5716,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -5726,7 +5736,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -5758,7 +5768,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
+    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

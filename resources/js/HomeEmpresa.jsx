@@ -50,6 +50,7 @@ import HeroSecctionEmpresa from "./components/Tailwind/CambiaFX/HeroSecctionEmpr
 import IndicadoresSecctionEmpresa from "./components/Tailwind/CambiaFX/IndicadoresSecctionEmpresa";
 import BeneficiosSecctionEmpresa from "./components/Tailwind/CambiaFX/BeneficiosSecctionEmpresa";
 import ContactoSecctionEmpresa from "./components/Tailwind/CambiaFX/ContactoSecctionEmpresa";
+import BannerFxEmpresas from "./components/Tailwind/CambiaFX/BannerFxEmpresas";
 
 
 // Animaciones para textos (en loop)
@@ -247,22 +248,22 @@ const Home = ({
         <div>
             <Header showSlogan={showSlogan}></Header>
 
-           <CintilloSection/>
+            <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
             <HeroSecctionEmpresa />
             {/* INDICADORES*/}
-          <IndicadoresSecctionEmpresa/>
-           {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-          <PrimeraOperacionSection/>
-<FuncionSection/>
-          <EmpresasSection/>
-          {/* SECCIÓN BENEFICIOS EMPRESAS */}
-<BeneficiosSecctionEmpresa/>
-          
+            <IndicadoresSecctionEmpresa />
+            {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
+            <PrimeraOperacionSection />
+            <FuncionSection />
+            <BannerFxEmpresas />
+            {/* SECCIÓN BENEFICIOS EMPRESAS */}
+            <BeneficiosSecctionEmpresa />
+
             {/* FORMULARIO DE CONTACTO */}
-<ContactoSecctionEmpresa/>
-{/*
+            <ContactoSecctionEmpresa />
+            {/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
 
          

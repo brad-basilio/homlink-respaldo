@@ -23,41 +23,41 @@ export default function BeneficiosSecctionEmpresa() {
     const beneficios = [
         {
             id: 1,
-            image: "/assets/cambiafx/beneficio-1.jpg",
+            image: "/assets/cambiafx/blog-1.png",
             title: "Pagar la planilla de tu empresa"
         },
         {
             id: 2,
-            image: "/assets/cambiafx/beneficio-2.jpg", 
+            image: "/assets/cambiafx/blog-2.png",
             title: "Pagar tus impuestos al día, sin atrasos"
         },
         {
             id: 3,
-            image: "/assets/cambiafx/beneficio-3.jpg",
+            image: "/assets/cambiafx/blog-3.jpg",
             title: "Realizar transferencias internacionales"
         },
         {
             id: 4,
-            image: "/assets/cambiafx/beneficio-4.jpg",
+            image: "/assets/cambiafx/blog-4.jpg",
             title: "Comprar insumos para tu empresa"
         }
     ];
 
     return (
-        <section className="w-full bg-[#C6FF6B] py-16 px-[5%] font-paragraph">
-            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <section className="w-full bg-secondary py-16 px-[5%] font-title">
+            <div className=" mx-auto flex flex-col lg:flex-row items-center gap-12">
                 {/* Columna izquierda - Texto */}
                 <div className="flex-1 max-w-xl">
-                    <div className="uppercase text-neutral-dark text-sm font-medium tracking-widest mb-4">
+                    <div className="uppercase text-neutral-dark text-sm font-medium tracking-[8%] mb-4">
                         BENEFICIOS
                     </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-neutral-dark leading-tight mb-6">
+                    <h2 className="text-4xl lg:text-[64px] font-medium text-neutral-dark leading-[94%] mb-6">
                         Las empresas <br />
-                        <span className="text-[#7B61FF]">cambiar dólares</span> <br />
+                        <span className="text-constrast font-semibold">cambiar dólares</span> <br />
                         para...
                     </h2>
-                    <p className="text-lg text-neutral-dark mb-6 max-w-md leading-relaxed">
-                        Aprovecha nuestro tipo de cambio <span className="font-bold">competitivo y asesoría de traders expertos</span> para cambiar dólares para tu empresa.
+                    <p className="text-xl text-neutral-light  max-w-md leading-relaxed">
+                        Aprovecha nuestro tipo de cambio <span className="font-semibold">competitivo y asesoría de traders expertos</span> para cambiar dólares para tu empresa.
                     </p>
                 </div>
 
@@ -93,7 +93,7 @@ export default function BeneficiosSecctionEmpresa() {
                     >
                         {beneficios.map((beneficio) => (
                             <SwiperSlide key={beneficio.id}>
-                                <div className="relative rounded-3xl overflow-hidden h-64 group cursor-pointer">
+                                <div className="relative rounded-3xl overflow-hidden h-96 group cursor-pointer">
                                     <img 
                                         src={beneficio.image}
                                         alt={beneficio.title}
@@ -113,22 +113,7 @@ export default function BeneficiosSecctionEmpresa() {
                         ))}
                     </Swiper>
 
-                    {/* Controles de navegación */}
-                    <div className="flex items-center justify-center gap-4 mt-6">
-                        <button className="beneficios-prev w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12.5 15L7.5 10L12.5 5" stroke="#2D3748" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </button>
-                        
-                        <div className="beneficios-pagination flex gap-2"></div>
-                        
-                        <button className="beneficios-next w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors duration-300">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M7.5 15L12.5 10L7.5 5" stroke="#2D3748" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+                  
                 </div>
             </div>
 
