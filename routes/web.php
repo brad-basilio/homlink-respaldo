@@ -113,6 +113,7 @@ Route::get('/casos-de-exito/{slug}', [DetailSuccessStoryController::class, 'reac
 Route::get('/casos-de-exito', [SuccessStoryController::class, 'reactView'])->name('CasosDeExito.jsx');
 Route::get('/infoproductos', [InfoproductController::class, 'reactView'])->name('Infoproductos.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
+Route::get('/empresas', [HomeController::class, 'reactView'])->name('HomeEmpresa.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');

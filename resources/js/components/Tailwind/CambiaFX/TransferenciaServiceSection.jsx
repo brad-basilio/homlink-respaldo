@@ -26,22 +26,22 @@ const TransferenciaServiceSection = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-900 px-4 py-12 md:px-8 lg:px-16 xl:px-24">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-neutral-dark px-[5%] py-12 ">
+      <div className=" mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left side - Content and Services */}
           <div>
             {/* Header */}
             <div className="mb-8">
               <div className="mb-4">
-                <span className="text-lime-400 text-sm font-medium tracking-wider uppercase">
+                <span className="text-secondary text-sm font-medium tracking-[8%] uppercase">
                   SERVICIOS
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                 <h2 className="text-3xl md:text-4xl lg:text-[64px] font-medium text-white my-4">
                 Transferencia FX
               </h2>
-              <p className="text-gray-300 text-lg md:text-xl">
+              <p className="text-white text-lg ">
                 Transfiere a otro banco a una baja comisión.
               </p>
             </div>
@@ -51,20 +51,20 @@ const TransferenciaServiceSection = () => {
               {services.map((service, index) => (
                 <div
                   key={index}
-                  className="bg-lime-400 rounded-2xl p-6 hover:bg-lime-300 transition-colors duration-300 group"
+                  className="bg-secondary rounded-2xl p-6  transition-colors duration-300 group"
                 >
                   {/* Icon */}
-                  <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mb-4 group-hover:bg-purple-600 transition-colors duration-300">
+                  <div className="w-12 h-12 bg-constrast rounded-full flex items-center justify-center text-white mb-4  transition-colors duration-300">
                     {service.icon}
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-gray-900 font-bold text-base mb-3 leading-tight">
+                  <h3 className="text-neutral-dark font-medium text-xl mb-3 leading-tight">
                     {service.title}
                   </h3>
                   
                   {/* Description */}
-                  <p className="text-gray-800 text-sm leading-relaxed">
+                  <p className="text-neutral-light text-base leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -74,21 +74,7 @@ const TransferenciaServiceSection = () => {
 
           {/* Right side - Image Card */}
           <div className="relative">
-            <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-3xl p-8 relative overflow-hidden min-h-[500px] flex items-center justify-center">
-              {/* Decorative green shapes */}
-              <div className="absolute top-0 left-0 w-32 h-32 bg-lime-400 rounded-full opacity-80 -translate-x-16 -translate-y-16"></div>
-              <div className="absolute bottom-0 right-0 w-40 h-40 bg-lime-400 rounded-full opacity-80 translate-x-20 translate-y-20"></div>
-              <div className="absolute top-1/2 right-0 w-24 h-24 bg-lime-400 rounded-full opacity-60 translate-x-12"></div>
-              
-              {/* Woman image */}
-              <div className="relative z-10 w-full max-w-sm mx-auto">
-                <img 
-                  src="/image.png" 
-                  alt="Woman with phone and credit card" 
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-            </div>
+           <img src='/assets/cambiafx/transferencia-person.webp' alt='Transferencia FX' className='w-full h-auto object-cover rounded-3xl' />
           </div>
         </div>
       </div>

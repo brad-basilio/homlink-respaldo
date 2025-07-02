@@ -6,10 +6,11 @@ const CintilloSection = () => {
                     <div className="flex items-start gap-2 relative">
                         <ul className="flex flex-row items-center gap-4 uppercase font-medium text-sm">
                             <li>
-                                Personas
+                               <a href="/">
+                                 Personas</a>
                             </li>
                             <li className="">
-                                Empresas
+                                <a href="/empresas">Empresas</a>
                             </li>
                         </ul>
                     </div>

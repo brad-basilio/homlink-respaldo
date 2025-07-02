@@ -46,6 +46,10 @@ import PilaresSection from "./components/Tailwind/CambiaFX/PilaresSection";
 import EmpresasSection from "./components/Tailwind/CambiaFX/EmpresasSection";
 import BlogSection from "./components/Tailwind/CambiaFX/BlogSection";
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import HeroSecctionEmpresa from "./components/Tailwind/CambiaFX/HeroSecctionEmpresa";
+import IndicadoresSecctionEmpresa from "./components/Tailwind/CambiaFX/IndicadoresSecctionEmpresa";
+import BeneficiosSecctionEmpresa from "./components/Tailwind/CambiaFX/BeneficiosSecctionEmpresa";
+import ContactoSecctionEmpresa from "./components/Tailwind/CambiaFX/ContactoSecctionEmpresa";
 
 
 // Animaciones para textos (en loop)
@@ -243,29 +247,22 @@ const Home = ({
         <div>
             <Header showSlogan={showSlogan}></Header>
 
-            <CintilloSection />
+           <CintilloSection/>
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecction />
-            {/* SLIDER  <SliderInteractive
-                items={sliders}
-                data={{
-                    infiniteLoop: "si",
-                    paginationAlignment: "center",
-                    showNavigation: "no",
-                    navigationAlignment: "center"
-                }}
-            />*/}
-
-            {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection />
-            <FuncionSection />
-            <CuponesSection />
-            <PilaresSection />
-            <EmpresasSection />
-            <BlogSection />
-
-            {/*
+            <HeroSecctionEmpresa />
+            {/* INDICADORES*/}
+          <IndicadoresSecctionEmpresa/>
+           {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
+          <PrimeraOperacionSection/>
+<FuncionSection/>
+          <EmpresasSection/>
+          {/* SECCIÓN BENEFICIOS EMPRESAS */}
+<BeneficiosSecctionEmpresa/>
+          
+            {/* FORMULARIO DE CONTACTO */}
+<ContactoSecctionEmpresa/>
+{/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
 
          

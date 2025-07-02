@@ -62,11 +62,12 @@ const MoreServiceSection = ({ items, data }) => {
     return (
         <div>
 
-            <div className="bg-secondary relative ">
-                <div className="absolute bottom-0 left-0 w-full ">
-                    <svg width="333" height="293" viewBox="0 0 333 293" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M330.525 318.574C314.682 316.83 291.576 312.754 265.567 302.24C219.832 283.753 191.981 256.215 172.923 236.988C150.127 213.991 132.157 195.861 122.148 165.441C121.363 163.058 98.381 118.725 123.976 91.9092C149.575 65.0891 186.916 89.413 192.3 130.73C197.685 172.047 181.513 194.315 161.93 209.841C134.152 231.865 98.3692 230.116 70.7721 226.421C-49.6372 210.291 -111.71 138.187 -226.987 90.777C-288.72 65.3884 -440.394 -13.3762 -532 26.4755" stroke="#7E5AFB" stroke-width="29.8691" stroke-miterlimit="10" />
-                    </svg>
+            <div className="bg-primary relative  ">
+                <div className="absolute top-0 left-0 w-full ">
+                   <svg width="333" height="292" viewBox="0 0 333 292" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M330.525 -26.5299C314.682 -24.7861 291.576 -20.71 265.567 -10.1957C219.832 8.29127 191.981 35.8291 172.923 55.0564C150.127 78.0533 132.157 96.1826 122.148 126.603C121.363 128.986 98.381 173.319 123.976 200.135C149.575 226.955 186.916 202.631 192.3 161.314C197.685 119.997 181.513 97.7288 161.93 82.2026C134.152 60.1787 98.3692 61.9282 70.7721 65.623C-49.6372 81.753 -111.71 153.857 -226.987 201.267C-288.72 226.656 -440.394 305.42 -532 265.568" stroke="#7E5AFB" stroke-width="29.8691" stroke-miterlimit="10"/>
+</svg>
+
 
 
                     {/* <img
@@ -80,8 +81,8 @@ const MoreServiceSection = ({ items, data }) => {
                     <div className="relative flex flex-col lg:flex-row items-center justify-center">
 
 
-                        <div className="w-[800px] overflow-hidden">
-                            <img src="/assets/cambiafx/beneficio-person.webp" alt="Empresas" className="h-[600px] object-cover w-auto" />
+                        <div className="w-[800px] overflow-hidden h-[700px] flex items-end">
+                            <img src="/assets/cambiafx/more-person.webp" alt="Empresas" className="h-[600px] object-cover w-auto" />
 
                         </div>
 
@@ -124,7 +125,7 @@ const MoreServiceSection = ({ items, data }) => {
                             >
                                 {services.map((value, index) => (
                                     <SwiperSlide key={index}>
-                                        <div className="w-full flex bg-primary rounded-xl p-4 flex-col items-start" key={index}>
+                                        <div className="w-full flex bg-secondary  rounded-xl p-4 flex-col items-start" key={index}>
                                             <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mb-4 group-hover:bg-purple-600 transition-colors duration-300">
                     {value.icon}
                   </div>

@@ -38,7 +38,7 @@ const CarruselCoreValues = ({ items, data }) => {
     return (
         <div>
 
-            <div className="bg-secondary relative ">
+            <div className="bg-secondary relative  ">
                 <div className="absolute bottom-0 left-0 w-full ">
                     <svg width="333" height="293" viewBox="0 0 333 293" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M330.525 318.574C314.682 316.83 291.576 312.754 265.567 302.24C219.832 283.753 191.981 256.215 172.923 236.988C150.127 213.991 132.157 195.861 122.148 165.441C121.363 163.058 98.381 118.725 123.976 91.9092C149.575 65.0891 186.916 89.413 192.3 130.73C197.685 172.047 181.513 194.315 161.93 209.841C134.152 231.865 98.3692 230.116 70.7721 226.421C-49.6372 210.291 -111.71 138.187 -226.987 90.777C-288.72 65.3884 -440.394 -13.3762 -532 26.4755" stroke="#7E5AFB" stroke-width="29.8691" stroke-miterlimit="10" />
@@ -56,12 +56,12 @@ const CarruselCoreValues = ({ items, data }) => {
                     <div className="relative flex flex-col lg:flex-row items-center justify-center">
 
 
-                        <div className="w-[800px] overflow-hidden">
-                            <img src="/assets/cambiafx/beneficio-person.webp" alt="Empresas" className="h-[600px] object-cover w-auto" />
+                        <div className="w-[800px] overflow-hidden h-[650px] flex items-end">
+                            <img src="/assets/cambiafx/beneficio-person.webp" alt="Empresas" className="h-[650px] object-cover w-auto" />
 
                         </div>
 
-                        <div className="max-w-3xl">
+                        <div className="max-w-3xl ">
 
                             <div className="flex items-center mb-4">
                        
