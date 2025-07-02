@@ -45,6 +45,7 @@ import CuponesSection from "./components/Tailwind/CambiaFX/CuponesSection";
 import PilaresSection from "./components/Tailwind/CambiaFX/PilaresSection";
 import EmpresasSection from "./components/Tailwind/CambiaFX/EmpresasSection";
 import BlogSection from "./components/Tailwind/CambiaFX/BlogSection";
+import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 
 
 // Animaciones para textos (en loop)
@@ -242,21 +243,7 @@ const Home = ({
         <div>
             <Header showSlogan={showSlogan}></Header>
 
-            <div className="bg-constrast  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
-
-                <div className="px-[5%] mx-auto  flex flex-row items-center justify-start font-paragraph">
-                    <div className="flex items-start gap-2 relative">
-                        <ul className="flex flex-row items-center gap-4 uppercase font-medium text-sm">
-                            <li>
-                                Personas
-                            </li>
-                            <li className="">
-                                Empresas
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+           <CintilloSection/>
 
             {/* SECCIÓN CAMBIO FX */}
             <HeroSecction />

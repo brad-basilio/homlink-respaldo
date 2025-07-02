@@ -15,6 +15,8 @@ import AboutSeccionVision from "./components/Tailwind/CambioGerencia/AboutSeccio
 import AboutSeccionWhy from "./components/Tailwind/CambioGerencia/AboutSeccionWhy";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 import AboutSeccionStaff from "./components/Tailwind/CambioGerencia/AboutSeccionStaff";
+import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import CarruselCoreValues from "./components/Tailwind/Carrusel/CarruselCoreValues";
 
 const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) => {
 
@@ -48,13 +50,14 @@ const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) 
   return (
     <>
       <Header />
+      <CintilloSection/>
 
       <HomeSeccionNosotros data={landingNosotros} strengths={strengths} button_about={false}/>
       <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
       <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} />
-      <AboutSeccionStaff staff={staff} />
-      <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+     {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
 
+<CarruselCoreValues items={core_values} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
       <Footer />
     </>
   );

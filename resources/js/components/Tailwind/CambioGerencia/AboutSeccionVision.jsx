@@ -3,7 +3,7 @@ import { Link } from "@inertiajs/react";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
 const IconStack = () => (
-    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent">
+    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-constrast">
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="12" fill="#D62828" />
             <path d="M7 10l5 2.5L17 10M12 16.5l-5-2.5M12 16.5l5-2.5M7 14v-4M17 14v-4M12 7.5l5 2.5-5 2.5-5-2.5 5-2.5z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -12,7 +12,7 @@ const IconStack = () => (
 );
 
 const IconUsers = () => (
-    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-accent">
+    <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-constrast">
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="12" fill="#D62828" />
             <path d="M17 18v-1.5A2.5 2.5 0 0 0 14.5 14h-5A2.5 2.5 0 0 0 7 16.5V18M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -26,7 +26,7 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
             {/* Columna izquierda  */}
             <div className="flex-1 max-w-xl">
                 <div className="flex items-center mb-4">
-                    <div className=" mr-2">
+                   {/* <div className=" mr-2">
                         <span>
                             <svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7.50225 0C5.95566 0 4.69727 1.2584 4.69727 2.80499C4.69727 4.35158 5.95566 5.60998 7.50225 5.60998C9.04885 5.60998 10.3072 4.35158 10.3072 2.80499C10.3072 1.2584 9.04885 0 7.50225 0Z" fill="#D62828" />
@@ -37,15 +37,15 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
                             </svg>
 
                         </span>
-                    </div>
-                    <h3 className="uppercase text-neutral-dark text-sm lg:text-lg font-bold">Nuestra visión | Misión</h3>
+                    </div> */}
+                   <h3 className="uppercase text-constrast text-sm font-medium">Nuestra visión | Misión</h3>
                 </div>
 
-                <h2 className="text-4xl lg:text-[52px] font-medium mb-6 leading-tight italic">
-                    <TextWithHighlight text={data?.title} />
+                <h2 className="text-4xl lg:text-[60px] font-medium mb-6 leading-[94%] ">
+                            <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' />
 
-                </h2>
-                <p className="text-neutral-dark text-base font-light mb-8 max-w-md">
+                        </h2>
+                  <p className="text-neutral-light mb-10 text-lg  max-w-md">
                     {data?.description}
                 </p>
                 {/* Botón "Sobre nosotros" */}
@@ -64,50 +64,50 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
 
             {/* Columna central: tarjetas visión/misión/valor */}
             <div className="flex-1 max-w-lg w-full flex flex-col gap-4">
-                <div className="bg-neutral-light rounded-2xl p-4 flex flex-col gap-8">
+                <div className="bg-secondary rounded-2xl p-4 flex flex-col gap-8">
                     {/* Misión */}
-                    <div className="flex items-start p-4 hover:bg-constrast hover:text-white rounded-xl gap-4   transition-colors duration-300">
-                        <div className="bg-accent rounded-full p-3 mr-4">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <div className="flex items-start p-4 gap-4 mt-2 group hover:bg-constrast hover:text-white transition-colors duration-300 rounded-xl">
+                        <div className="bg-constrast rounded-full p-3 mr-4 group-hover:bg-secondary transition-colors duration-300">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-white group-hover:stroke-neutral-light transition-colors duration-300">
+                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
 
                         </div>
                         <div>
-                            <h3 className=" text-lg font-semibold mb-1">Nuestra misión</h3>
-                            <p className=" text-base">{mision?.description}</p>
+                            <h3 className=" text-xl font-medium mb-1">Nuestra misión</h3>
+                            <p className=" text-base text-neutral-light group-hover:text-white">{mision?.description}</p>
                         </div>
                     </div>
                     {/* Visión */}
-                    <div className="flex items-start p-4 hover:bg-constrast hover:text-white rounded-xl gap-4   transition-colors duration-300">
-                        <div className="bg-accent rounded-full p-3 mr-4">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <div className="flex items-start p-4 gap-4 mt-2 group hover:bg-constrast hover:text-white transition-colors duration-300 rounded-xl">
+                        <div className="bg-constrast rounded-full p-3 mr-4 group-hover:bg-secondary transition-colors duration-300">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-white group-hover:stroke-neutral-light transition-colors duration-300">
+                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
 
                         </div>
                         <div>
-                            <h3 className=" text-lg font-semibold mb-1">Nuestra visión</h3>
-                            <p className=" text-base">{vision?.description}</p>
+                            <h3 className="  text-xl font-medium mb-1">Nuestra visión</h3>
+                            <p className="text-base text-neutral-light group-hover:text-white">{vision?.description}</p>
                         </div>
                     </div>
                     {/* Valor */}
-                    <div className="flex items-start p-4 gap-4 mt-2 hover:bg-constrast hover:text-white transition-colors duration-300 rounded-xl">
-                        <div className="bg-accent rounded-full p-3 mr-4">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <div className="flex items-start p-4 gap-4 mt-2 group hover:bg-constrast hover:text-white transition-colors duration-300 rounded-xl">
+                        <div className="bg-constrast rounded-full p-3 mr-4 group-hover:bg-secondary transition-colors duration-300">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="stroke-white group-hover:stroke-neutral-light transition-colors duration-300">
+                                <path d="M8.64298 3.14559L6.93816 3.93362C4.31272 5.14719 3 5.75397 3 6.75C3 7.74603 4.31272 8.35281 6.93817 9.56638L8.64298 10.3544C10.2952 11.1181 11.1214 11.5 12 11.5C12.8786 11.5 13.7048 11.1181 15.357 10.3544L17.0618 9.56638C19.6873 8.35281 21 7.74603 21 6.75C21 5.75397 19.6873 5.14719 17.0618 3.93362L15.357 3.14559C13.7048 2.38186 12.8786 2 12 2C11.1214 2 10.2952 2.38186 8.64298 3.14559Z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.788 11.0977C20.9293 11.2964 21 11.5036 21 11.7314C21 12.7132 19.6873 13.3114 17.0618 14.5077L15.357 15.2845C13.7048 16.0373 12.8786 16.4138 12 16.4138C11.1214 16.4138 10.2952 16.0373 8.64298 15.2845L6.93817 14.5077C4.31272 13.3114 3 12.7132 3 11.7314C3 11.5036 3.07067 11.2964 3.212 11.0977" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M20.3767 16.2656C20.7922 16.5966 21 16.9265 21 17.3171C21 18.299 19.6873 18.8971 17.0618 20.0934L15.357 20.8702C13.7048 21.6231 12.8786 21.9995 12 21.9995C11.1214 21.9995 10.2952 21.6231 8.64298 20.8702L6.93817 20.0934C4.31272 18.8971 3 18.299 3 17.3171C3 16.9265 3.20778 16.5966 3.62334 16.2656" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
 
                         </div>
                         <div>
-                            <h3 className=" text-lg font-semibold mb-1">Nuestro valor</h3>
-                            <p className=" text-base">{valor?.description}</p>
+                            <h3 className="   text-xl font-medium mb-1">Nuestro valor</h3>
+                            <p className=" text-base text-neutral-light group-hover:text-white">{valor?.description}</p>
                         </div>
                     </div>
                 </div>

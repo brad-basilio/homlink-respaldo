@@ -48,18 +48,11 @@
       "tippy.css"
     ]
   },
-  "_CarruselBrands-Dq7hRlpI.js": {
-    "file": "assets/CarruselBrands-Dq7hRlpI.js",
-    "name": "CarruselBrands",
+  "_CintilloSection-CvbfNMMI.js": {
+    "file": "assets/CintilloSection-CvbfNMMI.js",
+    "name": "CintilloSection",
     "imports": [
-      "resources/js/Admin/components/RequirementCard.jsx",
-      "resources/js/components/Tailwind/CambioGerencia/AboutSeccionWhy.jsx",
-      "_autoplay-Dx8VzK-T.js",
-      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
-      "_index-RYns6xqu.js"
-    ],
-    "css": [
-      "swiper.css"
+      "resources/js/Admin/components/RequirementCard.jsx"
     ]
   },
   "_CouponsRest-wJ2qY0pS.js": {
@@ -533,13 +526,13 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{04a}~.js": {
+  "_swiper-!~{04c}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{04a}~.js"
+    "src": "_swiper-!~{04c}~.js"
   },
-  "_tippy-!~{043}~.js": {
+  "_tippy-!~{045}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{043}~.js"
+    "src": "_tippy-!~{045}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -632,7 +625,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-gTl1Um15.js",
+    "file": "assets/About-D_3oQBCr.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -649,7 +642,9 @@
       "resources/js/components/Tailwind/CambioGerencia/AboutSeccionWhy.jsx",
       "_TextWithHighlight-CCbr48HD.js",
       "_index.esm-zkRd-kwu.js",
-      "_CarruselBrands-Dq7hRlpI.js",
+      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
+      "_CintilloSection-CvbfNMMI.js",
+      "_autoplay-Dx8VzK-T.js",
       "_index-CXU7o9CY.js",
       "_main-Y8JAyXgE.js",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
@@ -662,9 +657,7 @@
       "_index-DNUR7M9R.js",
       "_HtmlContent-CZmf3wHb.js",
       "_sweetalert2.all-DJo0UVK6.js",
-      "_axios-B4uVmeYG.js",
-      "_autoplay-Dx8VzK-T.js",
-      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx"
+      "_axios-B4uVmeYG.js"
     ],
     "css": [
       "swiper.css",
@@ -2753,7 +2746,7 @@
     ]
   },
   "resources/js/DetailService.jsx": {
-    "file": "assets/DetailService-D_LmEAkZ.js",
+    "file": "assets/DetailService-Dc7I3f1_.js",
     "name": "DetailService",
     "src": "resources/js/DetailService.jsx",
     "isEntry": true,
@@ -2773,7 +2766,8 @@
       "resources/js/components/Tailwind/CambioGerencia/AboutSeccionWhy.jsx",
       "_TextWithHighlight-CCbr48HD.js",
       "_HomeSeccionTestimonios-CLl1qO49.js",
-      "_CarruselBrands-Dq7hRlpI.js",
+      "_autoplay-Dx8VzK-T.js",
+      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
       "_index-CXU7o9CY.js",
       "_index.esm-zkRd-kwu.js",
       "_axios-B4uVmeYG.js",
@@ -2788,9 +2782,7 @@
       "_HtmlContent-CZmf3wHb.js",
       "_pagination-BLZ4Z3t3.js",
       "_classes-to-selector-DQiFRrUf.js",
-      "_autoplay-Dx8VzK-T.js",
-      "resources/js/components/About/Strengths.jsx",
-      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx"
+      "resources/js/components/About/Strengths.jsx"
     ],
     "css": [
       "swiper.css",
@@ -2994,7 +2986,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-C2D81NV0.js",
+    "file": "assets/Home-B5QDCvNu.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3016,6 +3008,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment--4akpesR.js",
       "resources/js/Utils/BlurText.jsx",
+      "_CintilloSection-CvbfNMMI.js",
       "_index-CXU7o9CY.js",
       "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js",
@@ -3940,7 +3933,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4028,7 +4021,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4038,7 +4031,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4092,7 +4085,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
+    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4364,7 +4357,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-B0ALEkqN.js",
+    "file": "assets/DataGrid-Dwtff5Cv.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -4631,7 +4624,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -4725,7 +4718,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -4760,6 +4753,16 @@
     "file": "assets/BlogSection-Dwtff5Cv.js",
     "name": "BlogSection",
     "src": "resources/js/components/Tailwind/CambiaFX/BlogSection.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/components/Tailwind/CambiaFX/CintilloSection.jsx": {
+    "file": "assets/CintilloSection-Dwtff5Cv.js",
+    "name": "CintilloSection",
+    "src": "resources/js/components/Tailwind/CambiaFX/CintilloSection.jsx",
     "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -5016,6 +5019,21 @@
       "swiper.css"
     ]
   },
+  "resources/js/components/Tailwind/Carrusel/CarruselCoreValues.jsx": {
+    "file": "assets/CarruselCoreValues-BWgQI08s.js",
+    "name": "CarruselCoreValues",
+    "src": "resources/js/components/Tailwind/Carrusel/CarruselCoreValues.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "resources/js/components/Tailwind/CambioGerencia/AboutSeccionWhy.jsx",
+      "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
+      "_index-RYns6xqu.js"
+    ],
+    "css": [
+      "swiper.css"
+    ]
+  },
   "resources/js/components/Tailwind/Components/InputForm.jsx": {
     "file": "assets/InputForm-Dwtff5Cv.js",
     "name": "InputForm",
@@ -5027,7 +5045,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dwtff5Cv.js",
+    "file": "assets/DataGrid-B0ALEkqN.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5239,7 +5257,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5381,10 +5399,10 @@
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-Dwtff5Cv.js",
+    "file": "assets/HairGoals-nPfRvZqW.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5545,7 +5563,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -5555,7 +5573,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -5587,7 +5605,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
+    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,
