@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react'
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function HeroSecction() {
+export default function HeroSecction({data=[]}) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
@@ -21,14 +22,18 @@ export default function HeroSecction() {
                 <div className='w-7/12'>
                     <p className="text-sm font-medium tracking-widest text-constrast mb-2 uppercase">CASA DE CAMBIO</p>
                     <h1 className="text-4xl md:text-7xl font-title font-medium text-neutral-dark leading-tight mb-4">
-                        Haz <span className="text-neutral-dark font-semibold">cambios</span> y <br />
-                        <span className="text-neutral-dark font-semibold">gana </span>beneficios
+                        <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold ' split_coma  />
+                        
+                    
                     </h1>
                     <p className="text-lg text-neutral-light mb-6 max-w-lg">
-                        En Cambia FX, cada transacción te premia, acumula y gana regalos, códigos para vuelos, productos y descuentos.
+                       {data?.description || ""    }
                     </p>
                     <div className='flex gap-12 h-[300px] mt-20 relative'>
-                        <img src="/assets/cambiafx/hero-phone.png" alt="Hero" className="w-auto h-[400px] absolute -bottom-24" />
+                        <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="w-auto h-[400px] absolute -bottom-24" onError={(e) =>
+                            (e.target.src =
+                                "/api/cover/thumbnail/null")
+                        } />
                         <div className='w-4/12 relative'>
 
                         </div>

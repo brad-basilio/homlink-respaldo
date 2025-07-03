@@ -48,70 +48,7 @@ import BlogSection from "./components/Tailwind/CambiaFX/BlogSection";
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 
 
-// Animaciones para textos (en loop)
-const textVariants = {
-    hidden: {
-        opacity: 0,
-        y: 20,
-    },
-    visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-            duration: 0.8,
-            ease: "easeOut",
-        },
-    },
-    loop: {
-        y: [0, -5, 0], // Movimiento sutil arriba/abajo
-        transition: {
-            repeat: Infinity,
-            repeatType: "reverse",
-            duration: 3,
-            ease: "easeInOut",
-        },
-    },
-};
 
-// Animación para el resaltado de texto
-const highlightVariants = {
-    visible: {
-        color: "#224483",
-        scale: 1.05,
-        transition: {
-            repeat: Infinity,
-            repeatType: "mirror",
-            duration: 2.5,
-        },
-    },
-};
-
-// Animación del botón (igual a tu versión)
-const buttonVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-        scale: 1,
-        opacity: 1,
-        transition: {
-            type: "spring",
-            stiffness: 300,
-            damping: 10,
-        },
-    },
-    pulse: {
-        scale: [1, 1.05, 1],
-        transition: {
-            repeat: Infinity,
-            duration: 2,
-            ease: "easeInOut",
-        },
-    },
-    hover: {
-        scale: 1.1,
-        rotate: [0, -5, 5, -5, 0],
-        transition: { duration: 0.5 },
-    },
-};
 
 ReactModal.setAppElement("#app");
 
@@ -132,21 +69,27 @@ const Home = ({
     allServices = [],
 }) => {
     const { t, loading, error } = useTranslation();
-    const tipoSlider = "nopain";
-    const landingNosotros = landing?.find(
-        (item) => item.correlative === "page_home_nosotros"
+
+
+    console.log("landing", landing);
+
+    const landingInicio = landing?.find(
+        (item) => item.correlative === "page_home_inicio"
     );
 
-    const landingServicios = landing?.find(
-        (item) => item.correlative === "page_home_servicios"
+    const landingPasos = landing?.find(
+        (item) => item.correlative === "page_home_pasos"
     );
 
-    const landingImpacto = landing?.find(
-        (item) => item.correlative === "page_home_impacto"
-    );
-    const landingTestimonios = landing?.find(
-        (item) => item.correlative === "page_home_testimonios"
-    );
+const landingCupones = landing?.find(
+        (item) => item.correlative === "page_home_cupones"
+    );  
+const landingPilares = landing?.find(
+        (item) => item.correlative === "page_home_pilares"
+    );  
+
+
+   
     const landingBlog = landing?.find(
         (item) => item.correlative === "page_home_blog"
     );
@@ -226,17 +169,6 @@ const Home = ({
 
     const swiperRef = useRef(null);
 
-    const ArrowIcon = () => (
-        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
-            <mask id="mask0_226_5036" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="21">
-                <rect y="0.984375" width="20" height="20" fill="#D9D9D9" />
-            </mask>
-            <g mask="url(#mask0_226_5036)">
-                <path d="M13.4791 11.8203H3.33325V10.1536H13.4791L8.81242 5.48698L9.99992 4.32031L16.6666 10.987L9.99992 17.6536L8.81242 16.487L13.4791 11.8203Z" fill="#7D3CB5" />
-            </g>
-        </svg>
-    );
-
 
 
     return (
@@ -246,7 +178,7 @@ const Home = ({
             <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecction />
+            <HeroSecction data={landingInicio} />
             {/* SLIDER  <SliderInteractive
                 items={sliders}
                 data={{
@@ -258,12 +190,12 @@ const Home = ({
             />*/}
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection />
-            <FuncionSection />
-            <CuponesSection />
-            <PilaresSection />
+            <PrimeraOperacionSection  />
+            <FuncionSection data={landingPasos} />
+            <CuponesSection data={landingCupones} />
+            <PilaresSection data={landingPilares} />
             <EmpresasSection />
-            <BlogSection />
+            <BlogSection data={landingBlog} />
 
             {/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />

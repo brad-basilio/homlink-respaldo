@@ -1,4 +1,6 @@
-const CuponesSection = () => {
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
+
+const CuponesSection = ({ data }) => {
     return (
         <section className="relative bg-secondary overflow-hidden font-title px-2 md:px-0 w-full">
             {/* Fondo decorativo */}
@@ -10,9 +12,9 @@ const CuponesSection = () => {
                 <div className="flex-1 min-w-max flex flex-col justify-center items-start gap-6">
                     <div>
                         <div className="uppercase text-neutral-light text-sm font-medium tracking-widest mb-2">Cupones</div>
-                        <h2 className="text-5xl md:text-[64px] font-medium text-neutral-dark leading-[94%] mb-2"><span className="font-semibold">¡Ahorra </span>en tu<br />cambio digital!</h2>
-                        <p className="text-lg text-neutral-light mb-4 max-w-lg">No te pierdas nuestros cupones exclusivos para obtener descuentos en tu cambio digital.</p>
-                        <div className="text-2xl font-medium text-neutral-dark mb-4">¡Qué bueno que cambiaste!</div>
+                        <h2 className="text-5xl md:text-[64px] font-medium text-neutral-dark leading-[94%] mb-2"><TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' split_coma /></h2>
+                        <p className="text-lg text-neutral-light mb-4 max-w-lg">{data?.description || ""}</p>
+                        <div className="text-2xl font-medium text-neutral-dark mb-4">{data?.subtitle || ""}</div>
                     </div>
                     {/* Cupones */}
                     <div className="flex flex-row gap-6 mt-2">
@@ -62,7 +64,10 @@ const CuponesSection = () => {
                 </div>
                 {/* Columna derecha: imagen */}
                 <div className="flex-1 flex pt-12 justify-center items-center">
-                    <img src="/assets/cambiafx/cupon.png" alt="Persona" className="h-full w-auto object-cover z-10" />
+                    <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="h-full w-auto object-cover z-10" onError={(e) =>
+                    (e.target.src =
+                        "/api/cover/thumbnail/null")
+                    } />
                 </div>
 
             </div>

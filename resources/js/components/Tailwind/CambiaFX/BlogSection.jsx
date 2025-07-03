@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
 const blogCards = [
   {
@@ -23,7 +24,7 @@ const blogCards = [
   },
 ];
 
-const BlogSection = () => {
+const BlogSection = ({data}) => {
   const [expanded, setExpanded] = useState(0);
 
   return (
@@ -44,10 +45,13 @@ const BlogSection = () => {
         <div className="flex-1 min-w-[320px] flex flex-col justify-center items-start pt-4 md:pt-12">
           <div className="uppercase text-neutral-dark text-sm font-medium tracking-[8%] mb-2">CASOS DE EXITO | BLOG</div>
           <h2 className="text-4xl md:text-[64px] font-medium leading-[94%] text-neutral-dark  mb-2">
-            Reconocidos<br />y <span className="text-constrast font-semibold">confiables</span>
+          <TextWithHighlight text={data?.title} color='bg-constrast font-semibold' split  />
+          
+
           </h2>
           <p className="text-xl text-neutral-light mb-2 max-w-[420px] mt-4">
-            Te invitamos a leer y descubrir por qué somos la opción preferida para quienes buscan un <span className="font-semibold">cambio seguro y eficiente.</span>
+            <TextWithHighlight text={data?.description} color='bg-neutral-light font-semibold' />
+
           </p>
         </div>
 

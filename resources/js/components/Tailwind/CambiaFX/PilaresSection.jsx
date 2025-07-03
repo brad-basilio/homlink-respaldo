@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const PilaresSection = () => {
+const PilaresSection = ({data}) => {
     const [animationOffset, setAnimationOffset] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
     
@@ -111,14 +112,20 @@ const PilaresSection = () => {
                 <div className="flex-1 relative h-[580px]  flex flex-col justify-start items-start">
                     <div className="uppercase text-white text-sm font-medium tracking-widest mb-4">NUESTROS PILARES</div>
                     <h2 className="text-5xl md:text-[64px] tracking-[94%] font-medium text-white mb-6">
-                        ¿Qué nos<br />
-                        hace <span className="text-secondary font-semibold ">únicos</span>?
+                        <TextWithHighlight text={data?.title} color='bg-secondary font-semibold' split_coma/>
+                        
+                        
+                      
                     </h2>
                     <p className="text-xl text-white mb-4 max-w-md">
-                        En <span className="font-semibold">Cambia FX</span>, no solo te ofrecemos la mejor tasa del mercado, sino también una experiencia integral diseñada para satisfacer todas tus <span className="font-semibold">necesidades financieras</span>.
+                        <TextWithHighlight text={data?.description} color='bg-white font-semibold' />
+                      
                     </p>
-                
-                    <img src="/assets/cambiafx/pilares-person.webp" alt="Persona" className="absolute h-[450px] scale-x-[-1] top-56 right-0 object-cover z-10" />
+
+                    <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="absolute h-[450px] scale-x-[-1] top-56 right-0 object-cover z-10" onError={(e) =>
+                        (e.target.src =
+                            "/api/cover/thumbnail/null")
+                    } />
                 </div>
 
                 {/* Columna derecha: tarjetas animadas en dos columnas */}

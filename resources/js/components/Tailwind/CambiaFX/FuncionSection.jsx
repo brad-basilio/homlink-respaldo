@@ -1,11 +1,13 @@
-const FuncionSection = () => {
+import TextWithHighlight from "../../../Utils/TextWithHighlight";
+
+const FuncionSection = ({data}) => {
     return (
         <section className="bg-primary py-16 px-2 md:px-0 w-full font-title">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <div className="text-constrast font-medium tracking-widest text-sm mb-2 uppercase">PASO A PASO</div>
-                    <h2 className="text-4xl md:text-6xl font-medium text-neutral-dark mb-4">¿Como <span className="font-semibold">funciona</span>?</h2>
-                    <p className="text-base text-neutral-light max-w-xl mx-auto ">En Cambia FX, cada transacción te premia, acumula y gana regalos, códigos para vuelos, productos y descuentos.</p>
+                    <h2 className="text-4xl md:text-6xl font-medium text-neutral-dark mb-4"> <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' /></h2>
+                    <p className="text-base text-neutral-light max-w-xl mx-auto ">{data?.description || ""}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mt-10 max-w-5xl mx-auto">
                     {/* Paso 1 */}
