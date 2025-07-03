@@ -6,6 +6,7 @@ use App\Models\Aboutus;
 use App\Models\Ad;
 use App\Models\App;
 use App\Models\Brand;
+use App\Models\Coupon;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
 use App\Models\Item;
@@ -16,6 +17,7 @@ use App\Models\Service;
 use App\Models\Solution;
 use App\Models\PurchaseOption;
 use App\Models\Slider;
+use App\Models\Specialty;
 use App\Models\Staff;
 use App\Models\Strength;
 use App\Models\Supply;
@@ -39,15 +41,24 @@ class HomeController extends BasicController
         $strengths = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
         $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(3)->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
-$indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
+        $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
 
-$allServices = Service::where('status', true)->where('lang_id', $langId)->get();
-       
+        $allServices = Service::where('status', true)->where('lang_id', $langId)->get();
 
 
-$apps = App::where('visible', true)->get();
 
-return [
+        $apps = App::where('visible', true)->get();
+        $pasos = Specialty::where('visible', true)
+            ->where('lang_id', $langId)
+            ->orderBy('created_at', 'asc')
+            ->get();
+        $cupones = Coupon::where('status', true)
+            
+            ->orderBy('created_at', 'desc')
+            ->take(2)
+            ->get();
+
+        return [
             'landing' => $landing,
             'sliders' => $sliders,
             'brands' => $brands,
@@ -59,6 +70,8 @@ return [
 
 
             'apps' => $apps,
+            'pasos' => $pasos,
+            'cupones' => $cupones,
         ];
     }
 }

@@ -1,6 +1,15 @@
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
-const CuponesSection = ({ data }) => {
+const CuponesSection = ({ data,cupones }) => {
+    // Función para formatear fecha de YYYY-MM-DD a DD/MM/YYYY
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
     return (
         <section className="relative bg-secondary overflow-hidden font-title px-2 md:px-0 w-full">
             {/* Fondo decorativo */}
@@ -18,6 +27,8 @@ const CuponesSection = ({ data }) => {
                     </div>
                     {/* Cupones */}
                     <div className="flex flex-row gap-6 mt-2">
+
+
                         {/* Cupón 1 */}
                         <div className="bg-constrast rounded-2xl w-[320px] max-h-max flex flex-col justify-between  relative shadow-lg">
                             <div className="flex p-6 justify-between items-center gap-2 border-b-4 border-dashed">
@@ -26,8 +37,8 @@ const CuponesSection = ({ data }) => {
                             </div>
                             <div className="flex-1 p-6 flex flex-col justify-center items-center">
                                 <div className="uppercase text-white text-xs font-medium tracking-widest mb-1">Cupón</div>
-                                <div className="text-2xl md:text-3xl font-bold text-white">ANIVERSARIOFX</div>
-                                <div className="text-xs text-white mt-1">Válido hasta el 28/03/2025</div>
+                                <div className="text-2xl md:text-3xl font-bold text-white">{cupones[0].name}</div>
+                                <div className="text-xs text-white mt-1">Válido hasta el {formatDate(cupones[0].date_end)} </div>
                             </div>
                             <div className="absolute -left-3 bottom-1/4 -translate-y-1/4 w-6 h-6 bg-secondary rounded-full"></div>
                             <div className="absolute -right-3 bottom-1/4 -translate-y-1/4 w-6 h-6 bg-secondary rounded-full"></div>
@@ -40,8 +51,8 @@ const CuponesSection = ({ data }) => {
                             </div>
                             <div className="flex-1 p-6 flex flex-col justify-center items-center">
                                 <div className="uppercase text-neutral-dark text-xs font-medium tracking-widest mb-1">Cupón</div>
-                                <div className="text-2xl md:text-3xl font-bold text-constrast">GANAFX</div>
-                                <div className="text-xs text-neutral-light mt-1">Válido hasta el 28/03/2025</div>
+                                <div className="text-2xl md:text-3xl font-bold text-constrast">{cupones[1].name}</div>
+                                <div className="text-xs text-neutral-light mt-1">Válido hasta el {formatDate(cupones[1].date_end)}</div>
                             </div>
                             <div className="absolute -left-3 bottom-1/4 -translate-y-1/4 w-6 h-6 bg-secondary rounded-full"></div>
                             <div className="absolute -right-3 bottom-1/4 -translate-y-1/4 w-6 h-6 bg-secondary rounded-full"></div>

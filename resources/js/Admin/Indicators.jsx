@@ -23,7 +23,7 @@ const Indicators = () => {
     const idRef = useRef();
     const symbolRef = useRef();
     const nameRef = useRef();
-    const percentageRef = useRef();
+   // const percentageRef = useRef();
     const descriptionRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -37,7 +37,7 @@ const Indicators = () => {
         symbolRef.image.src = `/api/indicator/media/${data?.symbol}`;
         symbolRef.current.value = null;
         nameRef.current.value = data?.name ?? "";
-        percentageRef.current.value = data?.percentage ?? "";
+        //percentageRef.current.value = data?.percentage ?? "";
         descriptionRef.current.value = data?.description ?? "";
 
         $(modalRef.current).modal("show");
@@ -50,7 +50,7 @@ const Indicators = () => {
             id: idRef.current.value || undefined,
             // symbol: symbolRef.current.value,
             name: nameRef.current.value,
-            percentage: percentageRef.current.value,
+            // percentage: percentageRef.current.value,
             description: descriptionRef.current.value,
         };
         const formData = new FormData();
@@ -262,12 +262,12 @@ const Indicators = () => {
                         <InputFormGroup eRef={nameRef} label="Título" />
                         {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
 
-                        <InputFormGroup
+                     {/*   <InputFormGroup
 
                             eRef={percentageRef}
                             type="number"
                             label="Porcentaje"
-                        />
+                        /> */}
                         <TextareaFormGroup
                             eRef={descriptionRef}
                             label="Descripción"

@@ -60,6 +60,8 @@ const Home = ({
     landing,
 
     apps,
+    pasos=[],
+    cupones=[],
 
     sliders,
     brands,
@@ -180,7 +182,7 @@ const landingPilares = landing?.find(
             <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecction data={landingInicio} apps={apps} />
+            <HeroSecction data={landingInicio} apps={apps} indicators={indicators} />
             {/* SLIDER  <SliderInteractive
                 items={sliders}
                 data={{
@@ -193,8 +195,8 @@ const landingPilares = landing?.find(
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
             <PrimeraOperacionSection  />
-            <FuncionSection data={landingPasos} />
-            <CuponesSection data={landingCupones} />
+            <FuncionSection data={landingPasos} pasos={pasos} />
+            <CuponesSection data={landingCupones} cupones={cupones} />
             <PilaresSection data={landingPilares} />
             <EmpresasSection />
             <BlogSection data={landingBlog} />

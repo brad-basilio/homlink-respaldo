@@ -3,6 +3,7 @@ import WhatsAppButton from "../../Shared/WhatsAppButton";
 
 
 
+
 const DownIcon = () => (
   <svg width="53" height="52" viewBox="0 0 53 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="0.230469" width="52" height="52" rx="26" fill="#BBFF52" />
@@ -35,12 +36,12 @@ const ServiceSeccionFaq = ({ faqs = [] }) => {
   return (<section className="w-full overflow-hidden font-title relative bg-constrast text-white px-[5%] py-12 md:py-24 flex flex-col lg:flex-row gap-10 lg:gap-20 mx-auto">
     {/* FAQ */}
     <div className="flex-1 w-full lg:w-6/12">
-      <motion
+      <p
         className="uppercase text-white text-sm  font-medium tracking-[8%] mb-4"
 
       >
         FAQS
-      </motion>
+      </p>
       <h2 className="text-3xl md:text-4xl  lg:text-[40px] font-medium mb-4 md:mb-6 leading-tight ">
         Preguntas <span className=" font-semibold">Frecuentes</span>
       </h2>
@@ -57,7 +58,8 @@ const ServiceSeccionFaq = ({ faqs = [] }) => {
               <div className="flex-shrink-0 absolute top-1/2 right-4 transform -translate-y-1/2">
                 {openItems.has(item.id) ? <UpIcon /> : <DownIcon />}
               </div>
-            </button>                {openItems.has(item.id) && item.description && (
+            </button>               
+             {openItems.has(item.id) && item.description && (
 
               <div className="px-4 md:px-6 py-4  bg-neutral-dark text-neutral">
                 <p className="text-sm md:text-lg leading-relaxed">{item.description}</p>

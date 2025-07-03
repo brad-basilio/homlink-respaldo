@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function HeroSecction({ data = [], apps = [] }) {
+export default function HeroSecction({ data = [], apps = [], indicators = [] }) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
@@ -15,6 +15,7 @@ export default function HeroSecction({ data = [], apps = [] }) {
         // También cambiar el tipo de operación
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
     };
+    console.log("indicators", indicators);
     return (
         <section className="bg-primary py-10 md:py-20 font-title relative overflow-hidden">
             <div className=" mx-auto px-[5%]  flex  gap-10 items-center">
@@ -55,14 +56,16 @@ export default function HeroSecction({ data = [], apps = [] }) {
                                 </div>
                             </div>
                             <div className="flex gap-10 mt-6">
-                                <div className="flex flex-col items-start">
-                                    <span className="text-[52px] leading-[3rem] font-semibold text-constrast">+<span className='text-neutral-dark'>6</span></span>
-                                    <span className="text-sm font-medium text-neutral-dark">años de <span className="text-constrast">experiencia</span></span>
-                                </div>
-                                <div className="flex flex-col items-center">
-                                    <span className="text-[52px] font-semibold leading-[3rem] text-constrast"><span className='text-neutral-dark'>3</span>%</span>
-                                    <span className="text-sm font-medium  text-neutral-dark">más <span className="text-constrast">ahorro</span> por operación</span>
-                                </div>
+                                {
+                                    indicators?.map((indicator, index) => (
+                                        <div key={index} className="flex flex-col items-start">
+
+                                            <span className="text-[52px] leading-[3rem] font-semibold text-neutral-dark ">
+                                                <TextWithHighlight text={indicator?.name} color='bg-constrast'  />
+                                             </span>
+                                            <span className="text-sm font-medium text-neutral-dark"><TextWithHighlight text={indicator?.description} color='bg-constrast'  /></span>
+                                        </div>
+                                    ))}
                             </div>
                         </div>
                     </div>

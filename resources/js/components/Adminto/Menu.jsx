@@ -207,30 +207,37 @@ const Menu = ({
                                         "Opciones de compra"
                                     )}
                                 </MenuItem>
-                                <MenuItem
-                                    href="/admin/specialities"
-                                    icon="mdi mdi-tag-faces"
-                                >
-                                    {t(
-                                        "admin.sidebar.specialties",
-                                        "Alianzas comerciales"
-                                    )}
-                                </MenuItem>
+                               
                                 <MenuItem
                                     href="/admin/facilities"
                                     icon="mdi mdi-office-building-marker"
                                 >
                                     {t(
                                         "admin.sidebar.facilities",
-                                        "Instalaciones"
+                                        "Localizaciones"
                                     )}
-                                </MenuItem> */}
+                                </MenuItem>*/}
+                                 <MenuItem
+                                    href="/admin/specialities"
+                                    icon="mdi mdi-tag-faces"
+                                >
+                                    {t(
+                                        "admin.sidebar.specialties",
+                                        "Pasos"
+                                    )}
+                                </MenuItem>
                                 <MenuItem
                                     href="/admin/staff"
                                     icon="mdi mdi-account-heart"
                                 >
                                     {t("admin.sidebar.staff", "Staff")}
                                 </MenuItem>
+                                <MenuItem
+                                        href="/admin/coupons"
+                                        icon="mdi mdi-ticket-percent"
+                                    >
+                                        Cupones
+                                    </MenuItem>
                                 {/* <MenuItem
                                     href="/admin/sales"
                                     icon="mdi mdi-cart-outline"
@@ -270,18 +277,15 @@ const Menu = ({
                                     >
                                         Tallas
                                     </MenuItem>
-                                </MenuItemContainer>*/}
-                                {/*<MenuItemContainer
+                                </MenuItemContainer>
+                                
+                                    <MenuItemContainer
                                     title="Ventas"
                                     icon="mdi mdi-cash-register"
                                 >
-                                    <MenuItem
-                                        href="/admin/coupons"
-                                        icon="mdi mdi-ticket-percent"
-                                    >
-                                        Cupones
-                                    </MenuItem>
+                                    
                                 </MenuItemContainer>*/}
+                            
                                 <li className="menu-title">Landing Page</li>
                                {/*  <MenuItem
                                     href="/admin/translations"
