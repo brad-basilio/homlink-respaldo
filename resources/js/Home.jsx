@@ -59,6 +59,8 @@ const Home = ({
 
     landing,
 
+    apps,
+
     sliders,
     brands,
     posts = [],
@@ -178,7 +180,7 @@ const landingPilares = landing?.find(
             <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecction data={landingInicio} />
+            <HeroSecction data={landingInicio} apps={apps} />
             {/* SLIDER  <SliderInteractive
                 items={sliders}
                 data={{

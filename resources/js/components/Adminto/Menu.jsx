@@ -304,6 +304,12 @@ const Menu = ({
                                 >
                                     Subscripciones
                                 </MenuItem>
+                                <MenuItem
+                                    href="/admin/apps"
+                                    icon="mdi mdi-cellphone-link"
+                                >
+                                    Apps de descarga
+                                </MenuItem>
                                 
                                 {/*
                                 <MenuItem

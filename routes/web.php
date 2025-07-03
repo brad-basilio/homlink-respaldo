@@ -49,6 +49,7 @@ use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\CouponController as AdminCouponController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\AppController as AdminAppController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
 
 // Public 
@@ -194,6 +195,7 @@ Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactVie
     Route::get('/coupons', [AdminCouponController::class, 'reactView'])->name('Admin/Coupons.jsx');
     Route::get('/messages', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Messages.jsx');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'reactView'])->name('Admin/Subscriptions.jsx');
+    Route::get('/apps', [AdminAppController::class, 'reactView'])->name('Admin/Apps.jsx');
     Route::get('/about', [AdminAboutusController::class, 'reactView'])->name('Admin/About.jsx');
     Route::get('/indicators', [AdminIndicatorController::class, 'reactView'])->name('Admin/Indicators.jsx');
     Route::get('/sliders', [AdminSliderController::class, 'reactView'])->name('Admin/Sliders.jsx');

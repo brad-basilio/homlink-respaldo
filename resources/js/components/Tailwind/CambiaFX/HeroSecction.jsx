@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function HeroSecction({data=[]}) {
+export default function HeroSecction({ data = [], apps = [] }) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
@@ -22,17 +22,17 @@ export default function HeroSecction({data=[]}) {
                 <div className='w-7/12'>
                     <p className="text-sm font-medium tracking-widest text-constrast mb-2 uppercase">CASA DE CAMBIO</p>
                     <h1 className="text-4xl md:text-7xl font-title font-medium text-neutral-dark leading-tight mb-4">
-                        <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold ' split_coma  />
-                        
-                    
+                        <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold ' split_coma />
+
+
                     </h1>
                     <p className="text-lg text-neutral-light mb-6 max-w-lg">
-                       {data?.description || ""    }
+                        {data?.description || ""}
                     </p>
                     <div className='flex gap-12 h-[300px] mt-20 relative'>
                         <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="w-auto h-[400px] absolute -bottom-24" onError={(e) =>
-                            (e.target.src =
-                                "/api/cover/thumbnail/null")
+                        (e.target.src =
+                            "/api/cover/thumbnail/null")
                         } />
                         <div className='w-4/12 relative'>
 
@@ -41,15 +41,17 @@ export default function HeroSecction({data=[]}) {
                             <div>
                                 <span className="text-lg font-medium">¡Descarga nuestra app!</span>
                                 <div className="flex gap-2 mt-4" >
-                                    <a href="#" target="_blank" rel="noopener noreferrer">
-                                        <img src="/assets/cambiafx/google_play.png" alt="Google Play" className="h-12 w-auto" />
-                                    </a>
-                                    <a href="#" target="_blank" rel="noopener noreferrer">
-                                        <img src="/assets/cambiafx/apple_store.png" alt="App Store" className="h-12 w-auto" />
-                                    </a>
-                                    <a href="#" target="_blank" rel="noopener noreferrer">
-                                        <img src="/assets/cambiafx/app_gallery.png" alt="AppGallery" className="h-12 w-auto" />
-                                    </a>
+                                    {apps?.map((app, index) => (
+
+                                        <a href={app?.link} key={index} target="_blank" rel="noopener noreferrer">
+                                            <img src={`/api/app/media/${app?.image}`} alt={app?.name} className="h-12 w-auto" onError={(e) =>
+                                            (e.target.src =
+                                                "/api/cover/thumbnail/null")
+                                            } />
+                                        </a>
+                                    ))}
+
+
                                 </div>
                             </div>
                             <div className="flex gap-10 mt-6">

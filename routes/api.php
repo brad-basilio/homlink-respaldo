@@ -55,6 +55,8 @@ use App\Http\Controllers\Admin\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\NotificationVariableController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\AppController as AdminAppController;
+use App\Http\Controllers\AppMediaController;
 
 // Customer
 use App\Http\Controllers\Customer\UserFormulasController as CustomerUserFormulasController;
@@ -140,6 +142,7 @@ Route::get('/solution/media/{uuid}', [SolutionController::class, 'media']);
 Route::get('/purchaseOption/media/{uuid}', [PurchaseOptionController::class, 'media']);
 Route::get('/facility/media/{uuid}', [FacilityController::class, 'media']);
 Route::get('/indicator/media/{uuid}', [IndicatorController::class, 'media']);
+Route::get('/app/media/{uuid}', [AppMediaController::class, 'media']);
 Route::get('/testimony/media/{uuid}', [TestimonyController::class, 'media']);
 Route::get('/staff/media/{uuid}', [StaffController::class, 'media']);
 Route::get('/speciality/media/{uuid}', [SpecialityController::class, 'media']);
@@ -172,6 +175,7 @@ Route::post('/supplies/paginate', [SupplyController::class, 'paginate']);
 Route::post('/messages', [MessageController::class, 'save']);
 Route::post('/appointments', [MessageController::class, 'save']);
 Route::post('/subscriptions', [SubscriptionController::class, 'save']);
+
 
 Route::get('/cover/{uuid}', [CoverController::class, 'full']);
 Route::get('/cover/thumbnail/{uuid}', [CoverController::class, 'thumbnail']);
@@ -322,6 +326,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/indicators/status', [AdminIndicatorController::class, 'status']);
         Route::patch('/indicators/{field}', [AdminIndicatorController::class, 'boolean']);
         Route::delete('/indicators/{id}', [AdminIndicatorController::class, 'delete']);
+
+        Route::post('/apps', [AdminAppController::class, 'save']);
+        Route::post('/apps/paginate', [AdminAppController::class, 'paginate']);
+        Route::patch('/apps/status', [AdminAppController::class, 'status']);
+        Route::patch('/apps/{field}', [AdminAppController::class, 'boolean']);
+        Route::delete('/apps/{id}', [AdminAppController::class, 'delete']);
 
         Route::post('/sliders', [AdminSliderController::class, 'save']);
         Route::post('/sliders/paginate', [AdminSliderController::class, 'paginate']);

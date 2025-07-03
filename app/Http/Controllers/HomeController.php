@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aboutus;
 use App\Models\Ad;
+use App\Models\App;
 use App\Models\Brand;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
@@ -41,7 +42,12 @@ class HomeController extends BasicController
 $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
 
 $allServices = Service::where('status', true)->where('lang_id', $langId)->get();
-        return [
+       
+
+
+$apps = App::where('visible', true)->get();
+
+return [
             'landing' => $landing,
             'sliders' => $sliders,
             'brands' => $brands,
@@ -50,6 +56,9 @@ $allServices = Service::where('status', true)->where('lang_id', $langId)->get();
             'testimonios' => $testimonios,
             'indicators' => $indicators,
             'allServices' => $allServices,
+
+
+            'apps' => $apps,
         ];
     }
 }
