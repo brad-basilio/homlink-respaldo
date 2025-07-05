@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-const PilaresSection = ({data}) => {
+const PilaresSection = ({data,core_values=[]}) => {
     const [animationOffset, setAnimationOffset] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
-    
+    console.log("core_values", core_values);
     const cards = [
         {
             title: "Amplia *cobertura* bancaria",
@@ -51,7 +51,7 @@ const PilaresSection = ({data}) => {
             setAnimationOffset((prev) => {
                 const nextOffset = prev + 1;
                 // Reinicia suavemente el loop
-                if (nextOffset >= cards.length) {
+                if (nextOffset >= core_values.length) {
                     return 0;
                 }
                 return nextOffset;
@@ -59,10 +59,11 @@ const PilaresSection = ({data}) => {
         }, 3000); // Cambia cada 3 segundos para más suavidad
 
         return () => clearInterval(interval);
-    }, [cards.length, isAutoplay]);
+    }, [core_values.length, isAutoplay]);
 
     // Función para renderizar el título con texto destacado
     const renderTitle = (title) => {
+        if (!title) return '';
         const parts = title.split(/(\*[^*]+\*)/g);
         return parts.map((part, index) => {
             if (part.startsWith('*') && part.endsWith('*')) {
@@ -82,9 +83,9 @@ const PilaresSection = ({data}) => {
         setIsAutoplay(false);
         setAnimationOffset((prev) => {
             if (direction === 'up') {
-                return prev > 0 ? prev - 1 : cards.length - 1;
+                return prev > 0 ? prev - 1 : core_values.length - 1;
             } else {
-                return prev < cards.length - 1 ? prev + 1 : 0;
+                return prev < core_values.length - 1 ? prev + 1 : 0;
             }
         });
         
@@ -162,18 +163,18 @@ const PilaresSection = ({data}) => {
                             <div 
                                 className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
                                 style={{
-                                    transform: `translateY(${-130 * (animationOffset % cards.length)}px)`
+                                    transform: `translateY(${-130 * (animationOffset % core_values.length)}px)`
                                 }}
                             >
                                 {/* Triplicamos las tarjetas para efecto infinito más suave */}
-                                {[...cards, ...cards, ...cards].map((card, index) => (
+                                {[...core_values, ...core_values, ...core_values].map((card, index) => (
                                     <div
                                         key={`col1-${index}`}
                                         className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
                                     >
                                         <div className="text-center">
                                             <h3 className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3">
-                                                {renderTitle(card.title)}
+                                                {renderTitle(card.name)}
                                             </h3>
                                             <p className="text-base text-neutral-light font-normal">
                                                 {card.description}
@@ -189,18 +190,18 @@ const PilaresSection = ({data}) => {
                             <div 
                                 className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
                                 style={{
-                                    transform: `translateY(${130 * (animationOffset % cards.length)}px)`
+                                    transform: `translateY(${130 * (animationOffset % core_values.length)}px)`
                                 }}
                             >
                                 {/* Triplicamos las tarjetas con offset diferente */}
-                                {[...cards.slice(3), ...cards, ...cards, ...cards.slice(0, 3)].map((card, index) => (
+                                {[...core_values.slice(3), ...core_values, ...core_values, ...core_values.slice(0, 3)].map((card, index) => (
                                     <div
                                         key={`col2-${index}`}
                                         className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
                                     >
                                         <div className="text-center">
                                           <h3 className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3">
-                                                {renderTitle(card.title)}
+                                                {renderTitle(card.name)}
                                             </h3>
                                             <p className="text-base text-neutral-light font-normal">
                                                 {card.description}

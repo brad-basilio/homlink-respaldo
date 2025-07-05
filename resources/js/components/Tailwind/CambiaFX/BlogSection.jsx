@@ -24,7 +24,7 @@ const blogCards = [
   },
 ];
 
-const BlogSection = ({data}) => {
+const BlogSection = ({data,posts}) => {
   const [expanded, setExpanded] = useState(0);
 
   return (
@@ -57,7 +57,7 @@ const BlogSection = ({data}) => {
 
         {/* Columna derecha: cards */}
         <div className="flex-1 flex flex-row gap-6 items-end justify-end min-w-[400px]">
-          {blogCards.map((card, idx) => {
+          {posts.slice(0,3).map((card, idx) => {
             const isExpanded = expanded === idx;
             return (
               <div
@@ -70,8 +70,8 @@ const BlogSection = ({data}) => {
               >
                 <div className={`rounded-[32px] overflow-hidden shadow-xl transition-all duration-700 ease-[cubic-bezier(.4,1.2,.6,1)] w-full h-full relative bg-black/60 ${isExpanded ? "scale-105" : "scale-95 group-hover:scale-105"}`}>
                   <img
-                    src={card.image}
-                    alt={card.title}
+                    src={`/api/posts/media/${card.image}`}
+                    alt={card.name}
                     className={`object-cover w-full h-full transition-all duration-700 ease-[cubic-bezier(.4,1.2,.6,1)] ${isExpanded ? "brightness-100" : "brightness-60 "}`}
                   />
                   {/* Overlay para info */}
@@ -87,7 +87,7 @@ const BlogSection = ({data}) => {
                           display: "block"
                         }}
                       >
-                        {card.title}
+                        {card?.name}
                       </div>
                     ) : (
                       <div
@@ -102,7 +102,7 @@ const BlogSection = ({data}) => {
                           
                         }}
                       >
-                        {card.title}
+                        {card.name}
                       </div>
                     )}
                   </div>

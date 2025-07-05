@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\BannerMediaController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -38,6 +39,7 @@ use App\Http\Controllers\Admin\GeneralController as AdminGeneralController;
 use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
+use App\Http\Controllers\Admin\BannerController as AdminBannerController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
 use App\Http\Controllers\Admin\InstagramPostController as AdminInstagramPostsController;
@@ -52,7 +54,6 @@ use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\SaleController as AdminSaleController;
 use App\Http\Controllers\Admin\SaleStatusController as AdminSaleStatusController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
-use App\Http\Controllers\Admin\NotificationVariableController;
 use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\AppController as AdminAppController;
@@ -116,6 +117,16 @@ use Illuminate\Http\Request;
 
 Route::get('/translations/{lang_id}', [AdminTranslationController::class, 'getByLang']);
 
+// Rutas públicas para banners
+Route::get('/banners', function() {
+    return \App\Models\Banner::active()->ordered()->get();
+});
+Route::get('/banners/by-section/{section}', function($section) {
+    return \App\Models\Banner::active()->bySection($section)->ordered()->get();
+});
+Route::get('/banners/by-position/{section}/{position}', function($section, $position) {
+    return \App\Models\Banner::active()->bySection($section)->byPosition($position)->ordered()->get();
+});
 
 Route::post('/reclamos', [ComplaintController::class, 'store']);
 
@@ -160,6 +171,7 @@ Route::get('/supplies/media/{uuid}', [SupplyController::class, 'media']);
 Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
 Route::get('/ads/media/{uuid}', [AdController::class, 'media']);
+Route::get('/banners/media/{uuid}', [BannerMediaController::class, 'media']);
 Route::get('/strength/media/{uuid}', [StrengthController::class, 'media']);
 Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media']);
 Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
@@ -198,7 +210,6 @@ Route::prefix('/culqi')->group(function () {
 Route::get('/sales/notify/{code}', [SaleController::class, 'notify']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/notification-variables/{type}', [NotificationVariableController::class, 'variables']);
     Route::delete('logout', [AuthController::class, 'destroy'])
         ->name('logout');
 
@@ -273,6 +284,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/ads/status', [AdminAdController::class, 'status']);
         Route::patch('/ads/{field}', [AdminAdController::class, 'boolean']);
         Route::delete('/ads/{id}', [AdminAdController::class, 'delete']);
+
+        Route::post('/banners', [AdminBannerController::class, 'save']);
+        Route::post('/banners/paginate', [AdminBannerController::class, 'paginate']);
+        Route::patch('/banners/status', [AdminBannerController::class, 'status']);
+        Route::patch('/banners/{field}', [AdminBannerController::class, 'boolean']);
+        Route::delete('/banners/{id}', [AdminBannerController::class, 'delete']);
 
         Route::post('/renewals', [AdminRenewalController::class, 'save']);
         Route::post('/renewals/paginate', [AdminRenewalController::class, 'paginate']);

@@ -62,6 +62,7 @@ const Home = ({
     apps,
     pasos=[],
     cupones=[],
+    core_values = [],
 
     sliders,
     brands,
@@ -197,9 +198,9 @@ const landingPilares = landing?.find(
             <PrimeraOperacionSection  />
             <FuncionSection data={landingPasos} pasos={pasos} />
             <CuponesSection data={landingCupones} cupones={cupones} />
-            <PilaresSection data={landingPilares} />
+            <PilaresSection data={landingPilares} core_values={core_values} />
             <EmpresasSection />
-            <BlogSection data={landingBlog} />
+            <BlogSection data={landingBlog} posts={posts} />
 
             {/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />

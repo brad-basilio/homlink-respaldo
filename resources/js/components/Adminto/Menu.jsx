@@ -315,6 +315,13 @@ const Menu = ({
                                     Apps de descarga
                                 </MenuItem>
                                 
+                                <MenuItem
+                                    href="/admin/banners"
+                                    icon="mdi mdi-image-multiple"
+                                >
+                                    Banners
+                                </MenuItem>
+                                
                                 {/*
                                 <MenuItem
                                     href="/admin/ads"

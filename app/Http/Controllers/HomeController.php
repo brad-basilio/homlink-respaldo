@@ -6,6 +6,7 @@ use App\Models\Aboutus;
 use App\Models\Ad;
 use App\Models\App;
 use App\Models\Brand;
+use App\Models\CoreValue;
 use App\Models\Coupon;
 use App\Models\Indicator;
 use App\Models\InstagramPost;
@@ -39,7 +40,7 @@ class HomeController extends BasicController
         $sliders = Slider::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
         $brands = Brand::where('status', true)->where('visible', true)->orderBy('created_at', 'DESC')->get();
         $strengths = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
-        $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(3)->get();
+        $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(10)->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
         $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
 
@@ -53,10 +54,16 @@ class HomeController extends BasicController
             ->orderBy('created_at', 'asc')
             ->get();
         $cupones = Coupon::where('status', true)
-            
+
             ->orderBy('created_at', 'desc')
             ->take(2)
             ->get();
+
+        $core_values = CoreValue::where('status', true)
+            ->where('lang_id', $langId)
+        
+            ->get();
+
 
         return [
             'landing' => $landing,
@@ -72,6 +79,8 @@ class HomeController extends BasicController
             'apps' => $apps,
             'pasos' => $pasos,
             'cupones' => $cupones,
+            'core_values' => $core_values,
+            
         ];
     }
 }
