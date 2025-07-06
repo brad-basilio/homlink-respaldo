@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\BannerMediaController;
+use App\Http\Controllers\PaymentMethodMediaController;
 use Illuminate\Support\Facades\Route;
 
 // Admin
@@ -40,6 +41,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 use App\Http\Controllers\Admin\AccountController as AdminAccountController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
+use App\Http\Controllers\Admin\PaymentMethodController as AdminPaymentMethodController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
 use App\Http\Controllers\Admin\ItemColorController as AdminItemColorController;
 use App\Http\Controllers\Admin\InstagramPostController as AdminInstagramPostsController;
@@ -128,6 +130,20 @@ Route::get('/banners/by-position/{section}/{position}', function($section, $posi
     return \App\Models\Banner::active()->bySection($section)->byPosition($position)->ordered()->get();
 });
 
+// Rutas públicas para métodos de pago
+Route::get('/payment-methods', function() {
+    return \App\Models\PaymentMethod::active()->visible()->ordered()->get();
+});
+Route::get('/payment-methods/by-type/{type}', function($type) {
+    return \App\Models\PaymentMethod::active()->visible()->byType($type)->ordered()->get();
+});
+Route::get('/payment-methods/immediate-10min', function() {
+    return \App\Models\PaymentMethod::active()->visible()->immediate10Min()->ordered()->get();
+});
+Route::get('/payment-methods/immediate-24h', function() {
+    return \App\Models\PaymentMethod::active()->visible()->immediate24H()->ordered()->get();
+});
+
 Route::post('/reclamos', [ComplaintController::class, 'store']);
 
 Route::get('/generals/get-socials', [GeneralController::class, 'getSocials']);
@@ -172,6 +188,7 @@ Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'me
 Route::get('/fragrances/media/{uuid}', [FragranceController::class, 'media']);
 Route::get('/ads/media/{uuid}', [AdController::class, 'media']);
 Route::get('/banners/media/{uuid}', [BannerMediaController::class, 'media']);
+Route::get('/payment-methods/media/{uuid}', [PaymentMethodMediaController::class, 'media']);
 Route::get('/strength/media/{uuid}', [StrengthController::class, 'media']);
 Route::get('/core_value/media/{uuid}', [CoreValueController::class, 'media']);
 Route::get('/instagram_post/media/{uuid}', [InstagramPostsController::class, 'media']);
@@ -290,6 +307,12 @@ Route::middleware('auth')->group(function () {
         Route::patch('/banners/status', [AdminBannerController::class, 'status']);
         Route::patch('/banners/{field}', [AdminBannerController::class, 'boolean']);
         Route::delete('/banners/{id}', [AdminBannerController::class, 'delete']);
+
+        Route::post('/payment-methods', [AdminPaymentMethodController::class, 'save']);
+        Route::post('/payment-methods/paginate', [AdminPaymentMethodController::class, 'paginate']);
+        Route::patch('/payment-methods/status', [AdminPaymentMethodController::class, 'status']);
+        Route::patch('/payment-methods/{field}', [AdminPaymentMethodController::class, 'boolean']);
+        Route::delete('/payment-methods/{id}', [AdminPaymentMethodController::class, 'delete']);
 
         Route::post('/renewals', [AdminRenewalController::class, 'save']);
         Route::post('/renewals/paginate', [AdminRenewalController::class, 'paginate']);

@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\SupplyController as AdminSupplyController;
 use App\Http\Controllers\Admin\TagController as AdminTagController;
 use App\Http\Controllers\Admin\AdController as AdminAdController;
 use App\Http\Controllers\Admin\BannerController as AdminBannerController;
+use App\Http\Controllers\Admin\PaymentMethodController as AdminPaymentMethodController;
 use App\Http\Controllers\Admin\FragranceController as AdminFragranceController;
 use App\Http\Controllers\Admin\RenewalController as AdminRenewalController;
 use App\Http\Controllers\Admin\BundleController as AdminBundleController;
@@ -116,6 +117,7 @@ Route::get('/casos-de-exito', [SuccessStoryController::class, 'reactView'])->nam
 Route::get('/infoproductos', [InfoproductController::class, 'reactView'])->name('Infoproductos.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/empresas', [HomeController::class, 'reactView'])->name('HomeEmpresa.jsx');
+Route::get('/test-exchange', [HomeController::class, 'reactView'])->name('TestExchangeCard.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');
@@ -192,6 +194,7 @@ Route::get('/success_stories'   , [AdminSuccessStoryController::class, 'reactVie
     Route::get('/fragrances', [AdminFragranceController::class, 'reactView'])->name('Admin/Fragrances.jsx');
     Route::get('/ads', [AdminAdController::class, 'reactView'])->name('Admin/Ads.jsx');
     Route::get('/banners', [AdminBannerController::class, 'reactView'])->name('Admin/Banners.jsx');
+    Route::get('/payment-methods', [AdminPaymentMethodController::class, 'reactView'])->name('Admin/PaymentMethods.jsx');
     Route::get('/renewals', [AdminRenewalController::class, 'reactView'])->name('Admin/Renewals.jsx');
     Route::get('/bundles', [AdminBundleController::class, 'reactView'])->name('Admin/Bundles.jsx');
     Route::get('/coupons', [AdminCouponController::class, 'reactView'])->name('Admin/Coupons.jsx');

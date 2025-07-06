@@ -233,11 +233,17 @@ const Menu = ({
                                     {t("admin.sidebar.staff", "Staff")}
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/payment-methods"
+                                    icon="mdi mdi-account-heart"
+                                >
+                                    {t("admin.sidebar.staff", "Metodos de pago")}
+                                </MenuItem> 
+                                <MenuItem
                                         href="/admin/coupons"
                                         icon="mdi mdi-ticket-percent"
                                     >
                                         Cupones
-                                    </MenuItem>
+                                </MenuItem>
                                 {/* <MenuItem
                                     href="/admin/sales"
                                     icon="mdi mdi-cart-outline"

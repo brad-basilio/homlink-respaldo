@@ -72,6 +72,8 @@ const Home = ({
     testimonios = [],
     indicators = [],
     allServices = [],
+    banner_operacion = {},
+    banner_slider = [],
 }) => {
     const { t, loading, error } = useTranslation();
 
@@ -195,11 +197,11 @@ const landingPilares = landing?.find(
             />*/}
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection  />
+            <PrimeraOperacionSection banner={banner_operacion} />
             <FuncionSection data={landingPasos} pasos={pasos} />
             <CuponesSection data={landingCupones} cupones={cupones} />
             <PilaresSection data={landingPilares} core_values={core_values} />
-            <EmpresasSection />
+            <EmpresasSection banner_slider={banner_slider} />
             <BlogSection data={landingBlog} posts={posts} />
 
             {/*

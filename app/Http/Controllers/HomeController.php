@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aboutus;
 use App\Models\Ad;
 use App\Models\App;
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\CoreValue;
 use App\Models\Coupon;
@@ -64,6 +65,19 @@ class HomeController extends BasicController
         
             ->get();
 
+        $banner_operacion = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'home')
+            ->where('position', 'primera_operacion')
+            ->orderBy('created_at', 'desc')
+            ->first();
+
+         $banner_slider = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'home')
+            ->where('position', 'cambia_empresas')
+            ->orderBy('order', 'asc')
+            ->get();
 
         return [
             'landing' => $landing,
@@ -76,10 +90,13 @@ class HomeController extends BasicController
             'allServices' => $allServices,
 
 
+
             'apps' => $apps,
             'pasos' => $pasos,
             'cupones' => $cupones,
             'core_values' => $core_values,
+            'banner_operacion' => $banner_operacion,
+            'banner_slider' => $banner_slider,
             
         ];
     }
