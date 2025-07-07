@@ -17,6 +17,7 @@ const ExchangeCard = ({
     const [isValidatingCoupon, setIsValidatingCoupon] = useState(false);
     const [couponTimeout, setCouponTimeout] = useState(null);
     const [currentRates, setCurrentRates] = useState({ compra: '0.0000', venta: '0.0000' });
+    const [showCouponInput, setShowCouponInput] = useState(false);
 
     // Cargar tipos de cambio iniciales
     useEffect(() => {
@@ -242,7 +243,7 @@ const ExchangeCard = ({
     });
 
     return (
-        <div className={`bg-secondary rounded-3xl p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>
+        <div className={`bg-secondary z-[99999] rounded-3xl p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
                 <div>
@@ -375,37 +376,53 @@ const ExchangeCard = ({
 
             {/* Coupon and Credits */}
             {(showCoupons || showCredits) && (
-                <div className="flex justify-center gap-2 mt-2">
+                <div className="flex justify-center gap-2 mt-1">
                     {showCoupons && (
-                        <div className="flex-1 relative">
-                            <input
-                                type="text"
-                                placeholder="Código promocional"
-                                value={promotionalCode}
-                                onChange={(e) => handleCouponChange(e.target.value)}
-                                className="w-full py-2 px-3 rounded-lg border border-gray-300 text-sm text-neutral-dark placeholder:text-gray-400 focus:outline-none focus:border-constrast"
-                                disabled={isValidatingCoupon}
-                            />
-                            {isValidatingCoupon && (
-                                <div className="absolute right-2 top-2">
-                                    <div className="animate-spin w-4 h-4 border-2 border-constrast border-t-transparent rounded-full"></div>
+                        <>
+                            {!showCouponInput ? (
+                                <button 
+                                    onClick={() => setShowCouponInput(true)}
+                                    className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl  text-neutral-dark font-medium text-sm hover:border-constrast hover:bg-gray-50 transition-all duration-200"
+                                >
+                                    USAR CUPÓN 
+                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.74985 14.3412L6.39628 13.5378C6.05276 13.3339 5.88099 13.2319 5.69036 13.2261C5.48436 13.2197 5.30956 13.3175 4.93835 13.5378C4.52261 13.7846 3.69594 14.4643 3.1612 14.1402C2.83398 13.9418 2.83398 13.4379 2.83398 12.4301V5.33301C2.83398 3.44739 2.83398 2.50458 3.41977 1.91879C4.00556 1.33301 4.94836 1.33301 6.83398 1.33301H10.1673C12.0529 1.33301 12.9957 1.33301 13.5815 1.91879C14.1673 2.50458 14.1673 3.44739 14.1673 5.33301V12.4301C14.1673 13.4379 14.1673 13.9418 13.8401 14.1402C13.3054 14.4643 12.4787 13.7846 12.0629 13.5378C11.7194 13.3339 11.5477 13.2319 11.3571 13.2261C11.1511 13.2197 10.9763 13.3175 10.6051 13.5378L9.25145 14.3412C8.88638 14.5579 8.70378 14.6663 8.50065 14.6663C8.29752 14.6663 8.11492 14.5579 7.74985 14.3412Z" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M10.5 5.33301L6.5 9.33301" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="#222222" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </button>
+                            ) : (
+                                <div className="flex-1 relative">
+                                    <div className="relative">
+                                        <input
+                                            type="text"
+                                            placeholder="Ingresa tu código promocional"
+                                            value={promotionalCode}
+                                            onChange={(e) => handleCouponChange(e.target.value)}
+                                            className="w-full py-4 px-4 pr-12 rounded-xl border-2 border-constrast bg-white text-sm text-neutral-dark placeholder:text-gray-500 focus:outline-none focus:border-constrast focus:ring-2 focus:ring-constrast focus:ring-opacity-20 transition-all duration-200"
+                                            disabled={isValidatingCoupon}
+                                            autoFocus
+                                        />
+                                        <button
+                                            onClick={() => {
+                                                setShowCouponInput(false);
+                                                setPromotionalCode('');
+                                            }}
+                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-neutral-dark transition-colors"
+                                        >
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    {isValidatingCoupon && (
+                                        <div className="absolute right-12 top-1/2 transform -translate-y-1/2">
+                                            <div className="animate-spin w-4 h-4 border-2 border-constrast border-t-transparent rounded-full"></div>
+                                        </div>
+                                    )}
                                 </div>
                             )}
-                        </div>
-                    )}
-                    {showCredits && (
-                        <button className="flex-1 justify-center flex gap-2 items-center py-2 px-3 rounded-lg border border-gray-300 text-neutral-dark font-medium text-sm hover:bg-gray-50 transition-colors">
-                            USAR CRÉDITOS
-                            <svg width="16" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M10.8333 8.66667C13.2266 8.66667 15.1667 8.06971 15.1667 7.33333C15.1667 6.59695 13.2266 6 10.8333 6C8.4401 6 6.5 6.59695 6.5 7.33333C6.5 8.06971 8.4401 8.66667 10.8333 8.66667Z" stroke="#222222" />
-                                <path d="M15.1667 10.333C15.1667 11.0694 13.2266 11.6663 10.8333 11.6663C8.44007 11.6663 6.5 11.0694 6.5 10.333" stroke="#222222" />
-                                <path d="M15.1667 7.33301V13.1997C15.1667 14.0097 13.2266 14.6663 10.8333 14.6663C8.44007 14.6663 6.5 14.0097 6.5 13.1997V7.33301" stroke="#222222" />
-                                <path d="M6.16536 4.00065C8.5586 4.00065 10.4987 3.4037 10.4987 2.66732C10.4987 1.93094 8.5586 1.33398 6.16536 1.33398C3.77213 1.33398 1.83203 1.93094 1.83203 2.66732C1.83203 3.4037 3.77213 4.00065 6.16536 4.00065Z" stroke="#222222" />
-                                <path d="M4.4987 7.33333C3.23749 7.17987 2.07864 6.783 1.83203 6M4.4987 10.6667C3.23749 10.5132 2.07864 10.1163 1.83203 9.33333" stroke="#222222" strokeLinecap="round" />
-                                <path d="M4.4987 14.0003C3.23749 13.8469 2.07864 13.45 1.83203 12.667V2.66699" stroke="#222222" strokeLinecap="round" />
-                                <path d="M10.5 4.00033V2.66699" stroke="#222222" strokeLinecap="round" />
-                            </svg>
-                        </button>
+                        </>
                     )}
                 </div>
             )}
@@ -413,15 +430,15 @@ const ExchangeCard = ({
             {/* Info Message */}
             <div className="bg-white rounded-xl p-4 text-xs text-neutral-light mt-2">
                 Operaciones mayores a USD 5,000.00. Consigue un tipo de cambio preferencial{' '}
-                <a href="#" className="text-constrast underline font-medium">AQUÍ</a>
+                <a href="https://mi.cambiafx.pe" target='_blank' rel="noopener noreferrer" className="text-constrast underline font-medium">AQUÍ</a>
             </div>
 
             {/* Exchange Rate Display */}
-            {currentTc > 0 && (
+            {/*currentTc > 0 && (
                 <div className="text-center text-neutral-light text-sm">
                     Tipo de cambio: <span className="font-semibold">S/ {currentTc.toFixed(4)}</span>
                 </div>
-            )}
+            )*/}
 
             {/* Start Operation Button */}
             <button 
