@@ -104,8 +104,8 @@
       "_CreateReactScript-BuKYEKxn.js"
     ]
   },
-  "_FuncionSection-BJlMsWPv.js": {
-    "file": "assets/FuncionSection-BJlMsWPv.js",
+  "_FuncionSection-C6pwKFUJ.js": {
+    "file": "assets/FuncionSection-C6pwKFUJ.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -3127,7 +3127,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-B6LGZyrB.js",
+    "file": "assets/Home-B1TUGf4B.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3150,7 +3150,7 @@
       "_ModalAppointment-BtbCNsZu.js",
       "resources/js/Utils/BlurText.jsx",
       "_TextWithHighlight-CCbr48HD.js",
-      "_FuncionSection-BJlMsWPv.js",
+      "_FuncionSection-C6pwKFUJ.js",
       "_autoplay-BRlyvyvF.js",
       "_CintilloSection-CYOBDhSJ.js",
       "_index-CXU7o9CY.js",
@@ -3174,7 +3174,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-Iy_F8lAV.js",
+    "file": "assets/HomeEmpresa-D8ZNsqoM.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3196,7 +3196,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-BtbCNsZu.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-BJlMsWPv.js",
+      "_FuncionSection-C6pwKFUJ.js",
       "_CintilloSection-CYOBDhSJ.js",
       "_navigation-bKzm9QPL.js",
       "_pagination-9YFgbhqw.js",
@@ -4137,7 +4137,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4185,7 +4185,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4225,7 +4225,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4828,7 +4828,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5684,10 +5684,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-B6_1mLDL.js",
+    "file": "assets/Email-Kbv258F4.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5852,7 +5852,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -5872,7 +5872,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,

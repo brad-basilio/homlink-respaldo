@@ -18,6 +18,8 @@ const ExchangeCard = ({
     const [couponTimeout, setCouponTimeout] = useState(null);
     const [currentRates, setCurrentRates] = useState({ compra: '0.0000', venta: '0.0000' });
     const [showCouponInput, setShowCouponInput] = useState(false);
+    const [couponInfo, setCouponInfo] = useState(null); // Info del cupón (rango, TC, etc.)
+    const [showCouponModal, setShowCouponModal] = useState(false); // Modal informativo
 
     // Cargar tipos de cambio iniciales
     useEffect(() => {
@@ -41,6 +43,19 @@ const ExchangeCard = ({
         console.log('📊 Actualizando rates por cambio de operationType...');
         updateCurrentRates();
     }, [operationType]);
+
+    // Escuchar cambios en el cupón promocional para actualizar rates
+    useEffect(() => {
+        console.log('🎫 useEffect promotionalCode ejecutándose:', { promotionalCode });
+        if (promotionalCode) {
+            console.log('🔄 Cupón aplicado, actualizando rates...');
+            updateCurrentRates();
+            if (amount1) {
+                console.log('💰 Recalculando con cupón aplicado...');
+                calculateExchange('O');
+            }
+        }
+    }, [promotionalCode]);
 
     const initializeExchangeRates = async () => {
         try {
@@ -66,11 +81,26 @@ const ExchangeCard = ({
 
     const updateCurrentRates = () => {
         console.log('📊 updateCurrentRates llamado');
+        console.log('🔍 Estado actual del servicio antes de getCurrentRates:', {
+            tcData: CambiaFXService.tcData,
+            tcBase: CambiaFXService.tcBase,
+            tcDataLength: CambiaFXService.tcData?.length
+        });
+        
         const rates = CambiaFXService.getCurrentRates();
         console.log('💱 Tasas obtenidas del servicio:', rates);
         console.log('🏦 Estado previo currentRates:', currentRates);
+        
         setCurrentRates(rates);
         console.log('✅ currentRates actualizado a:', rates);
+        
+        // Verificar que los valores se aplicaron correctamente
+        console.log('🔢 Verificación post-actualización:', {
+            ratesCompra: rates.compra,
+            ratesVenta: rates.venta,
+            deberiaSerConCupon: CambiaFXService.tcData?.length === 1,
+            tcDataActual: CambiaFXService.tcData[0]
+        });
     };
 
     const checkUrlCoupon = () => {
@@ -119,8 +149,26 @@ const ExchangeCard = ({
         const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
         console.log('🔄 Convertido operationType:', { original: operationType, service: serviceOperationType });
         
+        // DIAGNÓSTICO DETALLADO
+        console.log('🔍 DIAGNÓSTICO PRE-CÁLCULO:', {
+            amount,
+            serviceOperationType,
+            tcDataActual: CambiaFXService.tcData,
+            tcDataLength: CambiaFXService.tcData?.length,
+            esCupon: CambiaFXService.tcData?.length === 1,
+            promotionalCode
+        });
+        
         const calculation = CambiaFXService.calculateExchange(amount, serviceOperationType, origin === 'O' ? 'from' : 'to');
         console.log('📊 Resultado del cálculo completo:', calculation);
+        
+        // VERIFICACIÓN POST-CÁLCULO
+        console.log('🎯 VERIFICACIÓN DEL CÁLCULO:', {
+            tcUsado: calculation.exchangeRate,
+            resultadoObtenido: calculation.result,
+            deberiaSerConCuponFELIZ28: calculation.exchangeRate === 3.557 || calculation.exchangeRate === 3.571,
+            calculoManual: operationType === 'venta' ? `${amount} * ${calculation.exchangeRate} = ${(amount * calculation.exchangeRate).toFixed(2)}` : `${amount} / ${calculation.exchangeRate} = ${(amount / calculation.exchangeRate).toFixed(2)}`
+        });
         
         setCurrentTc(calculation.exchangeRate);
         console.log('💱 TC actualizado en estado:', calculation.exchangeRate);
@@ -167,23 +215,78 @@ const ExchangeCard = ({
     };
 
     const validateCoupon = async (couponCode, tipo = 'c') => {
+        console.log('🎫 validateCoupon iniciado:', { couponCode, tipo });
         setIsValidatingCoupon(true);
         
         try {
+            console.log('🎫 Llamando CambiaFXService.validateCoupon...');
             const result = await CambiaFXService.validateCoupon(couponCode);
+            console.log('🎫 Resultado completo de validateCoupon:', result);
+            console.log('🎫 result.valid:', result.valid);
+            console.log('🎫 result.data:', result.data);
+            console.log('🎫 result.message:', result.message);
             
             if (!result.valid && tipo === 'c') {
+                console.log('❌ Cupón inválido, mostrando alert y limpiando...');
                 setPromotionalCode('');
+                setCouponInfo(null);
                 alert(result.message || 'El código de promoción no es válido.');
+                // Restaurar tipos de cambio base
+                updateCurrentRates();
+            } else if (result.valid) {
+                console.log('✅ Cupón válido, FORZANDO actualización inmediata...');
+                
+                // Guardar información del cupón para mostrar al usuario
+                const cuponData = result.data[0];
+                setCouponInfo({
+                    codigo: couponCode,
+                    montoMinimo: cuponData.desde,
+                    montoMaximo: cuponData.hasta,
+                    tcCompra: cuponData.tc_compra,
+                    tcVenta: cuponData.tc_venta
+                });
+                
+                // Mostrar modal informativo
+                setShowCouponModal(true);
+                
+                // ⚡ ACTUALIZACIÓN INMEDIATA Y FORZADA
+                console.log('🚀 Estado actual tcData antes de actualizar:', CambiaFXService.tcData);
+                
+                // Actualizar rates inmediatamente
+                updateCurrentRates();
+                
+                // Forzar re-render del componente
+                setCurrentRates(CambiaFXService.getCurrentRates());
+                
+                // Recalcular INMEDIATAMENTE sin delay
+                if (amount1) {
+                    console.log('💥 RECALCULANDO INMEDIATAMENTE con amount1:', amount1);
+                    const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
+                    const amount = CambiaFXService.formatStringToNumber(amount1);
+                    const tcActual = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
+                    console.log('🎯 TC actual después del cupón:', tcActual);
+                    console.log('📊 Datos tcData actuales:', CambiaFXService.tcData);
+                    
+                    // Calcular de nuevo con los datos actualizados
+                    calculateExchange('O');
+                }
+                
+                console.log('✅ Actualización de cupón completada');
             }
             
-            calculateExchange('O');
-            updateCurrentRates();
         } catch (error) {
-            console.error('Error validating coupon:', error);
+            console.error('❌ Error en validateCoupon:', error);
+            console.error('❌ Error details:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status
+            });
             if (tipo === 'c') {
                 setPromotionalCode('');
+                setCouponInfo(null);
                 alert('El código de promoción no es válido.');
+                // Restaurar tipos de cambio base en caso de error
+                updateCurrentRates();
             }
         } finally {
             setIsValidatingCoupon(false);
@@ -202,6 +305,63 @@ const ExchangeCard = ({
         }, 2000);
         
         setCouponTimeout(timeout);
+    };
+
+    // 🚀 FUNCIÓN DE RESET COMPLETO PARA DEBUGGING
+    const forceReset = () => {
+        console.log('🔄 RESET COMPLETO FORZADO');
+        // Limpiar todo el estado
+        setAmount1('');
+        setAmount2('');
+        setCurrentTc(0);
+        setPromotionalCode('');
+        setCouponInfo(null);
+        setCurrentRates({ compra: '0.0000', venta: '0.0000' });
+        
+        // Reinicializar servicio
+        CambiaFXService.tcData = [...CambiaFXService.tcBase];
+        console.log('✅ Reset completado, estado limpio');
+    };
+
+    // 🎯 VERIFICAR SI EL CUPÓN APLICA AL MONTO ACTUAL
+    const checkCouponApplies = () => {
+        if (!couponInfo || !amount1) return { applies: false, reason: '' };
+        
+        const amount = CambiaFXService.formatStringToNumber(amount1);
+        
+        if (amount < couponInfo.montoMinimo) {
+            return {
+                applies: false,
+                reason: `Monto mínimo requerido: $${couponInfo.montoMinimo} USD`
+            };
+        }
+        
+        if (amount > couponInfo.montoMaximo) {
+            return {
+                applies: false,
+                reason: `Monto máximo permitido: $${couponInfo.montoMaximo} USD`
+            };
+        }
+        
+        return { applies: true, reason: '' };
+    };
+
+    // 🎨 OBTENER TASA PREFERENCIAL PARA MOSTRAR EN BOTONES
+    const getDisplayRates = () => {
+        if (!couponInfo) return currentRates;
+        
+        const couponApplies = checkCouponApplies();
+        
+        if (couponApplies.applies) {
+            // Mostrar tasas del cupón
+            return {
+                compra: couponInfo.tcVenta.toFixed(4),
+                venta: couponInfo.tcCompra.toFixed(4)
+            };
+        } else {
+            // Mostrar tasas normales pero con indicador de que hay cupón disponible
+            return currentRates;
+        }
     };
 
     const handleOperationStart = () => {
@@ -229,7 +389,8 @@ const ExchangeCard = ({
     };
 
     // Obtener las tasas de cambio actuales para mostrar en los botones
-    const rates = currentRates;
+    const rates = getDisplayRates();
+    const couponStatus = checkCouponApplies();
     
     // Log del estado actual del componente
     console.log('🎯 ESTADO ACTUAL DEL COMPONENTE:', {
@@ -273,23 +434,57 @@ const ExchangeCard = ({
             <div className="flex gap-2 mb-4 tracking-wider bg-white rounded-2xl p-2 !font-paragraph">
                 <button
                     onClick={() => setOperationType('compra')}
-                    className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 relative ${
                         operationType === 'compra'
-                            ? 'bg-constrast text-white'
-                            : 'bg-white text-neutral-dark hover:bg-gray-50'
+                            ? 'bg-constrast text-white shadow-lg shadow-constrast/25'
+                            : 'bg-white text-neutral-dark hover:bg-neutral hover:shadow-md'
                     }`}
                 >
-                    COMPRA S/ {rates.compra}
+                    <div className="flex flex-col items-center">
+                        <span className="text-sm font-semibold">COMPRA S/ {rates.compra}</span>
+                        {couponInfo && couponStatus.applies && (
+                            <div className="flex items-center gap-1 mt-1">
+                                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                                <span className="text-xs opacity-90 font-medium">¡Cupón activo!</span>
+                            </div>
+                        )}
+                        {couponInfo && !couponStatus.applies && (
+                            <div className="flex items-center gap-1 mt-1">
+                                <div className="w-2 h-2 bg-secondary/60 rounded-full"></div>
+                                <span className="text-xs opacity-75 font-medium">S/ {couponInfo.tcVenta.toFixed(4)} disponible</span>
+                            </div>
+                        )}
+                    </div>
+                    {couponInfo && couponStatus.applies && (
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
+                    )}
                 </button>
                 <button
                     onClick={() => setOperationType('venta')}
-                    className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 ${
+                    className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 relative ${
                         operationType === 'venta'
-                            ? 'bg-constrast text-white'
-                            : 'bg-white text-neutral-dark hover:bg-gray-50'
+                            ? 'bg-constrast text-white shadow-lg shadow-constrast/25'
+                            : 'bg-white text-neutral-dark hover:bg-neutral hover:shadow-md'
                     }`}
                 >
-                    VENTA S/ {rates.venta}
+                    <div className="flex flex-col items-center">
+                        <span className="text-sm font-semibold">VENTA S/ {rates.venta}</span>
+                        {couponInfo && couponStatus.applies && (
+                            <div className="flex items-center gap-1 mt-1">
+                                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                                <span className="text-xs opacity-90 font-medium">¡Cupón activo!</span>
+                            </div>
+                        )}
+                        {couponInfo && !couponStatus.applies && (
+                            <div className="flex items-center gap-1 mt-1">
+                                <div className="w-2 h-2 bg-secondary/60 rounded-full"></div>
+                                <span className="text-xs opacity-75 font-medium">S/ {couponInfo.tcCompra.toFixed(4)} disponible</span>
+                            </div>
+                        )}
+                    </div>
+                    {couponInfo && couponStatus.applies && (
+                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
+                    )}
                 </button>
             </div>
 
@@ -374,6 +569,48 @@ const ExchangeCard = ({
                 </div>
             </div>
 
+            {/* Indicador de Estado del Cupón */}
+            {couponInfo && !couponStatus.applies && (
+                <div className="bg-gradient-to-r from-secondary/10 to-secondary/20 border-2 border-secondary/30 rounded-2xl p-4 shadow-lg">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="#0C0C0C"/>
+                            </svg>
+                        </div>
+                        <span className="font-semibold text-neutral-dark text-sm">
+                            Cupón {couponInfo.codigo} disponible
+                        </span>
+                    </div>
+                    <div className="ml-11 space-y-1">
+                        <p className="text-xs text-neutral-light font-medium">{couponStatus.reason}</p>
+                        <p className="text-xs text-constrast font-semibold">
+                            💰 Tasa preferencial: S/ {operationType === 'compra' ? couponInfo.tcVenta.toFixed(4) : couponInfo.tcCompra.toFixed(4)}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {couponInfo && couponStatus.applies && (
+                <div className="bg-gradient-to-r from-constrast/10 to-constrast/20 border-2 border-constrast/40 rounded-2xl p-4 shadow-lg">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-8 h-8 bg-constrast rounded-full flex items-center justify-center">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.5 6L6 13.5L2.5 10" stroke="#F9F3E0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                            </svg>
+                        </div>
+                        <span className="font-semibold text-neutral-dark text-sm">
+                            ¡Cupón {couponInfo.codigo} aplicado!
+                        </span>
+                    </div>
+                    <div className="ml-11">
+                        <p className="text-xs text-neutral-light font-medium">
+                            🎉 Estás obteniendo la tasa preferencial de <span className="font-bold text-constrast">S/ {operationType === 'compra' ? couponInfo.tcVenta.toFixed(4) : couponInfo.tcCompra.toFixed(4)}</span>
+                        </p>
+                    </div>
+                </div>
+            )}
+
             {/* Coupon and Credits */}
             {(showCoupons || showCredits) && (
                 <div className="flex justify-center gap-2 mt-1">
@@ -382,13 +619,13 @@ const ExchangeCard = ({
                             {!showCouponInput ? (
                                 <button 
                                     onClick={() => setShowCouponInput(true)}
-                                    className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl  text-neutral-dark font-medium text-sm hover:border-constrast hover:bg-gray-50 transition-all duration-200"
+                                    className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl text-neutral-dark font-medium text-sm hover:bg-neutral hover:shadow-md transition-all duration-200 border-2 border-transparent hover:border-secondary/30"
                                 >
                                     USAR CUPÓN 
                                     <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.74985 14.3412L6.39628 13.5378C6.05276 13.3339 5.88099 13.2319 5.69036 13.2261C5.48436 13.2197 5.30956 13.3175 4.93835 13.5378C4.52261 13.7846 3.69594 14.4643 3.1612 14.1402C2.83398 13.9418 2.83398 13.4379 2.83398 12.4301V5.33301C2.83398 3.44739 2.83398 2.50458 3.41977 1.91879C4.00556 1.33301 4.94836 1.33301 6.83398 1.33301H10.1673C12.0529 1.33301 12.9957 1.33301 13.5815 1.91879C14.1673 2.50458 14.1673 3.44739 14.1673 5.33301V12.4301C14.1673 13.4379 14.1673 13.9418 13.8401 14.1402C13.3054 14.4643 12.4787 13.7846 12.0629 13.5378C11.7194 13.3339 11.5477 13.2319 11.3571 13.2261C11.1511 13.2197 10.9763 13.3175 10.6051 13.5378L9.25145 14.3412C8.88638 14.5579 8.70378 14.6663 8.50065 14.6663C8.29752 14.6663 8.11492 14.5579 7.74985 14.3412Z" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.5 5.33301L6.5 9.33301" stroke="#222222" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="#222222" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M7.74985 14.3412L6.39628 13.5378C6.05276 13.3339 5.88099 13.2319 5.69036 13.2261C5.48436 13.2197 5.30956 13.3175 4.93835 13.5378C4.52261 13.7846 3.69594 14.4643 3.1612 14.1402C2.83398 13.9418 2.83398 13.4379 2.83398 12.4301V5.33301C2.83398 3.44739 2.83398 2.50458 3.41977 1.91879C4.00556 1.33301 4.94836 1.33301 6.83398 1.33301H10.1673C12.0529 1.33301 12.9957 1.33301 13.5815 1.91879C14.1673 2.50458 14.1673 3.44739 14.1673 5.33301V12.4301C14.1673 13.4379 14.1673 13.9418 13.8401 14.1402C13.3054 14.4643 12.4787 13.7846 12.0629 13.5378C11.7194 13.3339 11.5477 13.2319 11.3571 13.2261C11.1511 13.2197 10.9763 13.3175 10.6051 13.5378L9.25145 14.3412C8.88638 14.5579 8.70378 14.6663 8.50065 14.6663C8.29752 14.6663 8.11492 14.5579 7.74985 14.3412Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M10.5 5.33301L6.5 9.33301" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </button>
                             ) : (
@@ -399,16 +636,23 @@ const ExchangeCard = ({
                                             placeholder="Ingresa tu código promocional"
                                             value={promotionalCode}
                                             onChange={(e) => handleCouponChange(e.target.value)}
-                                            className="w-full py-4 px-4 pr-12 rounded-xl border-2 border-constrast bg-white text-sm text-neutral-dark placeholder:text-gray-500 focus:outline-none focus:border-constrast focus:ring-2 focus:ring-constrast focus:ring-opacity-20 transition-all duration-200"
+                                            className="w-full py-4 px-4 pr-12 rounded-xl border-2 border-constrast/30 bg-white text-sm text-neutral-dark placeholder:text-neutral-light/60 focus:outline-none focus:border-constrast focus:ring-4 focus:ring-constrast/20 transition-all duration-200 font-paragraph"
                                             disabled={isValidatingCoupon}
                                             autoFocus
                                         />
                                         <button
                                             onClick={() => {
                                                 setShowCouponInput(false);
-                                                setPromotionalCode('');
-                                            }}
-                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-neutral-dark transition-colors"
+                                                setPromotionalCode('');                                // Limpiar cupón del servicio y restaurar TC base
+                                console.log('🧹 Limpiando cupón y restaurando TC base...');
+                                CambiaFXService.validateCoupon(''); // Esto restaura tcBase
+                                setCouponInfo(null);
+                                updateCurrentRates();
+                                if (amount1) {
+                                    calculateExchange('O');
+                                }
+                            }}
+                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-light/60 hover:text-neutral-dark transition-colors p-1 hover:bg-neutral/50 rounded-lg"
                                         >
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -447,6 +691,57 @@ const ExchangeCard = ({
             >
                 INICIAR OPERACIÓN
             </button>
+
+            {/* Modal Informativo del Cupón */}
+            {showCouponModal && couponInfo && (
+                <div className="fixed inset-0 bg-neutral-dark/80 backdrop-blur-sm flex items-center justify-center z-[100000] p-4">
+                    <div className="bg-primary rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-neutral/20">
+                        <div className="text-center">
+                            <div className="w-20 h-20 bg-gradient-to-br from-constrast to-constrast/80 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-constrast/30">
+                                <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M27 12L12 27L5 20" stroke="#F9F3E0" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                                </svg>
+                            </div>
+                            <h3 className="text-2xl font-bold text-neutral-dark mb-3 font-title">
+                                ¡Cupón {couponInfo.codigo} Validado!
+                            </h3>
+                            <div className="bg-neutral/30 rounded-2xl p-5 mb-6 text-left">
+                                <h4 className="font-bold text-neutral-dark mb-3 flex items-center gap-2 font-title">
+                                    <div className="w-6 h-6 bg-secondary rounded-full flex items-center justify-center">
+                                        <svg width="12" height="12" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="#0C0C0C"/>
+                                        </svg>
+                                    </div>
+                                    Detalles del cupón:
+                                </h4>
+                                <ul className="text-sm text-neutral-light space-y-2 font-paragraph">
+                                    <li className="flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 bg-constrast rounded-full"></span>
+                                        Rango válido: <span className="font-semibold text-constrast">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 bg-constrast rounded-full"></span>
+                                        Tasa de compra: <span className="font-semibold text-constrast">S/ {couponInfo.tcVenta.toFixed(4)}</span>
+                                    </li>
+                                    <li className="flex items-center gap-2">
+                                        <span className="w-1.5 h-1.5 bg-constrast rounded-full"></span>
+                                        Tasa de venta: <span className="font-semibold text-constrast">S/ {couponInfo.tcCompra.toFixed(4)}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p className="text-sm text-neutral-light mb-6 font-paragraph leading-relaxed">
+                                El cupón se aplicará automáticamente cuando el monto esté dentro del rango válido.
+                            </p>
+                            <button
+                                onClick={() => setShowCouponModal(false)}
+                                className="w-full py-4 bg-gradient-to-r from-constrast to-constrast/90 text-primary rounded-2xl font-bold text-sm hover:shadow-lg hover:shadow-constrast/30 transition-all duration-300 font-title tracking-wide"
+                            >
+                                Entendido
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
