@@ -7,7 +7,7 @@ import { adjustTextColor } from "../../../Functions/adjustTextColor";
 import { Autoplay } from "swiper/modules";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 
-const CarruselCoreValues = ({ items, data }) => {
+const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
 
     const swiperRef = useRef(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -57,7 +57,7 @@ const CarruselCoreValues = ({ items, data }) => {
 
 
                         <div className="w-[800px] overflow-hidden h-[650px] flex items-end">
-                            <img src="/assets/cambiafx/beneficio-person.webp" alt="Empresas" className="h-[650px] object-cover w-auto" />
+                            <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="h-[650px] object-cover w-auto" />
 
                         </div>
 
@@ -69,11 +69,11 @@ const CarruselCoreValues = ({ items, data }) => {
                             </div>
 
                             <h2 className="text-4xl lg:text-[60px] font-medium mb-6 leading-[94%] max-w-lg ">
-                                <TextWithHighlight text="Beneficios de usar *Cambia FX*" color="bg-neutral-dark font-semibold" />
+                                <TextWithHighlight text={data?.title} color="bg-neutral-dark !font-bold" />
 
                             </h2>
                             <p className="text-neutral-light text-lg mb-6 max-w-xl whitespace-pre-line" >
-                                Confianza, agilidad y tecnología para tu cambio de divisas. En Cambia FX conectamos personas y empresas con soluciones financieras que optimizan el cambio de dólares y soles. Nuestro compromiso es ofrecer operaciones rápidas, seguras y sin complicaciones.
+                              {data?.description}
                             </p>
                       
 
@@ -103,13 +103,13 @@ const CarruselCoreValues = ({ items, data }) => {
                                         <div className="w-full flex bg-primary rounded-xl p-4 flex-col items-start" key={index}>
                                             <div className="bg-constrast rounded-full p-3 mr-4">
                                                 <img
-                                                    src={`/api/core_value/media/${value?.image}`}
+                                                    src={`/api/${correlative}/media/${value?.image}`}
                                                     alt={value?.name}
                                                     className="w-6 h-6 object-cover rounded-xl"
                                                 />
 
                                             </div>
-                                            <h3 className="text-neutral-dark text-xl font-medium mt-4 mb-1">{value?.name}</h3>
+                                            <h3 className="text-neutral-dark text-xl font-medium mt-4 mb-1 line-clamp-4">{value?.name}</h3>
                                             <p className="text-neutral-light text-base font-light">{value?.description}</p>
                                         </div>
                                     </SwiperSlide>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Aboutus;
 use App\Models\Banner;
+use App\Models\Benefit;
 use App\Models\Brand;
 use App\Models\CoreValue;
 use App\Models\General;
@@ -61,12 +62,15 @@ class AboutController extends BasicController
             ->where('lang_id', $langId)
             ->get();
 
-          $banner_why = Banner::where('status', true)
+        $banner_why = Banner::where('status', true)
             ->where('visible', true)
             ->where('section', 'nosotros')
             ->where('position', 'header')
             ->orderBy('created_at', 'desc')
             ->first();
+        $benefits = Benefit::where('status', true)
+          
+            ->get();
 
 
 
@@ -80,6 +84,7 @@ class AboutController extends BasicController
             'core_values' => $core_values,
 
             'banner_why' => $banner_why,
+            'benefits' => $benefits,
         ];
     }
 }

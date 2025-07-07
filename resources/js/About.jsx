@@ -17,8 +17,9 @@ import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 import AboutSeccionStaff from "./components/Tailwind/CambioGerencia/AboutSeccionStaff";
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 import CarruselCoreValues from "./components/Tailwind/Carrusel/CarruselCoreValues";
+import { image } from "framer-motion/client";
 
-const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, staff = [] }) => {
+const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, staff = [],benefits }) => {
 
   const mision = aboutus?.find(
     (item) => item.correlative === "mision"
@@ -44,7 +45,9 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
   const landingEligenos = landing?.find(
     (item) => item.correlative === "page_aboutus_eligenos"
   );
-
+ const landingBeneficios = landing?.find(
+    (item) => item.correlative === "page_aboutus_beneficios"
+  );
 
 
   return (
@@ -57,7 +60,7 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
       <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} banner_why={banner_why} />
       {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
 
-      <CarruselCoreValues items={core_values} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+      <CarruselCoreValues items={benefits} correlative="benefit" data={{ title: landingBeneficios?.title, description: landingBeneficios?.description, image: landingBeneficios?.image }} />
 
 
       <Footer />
