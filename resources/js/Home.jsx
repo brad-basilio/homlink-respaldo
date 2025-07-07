@@ -24,6 +24,7 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import ReactModal from "react-modal";
 import { X } from "lucide-react";
 import ModalAppointment from "./components/Appointment/ModalAppointment";
+import PopupManager from "./components/PopupManager/PopupManager";
 
 import { motion } from "framer-motion";
 import { ScrollAnimation } from "./animations/ScrollAnimation";
@@ -218,6 +219,10 @@ const landingPilares = landing?.find(
 
 
             <Footer />
+            
+            {/* Sistema de Popups Programables */}
+            <PopupManager />
+            
             {/* Modal */}
             <ModalAppointment
                 linkWhatsApp={linkWhatsApp}

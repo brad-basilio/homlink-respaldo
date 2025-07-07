@@ -244,6 +244,12 @@ const Menu = ({
                                     >
                                         Cupones
                                 </MenuItem>
+                                  <MenuItem
+                                        href="/admin/benefits"
+                                        icon="mdi mdi-ticket-percent"
+                                    >
+                                        Beneficios
+                                </MenuItem>
                                 {/* <MenuItem
                                     href="/admin/sales"
                                     icon="mdi mdi-cart-outline"

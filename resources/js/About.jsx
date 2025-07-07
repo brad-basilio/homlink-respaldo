@@ -18,25 +18,25 @@ import AboutSeccionStaff from "./components/Tailwind/CambioGerencia/AboutSeccion
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 import CarruselCoreValues from "./components/Tailwind/Carrusel/CarruselCoreValues";
 
-const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) => {
+const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, staff = [] }) => {
 
-   const mision= aboutus?.find(
-        (item) => item.correlative === "mision"
-    );
-    const vision = aboutus?.find(
-        (item) => item.correlative === "vision"
-    );
- const valor = aboutus?.find(
-        (item) => item.correlative === "valor"
-    );
+  const mision = aboutus?.find(
+    (item) => item.correlative === "mision"
+  );
+  const vision = aboutus?.find(
+    (item) => item.correlative === "vision"
+  );
+  const valor = aboutus?.find(
+    (item) => item.correlative === "valor"
+  );
 
-    const beneficios_clave = aboutus?.find(
-        (item) => item.correlative === "beneficios_clave"
-    );
+  const beneficios_clave = aboutus?.find(
+    (item) => item.correlative === "beneficios_clave"
+  );
 
-    const landingNosotros = landing?.find(
-        (item) => item.correlative === "page_aboutus_nosotros"
-    );
+  const landingNosotros = landing?.find(
+    (item) => item.correlative === "page_aboutus_nosotros"
+  );
   const landingVision = landing?.find(
     (item) => item.correlative === "page_aboutus_vision"
   );
@@ -50,16 +50,16 @@ const AboutUs = ({ aboutus, landing, brands ,strengths, core_values,staff=[] }) 
   return (
     <>
       <Header />
-      <CintilloSection/>
+      <CintilloSection />
 
-      <HomeSeccionNosotros data={landingNosotros} strengths={strengths} button_about={false}/>
+      <HomeSeccionNosotros data={landingNosotros} strengths={strengths} button_about={false} />
       <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
-      <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} />
-     {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
+      <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} banner_why={banner_why} />
+      {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
 
-<CarruselCoreValues items={core_values} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
-      
-      
+      <CarruselCoreValues items={core_values} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+
+
       <Footer />
     </>
   );

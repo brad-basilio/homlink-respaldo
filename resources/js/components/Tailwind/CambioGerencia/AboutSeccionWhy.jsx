@@ -30,7 +30,8 @@ const IconUsers = () => (
   </span>
 );
 
-const AboutSeccionWhy = ({ data, beneficios_clave, core_values }) => {
+const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) => {
+
 
   const beneficiosArray = beneficios_clave ? beneficios_clave?.description.split(',').map(item => item.trim()) : [];
   return (
@@ -130,10 +131,10 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values }) => {
 
           {/* Columna izquierda: texto */}
           <div className="flex-1 z-10  flex flex-col justify-center items-start gap-2">
-            <span className="uppercase text-white  tracking-widest text-2xl font-medium mb-2">no pierdas dinero</span>
-            <h2 className="text-3xl md:text-4xl lg:text-[40px] font-medium leading-tight text-white mb-2">
-              ¡Compra y vende dólares ahora! Y únete a nuestra
-              <span className="text-secondary font-semibold"> comunidad financiera</span>
+            <span className="uppercase text-white  tracking-widest text-2xl font-medium mb-2">{banner_why?.name}</span>
+            <h2 className="text-3xl md:text-4xl lg:text-[46px] font-medium !leading-[50px] text-white mb-2">
+                <TextWithHighlight text={banner_why?.description} color='bg-secondary font-semibold' />
+
             </h2>
             {/* <div className="flex gap-2 mt-6 md:mt-10">
                         <span className="inline-block w-4 h-4 rounded-full bg-white border-2 border-white"></span>
@@ -143,13 +144,16 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values }) => {
 
           {/* Columna central: imagen */}
           <div className="z-10 flex-1 flex justify-center items-end ">
-            <img src="/assets/cambiafx/eligenos-person.webp" alt="Empresas" className="h-[500px] object-cover scale-x-[-1] absolute bottom-0 select-none" draggable="false" />
+            <img src={`/api/banners/media/${banner_why?.image}`} alt={banner_why?.name} className="h-[500px] object-cover  absolute bottom-0 select-none" draggable="false" />
           </div>
 
           {/* Columna derecha: mensaje y WhatsApp */}
           <div className="z-10 min-w-max flex flex-col gap-10 items-end pr-8 justify-end  md:ml-8 mt-8 md:mt-0">
             <div className="text-white relative text-2xl  text-end mb-2">
-              Registrate <span className="font-semibold italic"><br />AQUÍ</span>
+              
+               <TextWithHighlight text= {banner_why?.button_text || "¡Quiero cambiar!"} color='bg-white italic' split_coma />
+
+               
               <div className="absolute -right-10">
                 <svg width="53" height="77" viewBox="0 0 53 77" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <g clip-path="url(#clip0_98_4024)">

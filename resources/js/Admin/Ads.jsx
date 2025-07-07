@@ -140,7 +140,7 @@ const Ads = ({ items }) => {
         <>
             <Table
                 gridRef={gridRef}
-                title="Anuncios"
+                title="Popups y Anuncios"
                 rest={adsRest}
                 toolBar={(container) => {
                     container.unshift({
@@ -160,8 +160,8 @@ const Ads = ({ items }) => {
                         location: "after",
                         options: {
                             icon: "plus",
-                            text: "Nuevo anuncio",
-                            hint: "Nuevo anuncio",
+                            text: "Nuevo Popup",
+                            hint: "Crear nuevo popup/anuncio",
                             onClick: () => onModalOpen(),
                         },
                     });
@@ -252,25 +252,34 @@ const Ads = ({ items }) => {
                                             <p className="mb-0">
                                                 <b>Visible:</b> Siempre
                                             </p>
-                                        )}
-                                        <p className="mb-0">
-                                            <b>Se muestra:</b>{" "}
-                                            {console.log(data)}
-                                            {data.seconds > 0 &&
-                                            data.actions === 0 ? (
-                                                <>Después de {data.seconds}s</>
-                                            ) : data.actions === 1 ? (
-                                                <>Al agregar carrito</>
-                                            ) : (
-                                                <>Al cargar la página</>
-                                            )}
-                                        </p>
-                                        <p className="mb-0">
-                                            <b>Invasivo:</b>{" "}
-                                            {data.invasivo && data.actions === 0
-                                                ? "Si"
-                                                : "No"}
-                                        </p>
+                                        )}                        <p className="mb-0">
+                            <b>Se muestra:</b>{" "}
+                            {data.seconds > 0 && data.actions === 0 ? (
+                                <span className="badge bg-warning text-dark">
+                                    Después de {data.seconds}s
+                                </span>
+                            ) : data.actions === 1 ? (
+                                <span className="badge bg-info">
+                                    Al agregar al carrito
+                                </span>
+                            ) : (
+                                <span className="badge bg-success">
+                                    Al cargar la página
+                                </span>
+                            )}
+                        </p>
+                        <p className="mb-0">
+                            <b>Tipo:</b>{" "}
+                            {data.invasivo && data.actions === 0 ? (
+                                <span className="badge bg-danger">
+                                    Invasivo (Solo este)
+                                </span>
+                            ) : (
+                                <span className="badge bg-secondary">
+                                    Normal
+                                </span>
+                            )}
+                        </p>
                                     </>
                                 )
                             );
@@ -345,85 +354,129 @@ const Ads = ({ items }) => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar anuncio" : "Agregar anuncio"}
+                title={isEditing ? "Editar Popup/Anuncio" : "Crear Nuevo Popup/Anuncio"}
                 onSubmit={onModalSubmit}
-                size="md"
+                size="lg"
             >
                 <div className="row" id="principal-container">
                     <input ref={idRef} type="hidden" />
-                    <ImageFormGroup
-                        eRef={imageRef}
-                        label="Imagen"
-                        col="col-md-4"
-                        aspect={1}
-                        fit="contain"
-                        required
-                    />
-                    <div className="col-md-8">
-                        <SwitchFormGroup
-                            eRef={invasivoRef}
-                            label="¿El anuncio es invasivo?"
-                            specification="Solo se mostrará este anuncio y no los demás"
-                        />
-                        <TextareaFormGroup
-                            eRef={nameRef}
-                            label="Título"
-                            rows={1}
-                        />
-                        <TextareaFormGroup
-                            eRef={descriptionRef}
-                            label="Descripción"
-                            rows={2}
-                        />
-                    </div>
-                    <label>Mostrar</label>
-                    <InputFormGroup
-                        eRef={dateBeginRef}
-                        label="Desde"
-                        type="date"
-                        col="col-md-6"
-                    />
-                    <InputFormGroup
-                        eRef={dateEndRef}
-                        label="Hasta"
-                        type="date"
-                        col="col-md-6"
-                    />
-
-                    <div className="col-md-12">
-                        <SwitchFormGroup
-                            eRef={actionsRef}
-                            onChange={(e) =>
-                                setSelectedAction(e.target.checked)
-                            }
-                            label="¿Mostrar después de que el productos sea añadido
-                                al carrito?"
-                            specification="Solo se mostrará este anuncio cuando el producto ha seleccionar sea añadido al carrito de compras"
-                        />
+                    
+                    {/* Sección de Imagen */}
+                    <div className="col-12 mb-4">
+                        <div className="card border-primary">
+                            <div className="card-header bg-primary text-white">
+                                <h6 className="mb-0">📸 Diseño Visual</h6>
+                            </div>
+                            <div className="card-body">
+                                <div className="row">
+                                    <ImageFormGroup
+                                        eRef={imageRef}
+                                        label="Imagen del Popup"
+                                        col="col-md-6"
+                                        aspect={16/9}
+                                        fit="contain"
+                                        required
+                                    />
+                                    <div className="col-md-6">
+                                        <TextareaFormGroup
+                                            eRef={nameRef}
+                                            label="Título del Popup"
+                                            rows={2}
+                                            placeholder="Ej: ¡Hoy 7 de Julio es feriado!"
+                                        />
+                                        <TextareaFormGroup
+                                            eRef={descriptionRef}
+                                            label="Descripción"
+                                            rows={3}
+                                            placeholder="Ej: Disfruta de este día especial con nuestras ofertas exclusivas..."
+                                        />
+                                        <InputFormGroup eRef={linkRef} label="Enlace (opcional)" placeholder="https://..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <SelectFormGroup
-                        eRef={itemRef}
-                        label="Producto"
-                        dropdownParent="#principal-container"
-                        onChange={(e) => setSelectedItem(e.target.value)}
-                        disabled={!selectedAction}
-                    >
-                        {items.map((item, index) => (
-                            <option key={index} value={item.id}>
-                                {item.name}
-                            </option>
-                        ))}
-                    </SelectFormGroup>
+                    {/* Sección de Programación */}
+                    <div className="col-12 mb-4">
+                        <div className="card border-success">
+                            <div className="card-header bg-success text-white">
+                                <h6 className="mb-0">⏰ Programación de Visualización</h6>
+                            </div>
+                            <div className="card-body">
+                                <div className="row">
+                                    <InputFormGroup
+                                        eRef={dateBeginRef}
+                                        label="Fecha de Inicio"
+                                        type="date"
+                                        col="col-md-6"
+                                    />
+                                    <InputFormGroup
+                                        eRef={dateEndRef}
+                                        label="Fecha de Fin"
+                                        type="date"
+                                        col="col-md-6"
+                                    />
+                                </div>
+                                <small className="text-muted">
+                                    💡 Si no seleccionas fechas, el popup se mostrará siempre
+                                </small>
+                            </div>
+                        </div>
+                    </div>
 
-                    <InputFormGroup
-                        eRef={secondsRef}
-                        label="Mostrar despues de (segundos)"
-                        type="number"
-                        disabled={selectedAction}
-                    />
+                    {/* Sección de Comportamiento */}
+                    <div className="col-12 mb-4">
+                        <div className="card border-warning">
+                            <div className="card-header bg-warning text-dark">
+                                <h6 className="mb-0">⚙️ Comportamiento del Popup</h6>
+                            </div>
+                            <div className="card-body">
+                                <SwitchFormGroup
+                                    eRef={invasivoRef}
+                                    label="🚨 Popup Invasivo"
+                                    specification="Solo se mostrará este popup y bloqueará otros (ideal para anuncios importantes)"
+                                />
+                                
+                                <SwitchFormGroup
+                                    eRef={actionsRef}
+                                    onChange={(e) => setSelectedAction(e.target.checked)}
+                                    label="🛒 Mostrar al agregar producto al carrito"
+                                    specification="El popup aparecerá cuando se añada un producto específico al carrito"
+                                />
 
-                    <InputFormGroup eRef={linkRef} label="Link" />
+                                {selectedAction && (
+                                    <div className="mt-3 p-3 bg-light rounded">
+                                        <SelectFormGroup
+                                            eRef={itemRef}
+                                            label="Producto que activa el popup"
+                                            dropdownParent="#principal-container"
+                                            onChange={(e) => setSelectedItem(e.target.value)}
+                                        >
+                                            <option value="">Seleccionar producto...</option>
+                                            {items.map((item, index) => (
+                                                <option key={index} value={item.id}>
+                                                    {item.name}
+                                                </option>
+                                            ))}
+                                        </SelectFormGroup>
+                                    </div>
+                                )}
+
+                                {!selectedAction && (
+                                    <div className="mt-3 p-3 bg-light rounded">
+                                        <InputFormGroup
+                                            eRef={secondsRef}
+                                            label="⏱️ Retraso en segundos"
+                                            type="number"
+                                            placeholder="0"
+                                            helpText="0 = inmediato, 5 = después de 5 segundos, etc."
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </>
@@ -432,7 +485,7 @@ const Ads = ({ items }) => {
 
 CreateReactScript((el, properties) => {
     createRoot(el).render(
-        <BaseAdminto {...properties} title="Pop-ups">
+        <BaseAdminto {...properties} title="Popups y Anuncios">
             <Ads {...properties} />
         </BaseAdminto>
     );

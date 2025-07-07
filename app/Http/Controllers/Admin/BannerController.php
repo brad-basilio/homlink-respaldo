@@ -64,11 +64,8 @@ class BannerController extends BasicController
                 'cta' => 'Llamada a la Acción'
             ],
             'nosotros' => [
-                'header' => 'Banner Principal',
-                'vision' => 'Visión',
-                'mission' => 'Misión',
-                'team' => 'Equipo',
-                'history' => 'Historia'
+                'header' => 'Banner Elígenos',
+               
             ],
             'contacto' => [
                 'header' => 'Banner Principal',
