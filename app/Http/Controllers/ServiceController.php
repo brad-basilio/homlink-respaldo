@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\LandingHome;
 use App\Models\Service;
@@ -29,11 +30,18 @@ class ServiceController extends BasicController
         $brands = Brand::where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
 //dump($services);
+   $banner_slider = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'servicios')
+            ->where('position', 'slider')
+            ->orderBy('order', 'asc')
+            ->get();
         return [
             'landing' => $landing,
             'services' => $services,
             'brands' => $brands,
             'testimonios' => $testimonios,
+            'banner_slider' => $banner_slider,
             //    'allServices' => $allServices,
         ];
     }

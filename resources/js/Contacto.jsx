@@ -133,9 +133,13 @@ const cardHover = {
     },
 };
 
-const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
+const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
     const landingFormulario = landing?.find(
         (item) => item.correlative === "page_contact_formulario"
+    );
+
+    const landingFAQS = landing?.find(
+        (item) => item.correlative === "page_contact_faqs"
     );
 
     /*     const landingForm = landing?.find(
@@ -287,23 +291,23 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
     const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbed = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true`;
     const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbedAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true&zoom=12`;
 
-    const faqs = [
-        {
-            id:1,
-            name:"primera pregunta de este faq?",
-            description:"respuesta a la primera pregunta del faq",
-        },
-        {
-            id:2,
-            name:"segunda pregunta de este faq?",
-            description:"respuesta a la segunda"
-        },
-        {
-            id:3,
-            name:"tercera pregunta de este faq?",
-            description:"respuesta a la tercera"
-        },
-    ]
+    
+
+    const [apps, setApps] = useState([]);
+
+    useEffect(() => {
+        const fetchApps = async () => {
+            try {
+                const data = await generalRest.getApps();
+                setApps(data);
+            } catch (error) {
+                console.error("Error fetching apps:", error);
+            }
+        };
+
+        fetchApps();
+    }, []);
+
     return (
         <motion.div
             className="font-title text-neutral-dark min-h-screen"
@@ -665,22 +669,21 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                                     <div>
                                         <span className="text-lg font-medium">¡Descarga nuestra app!</span>
                                         <div className="flex gap-2 mt-4" >
-                                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                                <img src="/assets/cambiafx/google_play.png" alt="Google Play" className="h-12 w-auto" />
-                                            </a>
-                                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                                <img src="/assets/cambiafx/apple_store.png" alt="App Store" className="h-12 w-auto" />
-                                            </a>
-                                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                                <img src="/assets/cambiafx/app_gallery.png" alt="AppGallery" className="h-12 w-auto" />
-                                            </a>
+                                            {apps?.map((app, index) => (
+                                                <a href={app?.link} key={index} target="_blank" rel="noopener noreferrer">
+                                                    <img src={`/api/app/media/${app?.image}`} alt={app?.name} className="h-12" onError={(e) =>
+                                                    (e.target.src =
+                                                        "/api/cover/thumbnail/null")
+                                                    } />
+                                                </a>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Columna central: imagen */}
 
-                                <img src="/assets/cambiafx/contacto-person.png" alt="Empresas" className="h-[400px] object-cover absolute bottom-0 right-0 select-none" draggable="false" />
+                                <img src={`/api/landing_home/media/${landingFormulario?.image}`} alt="Empresas" className="h-[400px] object-cover absolute bottom-0 right-0 select-none" draggable="false" />
 
 
 
@@ -690,7 +693,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff }) => {
                     </motion.div>
                 </motion.div>
             </motion.main>
-            <ServiceSeccionFaq faqs={faqs}/>
+            <ServiceSeccionFaq landingFAQS={landingFAQS} faqs={faqs} />
             <Footer />
         </motion.div>
     );

@@ -16,14 +16,14 @@ import HeroServiceSection from "./components/Tailwind/CambiaFX/HeroServiceSectio
 import TransferenciaServiceSection from "./components/Tailwind/CambiaFX/TransferenciaServiceSection";
 import MoreServiceSection from "./components/Tailwind/CambiaFX/MoreServiceSection";
 
-const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
+const ServiciosPage = ({ landing, services,banner_slider=[], linkWhatsApp, randomImage }) => {
   
-console.log(services)
+console.log(banner_slider)
     return (
         <div className="font-title">
             <Header />
             <CintilloSection/>
-            <HeroServiceSection service={services[0]}/>
+            <HeroServiceSection service={services[0]} banner_slider={banner_slider}/>
             <TransferenciaServiceSection service={services[1]}/>
             <MoreServiceSection service={services[2]}/>
 

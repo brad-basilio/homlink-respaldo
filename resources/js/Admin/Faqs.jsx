@@ -26,7 +26,7 @@ const Faqs = ({services }) => {
   const idRef = useRef()
   const nameRef = useRef()
   const descriptionRef = useRef()
-  const serviceRef = useRef();
+  //const serviceRef = useRef();
 
   const [selectedService, setSelectedService] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
@@ -39,9 +39,9 @@ const Faqs = ({services }) => {
     nameRef.current.value = data?.name ?? ''
     descriptionRef.current.value = data?.description ?? ''
     //descriptionRef.editor.root.innerHTML = data?.description ?? ''
-      $(serviceRef.current)
+      /*$(serviceRef.current)
             .val(data?.service_id || null)
-            .trigger("change");
+            .trigger("change");*/
 
     $(modalRef.current).modal('show')
   }
@@ -53,7 +53,7 @@ const Faqs = ({services }) => {
       id: idRef.current.value || undefined,
       name: nameRef.current.value,
       description: descriptionRef.current.value,
-      service_id: serviceRef.current.value || undefined
+      //service_id: serviceRef.current.value || undefined
     }
 
     const result = await faqsRest.save(request)
@@ -166,7 +166,7 @@ const Faqs = ({services }) => {
     <Modal modalRef={modalRef} title={isEditing ? 'Editar faq' : 'Agregar faq'} onSubmit={onModalSubmit} size='lg'>
       <div className='row' id='testimony-container'>
         <input ref={idRef} type='hidden' />
-         <SelectFormGroup
+       {/*  <SelectFormGroup
                             eRef={serviceRef}
                             label="Servicio"
                             required
@@ -180,7 +180,7 @@ const Faqs = ({services }) => {
                                     {item.name}
                                 </option>
                             ))}
-                        </SelectFormGroup>
+                        </SelectFormGroup> */}
         <TextareaFormGroup eRef={nameRef} label='Pregunta' rows={2} required />
         <TextareaFormGroup eRef={descriptionRef} label='Respuesta' rows={3} required /> 
        {/* <QuillFormGroup eRef={descriptionRef} label='Respuesta' required /> */}

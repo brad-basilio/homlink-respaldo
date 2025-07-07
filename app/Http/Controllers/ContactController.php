@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Facility;
+use App\Models\Faq;
 use App\Models\General;
 use App\Models\LandingHome;
 use App\Models\Social;
@@ -29,13 +30,17 @@ class ContactController extends BasicController
             ->get();
         $whatsapp = Social::where('status', true)->where('visible', true)->where('description', '=', 'WhatsApp')->first();
         
-        
+        $faqs = Faq::where('status', true)
+            ->where('visible', true)
+            ->where('lang_id', $langId)
+            ->get();
         
         return [
             'landing' => $landing,
             'sedes' => $sedes,
             'whatsapp' => $whatsapp,
             'staff' => $staff,
+            'faqs' => $faqs,
         ];
     }
 }

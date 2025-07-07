@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -30,29 +31,21 @@ class BlogController extends PublicController
         $landing = LandingHome::where('correlative', 'like', 'page_blog%')->where('lang_id', $langId)->get();
         
         // Obtener los sliders y añadir button_text y button_link personalizados
-        $sliders = Post::where('status', true)
-            ->orderBy('created_at', 'desc')
-            ->with('category')
-            ->where('lang_id', $langId)
-            ->limit(3)
-            ->get()
-            ->map(function($post) {
-                $post->button_text = "Ver más aquí";
-                $post->button_link = "/blog/{$post->slug}";
-               
-                $post->description = $post->name;
-                 $post->name="Blog";
-               
-                
-                return $post;
-            });
+        $sliders = [];
 
+          $banner= Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'blog')
+            ->where('position', 'header')
+            ->orderBy('created_at', 'desc')
+            ->first();
 
         return [
             'categories' => $categories,
             'postRecent' => $postRecent,
             'landing' => $landing,
-            'sliders' => $sliders
+            'sliders' => $sliders,
+            'banner' => $banner
         ];
     }
 }

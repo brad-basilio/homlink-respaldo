@@ -56,12 +56,7 @@ class BannerController extends BasicController
                 'grid' => 'Entre Productos'
             ],
             'servicios' => [
-                'header' => 'Banner Principal',
-                'main' => 'Sección Principal',
-                'sidebar' => 'Barra Lateral',
-                'benefits' => 'Sección Beneficios',
-                'testimonials' => 'Testimonios',
-                'cta' => 'Llamada a la Acción'
+                'slider' => 'Slider Cambia Empresas',
             ],
             'nosotros' => [
                 'header' => 'Banner Elígenos',
@@ -75,11 +70,7 @@ class BannerController extends BasicController
             ],
             'blog' => [
                 'header' => 'Banner Principal',
-                'featured' => 'Destacados',
-                'sidebar' => 'Barra Lateral',
-                'between' => 'Entre Artículos',
-                'newsletter' => 'Newsletter',
-                'related' => 'Relacionados'
+              
             ]
         ];
 
