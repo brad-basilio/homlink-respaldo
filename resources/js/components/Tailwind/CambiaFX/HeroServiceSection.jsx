@@ -1,39 +1,9 @@
 import React from 'react';
 import { Layers, Users, CreditCard, TrendingUp, MessageCircle, Gift } from 'lucide-react';
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-function HeroServiceSection() {
-  const services = [
-    {
-      icon: <Layers className="w-6 h-6" />,
-      title: "Amplia cobertura bancaria, YAPE, PLIN No cobramos comisiones",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    },
-    {
-      icon: <CreditCard className="w-6 h-6" />,
-      title: "Paga tu tarjetas de crédito rápidamente",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: "Trabajamos con Empresas y Personas naturales",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    },
-    {
-      icon: <Layers className="w-6 h-6" />,
-      title: "Tipo de cambio preferencial para tus colaboradores",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    },
-    {
-      icon: <MessageCircle className="w-6 h-6" />,
-      title: "Atención personalizada para cada cliente",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    },
-    {
-      icon: <Gift className="w-6 h-6" />,
-      title: "+ Sorteos, + cupones, + beneficios todo el año",
-      description: "Ut eget lacinia ante, eget posuere ipsum. Donec volutpat quam vel purus porta, quis congue."
-    }
-  ];
+function HeroServiceSection({service}) {
+ 
 
   return (
     <div className="min-h-screen bg-primary relative overflow-hidden font-title">
@@ -53,29 +23,35 @@ function HeroServiceSection() {
           {/* Header section */}
           <div className="mb-12 md:mb-16">
             <div className="mb-4">
-              <span className="text-constrast text-sm font-medium tracking-[8%] uppercase">
-                SERVICIOS
+              <span className="text-constrast  text-sm font-medium tracking-[8%] uppercase">
+               {service?.name}
               </span>
             </div>
-            <h2 className="text-4xl md:text-6xl font-medium text-neutral-dark mb-4">
-              Cambia dólares<br />
-              con <span className="font-semibold">Cambia FX</span>
+            <h2 className="text-4xl max-w-lg md:text-6xl font-medium text-neutral-dark mb-4">
+              <TextWithHighlight text={service?.title} color="bg-neutral-dark font-semibold" />
+           
             </h2>
             <p className="text-neutral-light text-base max-w-2xl">
-              Realiza tus operaciones de compra y venta de dólares online.
+            {service?.description}
             </p>
           </div>
 
           {/* Services grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
+            {service?.benefits.map((service, index) => (
               <div
                 key={index}
                 className="bg-secondary rounded-3xl p-8 hover:bg-secondary/90 transition-colors duration-300 group"
               >
                 {/* Icon */}
                 <div className="w-12 h-12 bg-constrast rounded-full flex items-center justify-center text-white mb-6 group-hover:bg-constrast/90 transition-colors duration-300">
-                  {service.icon}
+                    <img
+                                                    src={`/api/service/media/${service?.image}`}
+                                                    alt={service?.name}
+                                                    className="w-6 h-6 object-cover rounded-xl"
+                                                />
+                 
+                
                 </div>
 
                 {/* Title */}

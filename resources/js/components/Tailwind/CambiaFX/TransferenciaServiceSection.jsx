@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layers, Users } from 'lucide-react';
 
-const TransferenciaServiceSection = () => {
+const TransferenciaServiceSection = ({service}) => {
   const services = [
     {
       icon: <Layers className="w-6 h-6" />,
@@ -34,28 +34,32 @@ const TransferenciaServiceSection = () => {
             {/* Header */}
             <div className="mb-8">
               <div className="mb-4">
-                <span className="text-secondary text-sm font-medium tracking-[8%] uppercase">
-                  SERVICIOS
+                <span className="text-secondary  text-sm font-medium tracking-[8%] uppercase">
+                {service?.name}
                 </span>
               </div>
                  <h2 className="text-3xl md:text-4xl lg:text-[64px] font-medium text-white my-4">
-                Transferencia FX
+               {service?.title}
               </h2>
               <p className="text-white text-lg ">
-                Transfiere a otro banco a una baja comisión.
+                {service?.description}
               </p>
             </div>
 
             {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {services.map((service, index) => (
+              {service?.benefits.map((service, index) => (
                 <div
                   key={index}
                   className="bg-secondary rounded-2xl p-6  transition-colors duration-300 group"
                 >
                   {/* Icon */}
                   <div className="w-12 h-12 bg-constrast rounded-full flex items-center justify-center text-white mb-4  transition-colors duration-300">
-                    {service.icon}
+                    <img
+                                                    src={`/api/service/media/${service?.image}`}
+                                                    alt={service?.name}
+                                                    className="w-6 h-6 object-cover rounded-xl"
+                                                />
                   </div>
                   
                   {/* Title */}

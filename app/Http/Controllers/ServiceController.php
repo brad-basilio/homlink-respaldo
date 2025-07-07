@@ -20,7 +20,11 @@ class ServiceController extends BasicController
         $langId = app('current_lang_id');
         //$landing = LandingHome::where('correlative', 'like', 'page_services%')->where('lang_id', $langId)->get();
         $landing = LandingHome::where('correlative', '=', 'page_home_testimonios')->where('lang_id', $langId)->first();
-        $services = Service::where('slug', $request->slug)->where('lang_id', $langId)->with('faqs')->first();
+        $services = Service::where('status', true)
+            ->where('visible', true)
+            ->where('lang_id', $langId)
+            ->orderBy('created_at', 'ASC')
+            ->get();
         // $allServices = Service::where('status', true)->where('visible', true)->where('lang_id', $langId)->where('category_service_id', $services->category_service_id)->with('category')->orderBy('updated_at', 'DESC')->get();
         $brands = Brand::where('status', true)->where('visible', true)->orderBy('updated_at', 'DESC')->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();

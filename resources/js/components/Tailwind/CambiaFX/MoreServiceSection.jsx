@@ -7,7 +7,7 @@ import { adjustTextColor } from "../../../Functions/adjustTextColor";
 import { Autoplay } from "swiper/modules";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 import { Layers, Users } from 'lucide-react';
-const MoreServiceSection = ({ items, data }) => {
+const MoreServiceSection = ({ service,items, data }) => {
 
     const swiperRef = useRef(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -82,7 +82,7 @@ const MoreServiceSection = ({ items, data }) => {
 
 
                         <div className="w-[800px] overflow-hidden h-[700px] flex items-end">
-                            <img src="/assets/cambiafx/more-person.webp" alt="Empresas" className="h-[600px] object-cover w-auto" />
+                            <img src={`/api/service/media/${service?.image}`} alt="Empresas" className="h-[600px] object-cover w-auto" />
 
                         </div>
 
@@ -90,15 +90,15 @@ const MoreServiceSection = ({ items, data }) => {
 
                             <div className="flex items-center mb-4">
                        
-                                <h3 className="uppercase text-neutral-dark text-sm font-medium">¿Por qué elegir Cambia FX?</h3>
+                                <h3 className="uppercase text-neutral-dark text-sm font-medium">{service?.name}</h3>
                             </div>
 
                             <h2 className="text-4xl lg:text-[60px] font-medium mb-6 leading-[94%] max-w-lg ">
-                                <TextWithHighlight text="Beneficios de usar *Cambia FX*" color="bg-neutral-dark font-semibold" />
+                                <TextWithHighlight text={service?.title} color="bg-neutral-dark font-semibold" />
 
                             </h2>
                             <p className="text-neutral-light text-lg mb-6 max-w-xl whitespace-pre-line" >
-                                Confianza, agilidad y tecnología para tu cambio de divisas. En Cambia FX conectamos personas y empresas con soluciones financieras que optimizan el cambio de dólares y soles. Nuestro compromiso es ofrecer operaciones rápidas, seguras y sin complicaciones.
+                                {service?.description}
                             </p>
                       
 
@@ -123,12 +123,16 @@ const MoreServiceSection = ({ items, data }) => {
                                 }}
                                 className="w-full  !flex !justify-between"
                             >
-                                {services.map((value, index) => (
+                                {service?.benefits.map((value, index) => (
                                     <SwiperSlide key={index}>
                                         <div className="w-full flex bg-secondary  rounded-xl p-4 flex-col items-start" key={index}>
                                             <div className="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white mb-4 group-hover:bg-purple-600 transition-colors duration-300">
-                    {value.icon}
-                  </div>
+                                                <img
+                                                    src={`/api/service/media/${value?.image}`}
+                                                    alt={value?.name}
+                                                    className="w-6 h-6 object-cover rounded-xl"
+                                                />
+                                            </div>
                                             <h3 className="text-neutral-dark text-xl font-medium mt-4 mb-1">{value?.title}</h3>
                                             <p className="text-neutral-light text-base font-light">{value?.description}</p>
                                         </div>

@@ -18,14 +18,14 @@ import MoreServiceSection from "./components/Tailwind/CambiaFX/MoreServiceSectio
 
 const ServiciosPage = ({ landing, services, linkWhatsApp, randomImage }) => {
   
-
+console.log(services)
     return (
         <div className="font-title">
             <Header />
             <CintilloSection/>
-            <HeroServiceSection/>
-            <TransferenciaServiceSection/>
-            <MoreServiceSection/>
+            <HeroServiceSection service={services[0]}/>
+            <TransferenciaServiceSection service={services[1]}/>
+            <MoreServiceSection service={services[2]}/>
 
             <Footer />
         </div>
