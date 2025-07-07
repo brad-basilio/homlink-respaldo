@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Classes\dxResponse;
 use App\Models\Aboutus;
+use App\Models\App;
 use App\Models\dxDataGrid;
 use App\Models\Facility;
 use App\Models\General;
@@ -46,6 +47,25 @@ class GeneralController extends BasicController
             $response->message = 'Operacion correcta';
         } catch (\Throwable $th) {
 
+            $response->status = 400;
+            $response->message = $th->getMessage();
+        } finally {
+            return response(
+                $response->toArray(),
+                $response->status
+            );
+        }
+    }
+
+    public function getApps(Request $request): HttpResponse|ResponseFactory
+    {
+        $response = new Response();
+        try {
+            $data = App::where('visible', true)->orderBy('order', 'asc')->get();
+            $response->data = $data;
+            $response->status = 200;
+            $response->message = 'Operacion correcta';
+        } catch (\Throwable $th) {
             $response->status = 400;
             $response->message = $th->getMessage();
         } finally {

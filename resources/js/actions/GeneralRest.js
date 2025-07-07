@@ -24,6 +24,27 @@ class GeneralRest extends BasicRest {
             return [];
         }
     };
+
+    getApps = async () => {
+        try {
+            const { status, result } = await Fetch(
+                `/api/${this.path}/get-apps`,
+                {
+                    method: "GET",
+                }
+            );
+
+            if (!status)
+                throw new Error(
+                    result?.message ?? "Ocurrió un error al consultar"
+                );
+
+            return result?.data ?? [];
+        } catch (error) {
+            console.error("Error en getApps:", error);
+            return [];
+        }
+    };
     getLanguages = async () => {
         try {
             const { status, result } = await Fetch(
@@ -104,6 +125,27 @@ class GeneralRest extends BasicRest {
             return result?.data ?? [];
         } catch (error) {
             console.error("Error en getGenerals:", error);
+            return [];
+        }
+    };
+
+    getContactInfo = async () => {
+        try {
+            const { status, result } = await Fetch(
+                `/api/${this.path}/get-contact-info`,
+                {
+                    method: "GET",
+                }
+            );
+
+            if (!status)
+                throw new Error(
+                    result?.message ?? "Ocurrió un error al consultar"
+                );
+
+            return result?.data ?? [];
+        } catch (error) {
+            console.error("Error en getContactInfo:", error);
             return [];
         }
     };

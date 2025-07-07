@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             StrengthSeeder::class,
             SocialSeeder::class,
             GeneralSeeder::class,
+            CopyrightGeneralSeeder::class,
             ItemSeeder::class,
             SupplySeeder::class,
             FormulaSeeder::class,

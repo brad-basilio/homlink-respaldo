@@ -18,7 +18,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
-    const generalRest = new GeneralRest();
+    const generalRest = new GeneralRest();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
 
     // Configurar notificaciones para GeneralRest (principalmente para consistencia)
     // Las consultas GET normalmente solo muestran errores, no éxitos
@@ -28,6 +28,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
         links[fl.correlative] = fl.description;
     });*/
     const [socials, setSocials] = useState([]);
+    const [generals, setGenerals] = useState([]);
+    const [apps, setApps] = useState([]);
 
     useEffect(() => {
         const fetchSocials = async () => {
@@ -39,9 +41,30 @@ const Footer = ({ terms, footerLinks = [] }) => {
             }
         };
 
+        const fetchGenerals = async () => {
+            try {
+                const data = await generalRest.getGenerals();
+                setGenerals(data);
+            } catch (error) {
+                console.error("Error fetching generals:", error);
+            }
+        };
+
+        const fetchApps = async () => {
+            try {
+                const data = await generalRest.getApps();
+                setApps(data);
+            } catch (error) {
+                console.error("Error fetching apps:", error);
+            }
+        };
+
         fetchSocials();
+        fetchGenerals();
+        fetchApps();
     }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
 
+    // Redes sociales
     const Facebook = socials.find(
         (social) => social.description === "Facebook"
     );
@@ -52,6 +75,24 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const Youtube = socials.find((social) => social.description === "Youtube");
     const Tiktok = socials.find((social) => social.description === "Tiktok");
     const Whatsapp = socials.find((social) => social.description === "WhatsApp");
+    const LinkedIn = socials.find((social) => social.description === "LinkedIn");
+
+    // Datos de contacto desde generals
+    const getGeneralValue = (correlative) => {
+        const item = generals.find(g => g.correlative === correlative);
+        return item?.description || '';
+    };
+
+    const phoneContact = getGeneralValue('phone_contact');
+    const emailContact = getGeneralValue('email_contact');
+    const address = getGeneralValue('address');
+    const openingHours = getGeneralValue('opening_hours');
+    const supportPhone = getGeneralValue('support_phone');
+    const whatsappPhone = getGeneralValue('whatsapp_phone');
+    const supportEmail = getGeneralValue('support_email');
+    const companyName = getGeneralValue('company_name') || 'Tu Cambio S.A.C.';
+    const companyRuc = getGeneralValue('company_ruc') || '20603864957';
+    const copyrightText = getGeneralValue('copyright') || `Cambia FX © 2019 - Marca registrada de ${companyName} - RUC: ${companyRuc}`;
 
     const [aboutuses, setAboutuses] = useState(null); // o useState({});
 
@@ -167,15 +208,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             />
                         </a>
                         <div className="flex flex-wrap gap-2">
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <img src="/assets/cambiafx/google_play.png" alt="Google Play" className="h-10" />
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <img src="/assets/cambiafx/apple_store.png" alt="App Store" className="h-10" />
-                            </a>
-                            <a href="#" target="_blank" rel="noopener noreferrer">
-                                <img src="/assets/cambiafx/app_gallery.png" alt="App Gallery" className="h-10" />
-                            </a>
+                            {apps?.map((app, index) => (
+                                <a href={app?.link} key={index} target="_blank" rel="noopener noreferrer">
+                                    <img src={`/api/app/media/${app?.image}`} alt={app?.name} className="h-10" onError={(e) =>
+                                    (e.target.src =
+                                        "/api/cover/thumbnail/null")
+                                    } />
+                                </a>
+                            ))}
                         </div>
                         <div className="mt-4 max-w-md">
                             <h3 className="text-xl font-medium mb-2">Suscríbete</h3>
@@ -206,18 +246,26 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
                     {/* Columna 2 - Horario de Atención */}
                     <div className="w-6/12 flex flex-wrap justify-end">
-                        <div className="w-6/12 flex flex-col gap-2 text-sm">
+                        <div className="w-6/12 flex flex-col gap-2 text-sm pb-8">
                             <h3 className="text-xl font-medium mb-4">
                                 Horario de Atención
                             </h3>
-                            <p><strong className="font-medium">Lunes a viernes:</strong><br />9:00 a.m. - 7:00 p.m.</p>
-                            <p className="mt-2"><strong className="font-medium">Sábados:</strong><br />10:00 a.m. - 1:00 p.m.</p>
-                            <p className="mt-2"><strong className="font-medium">Otros Horarios:</strong><br />Abonamos el día siguiente hábil</p>
-                            <p className="mt-2"><strong className="font-medium">No atendemos:</strong><br />Domingos y feriados</p>
+                            {openingHours ? (
+                                <div className="whitespace-pre-line">
+                                    {openingHours.split('\n').map(line => line.replace(/:/, ':\n')).join('\n')}
+                                </div>
+                            ) : (
+                                <>
+                                    <p><strong className="font-medium">Lunes a viernes:</strong><br />9:00 a.m. - 7:00 p.m.</p>
+                                    <p className="mt-2"><strong className="font-medium">Sábados:</strong><br />10:00 a.m. - 1:00 p.m.</p>
+                                    <p className="mt-2"><strong className="font-medium">Otros Horarios:</strong><br />Abonamos el día siguiente hábil</p>
+                                    <p className="mt-2"><strong className="font-medium">No atendemos:</strong><br />Domingos y feriados</p>
+                                </>
+                            )}
                         </div>
 
                         {/* Columna 3 - Legal */}
-                        <div className="w-4/12 flex flex-col gap-2 text-sm">
+                        <div className="w-4/12 flex flex-col gap-2 text-sm ">
                             <h3 className="text-xl font-medium mb-4">
                                 Legal
                             </h3>
@@ -238,9 +286,12 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" fill="#1A1A1A" />
                                 </svg>
 
-                                <p>Av. Javier Prado Este N.560,<br />Oficina 2302 San Isidro - Lima - Perú</p>
+                                <div className="whitespace-pre-line">
+                                    {address || "Av. Javier Prado Este N.560,\nOficina 2302 San Isidro - Lima - Perú"}
+                                </div>
                             </div>
 
+                          
                         </div>
                         <div className="w-4/12 flex items-center gap-3">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -248,8 +299,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" stroke-width="1.25" stroke-linejoin="round" />
                             </svg>
 
-
-                            <a href="mailto:hola@cambiafx.pe" className="hover:text-secondary">hola@cambiafx.pe</a>
+                            <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary">{emailContact || 'hola@cambiafx.pe'}</a>
                         </div>
                     </div>
                 </div>
@@ -262,14 +312,95 @@ const Footer = ({ terms, footerLinks = [] }) => {
                     </div>
                     <div className="flex flex-col md:flex-row justify-between items-center w-full px-[5%] py-4 text-center md:text-left">
                         <p className="text-base text-neutral mb-4 md:mb-0">
-                            Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957
+                            {copyrightText}
                         </p>
                         <div className="flex items-center gap-3">
-                            <a href="#" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-solid fa-phone"></i></a>
-                            <a href={Facebook?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-facebook-f"></i></a>
-                            <a href={Instagram?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-instagram"></i></a>
-                            <a href="#" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-linkedin-in"></i></a>
-                            <a href={Whatsapp?.link} target="_blank" rel="noopener noreferrer" className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center"><i className="fa-brands fa-whatsapp"></i></a>
+                            {(phoneContact || supportPhone) && (
+                                <a 
+                                    href={`tel:${phoneContact || supportPhone}`} 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="Llamar"
+                                >
+                                    <i className="fa-solid fa-phone"></i>
+                                </a>
+                            )}
+                            {Facebook?.link && (
+                                <a 
+                                    href={Facebook.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="Facebook"
+                                >
+                                    <i className="fa-brands fa-facebook-f"></i>
+                                </a>
+                            )}
+                            {Instagram?.link && (
+                                <a 
+                                    href={Instagram.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="Instagram"
+                                >
+                                    <i className="fa-brands fa-instagram"></i>
+                                </a>
+                            )}
+                            {Twitter?.link && (
+                                <a 
+                                    href={Twitter.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="Twitter"
+                                >
+                                    <i className="fa-brands fa-twitter"></i>
+                                </a>
+                            )}
+                            {LinkedIn?.link && (
+                                <a 
+                                    href={LinkedIn.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="LinkedIn"
+                                >
+                                    <i className="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            )}
+                            {Youtube?.link && (
+                                <a 
+                                    href={Youtube.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="YouTube"
+                                >
+                                    <i className="fa-brands fa-youtube"></i>
+                                </a>
+                            )}
+                            {Tiktok?.link && (
+                                <a 
+                                    href={Tiktok.link} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="TikTok"
+                                >
+                                    <i className="fa-brands fa-tiktok"></i>
+                                </a>
+                            )}
+                            {(Whatsapp?.link || whatsappPhone) && (
+                                <a 
+                                    href={Whatsapp?.link || `https://wa.me/${whatsappPhone?.replace(/[^0-9]/g, '')}`} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    title="WhatsApp"
+                                >
+                                    <i className="fa-brands fa-whatsapp"></i>
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -278,8 +409,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                 {Object.keys(policyItems).map((key, index) => {
                     const title = policyItems[key];
                     const content =
-                        generalsData.find((x) => x.correlative == key)
-                            ?.description ?? "";
+                        generals.find((x) => x.correlative == key)?.description ?? 
+                        generalsData.find((x) => x.correlative == key)?.description ?? "";
                     return (
                         <ReactModal
                             key={index}

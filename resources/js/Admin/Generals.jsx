@@ -104,6 +104,9 @@ const Generals = ({ generals }) => {
         seoKeywords:
             generals.find((x) => x.correlative == "seo_keywords")
                 ?.description ?? "",
+        copyright:
+            generals.find((x) => x.correlative == "copyright")?.description ?? 
+            "Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957",
         location: {
             lat: Number(location.split(",").map((x) => x.trim())[0]),
             lng: Number(location.split(",").map((x) => x.trim())[1]),
@@ -227,6 +230,11 @@ const Generals = ({ generals }) => {
                     correlative: "seo_keywords",
                     name: "Palabras clave - SEO",
                     description: formData.seoKeywords,
+                },
+                {
+                    correlative: "copyright",
+                    name: "Texto de Copyright",
+                    description: formData.copyright,
                 },
                 {
                     correlative: "location",
@@ -543,6 +551,29 @@ const Generals = ({ generals }) => {
                             ></textarea>
                             <small className="form-text text-muted">
                                 Este mensaje se enviará automáticamente al iniciar una conversación.
+                            </small>
+                        </div>
+                        <div className="mb-3">
+                            <label
+                                htmlFor="copyright"
+                                className="form-label"
+                            >
+                                Texto de Copyright
+                            </label>
+                            <textarea
+                                className="form-control"
+                                id="copyright"
+                                value={formData.copyright}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        copyright: e.target.value,
+                                    })
+                                }
+                                rows="3"
+                            ></textarea>
+                            <small className="form-text text-muted">
+                                Este texto aparecerá en el footer del sitio web.
                             </small>
                         </div>
                     </div>

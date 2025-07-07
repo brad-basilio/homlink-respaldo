@@ -147,6 +147,7 @@ Route::get('/payment-methods/immediate-24h', function() {
 Route::post('/reclamos', [ComplaintController::class, 'store']);
 
 Route::get('/generals/get-socials', [GeneralController::class, 'getSocials']);
+Route::get('/generals/get-apps', [GeneralController::class, 'getApps']);
 Route::get('/generals/get-languages', [GeneralController::class, 'getLanguages']);
 Route::get('/generals/get-benefits', [GeneralController::class, 'getBenefits']);
 Route::get('/generals/get-aboutuses', [GeneralController::class, 'getAboutuses']);
