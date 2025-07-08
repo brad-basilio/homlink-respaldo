@@ -69,7 +69,7 @@ class AboutController extends BasicController
             ->orderBy('created_at', 'desc')
             ->first();
         $benefits = Benefit::where('status', true)
-          
+          ->where('correlative', 'principales')
             ->get();
 
 

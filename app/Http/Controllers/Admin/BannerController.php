@@ -36,10 +36,10 @@ class BannerController extends BasicController
         // Opciones para los selects de sección
         $sections = [
             'home' => 'Inicio',
-            'productos' => 'Productos',
+            'empresa' => 'Empresas',
             'servicios' => 'Servicios',
             'nosotros' => 'Nosotros',
-            'contacto' => 'Contacto',
+         
             'blog' => 'Blog'
         ];
 
@@ -49,12 +49,7 @@ class BannerController extends BasicController
                 'primera_operacion' => 'Banner Primera operación',
                 'cambia_empresas' => 'Slider Cambia Empresas'
             ],
-            'productos' => [
-                'header' => 'Banner Principal',
-                'main' => 'Sección Principal',
-                'sidebar' => 'Barra Lateral',
-                'grid' => 'Entre Productos'
-            ],
+          
             'servicios' => [
                 'slider' => 'Slider Cambia Empresas',
             ],
@@ -62,17 +57,16 @@ class BannerController extends BasicController
                 'header' => 'Banner Elígenos',
                
             ],
-            'contacto' => [
-                'header' => 'Banner Principal',
-                'main' => 'Sección Principal',
-                'map' => 'Mapa',
-                'info' => 'Información'
-            ],
+           
             'blog' => [
                 'header' => 'Banner Principal',
                 'article'=>'Detalle del Blog'
               
-            ]
+            ],
+               'empresa' => [
+                'primera_operacion' => 'Banner Primera operación',
+                'cambia_empresas' => 'Banner Cambia Empresas'
+            ],
         ];
 
         // Todas las posiciones para mostrar en la tabla

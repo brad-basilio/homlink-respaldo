@@ -26,6 +26,7 @@ import moment from "moment";
 import "moment/locale/es"; // Para fechas en español
 import ExchangeCard from "./components/Tailwind/CambiaFX/ExchangeCard";
 import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
+import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 
 // Configurar moment en español
 moment.locale('es');
@@ -212,6 +213,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
     return (
         <>
             <Header />
+            <CintilloSection/>
             <motion.section
                 initial="hidden"
                 animate="visible"

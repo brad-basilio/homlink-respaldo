@@ -101,8 +101,8 @@ const LandingHome = ({
     // Nombres de las páginas para los tabs
     const pageNames = {
         home: "Inicio",
-        services: "Servicios",
-        infoproducts: "InfoProductos",
+        //services: "Servicios",
+       // infoproducts: "InfoProductos",
        // solutions: "Soluciones",
        // purchase: "Opciones de compra",
        // partners: "Aliados comerciales",
@@ -110,6 +110,7 @@ const LandingHome = ({
         //faqs: "Faqs",
         contact: "Contacto",
         blog: "Blog",
+        empresas: "Empresas",
     };
 
     // Cargar traducciones cuando cambia el idioma

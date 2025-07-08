@@ -21,6 +21,8 @@ class Indicator extends Model
         'visible',
         'status',
         'lang_id',
+        'correlative',
+        'order',
     ];
     public function lang()
     {

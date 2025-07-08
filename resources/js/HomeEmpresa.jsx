@@ -134,20 +134,24 @@ const Home = ({
     strengths = [],
     testimonios = [],
     indicators = [],
+    banner,
+    beneficios,
+    bannerEmpresas,
     allServices = [],
+    pasos=[]
 }) => {
     const { t, loading, error } = useTranslation();
     const tipoSlider = "nopain";
-    const landingNosotros = landing?.find(
-        (item) => item.correlative === "page_home_nosotros"
+    const landingHero= landing?.find(
+        (item) => item.correlative === "page_empresas_hero"
     );
 
-    const landingServicios = landing?.find(
-        (item) => item.correlative === "page_home_servicios"
+    const landingPasos= landing?.find(
+        (item) => item.correlative === "page_empresas_pasos"
     );
 
-    const landingImpacto = landing?.find(
-        (item) => item.correlative === "page_home_impacto"
+    const landingBeneficios = landing?.find(
+        (item) => item.correlative === "page_empresas_beneficios"
     );
     const landingTestimonios = landing?.find(
         (item) => item.correlative === "page_home_testimonios"
@@ -251,15 +255,15 @@ const Home = ({
             <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecctionEmpresa />
+            <HeroSecctionEmpresa  landing={landingHero}/>
             {/* INDICADORES*/}
-            <IndicadoresSecctionEmpresa />
+            <IndicadoresSecctionEmpresa indicators={indicators} />
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection />
-            <FuncionSection />
-            <BannerFxEmpresas />
+            <PrimeraOperacionSection banner={banner} />
+            <FuncionSection pasos={pasos}  data={landingPasos}/>
+            <BannerFxEmpresas banner={bannerEmpresas} />
             {/* SECCIÓN BENEFICIOS EMPRESAS */}
-            <BeneficiosSecctionEmpresa />
+            <BeneficiosSecctionEmpresa data={landingBeneficios} beneficios={beneficios} />
 
             {/* FORMULARIO DE CONTACTO */}
             <ContactoSecctionEmpresa />

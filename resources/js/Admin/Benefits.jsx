@@ -8,6 +8,7 @@ import ReactAppend from "../Utils/ReactAppend";
 import DxButton from "../Components/dx/DxButton";
 import TextareaFormGroup from "@Adminto/form/TextareaFormGroup";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
+import SelectFormGroup from "@Adminto/form/SelectFormGroup";
 import Swal from "sweetalert2";
 import InputFormGroup from "../Components/form/InputFormGroup";
 
@@ -15,6 +16,12 @@ import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
 import BenefitsRest from "../actions/Admin/BenefitsRest";
 
 const benefitsRest = new BenefitsRest();
+
+// Opciones para el select de correlative
+const correlativeOptions = [
+    { value: 'principales', text: 'Beneficios Principales' },
+    { value: 'empresas', text: 'Beneficios Empresas' },
+];
 
 const Benefits = () => {
     const gridRef = useRef();
@@ -25,6 +32,8 @@ const Benefits = () => {
     const nameRef = useRef();
     const imageRef = useRef();
     const descriptionRef = useRef();
+    const correlativeRef = useRef();
+    const orderRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
 
@@ -37,6 +46,8 @@ const Benefits = () => {
         imageRef.image.src = `/api/benefit/media/${data?.image}`;
         imageRef.current.value = null;
         descriptionRef.current.value = data?.description ?? "";
+        correlativeRef.current.value = data?.correlative ?? "";
+        orderRef.current.value = data?.order ?? "";
 
         $(modalRef.current).modal("show");
     };
@@ -48,6 +59,8 @@ const Benefits = () => {
             id: idRef.current.value || undefined,
             name: nameRef.current.value,
             description: descriptionRef.current.value,
+            correlative: correlativeRef.current.value,
+            order: orderRef.current.value,
         };
         const formData = new FormData();
         for (const key in request) {
@@ -157,13 +170,40 @@ const Benefits = () => {
                     {
                         dataField: "name",
                         caption: "Beneficio",
-                        width: "30%",
+                        width: "25%",
                     },
-
+                    {
+                        dataField: "correlative",
+                        caption: "Categoría",
+                        width: "15%",
+                        cellTemplate: (container, { data }) => {
+                            const option = correlativeOptions.find(opt => opt.value === data.correlative);
+                            ReactAppend(
+                                container,
+                                <span className="badge bg-primary">
+                                    {option ? option.text : data.correlative || 'Sin categoría'}
+                                </span>
+                            );
+                        },
+                    },
+                    {
+                        dataField: "order",
+                        caption: "Orden",
+                        width: "10%",
+                        dataType: "number",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <span className="badge bg-secondary">
+                                    {data.order || 0}
+                                </span>
+                            );
+                        },
+                    },
                     {
                         dataField: "description",
                         caption: "Descripción",
-                        width: "50%",
+                        width: "35%",
                     },
                     {
                         dataField: "visible",
@@ -225,6 +265,38 @@ const Benefits = () => {
                             label="Beneficio"
                             required
                         />
+                        
+                        <div className="row">
+                            <div className="col-md-8">
+                                <SelectFormGroup
+                                    eRef={correlativeRef}
+                                    label="Categoría"
+                                    
+                                    dropdownParent={"#benefits-container"}
+                                  
+                                >
+                                    {correlativeOptions.map((option) => (
+                                        <option
+                                            key={option.value}
+                                            value={option.value}    
+                                        >
+                                            {option.text}   
+                                        </option>
+                                    ))}
+                                </SelectFormGroup>
+                            </div>
+                            <div className="col-md-4">
+                                <InputFormGroup
+                                    eRef={orderRef}
+                                    type="number"
+                                    label="Orden"
+                                    placeholder="1, 2, 3..."
+                                    min="0"
+                                    step="1"
+                                />
+                            </div>
+                        </div>
+                        
                         <TextareaFormGroup
                             eRef={descriptionRef}
                             label="Descripción"

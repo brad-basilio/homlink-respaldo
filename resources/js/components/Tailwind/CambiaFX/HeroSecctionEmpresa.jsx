@@ -1,8 +1,9 @@
 
 import React from 'react'
 import ExchangeCard from './ExchangeCard'
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function HeroSecctionEmpresa() {
+export default function HeroSecctionEmpresa({landing}) {
     const handleOperationStart = (operationData) => {
         console.log('Operation data:', operationData);
         // Aquí puedes manejar los datos de la operación como necesites
@@ -16,12 +17,16 @@ export default function HeroSecctionEmpresa() {
                 <div className='w-7/12'>
 
                     <h1 className="text-6xl font-title font-medium text-white  mb-4">
-                        Cambia <span className="text-white font-semibold">FX Empresas</span>
+<TextWithHighlight text={landing?.title} color='bg-white font-semibold' />
+
+
+                     
 
                     </h1>
                     <p className="text-2xl font-medium uppercase tracking-[8%] text-secondary mb-6 max-w-xl">
-                        Eres empresa, contactanos y consigue
-                        el mejor tipo de  cambio aquí
+                       {landing?.description}
+                       
+                     
                     </p>
                     <div className='flex gap-12 h-[200px] mt-20 relative'>
 

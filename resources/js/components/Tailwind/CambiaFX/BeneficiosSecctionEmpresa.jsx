@@ -5,8 +5,9 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function BeneficiosSecctionEmpresa() {
+export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
@@ -20,28 +21,10 @@ export default function BeneficiosSecctionEmpresa() {
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
     };
 
-    const beneficios = [
-        {
-            id: 1,
-            image: "/assets/cambiafx/blog-1.png",
-            title: "Pagar la planilla de tu empresa"
-        },
-        {
-            id: 2,
-            image: "/assets/cambiafx/blog-2.png",
-            title: "Pagar tus impuestos al día, sin atrasos"
-        },
-        {
-            id: 3,
-            image: "/assets/cambiafx/blog-3.jpg",
-            title: "Realizar transferencias internacionales"
-        },
-        {
-            id: 4,
-            image: "/assets/cambiafx/blog-4.jpg",
-            title: "Comprar insumos para tu empresa"
-        }
-    ];
+    // Filtrar beneficios de empresas y ordenar por order
+    const beneficiosEmpresas = beneficios
+        .filter(beneficio => beneficio.correlative === 'empresas' && beneficio.visible)
+        .sort((a, b) => (a.order || 0) - (b.order || 0));
 
     return (
         <section className="w-full bg-secondary py-16 px-[5%] font-title">
@@ -52,12 +35,14 @@ export default function BeneficiosSecctionEmpresa() {
                         BENEFICIOS
                     </div>
                     <h2 className="text-4xl lg:text-[64px] font-medium text-neutral-dark leading-[94%] mb-6">
-                        Las empresas <br />
-                        <span className="text-constrast font-semibold">cambiar dólares</span> <br />
-                        para...
+                     
+                     <TextWithHighlight  text={data?.title} color='bg-constrast font-semibold' />
+                      
                     </h2>
                     <p className="text-xl text-neutral-light  max-w-md leading-relaxed">
-                        Aprovecha nuestro tipo de cambio <span className="font-semibold">competitivo y asesoría de traders expertos</span> para cambiar dólares para tu empresa.
+                         <TextWithHighlight  text={data?.description} color='bg-neutral-light font-semibold' />
+                       
+                     
                     </p>
                 </div>
 
@@ -91,12 +76,12 @@ export default function BeneficiosSecctionEmpresa() {
                         }}
                         className="beneficios-swiper"
                     >
-                        {beneficios.map((beneficio) => (
+                        {beneficiosEmpresas.map((beneficio) => (
                             <SwiperSlide key={beneficio.id}>
                                 <div className="relative rounded-3xl overflow-hidden h-96 group cursor-pointer">
                                     <img 
-                                        src={beneficio.image}
-                                        alt={beneficio.title}
+                                        src={`/api/benefit/media/${beneficio.image}`}
+                                        alt={beneficio.name}
                                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                     />
                                     {/* Overlay con gradiente */}
@@ -105,8 +90,13 @@ export default function BeneficiosSecctionEmpresa() {
                                     {/* Texto superpuesto */}
                                     <div className="absolute bottom-6 left-6 right-6">
                                         <h3 className="text-white text-xl font-bold leading-tight">
-                                            {beneficio.title}
+                                            {beneficio.name}
                                         </h3>
+                                        {beneficio.description && (
+                                            <p className="text-white/80 text-sm mt-2 leading-relaxed">
+                                                {beneficio.description}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
                             </SwiperSlide>

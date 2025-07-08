@@ -74,6 +74,7 @@ use App\Http\Controllers\FaqDetailController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\FormulaController;
+use App\Http\Controllers\HomeEmpresaController;
 use App\Http\Controllers\InfoproductController;
 use App\Http\Controllers\InstructionController;
 use App\Http\Controllers\LoginVuaController;
@@ -117,7 +118,7 @@ Route::get('/casos-de-exito/{slug}', [DetailSuccessStoryController::class, 'reac
 Route::get('/casos-de-exito', [SuccessStoryController::class, 'reactView'])->name('CasosDeExito.jsx');
 Route::get('/infoproductos', [InfoproductController::class, 'reactView'])->name('Infoproductos.jsx');
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
-Route::get('/empresas', [HomeController::class, 'reactView'])->name('HomeEmpresa.jsx');
+Route::get('/empresas', [HomeEmpresaController::class, 'reactView'])->name('HomeEmpresa.jsx');
 Route::get('/test-exchange', [HomeController::class, 'reactView'])->name('TestExchangeCard.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');

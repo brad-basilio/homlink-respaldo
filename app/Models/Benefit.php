@@ -17,6 +17,8 @@ class Benefit extends Model
         'name',
         'description',
         'image',
+        'correlative',
+        'order',
         'visible',
         'status',
     ];

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import TextWithHighlight from '../../../Utils/TextWithHighlight'
 
-export default function BannerFxEmpresas() {
+export default function BannerFxEmpresas({banner}) {
     return (
         <section className="w-full bg-primary pt-10 pb-24 flex justify-center items-center font-title px-[5%] mx-auto">
             <div className="relative  w-full px-16 rounded-[56px] bg-neutral-dark overflow-hidden flex flex-col md:flex-row justify-end items-center  py-10 min-h-[300px]">
@@ -22,17 +23,16 @@ export default function BannerFxEmpresas() {
 
                 </div>
                 {/* Columna central: imagen */}
-             
-                    <img src="/assets/cambiafx/banner-empresas.webp" alt="Empresas" className="h-[300px] object-cover absolute -left-0 bottom-0 select-none" draggable="false" />
-            
+
+                    <img src={`/api/banners/media/${banner?.image}`} alt={banner?.name} className="h-[300px] object-cover absolute -left-0 bottom-0 select-none" draggable="false" />
+
                 {/* Columna izquierda: texto */}
                 <div className=" w-6/12 z-10 flex flex-col justify-start items-start gap-2">
-                    <span className="uppercase text-white  tracking-widest text-2xl font-medium mb-2">EN CAMBIAFX EMPRESAS</span>
+                    <span className="uppercase text-white  tracking-widest text-2xl font-medium mb-2 "> {banner?.name}</span>
                     <h2 className="text-4xl md:text-5xl lg:text-[40px] font-medium leading-tight text-white mb-2">
-                        Cuponera de
+                      
+                      <TextWithHighlight text={banner?.description}  color='bg-secondary font-semibold' split_coma />
                        
-
-                        <span className="text-secondary font-semibold"> promociones </span><br/>para empresas
                     </h2>
                     {/* <div className="flex gap-2 mt-6 md:mt-10">
                         <span className="inline-block w-4 h-4 rounded-full bg-white border-2 border-white"></span>
@@ -45,7 +45,8 @@ export default function BannerFxEmpresas() {
                 {/* Columna derecha: mensaje y WhatsApp */}
                 <div className="z-10 w-3/12 flex  gap-10 items-end pr-8 justify-end min-w-[180px] md:ml-8 mt-8 md:mt-0">
                     <div className="text-white relative text-2xl  text-end mb-2">
-                        Déjanos un <span className="font-semibold italic"><br />mensaje</span>
+                      <TextWithHighlight text={banner?.button_text}  color='bg-white font-semibold italic' split_coma />
+
                        
 
                     </div>
