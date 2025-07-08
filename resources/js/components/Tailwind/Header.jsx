@@ -477,9 +477,9 @@ const Header = ({
                             <button className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full">
                              ¿Eres nuevo? registrate
                             </button>
-                              <button className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full">
+                              <a href="https://mi.cambiafx.pe/login" target="_blank" rel="noopener noreferrer" className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full">
                              iniciar operación
-                            </button>
+                            </a>
                         </motion.div>
 
                         <motion.div

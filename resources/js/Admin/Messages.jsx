@@ -75,9 +75,12 @@ const Messages = () => {
                         dataField: "name",
                         caption: "Nombre",
                         cellTemplate: (container, { data }) => {
+                            const fullName = data.lastname 
+                                ? `${data.name} ${data.lastname}`
+                                : data.name;
                             ReactAppend(
                                 container,
-                                <span
+                                <div
                                     style={{
                                         width: "100%",
                                         fontWeight: data.seen
@@ -87,14 +90,43 @@ const Messages = () => {
                                     }}
                                     onClick={() => onModalOpen(data)}
                                 >
-                                    {data.name}
-                                </span>
+                                    <div>{fullName}</div>
+                                    {data.ruc && (
+                                        <small className="text-muted">RUC: {data.ruc}</small>
+                                    )}
+                                </div>
                             );
                         },
                     },
                     {
                         dataField: "email",
                         caption: "Correo",
+                    },
+                    {
+                        dataField: "contact_type",
+                        caption: "Tipo",
+                        width: "100px",
+                        cellTemplate: (container, { data }) => {
+                            const isEmpresa = data.contact_type === 'empresa';
+                            ReactAppend(
+                                container,
+                                <span className={`badge ${isEmpresa ? 'bg-primary' : 'bg-secondary'} rounded-pill`}>
+                                    {isEmpresa ? 'Empresa' : 'Personal'}
+                                </span>
+                            );
+                        },
+                    },
+                    {
+                        dataField: "phone",
+                        caption: "Teléfono",
+                        cellTemplate: (container, { data }) => {
+                            ReactAppend(
+                                container,
+                                <span>
+                                    {data.phone || '-'}
+                                </span>
+                            );
+                        },
                     },
                     {
                         dataField: "created_at",
@@ -157,26 +189,66 @@ const Messages = () => {
                 ]}
             />
             <Modal modalRef={modalRef} title="Mensaje" hideFooter>
-                <p>
-                    <b>Nombre</b>:
-                    <span className="ms-1">{dataLoaded?.name}</span>
-                </p>
-                <p>
-                    <b>Correo</b>:
-                    <span className="ms-1">
-                        {dataLoaded?.email || (
-                            <i className="text-muted">- Sin correo -</i>
+                <div className="row">
+                    <div className="col-md-6">
+                        <p>
+                            <b>Tipo de contacto</b>:
+                            <span className={`ms-2 badge ${dataLoaded?.contact_type === 'empresa' ? 'bg-primary' : 'bg-secondary'}`}>
+                                {dataLoaded?.contact_type === 'empresa' ? 'Empresa' : 'Personal'}
+                            </span>
+                        </p>
+                        <p>
+                            <b>Nombre</b>:
+                            <span className="ms-1">{dataLoaded?.name}</span>
+                        </p>
+                        {dataLoaded?.lastname && (
+                            <p>
+                                <b>Apellido</b>:
+                                <span className="ms-1">{dataLoaded.lastname}</span>
+                            </p>
                         )}
-                    </span>
-                </p>
-                <p>
-                    <b>Telefono</b>:
-                    <span className="ms-1">{dataLoaded?.subject}</span>
-                </p>
-                <p>
-                    <b>Mensaje</b>:
-                    <span className="ms-1">{dataLoaded?.description}</span>
-                </p>
+                        <p>
+                            <b>Correo</b>:
+                            <span className="ms-1">
+                                {dataLoaded?.email || (
+                                    <i className="text-muted">- Sin correo -</i>
+                                )}
+                            </span>
+                        </p>
+                    </div>
+                    <div className="col-md-6">
+                        {dataLoaded?.phone && (
+                            <p>
+                                <b>Teléfono</b>:
+                                <span className="ms-1">{dataLoaded.phone}</span>
+                            </p>
+                        )}
+                        {dataLoaded?.ruc && (
+                            <p>
+                                <b>RUC</b>:
+                                <span className="ms-1">{dataLoaded.ruc}</span>
+                            </p>
+                        )}
+                        <p>
+                            <b>Asunto</b>:
+                            <span className="ms-1">{dataLoaded?.subject}</span>
+                        </p>
+                        <p>
+                            <b>Fecha</b>:
+                            <span className="ms-1">
+                                {dataLoaded?.created_at ? new Date(dataLoaded.created_at).toLocaleString() : '-'}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div className="mt-3">
+                    <p>
+                        <b>Mensaje</b>:
+                    </p>
+                    <div className="border rounded p-3 bg-light" style={{ whiteSpace: 'pre-wrap', maxHeight: '200px', overflowY: 'auto' }}>
+                        {dataLoaded?.description}
+                    </div>
+                </div>
             </Modal>
         </>
     );

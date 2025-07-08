@@ -142,8 +142,8 @@ const PopupManager = () => {
                             <img
                                 src={`/api/ads/media/${currentPopup.image}`}
                                 alt={currentPopup.name}
-                                className="max-w-full h-auto rounded-2xl shadow-lg"
-                                style={{ maxHeight: '200px', objectFit: 'contain' }}
+                                className="w-full h-auto object-cover rounded-2xl shadow-lg"
+                              
                             />
                         </div>
                     )}

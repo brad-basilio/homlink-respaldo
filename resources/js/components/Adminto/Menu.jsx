@@ -334,13 +334,13 @@ const Menu = ({
                                     Banners
                                 </MenuItem>
                                 
-                                {/*
+                                
                                 <MenuItem
                                     href="/admin/ads"
                                     icon="mdi mdi-google-ads"
                                 >
                                     Pop-ups
-                                </MenuItem>*/}
+                                </MenuItem>
                                  <MenuItem
                                     href="/admin/brands"
                                     icon="mdi mdi-domain"

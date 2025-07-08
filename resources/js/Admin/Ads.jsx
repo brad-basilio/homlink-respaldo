@@ -32,7 +32,7 @@ const Ads = ({ items }) => {
     const linkRef = useRef();
     const invasivoRef = useRef();
     const actionsRef = useRef();
-    const itemRef = useRef();
+  //  const itemRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAction, setSelectedAction] = useState(false);
@@ -48,7 +48,7 @@ const Ads = ({ items }) => {
         dateBeginRef.current.value = data?.date_begin ?? "";
         dateEndRef.current.value = data?.date_end ?? "";
         secondsRef.current.value = data?.seconds ?? 0;
-        itemRef.current.value = data?.item_id ?? null;
+       // itemRef.current.value = data?.item_id ?? null;
         linkRef.current.value = data?.link ?? "";
         if (data?.actions) {
             $(actionsRef.current).prop("checked", false).trigger("click");
@@ -78,7 +78,7 @@ const Ads = ({ items }) => {
                 date_end: dateEndRef.current.value,
                 seconds: secondsRef.current.value || 0,
                 actions: actionsRef.current.checked ? 1 : 0,
-                item_id: itemRef.current.value || null,
+                item_id: null,
                 link: linkRef.current.value,
                 invasivo: actionsRef.current.checked
                     ? 0
@@ -189,6 +189,10 @@ const Ads = ({ items }) => {
                                         objectPosition: "center",
                                         borderRadius: "4px",
                                     }}
+                                      onError={(e) =>
+                                        (e.target.src =
+                                            "/api/cover/thumbnail/null")
+                                    }
                                 />
                             );
                         },
@@ -445,7 +449,7 @@ const Ads = ({ items }) => {
                                     specification="El popup aparecerá cuando se añada un producto específico al carrito"
                                 />
 
-                                {selectedAction && (
+                                {/*selectedAction && (
                                     <div className="mt-3 p-3 bg-light rounded">
                                         <SelectFormGroup
                                             eRef={itemRef}
@@ -461,7 +465,7 @@ const Ads = ({ items }) => {
                                             ))}
                                         </SelectFormGroup>
                                     </div>
-                                )}
+                                )*/}
 
                                 {!selectedAction && (
                                     <div className="mt-3 p-3 bg-light rounded">
