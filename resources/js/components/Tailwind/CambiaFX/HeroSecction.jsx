@@ -17,7 +17,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
     };
     console.log("indicators", indicators);
-       const handleOperationStart = (operationData) => {
+    const handleOperationStart = (operationData) => {
         console.log('Operation data:', operationData);
         // Aquí puedes manejar los datos de la operación como necesites
         // Por defecto redirigirá a mi.cambiafx.pe/login
@@ -68,9 +68,9 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                         <div key={index} className="flex flex-col items-start">
 
                                             <span className="text-[52px] leading-[3rem] font-semibold text-neutral-dark ">
-                                                <TextWithHighlight text={indicator?.name} color='bg-constrast'  />
-                                             </span>
-                                            <span className="text-sm font-medium text-neutral-dark"><TextWithHighlight text={indicator?.description} color='bg-constrast'  /></span>
+                                                <TextWithHighlight text={indicator?.name} color='bg-constrast' />
+                                            </span>
+                                            <span className="text-sm font-medium text-neutral-dark"><TextWithHighlight text={indicator?.description} color='bg-constrast' /></span>
                                         </div>
                                     ))}
                             </div>
@@ -80,14 +80,14 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                 </div>
                 {/* Derecha: Card de cambio */}
                 <div className='flex justify-end w-5/12'>
-                       <ExchangeCard 
-                                            title="Comienza tu cambio ahora"
-                                            initialOperationType="venta"
-                                            showCoupons={true}
-                                            showCredits={true}
-                                            onOperationStart={handleOperationStart}
-                                           
-                                        />
+                    <ExchangeCard
+                        title="Comienza tu cambio ahora"
+                        initialOperationType="venta"
+                        showCoupons={true}
+                        showCredits={true}
+                        onOperationStart={handleOperationStart}
+
+                    />
                 </div>
             </div>
         </section>

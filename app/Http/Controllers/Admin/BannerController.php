@@ -70,6 +70,7 @@ class BannerController extends BasicController
             ],
             'blog' => [
                 'header' => 'Banner Principal',
+                'article'=>'Detalle del Blog'
               
             ]
         ];

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Models\LandingHome;
+use App\Models\Banner;
 
 class ArticleController extends BasicController
 {
@@ -18,12 +19,18 @@ class ArticleController extends BasicController
         $currentArticle = Post::with(['category', 'tags'])->where('status', true)->where('slug', $request->slug)->first();
         $landing = LandingHome::where('correlative', '=', 'page_blog_footer')->first();
         $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->limit(3)->get();
-
+           $banner = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'blog')
+            ->where('position', 'article')
+            ->orderBy('created_at', 'desc')
+            ->first();
         return [
            
             'article' => $currentArticle,
             'posts' => $posts,
             'landing' => $landing,
+            'banner' => $banner,
        
         ];
     }
