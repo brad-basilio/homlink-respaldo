@@ -10,6 +10,7 @@ import { LanguageContext } from "../../context/LanguageContext";
 import LanguageDropdown from "./Header/LanguageDropdown";
 import MegaMenuPopup from "./Header/MegaMenuPopup";
 import WhatsAppButton, { WhatsAppButtonWithArrow } from "../Shared/WhatsAppButton";
+import Global from "../../Utils/Global";
 
 const generalRest = new GeneralRest();
 
@@ -327,17 +328,64 @@ const Header = ({
             <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight} z-[9999]`}>
                 {/* CINTILLO INICIO */}
                 <div className="bg-accent relative  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
-                    <div className="absolute top-0 left-0 flex justify-end w-full h-full z-0 pointer-events-none">
+                    <div className="absolute top-0 -left-4 flex justify-end w-full h-full z-[9999] pointer-events-none">
                         <img
                             src={`/assets/cambiafx/cintillo-overlay.png`}
                             alt="overlay Image"
                             className="h-full  object-cover rounded-xl "
                         />
+                        
                     </div>
                     <div className="px-[5%] mx-auto  flex flex-row items-center justify-center ">
-                        <div className="flex items-center gap-2 relative">
-                            <img src="/assets/cambiafx/cintillo.webp" alt="Cintillo Icon" className="w-10 absolute top-0 -left-10 transform scale-y-[-1] rotate-90" />
-                            <h1 className="font-bold text-sm ">{renderHighlightedText(Cintillo?.description)}</h1>
+                        <div className="flex items-center gap-2 relative max-w-max">
+
+
+                            <img src="/assets/cambiafx/cintillo.webp" alt="Cintillo Icon" className="w-10 z-[999]  absolute top-0 -left-10 transform scale-y-[-1] rotate-90" />
+                            <div className="overflow-hidden whitespace-nowrap w-full relative"
+                            
+                            
+                            >
+                                {/*agregar overlay que este transparente y finalize en bg-accent */}
+
+                                <div 
+                                    className="absolute w-10 h-full z-[999] bg-gradient-to-l from-transparent to-accent"
+                                  
+                                ></div>
+                                <div className="relative">
+                                    <motion.h1
+                                        animate={{ x: [0, "-100%"] }}
+                                        transition={{
+                                            x: {
+                                                repeat: Infinity,
+                                                repeatType: "loop",
+                                                duration: 10,
+                                                ease: "linear",
+                                            },
+                                        }}
+                                        className="font-bold text-sm absolute whitespace-nowrap"
+                                    >
+                                        {renderHighlightedText(Cintillo?.description)}
+                                    </motion.h1>
+                                    <motion.h1
+                                        animate={{ x: ["100%", "0%"] }}
+                                        transition={{
+                                            x: {
+                                                repeat: Infinity,
+                                                repeatType: "loop",
+                                                duration: 10,
+                                                ease: "linear",
+                                            },
+                                        }}
+                                        className="font-bold ml-4 text-sm absolute whitespace-nowrap"
+                                    >
+                                        {renderHighlightedText(Cintillo?.description)}
+                                    </motion.h1>
+                                    <h1 className="font-bold ml-4 text-sm opacity-0 whitespace-nowrap">
+                                        {renderHighlightedText(Cintillo?.description)}
+                                    </h1>
+                                </div>
+                                 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -364,10 +412,23 @@ const Header = ({
                         >
                             <a href="/">
                                 <motion.img
-                                    whileHover={{ scale: 1.05 }}
+                                    whileHover={{ 
+                                        scale: 1.08,
+                                        y: -2,
+                                        filter: "drop-shadow(0 0 10px rgba(187, 255, 82, 0.4))"
+                                    }}
+                                    whileTap={{ scale: 0.96 }}
+                                    animate={{
+                                        y: [0, -2, 0],
+                                    }}
+                                    transition={{
+                                        y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                                        scale: { duration: 0.2 },
+                                        filter: { duration: 0.3 }
+                                    }}
                                     src="/assets/img/logo.svg"
-                                    alt="Sedna Logo"
-                                    className="object-cover object-top h-12 max-h-12 w-auto  sm:h-12 sm:max-h-12 "
+                                    alt={Global.APP_NAME}
+                                    className="object-cover object-top h-12 max-h-12 w-auto sm:h-12 sm:max-h-12 transition-all duration-300"
                                 />
                             </a>
                         </motion.div>
@@ -392,13 +453,13 @@ const Header = ({
                                             "public.header.contact",
                                             "Contacto"
                                         ),
-                                       
+
                                         "/blog": t(
                                             "public.header.options",
                                             "Blog"
                                         ),
-                                       
-                                       
+
+
                                     }[path];
 
                                     return (
@@ -418,18 +479,47 @@ const Header = ({
                                                     }
                                                 }}
                                                 variants={itemVariants}
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
+                                                whileHover={{ 
+                                                    scale: 1.06,
+                                                    y: -2,
+                                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.25)"
+                                                }}
+                                                whileTap={{ 
+                                                    scale: 0.95,
+                                                    y: 0
+                                                }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 400,
+                                                    damping: 17
+                                                }}
                                                 className={`relative uppercase py-2 rounded-full transition-all duration-300 ${isActive(path)
-                                                    ? "bg-constrast pl-7 pr-3 text-white font-semibold"
-                                                    : "bg-transparent px-5 text-neutral-dark"
+                                                    ? "bg-constrast pl-7 pr-3 text-white font-semibold shadow-lg"
+                                                    : "bg-transparent px-5 text-neutral-dark hover:bg-gradient-to-r hover:from-primary/50 hover:to-neutral/30"
                                                     }`}
                                             >
                                                 {text}
                                                 {isActive(path) && (
                                                     <motion.span
                                                         layoutId="activeDot"
-                                                        className="absolute  left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-secondary rounded-full"
+                                                        initial={{ scale: 0 }}
+                                                        animate={{ 
+                                                            scale: [1, 1.1, 1],
+                                                            boxShadow: [
+                                                                "0 0 0 0 rgba(187, 255, 82, 0.7)",
+                                                                "0 0 0 8px rgba(187, 255, 82, 0.2)",
+                                                                "0 0 0 0 rgba(187, 255, 82, 0)"
+                                                            ]
+                                                        }}
+                                                        transition={{
+                                                            scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                                                            boxShadow: { 
+                                                                duration: 2,
+                                                                repeat: Infinity,
+                                                                ease: "easeInOut"
+                                                            }
+                                                        }}
+                                                        className="absolute left-3 top-[40%] -translate-x-1/2 -translate-y-1/2 h-2 w-2 bg-secondary rounded-full"
                                                     />
                                                 )}
                                             </motion.a>
@@ -467,19 +557,99 @@ const Header = ({
                             variants={itemVariants}
                             className="hidden xl:flex gap-4 justify-center items-center _Medium"
                         >
-                          {/*  <WhatsAppButtonWithArrow
+                            {/*  <WhatsAppButtonWithArrow
                                 variant="primary"
                                 size="medium"
                                 className="text-base 2xl:text-lg"
                             >
                                 Reserva una consulta
                             </WhatsAppButtonWithArrow> */}
-                            <button className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full">
-                             ¿Eres nuevo? registrate
-                            </button>
-                              <a href="https://mi.cambiafx.pe/login" target="_blank" rel="noopener noreferrer" className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full">
-                             iniciar operación
-                            </a>
+                            <motion.button 
+                                whileHover={{ 
+                                    scale: 1.06,
+                                    y: -2,
+                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                }}
+                                whileTap={{ 
+                                    scale: 0.95,
+                                    y: 0
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 17
+                                }}
+                                className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                            >
+                                <span className="relative z-10">
+                                    ¿Eres nuevo? registrate
+                                </span>
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
+                                    transition={{ duration: 0.3 }}
+                                />
+                            </motion.button>
+                            <motion.a 
+                                href="https://mi.cambiafx.pe/login" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                whileHover={{ 
+                                    scale: 1.06,
+                                    y: -2,
+                                    boxShadow: "0 10px 25px rgba(187, 255, 82, 0.3)"
+                                }}
+                                whileTap={{ 
+                                    scale: 0.95,
+                                    y: 0
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 17
+                                }}
+                                className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full relative overflow-hidden group"
+                            >
+                                <span className="relative z-10 flex items-center gap-2">
+                                    iniciar operación
+                                    <motion.svg 
+                                        width="16" 
+                                        height="16" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-4 h-4"
+                                        animate={{
+                                            rotate: [0, 360]
+                                        }}
+                                        transition={{
+                                            rotate: { duration: 8, repeat: Infinity, ease: "linear" }
+                                        }}
+                                    >
+                                        <path 
+                                            d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round"
+                                        />
+                                        <circle 
+                                            cx="12" 
+                                            cy="12" 
+                                            r="3" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2"
+                                        />
+                                        <path 
+                                            d="M12 9C10.34 9 9 10.34 9 12S10.34 15 12 15" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2"
+                                        />
+                                    </motion.svg>
+                                </span>
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-primary/90 opacity-0 group-hover:opacity-100"
+                                    transition={{ duration: 0.3 }}
+                                />
+                            </motion.a>
                         </motion.div>
 
                         <motion.div
@@ -490,26 +660,39 @@ const Header = ({
                                 <motion.button
                                     ref={btnToggleRef}
                                     onClick={toggleMenu}
-                                    whileTap={{ scale: 0.9 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-gradient-to-br from-primary to-primary shadow-lg shadow-primary/30 border border-white/20"
+                                    whileTap={{ scale: 0.95 }}
+                                    whileHover={{ 
+                                        scale: 1.06,
+                                        boxShadow: "0 8px 20px rgba(126, 90, 251, 0.3)"
+                                    }}
+                                    transition={{
+                                        duration: 0.2,
+                                        ease: "easeInOut"
+                                    }}
+                                    className="text-white menu-toggle rounded-xl h-[50px] w-[50px] flex items-center justify-center bg-constrast shadow-lg border border-white/20"
                                     aria-label="Toggle menu"
                                 >
-                                    <motion.div
-                                        animate={{ rotate: isOpen ? 180 : 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="text-white"
-                                    >
+                                    <div className="text-white relative z-10">
                                         {isOpen ? (
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg 
+                                                className="w-6 h-6" 
+                                                fill="none" 
+                                                stroke="currentColor" 
+                                                viewBox="0 0 24 24"
+                                            >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         ) : (
-                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <svg 
+                                                className="w-6 h-6" 
+                                                fill="none" 
+                                                stroke="currentColor" 
+                                                viewBox="0 0 24 24"
+                                            >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                                             </svg>
                                         )}
-                                    </motion.div>
+                                    </div>
                                 </motion.button>
                             </div>
                         </motion.div>
@@ -620,8 +803,8 @@ const Header = ({
                                                             }
                                                         }}
                                                         className={`w-full group relative overflow-hidden flex items-center p-4 rounded-xl transition-all duration-300 ${isActive(item.path) || activeMegaMenu === item.path
-                                                                ? "bg-accent text-white border-2 border-accent shadow-lg"
-                                                                : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary border-2 border-transparent"
+                                                            ? "bg-accent text-white border-2 border-accent shadow-lg"
+                                                            : "bg-gray-50 hover:bg-gradient-to-r hover:from-gray-100 hover:to-blue-50 text-gray-700 hover:text-primary border-2 border-transparent"
                                                             }`}
                                                     >
                                                         {/* Texto */}
