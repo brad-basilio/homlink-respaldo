@@ -27,6 +27,7 @@ import "moment/locale/es"; // Para fechas en español
 import ExchangeCard from "./components/Tailwind/CambiaFX/ExchangeCard";
 import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import WhatsAppButton from "./components/Shared/WhatsAppButton";
 
 // Configurar moment en español
 moment.locale('es');
@@ -209,13 +210,14 @@ const BannerArticle = ({ banner }) => {
 
                 {/* Botón promo */}
                 <motion.div 
-                    className="flex-1 flex justify-end items-center md:py-12 w-full md:w-auto"
+                    className="flex-1 z-[999] flex justify-end items-center md:py-12 w-full md:w-auto"
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
                     viewport={{ once: true }}
                 >
-                    <motion.button 
+                     <WhatsAppButton customMessage={banner?.button_link}>   
+                    <motion.span 
                         className="bg-constrast uppercase text-white px-6 py-4 rounded-full font-medium text-sm flex items-center gap-3 transition-all duration-300 shadow-lg"
                         whileHover={{ 
                             scale: 1.05,
@@ -257,7 +259,8 @@ const BannerArticle = ({ banner }) => {
                                 </clipPath>
                             </defs>
                         </motion.svg>
-                    </motion.button>
+                    </motion.span>
+                    </WhatsAppButton>
                 </motion.div>
             </motion.div>
    )

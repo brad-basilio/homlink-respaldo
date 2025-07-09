@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 import { motion } from 'framer-motion';
+import WhatsAppButton from "../../Shared/WhatsAppButton";
 
 const IconCheck = () => (
   <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-accent">
@@ -550,7 +551,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
               <TextWithHighlight text={banner_why?.button_text || "¡Quiero cambiar!"} color='bg-white italic' split_coma />
 
               <motion.div 
-                className="absolute -right-10 overflow-hidden"
+                className="absolute -right-10 "
                 animate={{
                   rotate: [0, 10, -10, 0],
                   scale: [1, 1.1, 1]
@@ -608,18 +609,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
               transition={{ duration: 0.6, delay: 2 }}
               viewport={{ once: true }}
             >
-              <motion.a 
-                href="https://wa.me/51999999999" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="block"
-                whileHover={{ 
-                  scale: 1.1,
-                  rotate: 5,
-                  transition: { duration: 0.3 }
-                }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <WhatsAppButton customMessage={banner_why?.button_link}>   
                 <motion.span 
                   className="z-10 relative"
                   animate={{
@@ -636,7 +626,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
                     ease: "easeInOut"
                   }}
                 >
-                  <motion.svg 
+                  <motion.svg  className="w-full h-full !overflow-visible"
                     width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
                     whileHover={{
                       rotate: 360,
@@ -691,7 +681,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
                     />
                   </motion.svg>
                 </motion.span>
-              </motion.a>
+              </WhatsAppButton>
             </motion.div>
           </motion.div>
         </motion.div>
