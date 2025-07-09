@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CambiaFXService from '../../../services/CambiaFXService';
+import WhatsAppButton from '../../Shared/WhatsAppButton';
 
 const ExchangeCard = ({ 
     title = "Comienza tu cambio ahora", 
@@ -674,7 +675,7 @@ const ExchangeCard = ({
             {/* Info Message */}
             <div className="bg-white rounded-xl p-4 text-xs text-neutral-light mt-2">
                 Operaciones mayores a USD 5,000.00. Consigue un tipo de cambio preferencial{' '}
-                <a href="https://mi.cambiafx.pe" target='_blank' rel="noopener noreferrer" className="text-constrast underline font-medium">AQUÍ</a>
+                <WhatsAppButton><span className="text-constrast underline font-medium">AQUÍ</span> </WhatsAppButton>
             </div>
 
             {/* Exchange Rate Display */}

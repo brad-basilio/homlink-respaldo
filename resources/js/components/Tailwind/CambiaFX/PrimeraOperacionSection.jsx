@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion';
 import TextWithHighlight from '../../../Utils/TextWithHighlight'
+import WhatsAppButton from '../../Shared/WhatsAppButton';
 
 export default function PrimeraOperacionSection({ banner }) {
     const [paymentMethods10min, setPaymentMethods10min] = useState([]);
@@ -78,15 +79,15 @@ export default function PrimeraOperacionSection({ banner }) {
                     </motion.div>
                     {/* Botón promo */}
                     <motion.div
-                        className="flex-1 flex justify-end items-center md:py-12 w-full md:w-auto"
+                        className="flex-1 z-[999] flex justify-end items-center md:py-12 w-full md:w-auto"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7, delay: 0.6 }}
                     >
-                        <motion.button
+                    <WhatsAppButton customMessage={banner?.button_link}>    <motion.button
                             className="bg-constrast uppercase  text-white px-6 py-4 rounded-full font-medium text-sm flex items-center gap-3 transition-all duration-300 shadow-lg"
-                            whileHover={{ scale: 1.07, backgroundColor: '#a3e635', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)' }}
+                            whileHover={{ scale: 1.07, backgroundColor: '#1A1A1A', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)' }}
                         >
                             {banner?.button_text || "¡Quiero cambiar!"}
                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +101,7 @@ export default function PrimeraOperacionSection({ banner }) {
                                     </clipPath>
                                 </defs>
                             </svg>
-                        </motion.button>
+                        </motion.button></WhatsAppButton>
                     </motion.div>
                 </motion.div>
 

@@ -273,15 +273,14 @@ const Banners = ({ sections, positions, sectionPositions }) => {
                     },
                     {
                         dataField: "button_link",
-                        caption: "Link",
+                        caption: "Mensaje personalizado",
                         cellTemplate: (container, { data }) => {
                             if (data.button_link) {
                                 container.html(
                                     renderToString(
                                         <a 
-                                            href={data.button_link} 
-                                            target="_blank" 
-                                            rel="noopener noreferrer"
+                                            href="#"
+                                            
                                             className="text-truncate d-block"
                                             style={{ maxWidth: "200px" }}
                                         >
@@ -293,7 +292,7 @@ const Banners = ({ sections, positions, sectionPositions }) => {
                                 container.html(
                                     renderToString(
                                         <i className="text-muted">
-                                            - Sin link -
+                                            - Sin mensaje personalizado -
                                         </i>
                                     )
                                 );
@@ -381,7 +380,7 @@ const Banners = ({ sections, positions, sectionPositions }) => {
                             />
                             <InputFormGroup
                                 eRef={buttonLinkRef}
-                                label="Link del botón"
+                                label="Mensaje personalizado del botón"
                                 col="col-md-6"
                             />
                         </div>

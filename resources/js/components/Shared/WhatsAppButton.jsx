@@ -95,7 +95,7 @@ const WhatsAppButton = ({
             case 'minimal':
                 return "bg-transparent text-primary hover:bg-primary/10 border border-primary/30";
             default: // primary
-                return "bg-primary text-white hover:bg-primary/90";
+                return "";
         }
     };
 
@@ -107,7 +107,7 @@ const WhatsAppButton = ({
             case 'large':
                 return "px-8 py-4 text-lg";
             default: // medium
-                return "px-6 py-3 text-base";
+                return "";
         }
     };
 
@@ -140,33 +140,22 @@ const WhatsAppButton = ({
     }
 
     return (
-        <motion.button
+        <button
             onClick={handleClick}
-            whileHover={{ 
-                scale: 1.02,
-                boxShadow: "0 10px 25px rgba(0, 48, 73, 0.3)"
-            }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ 
-                type: "spring", 
-                stiffness: 400, 
-                damping: 17 
-            }}
+       
             className={`
-                inline-flex items-center justify-center rounded-md 
-                font-semibold transition-all duration-300 
-                shadow-lg hover:shadow-xl
+                
                 ${getSizeClasses()} 
                 ${getVariantClasses()} 
                 ${className}
             `}
             {...props}
         >
-            <motion.span className="flex items-center">
+           
                 {children}
                
-            </motion.span>
-        </motion.button>
+           
+        </button>
     );
 };
 

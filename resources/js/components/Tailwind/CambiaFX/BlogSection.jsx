@@ -122,7 +122,10 @@ const BlogSection = ({data,posts}) => {
           {posts.slice(0,3).map((card, idx) => {
             const isExpanded = expanded === idx;
             return (
-              <motion.div
+              <motion.a
+                href={`/blog/${card.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 key={idx}
                 className={`relative group transition-all duration-500 ease-out flex flex-col items-end cursor-pointer h-[380px] ${isExpanded ? "w-[300px] z-20" : "w-[90px] z-10"}`}
                 style={{ minWidth: isExpanded ? 260 : 70 }}
@@ -210,7 +213,7 @@ const BlogSection = ({data,posts}) => {
                     </AnimatePresence>
                   </motion.div>
                 </motion.div>
-              </motion.div>
+              </motion.a>
             );
           })}
        
