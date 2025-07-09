@@ -78,6 +78,18 @@ const Home = ({
 }) => {
     const { t, loading, error } = useTranslation();
 
+    // Estado para controlar cuando las secciones están listas para animar
+    const [sectionsReady, setSectionsReady] = useState(false);
+
+    // Efecto para marcar las secciones como listas después del primer render
+    useEffect(() => {
+        // Pequeño delay para asegurar que el DOM esté completamente cargado
+        const timer = setTimeout(() => {
+            setSectionsReady(true);
+        }, 100);
+        
+        return () => clearTimeout(timer);
+    }, []);
 
     console.log("landing", landing);
 
@@ -181,48 +193,100 @@ const landingPilares = landing?.find(
 
     return (
         <div>
-            <Header showSlogan={showSlogan}></Header>
+            <Header showSlogan={showSlogan} />
 
             <CintilloSection />
 
             {/* SECCIÓN CAMBIO FX */}
-            <HeroSecction data={landingInicio} apps={apps} indicators={indicators} />
-            {/* SLIDER  <SliderInteractive
-                items={sliders}
-                data={{
-                    infiniteLoop: "si",
-                    paginationAlignment: "center",
-                    showNavigation: "no",
-                    navigationAlignment: "center"
-                }}
-            />*/}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7 }}
+            >
+                <HeroSecction data={landingInicio} apps={apps} indicators={indicators} />
+            </motion.div>
+
+            {/* SLIDER  <SliderInteractive ... /> */}
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection banner={banner_operacion} />
-            <FuncionSection data={landingPasos} pasos={pasos} />
-            <CuponesSection data={landingCupones} cupones={cupones} />
-            <PilaresSection data={landingPilares} core_values={core_values} />
-            <EmpresasSection banner_slider={banner_slider} />
-            <BlogSection data={landingBlog} posts={posts} />
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+            >
+                <PrimeraOperacionSection banner={banner_operacion} />
+            </motion.div>
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+            >
+                <FuncionSection data={landingPasos} pasos={pasos} />
+            </motion.div>
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+            >
+                <CuponesSection data={landingCupones} cupones={cupones} />
+            </motion.div>
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.4 }}
+            >
+                <PilaresSection data={landingPilares} core_values={core_values} />
+            </motion.div>
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+            >
+                <EmpresasSection banner_slider={banner_slider} />
+            </motion.div>
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+            >
+                <BlogSection data={landingBlog} posts={posts} />
+            </motion.div>
 
             {/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
 
-         
-
             <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
-   
             <HomeSeccionServicios data={landingServicios} allServices={allServices} />
             <HomeSeccionImpacto data={landingImpacto} indicators={indicators} />
             <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios} />
             <HomeSeccionBlog data={landingBlog} posts={posts} /> */}
 
-
             <Footer />
-            
+
             {/* Sistema de Popups Programables */}
             <PopupManager />
-            
+
             {/* Modal */}
             <ModalAppointment
                 linkWhatsApp={linkWhatsApp}

@@ -1,49 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
+import { motion } from 'framer-motion';
 
 const PilaresSection = ({data,core_values=[]}) => {
     const [animationOffset, setAnimationOffset] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
     console.log("core_values", core_values);
-    const cards = [
-        {
-            title: "Amplia *cobertura* bancaria",
-         
-            description: "YAPE, PLIN. No cobramos comisiones.",
-          
-        },
-        {
-            title: "Tiempo *récord* en el mercado",
-           
-            description: "Recibe tu cambio en un tiempo mínimo de 10 minutos",
-
-        },
-        {
-            title: "Atención *Personalizada*",
-         
-            description: "Estamos aquí para ayudarte en cada paso del camino",
-           
-        },
-        {
-            title: "Tiempo *récord* en el mercado",
-           
-            description: "Transacciones 100% seguras y verificadas",
-         
-        },
-        {
-            title: "Soporte *24/7* siempre",
-         
-            description: "Te atendemos en cualquier momento",
-         
-        },
-        {
-            title: "Mejores *tasas* del mercado",
-        
-            description: "Siempre el mejor tipo de cambio",
-          
-        }
-    ];
-
+   
     useEffect(() => {
         if (!isAutoplay) return;
         
@@ -96,7 +59,7 @@ const PilaresSection = ({data,core_values=[]}) => {
     return (
         <section className="bg-neutral-dark  px-2 md:px-0 w-full relative overflow-hidden font-title">
             {/* Banda decorativa diagonal */}
-          <div className="absolute bottom-0 right-0  w-full h-full z-0 pointer-events-none">
+            <div className="absolute bottom-0 right-0  w-full h-full z-0 pointer-events-none">
                 <img 
                     src="/assets/cambiafx/pilares-overlay.png" 
                     alt="Fondo" 
@@ -110,28 +73,53 @@ const PilaresSection = ({data,core_values=[]}) => {
 
             <div className="px-[5%] mx-auto relative z-10 flex flex-col lg:flex-row items-end gap-12">
                 {/* Columna izquierda: textos */}
-                <div className="flex-1 relative h-[580px]  flex flex-col justify-start items-start">
-                    <div className="uppercase text-white text-sm font-medium tracking-widest mb-4">NUESTROS PILARES</div>
-                    <h2 className="text-5xl md:text-[64px] tracking-[94%] font-medium text-white mb-6">
+                <motion.div
+                    className="flex-1 relative h-[580px]  flex flex-col justify-start items-start"
+                    initial={{ opacity: 0, x: -40 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.7 }}
+                >
+                    <motion.div
+                        className="uppercase text-white text-sm font-medium tracking-widest mb-4"
+                        initial={{ opacity: 0, y: -10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.5, delay: 0.1 }}
+                    >NUESTROS PILARES</motion.div>
+                    <motion.h2
+                        className="text-5xl md:text-[64px] tracking-[94%] font-medium text-white mb-6"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                    >
                         <TextWithHighlight text={data?.title} color='bg-secondary font-semibold' split_coma/>
-                        
-                        
-                      
-                    </h2>
-                    <p className="text-xl text-white mb-4 max-w-md">
+                    </motion.h2>
+                    <motion.p
+                        className="text-xl text-white mb-4 max-w-md"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.3 }}
+                    >
                         <TextWithHighlight text={data?.description} color='bg-white font-semibold' />
-                      
-                    </p>
-
-                    <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="absolute h-[450px] scale-x-[-1] top-56 right-0 object-cover z-10" onError={(e) =>
-                        (e.target.src =
-                            "/api/cover/thumbnail/null")
-                    } />
-                </div>
+                    </motion.p>
+                    <motion.img
+                        src={`/api/landing_home/media/${data?.image}`}
+                        alt={data?.title}
+                        className="absolute h-[450px] scale-x-[-1] top-56 right-0 object-cover z-10"
+                        onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                        initial={{ opacity: 0, scale: 0.9, y: 40 }}
+                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.7, delay: 0.4 }}
+                    />
+                </motion.div>
 
                 {/* Columna derecha: tarjetas animadas en dos columnas */}
-               <div className='relative flex-1'>
-                   {/* Controles de navegación */}
+                <div className='relative flex-1'>
+                    {/* Controles de navegación */}
                     <div className="absolute -right-0 top-1/2 transform -translate-y-1/2 z-30 flex flex-col gap-4">
                         <button 
                             onClick={() => handleManualControl('up')}
@@ -151,70 +139,102 @@ const PilaresSection = ({data,core_values=[]}) => {
                         </button>
                     </div>
 
-                 <div className="flex-1 flex justify-center items-center relative h-[650px] overflow-x-auto scrollbar-hide overflow-y-hidden">
-                    {/* Degradados superior e inferior */}
-                    <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-neutral-dark to-transparent z-20 pointer-events-none"></div>
-                    <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-neutral-dark to-transparent z-20 pointer-events-none"></div>
-                    
-                 
-                    <div className="flex gap-6 w-full max-w-[600px] justify-center">
-                        {/* Columna 1 - Sube */}
-                        <div className="flex flex-col gap-4 w-[250px] relative">
-                            <div 
-                                className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
-                                style={{
-                                    transform: `translateY(${-130 * (animationOffset % core_values.length)}px)`
-                                }}
-                            >
-                                {/* Triplicamos las tarjetas para efecto infinito más suave */}
-                                {[...core_values, ...core_values, ...core_values].map((card, index) => (
-                                    <div
-                                        key={`col1-${index}`}
-                                        className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
-                                    >
-                                        <div className="text-center">
-                                            <h3 className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3">
-                                                {renderTitle(card.name)}
-                                            </h3>
-                                            <p className="text-base text-neutral-light font-normal">
-                                                {card.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                    <div className="flex-1 flex justify-center items-center relative h-[650px] overflow-x-auto scrollbar-hide overflow-y-hidden">
+                        {/* Degradados superior e inferior */}
+                        <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-neutral-dark to-transparent z-20 pointer-events-none"></div>
+                        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-neutral-dark to-transparent z-20 pointer-events-none"></div>
 
-                        {/* Columna 2 - Baja */}
-                        <div className="flex flex-col gap-4 w-[250px] relative">
-                            <div 
-                                className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
-                                style={{
-                                    transform: `translateY(${130 * (animationOffset % core_values.length)}px)`
-                                }}
-                            >
-                                {/* Triplicamos las tarjetas con offset diferente */}
-                                {[...core_values.slice(3), ...core_values, ...core_values, ...core_values.slice(0, 3)].map((card, index) => (
-                                    <div
-                                        key={`col2-${index}`}
-                                        className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
-                                    >
-                                        <div className="text-center">
-                                          <h3 className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3">
-                                                {renderTitle(card.name)}
-                                            </h3>
-                                            <p className="text-base text-neutral-light font-normal">
-                                                {card.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                        <div className="flex gap-6 w-full max-w-[600px] justify-center">
+                            {/* Columna 1 - Sube */}
+                            <div className="flex flex-col gap-4 w-[250px] relative">
+                                <div 
+                                    className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
+                                    style={{
+                                        transform: `translateY(${-130 * (animationOffset % core_values.length)}px)`
+                                    }}
+                                >
+                                    {/* Triplicamos las tarjetas para efecto infinito más suave */}
+                                    {[...core_values, ...core_values, ...core_values].map((card, index) => (
+                                        <motion.div
+                                            key={`col1-${index}`}
+                                            className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, amount: 0.2 }}
+                                            transition={{ duration: 0.6, delay: 0.1 + (index % core_values.length) * 0.08 }}
+                                            whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.08)' }}
+                                        >
+                                            <div className="text-center">
+                                                <motion.h3
+                                                    className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3"
+                                                    initial={{ opacity: 0, x: -10 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true, amount: 0.2 }}
+                                                    transition={{ duration: 0.5, delay: 0.15 + (index % core_values.length) * 0.08 }}
+                                                >
+                                                    {renderTitle(card.name)}
+                                                </motion.h3>
+                                                <motion.p
+                                                    className="text-base text-neutral-light font-normal"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    viewport={{ once: true, amount: 0.2 }}
+                                                    transition={{ duration: 0.5, delay: 0.18 + (index % core_values.length) * 0.08 }}
+                                                >
+                                                    {card.description}
+                                                </motion.p>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Columna 2 - Baja */}
+                            <div className="flex flex-col gap-4 w-[250px] relative">
+                                <div 
+                                    className="flex flex-col gap-4 transition-transform duration-1000 ease-in-out"
+                                    style={{
+                                        transform: `translateY(${130 * (animationOffset % core_values.length)}px)`
+                                    }}
+                                >
+                                    {/* Triplicamos las tarjetas con offset diferente */}
+                                    {[...core_values.slice(3), ...core_values, ...core_values, ...core_values.slice(0, 3)].map((card, index) => (
+                                        <motion.div
+                                            key={`col2-${index}`}
+                                            className="bg-white rounded-2xl shadow-xl p-6 w-full min-h-[120px] flex-shrink-0 hover:shadow-2xl transition-shadow duration-300"
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, amount: 0.2 }}
+                                            transition={{ duration: 0.6, delay: 0.1 + (index % core_values.length) * 0.08 }}
+                                            whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.08)' }}
+                                        >
+                                            <div className="text-center">
+                                                <motion.h3
+                                                    className="text-[32px] leading-[94%] font-medium text-neutral-dark mb-3"
+                                                    initial={{ opacity: 0, x: 10 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    viewport={{ once: true, amount: 0.2 }}
+                                                    transition={{ duration: 0.5, delay: 0.15 + (index % core_values.length) * 0.08 }}
+                                                >
+                                                    {renderTitle(card.name)}
+                                                </motion.h3>
+                                                <motion.p
+                                                    className="text-base text-neutral-light font-normal"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    whileInView={{ opacity: 1, y: 0 }}
+                                                    viewport={{ once: true, amount: 0.2 }}
+                                                    transition={{ duration: 0.5, delay: 0.18 + (index % core_values.length) * 0.08 }}
+                                                >
+                                                    {card.description}
+                                                </motion.p>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
-                  
                 </div>
-               </div>
             </div>
         </section>
     );

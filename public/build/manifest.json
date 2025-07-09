@@ -122,13 +122,14 @@
       "_CreateReactScript-BuKYEKxn.js"
     ]
   },
-  "_FuncionSection-5FHRovBQ.js": {
-    "file": "assets/FuncionSection-5FHRovBQ.js",
+  "_FuncionSection-vnoU73YC.js": {
+    "file": "assets/FuncionSection-vnoU73YC.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
-      "_TextWithHighlight-DJ4ZjNW2.js"
+      "_TextWithHighlight-DJ4ZjNW2.js",
+      "_proxy-Dg7W2VMC.js"
     ]
   },
   "_Header-CPtrzKe3.js": {
@@ -3184,7 +3185,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-DL3KnIYO.js",
+    "file": "assets/Home-BvR4HGH8.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3209,7 +3210,8 @@
       "resources/js/Utils/BlurText.jsx",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_ExchangeCard-DrV111cU.js",
-      "_FuncionSection-5FHRovBQ.js",
+      "_proxy-Dg7W2VMC.js",
+      "_FuncionSection-vnoU73YC.js",
       "_autoplay-4A66pv6C.js",
       "_EmpresasSection-DUkU13oW.js",
       "_CintilloSection-B799537a.js",
@@ -3218,7 +3220,6 @@
       "_index.esm-zkRd-kwu.js",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
       "_createLucideIcon-D_WcjKff.js",
-      "_proxy-Dg7W2VMC.js",
       "_phone-B_ERI8hO.js",
       "_HtmlContent-CZmf3wHb.js",
       "_sweetalert2.all-DJo0UVK6.js",
@@ -3233,7 +3234,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-CQnZK9cV.js",
+    "file": "assets/HomeEmpresa-DEi9dmAW.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3255,7 +3256,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-CzwI8_EL.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-5FHRovBQ.js",
+      "_FuncionSection-vnoU73YC.js",
       "_CintilloSection-B799537a.js",
       "_ExchangeCard-DrV111cU.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
@@ -4208,7 +4209,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4256,7 +4257,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4286,7 +4287,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4306,7 +4307,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4632,7 +4633,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-B0ALEkqN.js",
+    "file": "assets/DataGrid-Dwtff5Cv.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -4899,7 +4900,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5439,7 +5440,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dwtff5Cv.js",
+    "file": "assets/DataGrid-B0ALEkqN.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5769,10 +5770,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-Kbv258F4.js",
+    "file": "assets/Email-B6_1mLDL.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5793,10 +5794,10 @@
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-Dwtff5Cv.js",
+    "file": "assets/HairGoals-nPfRvZqW.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5816,10 +5817,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5937,7 +5938,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -5947,7 +5948,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -5967,7 +5968,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,

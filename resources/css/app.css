@@ -48,3 +48,21 @@
   font-weight: 700;
   font-style: normal;
 }
+
+/* Prevenir flash blanco en animaciones de scroll */
+.animate-section {
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+}
+
+/* Para elementos que ya han sido animados por Framer Motion */
+.animate-section[data-framer-appear-done] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optimización de performance para animaciones */
+.animate-section * {
+  will-change: auto;
+}
