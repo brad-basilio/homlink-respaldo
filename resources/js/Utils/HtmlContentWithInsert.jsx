@@ -99,7 +99,7 @@ const HtmlContentWithInsert = ({ html, insertComponent, className = "" }) => {
                 />
                 
                 {/* Insertar el componente aquí */}
-                <div className="my-8">
+                <div className="my-12">
                     {insertComponent}
                 </div>
                 

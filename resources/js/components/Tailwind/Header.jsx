@@ -564,7 +564,10 @@ const Header = ({
                             >
                                 Reserva una consulta
                             </WhatsAppButtonWithArrow> */}
-                            <motion.button 
+                            <motion.a 
+                            href="https://mi.cambiafx.pe/registro" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
                                 whileHover={{ 
                                     scale: 1.06,
                                     y: -2,
@@ -588,7 +591,7 @@ const Header = ({
                                     className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
                                     transition={{ duration: 0.3 }}
                                 />
-                            </motion.button>
+                            </motion.a>
                             <motion.a 
                                 href="https://mi.cambiafx.pe/login" 
                                 target="_blank" 
