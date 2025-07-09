@@ -101,15 +101,22 @@ const Home = ({
         (item) => item.correlative === "page_home_pasos"
     );
 
-const landingCupones = landing?.find(
+    const landingCupones = landing?.find(
         (item) => item.correlative === "page_home_cupones"
     );  
-const landingPilares = landing?.find(
+    const landingPilares = landing?.find(
         (item) => item.correlative === "page_home_pilares"
     );  
 
+    // Filtrar indicadores para cupones
+    const indicadoresCupones = indicators?.filter(
+        (indicator) => indicator.correlative === "inicio_cupones"
+    ) || [];
+      const indicadoresInicio = indicators?.filter(
+        (indicator) => indicator.correlative === "inicio_hero"
+    ) || [];
 
-   
+
     const landingBlog = landing?.find(
         (item) => item.correlative === "page_home_blog"
     );
@@ -206,7 +213,7 @@ const landingPilares = landing?.find(
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7 }}
             >
-                <HeroSecction data={landingInicio} apps={apps} indicators={indicators} />
+                <HeroSecction data={landingInicio} apps={apps} indicators={indicadoresInicio} />
             </motion.div>
 
             {/* SLIDER  <SliderInteractive ... /> */}
@@ -240,7 +247,7 @@ const landingPilares = landing?.find(
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: 0.3 }}
             >
-                <CuponesSection data={landingCupones} cupones={cupones} />
+                <CuponesSection data={landingCupones} cupones={cupones} indicators={indicadoresCupones} />
             </motion.div>
             <motion.div
                 className="animate-section"

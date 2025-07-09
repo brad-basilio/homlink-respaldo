@@ -29,7 +29,7 @@ const FuncionSection = ({ data, pasos }) => {
                         <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' />
                     </motion.h2>
                     <motion.p
-                        className="text-base text-neutral-light max-w-xl mx-auto "
+                        className="text-base text-neutral-light max-w-xl mx-auto"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
@@ -47,48 +47,68 @@ const FuncionSection = ({ data, pasos }) => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.7, delay: 0.2 + index * 0.15 }}
-                            whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.08)' }}
                         >
                             <motion.div
-                                className={`rounded-2xl  ${index ===1 ? "w-[250px] " : "w-[220px] "} h-[220px] flex items-end justify-end mb-6`}
+                                className={`rounded-2xl ${index === 1 ? "w-[250px] mt-4 h-[200px]" : "w-[220px] h-[220px]"}  flex items-end justify-end mb-6`}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.6, delay: 0.25 + index * 0.15 }}
+                                whileHover={{ 
+                                    scale: 1.05,
+                                    transition: { duration: 0.3, ease: "easeOut" }
+                                }}
+                                style={{ overflow: 'visible' }}
                             >
                                 <motion.img
                                     src={`/api/speciality/media/${paso?.image}`}
                                     alt={paso?.name}
-                                    className="w-full object-cover"
+                                    className="w-full h-full object-cover cursor-pointer rounded-2xl"
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
-                                    whileHover={{ scale: 1.06 }}
                                 />
                             </motion.div>
                             <motion.div
-                                className="text-constrast font-medium text-sm mb-1 uppercase"
+                                className="text-constrast font-medium text-sm mb-1 uppercase cursor-pointer"
                                 initial={{ opacity: 0, x: -10 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.5, delay: 0.35 + index * 0.15 }}
-                            >PASO</motion.div>
+                                whileHover={{ 
+                                    x: 5,
+                                    color: '#7c3aed',
+                                    transition: { duration: 0.2 }
+                                }}
+                            >
+                                PASO
+                            </motion.div>
                             <motion.div
-                                className="text-2xl md:text-2xl font-medium text-neutral-dark mb-2"
+                                className="text-2xl md:text-2xl font-medium text-neutral-dark mb-2 cursor-pointer"
                                 initial={{ opacity: 0, x: 10 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.5, delay: 0.4 + index * 0.15 }}
+                                whileHover={{ 
+                                    scale: 1.03,
+                                    x: 3,
+                                    transition: { duration: 0.2 }
+                                }}
                             >
                                 <TextWithHighlight text={`${paso?.name}`} color='bg-neutral-dark font-semibold' />
                             </motion.div>
                             <motion.div
-                                className="text-neutral-light text-base  "
+                                className="text-neutral-light text-base cursor-pointer"
                                 initial={{ opacity: 0, y: 10 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.5, delay: 0.45 + index * 0.15 }}
+                                whileHover={{ 
+                                    color: '#4b5563',
+                                    y: -2,
+                                    transition: { duration: 0.2 }
+                                }}
                             >
                                 {paso?.description}
                             </motion.div>

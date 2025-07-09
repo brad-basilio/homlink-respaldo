@@ -43,7 +43,7 @@ class HomeController extends BasicController
         $strengths = Strength::where('status', true)->where('visible', true)->where('lang_id', $langId)->get();
         $posts = Post::where('status', true)->orderBy('created_at', 'desc')->with('category')->where('lang_id', $langId)->limit(10)->get();
         $testimonios = Testimony::where('status', true)->where('lang_id', $langId)->get();
-        $indicators = Indicator::where('status', true)->where('correlative','inicio_hero')->where('lang_id', $langId)->get();
+        $indicators = Indicator::where('status', true)->where('lang_id', $langId)->get();
 
         $allServices = Service::where('status', true)->where('lang_id', $langId)->get();
 

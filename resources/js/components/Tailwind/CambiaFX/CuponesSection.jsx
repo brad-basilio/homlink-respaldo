@@ -15,7 +15,7 @@ const swiperStyles = `
     }
 `;
 
-const CuponesSection = ({ data,cupones }) => {
+const CuponesSection = ({ data, cupones, indicators = [] }) => {
     // Función para formatear fecha de YYYY-MM-DD a DD/MM/YYYY
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -30,7 +30,7 @@ const CuponesSection = ({ data,cupones }) => {
             <style>{swiperStyles}</style>
             <section className="relative bg-secondary overflow-hidden font-title px-2 md:px-0 w-full">
                 {/* Fondo decorativo */}
-                <div className="absolute top-0 -right-10 translate-x-[20%] w-full h-full z-0 pointer-events-none">
+                <div className="absolute top-0 -right-10 translate-x-[10%] w-full h-full z-0 pointer-events-none">
                     <img src="/assets/cambiafx/cupon-overlay.png" alt="Fondo" className=" h-full object-cover pb-16" />
                 </div>
                 <div className="px-[5%] mx-auto relative z-10 flex flex-col lg:flex-row items-center gap-8">
@@ -175,18 +175,100 @@ const CuponesSection = ({ data,cupones }) => {
                             </span>
                         </motion.div>
                     </motion.div>
-                    {/* Columna derecha: imagen */}
+                    {/* Columna derecha: imagen e indicadores */}
                     <motion.div
-                        className="flex-1 flex pt-12 justify-center items-center"
+                        className="flex-1 flex pt-20 justify-center items-center relative"
                         initial={{ opacity: 0, x: 40 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7 }}
                     >
-                        <img src={`/api/landing_home/media/${data?.image}`} alt={data?.title} className="h-full w-auto object-cover z-10" onError={(e) =>
-                            (e.target.src =
-                                "/api/cover/thumbnail/null")
-                        } />
+                        <div className="relative">
+                            <motion.img 
+                                src={`/api/landing_home/media/${data?.image}`} 
+                                alt={data?.title} 
+                                className="h-[700px] w-auto object-cover z-10" 
+                                onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
+                            />
+                            
+                            {/* Indicadores dinámicos */}
+                            {indicators && indicators.length > 0 && (
+                                <>
+                                    {indicators.map((indicator, index) => (
+                                        <motion.div
+                                            key={indicator.id || index}
+                                            className={`absolute bg-white rounded-2xl p-4 shadow-lg border border-gray-100 ${
+                                                index === 0 
+                                                    ? "top-2/3 -right-8 transform  -translate-y-4" 
+                                                    : "bottom-1/2  -right-32  transform  -translate-y-4"
+                                            }`}
+                                            initial={{ opacity: 0, scale: 0.8, y: index === 0 ? -20 : 20 }}
+                                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                            viewport={{ once: true, amount: 0.2 }}
+                                            animate={{
+                                                y: [0, -8, 0],
+                                                rotate: [0, 1, -1, 0],
+                                                scale: [1, 1.02, 1]
+                                            }}
+                                            transition={{
+                                                // Animación de entrada
+                                                duration: 0.6, 
+                                                delay: 0.5 + index * 0.2,
+                                                type: "spring",
+                                                stiffness: 200,
+                                                // Animación de flotación
+                                                y: {
+                                                    duration: 3 + index * 0.5,
+                                                    repeat: Infinity,
+                                                    repeatType: "reverse",
+                                                    ease: "easeInOut"
+                                                },
+                                                rotate: {
+                                                    duration: 4 + index * 0.3,
+                                                    repeat: Infinity,
+                                                    repeatType: "reverse",
+                                                    ease: "easeInOut"
+                                                },
+                                                scale: {
+                                                    duration: 2.5 + index * 0.4,
+                                                    repeat: Infinity,
+                                                    repeatType: "reverse",
+                                                    ease: "easeInOut"
+                                                }
+                                            }}
+                                            whileHover={{ 
+                                                scale: 1.05, 
+                                                boxShadow: "0 10px 30px rgba(0,0,0,0.15)",
+                                                transition: { duration: 0.2 }
+                                            }}
+                                        >
+                                            <motion.div 
+                                                className="text-2xl md:text-[40px] font-semibold  mb-1"
+                                                initial={{ opacity: 0 }}
+                                                whileInView={{ opacity: 1 }}
+                                                viewport={{ once: true, amount: 0.2 }}
+                                                transition={{ delay: 0.7 + index * 0.2 }}
+                                            >
+                                                <TextWithHighlight text={indicator?.name} color='bg-constrast' counter />
+                                            </motion.div>
+                                            <motion.div 
+                                                className="text-lg text-neutral-dark font-medium"
+                                                initial={{ opacity: 0, y: 5 }}
+                                                whileInView={{ opacity: 1, y: 0 }}
+                                                viewport={{ once: true, amount: 0.2 }}
+                                                transition={{ delay: 0.8 + index * 0.2 }}
+                                            >
+                                                <TextWithHighlight text={indicator?.description} color='bg-constrast' />
+                                            </motion.div>
+                                        </motion.div>
+                                    ))}
+                                </>
+                            )}
+                        </div>
                     </motion.div>
                 </div>
             </section>
