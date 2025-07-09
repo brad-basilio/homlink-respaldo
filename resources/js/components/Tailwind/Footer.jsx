@@ -213,12 +213,12 @@ const Footer = ({ terms, footerLinks = [] }) => {
         <>
             <footer className="bg-neutral-dark text-white font-title">
 
-                <div className="flex gap-10 w-full px-[5%] py-16">
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full px-[5%] py-8 lg:py-16">
                     {/* Columna 1 - Logo, App Badges y Suscripción */}
-                    <div className="w-6/12 flex flex-col gap-6">
+                    <div className="w-full lg:w-6/12 flex flex-col gap-6">
                         <a href="/">
                             <img
-                                className="h-14"
+                                className="h-12 lg:h-14"
                                 src="/assets/img/logo-white.png"
                                 alt="CambiaFX Logo"
                             />
@@ -281,7 +281,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     <motion.img 
                                         src={`/api/app/media/${app?.image}`} 
                                         alt={app?.name} 
-                                        className="h-10 rounded-lg shadow-md"
+                                        className="h-8 lg:h-10 rounded-lg shadow-md"
                                         onError={(e) =>
                                             (e.target.src = "/api/cover/thumbnail/null")
                                         }
@@ -302,14 +302,14 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             ))}
                         </motion.div>
                         <motion.div 
-                            className="mt-4 max-w-md"
+                            className="mt-4 max-w-full lg:max-w-md"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
                             <motion.h3 
-                                className="text-xl font-medium mb-2"
+                                className="text-lg lg:text-xl font-medium mb-2"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -319,7 +319,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </motion.h3>
                             
                             <motion.p 
-                                className="text-base text-neutral mb-4"
+                                className="text-sm lg:text-base text-neutral mb-4"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -335,8 +335,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.8 }}
                             >
+                                {/* Versión Desktop - Original */}
                                 <motion.div 
-                                    className="flex items-center bg-white rounded-full p-1"
+                                    className="hidden lg:flex items-center bg-white rounded-full p-1"
                                     whileHover={{ 
                                         scale: 1.02,
                                         boxShadow: "0 8px 25px rgba(0,0,0,0.15)"
@@ -360,6 +361,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         }}
                                     />
                                     <motion.button
+                                        type="submit"
                                         disabled={saving || !termsAccepted}
                                         className={`font-bold text-sm px-6 py-3 rounded-full transition-colors ${
                                             !termsAccepted 
@@ -383,16 +385,60 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         {saving ? 'Enviando...' : 'SUSCRIBIRME'}
                                     </motion.button>
                                 </motion.div>
+
+                                {/* Versión Mobile - Separada */}
+                                <div className="block lg:hidden space-y-3">
+                                    <motion.input
+                                        ref={emailRef}
+                                        disabled={saving}
+                                        type="email"
+                                        placeholder="Correo electrónico"
+                                        className="w-full px-4 py-3 placeholder:text-neutral-light bg-white text-neutral-dark focus:outline-none rounded-full border-2 border-transparent focus:border-secondary transition-colors"
+                                        required
+                                        whileFocus={{ 
+                                            scale: 1.02,
+                                            transition: { duration: 0.2 }
+                                        }}
+                                        whileHover={{
+                                            boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
+                                        }}
+                                    />
+                                    
+                                    <motion.button
+                                        type="submit"
+                                        disabled={saving || !termsAccepted}
+                                        className={`w-full font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 ${
+                                            !termsAccepted 
+                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                                                : 'bg-secondary text-neutral-dark hover:bg-[#b7f556] shadow-lg hover:shadow-xl'
+                                        }`}
+                                        whileHover={termsAccepted ? { 
+                                            scale: 1.02,
+                                            y: -2
+                                        } : {}}
+                                        whileTap={termsAccepted ? { scale: 0.98 } : {}}
+                                        animate={saving ? {
+                                            scale: [1, 1.02, 1],
+                                            transition: {
+                                                duration: 0.8,
+                                                repeat: Infinity
+                                            }
+                                        } : {}}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        {saving ? 'Enviando...' : 'SUSCRIBIRME'}
+                                    </motion.button>
+                                </div>
                             </motion.form>
                             
                             <motion.div 
-                                className="flex items-center mt-4"
+                                className="flex items-start mt-4 space-x-2"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.9 }}
                             >
-                                <motion.div className="relative">
+                                <motion.div className="relative flex-shrink-0 mt-0.5">
                                     <motion.input 
                                         type="checkbox" 
                                         id="terms-checkbox" 
@@ -407,7 +453,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 
                                 <motion.label 
                                     htmlFor="terms-checkbox" 
-                                    className="ml-2 text-xs text-neutral cursor-pointer"
+                                    className="text-xs text-neutral cursor-pointer leading-tight"
                                     whileHover={{ 
                                         color: "#BBFF52",
                                         x: 2
@@ -421,9 +467,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                     </div>
 
                     {/* Columna 2 - Horario de Atención */}
-                    <div className="w-6/12 flex flex-wrap justify-end">
-                        <div className="w-6/12 flex flex-col gap-2 text-sm pb-8">
-                            <h3 className="text-xl font-medium mb-4">
+                    <div className="w-full lg:w-6/12 flex flex-col lg:flex-row lg:flex-wrap lg:justify-end gap-6 lg:gap-0">
+                        <div className="w-full lg:w-6/12 flex flex-col gap-2 text-sm pb-4 lg:pb-8">
+                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
                                 Horario de Atención
                             </h3>
                             {openingHours ? (
@@ -441,60 +487,57 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         </div>
 
                         {/* Columna 3 - Legal */}
-                        <div className="w-4/12 flex flex-col gap-2 text-sm ">
-                            <h3 className="text-xl font-medium mb-4">
+                        <div className="w-full lg:w-4/12 flex flex-col gap-2 text-sm">
+                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
                                 Legal
                             </h3>
-                            <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary">Política de Privacidad</a>
-                            <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary">Términos y Condiciones</a>
-                            <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary">Libro de Reclamaciones</a>
+                            <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary transition-colors">Política de Privacidad</a>
+                            <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary transition-colors">Términos y Condiciones</a>
+                            <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary transition-colors">Libro de Reclamaciones</a>
                             <div className="mt-4">
                                 <p className="font-medium">Registrada en la SBS</p>
                                 <p>Resolución 04993-2018</p>
                             </div>
                         </div>
 
-                        {/* Columna 4 - Contacto y Redes */}
-                        <div className="w-6/12 flex flex-col gap-4 text-sm">
-                            <div className="flex items-start gap-1">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11.3481 17.8052C10.9867 18.1435 10.5037 18.3327 10.0009 18.3327C9.49817 18.3327 9.01517 18.1435 8.65375 17.8052C5.34418 14.6877 0.908967 11.2051 3.07189 6.14907C4.24136 3.41532 7.04862 1.66602 10.0009 1.66602C12.9532 1.66602 15.7605 3.41532 16.93 6.14907C19.0902 11.1988 14.6658 14.6984 11.3481 17.8052Z" fill="white" stroke="#0C0C0C" stroke-width="1.25" />
+                        {/* Columna 4 - Contacto */}
+                        <div className="w-full lg:w-6/12 flex flex-col gap-4 text-sm">
+                            <div className="flex items-start gap-2">
+                                <svg className="w-4 h-4 lg:w-5 lg:h-5 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.3481 17.8052C10.9867 18.1435 10.5037 18.3327 10.0009 18.3327C9.49817 18.3327 9.01517 18.1435 8.65375 17.8052C5.34418 14.6877 0.908967 11.2051 3.07189 6.14907C4.24136 3.41532 7.04862 1.66602 10.0009 1.66602C12.9532 1.66602 15.7605 3.41532 16.93 6.14907C19.0902 11.1988 14.6658 14.6984 11.3481 17.8052Z" fill="white" stroke="#0C0C0C" strokeWidth="1.25" />
                                     <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" fill="#1A1A1A" />
                                 </svg>
 
-                                <div className="whitespace-pre-line">
+                                <div className="whitespace-pre-line text-xs lg:text-sm">
                                     {address || "Av. Javier Prado Este N.560,\nOficina 2302 San Isidro - Lima - Perú"}
                                 </div>
                             </div>
 
-                          
-                        </div>
-                        <div className="w-4/12 flex items-center gap-3">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.67916 11.229C1.73363 13.7837 1.76087 15.0609 2.70348 16.0072C3.64608 16.9534 4.95796 16.9863 7.58171 17.0522C9.19877 17.0928 10.7999 17.0928 12.417 17.0522C15.0408 16.9863 16.3526 16.9534 17.2953 16.0072C18.2378 15.0609 18.2651 13.7837 18.3195 11.229C18.3371 10.4076 18.3371 9.5911 18.3195 8.76968C18.2651 6.21507 18.2378 4.93776 17.2953 3.99157C16.3526 3.04537 15.0408 3.01242 12.417 2.94649C10.7999 2.90586 9.19876 2.90586 7.5817 2.94648C4.95796 3.0124 3.64608 3.04536 2.70347 3.99156C1.76087 4.93775 1.73363 6.21506 1.67915 8.76968C1.66163 9.5911 1.66164 10.4076 1.67916 11.229Z" fill="white" stroke="#1A1A1A" stroke-width="1.25" stroke-linejoin="round" />
-                                <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" stroke-width="1.25" stroke-linejoin="round" />
-                            </svg>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.67916 11.229C1.73363 13.7837 1.76087 15.0609 2.70348 16.0072C3.64608 16.9534 4.95796 16.9863 7.58171 17.0522C9.19877 17.0928 10.7999 17.0928 12.417 17.0522C15.0408 16.9863 16.3526 16.9534 17.2953 16.0072C18.2378 15.0609 18.2651 13.7837 18.3195 11.229C18.3371 10.4076 18.3371 9.5911 18.3195 8.76968C18.2651 6.21507 18.2378 4.93776 17.2953 3.99157C16.3526 3.04537 15.0408 3.01242 12.417 2.94649C10.7999 2.90586 9.19876 2.90586 7.5817 2.94648C4.95796 3.0124 3.64608 3.04536 2.70347 3.99156C1.76087 4.93775 1.73363 6.21506 1.67915 8.76968C1.66163 9.5911 1.66164 10.4076 1.67916 11.229Z" fill="white" stroke="#1A1A1A" strokeWidth="1.25" strokeLinejoin="round" />
+                                    <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" strokeWidth="1.25" strokeLinejoin="round" />
+                                </svg>
 
-                            <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary">{emailContact || 'hola@cambiafx.pe'}</a>
+                                <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary transition-colors text-xs lg:text-sm">{emailContact || 'hola@cambiafx.pe'}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="">
-                    <div className="w-full px-[5%] mx-auto ">
-                        <div className=" h-0.5 bg-neutral">
-
-                        </div>
+                    <div className="w-full px-[5%] mx-auto">
+                        <div className="h-0.5 bg-neutral"></div>
                     </div>
-                    <div className="flex flex-col md:flex-row justify-between items-center w-full px-[5%] py-4 text-center md:text-left">
-                        <p className="text-base text-neutral mb-4 md:mb-0">
+                    <div className="flex flex-col lg:flex-row justify-between items-center w-full px-[5%] py-4 text-center lg:text-left gap-4 lg:gap-0">
+                        <p className="text-sm lg:text-base text-neutral mb-0">
                             {copyrightText}
                         </p>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2 lg:gap-3 flex-wrap justify-center">
                             {(phoneContact || supportPhone) && (
                                 <a 
                                     href={`tel:${phoneContact || supportPhone}`} 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="Llamar"
                                 >
                                     <i className="fa-solid fa-phone"></i>
@@ -505,7 +548,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Facebook.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="Facebook"
                                 >
                                     <i className="fa-brands fa-facebook-f"></i>
@@ -516,7 +559,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Instagram.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="Instagram"
                                 >
                                     <i className="fa-brands fa-instagram"></i>
@@ -527,7 +570,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Twitter.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="Twitter"
                                 >
                                     <i className="fa-brands fa-twitter"></i>
@@ -538,7 +581,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={LinkedIn.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="LinkedIn"
                                 >
                                     <i className="fa-brands fa-linkedin-in"></i>
@@ -549,7 +592,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Youtube.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="YouTube"
                                 >
                                     <i className="fa-brands fa-youtube"></i>
@@ -560,7 +603,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Tiktok.link} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="TikTok"
                                 >
                                     <i className="fa-brands fa-tiktok"></i>
@@ -571,7 +614,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     href={Whatsapp?.link || `https://wa.me/${whatsappPhone?.replace(/[^0-9]/g, '')}`} 
                                     target="_blank" 
                                     rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-8 h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors"
+                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
                                     title="WhatsApp"
                                 >
                                     <i className="fa-brands fa-whatsapp"></i>
@@ -593,17 +636,17 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             isOpen={modalOpen === index}
                             onRequestClose={closeModal}
                             contentLabel={title}
-                            className="fixed top-[5%] left-1/2 -translate-x-1/2 bg-white p-6 rounded-3xl shadow-lg w-[95%] max-w-4xl max-h-[90vh] mb-10 overflow-y-auto scrollbar-hide"
-                            overlayClassName="fixed inset-0 bg-neutral-dark bg-opacity-50 z-50 overflow-auto  scrollbar-hide "
+                            className="fixed top-[5%] left-1/2 -translate-x-1/2 bg-white p-4 lg:p-6 rounded-2xl lg:rounded-3xl shadow-lg w-[95%] max-w-4xl max-h-[90vh] mb-10 overflow-y-auto scrollbar-hide"
+                            overlayClassName="fixed inset-0 bg-neutral-dark bg-opacity-50 z-50 overflow-auto scrollbar-hide"
                         >
                             <button
                                 onClick={closeModal}
-                                className="float-right  text-red-500 hover:text-red-700 transition-all duration-300 "
+                                className="float-right text-red-500 hover:text-red-700 transition-all duration-300"
                             >
-                                <X width="2rem" strokeWidth="4px" />
+                                <X className="w-6 h-6 lg:w-8 lg:h-8" strokeWidth="3px" />
                             </button>
-                            <h2 className="text-2xl font-bold mb-4">{title}</h2>
-                            <HtmlContent className="prose" html={content} />
+                            <h2 className="text-xl lg:text-2xl font-bold mb-4 pr-8">{title}</h2>
+                            <HtmlContent className="prose prose-sm lg:prose" html={content} />
                         </ReactModal>
                     );
                 })}
