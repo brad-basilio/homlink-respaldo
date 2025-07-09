@@ -104,6 +104,9 @@ const Generals = ({ generals }) => {
         seoKeywords:
             generals.find((x) => x.correlative == "seo_keywords")
                 ?.description ?? "",
+        cintillo:
+            generals.find((x) => x.correlative == "cintillo")?.description ?? "",
+
         copyright:
             generals.find((x) => x.correlative == "copyright")?.description ?? 
             "Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957",
@@ -436,7 +439,7 @@ const Generals = ({ generals }) => {
                                 </button>
                             </div>
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-3 mt-2">
                             <label htmlFor="address" className="form-label">
                                 Dirección
                             </label>
@@ -551,6 +554,29 @@ const Generals = ({ generals }) => {
                             ></textarea>
                             <small className="form-text text-muted">
                                 Este mensaje se enviará automáticamente al iniciar una conversación.
+                            </small>
+                        </div>
+                               <div className="mb-3">
+                            <label
+                                htmlFor="copyright"
+                                className="form-label"
+                            >
+                                Texto del Cintillo
+                            </label>
+                            <textarea
+                                className="form-control"
+                                id="cintillo"
+                                value={formData.cintillo}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        cintillo: e.target.value,
+                                    })
+                                }
+                                rows="3"
+                            ></textarea>
+                            <small className="form-text text-muted">
+                                Este texto aparecerá en el header del sitio web.
                             </small>
                         </div>
                         <div className="mb-3">

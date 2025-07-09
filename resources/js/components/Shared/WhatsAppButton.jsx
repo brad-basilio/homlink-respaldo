@@ -123,7 +123,7 @@ const WhatsAppButton = ({
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                     className="w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2"
                 />
-                Cargando...
+              
             </motion.div>
         );
     }
@@ -174,16 +174,10 @@ const WhatsAppButton = ({
 export const WhatsAppButtonWithArrow = ({ children = "Reserva una consulta", ...props }) => {
     return (
         <WhatsAppButton {...props}>
-            <span className="flex items-center">
+          
                 {children}
-                <motion.div
-                    className="ml-2"
-                    whileHover={{ x: 2 }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <ArrowRight className="w-5 h-5" />
-                </motion.div>
-            </span>
+               
+          
         </WhatsAppButton>
     );
 };
