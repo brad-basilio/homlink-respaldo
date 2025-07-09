@@ -15,6 +15,7 @@ import MessagesRest from "./Actions/MessagesRest";
 import Swal from "sweetalert2";
 import GeneralRest from "./actions/GeneralRest";
 import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
+import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
 
 // Animaciones mejoradas
 const containerVariants = {
@@ -134,6 +135,19 @@ const cardHover = {
 };
 
 const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
+    // Estado para controlar cuando las secciones están listas para animar
+    const [sectionsReady, setSectionsReady] = useState(false);
+
+    // Efecto para marcar las secciones como listas después del primer render
+    useEffect(() => {
+        // Pequeño delay para asegurar que el DOM esté completamente cargado
+        const timer = setTimeout(() => {
+            setSectionsReady(true);
+        }, 100);
+        
+        return () => clearTimeout(timer);
+    }, []);
+
     const landingFormulario = landing?.find(
         (item) => item.correlative === "page_contact_formulario"
     );
@@ -311,23 +325,38 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
     return (
         <motion.div
             className="font-title text-neutral-dark min-h-screen"
-            initial="hidden"
-            animate="visible"
-            variants={containerVariants}
+            initial={{ opacity: 0 }}
+            animate={sectionsReady ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.6 }}
         >
             <Header />
+            <CintilloSection/>
+            
+            {/* SECCIÓN PRINCIPAL DE CONTACTO */}
             <motion.main
                 className="flex flex-col items-center justify-center min-h-[80vh] py-16"
-                variants={itemVariants}
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7 }}
             >
                 <motion.div
                     className="w-full px-[5%] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 bg-transparent"
-                    variants={containerVariants}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.7, delay: 0.1 }}
                 >
                     {/* Left: Contact Form */}
                     <motion.div
                         className="bg-constrast rounded-2xl p-8 flex flex-col justify-between shadow-md min-h-[500px]"
-                        variants={slideInLeft}
+                        initial={{ opacity: 0, x: -50 }}
+                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                         whileHover={{ y: -5, transition: { duration: 0.3 } }}
                     >
                         <div>
@@ -503,7 +532,11 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                     {/* Right: Map and Info Cards */}
                     <motion.div
                         className="flex flex-col gap-6"
-                        variants={slideInRight}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
                     >
                         {/* {/* Map 
                         <motion.div 
@@ -527,11 +560,19 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                         {/* Info Cards */}
                         <motion.div
                             className="flex flex-col gap-3"
-                            variants={containerVariants}
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.7, delay: 0.4 }}
                         >
                             <motion.div
                                 className="grid grid-cols-1  gap-3"
-                                variants={itemVariants}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={sectionsReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.6, delay: 0.5 }}
                             >
                                 {/* Email */}
                                 <motion.div
@@ -615,8 +656,12 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                             {/* Location */}
                             <motion.div
                                 className="flex items-center gap-3 bg-neutral-dark rounded-xl p-4 shadow border border-[#f3f4f6]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
                                 variants={cardHover}
-                                initial="rest"
                                 whileHover="hover"
                             >
                                 <motion.span
@@ -651,49 +696,128 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                             </motion.div>
 
 
-                            <div className="relative  w-full px-10 rounded-[56px] bg-secondary  flex flex-col md:flex-row items-center  py-10 min-h-[330px] mt-16">
+                            <motion.div 
+                                className="relative  w-full px-10 rounded-[56px] bg-secondary  flex flex-col md:flex-row items-center  py-10 min-h-[330px] mt-16"
+                                initial={{ opacity: 0, y: 40 }}
+                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, amount: 0.2 }}
+                                transition={{ duration: 0.8, delay: 0.7 }}
+                                whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
+                            >
                                 {/* Fondo decorativo */}
-                                <div className="absolute w-full h-full  right-0 left-0 bottom-0 z-0 overflow-hidden rounded-[56px] ">
+                                <motion.div 
+                                    className="absolute w-full h-full  right-0 left-0 bottom-0 z-0 overflow-hidden rounded-[56px] "
+                                
+                                >
 
 
 
-                                    <svg className="w-full" width="594" height="315" viewBox="0 0 594 315" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M-147.68 355.4C-124.332 352.83 -90.2834 346.823 -51.955 331.329C15.4416 304.086 56.4845 263.505 84.5695 235.171C118.162 201.282 144.643 174.565 159.394 129.737C160.55 126.225 194.417 60.8935 156.7 21.3772C118.976 -18.1462 63.9491 17.6986 56.0136 78.5852C48.0781 139.472 71.91 172.287 100.769 195.167C141.703 227.622 194.435 225.044 235.103 219.599C412.543 195.829 504.016 89.5735 673.893 19.7087C764.865 -17.705 988.379 -133.776 1123.37 -75.0488" stroke="#719931" stroke-opacity="0.24" stroke-width="29.8691" stroke-miterlimit="10" />
-                                    </svg>
-
-
-                                </div>
+                                    <motion.svg 
+                                        className="w-full" width="594" height="315" viewBox="0 0 594 315" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                      
+                                    >
+                                        <motion.path 
+                                            d="M-147.68 355.4C-124.332 352.83 -90.2834 346.823 -51.955 331.329C15.4416 304.086 56.4845 263.505 84.5695 235.171C118.162 201.282 144.643 174.565 159.394 129.737C160.55 126.225 194.417 60.8935 156.7 21.3772C118.976 -18.1462 63.9491 17.6986 56.0136 78.5852C48.0781 139.472 71.91 172.287 100.769 195.167C141.703 227.622 194.435 225.044 235.103 219.599C412.543 195.829 504.016 89.5735 673.893 19.7087C764.865 -17.705 988.379 -133.776 1123.37 -75.0488" 
+                                            stroke="#719931" 
+                                            strokeOpacity="0.24" 
+                                            strokeWidth="29.8691" 
+                                            strokeMiterlimit="10"
+                                            initial={{ pathLength: 0 }}
+                                            animate={{ pathLength: 1 }}
+                                            transition={{ duration: 3, delay: 1 }}
+                                        />
+                                    </motion.svg>
+                                </motion.div>
 
                                 {/* Columna izquierda: texto */}
-                                <div className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-2">
+                                <motion.div 
+                                    className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-2"
+                                    initial={{ opacity: 0, x: -30 }}
+                                    animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 0.6, delay: 0.8 }}
+                                >
                                     <div>
-                                        <span className="text-lg font-medium">¡Descarga nuestra app!</span>
-                                        <div className="flex gap-2 mt-4" >
+                                        <motion.span 
+                                            className="text-lg font-medium"
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                            transition={{ duration: 0.5, delay: 0.9 }}
+                                        >
+                                            ¡Descarga nuestra app!
+                                        </motion.span>
+                                        <motion.div 
+                                            className="flex gap-2 mt-4"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                            transition={{ duration: 0.6, delay: 1 }}
+                                        >
                                             {apps?.map((app, index) => (
-                                                <a href={app?.link} key={index} target="_blank" rel="noopener noreferrer">
-                                                    <img src={`/api/app/media/${app?.image}`} alt={app?.name} className="h-12" onError={(e) =>
-                                                    (e.target.src =
-                                                        "/api/cover/thumbnail/null")
-                                                    } />
-                                                </a>
+                                                <motion.a 
+                                                    href={app?.link} 
+                                                    key={index} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    whileHover={{ 
+                                                        scale: 1.1, 
+                                                        y: -5,
+                                                        transition: { duration: 0.2 }
+                                                    }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                >
+                                                    <img 
+                                                        src={`/api/app/media/${app?.image}`} 
+                                                        alt={app?.name} 
+                                                        className="h-12" 
+                                                        onError={(e) =>
+                                                            (e.target.src = "/api/cover/thumbnail/null")
+                                                        } 
+                                                    />
+                                                </motion.a>
                                             ))}
-                                        </div>
+                                        </motion.div>
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 {/* Columna central: imagen */}
-
-                                <img src={`/api/landing_home/media/${landingFormulario?.image}`} alt="Empresas" className="h-[400px] object-cover absolute bottom-0 right-0 select-none" draggable="false" />
-
-
-
-                            </div>
+                                <motion.img 
+                                    src={`/api/landing_home/media/${landingFormulario?.image}`} 
+                                    alt="Empresas" 
+                                    className="h-[400px] object-cover absolute bottom-0 right-0 select-none" 
+                                    draggable="false"
+                                    initial={{ opacity: 0, x: 50 }}
+                                    animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true, amount: 0.2 }}
+                                    transition={{ duration: 0.8, delay: 1.1 }}
+                                    whileHover={{ 
+                                        scale: 1.05,
+                                        y: -10,
+                                        transition: { duration: 0.4 }
+                                    }}
+                                
+                                   
+                                />
+                            </motion.div>
 
                         </motion.div>
                     </motion.div>
                 </motion.div>
             </motion.main>
-            <ServiceSeccionFaq landingFAQS={landingFAQS} faqs={faqs} />
+            
+            {/* SECCIÓN FAQs */}
+            <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.5 }}
+            >
+                <ServiceSeccionFaq landingFAQS={landingFAQS} faqs={faqs} />
+            </motion.div>
+            
             <Footer />
         </motion.div>
     );
