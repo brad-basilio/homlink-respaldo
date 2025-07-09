@@ -17,15 +17,68 @@ import TransferenciaServiceSection from "./components/Tailwind/CambiaFX/Transfer
 import MoreServiceSection from "./components/Tailwind/CambiaFX/MoreServiceSection";
 
 const ServiciosPage = ({ landing, services,banner_slider=[], linkWhatsApp, randomImage }) => {
-  
-console.log(banner_slider)
+    
+    // Estado para controlar cuando las secciones están listas para animar
+    const [sectionsReady, setSectionsReady] = useState(false);
+
+    // Efecto para marcar las secciones como listas después del primer render
+    useEffect(() => {
+        // Pequeño delay para asegurar que el DOM esté completamente cargado
+        const timer = setTimeout(() => {
+            setSectionsReady(true);
+        }, 100);
+        
+        return () => clearTimeout(timer);
+    }, []);
+
+    console.log(banner_slider)
     return (
         <div className="font-title">
             <Header />
-            <CintilloSection/>
-            <HeroServiceSection service={services[0]} banner_slider={banner_slider}/>
-            <TransferenciaServiceSection service={services[1]}/>
-            <MoreServiceSection service={services[2]}/>
+            
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7 }}
+            >
+                <CintilloSection/>
+            </motion.div>
+            
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+            >
+                <HeroServiceSection service={services[0]} banner_slider={banner_slider}/>
+            </motion.div>
+            
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2 }}
+            >
+                <TransferenciaServiceSection service={services[1]}/>
+            </motion.div>
+            
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.3 }}
+            >
+                <MoreServiceSection service={services[2]}/>
+            </motion.div>
 
             <Footer />
         </div>
