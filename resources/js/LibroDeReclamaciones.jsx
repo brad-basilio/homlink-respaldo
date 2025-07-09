@@ -655,16 +655,16 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     <div className="text-center py-10">
                         <div className="flex justify-center mb-6">
                             <div className="w-20 h-20 bg-neutral-light rounded-full flex items-center justify-center">
-                                <CheckCircle className="w-12 h-12 text-primary" />
+                                <CheckCircle className="w-12 h-12 text-constrast" />
                             </div>
                         </div>
                         <h2 className="text-3xl font-bold text-neutral-dark mb-4">
                             ¡Reclamo Registrado Exitosamente!
                         </h2>
-                        <div className="mb-6 p-6 border-2 border-primary rounded-lg inline-block bg-neutral-light">
+                        <div className="mb-6 p-6 border-2 border-constrast rounded-lg inline-block bg-neutral-light">
                             <p className="text-lg font-semibold text-neutral-dark mb-1">
                                 Número de Reclamo:{" "}
-                                <span className="text-primary text-xl">
+                                <span className="text-constrast text-xl">
                                     {numeroReclamo}
                                 </span>
                             </p>
@@ -674,7 +674,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                             <div className="mt-4 flex justify-center">
                                 {/* <button
                                     onClick={generarPDF}
-                                    className="flex items-center text-primary hover:text-blue-800 font-medium"
+                                    className="flex items-center text-constrast hover:text-blue-800 font-medium"
                                 >
                                     <FileText className="w-4 h-4 mr-1" />
                                     Descargar comprobante
@@ -765,10 +765,10 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                         <div className="flex items-center justify-center p-4 bg-neutral-light rounded-xl mb-8 max-w-2xl mx-auto border border-blue-200">
                             <div className="flex items-start">
                                 <div>
-                                    <p className="text-primary font-medium mb-1">
+                                    <p className="text-constrast font-medium mb-1">
                                         Plazo de atención:
                                     </p>
-                                    <p className="text-primary text-sm">
+                                    <p className="text-constrast text-sm">
                                         De acuerdo con el Código de Protección y
                                         Defensa del Consumidor, su caso será
                                         atendido en un plazo máximo de{" "}
@@ -813,7 +813,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                     setCaptchaValue("");
                                     generarCaptcha();
                                 }}
-                                className="px-6 py-3 bg-primary text-white rounded-xl hover:hover:bg-constrast transition-colors font-semibold"
+                                className="px-6 py-3 bg-constrast text-white rounded-xl hover:hover:bg-constrast transition-colors font-semibold"
                             >
                                 Registrar nuevo reclamo
                             </button>
@@ -851,7 +851,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                         <p className="text-sm text-neutral-dark">
                             Hora: {horaActual}
                         </p>
-                        <p className="text-sm font-medium text-primary mt-1">
+                        <p className="text-sm font-medium text-constrast mt-1">
                             Hoja de Reclamación
                         </p>
                     </div>
@@ -876,7 +876,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                         <div
-                            className="bg-primary h-2.5 rounded-full"
+                            className="bg-constrast h-2.5 rounded-full"
                             style={{
                                 width: `${Math.min(
                                     100,
@@ -930,7 +930,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     {/* 1. IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE */}
                     <div className=" rounded-xl p-6 shadow-xl ">
                         <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                            <span className="bg-constrast text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 1
                             </span>
                             IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE
@@ -1247,7 +1247,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     {/* 2. IDENTIFICACIÓN DEL BIEN CONTRATADO */}
                     <div className="rounded-xl p-6 shadow-xl">
                         <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                            <span className="bg-constrast text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 2
                             </span>
                             IDENTIFICACIÓN DEL BIEN CONTRATADO
@@ -1384,7 +1384,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     {/* 3. DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR */}
                     <div className="rounded-xl p-6 shadow-xl">
                         <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <span className="bg-primary text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
+                            <span className="bg-constrast text-white w-7 h-7 rounded-full flex items-center justify-center mr-2 text-sm">
                                 3
                             </span>
                             DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR
@@ -1570,7 +1570,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
 
                     <div className="rounded-xl p-6 shadow-xl">
                         <h2 className="text-lg font-bold text-neutral-dark mb-4 pb-2 border-b border-gray-200 flex items-center">
-                            <Shield className="w-5 h-5 mr-2 text-primary" />
+                            <Shield className="w-5 h-5 mr-2 text-constrast" />
                             VERIFICACIÓN DE SEGURIDAD
                         </h2>
 
@@ -1733,7 +1733,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                 <button
                                     type="button"
                                     onClick={() => setMostrarTerminos(true)}
-                                    className="text-primary hover:underline font-medium"
+                                    className="text-constrast hover:underline font-medium"
                                 >
                                     términos y condiciones
                                 </button>{" "}
@@ -1785,7 +1785,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                                     return newErrors;
                                                 });
                                             }}
-                                            className="px-4 py-2 bg-primary text-white rounded-md hover:bg-constrast transition-colors"
+                                            className="px-4 py-2 bg-constrast text-white rounded-md hover:bg-constrast transition-colors"
                                         >
                                             Aceptar
                                         </button>
@@ -1798,8 +1798,8 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     {/* Información legal */}
                     <div className="bg-neutral-light p-4 rounded-xl mb-6 border-l-4 border-blue-400">
                         <div className="flex">
-                            <AlertCircle className="w-6 h-6 text-primary mr-2 flex-shrink-0" />
-                            <div className="text-sm text-primary">
+                            <AlertCircle className="w-6 h-6 text-constrast mr-2 flex-shrink-0" />
+                            <div className="text-sm text-white">
                                 <p className="font-semibold mb-1">
                                     INFORMACIÓN IMPORTANTE:
                                 </p>
@@ -1861,7 +1861,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                                             setShowConfirmation(false);
                                             handleSubmit(e);
                                         }}
-                                        className="px-4 py-2 bg-primary text-white rounded-md hover:bg-constrast"
+                                        className="px-4 py-2 bg-constrast text-white rounded-md hover:bg-constrast"
                                     >
                                         Confirmar envío
                                     </button>
@@ -1874,7 +1874,7 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                     <button
                         type="button" // Cambiado a type="button" para evitar envío directo
                         onClick={() => setShowConfirmation(true)}
-                        className="px-8 py-3 bg-primary text-white rounded-md hover:hover:bg-constrast transition-colors font-semibold text-lg shadow-md hover:shadow-lg"
+                        className="px-8 py-3 bg-constrast text-white rounded-md hover:hover:bg-accent transition-colors font-semibold text-lg shadow-md hover:shadow-lg"
                     >
                         Enviar Reclamo
                     </button>

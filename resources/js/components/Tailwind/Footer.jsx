@@ -136,7 +136,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     subscriptionsRest.enableNotifications = false;
 
     const emailRef = useRef();
-
+    const [termsAccepted, setTermsAccepted] = useState(false);
 
     const [saving, setSaving] = useState(false);
 
@@ -150,11 +150,26 @@ const Footer = ({ terms, footerLinks = [] }) => {
                 emailRef.current.style.transform = 'scale(1)';
             }, 100);
         }
+        // También resetear el checkbox
+        document.getElementById('terms-checkbox').checked = false;
     };
 
     const onEmailSubmit = async (e) => {
         e.preventDefault();
         if (saving) return; // Prevenir múltiples envíos
+        
+        // Validar que se hayan aceptado los términos
+        if (!termsAccepted) {
+            Swal.fire({
+                title: "Términos requeridos",
+                text: "Debes aceptar la Política de Privacidad y los Términos y Condiciones para suscribirte.",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#f59e0b"
+            });
+            return;
+        }
+
         setSaving(true);
 
         const request = {
@@ -188,8 +203,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
             timerProgressBar: true
         });
 
-        // Limpiar el campo del email
+        // Limpiar el campo del email y resetear términos
         clearEmailForm();
+        setTermsAccepted(false);
     };
 
 
@@ -207,41 +223,201 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 alt="CambiaFX Logo"
                             />
                         </a>
-                        <div className="flex flex-wrap gap-2">
+                        <motion.div 
+                            className="flex flex-wrap gap-2"
+                            variants={{
+                                hidden: { opacity: 0 },
+                                show: {
+                                    opacity: 1,
+                                    transition: {
+                                        staggerChildren: 0.1,
+                                        delayChildren: 0.3
+                                    }
+                                }
+                            }}
+                            initial="hidden"
+                            whileInView="show"
+                            viewport={{ once: true }}
+                        >
                             {apps?.map((app, index) => (
-                                <a href={app?.link} key={index} target="_blank" rel="noopener noreferrer">
-                                    <img src={`/api/app/media/${app?.image}`} alt={app?.name} className="h-10" onError={(e) =>
-                                    (e.target.src =
-                                        "/api/cover/thumbnail/null")
-                                    } />
-                                </a>
+                                <motion.a 
+                                    href={app?.link} 
+                                    key={index} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    variants={{
+                                        hidden: { 
+                                            scale: 0, 
+                                            opacity: 0,
+                                            rotate: -180
+                                        },
+                                        show: {
+                                            scale: 1,
+                                            opacity: 1,
+                                            rotate: 0,
+                                            transition: {
+                                                type: "spring",
+                                                stiffness: 300,
+                                                damping: 20,
+                                                duration: 0.6
+                                            }
+                                        }
+                                    }}
+                                    whileHover={{ 
+                                        scale: 1.15, 
+                                        y: -5,
+                                        rotate: 5,
+                                        transition: { 
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 10
+                                        }
+                                    }}
+                                    whileTap={{ 
+                                        scale: 0.9,
+                                        rotate: -5
+                                    }}
+                                >
+                                    <motion.img 
+                                        src={`/api/app/media/${app?.image}`} 
+                                        alt={app?.name} 
+                                        className="h-10 rounded-lg shadow-md"
+                                        onError={(e) =>
+                                            (e.target.src = "/api/cover/thumbnail/null")
+                                        }
+                                        animate={{
+                                            boxShadow: [
+                                                "0 4px 8px rgba(0,0,0,0.1)",
+                                                "0 6px 12px rgba(0,0,0,0.15)",
+                                                "0 4px 8px rgba(0,0,0,0.1)"
+                                            ]
+                                        }}
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            ease: "easeInOut"
+                                        }}
+                                    />
+                                </motion.a>
                             ))}
-                        </div>
-                        <div className="mt-4 max-w-md">
-                            <h3 className="text-xl font-medium mb-2">Suscríbete</h3>
-                            <p className="text-base text-neutral mb-4">Recibe actualizaciones, tips de finanzas y cupones de mejor tipo de cambio.</p>
-                            <form onSubmit={onEmailSubmit}>
-                                <div className="flex items-center bg-white rounded-full p-1">
-                                    <input
+                        </motion.div>
+                        <motion.div 
+                            className="mt-4 max-w-md"
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.5 }}
+                        >
+                            <motion.h3 
+                                className="text-xl font-medium mb-2"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
+                            >
+                                Suscríbete
+                            </motion.h3>
+                            
+                            <motion.p 
+                                className="text-base text-neutral mb-4"
+                                initial={{ opacity: 0, x: -20 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.7 }}
+                            >
+                                Recibe actualizaciones, tips de finanzas y cupones de mejor tipo de cambio.
+                            </motion.p>
+                            
+                            <motion.form 
+                                onSubmit={onEmailSubmit}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.8 }}
+                            >
+                                <motion.div 
+                                    className="flex items-center bg-white rounded-full p-1"
+                                    whileHover={{ 
+                                        scale: 1.02,
+                                        boxShadow: "0 8px 25px rgba(0,0,0,0.15)"
+                                    }}
+                                    whileFocus={{ 
+                                        scale: 1.02,
+                                        boxShadow: "0 0 0 3px rgba(187, 255, 82, 0.3)"
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <motion.input
                                         ref={emailRef}
                                         disabled={saving}
                                         type="email"
                                         placeholder="Correo"
                                         className="flex-grow px-4 py-2 placeholder:text-neutral-light bg-transparent text-neutral-light focus:outline-none"
+                                        required
+                                        whileFocus={{ 
+                                            scale: 1.01,
+                                            transition: { duration: 0.2 }
+                                        }}
                                     />
-                                    <button
-                                        disabled={saving}
-                                        className="bg-secondary text-neutral-light font-bold text-sm px-6 py-3 rounded-full hover:bg-[#b7f556] transition-colors"
+                                    <motion.button
+                                        disabled={saving || !termsAccepted}
+                                        className={`font-bold text-sm px-6 py-3 rounded-full transition-colors ${
+                                            !termsAccepted 
+                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
+                                                : 'bg-secondary text-neutral-light hover:bg-[#b7f556]'
+                                        }`}
+                                        whileHover={termsAccepted ? { 
+                                            scale: 1.05,
+                                            backgroundColor: "#b7f556"
+                                        } : {}}
+                                        whileTap={termsAccepted ? { scale: 0.95 } : {}}
+                                        animate={saving ? {
+                                            scale: [1, 1.05, 1],
+                                            transition: {
+                                                duration: 0.5,
+                                                repeat: Infinity
+                                            }
+                                        } : {}}
+                                        transition={{ duration: 0.2 }}
                                     >
                                         {saving ? 'Enviando...' : 'SUSCRIBIRME'}
-                                    </button>
-                                </div>
-                            </form>
-                            <div className="flex items-center mt-4">
-                                <input type="checkbox" id="terms-checkbox" className="h-3 w-3 text-lime-400 !bg-transparent border-neutral-light rounded focus:ring-lime-500" />
-                                <label htmlFor="terms-checkbox" className="ml-2 text-xs text-neutral">He leído y acepto la Política de Privacidad y los Términos y Condiciones</label>
-                            </div>
-                        </div>
+                                    </motion.button>
+                                </motion.div>
+                            </motion.form>
+                            
+                            <motion.div 
+                                className="flex items-center mt-4"
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.9 }}
+                            >
+                                <motion.div className="relative">
+                                    <motion.input 
+                                        type="checkbox" 
+                                        id="terms-checkbox" 
+                                        className="h-3 w-3 text-secondary bg-transparent border-neutral-light rounded bg-secondary focus:ring-secondary checked:bg-secondary checked:border-secondary"
+                                        checked={termsAccepted}
+                                        onChange={(e) => setTermsAccepted(e.target.checked)}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    />
+                                   
+                                </motion.div>
+                                
+                                <motion.label 
+                                    htmlFor="terms-checkbox" 
+                                    className="ml-2 text-xs text-neutral cursor-pointer"
+                                    whileHover={{ 
+                                        color: "#BBFF52",
+                                        x: 2
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    He leído y acepto la Política de Privacidad y los Términos y Condiciones
+                                </motion.label>
+                            </motion.div>
+                        </motion.div>
                     </div>
 
                     {/* Columna 2 - Horario de Atención */}
