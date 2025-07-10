@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\General;
 use App\Notifications\AdminContactNotification;
+use App\Notifications\AdminClaimNotification;
 use App\Notifications\MessageContactNotification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
@@ -149,6 +150,46 @@ class NotificationHelper
             Log::info('NotificationHelper - Todas las notificaciones de contacto enviadas exitosamente');
         } catch (\Exception $e) {
             Log::error('NotificationHelper - Error enviando notificaciones de contacto', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
+    }
+
+    /**
+     * Envía notificación específica de reclamo
+     */
+    public static function sendClaimNotification($complaint)
+    {
+        try {
+            Log::info('NotificationHelper - Iniciando envío de notificaciones de reclamo', [
+                'complaint_id' => $complaint->id ?? 'unknown',
+                'client_email' => $complaint->email ?? 'no_email',
+                'complaint_type' => $complaint->tipo_reclamo ?? 'unknown',
+                'numero_reclamo' => $complaint->numero_reclamo ?? 'unknown'
+            ]);
+
+            // Enviar al cliente (si tiene email)
+            if ($complaint->email) {
+                Log::info('NotificationHelper - Enviando notificación de reclamo al cliente');
+                $clientNotification = new \App\Notifications\ClaimNotification($complaint, $complaint->email);
+                Notification::route('mail', $complaint->email)->notify($clientNotification);
+                Log::info('NotificationHelper - Notificación de reclamo enviada al cliente exitosamente');
+            }
+            
+            // Enviar al administrador
+            $corporateEmail = self::getCorporateEmail();
+            if ($corporateEmail) {
+                Log::info('NotificationHelper - Enviando notificación de reclamo al administrador');
+                $adminNotification = new AdminClaimNotification($complaint, $corporateEmail);
+                Notification::route('mail', $corporateEmail)->notify($adminNotification);
+                Log::info('NotificationHelper - Notificación de reclamo enviada al administrador exitosamente');
+            }
+            
+            Log::info('NotificationHelper - Todas las notificaciones de reclamo enviadas exitosamente');
+        } catch (\Exception $e) {
+            Log::error('NotificationHelper - Error enviando notificaciones de reclamo', [
                 'error' => $e->getMessage(),
                 'trace' => $e->getTraceAsString()
             ]);

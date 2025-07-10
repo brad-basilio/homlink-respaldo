@@ -13,9 +13,12 @@ class ClaimNotification extends Notification implements ShouldQueue
     use Queueable;
 
     protected $complaint;
-    public function __construct($complaint)
+    protected $recipientEmail;
+
+    public function __construct($complaint, $recipientEmail)
     {
         $this->complaint = $complaint;
+        $this->recipientEmail = $recipientEmail;
     }
 
     public function via($notifiable)
@@ -62,8 +65,6 @@ class ClaimNotification extends Notification implements ShouldQueue
                 'distrito' => $this->complaint->distrito,
                 'direccion' => $this->complaint->direccion,
                 'tipo_producto' => $this->complaint->servicio,
-               // 'monto_reclamado' => number_format($this->complaint->monto_reclamado, 2),
-                //'descripcion_producto' => $this->complaint->descripcion_producto,
                 'tipo_reclamo' => $this->complaint->tipo_reclamo,
                 'fecha_ocurrencia' => date('d \d\e F \d\e\l Y', strtotime($this->complaint->fecha_incidente)),
                 'pedido' => $this->complaint->pedido,
@@ -72,6 +73,6 @@ class ClaimNotification extends Notification implements ShouldQueue
                 'fecha_reclamo' => date('d \d\e F \d\e\l Y', strtotime($this->complaint->created_at)),
             ])
             : 'Plantilla no encontrada';
-        return (new RawHtmlMail($body, 'Hemos recibido tu reclamo',$this->complaint->email));
+        return (new RawHtmlMail($body, 'Hemos recibido tu reclamo', $this->recipientEmail));
     }
 }

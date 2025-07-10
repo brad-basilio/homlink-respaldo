@@ -107,7 +107,10 @@ class ComplaintController extends BasicController
                     }
                 }
             }
-   $complaint->notify(new \App\Notifications\ClaimNotification($complaint));
+
+            // Enviar notificaciones usando NotificationHelper
+            \App\Helpers\NotificationHelper::sendClaimNotification($complaint);
+
             return response()->json([
                 'success' => true,
                 'numero_reclamo' => $complaint->numero_reclamo,

@@ -341,7 +341,7 @@ const Menu = ({
                                 >
                                     Pop-ups
                                 </MenuItem>
-                                 <MenuItem
+                              {/*   <MenuItem
                                     href="/admin/brands"
                                     icon="mdi mdi-domain"
                                 >
@@ -349,13 +349,13 @@ const Menu = ({
                                         "admin.sidebar.translations",
                                         "Empresas"
                                     )}
-                                </MenuItem>
-                                <MenuItem
+                                </MenuItem> */}
+                             {/*   <MenuItem
                                     href="/admin/sliders"
                                     icon="mdi mdi-page-layout-body"
                                 >
                                     {t("admin.sidebar.pages", "Sliders")}
-                                </MenuItem> 
+                                </MenuItem>  */}
                                  <MenuItem
                                     href="/admin/about"
                                     icon="mdi mdi-briefcase"
@@ -401,7 +401,7 @@ const Menu = ({
                                         "Categorias"
                                     )}
                                 </MenuItem> */}
-                                <MenuItemContainer
+                           {/*     <MenuItemContainer
                                     title="InfoProductos"
                                     icon="mdi mdi-cube"
                                 >
@@ -417,7 +417,7 @@ const Menu = ({
                                 >
                                     Productos
                                 </MenuItem>
-                                </MenuItemContainer>
+                                </MenuItemContainer> */}
                                 <MenuItemContainer
                                     title="Blog"
                                     icon="mdi mdi-newspaper"

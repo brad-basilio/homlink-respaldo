@@ -654,14 +654,14 @@ const LibroDeReclamaciones = ({ sedes, servicios, terms }) => {
                 <div className="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-lg border border-gray-200">
                     <div className="text-center py-10">
                         <div className="flex justify-center mb-6">
-                            <div className="w-20 h-20 bg-neutral-light rounded-full flex items-center justify-center">
+                            <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center">
                                 <CheckCircle className="w-12 h-12 text-constrast" />
                             </div>
                         </div>
                         <h2 className="text-3xl font-bold text-neutral-dark mb-4">
                             ¡Reclamo Registrado Exitosamente!
                         </h2>
-                        <div className="mb-6 p-6 border-2 border-constrast rounded-lg inline-block bg-neutral-light">
+                        <div className="mb-6 p-6 border-2 border-constrast rounded-lg inline-block bg-primary">
                             <p className="text-lg font-semibold text-neutral-dark mb-1">
                                 Número de Reclamo:{" "}
                                 <span className="text-constrast text-xl">

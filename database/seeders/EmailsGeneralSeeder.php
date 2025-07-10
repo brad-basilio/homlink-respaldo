@@ -71,20 +71,28 @@ HTML
             ],
             [
                 'correlative' => 'claim_email',
-                'name' => 'Diseño de email de reclamo',
+                'name' => 'Diseño de email de reclamo (plantilla heredada)',
                 'description' => $clean_blade_vars(<<<'HTML'
 
 <h1>¡Hola {{ nombre }}!</h1>
-<p>Hemos recibido tu reclamo/queja y te enviamos un respaldo de lo que registraste:</p>
-<ul>
-    <li><strong>Tipo:</strong> {{ tipo_reclamo }}</li>
-    <li><strong>Detalle:</strong> {{ detalle_reclamo }}</li>
-    <li><strong>Fecha:</strong> {{ fecha_ocurrencia }}</li>
-    <li><strong>Monto reclamado:</strong> S/ {{ monto_reclamado }}</li>
-    <li><strong>Producto/Servicio:</strong> {{ descripcion_producto }}</li>
-    <li><strong>Número de pedido:</strong> {{ numero_pedido }}</li>
-</ul>
-<p>Gracias por confiar en nosotros. Nos pondremos en contacto contigo pronto.</p>
+<p>Hemos recibido tu {{ tipo_reclamo }} y te enviamos un respaldo de lo que registraste:</p>
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Datos de tu {{ tipo_reclamo }}:</h3>
+    <p><strong>Nombre:</strong> {{ nombre }}</p>
+    <p><strong>Documento:</strong> {{ tipo_documento }} {{ numero_identidad }}</p>
+    <p><strong>Email:</strong> {{ correo_electronico }}</p>
+    <p><strong>Teléfono:</strong> {{ celular }}</p>
+    <p><strong>Dirección:</strong> {{ direccion }}, {{ distrito }}, {{ provincia }}, {{ departamento }}</p>
+    <p><strong>Tipo:</strong> {{ tipo_reclamo }}</p>
+    <p><strong>Producto/Servicio:</strong> {{ tipo_producto }}</p>
+    <p><strong>Fecha del incidente:</strong> {{ fecha_ocurrencia }}</p>
+    <p><strong>Detalle:</strong></p>
+    <p>{{ detalle_reclamo }}</p>
+    <p><strong>Pedido:</strong></p>
+    <p>{{ pedido }}</p>
+    <p><strong>Fecha de registro:</strong> {{ fecha_reclamo }}</p>
+</div>
+<p>Nuestro equipo revisará tu caso y te responderemos en un plazo máximo de 30 días hábiles.</p>
 <p>{{ config('app.name') }}<br>&copy; {{ date('Y') }}</p>
 HTML
                 ),
@@ -218,6 +226,38 @@ HTML
 HTML
                 ),
             ],
+            
+            [
+                'correlative' => 'admin_claim_notification_email',
+                'name' => 'Diseño de email de notificación de reclamo (para admin)',
+                'description' => $clean_blade_vars(<<<'HTML'
+
+<h1>Nuevo reclamo recibido</h1>
+<p>Se ha recibido un nuevo reclamo/queja desde el libro de reclamaciones:</p>
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Datos del reclamo:</h3>
+    <p><strong>Número de reclamo:</strong> {{ numero_reclamo }}</p>
+    <p><strong>Cliente:</strong> {{ nombre_completo }}</p>
+    <p><strong>Documento:</strong> {{ tipo_documento }} {{ numero_documento }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Teléfono:</strong> {{ telefono }}</p>
+    <p><strong>Dirección:</strong> {{ direccion }}, {{ distrito }}, {{ provincia }}, {{ departamento }}</p>
+    <p><strong>Sede:</strong> {{ sede }}</p>
+    <p><strong>Tipo:</strong> {{ tipo_reclamo }}</p>
+    <p><strong>Servicio/Producto:</strong> {{ servicio }}</p>
+    <p><strong>Fecha del incidente:</strong> {{ fecha_incidente }} {{ hora_incidente }}</p>
+    <p><strong>Detalle del reclamo:</strong></p>
+    <p>{{ detalle_reclamo }}</p>
+    <p><strong>Pedido del cliente:</strong></p>
+    <p>{{ pedido }}</p>
+    <p><strong>Fecha de registro:</strong> {{ fecha_registro }}</p>
+    <p><strong>IP del cliente:</strong> {{ ip_address }}</p>
+</div>
+<p>Por favor, gestiona este reclamo lo antes posible según los plazos establecidos.</p>
+<p>{{ config('app.name') }}<br>&copy; {{ date('Y') }}</p>
+HTML
+                ),
+            ],
             // [
             //     'correlative' => 'phone_contact',
             //     'name' => 'Teléfono de contacto',
@@ -272,17 +312,23 @@ HTML
 
         foreach ($generalData as $data) {
             $data['description'] = $clean_blade_vars($data['description']);
-            General::updateOrCreate(
-                [
+            
+            // Solo crear si no existe, no actualizar
+            $exists = General::where('correlative', $data['correlative'])
+                           ->where('lang_id', $defaultLang->id)
+                           ->exists();
+            
+            if (!$exists) {
+                General::create([
                     'correlative' => $data['correlative'],
-                    'lang_id' => $defaultLang->id
-                ],
-                [
                     'name' => $data['name'],
                     'description' => $data['description'],
                     'lang_id' => $defaultLang->id
-                ]
-            );
+                ]);
+                echo "✓ Creado: {$data['correlative']}\n";
+            } else {
+                echo "- Ya existe: {$data['correlative']}\n";
+            }
         }
         
         echo "Seeder completado. Se crearon/actualizaron " . count($generalData) . " plantillas de email.\n";
