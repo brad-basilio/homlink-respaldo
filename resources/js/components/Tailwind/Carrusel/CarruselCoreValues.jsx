@@ -1,18 +1,93 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { useEffect, useRef, useState } from "react";
 import { adjustTextColor } from "../../../Functions/adjustTextColor";
 import { Autoplay } from "swiper/modules";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
 import { motion } from 'framer-motion';
 
+// Estilos CSS para line-clamp y Swiper móvil
+const lineClampStyles = `
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Estilos optimizados para el Swiper móvil */
+  .mobile-core-values-swiper {
+    padding-bottom: 30px !important;
+  }
+  
+  .mobile-core-values-swiper .swiper-slide {
+    transition: all 0.3s ease;
+    height: auto !important;
+    max-width: 90% !important;
+  }
+  
+  .mobile-core-values-swiper .swiper-pagination {
+    bottom: 0 !important;
+  }
+  
+  .mobile-core-values-swiper .swiper-pagination-bullet {
+    background-color: #7E5AFB;
+    opacity: 0.5;
+    width: 8px;
+    height: 8px;
+  }
+  
+  .mobile-core-values-swiper .swiper-pagination-bullet-active {
+    background-color: #7E5AFB;
+    opacity: 1;
+  }
+`;
+
+// Inyectar estilos
+if (typeof document !== 'undefined' && !document.getElementById('line-clamp-styles')) {
+    const style = document.createElement('style');
+    style.id = 'line-clamp-styles';
+    style.textContent = lineClampStyles;
+    document.head.appendChild(style);
+}
+
 const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
 
     const swiperRef = useRef(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [maxHeight, setMaxHeight] = useState(0);
+    // Detección de mobile
+    const [isMobile, setIsMobile] = useState(false);
+    
+    // Efecto para detectar si es mobile
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        // Verificar inicialmente y cada vez que cambia el tamaño de ventana
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
+    }, []);
 
     // Variantes de animación creativas (iguales a MoreServiceSection)
     const containerVariants = {
@@ -134,7 +209,7 @@ const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
             variants={containerVariants}
         >
             <motion.div 
-                className="bg-secondary relative pt-10"
+                className={`bg-secondary relative ${isMobile ? 'pb-10' : 'pt-10'} overflow-hidden`}
                 variants={containerVariants}
             >
                 <motion.div 
@@ -148,6 +223,24 @@ const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
                         viewBox="0 0 333 293" 
                         fill="none" 
                         xmlns="http://www.w3.org/2000/svg"
+                        className="hidden md:block"
+                    >
+                        <motion.path 
+                            d="M330.525 318.574C314.682 316.83 291.576 312.754 265.567 302.24C219.832 283.753 191.981 256.215 172.923 236.988C150.127 213.991 132.157 195.861 122.148 165.441C121.363 163.058 98.381 118.725 123.976 91.9092C149.575 65.0891 186.916 89.413 192.3 130.73C197.685 172.047 181.513 194.315 161.93 209.841C134.152 231.865 98.3692 230.116 70.7721 226.421C-49.6372 210.291 -111.71 138.187 -226.987 90.777C-288.72 65.3884 -440.394 -13.3762 -532 26.4755" 
+                            stroke="#7E5AFB" 
+                            strokeWidth="29.8691" 
+                            strokeMiterlimit="10"
+                            variants={svgVariants}
+                        />
+                    </motion.svg>
+                    
+                    <motion.svg 
+                        width="200" 
+                        height="180" 
+                        viewBox="0 0 333 293" 
+                        fill="none" 
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="md:hidden"
                     >
                         <motion.path 
                             d="M330.525 318.574C314.682 316.83 291.576 312.754 265.567 302.24C219.832 283.753 191.981 256.215 172.923 236.988C150.127 213.991 132.157 195.861 122.148 165.441C121.363 163.058 98.381 118.725 123.976 91.9092C149.575 65.0891 186.916 89.413 192.3 130.73C197.685 172.047 181.513 194.315 161.93 209.841C134.152 231.865 98.3692 230.116 70.7721 226.421C-49.6372 210.291 -111.71 138.187 -226.987 90.777C-288.72 65.3884 -440.394 -13.3762 -532 26.4755" 
@@ -160,6 +253,8 @@ const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
                 </motion.div>
 
                 <div className="mx-auto px-[5%] 2xl:pl-[5%]">
+                    {/* VERSIÓN DESKTOP */}
+                    {!isMobile && (
                     <motion.div 
                         className="relative flex flex-col lg:flex-row items-center justify-center"
                         variants={containerVariants}
@@ -406,6 +501,70 @@ const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
                             </motion.div>
                         </motion.div>
                     </motion.div>
+                    )}
+
+                    {/* VERSIÓN MOBILE - OPTIMIZADA */}
+                    {isMobile && (
+                        <div className="relative pt-4 pb-16">
+                            {/* Título para versión mobile */}
+                            <div className="text-center mb-5 px-4">
+                                <h3 className="uppercase text-neutral-dark text-xs font-medium mb-2">
+                                    ¿Por qué elegir Cambia FX?
+                                </h3>
+                                
+                                <h2 className="text-3xl font-medium mb-3">
+                                    <TextWithHighlight text={data?.title} color="bg-neutral-dark font-semibold" />
+                                </h2>
+                                <p className="text-neutral-light text-sm">
+                                    {data?.description}
+                                </p>
+                            </div>
+                            
+                            {/* Swiper mobile simplificado */}
+                            <div className="w-full pb-6">
+                                <Swiper
+                                    modules={[Autoplay, Pagination]}
+                                    autoplay={{
+                                        delay: 3000,
+                                        disableOnInteraction: false,
+                                    }}
+                                    pagination={{
+                                        clickable: true
+                                    }}
+                                    loop={true}
+                                    spaceBetween={12}
+                                    slidesPerView={1.3}
+                                    centeredSlides={false}
+                                    className="mobile-core-values-swiper"
+                                >
+                                    {items.map((value, index) => (
+                                        <SwiperSlide key={index} className="!h-[140px]">
+                                            <div className="bg-primary w-full min-h-[160px] rounded-xl p-4 flex flex-col shadow-md">
+                                                {/* Icono */}
+                                                <div className="bg-constrast rounded-lg p-2 mb-3 w-fit">
+                                                    <img
+                                                        src={`/api/${correlative}/media/${value?.image}`}
+                                                        alt={value?.name}
+                                                        className="w-5 h-5 object-cover"
+                                                    />
+                                                </div>
+                                                
+                                                {/* Título */}
+                                                <h3 className="text-neutral-dark text-base font-semibold mb-2 line-clamp-2">
+                                                    {value?.name}
+                                                </h3>
+                                                
+                                                {/* Descripción */}
+                                                <p className="text-neutral-light text-xs line-clamp-3 mb-0">
+                                                    {value?.description}
+                                                </p>
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </motion.div>
         </motion.div>

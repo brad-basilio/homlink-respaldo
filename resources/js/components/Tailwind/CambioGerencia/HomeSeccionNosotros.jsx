@@ -95,7 +95,7 @@ const HomeSeccionNosotros = ({ data, strengths, button_about = true }) => {
 
     return (
         <motion.div 
-            className="relative bg-primary py-12 md:pt-16 px-[5%] font-title"
+            className="relative overflow-hidden bg-primary py-12 md:pt-16 px-[5%] font-title"
             initial="hidden"
             animate="visible"
             variants={containerVariants}
