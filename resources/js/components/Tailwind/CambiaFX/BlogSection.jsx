@@ -1,6 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import TextWithHighlight from "../../../Utils/TextWithHighlight";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation, Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
 
 const blogCards = [
   {
@@ -27,6 +35,33 @@ const blogCards = [
 
 const BlogSection = ({data,posts}) => {
   const [expanded, setExpanded] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [swiperInitialized, setSwiperInitialized] = useState(false);
+
+  // Detectar si es móvil o desktop
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    // Comprobar al cargar y cuando cambia el tamaño de la ventana
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkIfMobile);
+    };
+  }, []);
+  
+  // Reiniciar el estado del Swiper cuando cambia el modo móvil/desktop
+  useEffect(() => {
+    if (isMobile) {
+      setSwiperInitialized(false);
+      setTimeout(() => {
+        setSwiperInitialized(true);
+      }, 50);
+    }
+  }, [isMobile]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -116,107 +151,189 @@ const BlogSection = ({data,posts}) => {
 
         {/* Columna derecha: cards */}
         <motion.div 
-          className="flex-1 flex flex-row gap-6 items-end justify-end min-w-[400px]"
+          className="flex-1 flex flex-row gap-6 items-end justify-end min-w-[320px] md:min-w-[400px] w-full"
           variants={itemVariants}
         >
-          {posts.slice(0,3).map((card, idx) => {
-            const isExpanded = expanded === idx;
-            return (
-              <motion.a
-                href={`/blog/${card.slug}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={idx}
-                className={`relative group transition-all duration-500 ease-out flex flex-col items-end cursor-pointer h-[380px] ${isExpanded ? "w-[300px] z-20" : "w-[90px] z-10"}`}
-                style={{ minWidth: isExpanded ? 260 : 70 }}
-                onMouseEnter={() => setExpanded(idx)}
-                onFocus={() => setExpanded(idx)}
-                tabIndex={0}
-                animate={{ 
-                  width: isExpanded ? 300 : 90,
-                  scale: isExpanded ? 1.02 : 0.98
-                }}
-                whileHover={{ scale: isExpanded ? 1.04 : 1.02 }}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ 
-                  opacity: 1, 
-                  y: 0,
-                  transition: { 
-                    duration: 0.6, 
-                    delay: idx * 0.15 + 0.8,
-                    ease: "easeOut"
-                  }
-                }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              >
-                <motion.div 
-                  className="rounded-[32px] overflow-hidden shadow-xl w-full h-full relative"
-                  animate={{
-                    filter: isExpanded ? "brightness(1)" : "brightness(0.7)"
-                  }}
-                  whileHover={{ 
-                    boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.3)",
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <motion.img
-                    src={`/api/posts/media/${card.image}`}
-                    alt={card.name}
-                    className="object-cover w-full h-full"
+          {/* Versión Desktop con expansión de tarjetas */}
+          {!isMobile && (
+            <div className="hidden md:flex flex-row gap-6 items-end justify-end w-full">
+              {posts.slice(0,3).map((card, idx) => {
+                const isExpanded = expanded === idx;
+                return (
+                  <motion.a
+                    href={`/blog/${card.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    key={idx}
+                    className={`relative group transition-all duration-500 ease-out flex flex-col items-end cursor-pointer h-[380px] ${isExpanded ? "w-[300px] z-20" : "w-[90px] z-10"}`}
+                    style={{ minWidth: isExpanded ? 260 : 70 }}
+                    onMouseEnter={() => setExpanded(idx)}
+                    onFocus={() => setExpanded(idx)}
+                    tabIndex={0}
                     animate={{ 
-                      scale: isExpanded ? 1 : 1.05,
-                      filter: isExpanded ? "brightness(1)" : "brightness(0.8)"
+                      width: isExpanded ? 300 : 90,
+                      scale: isExpanded ? 1.02 : 0.98
                     }}
-                    transition={{ duration: 0.4 }}
-                  />
-                  {/* Overlay para info */}
-                  <motion.div 
-                    className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
-                    animate={{
-                      background: isExpanded 
-                        ? "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1), transparent)"
-                        : "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1), transparent)"
+                    whileHover={{ scale: isExpanded ? 1.04 : 1.02 }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ 
+                      opacity: 1, 
+                      y: 0,
+                      transition: { 
+                        duration: 0.6, 
+                        delay: idx * 0.15 + 0.8,
+                        ease: "easeOut"
+                      }
                     }}
-                    transition={{ duration: 0.3 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
                   >
-                    {/* Título simplificado */}
-                    <AnimatePresence mode="wait">
-                      {isExpanded ? (
-                        <motion.div
-                          key="expanded-title"
-                          className="text-white font-bold text-lg leading-tight"
-                          initial={{ opacity: 0, y: 15 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -15 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {card?.name}
-                        </motion.div>
-                      ) : (
-                        <motion.div
-                          key="collapsed-title"
-                          className="text-white font-medium text-base flex items-center justify-center h-full"
-                          style={{
-                            writingMode: "vertical-rl",
-                            textOrientation: "mixed",
-                            textAlign: "center"
-                          }}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          {card.name.length > 25 ? card.name.substring(0, 25) + "..." : card.name}
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                </motion.div>
-              </motion.a>
-            );
-          })}
-       
+                    <motion.div 
+                      className="rounded-[32px] overflow-hidden shadow-xl w-full h-full relative"
+                      animate={{
+                        filter: isExpanded ? "brightness(1)" : "brightness(0.7)"
+                      }}
+                      whileHover={{ 
+                        boxShadow: "0 20px 40px -12px rgba(0, 0, 0, 0.3)",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <motion.img
+                        src={`/api/posts/media/${card.image}`}
+                        alt={card.name}
+                        className="object-cover w-full h-full"
+                        animate={{ 
+                          scale: isExpanded ? 1 : 1.05,
+                          filter: isExpanded ? "brightness(1)" : "brightness(0.8)"
+                        }}
+                        transition={{ duration: 0.4 }}
+                      />
+                      {/* Overlay para info */}
+                      <motion.div 
+                        className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
+                        animate={{
+                          background: isExpanded 
+                            ? "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.1), transparent)"
+                            : "linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1), transparent)"
+                        }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {/* Título simplificado */}
+                        <AnimatePresence mode="wait">
+                          {isExpanded ? (
+                            <motion.div
+                              key="expanded-title"
+                              className="text-white font-bold text-lg leading-tight"
+                              initial={{ opacity: 0, y: 15 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              exit={{ opacity: 0, y: -15 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {card?.name}
+                            </motion.div>
+                          ) : (
+                            <motion.div
+                              key="collapsed-title"
+                              className="text-white font-medium text-base flex items-center justify-center h-full"
+                              style={{
+                                writingMode: "vertical-rl",
+                                textOrientation: "mixed",
+                                textAlign: "center"
+                              }}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              transition={{ duration: 0.3 }}
+                            >
+                              {card.name.length > 25 ? card.name.substring(0, 25) + "..." : card.name}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    </motion.div>
+                  </motion.a>
+                );
+              })}
+            </div>
+          )}
+          
+          {/* Versión Mobile con Swiper */}
+          {isMobile && (
+            <div className="md:hidden w-full">
+              <Swiper
+                modules={[Pagination, Navigation, Autoplay]}
+                loop={true}
+              
+             
+                spaceBetween={16}
+                slidesPerView={1.2}
+                centeredSlides={false}
+             
+                autoplay={{
+                  delay: 3000,
+                  disableOnInteraction: false,
+                }}
+                pagination={{
+                  clickable: true,
+                  dynamicBullets: true,
+                }}
+                onInit={() => setSwiperInitialized(true)}
+                className="blog-swiper w-full"
+              >
+                {/* Asegurar que hay suficientes slides para el loop */}
+                {(posts.length >= 2 ? posts : [...posts, ...posts, ...posts]).map((card, idx) => (
+                  <SwiperSlide key={`slide-${idx}`} className="w-full h-[400px]">
+                    <motion.a
+                      href={`/blog/${card.slug}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative block w-full h-full"
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ 
+                        opacity: 1, 
+                        y: 0,
+                        transition: { 
+                          duration: 0.5, 
+                          delay: idx * 0.2,
+                          ease: "easeOut"
+                        }
+                      }}
+                      viewport={{ once: true }}
+                    >
+                      <div className="rounded-[28px] overflow-hidden shadow-lg w-full h-full relative">
+                        <img
+                          src={`/api/posts/media/${card.image}`}
+                          alt={card.name}
+                          className="object-cover w-full h-full"
+                        />
+                        {/* Overlay para info */}
+                        <div className="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-black/85 via-black/40 to-transparent">
+                          <motion.h3 
+                            className="text-white font-bold text-xl leading-tight mb-2"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: 0.1 }}
+                          >
+                            {card.name}
+                          </motion.h3>
+                          <motion.div
+                            className="text-white/80 text-sm font-medium"
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.3, delay: 0.2 }}
+                          >
+                            Leer artículo
+                          </motion.div>
+                        </div>
+                      </div>
+                    </motion.a>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+          )}
         </motion.div>
         
       </motion.div>
@@ -255,6 +372,40 @@ const BlogSection = ({data,posts}) => {
           </motion.a>
             </div>
          </motion.div>
+      {/* CSS personalizado para Swiper */}
+      <style jsx global>{`
+        .blog-swiper {
+          padding: 20px 0 40px 0;
+          width: 100%;
+          height: auto;
+          overflow: visible !important;
+        }
+        .blog-swiper .swiper-wrapper {
+          transition-timing-function: ease-out;
+        }
+        .blog-swiper .swiper-slide {
+          height: 500px;
+          transition: transform 0.3s ease;
+        }
+        .blog-swiper .swiper-slide-active {
+          transform: scale(1.02);
+        }
+        .blog-swiper .swiper-pagination {
+          bottom: 10px;
+        }
+        .blog-swiper .swiper-pagination-bullet {
+          background: #FCF7E7;
+          opacity: 0.5;
+        }
+        .blog-swiper .swiper-pagination-bullet-active {
+          opacity: 1;
+          background: #FCF7E7;
+        }
+        /* Asegurarse de que los clones de loop se muestran correctamente */
+        .swiper-slide-duplicate {
+          visibility: visible !important;
+        }
+      `}</style>
     </motion.section>
   );
 };

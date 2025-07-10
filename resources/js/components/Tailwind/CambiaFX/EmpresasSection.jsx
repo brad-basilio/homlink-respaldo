@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from 'framer-motion';
 import WhatsAppButton from "../../Shared/WhatsAppButton";
 
@@ -9,74 +9,90 @@ const EmpresasSection = ({ banner_slider }) => {
     const [startX, setStartX] = useState(0);
     const [startY, setStartY] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
 
-    // Auto-play functionality mejorada
+    // Hook para detectar si es móvil
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Auto-play functionality optimizada para móvil
     useEffect(() => {
         if (!banner_slider || banner_slider.length <= 1 || !isAutoPlaying) return;
 
         const interval = setInterval(() => {
             setDirection(1);
             setCurrentSlide((prev) => (prev + 1) % banner_slider.length);
-        }, 6000); // Cambia cada 6 segundos
+        }, isMobile ? 5000 : 6000); // Más rápido en móvil
 
         return () => clearInterval(interval);
-    }, [banner_slider, isAutoPlaying]);
+    }, [banner_slider, isAutoPlaying, isMobile]);
 
-    // Función para ir a un slide específico
-    const goToSlide = (index) => {
+    // Funciones de navegación con callback para mejor rendimiento
+    const goToSlide = useCallback((index) => {
         setDirection(index > currentSlide ? 1 : -1);
         setCurrentSlide(index);
         setIsAutoPlaying(false);
-        // Reactivar auto-play después de 10 segundos
-        setTimeout(() => setIsAutoPlaying(true), 10000);
-    };
+        // Reactivar auto-play después de menos tiempo en móvil
+        setTimeout(() => setIsAutoPlaying(true), isMobile ? 8000 : 10000);
+    }, [currentSlide, isMobile]);
 
-    // Funciones para navegación
-    const nextSlide = () => {
+    const nextSlide = useCallback(() => {
         setDirection(1);
         setCurrentSlide((prev) => (prev + 1) % banner_slider.length);
         setIsAutoPlaying(false);
-        setTimeout(() => setIsAutoPlaying(true), 10000);
-    };
+        setTimeout(() => setIsAutoPlaying(true), isMobile ? 8000 : 10000);
+    }, [banner_slider.length, isMobile]);
 
-    const prevSlide = () => {
+    const prevSlide = useCallback(() => {
         setDirection(-1);
         setCurrentSlide((prev) => (prev - 1 + banner_slider.length) % banner_slider.length);
         setIsAutoPlaying(false);
-        setTimeout(() => setIsAutoPlaying(true), 10000);
-    };
+        setTimeout(() => setIsAutoPlaying(true), isMobile ? 8000 : 10000);
+    }, [banner_slider.length, isMobile]);
 
-    // Handlers para drag/swipe
-    const handleMouseDown = (e) => {
+    // Handlers para drag/swipe optimizados para móvil
+    const handleMouseDown = useCallback((e) => {
+        if (isMobile) return; // Solo para desktop
         setIsDragging(true);
         setStartX(e.clientX);
         setStartY(e.clientY);
         setIsAutoPlaying(false);
-    };
+    }, [isMobile]);
 
-    const handleTouchStart = (e) => {
+    const handleTouchStart = useCallback((e) => {
         setIsDragging(true);
         setStartX(e.touches[0].clientX);
         setStartY(e.touches[0].clientY);
         setIsAutoPlaying(false);
-    };
+    }, []);
 
-    const handleMouseUp = (e) => {
-        if (!isDragging) return;
+    const handleMouseUp = useCallback((e) => {
+        if (!isDragging || isMobile) return;
         handleDragEnd(e.clientX, e.clientY);
-    };
+    }, [isDragging, isMobile]);
 
-    const handleTouchEnd = (e) => {
+    const handleTouchEnd = useCallback((e) => {
         if (!isDragging) return;
         handleDragEnd(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-    };
+    }, [isDragging]);
 
-    const handleDragEnd = (endX, endY) => {
+    const handleDragEnd = useCallback((endX, endY) => {
         const deltaX = endX - startX;
         const deltaY = endY - startY;
         
+        // Umbral más bajo para móvil
+        const threshold = isMobile ? 30 : 50;
+        
         // Solo considerar swipe horizontal si el movimiento horizontal es mayor que el vertical
-        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > threshold) {
             if (deltaX > 0) {
                 prevSlide();
             } else {
@@ -85,8 +101,8 @@ const EmpresasSection = ({ banner_slider }) => {
         }
         
         setIsDragging(false);
-        setTimeout(() => setIsAutoPlaying(true), 10000);
-    };
+        setTimeout(() => setIsAutoPlaying(true), isMobile ? 8000 : 10000);
+    }, [startX, startY, isMobile, prevSlide, nextSlide]);
 
     // Función para procesar texto con markdown simple (*texto* -> <strong>texto</strong>)
     const processText = (text) => {
@@ -98,24 +114,24 @@ const EmpresasSection = ({ banner_slider }) => {
         return null;
     }
 
-    // Variantes de animación
-    const containerVariants = {
+    // Memoizar variantes de animación para mejor rendimiento
+    const containerVariants = useMemo(() => ({
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: isMobile ? 0.1 : 0.15,
                 delayChildren: 0.1
             }
         }
-    };
+    }), [isMobile]);
 
-    const slideVariants = {
+    const slideVariants = useMemo(() => ({
         enter: (direction) => ({
-            x: direction > 0 ? 300 : -300,
+            x: direction > 0 ? (isMobile ? 200 : 300) : (isMobile ? -200 : -300),
             opacity: 0,
             scale: 0.95,
-            rotateY: direction > 0 ? 15 : -15
+            rotateY: isMobile ? 0 : (direction > 0 ? 15 : -15)
         }),
         center: {
             x: 0,
@@ -124,25 +140,25 @@ const EmpresasSection = ({ banner_slider }) => {
             rotateY: 0,
             transition: {
                 type: "spring",
-                stiffness: 200,
-                damping: 30,
+                stiffness: isMobile ? 250 : 200,
+                damping: isMobile ? 35 : 30,
                 mass: 1
             }
         },
         exit: (direction) => ({
-            x: direction < 0 ? 300 : -300,
+            x: direction < 0 ? (isMobile ? 200 : 300) : (isMobile ? -200 : -300),
             opacity: 0,
             scale: 0.95,
-            rotateY: direction < 0 ? 15 : -15,
+            rotateY: isMobile ? 0 : (direction < 0 ? 15 : -15),
             transition: {
-                duration: 0.4,
+                duration: isMobile ? 0.3 : 0.4,
                 ease: "easeInOut"
             }
         })
-    };
+    }), [isMobile]);
 
-    const textVariants = {
-        hidden: { opacity: 0, y: 30, x: -20 },
+    const textVariants = useMemo(() => ({
+        hidden: { opacity: 0, y: isMobile ? 15 : 30, x: isMobile ? 0 : -20 },
         visible: { 
             opacity: 1, 
             y: 0, 
@@ -154,10 +170,10 @@ const EmpresasSection = ({ banner_slider }) => {
                 delay: 0.1
             }
         }
-    };
+    }), [isMobile]);
 
-    const imageVariants = {
-        hidden: { opacity: 0, scale: 0.9, y: 40 },
+    const imageVariants = useMemo(() => ({
+        hidden: { opacity: 0, scale: 0.9, y: isMobile ? 15 : 40 },
         visible: { 
             opacity: 1, 
             scale: 1, 
@@ -166,23 +182,23 @@ const EmpresasSection = ({ banner_slider }) => {
                 type: "spring",
                 stiffness: 120,
                 damping: 20,
-                delay: 0.2
+                delay: isMobile ? 0.05 : 0.2
             }
         }
-    };
+    }), [isMobile]);
 
     const currentBanner = banner_slider[currentSlide];
 
     return (
         <motion.section 
-            className="w-full bg-primary py-32 flex justify-center items-center font-title px-[5%] mx-auto overflow-visible"
+            className="w-full overflow-hidden bg-primary py-12 md:py-32 flex justify-center items-center font-title px-[3%] md:px-[5%] mx-auto "
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8 }}
         >
             <motion.div 
-                className="relative w-full px-16 rounded-[56px] bg-constrast flex flex-col md:flex-row items-center py-10 min-h-[500px] cursor-grab active:cursor-grabbing select-none "
+                className="relative w-full h-full px-4 md:px-16 rounded-[28px] md:rounded-[56px] bg-constrast flex flex-col items-center py-10 md:py-10  md:min-h-[500px] cursor-grab active:cursor-grabbing select-none"
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, amount: 0.2 }}
@@ -192,12 +208,12 @@ const EmpresasSection = ({ banner_slider }) => {
                 onTouchStart={handleTouchStart}
                 onTouchEnd={handleTouchEnd}
                 onMouseLeave={() => setIsDragging(false)}
-                whileHover={{ scale: 1.01 }}
+                whileHover={{ scale: !isMobile ? 1.01 : 1 }}
                 style={{ perspective: "1000px" }}
             >
-                {/* Fondo decorativo animado */}
+                {/* Fondo decorativo animado - Oculto en móvil para mejor rendimiento */}
                 <motion.div 
-                    className="absolute h-full w-auto right-0 z-0 overflow-hidden rounded-[56px]"
+                    className="absolute h-full w-auto top-0 right-0 z-0 overflow-hidden rounded-[28px] md:rounded-[56px] hidden md:block"
                     initial={{ opacity: 0, x: 100 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -213,9 +229,7 @@ const EmpresasSection = ({ banner_slider }) => {
                         </defs>
                     </svg>
 
-
-
-                    <svg className="absolute top-0 right-0 z-[999]"  width="370" height="406" viewBox="0 0 370 406" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="absolute top-0 right-0 z-[999]" width="370" height="406" viewBox="0 0 370 406" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M62.0611 55.3248C99.5069 13.3718 147.971 -14.6335 198.601 -23.4874C305.657 -40.0404 396.815 2.48865 442.984 90.1853C488.331 176.288 474.954 283.246 409.708 356.345C386.471 382.379 357.433 403.809 323.267 420.089L322.337 420.503C300.981 429.659 212.572 457.69 170.825 427.889C155.6 416.978 148.182 399.835 149.81 379.575L149.946 378.166C151.497 367.21 156.231 357.088 163.597 348.836C175.714 335.259 193.581 328.441 211.352 330.528C253.275 336.668 297.543 319.648 327.528 286.054C342.117 269.71 352.569 250.247 357.635 229.802L357.979 228.579C369.209 192.114 359.828 153.706 332.232 123.24C302.272 90.1852 258.189 74.9433 217.082 83.4974C189.493 88.4295 162.353 104.38 141.92 127.274C114.976 157.461 104.067 194.403 112.742 226.06C117.846 243.911 113.285 263.372 100.502 277.693C93.7067 285.306 84.9724 290.902 75.2721 293.914C59.7655 298.821 43.7911 296.711 30.5573 287.865C16.1401 278.249 6.54982 261.654 4.66177 243.133C-8.31942 180.371 13.1198 110.261 62.0655 55.4244L62.0611 55.3248Z" fill="url(#paint0_linear_20_827)" fill-opacity="0.6" />
                         <defs>
                             <linearGradient id="paint0_linear_20_827" x1="416.513" y1="348.721" x2="72.2565" y2="43.9248" gradientUnits="userSpaceOnUse">
@@ -224,7 +238,6 @@ const EmpresasSection = ({ banner_slider }) => {
                             </linearGradient>
                         </defs>
                     </svg>
-
                 </motion.div>
 
                 {/* Contenido del slide actual */}
@@ -239,9 +252,124 @@ const EmpresasSection = ({ banner_slider }) => {
                         className="flex flex-col md:flex-row items-center w-full h-full relative z-10"
                         style={{ transformStyle: "preserve-3d" }}
                     >
+                        {/* MOBILE LAYOUT - Reorganización para móvil */}
+                       
+    {/* Imagen arriba en móvil */}
+                        <motion.div 
+                            className="md:hidden relative  z-10 w-full flex justify-center items-center  "
+                            variants={imageVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            <motion.img 
+                                src={`/api/banners/media/${currentBanner.image}`} 
+                                alt={currentBanner.name} 
+                                className="h-[300px] absolute top-20 -right-12 w-auto object-contain select-none transition-all duration-500" 
+                                draggable="false"
+                                onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                            />
+                        </motion.div>
+                        {/* Título y descripción en móvil */}
+                        <motion.div 
+                            className="md:hidden z-10 w-full text-center mb-6 order-2 px-2"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            <motion.span 
+                                className="uppercase text-white tracking-wider text-sm font-medium mb-2 block"
+                                variants={textVariants}
+                            >
+                                {currentBanner.name}
+                            </motion.span>
+                            
+                            <motion.h2 
+                                className="text-2xl sm:text-3xl font-medium leading-tight text-white mb-4"
+                                dangerouslySetInnerHTML={{ 
+                                    __html: processText(currentBanner.description)?.replace(/\n/g, '<br />') 
+                                }}
+                                variants={textVariants}
+                            />
+                        </motion.div>
+
+                        {/* Botón de WhatsApp centrado en móvil */}
+                        <motion.div 
+                            className="md:hidden z-10 flex flex-col items-center gap-4 order-3 mb-4"
+                            variants={containerVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            <motion.div 
+                                className="text-white text-center text-lg"
+                                variants={textVariants}
+                            >
+                                <span 
+                                    dangerouslySetInnerHTML={{ 
+                                        __html: processText(currentBanner.button_text) 
+                                    }}
+                                />
+                            </motion.div>
+                            
+                            <motion.div 
+                                className="relative"
+                                variants={textVariants}
+                            >
+                                <WhatsAppButton customMessage={banner_slider?.button_link}>   
+                                    <motion.span 
+                                        className="z-10 block"
+                                        animate={{
+                                            scale: [1, 1.05, 1],
+                                            opacity: [0.8, 1, 0.8]
+                                        }}
+                                        transition={{
+                                            duration: 2,
+                                            repeat: Infinity,
+                                            repeatType: "reverse",
+                                            ease: "easeInOut"
+                                        }}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <svg width="80" height="80" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="49.567" cy="49.567" r="49.567" transform="matrix(1 0 0 -1 0.933594 100.066)" fill="#D9D9D9" fillOpacity="0.4" />
+                                            <path d="M87.7015 50.6493C87.7015 30.021 70.979 13.2985 50.3507 13.2985C29.7225 13.2985 13 30.021 13 50.6493C13 71.2775 29.7225 88 50.3507 88C70.979 88 87.7015 71.2775 87.7015 50.6493Z" fill="#BCFF52" />
+                                            <path fillRule="evenodd" clipRule="evenodd" d="M63.8167 37.8734C60.6384 34.6951 56.4006 33 51.951 33C42.6279 33 35 40.6279 35 49.951C35 52.9174 35.8476 55.8838 37.3308 58.4265L35 66.902L43.8993 64.5712C46.4419 65.8425 49.1964 66.6901 51.951 66.6901C61.274 66.6901 68.902 59.0621 68.902 49.7391C68.902 45.2895 66.995 41.0517 63.8167 37.8734ZM51.951 63.9355C49.4083 63.9355 46.8657 63.2999 44.7468 62.0286L44.323 61.8167L39.0258 63.2999L40.5091 58.2146L40.0853 57.5789C38.6021 55.2482 37.9664 52.7055 37.9664 50.1629C37.9664 42.5349 44.323 36.1783 51.951 36.1783C55.765 36.1783 59.1552 37.6615 61.9097 40.2042C64.6642 42.9587 65.9356 46.3489 65.9356 50.1629C65.9356 57.5789 59.7908 63.9355 51.951 63.9355ZM59.5789 53.3412C59.1552 53.1293 57.0363 52.0699 56.6125 52.0699C56.1888 51.858 55.9768 51.858 55.7649 52.2817C55.553 52.7055 54.7055 53.5531 54.4937 53.9768C54.2818 54.1887 54.0698 54.1887 53.6461 54.1887C53.2223 53.9768 51.951 53.5531 50.2559 52.0699C48.9846 51.0104 48.137 49.5272 47.9251 49.1034C47.7132 48.6797 47.9251 48.4678 48.137 48.2559C48.3489 48.044 48.5608 47.8321 48.7727 47.6202C48.9846 47.4083 48.9846 47.1964 49.1965 46.9846C49.4084 46.7727 49.1965 46.5608 49.1965 46.3489C49.1965 46.137 48.3489 44.0181 47.9251 43.1706C47.7132 42.5349 47.2895 42.5349 47.0776 42.5349C46.8657 42.5349 46.6538 42.5349 46.23 42.5349C46.0181 42.5349 45.5943 42.5349 45.1706 42.9587C44.7468 43.3825 43.6874 44.4419 43.6874 46.5608C43.6874 48.6797 45.1706 50.5866 45.3825 51.0104C45.5944 51.2223 48.3489 55.6719 52.5866 57.367C56.1887 58.8502 56.8244 58.4265 57.672 58.4265C58.5195 58.4265 60.2146 57.367 60.4265 56.5195C60.8502 55.4601 60.8503 54.6125 60.6384 54.6125C60.4265 53.5531 60.0027 53.5531 59.5789 53.3412Z" fill="#222222" />
+                                        </svg>
+                                    </motion.span>
+                                </WhatsAppButton>
+                            </motion.div>
+                        </motion.div>
+
+                        {/* Indicadores del slider en móvil */}
+                        {banner_slider.length > 1 && (
+                            <motion.div 
+                                className="md:hidden flex gap-2 order-4 justify-center"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                {banner_slider.map((_, index) => (
+                                    <motion.button
+                                        key={index}
+                                        onClick={() => goToSlide(index)}
+                                        className={`w-3 h-3 rounded-full border-2 border-white transition-all duration-300 ${
+                                            index === currentSlide 
+                                                ? 'bg-white scale-125' 
+                                                : 'bg-transparent hover:bg-white/50'
+                                        }`}
+                                        aria-label={`Ir al slide ${index + 1}`}
+                                        whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 0.9 }}
+                                    />
+                                ))}
+                            </motion.div>
+                        )}
+                     
+
+                        {/* DESKTOP LAYOUT - Mantener diseño original para desktop */}
                         {/* Columna izquierda: texto */}
                         <motion.div 
-                            className="flex-1 z-10 flex flex-col justify-center items-start gap-2"
+                            className="hidden md:flex flex-1 z-10 flex-col justify-center items-start gap-2"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
@@ -261,7 +389,7 @@ const EmpresasSection = ({ banner_slider }) => {
                                 variants={textVariants}
                             />
                             
-                            {/* Indicadores del slider */}
+                            {/* Indicadores del slider en desktop */}
                             {banner_slider.length > 1 && (
                                 <motion.div 
                                     className="flex gap-2 mt-6 md:mt-10"
@@ -287,30 +415,29 @@ const EmpresasSection = ({ banner_slider }) => {
                             )}
                         </motion.div>
 
-                        {/* Columna central: imagen */}
+                        {/* Columna central: imagen en desktop */}
                         <motion.div 
-                            className="z-10 flex-1 flex  justify-center items-end min-h-[400px] relative"
-                          
+                            className="hidden md:flex z-10 flex-1 justify-center items-end min-h-[400px] relative"
+                            variants={imageVariants}
                             initial="hidden"
                             animate="visible"
                         >
                             <motion.img 
                                 src={`/api/banners/media/${currentBanner.image}`} 
                                 alt={currentBanner.name} 
-                                className="h-[650px] absolute -bottom-10 w-auto object-contain select-none transition-all duration-500" 
+                                className="h-[650px] absolute -bottom-12 w-auto object-contain select-none transition-all duration-500" 
                                 style={{
                                     objectPosition: 'bottom',
                                     marginBottom: '-10px'
                                 }}
                                 draggable="false"
-                            
                                 onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
                             />
                         </motion.div>
 
-                        {/* Columna derecha: mensaje y WhatsApp */}
+                        {/* Columna derecha: mensaje y WhatsApp en desktop */}
                         <motion.div 
-                            className="z-10 flex flex-col gap-10 items-end pr-8 justify-end min-w-[180px] md:ml-8 mt-8 md:mt-0"
+                            className="hidden md:flex z-10 flex-col gap-10 items-end pr-8 justify-end min-w-[180px] md:ml-8 mt-8 md:mt-0"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
