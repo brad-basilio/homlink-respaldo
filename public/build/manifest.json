@@ -684,7 +684,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-C6oJQQLV.js",
+    "file": "assets/About-BnDq5QNo.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -4310,7 +4310,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4340,7 +4340,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
+    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -4384,7 +4384,7 @@
     ]
   },
   "resources/js/components/Adminto/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
+    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/Adminto/form/TextareaFormGroup.jsx",
     "isEntry": true,
@@ -4656,7 +4656,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dwtff5Cv.js",
+    "file": "assets/DataGrid-B0ALEkqN.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -5497,7 +5497,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-B0ALEkqN.js",
+    "file": "assets/DataGrid-Dwtff5Cv.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5861,10 +5861,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-BzSP4Kvf.js",
+    "file": "assets/HairType-Chu0TyCG.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6005,7 +6005,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -6035,7 +6035,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
+    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -6057,7 +6057,7 @@
     ]
   },
   "resources/js/components/form/TextareaFormGroup.jsx": {
-    "file": "assets/TextareaFormGroup-B0ALEkqN.js",
+    "file": "assets/TextareaFormGroup-Dwtff5Cv.js",
     "name": "TextareaFormGroup",
     "src": "resources/js/components/form/TextareaFormGroup.jsx",
     "isEntry": true,

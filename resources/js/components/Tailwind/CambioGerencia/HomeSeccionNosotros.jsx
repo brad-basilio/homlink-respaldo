@@ -253,7 +253,7 @@ const HomeSeccionNosotros = ({ data, strengths, button_about = true }) => {
                                 >
                                     {/* Icon con animación espectacular */}
                                     <motion.div 
-                                        className="bg-constrast rounded-full p-3 mr-4 relative overflow-hidden"
+                                        className="bg-constrast min-w-10 min-h-10 max-h-10 max-w-10 flex items-center justify-center rounded-full p-3 mr-4 relative overflow-hidden"
                                         variants={iconVariants}
                                         whileHover={{ 
                                             scale: 1.1,
