@@ -172,6 +172,52 @@ HTML
 <p>{{ config('app.name') }}<br>&copy; {{ date('Y') }}</p>
 HTML
             ],
+            [
+                'correlative' => 'message_contact_email',
+                'name' => 'Diseño de email de confirmación de contacto (para cliente)',
+                'description' => $clean_blade_vars(<<<'HTML'
+
+<h1>¡Hola {{ nombre }}!</h1>
+<p>Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos pronto.</p>
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Resumen de tu consulta:</h3>
+    <p><strong>Nombre:</strong> {{ nombre }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Teléfono:</strong> {{ telefono }}</p>
+    <p><strong>Mensaje:</strong></p>
+    <p>{{ descripcion }}</p>
+    <p><strong>Fecha:</strong> {{ fecha_contacto }}</p>
+</div>
+<p>Nuestro equipo se pondrá en contacto contigo dentro de las próximas 24 horas.</p>
+<p>{{ config('app.name') }}<br>&copy; {{ date('Y') }}</p>
+HTML
+                ),
+            ],
+            
+            [
+                'correlative' => 'admin_contact_notification_email',
+                'name' => 'Diseño de email de notificación de contacto (para admin)',
+                'description' => $clean_blade_vars(<<<'HTML'
+
+<h1>Nuevo mensaje de contacto</h1>
+<p>Se ha recibido un nuevo mensaje de contacto desde el sitio web:</p>
+<div style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3>Datos del contacto:</h3>
+    <p><strong>Nombre:</strong> {{ nombre }}</p>
+    <p><strong>Email:</strong> {{ email }}</p>
+    <p><strong>Teléfono:</strong> {{ telefono }}</p>
+    <p><strong>Tipo de contacto:</strong> {{ tipo_contacto }}</p>
+    <p><strong>Asunto:</strong> {{ asunto }}</p>
+    <p><strong>Mensaje:</strong></p>
+    <p>{{ descripcion }}</p>
+    <p><strong>Fecha:</strong> {{ fecha_contacto }}</p>
+    <p><strong>RUC:</strong> {{ ruc }}</p>
+</div>
+<p>Por favor, responde a este cliente lo antes posible.</p>
+<p>{{ config('app.name') }}<br>&copy; {{ date('Y') }}</p>
+HTML
+                ),
+            ],
             // [
             //     'correlative' => 'phone_contact',
             //     'name' => 'Teléfono de contacto',
@@ -182,6 +228,11 @@ HTML
             //     'name' => 'Correo de contacto',
             //     'description' => 'soporte@trasciende.com'
             // ],
+            [
+                'correlative' => 'email_coorporativo',
+                'name' => 'Email corporativo (para recibir notificaciones)',
+                'description' => 'admin@cambiafx.com'
+            ],
             // [
             //     'correlative' => 'address',
             //     'name' => 'Dirección',

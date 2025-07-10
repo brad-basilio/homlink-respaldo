@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import Swal from 'sweetalert2'
-import MessagesRest from '../../../Actions/Admin/MessagesRest'
+import MessagesRest from '../../../Actions/MessagesRest'
 
 export default function ContactoSecctionEmpresa() {
     const messagesRest = new MessagesRest();

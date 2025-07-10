@@ -540,6 +540,33 @@ Route::middleware('auth')->group(function () {
         Route::delete('/langs/{id}', [AdminLangController::class, 'delete']);
     });
 
+    // Endpoint para obtener variables de notificaciones
+    Route::get('/notification-variables/{type}', function ($type) {
+        $notificationClasses = [
+            'message_contact' => \App\Notifications\MessageContactNotification::class,
+            'admin_contact_notification' => \App\Notifications\AdminContactNotification::class,
+            'purchase_summary' => \App\Notifications\PurchaseSummaryNotification::class,
+            'order_status_changed' => \App\Notifications\OrderStatusChangedNotification::class,
+            'blog_published' => \App\Notifications\BlogPublishedNotification::class,
+            'claim' => \App\Notifications\ClaimNotification::class,
+            'password_changed' => \App\Notifications\PasswordChangedNotification::class,
+            'password_reset' => \App\Notifications\PasswordResetLinkNotification::class,
+            'subscription' => \App\Notifications\SubscriptionNotification::class,
+            'verify_account' => \App\Notifications\VerifyAccountNotification::class,
+        ];
+
+        if (!isset($notificationClasses[$type])) {
+            return response()->json(['error' => 'Invalid notification type'], 400);
+        }
+
+        $class = $notificationClasses[$type];
+        if (!method_exists($class, 'availableVariables')) {
+            return response()->json(['variables' => []], 200);
+        }
+
+        return response()->json(['variables' => $class::availableVariables()], 200);
+    });
+
     Route::middleware('can:Customer')->prefix('customer')->group(function () {
 
         Route::get('/sales/{id}', [CustomerSaleController::class, 'get']);

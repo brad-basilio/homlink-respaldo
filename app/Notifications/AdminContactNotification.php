@@ -6,9 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Mail\RawHtmlMail;
-use Illuminate\Support\Facades\Storage;
 
-class MessageContactNotification extends Notification
+class AdminContactNotification extends Notification
 {
     use Queueable;
 
@@ -21,7 +20,7 @@ class MessageContactNotification extends Notification
         $this->recipientEmail = $recipientEmail;
     }
 
-      /**
+    /**
      * Variables disponibles para la plantilla de email.
      */
     public static function availableVariables()
@@ -30,8 +29,11 @@ class MessageContactNotification extends Notification
             'nombre' => 'Nombre del remitente',
             'email' => 'Correo electrónico del remitente',
             'telefono' => 'Teléfono del remitente',
+            'tipo_contacto' => 'Tipo de contacto (empresa/cliente)',
+            'asunto' => 'Asunto del mensaje',
             'descripcion' => 'Descripción del mensaje',
             'fecha_contacto' => 'Fecha de contacto',
+            'ruc' => 'RUC (solo para empresas)',
             'year' => 'Año actual',
         ];
     }
@@ -43,20 +45,27 @@ class MessageContactNotification extends Notification
 
     public function toMail($notifiable)
     {
-        $template = \App\Models\General::where('correlative', 'message_contact_email')->first();
+        $template = \App\Models\General::where('correlative', 'admin_contact_notification_email')->first();
         $body = $template
             ? \App\Helpers\Text::replaceData($template->description, [
                 'nombre' => $this->message->name,
                 'email' => $this->message->email,
-                'telefono' => $this->message->phone ?? $this->message->subject ?? 'No especificado',
+                'telefono' => $this->message->phone ?? 'No especificado',
+                'tipo_contacto' => $this->message->contact_type ?? 'No especificado',
+                'asunto' => $this->message->subject,
                 'descripcion' => $this->message->description,
+                'ruc' => $this->message->ruc ?? 'No especificado',
                 'year' => date('Y'),
                 'fecha_contacto' => $this->message->created_at
                     ? $this->message->created_at->translatedFormat('d \d\e F \d\e\l Y')
                     : '',
             ])
             : 'Plantilla no encontrada';
-        
-        return (new RawHtmlMail($body, 'Gracias por contactarnos - ' . $this->message->name, $this->recipientEmail));
+
+        return (new RawHtmlMail(
+            $body, 
+            'Nuevo mensaje de contacto - ' . $this->message->name, 
+            $this->recipientEmail
+        ));
     }
 }

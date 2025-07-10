@@ -231,13 +231,6 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_MessagesRest-CTxTSBn-.js": {
-    "file": "assets/MessagesRest-CTxTSBn-.js",
-    "name": "MessagesRest",
-    "imports": [
-      "resources/js/components/Blog/Results.jsx"
-    ]
-  },
   "_MessagesRest-ySlFG0Jr.js": {
     "file": "assets/MessagesRest-ySlFG0Jr.js",
     "name": "MessagesRest",
@@ -1391,7 +1384,7 @@
     ]
   },
   "resources/js/Admin/Generals.jsx": {
-    "file": "assets/Generals-DNfabTkx.js",
+    "file": "assets/Generals-byroJtG2.js",
     "name": "Generals",
     "src": "resources/js/Admin/Generals.jsx",
     "isEntry": true,
@@ -1740,7 +1733,7 @@
     ]
   },
   "resources/js/Admin/Messages.jsx": {
-    "file": "assets/Messages-CjQGxibR.js",
+    "file": "assets/Messages-CEBu4QHH.js",
     "name": "Messages",
     "src": "resources/js/Admin/Messages.jsx",
     "isEntry": true,
@@ -1753,7 +1746,7 @@
       "_Table-CyG7yWBs.js",
       "_DxButton-CsjWvhyj.js",
       "_ReactAppend-DPXaoPQG.js",
-      "_MessagesRest-CTxTSBn-.js",
+      "resources/js/components/Blog/Results.jsx",
       "_Modal-IE2ysmSM.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "_index-CXU7o9CY.js",
@@ -1764,8 +1757,7 @@
       "_index.esm-zkRd-kwu.js",
       "_axios-B4uVmeYG.js",
       "_useTranslation-CZbMeh78.js",
-      "resources/js/components/Blog/Filter.jsx",
-      "resources/js/components/Blog/Results.jsx"
+      "resources/js/components/Blog/Filter.jsx"
     ],
     "css": [
       "tippy.css",
@@ -2776,7 +2768,7 @@
     ]
   },
   "resources/js/Contacto.jsx": {
-    "file": "assets/Contacto-COJbOPVZ.js",
+    "file": "assets/Contacto-Cy1C1PkN.js",
     "name": "Contacto",
     "src": "resources/js/Contacto.jsx",
     "isEntry": true,
@@ -3265,7 +3257,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-BaIrgdsk.js",
+    "file": "assets/HomeEmpresa-BmwuqcFt.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3295,7 +3287,7 @@
       "_navigation-Ctv9exgr.js",
       "_pagination-qz-hCLaO.js",
       "_sweetalert2.all-DJo0UVK6.js",
-      "_MessagesRest-CTxTSBn-.js",
+      "_MessagesRest-ySlFG0Jr.js",
       "_index-CXU7o9CY.js",
       "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js",
@@ -4318,7 +4310,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -4338,7 +4330,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -5857,20 +5849,22 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-Dwtff5Cv.js",
+    "file": "assets/Fragrance-CWZ5d7UB.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js"
+      "_tippy-react.esm-DYFqe69e.js",
+      "_index-RYns6xqu.js",
+      "_index-CXU7o9CY.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
-    "file": "assets/HairGoals-Dwtff5Cv.js",
+    "file": "assets/HairGoals-nPfRvZqW.js",
     "name": "HairGoals",
     "src": "resources/js/components/Test/HairGoals.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5890,10 +5884,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6021,7 +6015,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -6041,7 +6035,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,

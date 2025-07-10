@@ -303,9 +303,11 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
 
         const request = {
             name: nameRef.current.value + ' ' + lastnameRef.current.value,
-            subject: phoneRef.current.value,
+            phone: phoneRef.current.value,
             email: emailRef.current.value,
             description: descriptionRef.current.value,
+            contact_type: 'persona natural',
+            subject: 'Contacto desde formulario',
 
         }
 

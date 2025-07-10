@@ -31,7 +31,7 @@ export default function IndicadoresSecctionEmpresa({ indicators }) {
 
                             </div>
                             <div className="text-4xl md:text-[56px] font-semibold text-neutral-dark mb-2">
-                                <TextWithHighlight text={`${indicator.name}`} color="bg-constrast" />
+                                <TextWithHighlight text={`${indicator.name}`} color="bg-constrast" counter/>
                                </div>
                             <div className="text-neutral-dark ">
                                 <TextWithHighlight text={`${indicator.description}`} color="bg-neutral-light font-semibold" />

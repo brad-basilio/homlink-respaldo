@@ -39,6 +39,8 @@ const Generals = ({ generals }) => {
             reset_password_email: "password_reset",
             subscription_email: "subscription",
             verify_account_email: "verify_account",
+            message_contact_email: "message_contact",
+            admin_contact_notification_email: "admin_contact_notification",
         };
         const type = correlativeToType[selectedEmailCorrelative];
         if (!type) {
@@ -110,6 +112,9 @@ const Generals = ({ generals }) => {
         copyright:
             generals.find((x) => x.correlative == "copyright")?.description ?? 
             "Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957",
+        emailCoorporativo:
+            generals.find((x) => x.correlative == "email_coorporativo")
+                ?.description ?? "",
         location: {
             lat: Number(location.split(",").map((x) => x.trim())[0]),
             lng: Number(location.split(",").map((x) => x.trim())[1]),
@@ -238,6 +243,11 @@ const Generals = ({ generals }) => {
                     correlative: "copyright",
                     name: "Texto de Copyright",
                     description: formData.copyright,
+                },
+                {
+                    correlative: "email_coorporativo",
+                    name: "Email Corporativo",
+                    description: formData.emailCoorporativo,
                 },
                 {
                     correlative: "location",
@@ -602,6 +612,31 @@ const Generals = ({ generals }) => {
                                 Este texto aparecerá en el footer del sitio web.
                             </small>
                         </div>
+                        
+                        <div className="mb-3">
+                            <label
+                                htmlFor="emailCoorporativo"
+                                className="form-label"
+                            >
+                                Email Corporativo
+                            </label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                id="emailCoorporativo"
+                                value={formData.emailCoorporativo}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        emailCoorporativo: e.target.value,
+                                    })
+                                }
+                                placeholder="admin@cambiafx.com"
+                            />
+                            <small className="form-text text-muted">
+                                Email donde se enviarán las notificaciones de nuevos contactos.
+                            </small>
+                        </div>
                     </div>
 
                     <div
@@ -644,6 +679,23 @@ const Generals = ({ generals }) => {
                                     })
                                 }
                             />
+                        </div>
+                        <div className="mb-3">
+                            <InputFormGroup
+                                label="Email Corporativo (para notificaciones)"
+                                type="email"
+                                value={formData.emailCoorporativo ?? ""}
+                                onChange={(e) =>
+                                    setFormData({
+                                        ...formData,
+                                        emailCoorporativo: e.target.value,
+                                    })
+                                }
+                                placeholder="admin@empresa.com"
+                            />
+                            <small className="form-text text-muted">
+                                Este email recibirá las notificaciones de nuevos mensajes de contacto.
+                            </small>
                         </div>
                     </div>
 
