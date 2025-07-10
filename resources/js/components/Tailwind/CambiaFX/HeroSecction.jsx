@@ -105,10 +105,10 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
             </motion.div>
 
             {/* Contenido principal */}
-            <div className="relative z-10 mx-auto px-[5%] flex gap-10 items-center">
+            <div className="relative z-10 mx-auto px-[5%] flex flex-col lg:flex-row gap-10 items-center">
                 {/* Izquierda: Texto principal */}
                 <motion.div 
-                    className='w-7/12'
+                    className='lg:w-7/12'
                     variants={itemVariants}
                 >
                     <motion.p
@@ -133,21 +133,21 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                         </span>
                     </motion.h1>
                     <motion.p
-                        className="text-lg text-neutral-light mb-6 max-w-lg"
+                        className="text-lg text-neutral-light lg:mb-6 max-w-lg"
                         variants={textVariants}
                         transition={{ delay: 0.4 }}
                     >
                         {data?.description || ""}
                     </motion.p>
                     <motion.div 
-                        className='flex gap-12 h-[300px] mt-20 relative'
+                        className='flex flex-col lg:flex-row gap-12 h-[300px] lg:mt-20 relative'
                         variants={itemVariants}
                         transition={{ delay: 0.6 }}
                     >
                         <motion.img
                             src={`/api/landing_home/media/${data?.image}`}
                             alt={data?.title}
-                            className="w-auto h-[400px] absolute top-4"
+                            className="hidden lg:block w-auto h-[400px] absolute top-4"
                             onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
                             variants={imageVariants}
                             whileHover={{ 
@@ -157,11 +157,11 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                 transition: { duration: 0.4, ease: "easeOut" }
                             }}
                         />
-                        <div className='w-4/12 relative'>
+                        <div className='lg:w-4/12 relative'>
                             {/* ... */}
                         </div>
                         <motion.div 
-                            className="w-8/12 flex flex-col items-start gap-4 mb-8"
+                            className="w-full lg:w-8/12 flex flex-col items-start gap-4 mb-8"
                             variants={itemVariants}
                             transition={{ delay: 0.8 }}
                         >
@@ -177,8 +177,10 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                 >
                                     ¡Descarga nuestra app!
                                 </motion.span>
+                                
+                                {/* Desktop version - Mantener original */}
                                 <motion.div 
-                                    className="flex gap-2 mt-4"
+                                    className="hidden lg:flex gap-4 mt-4"
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 1.1, duration: 0.6 }}
@@ -212,6 +214,66 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                             />
                                         </motion.a>
                                     ))}
+                                </motion.div>
+
+                                {/* Mobile version - Swiper horizontal */}
+                                <motion.div 
+                                    className="flex lg:hidden mt-4 w-full"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 1.1, duration: 0.6 }}
+                                >
+                                    <div className="relative w-full">
+                                        <div 
+                                            className="flex gap-4 overflow-x-auto pb-2 px-1 scrollbar-hide"
+                                            style={{
+                                                scrollbarWidth: 'none',
+                                                msOverflowStyle: 'none',
+                                                WebkitOverflowScrolling: 'touch'
+                                            }}
+                                        >
+                                            {apps?.map((app, index) => (
+                                                <motion.a
+                                                    href={app?.link}
+                                                    key={index}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex-shrink-0"
+                                                    initial={{ opacity: 0, scale: 0.8, x: 50 }}
+                                                    animate={{ opacity: 1, scale: 1, x: 0 }}
+                                                    transition={{ 
+                                                        delay: 1.2 + index * 0.1, 
+                                                        duration: 0.5,
+                                                        type: "spring",
+                                                        stiffness: 200
+                                                    }}
+                                                    whileHover={{ 
+                                                        scale: 1.05, 
+                                                        y: -2,
+                                                        transition: { duration: 0.2 }
+                                                    }}
+                                                    whileTap={{ scale: 0.96 }}
+                                                >
+                                                    <motion.div
+                                                        className="  transition-shadow duration-300"
+                                                        whileHover={{
+                                                            boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+                                                            y: -2
+                                                        }}
+                                                    >
+                                                        <motion.img
+                                                            src={`/api/app/media/${app?.image}`}
+                                                            alt={app?.name}
+                                                            className="h-14 w-auto"
+                                                            onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                                                        />
+                                                    </motion.div>
+                                                </motion.a>
+                                            ))}
+                                        </div>
+                                        
+                                     
+                                    </div>
                                 </motion.div>
                             </motion.div>
                             <motion.div
@@ -267,7 +329,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                 </motion.div>
                 {/* Derecha: Card de cambio */}
                 <motion.div
-                    className='flex justify-end w-5/12'
+                    className='flex justify-end lg:w-5/12'
                     variants={itemVariants}
                     transition={{ delay: 1.8 }}
                     whileHover={{ 
@@ -286,5 +348,23 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
             </div>
         </motion.section>
     )
+}
+
+// Agregar estilos CSS para el swiper móvil
+const styles = `
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+`;
+
+// Inyectar estilos
+if (typeof document !== 'undefined') {
+    const styleSheet = document.createElement("style");
+    styleSheet.innerText = styles;
+    document.head.appendChild(styleSheet);
 }
 

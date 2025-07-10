@@ -26,7 +26,7 @@ export default function PrimeraOperacionSection({ banner }) {
             <div className=" mx-auto px-4">
                 {/* Banner central */}
                 <motion.div
-                    className="bg-[#C6FF6B] px-16 py-2 rounded-2xl flex flex-col md:flex-row items-center justify-between   relative "
+                    className="bg-[#C6FF6B] p-4  lg:px-16 lg:py-2 rounded-2xl flex flex-col md:flex-row items-center justify-between   relative overflow-hidden  lg:overflow-visible "
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -34,14 +34,14 @@ export default function PrimeraOperacionSection({ banner }) {
                 >
                     {/* Texto y promo */}
                     <motion.div
-                        className="flex-1 flex flex-col justify-center "
+                        className="flex-1 flex flex-col justify-center z-[999]"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7, delay: 0.1 }}
                     >
                         <motion.h2
-                            className="text-[36px]  max-w-md font-semibold leading-[1.1] text-text-neutral-light mb-2"
+                            className=" text-3xl lg:text-[36px]  max-w-md font-semibold leading-[1.1] text-text-neutral-light mb-2"
                             initial={{ opacity: 0, y: -20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
@@ -60,7 +60,7 @@ export default function PrimeraOperacionSection({ banner }) {
                         </motion.p>
                     </motion.div>
                     <motion.div
-                        className=" absolute bottom-0 right-16 "
+                        className="hidden lg:block absolute bottom-0 right-16 "
                        
                     >
                         <img src="/assets/cambiafx/operation-overlay.png" alt="Teléfono móvil" className=" h-[170px] w-auto z-10 relative" />
@@ -79,7 +79,7 @@ export default function PrimeraOperacionSection({ banner }) {
                     </motion.div>
                     {/* Botón promo */}
                     <motion.div
-                        className="flex-1 z-[999] flex justify-end items-center md:py-12 w-full md:w-auto"
+                        className="flex-1 z-[999] flex mt-4 lg:mt-0 lg:justify-end items-center md:py-12 w-full md:w-auto"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
@@ -106,7 +106,7 @@ export default function PrimeraOperacionSection({ banner }) {
                 </motion.div>
 
                 {/* Bloques de transferencias */}
-                <div className="flex flex-col md:flex-row justify-between items-end gap-8 mt-10">
+                <div className="flex flex-col md:flex-row justify-between lg:items-end gap-8 mt-10">
                     {/* Izquierda */}
                     <motion.div
                         className="flex flex-col md:flex-row items-center gap-6 md:gap-10"

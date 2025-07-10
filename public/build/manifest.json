@@ -127,15 +127,16 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-cqB4Jnq2.js": {
-    "file": "assets/FuncionSection-cqB4Jnq2.js",
+  "_FuncionSection-DvFyDmDV.js": {
+    "file": "assets/FuncionSection-DvFyDmDV.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_WhatsAppButton-Cs43liLs.js",
-      "_proxy-Dg7W2VMC.js"
+      "_proxy-Dg7W2VMC.js",
+      "_ExchangeCard-UP42XfNP.js"
     ]
   },
   "_Header-CBDTXKJB.js": {
@@ -3202,7 +3203,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-BVyuejGO.js",
+    "file": "assets/Home-B-EjpYDm.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3225,11 +3226,10 @@
       "_ModalAppointment-CwkQEQRH.js",
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
+      "_FuncionSection-DvFyDmDV.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_ExchangeCard-UP42XfNP.js",
-      "_proxy-Dg7W2VMC.js",
-      "_FuncionSection-cqB4Jnq2.js",
       "_autoplay-4A66pv6C.js",
+      "_proxy-Dg7W2VMC.js",
       "_EmpresasSection-CMNzQRw1.js",
       "_CintilloSection-B799537a.js",
       "_index-CXU7o9CY.js",
@@ -3244,7 +3244,8 @@
       "_AppointmentsRest-qLh4Dh2j.js",
       "_chevron-down-DEuKezfs.js",
       "_WhatsAppButton-Cs43liLs.js",
-      "_phone-B_ERI8hO.js"
+      "_phone-B_ERI8hO.js",
+      "_ExchangeCard-UP42XfNP.js"
     ],
     "css": [
       "swiper.css",
@@ -3252,7 +3253,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-ItHSZQF5.js",
+    "file": "assets/HomeEmpresa-DAd--R2j.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3274,7 +3275,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-CwkQEQRH.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-cqB4Jnq2.js",
+      "_FuncionSection-DvFyDmDV.js",
       "_CintilloSection-B799537a.js",
       "_ExchangeCard-UP42XfNP.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
@@ -4223,7 +4224,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4311,7 +4312,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4321,7 +4322,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4914,7 +4915,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5159,7 +5160,7 @@
     ]
   },
   "resources/js/components/Tailwind/CambiaFX/HeroSecction.jsx": {
-    "file": "assets/HeroSecction-B4hXxCV_.js",
+    "file": "assets/HeroSecction-Bb09mnGQ.js",
     "name": "HeroSecction",
     "src": "resources/js/components/Tailwind/CambiaFX/HeroSecction.jsx",
     "isEntry": true,
@@ -5839,10 +5840,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-BzSP4Kvf.js",
+    "file": "assets/HairType-Chu0TyCG.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5862,10 +5863,10 @@
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-CnD_D-a9.js",
+    "file": "assets/ScalpType-Chu0TyCG.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5993,7 +5994,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -6003,7 +6004,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
