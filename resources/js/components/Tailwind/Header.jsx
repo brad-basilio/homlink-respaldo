@@ -328,7 +328,7 @@ const Header = ({
             <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight} z-[9999]`}>
                 {/* CINTILLO INICIO */}
                 <div className="bg-accent relative  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
-                    <div className="absolute top-0 -left-4 flex justify-end w-full h-full z-[9999] pointer-events-none">
+                    <div className="absolute top-0 -left-4 flex justify-end w-full h-full   lg:z-[9999] pointer-events-none">
                         <img
                             src={`/assets/cambiafx/cintillo-overlay.png`}
                             alt="overlay Image"
@@ -736,7 +736,7 @@ const Header = ({
                                 style={{ zIndex: 99999 }}
                             >
                                 {/* Header del menú */}
-                                <div className="bg-gradient-to-r from-primary to-constrast p-6 text-white">
+                                <div className="bg-gradient-to-r from-accent to-constrast p-6 text-white">
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <h3 className="text-lg font-semibold">Navegación</h3>
@@ -765,20 +765,20 @@ const Header = ({
                                         style={{ opacity: 1, visibility: 'visible' }}
                                     >
                                         {[
+                                            
+                                
+                                
                                             { path: "/nosotros", color: "bg-white" },
-                                            { path: "#services", color: "bg-white", hasSubmenu: true },
-                                            { path: "/casos-de-exito", color: "bg-white" },
-                                            { path: "/blog", color: "bg-white" },
-                                            { path: "/infoproductos", color: "bg-white" },
+                                            { path: "/services", color: "bg-white" },
                                             { path: "/contacto", color: "bg-white" },
+                                            { path: "/blog", color: "bg-white" },
+                                          
                                         ].map((item, index) => {
                                             const text = {
                                                 "/nosotros": t("public.header.home", "Nosotros"),
-                                                "#services": t("public.header.services", "Servicios"),
-                                                "/casos-de-exito": t("public.header.solutions", "Casos de éxito"),
-                                                "/blog": t("public.header.options", "Blog"),
-                                                "/infoproductos": t("public.header.infoproducts", "Infoproductos"),
+                                                "/services": t("public.header.services", "Servicios"),
                                                 "/contacto": t("public.header.contact", "Contacto"),
+                                                "/blog": t("public.header.options", "Blog"),
                                             }[item.path];
 
                                             return (
@@ -896,46 +896,103 @@ const Header = ({
                                     </motion.ul>
 
                                     {/* CTA Button */}
-                                    <motion.div
-                                        variants={itemVariants}
-                                        initial="hidden"
-                                        animate="visible"
-                                        className="mt-6 pt-6 border-t border-gray-200"
-                                        style={{ opacity: 1, visibility: 'visible' }}
+                                        <motion.div
+                            variants={itemVariants}
+                            className=" flex flex-col gap-4 mt-8 w-full"
+                        >
+                           
+                            <motion.a 
+                            href="https://mi.cambiafx.pe/registro" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                whileHover={{ 
+                                    scale: 1.06,
+                                    y: -2,
+                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                }}
+                                whileTap={{ 
+                                    scale: 0.95,
+                                    y: 0
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 17
+                                }}
+                                className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                            >
+                                <span className="relative z-10">
+                                    ¿Eres nuevo? registrate
+                                </span>
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
+                                    transition={{ duration: 0.3 }}
+                                />
+                            </motion.a>
+                            <motion.a 
+                                href="https://mi.cambiafx.pe/login" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                whileHover={{ 
+                                    scale: 1.06,
+                                    y: -2,
+                                    boxShadow: "0 10px 25px rgba(187, 255, 82, 0.3)"
+                                }}
+                                whileTap={{ 
+                                    scale: 0.95,
+                                    y: 0
+                                }}
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 400,
+                                    damping: 17
+                                }}
+                                className="py-3 px-4 flex items-center justify-center bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full relative overflow-hidden group"
+                            >
+                                <span className="relative z-10 flex items-center gap-2">
+                                    iniciar operación
+                                    <motion.svg 
+                                        width="16" 
+                                        height="16" 
+                                        viewBox="0 0 24 24" 
+                                        fill="none" 
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-4 h-4"
+                                        animate={{
+                                            rotate: [0, 360]
+                                        }}
+                                        transition={{
+                                            rotate: { duration: 8, repeat: Infinity, ease: "linear" }
+                                        }}
                                     >
-                                        <WhatsAppButtonWithArrow
-                                            variant="accent"
-                                            size="large"
-                                            className="w-full bg-accent"
-                                        >
-                                            Reserva una consulta
-                                        </WhatsAppButtonWithArrow>
-                                    </motion.div>
+                                        <path 
+                                            d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2" 
+                                            strokeLinecap="round"
+                                        />
+                                        <circle 
+                                            cx="12" 
+                                            cy="12" 
+                                            r="3" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2"
+                                        />
+                                        <path 
+                                            d="M12 9C10.34 9 9 10.34 9 12S10.34 15 12 15" 
+                                            stroke="currentColor" 
+                                            strokeWidth="2"
+                                        />
+                                    </motion.svg>
+                                </span>
+                                <motion.div
+                                    className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-primary/90 opacity-0 group-hover:opacity-100"
+                                    transition={{ duration: 0.3 }}
+                                />
+                            </motion.a>
+                        </motion.div>
 
-                                    {/* Info adicional */}
-                                    <motion.div
-                                        variants={itemVariants}
-                                        initial="hidden"
-                                        animate="visible"
-                                        className="mt-4 text-center"
-                                        style={{ opacity: 1, visibility: 'visible' }}
-                                    >
-                                        <p className="text-sm text-gray-500">
-                                            ¿Necesitas ayuda? Contáctanos
-                                        </p>
-                                        <div className="flex items-center justify-center space-x-4 mt-2">
-                                            {ContactEmail && (
-                                                <a href={`mailto:${ContactEmail.description}`} className="text-xs text-primary hover:underline">
-                                                    {ContactEmail.description}
-                                                </a>
-                                            )}
-                                            {ContactNumber && (
-                                                <a href={`tel:${ContactNumber.description}`} className="text-xs text-primary hover:underline">
-                                                    {ContactNumber.description}
-                                                </a>
-                                            )}
-                                        </div>
-                                    </motion.div>
+                               
                                 </div>
                             </motion.div>
                         </>

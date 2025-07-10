@@ -405,11 +405,11 @@ const ExchangeCard = ({
     });
 
     return (
-        <div className={`bg-secondary z-[99999] rounded-3xl p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>
+        <div className={`bg-secondary z-[99999] rounded-2xl  lg:rounded-3xl p-4  lg:p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
                 <div>
-                    <h2 className="text-[28px] leading-[94%] font-base text-neutral-light">
+                    <h2 className=" text-2xl lg:text-[28px] leading-[94%] font-base text-neutral-light">
                         {title.includes('cambio') ? (
                             <>
                                 {title.split('cambio')[0]}
@@ -421,9 +421,9 @@ const ExchangeCard = ({
                         )}
                     </h2>
                 </div>
-                <div className="min-w-max text-sm font-medium text-neutral-light flex items-center gap-1">
+                <div className="min-w-max  text-[10px] lg:text-sm font-medium text-neutral-light flex items-center gap-1">
                     Registrados en la SBS
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className='w-4 h-4 lg:w-6 lg:h-6' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.8825 15L17.5527 18.2099C17.9833 20.2723 18.1986 21.3035 17.7563 21.7923C17.3141 22.281 16.546 21.8606 15.0099 21.0198L12.7364 19.7753C12.3734 19.5766 12.1919 19.4773 12 19.4773C11.8081 19.4773 11.6266 19.5766 11.2636 19.7753L8.99008 21.0198C7.45397 21.8606 6.68592 22.281 6.24365 21.7923C5.80139 21.3035 6.01669 20.2723 6.44731 18.2099L7.11752 15" stroke="#212121" strokeWidth="1.5" strokeLinejoin="round" />
                         <path d="M4.5 9.5C4.5 13.6421 7.85786 17 12 17C16.1421 17 19.5 13.6421 19.5 9.5C19.5 5.35786 16.1421 2 12 2C7.85786 2 4.5 5.35786 4.5 9.5Z" stroke="#212121" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M9 10.1667C9 10.1667 9.75 10.1667 10.5 11.5C10.5 11.5 12.8824 8.16667 15 7.5" stroke="#212121" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

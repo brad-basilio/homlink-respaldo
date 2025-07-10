@@ -141,7 +141,7 @@ const Toast = ({ show, message }) => {
 const BannerArticle = ({ banner }) => {
    return (
        <motion.div 
-           className="bg-[#C6FF6B] px-16 py-2 rounded-2xl flex flex-col md:flex-row items-center justify-between relative"
+           className="bg-[#C6FF6B] px-4 py-4  lg:px-16 lg:py-2 rounded-2xl flex flex-col md:flex-row items-center justify-between relative overflow-hidden lg:overflow-visible"
            initial={{ opacity: 0, scale: 0.95, y: 20 }}
            whileInView={{ opacity: 1, scale: 1, y: 0 }}
            transition={{ duration: 0.8, ease: "easeOut" }}
@@ -150,14 +150,14 @@ const BannerArticle = ({ banner }) => {
        >
                 {/* Texto y promo */}
                 <motion.div 
-                    className="flex-1 flex flex-col justify-center"
+                    className="flex-1 flex flex-col justify-center z-[999]"
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                     viewport={{ once: true }}
                 >
                     <motion.h2 
-                        className="text-[36px] max-w-md font-semibold leading-[1.1] text-text-neutral-light mb-2"
+                        className=" text-3xl lg:text-[36px] max-w-md font-semibold leading-[1.1] text-text-neutral-light mb-2"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
@@ -177,7 +177,7 @@ const BannerArticle = ({ banner }) => {
                 </motion.div>
 
                 <motion.div 
-                    className="absolute bottom-0 right-16"
+                    className="hidden lg:block absolute !w-full h-full right-0 bottom-0 lg:right-16"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
@@ -186,7 +186,7 @@ const BannerArticle = ({ banner }) => {
                     <motion.img 
                         src="/assets/cambiafx/operation-overlay.png" 
                         alt="Teléfono móvil" 
-                        className="h-[170px] w-auto z-10 relative"
+                        className="w-full h-full  lg:h-[170px] lg:w-auto z-10 relative"
                        
                     />
                 </motion.div>
@@ -210,7 +210,7 @@ const BannerArticle = ({ banner }) => {
 
                 {/* Botón promo */}
                 <motion.div 
-                    className="flex-1 z-[999] flex justify-end items-center md:py-12 w-full md:w-auto"
+                    className="lg:flex-1 z-[999] flex mt-4  lg:mt-0  lg:justify-end items-center md:py-12 w-full md:w-auto"
                     initial={{ opacity: 0, x: 30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, delay: 0.5 }}
@@ -446,7 +446,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                     </motion.div>
 
                     <motion.div 
-                        className="flex gap-8 mb-12"
+                        className="flex flex-col lg:flex-row gap-8 mb-12"
                         variants={staggerContainer}
                     >
                         <motion.div
@@ -486,7 +486,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                         </motion.div>
                         
                         <motion.div 
-                            className="min-w-max"
+                            className="w-full  lg:min-w-max"
                             variants={fadeInRight}
                         >
                             <motion.div
