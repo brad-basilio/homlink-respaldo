@@ -254,8 +254,9 @@ const EmpresasSection = ({ banner_slider }) => {
                     >
                         {/* MOBILE LAYOUT - Reorganización para móvil */}
                        
-    {/* Imagen arriba en móvil */}
-                        <motion.div 
+    {/* Imagen arriba en móvil 
+    
+    <motion.div 
                             className="md:hidden relative  z-10 w-full flex justify-center items-center  "
                             variants={imageVariants}
                             initial="hidden"
@@ -269,6 +270,8 @@ const EmpresasSection = ({ banner_slider }) => {
                                 onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
                             />
                         </motion.div>
+    */}
+                        
                         {/* Título y descripción en móvil */}
                         <motion.div 
                             className="md:hidden z-10 w-full text-center mb-6 order-2 px-2"

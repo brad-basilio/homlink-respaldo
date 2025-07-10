@@ -1,4 +1,4 @@
-import"./RequirementCard-DEdD30eg.js";import"./CuponesSection-Bi6-f3NH.js";/* empty css               */import"./MoreServiceSection-B_Ka8eIB.js";import"./Strengths-LTWKrnhl.js";import"./index-RYns6xqu.js";const i=`
+import"./RequirementCard-DEdD30eg.js";import"./CuponesSection-Bi6-f3NH.js";/* empty css               */import"./CarruselBrands-JI-zi5RK.js";import"./Strengths-LTWKrnhl.js";import"./index-RYns6xqu.js";const i=`
   .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;

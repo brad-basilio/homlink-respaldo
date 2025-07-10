@@ -6,7 +6,7 @@ import EmpresasSection from './EmpresasSection';
 
 function HeroServiceSection({service,banner_slider}) {
  
-  console.log(banner_slider)
+
 
   // Variantes de animación creativas
   const containerVariants = {
@@ -145,7 +145,7 @@ function HeroServiceSection({service,banner_slider}) {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <motion.span 
-                className="text-constrast text-sm font-medium tracking-[8%] uppercase"
+                className=" text-neutral-dark lg:text-constrast text-sm font-medium tracking-[8%] uppercase"
                 animate={{
                   opacity: [0.7, 1, 0.7]
                 }}

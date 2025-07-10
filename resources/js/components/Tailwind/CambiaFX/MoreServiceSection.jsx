@@ -1,7 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import { useEffect, useRef, useState } from "react";
 import { adjustTextColor } from "../../../Functions/adjustTextColor";
 import { Autoplay } from "swiper/modules";
@@ -9,11 +10,85 @@ import TextWithHighlight from "../../../Utils/TextWithHighlight";
 import { Layers, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// Estilos CSS para line-clamp y Swiper móvil
+const lineClampStyles = `
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Estilos optimizados para el Swiper móvil */
+  .mobile-service-swiper {
+    padding-bottom: 30px !important;
+  }
+  
+  .mobile-service-swiper .swiper-slide {
+    transition: all 0.3s ease;
+    height: auto !important;
+    max-width: 90% !important;
+  }
+  
+  .mobile-service-swiper .swiper-pagination {
+    bottom: 0 !important;
+  }
+  
+  .mobile-service-swiper .swiper-pagination-bullet {
+    background-color: #7E5AFB;
+    opacity: 0.5;
+    width: 8px;
+    height: 8px;
+  }
+  
+  .mobile-service-swiper .swiper-pagination-bullet-active {
+    background-color: #7E5AFB;
+    opacity: 1;
+  }
+`;
+
+// Inyectar estilos
+if (typeof document !== 'undefined' && !document.getElementById('more-service-styles')) {
+    const style = document.createElement('style');
+    style.id = 'more-service-styles';
+    style.textContent = lineClampStyles;
+    document.head.appendChild(style);
+}
+
 const MoreServiceSection = ({ service,items, data }) => {
 
     const swiperRef = useRef(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [maxHeight, setMaxHeight] = useState(0);
+    // Detección de mobile
+    const [isMobile, setIsMobile] = useState(false);
+    
+    // Efecto para detectar si es mobile
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        // Verificar inicialmente y cada vez que cambia el tamaño de ventana
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
+    }, []);
 
     // Variantes de animación creativas
     const containerVariants = {
@@ -137,7 +212,7 @@ const MoreServiceSection = ({ service,items, data }) => {
             variants={containerVariants}
         >
             <motion.div 
-                className="bg-primary relative"
+                className={`bg-primary relative ${isMobile ? 'pb-10' : ''}`}
                 variants={containerVariants}
             >
                 <motion.div 
@@ -163,6 +238,8 @@ const MoreServiceSection = ({ service,items, data }) => {
                 </motion.div>
 
                 <div className="mx-auto px-[5%] 2xl:pl-[5%]">
+                    {/* VERSIÓN DESKTOP */}
+                    {!isMobile && (
                     <motion.div 
                         className="relative flex flex-col lg:flex-row items-center justify-center"
                         variants={containerVariants}
@@ -410,6 +487,71 @@ const MoreServiceSection = ({ service,items, data }) => {
                             </motion.div>
                         </motion.div>
                     </motion.div>
+                    )}
+                    
+                    {/* VERSIÓN MOBILE - OPTIMIZADA */}
+                    {isMobile && (
+                        <div className="relative pt-16">
+                            {/* Título para versión mobile */}
+                            <div className="text-center mb-5 px-4">
+                                <h3 className="uppercase text-neutral-dark text-xs font-medium mb-2">
+                                    {service?.name}
+                                </h3>
+                                
+                                <h2 className="text-3xl font-medium mb-3">
+                                    <TextWithHighlight text={service?.title} color="bg-neutral-dark font-semibold" />
+                                </h2>
+                                
+                                <p className="text-neutral-light text-sm leading-relaxed mb-6 px-2">
+                                    {service?.description}
+                                </p>
+                            </div>
+                            
+                            {/* Swiper mobile simplificado */}
+                            <div className="w-full pb-6">
+                                <Swiper
+                                    modules={[Autoplay, Pagination]}
+                                    autoplay={{
+                                        delay: 3000,
+                                        disableOnInteraction: false,
+                                    }}
+                                    pagination={{
+                                        clickable: true
+                                    }}
+                                    loop={true}
+                                    spaceBetween={12}
+                                    slidesPerView={1.3}
+                                    centeredSlides={false}
+                                    className="mobile-service-swiper"
+                                >
+                                    {service?.benefits.map((value, index) => (
+                                        <SwiperSlide key={index} className="!h-auto">
+                                            <div className="bg-secondary w-full !h-[180px] rounded-xl p-4 flex flex-col shadow-md">
+                                                {/* Icono */}
+                                                <div className="bg-constrast rounded-full p-2 mb-3 w-fit">
+                                                    <img
+                                                        src={`/api/service/media/${value?.image}`}
+                                                        alt={value?.title}
+                                                        className="w-5 h-5 object-cover"
+                                                    />
+                                                </div>
+                                                
+                                                {/* Título */}
+                                                <h3 className="text-neutral-dark text-base font-semibold mb-2 line-clamp-2">
+                                                    {value?.title}
+                                                </h3>
+                                                
+                                                {/* Descripción */}
+                                                <p className="text-neutral-light text-xs line-clamp-3 mb-0">
+                                                    {value?.description}
+                                                </p>
+                                            </div>
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </motion.div>
         </motion.div>

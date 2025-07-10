@@ -74,16 +74,16 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                             viewport={{ once: true, margin: "-100px" }}
                         >
                             <motion.div 
-                                className="relative w-full px-16 rounded-[56px] bg-constrast flex flex-col md:flex-row items-center py-10 max-h-[350px]"
+                                className="relative w-full px-4 md:px-16 rounded-[32px] md:rounded-[56px] bg-constrast flex flex-col md:flex-row items-center py-6 md:py-10 max-h-none md:max-h-[350px] overflow-hidden lg:overflow-visible"
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.4 }}
                                 viewport={{ once: true }}
                                 whileHover={{ scale: 1.02 }}
                             >
-                                {/* Fondo decorativo */}
+                                {/* Fondo decorativo - Solo desktop */}
                                 <motion.div 
-                                    className="absolute h-full w-auto right-0 z-0 overflow-hidden rounded-[56px]"
+                                    className="hidden md:block absolute h-full w-auto right-0 z-0 overflow-hidden rounded-[56px]"
                                     initial={{ opacity: 0, x: 100 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 1, delay: 0.5 }}
@@ -148,14 +148,14 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
 
                                 {/* Columna izquierda: texto */}
                                 <motion.div 
-                                    className="flex-1 z-10 flex flex-col justify-center items-start gap-2"
+                                    className="flex-1 z-10 flex flex-col justify-center items-start gap-2 mb-4 md:mb-0"
                                     initial={{ opacity: 0, x: -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8, delay: 0.7 }}
                                     viewport={{ once: true }}
                                 >
                                     <motion.span 
-                                        className="uppercase text-white tracking-widest text-2xl font-medium mb-2"
+                                        className="uppercase text-white tracking-widest text-lg md:text-2xl font-medium mb-2"
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6, delay: 0.8 }}
@@ -164,7 +164,7 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                         {banner?.name}
                                     </motion.span>
                                     <motion.h2 
-                                        className="text-4xl md:text-5xl lg:text-[50px] font-medium leading-tight text-white mb-2"
+                                        className="text-2xl md:text-4xl lg:text-[50px] font-medium leading-tight text-white mb-2 max-w-md"
                                         initial={{ opacity: 0, y: 30 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.8, delay: 0.9 }}
@@ -174,32 +174,35 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                     </motion.h2>
                                 </motion.div>
 
-                                {/* Columna central: imagen */}
+                                {/* Imagen principal - Responsive */}
                                 <motion.div 
-                                    className="z-10 flex-1 flex justify-center items-end"
-                                    
+                                    className="absolute bottom-0 left-1/2 transform -translate-x-1/2 md:left-auto md:transform-none md:relative z-50 md:z-10 lg:relative flex-1 flex justify-center items-end"
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.8, delay: 0.3 }}
+                                    viewport={{ once: true }}
                                 >
                                     <motion.img 
                                         src={`/api/banners/media/${banner?.image}`} 
                                         alt={banner?.name} 
-                                        className="h-[350px] object-cover absolute bottom-0 select-none" 
+                                        className="w-[200px] md:w-auto h-[250px] md:h-[350px] object-cover md:absolute lg:relative md:bottom-0 select-none" 
                                         draggable="false"
-                                      
-                                       
-                                       
+                                        onError={(e) =>
+                                            (e.target.src = "/api/cover/thumbnail/null")
+                                        }
                                     />
                                 </motion.div>
 
                                 {/* Columna derecha: mensaje y WhatsApp */}
                                 <motion.div 
-                                    className="z-10 flex gap-10 items-center pr-8 justify-end min-w-[180px] md:ml-8 mt-8 md:mt-0"
+                                    className="z-[999] flex flex-col md:flex-row gap-4 md:gap-10 items-center md:pr-8 justify-center md:justify-end min-w-[180px] mt-4 md:mt-8 w-full md:w-auto"
                                     initial={{ opacity: 0, x: 50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
                                     transition={{ duration: 0.8, delay: 1.1 }}
                                     viewport={{ once: true }}
                                 >
                                     <motion.div 
-                                        className="text-white relative text-2xl text-end mb-2"
+                                        className="text-white relative text-lg md:text-2xl text-center md:text-end mb-2"
                                         initial={{ opacity: 0, y: 20 }}
                                         whileInView={{ opacity: 1, y: 0 }}
                                         transition={{ duration: 0.6, delay: 1.2 }}
@@ -233,7 +236,7 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                                     ease: "easeInOut"
                                                 }}
                                             >
-                                                <svg width="101" height="101" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg width="80" height="80" className="md:w-[101px] md:h-[101px]" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <circle cx="49.567" cy="49.567" r="49.567" transform="matrix(1 0 0 -1 0.933594 100.066)" fill="#D9D9D9" fillOpacity="0.4" />
                                                     <path d="M87.7015 50.6493C87.7015 30.021 70.979 13.2985 50.3507 13.2985C29.7225 13.2985 13 30.021 13 50.6493C13 71.2775 29.7225 88 50.3507 88C70.979 88 87.7015 71.2775 87.7015 50.6493Z" fill="#BCFF52" />
                                                     <path fillRule="evenodd" clipRule="evenodd" d="M63.8167 37.8734C60.6384 34.6951 56.4006 33 51.951 33C42.6279 33 35 40.6279 35 49.951C35 52.9174 35.8476 55.8838 37.3308 58.4265L35 66.902L43.8993 64.5712C46.4419 65.8425 49.1964 66.6901 51.951 66.6901C61.274 66.6901 68.902 59.0621 68.902 49.7391C68.902 45.2895 66.995 41.0517 63.8167 37.8734ZM51.951 63.9355C49.4083 63.9355 46.8657 63.2999 44.7468 62.0286L44.323 61.8167L39.0258 63.2999L40.5091 58.2146L40.0853 57.5789C38.6021 55.2482 37.9664 52.7055 37.9664 50.1629C37.9664 42.5349 44.323 36.1783 51.951 36.1783C55.765 36.1783 59.1552 37.6615 61.9097 40.2042C64.6642 42.9587 65.9356 46.3489 65.9356 50.1629C65.9356 57.5789 59.7908 63.9355 51.951 63.9355ZM59.5789 53.3412C59.1552 53.1293 57.0363 52.0699 56.6125 52.0699C56.1888 51.858 55.9768 51.858 55.7649 52.2817C55.553 52.7055 54.7055 53.5531 54.4937 53.9768C54.2818 54.1887 54.0698 54.1887 53.6461 54.1887C53.2223 53.9768 51.951 53.5531 50.2559 52.0699C48.9846 51.0104 48.137 49.5272 47.9251 49.1034C47.7132 48.6797 47.9251 48.4678 48.137 48.2559C48.3489 48.044 48.5608 47.8321 48.7727 47.6202C48.9846 47.4083 48.9846 47.1964 49.1965 46.9846C49.4084 46.7727 49.1965 46.5608 49.1965 46.3489C49.1965 46.137 48.3489 44.0181 47.9251 43.1706C47.7132 42.5349 47.2895 42.5349 47.0776 42.5349C46.8657 42.5349 46.6538 42.5349 46.23 42.5349C46.0181 42.5349 45.5943 42.5349 45.1706 42.9587C44.7468 43.3825 43.6874 44.4419 43.6874 46.5608C43.6874 48.6797 45.1706 50.5866 45.3825 51.0104C45.5944 51.2223 48.3489 55.6719 52.5866 57.367C56.1887 58.8502 56.8244 58.4265 57.672 58.4265C58.5195 58.4265 60.2146 57.367 60.4265 56.5195C60.8502 55.4601 60.8503 54.6125 60.6384 54.6125C60.4265 53.5531 60.0027 53.5531 59.5789 53.3412Z" fill="#222222" />

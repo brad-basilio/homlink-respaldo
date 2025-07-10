@@ -16,6 +16,66 @@ import Swal from "sweetalert2";
 import GeneralRest from "./actions/GeneralRest";
 import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
 import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+// Importaciones de Swiper para la versión móvil
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
+
+// Estilos CSS para el Swiper de apps en móvil
+const appSwiperStyles = `
+  .app-download-swiper {
+    width: 100% !important;
+    padding-bottom: 30px !important;
+    position: relative !important;
+    overflow: visible !important;
+  }
+  
+  .app-download-swiper .swiper-wrapper {
+    position: relative !important;
+    align-items: center !important;
+  }
+  
+  .app-download-swiper .swiper-slide {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: auto !important;
+  }
+  
+  .app-download-swiper .swiper-slide a {
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+  .app-download-swiper .swiper-pagination {
+    bottom: 0 !important;
+    position: relative !important;
+    margin-top: 15px !important;
+  }
+  
+  .app-download-swiper .swiper-pagination-bullet {
+    background-color: #222222 !important;
+    opacity: 0.4 !important;
+    width: 6px !important;
+    height: 6px !important;
+    margin: 0 3px !important;
+  }
+  
+  .app-download-swiper .swiper-pagination-bullet-active {
+    background-color: #222222 !important;
+    opacity: 1 !important;
+    transform: scale(1.2) !important;
+  }
+`;
+
+// Inyectar estilos del Swiper
+if (typeof document !== 'undefined' && !document.getElementById('app-swiper-styles')) {
+    const style = document.createElement('style');
+    style.id = 'app-swiper-styles';
+    style.textContent = appSwiperStyles;
+    document.head.appendChild(style);
+}
 
 // Animaciones mejoradas
 const containerVariants = {
@@ -137,6 +197,8 @@ const cardHover = {
 const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
     // Estado para controlar cuando las secciones están listas para animar
     const [sectionsReady, setSectionsReady] = useState(false);
+    // Estado para detectar si es móvil
+    const [isMobile, setIsMobile] = useState(false);
 
     // Efecto para marcar las secciones como listas después del primer render
     useEffect(() => {
@@ -146,6 +208,21 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
         }, 100);
         
         return () => clearTimeout(timer);
+    }, []);
+    
+    // Efecto para detectar si es móvil
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+        
+        // Verificar inicialmente y cada vez que cambia el tamaño de ventana
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
     }, []);
 
     const landingFormulario = landing?.find(
@@ -696,60 +773,59 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                             </motion.div>
 
 
-                            <motion.div 
-                                className="relative  w-full px-10 rounded-[56px] bg-secondary  flex flex-col md:flex-row items-center  py-10 min-h-[330px] mt-16"
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.8, delay: 0.7 }}
-                                whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-                            >
-                                {/* Fondo decorativo */}
+                            {/* Versión Desktop */}
+                            {!isMobile && (
                                 <motion.div 
-                                    className="absolute w-full h-full  right-0 left-0 bottom-0 z-0 overflow-hidden rounded-[56px] "
-                                
-                                >
-
-
-
-                                    <motion.svg 
-                                        className="w-full" width="594" height="315" viewBox="0 0 594 315" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                      
-                                    >
-                                        <motion.path 
-                                            d="M-147.68 355.4C-124.332 352.83 -90.2834 346.823 -51.955 331.329C15.4416 304.086 56.4845 263.505 84.5695 235.171C118.162 201.282 144.643 174.565 159.394 129.737C160.55 126.225 194.417 60.8935 156.7 21.3772C118.976 -18.1462 63.9491 17.6986 56.0136 78.5852C48.0781 139.472 71.91 172.287 100.769 195.167C141.703 227.622 194.435 225.044 235.103 219.599C412.543 195.829 504.016 89.5735 673.893 19.7087C764.865 -17.705 988.379 -133.776 1123.37 -75.0488" 
-                                            stroke="#719931" 
-                                            strokeOpacity="0.24" 
-                                            strokeWidth="29.8691" 
-                                            strokeMiterlimit="10"
-                                            initial={{ pathLength: 0 }}
-                                            animate={{ pathLength: 1 }}
-                                            transition={{ duration: 3, delay: 1 }}
-                                        />
-                                    </motion.svg>
-                                </motion.div>
-
-                                {/* Columna izquierda: texto */}
-                                <motion.div 
-                                    className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-2"
-                                    initial={{ opacity: 0, x: -30 }}
-                                    animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    className="relative w-full px-10 rounded-[56px] bg-secondary flex flex-col md:flex-row items-center py-10 min-h-[330px] mt-16"
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.6, delay: 0.8 }}
+                                    transition={{ duration: 0.8, delay: 0.7 }}
+                                    whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                                 >
-                                    <div>
+                                    {/* Fondo decorativo */}
+                                    <motion.div 
+                                        className="absolute w-full h-full right-0 left-0 bottom-0 z-0 overflow-hidden rounded-[56px]"
+                                    >
+                                        <motion.svg 
+                                            className="w-full" width="594" height="315" viewBox="0 0 594 315" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                            <motion.path 
+                                                d="M-147.68 355.4C-124.332 352.83 -90.2834 346.823 -51.955 331.329C15.4416 304.086 56.4845 263.505 84.5695 235.171C118.162 201.282 144.643 174.565 159.394 129.737C160.55 126.225 194.417 60.8935 156.7 21.3772C118.976 -18.1462 63.9491 17.6986 56.0136 78.5852C48.0781 139.472 71.91 172.287 100.769 195.167C141.703 227.622 194.435 225.044 235.103 219.599C412.543 195.829 504.016 89.5735 673.893 19.7087C764.865 -17.705 988.379 -133.776 1123.37 -75.0488" 
+                                                stroke="#719931" 
+                                                strokeOpacity="0.24" 
+                                                strokeWidth="29.8691" 
+                                                strokeMiterlimit="10"
+                                                initial={{ pathLength: 0 }}
+                                                animate={{ pathLength: 1 }}
+                                                transition={{ duration: 3, delay: 1 }}
+                                            />
+                                        </motion.svg>
+                                    </motion.div>
+
+                                    {/* Contenido principal */}
+                                    <motion.div 
+                                        className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-4 relative"
+                                        initial={{ opacity: 0, x: -30 }}
+                                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        transition={{ duration: 0.6, delay: 0.8 }}
+                                    >
+                                        {/* Título */}
                                         <motion.span 
-                                            className="text-lg font-medium"
+                                            className="text-lg font-medium text-neutral-dark"
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
                                             transition={{ duration: 0.5, delay: 0.9 }}
                                         >
                                             ¡Descarga nuestra app!
                                         </motion.span>
+                                        
+                                        {/* Apps desktop */}
                                         <motion.div 
-                                            className="flex gap-2 mt-4"
+                                            className="flex gap-2"
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                                             transition={{ duration: 0.6, delay: 1 }}
@@ -778,29 +854,101 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                                                 </motion.a>
                                             ))}
                                         </motion.div>
-                                    </div>
-                                </motion.div>
+                                    </motion.div>
 
-                                {/* Columna central: imagen */}
-                                <motion.img 
-                                    src={`/api/landing_home/media/${landingFormulario?.image}`} 
-                                    alt="Empresas" 
-                                    className="h-[400px] object-cover absolute bottom-0 right-0 select-none" 
-                                    draggable="false"
-                                    initial={{ opacity: 0, x: 50 }}
-                                    animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    {/* Imagen principal desktop */}
+                                    <motion.img 
+                                        src={`/api/landing_home/media/${landingFormulario?.image}`} 
+                                        alt="Empresas" 
+                                        className="h-[400px] object-cover absolute bottom-0 right-0 select-none" 
+                                        draggable="false"
+                                        initial={{ opacity: 0, x: 50 }}
+                                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true, amount: 0.2 }}
+                                        transition={{ duration: 0.8, delay: 1.1 }}
+                                        whileHover={{ 
+                                            scale: 1.05,
+                                            y: -10,
+                                            transition: { duration: 0.4 }
+                                        }}
+                                    />
+                                </motion.div>
+                            )}
+
+                            {/* Versión Móvil - Completamente separada */}
+                            {isMobile && (
+                                <motion.div 
+                                    className="w-full mt-16 px-4 py-8 bg-secondary rounded-[32px]"
+                                    initial={{ opacity: 0, y: 40 }}
+                                    animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.8, delay: 1.1 }}
-                                    whileHover={{ 
-                                        scale: 1.05,
-                                        y: -10,
-                                        transition: { duration: 0.4 }
-                                    }}
-                                
-                                   
-                                />
-                            </motion.div>
+                                    transition={{ duration: 0.8, delay: 0.7 }}
+                                >
+                                    {/* Título móvil */}
+                                    <motion.div
+                                        className="text-center mb-6"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                        transition={{ duration: 0.6, delay: 0.8 }}
+                                    >
+                                        <h3 className="text-xl font-semibold text-neutral-dark mb-2">
+                                            ¡Descarga nuestra app!
+                                        </h3>
+                                        <p className="text-sm text-neutral-dark opacity-80">
+                                            Disponible en las principales tiendas
+                                        </p>
+                                    </motion.div>
+
+                                    {/* Swiper móvil */}
+                                    <motion.div
+                                        className="w-full"
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                        transition={{ duration: 0.6, delay: 1 }}
+                                    >
+                                        <Swiper
+                                            modules={[Autoplay, Pagination]}
+                                            autoplay={{
+                                                delay: 3000,
+                                                disableOnInteraction: false,
+                                            }}
+                                            pagination={{
+                                                clickable: true,
+                                                dynamicBullets: true,
+                                            }}
+                                            loop={true}
+                                            spaceBetween={20}
+                                            slidesPerView={2}
+                                            centeredSlides={true}
+                                            className="app-download-swiper"
+                                        >
+                                            {apps?.map((app, index) => (
+                                                <SwiperSlide key={index}>
+                                                    <motion.a 
+                                                        href={app?.link}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="flex justify-center items-center   shadow-sm"
+                                                        whileHover={{ scale: 1.05 }}
+                                                        whileTap={{ scale: 0.95 }}
+                                                    >
+                                                        <img
+                                                            src={`/api/app/media/${app?.image}`}
+                                                            alt={app?.name}
+                                                            className="h-14 w-auto object-contain"
+                                                            onError={(e) =>
+                                                                (e.target.src = "/api/cover/thumbnail/null")
+                                                            }
+                                                        />
+                                                    </motion.a>
+                                                </SwiperSlide>
+                                            ))}
+                                        </Swiper>
+                                    </motion.div>
+                                </motion.div>
+                            )}
 
                         </motion.div>
                     </motion.div>
