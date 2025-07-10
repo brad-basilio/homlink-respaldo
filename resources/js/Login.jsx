@@ -78,7 +78,7 @@ const Login = ({}) => {
                             <source src="/assets/img/backgrounds/login.mp4" />
                         </video> */}
                         <img
-                            src="/assets/cambiogerencia/nosotros.webp"
+                            src="/assets/cambiafx/nosotros.png"
                             alt="Imagen decorativa"
                             className="h-[400px] w-full object-contain rounded-xl"
                         />

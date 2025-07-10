@@ -136,22 +136,41 @@ const Footer = ({ terms, footerLinks = [] }) => {
     subscriptionsRest.enableNotifications = false;
 
     const emailRef = useRef();
+    const emailRefMobile = useRef(); // Referencia separada para mobile
     const [termsAccepted, setTermsAccepted] = useState(false);
 
     const [saving, setSaving] = useState(false);
 
     // Función para limpiar el formulario de suscripción
     const clearEmailForm = () => {
+        // Limpiar ambos inputs
         if (emailRef.current) {
             emailRef.current.value = "";
             // Pequeña animación de limpieza
             emailRef.current.style.transform = 'scale(0.98)';
             setTimeout(() => {
-                emailRef.current.style.transform = 'scale(1)';
+                if (emailRef.current) {
+                    emailRef.current.style.transform = 'scale(1)';
+                }
+            }, 100);
+        }
+        if (emailRefMobile.current) {
+            emailRefMobile.current.value = "";
+            // Pequeña animación de limpieza
+            emailRefMobile.current.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                if (emailRefMobile.current) {
+                    emailRefMobile.current.style.transform = 'scale(1)';
+                }
             }, 100);
         }
         // También resetear el checkbox
-        document.getElementById('terms-checkbox').checked = false;
+        const checkbox = document.getElementById('terms-checkbox');
+        if (checkbox) {
+            checkbox.checked = false;
+        }
+        // Resetear el estado
+        setTermsAccepted(false);
     };
 
     const onEmailSubmit = async (e) => {
@@ -170,18 +189,60 @@ const Footer = ({ terms, footerLinks = [] }) => {
             return;
         }
 
+        // Obtener el email del input correspondiente (desktop o mobile)
+        const emailValue = emailRef.current?.value || emailRefMobile.current?.value;
+
+        if (!emailValue || !emailValue.trim()) {
+            Swal.fire({
+                title: "Email requerido",
+                text: "Por favor, ingresa tu email para suscribirte.",
+                icon: "warning",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#f59e0b"
+            });
+            return;
+        }
+
         setSaving(true);
 
         const request = {
-            email: emailRef.current.value,
+            email: emailValue.trim(),
             status: 1,
         };
 
-        const result = await subscriptionsRest.save(request);
-        setSaving(false);
+        try {
+            const result = await subscriptionsRest.save(request);
+            setSaving(false);
 
-        if (!result) {
-            // Mostrar error personalizado
+            if (!result) {
+                // Mostrar error personalizado
+                Swal.fire({
+                    title: "Error",
+                    text: "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.",
+                    icon: "error",
+                    confirmButtonText: "Entendido",
+                    confirmButtonColor: "#d33"
+                });
+                return;
+            }
+
+            // Mostrar éxito personalizado
+            Swal.fire({
+                title: "¡Éxito!",
+                text: `Te has suscrito correctamente al blog de ${Global.APP_NAME}.`,
+                icon: "success",
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#10b981",
+                timer: 4000,
+                timerProgressBar: true
+            });
+
+            // Limpiar el campo del email y resetear términos
+            clearEmailForm();
+            
+        } catch (error) {
+            setSaving(false);
+            console.error("Error al suscribirse:", error);
             Swal.fire({
                 title: "Error",
                 text: "Hubo un problema al procesar tu suscripción. Por favor, inténtalo de nuevo.",
@@ -189,23 +250,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                 confirmButtonText: "Entendido",
                 confirmButtonColor: "#d33"
             });
-            return;
         }
-
-        // Mostrar éxito personalizado
-        Swal.fire({
-            title: "¡Éxito!",
-            text: `Te has suscrito correctamente al blog de ${Global.APP_NAME}.`,
-            icon: "success",
-            confirmButtonText: "Ok",
-            confirmButtonColor: "#10b981",
-            timer: 4000,
-            timerProgressBar: true
-        });
-
-        // Limpiar el campo del email y resetear términos
-        clearEmailForm();
-        setTermsAccepted(false);
     };
 
 
@@ -337,7 +382,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             >
                                 {/* Versión Desktop - Original */}
                                 <motion.div 
-                                    className="hidden lg:flex items-center bg-white rounded-full p-1"
+                                    className="hidden overflow-hidden lg:flex items-center bg-white rounded-full p-1"
                                     whileHover={{ 
                                         scale: 1.02,
                                         boxShadow: "0 8px 25px rgba(0,0,0,0.15)"
@@ -352,9 +397,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         ref={emailRef}
                                         disabled={saving}
                                         type="email"
+                                        name="email"
                                         placeholder="Correo"
-                                        className="flex-grow px-4 py-2 placeholder:text-neutral-light bg-transparent text-neutral-light focus:outline-none"
-                                        required
+                                        className="flex-grow px-4 py-2 placeholder:text-neutral-light bg-transparent text-neutral-dark focus:outline-none"
                                         whileFocus={{ 
                                             scale: 1.01,
                                             transition: { duration: 0.2 }
@@ -389,12 +434,12 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 {/* Versión Mobile - Separada */}
                                 <div className="block lg:hidden space-y-3">
                                     <motion.input
-                                        ref={emailRef}
+                                        ref={emailRefMobile}
                                         disabled={saving}
                                         type="email"
+                                        name="email-mobile"
                                         placeholder="Correo electrónico"
                                         className="w-full px-4 py-3 placeholder:text-neutral-light bg-white text-neutral-dark focus:outline-none rounded-full border-2 border-transparent focus:border-secondary transition-colors"
-                                        required
                                         whileFocus={{ 
                                             scale: 1.02,
                                             transition: { duration: 0.2 }
@@ -432,16 +477,17 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </motion.form>
                             
                             <motion.div 
-                                className="flex items-start mt-4 space-x-2"
+                                className="flex items-center mt-4 space-x-2"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.9 }}
                             >
-                                <motion.div className="relative flex-shrink-0 mt-0.5">
+                                <motion.div className="relative flex-shrink-0 items-center justify-center mt-0.5">
                                     <motion.input 
                                         type="checkbox" 
-                                        id="terms-checkbox" 
+                                        id="terms-checkbox"
+                                        name="terms-accepted"
                                         className="h-3 w-3 text-secondary bg-transparent border-neutral-light rounded bg-secondary focus:ring-secondary checked:bg-secondary checked:border-secondary"
                                         checked={termsAccepted}
                                         onChange={(e) => setTermsAccepted(e.target.checked)}
