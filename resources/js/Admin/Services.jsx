@@ -177,14 +177,14 @@ const Services = ({ brands }) => {
     const title_approachRef = useRef();
     const description_approachRef = useRef();
 
-    const title_benefitsRef = useRef();
+   // const title_benefitsRef = useRef();
     const title_methodologyRef = useRef();
     const description_methodologyRef = useRef();
 
     // Refs para imágenes - igual que en el primer código
     const imageRef = useRef();
     const imageEnfoqueRef = useRef();
-    const imageSecondaryRef = useRef();
+   // const imageSecondaryRef = useRef();
     // const imageBannerRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -303,14 +303,14 @@ const Services = ({ brands }) => {
         title_approachRef.current.value = data?.title_approach ?? "";
         description_approachRef.current.value = data?.description_approach ?? "";
 
-        title_benefitsRef.current.value = data?.title_benefits ?? "";
+      //  title_benefitsRef.current.value = data?.title_benefits ?? "";
         title_methodologyRef.current.value = data?.title_methodology ?? "";
         description_methodologyRef.current.value = data?.description_methodology ?? "";
         // Manejo de imágenes como en el primer código
         imageRef.image.src = `/api/service/media/${data?.image ?? "undefined"}`;
         imageEnfoqueRef.image.src = `/api/service/media/${data?.image_banner ?? "undefined"}`;
-        imageSecondaryRef.image.src = `/api/service/media/${data?.image_secondary ?? "undefined"
-            }`;
+        /*imageSecondaryRef.image.src = `/api/service/media/${data?.image_secondary ?? "undefined"
+            }`;*/
         /* imageBannerRef.image.src = `/api/service/media/${data?.image_banner ?? "undefined"
              }`;*/
 
@@ -394,7 +394,7 @@ const Services = ({ brands }) => {
 
             title_approach: title_approachRef.current.value,
             description_approach: description_approachRef.current.value,
-            title_benefits: title_benefitsRef.current.value,
+        //    title_benefits: title_benefitsRef.current.value,
             title_methodology: title_methodologyRef.current.value,
             description_methodology: description_methodologyRef.current.value,
         };
@@ -411,8 +411,8 @@ const Services = ({ brands }) => {
         const imageEnfoque = imageEnfoqueRef.current.files[0];
         if (imageEnfoque) formData.append("image_banner", imageEnfoque);
 
-        const imageSecondary = imageSecondaryRef.current.files[0];
-        if (imageSecondary) formData.append("image_secondary", imageSecondary);
+       {/* const imageSecondary = imageSecondaryRef.current.files[0];
+        if (imageSecondary) formData.append("image_secondary", imageSecondary); */}
 
         /* const imageBanner = imageBannerRef.current.files[0];
          if (imageBanner) formData.append("image_banner", imageBanner);*/
@@ -541,7 +541,7 @@ const Services = ({ brands }) => {
                                     .refresh(),
                         },
                     });
-                    container.unshift({
+                   {/* container.unshift({
                         widget: "dxButton",
                         location: "after",
                         options: {
@@ -550,7 +550,7 @@ const Services = ({ brands }) => {
                             hint: "Agregar nuevo servicio",
                             onClick: () => onModalOpen(),
                         },
-                    });
+                    }); */}
                 }}
                 columns={[
                     {
@@ -641,14 +641,14 @@ const Services = ({ brands }) => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            container.append(
+                         {/*   container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );
+                            ); */}
                         },
                     },
                 ]}
@@ -670,24 +670,24 @@ const Services = ({ brands }) => {
                             Información Básica
                         </button>
                     </li>
-                    <li className="nav-item" role="presentation">
+                  {/*  <li className="nav-item" role="presentation">
                         <button className="nav-link" id="approach-tab" data-bs-toggle="tab" data-bs-target="#approach-tab-pane" type="button" role="tab">
                             <i className="fas fa-bullseye me-1"></i>
                             Enfoque
                         </button>
-                    </li>
+                    </li> */}
                     <li className="nav-item" role="presentation">
                         <button className="nav-link" id="benefits-tab" data-bs-toggle="tab" data-bs-target="#benefits-tab-pane" type="button" role="tab">
                             <i className="fas fa-star me-1"></i>
                             Beneficios
                         </button>
                     </li>
-                    <li className="nav-item" role="presentation">
+                 {/*   <li className="nav-item" role="presentation">
                         <button className="nav-link" id="methodology-tab" data-bs-toggle="tab" data-bs-target="#methodology-tab-pane" type="button" role="tab">
                             <i className="fas fa-tasks me-1"></i>
                             Metodología
                         </button>
-                    </li>
+                    </li> */}
 
                 </ul>
 
@@ -732,7 +732,7 @@ const Services = ({ brands }) => {
                                         <div className="mb-4">
                                             <h6 className="fw-bold text-muted mb-3">Imágenes del Servicio</h6>
                                             <div className="row">
-                                                <div className="mb-3 col-lg-6">
+                                                <div className="mb-3 ">
                                                     <ImageFormGroup
                                                         eRef={imageRef}
                                                         label="Imagen principal"
@@ -743,7 +743,7 @@ const Services = ({ brands }) => {
                                                         Imagen que representa el servicio
                                                     </small>
                                                 </div>
-                                                <div className="mb-3 col-lg-6">
+                                             {/*   <div className="mb-3 col-lg-6">
                                                     <ImageFormGroup
                                                         eRef={imageSecondaryRef}
                                                         label="Icono del servicio"
@@ -753,7 +753,7 @@ const Services = ({ brands }) => {
                                                         <i className="fas fa-info-circle me-1"></i>
                                                         Icono cuadrado para representar el servicio
                                                     </small>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>
@@ -894,7 +894,7 @@ const Services = ({ brands }) => {
                                     <i className="fas fa-star me-2"></i>
                                     Beneficios del Servicio
                                 </h5>
-                                <div className="row mb-4">
+                               {/* <div className="row mb-4">
                                     <div className="col-lg-12">
                                         <InputFormGroup
                                             eRef={title_benefitsRef}
@@ -903,7 +903,7 @@ const Services = ({ brands }) => {
                                         />
                                     </div>
                                 </div>
-
+ */}
                                 <div className="border-top pt-4">
                                     <h6 className="fw-bold text-muted mb-3">
                                         <i className="fas fa-thumbs-up me-2"></i>

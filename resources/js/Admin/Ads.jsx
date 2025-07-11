@@ -116,7 +116,25 @@ const Ads = ({ items }) => {
     };
 
     const onVisibleChange = async ({ id, value }) => {
-        const result = await adsRest.boolean({ id, field: "visible", value });
+        console.log('🔧 DEBUG - Enviando datos:', { 
+            id, 
+            field: "visible", 
+            value, 
+            valueType: typeof value,
+            valueAsNumber: value ? 1 : 0 
+        });
+        
+        // Convertir boolean a número para MySQL
+        const numericValue = value ? 1 : 0;
+        
+        const result = await adsRest.boolean({ 
+            id, 
+            field: "visible", 
+            value: numericValue 
+        });
+        
+        console.log('📤 Respuesta del servidor:', result);
+        
         if (!result) return;
         $(gridRef.current).dxDataGrid("instance").refresh();
     };
