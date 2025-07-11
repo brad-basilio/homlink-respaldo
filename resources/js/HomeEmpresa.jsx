@@ -78,6 +78,119 @@ const textVariants = {
     },
 };
 
+// Animación de entrada principal para la página
+const pageVariants = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.5,
+            ease: "easeOut",
+        },
+    },
+};
+
+// Animación desde arriba para el header
+const slideFromTop = {
+    hidden: {
+        opacity: 0,
+        y: -50,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
+    },
+};
+
+// Animaciones de scroll para las secciones
+const sectionVariants = {
+    hidden: {
+        opacity: 0,
+        y: 50,
+        scale: 0.95,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
+    },
+};
+
+// Animación desde la izquierda
+const slideFromLeft = {
+    hidden: {
+        opacity: 0,
+        x: -100,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
+    },
+};
+
+// Animación desde la derecha
+const slideFromRight = {
+    hidden: {
+        opacity: 0,
+        x: 100,
+    },
+    visible: {
+        opacity: 1,
+        x: 0,
+        transition: {
+            duration: 0.8,
+            ease: "easeOut",
+        },
+    },
+};
+
+// Animación de fade-in con retraso
+const fadeInWithDelay = (delay = 0) => ({
+    hidden: {
+        opacity: 0,
+        y: 30,
+    },
+    visible: {
+        opacity: 1,
+        y: 0,
+        transition: {
+            duration: 0.6,
+            delay: delay,
+            ease: "easeOut",
+        },
+    },
+});
+
+// Animación de escala
+const scaleAnimation = {
+    hidden: {
+        opacity: 0,
+        scale: 0.8,
+    },
+    visible: {
+        opacity: 1,
+        scale: 1,
+        transition: {
+            duration: 0.6,
+            ease: "easeOut",
+        },
+    },
+};
+
 // Animación para el resaltado de texto
 const highlightVariants = {
     visible: {
@@ -141,6 +254,20 @@ const Home = ({
     pasos=[]
 }) => {
     const { t, loading, error } = useTranslation();
+    
+    // Estado para controlar cuando las secciones están listas para animar
+    const [sectionsReady, setSectionsReady] = useState(false);
+
+    // Efecto para marcar las secciones como listas después del primer render
+    useEffect(() => {
+        // Pequeño delay para asegurar que el DOM esté completamente cargado
+        const timer = setTimeout(() => {
+            setSectionsReady(true);
+        }, 100);
+        
+        return () => clearTimeout(timer);
+    }, []);
+    
     const tipoSlider = "nopain";
     const landingHero= landing?.find(
         (item) => item.correlative === "page_empresas_hero"
@@ -249,38 +376,131 @@ const Home = ({
 
 
     return (
-        <div>
-            <Header showSlogan={showSlogan}></Header>
+        <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={pageVariants}
+        >
+            {/* Header con animación desde arriba */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: -50 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.8 }}
+            >
+                <Header showSlogan={showSlogan}></Header>
+            </motion.div>
 
-            <CintilloSection />
+            {/* Cintillo con animación de fade-in */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 30 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6 }}
+            >
+                <CintilloSection />
+            </motion.div>
 
-            {/* SECCIÓN CAMBIO FX */}
-            <HeroSecctionEmpresa  landing={landingHero}/>
-            {/* INDICADORES*/}
-            <IndicadoresSecctionEmpresa indicators={indicators} />
-            {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <PrimeraOperacionSection banner={banner} />
-            <FuncionSection pasos={pasos}  data={landingPasos}/>
-            <BannerFxEmpresas banner={bannerEmpresas} />
-            {/* SECCIÓN BENEFICIOS EMPRESAS */}
-            <BeneficiosSecctionEmpresa data={landingBeneficios} beneficios={beneficios} />
+            {/* SECCIÓN HERO - Slide desde la izquierda */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, x: -100 }}
+                animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+            >
+                <HeroSecctionEmpresa landing={landingHero} />
+            </motion.div>
 
-            {/* FORMULARIO DE CONTACTO */}
-            <ContactoSecctionEmpresa />
-            {/*
-            <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />
+            {/* INDICADORES - Animación de escala */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={sectionsReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+            >
+                <IndicadoresSecctionEmpresa indicators={indicators} />
+            </motion.div>
 
-         
+            {/* PRIMERA OPERACIÓN - Slide desde la derecha */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, x: 100 }}
+                animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+            >
+                <PrimeraOperacionSection banner={banner} />
+            </motion.div>
 
-            <HomeSeccionNosotros data={landingNosotros} strengths={strengths} />
-   
-            <HomeSeccionServicios data={landingServicios} allServices={allServices} />
-            <HomeSeccionImpacto data={landingImpacto} indicators={indicators} />
-            <HomeSeccionTestimonios data={landingTestimonios} testimonios={testimonios} />
-            <HomeSeccionBlog data={landingBlog} posts={posts} /> */}
+            {/* FUNCIÓN - Fade-in básico */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 50 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.25 }}
+            >
+                <FuncionSection pasos={pasos} data={landingPasos} />
+            </motion.div>
 
+            {/* BANNER EMPRESAS - Slide desde la izquierda */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, x: -100 }}
+                animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+            >
+                <BannerFxEmpresas banner={bannerEmpresas} />
+            </motion.div>
 
-            <Footer />
+            {/* BENEFICIOS - Fade-in con retraso */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 30 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+            >
+                <BeneficiosSecctionEmpresa data={landingBeneficios} beneficios={beneficios} />
+            </motion.div>
+
+            {/* CONTACTO - Slide desde la derecha */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, x: 100 }}
+                animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+            >
+                <ContactoSecctionEmpresa />
+            </motion.div>
+
+            {/* FOOTER - Fade-in simple */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 30 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, delay: 0.45 }}
+            >
+                <Footer />
+            </motion.div>
+
             {/* Modal */}
             <ModalAppointment
                 linkWhatsApp={linkWhatsApp}
@@ -288,7 +508,7 @@ const Home = ({
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
-        </div>
+        </motion.div>
     );
 };
 
