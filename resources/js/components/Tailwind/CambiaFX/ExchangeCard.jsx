@@ -509,7 +509,7 @@ const ExchangeCard = ({
                                 </div>
 
                                 {/* Tooltip mejorado para COMPRA */}
-                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                <div className="absolute bottom-full right-0  mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
                                     <div className="bg-neutral-dark min-w-max backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-5 py-4">
                                             {/* Header del tooltip */}
@@ -588,7 +588,7 @@ const ExchangeCard = ({
                                 </div>
 
                                 {/* Tooltip mejorado para VENTA */}
-                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]">
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]">
                                     <div className="bg-neutral-dark min-w-max backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-5 py-4">
                                           
@@ -752,7 +752,7 @@ const ExchangeCard = ({
 
                                             {/* Tooltip detallado del cupón aplicado */}
                                             <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                                <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
+                                                <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
                                                     <div className="px-5 py-4">
                                                         {/* Header del tooltip */}
                                                         <div className="flex items-center gap-3 mb-4">
@@ -924,7 +924,7 @@ const ExchangeCard = ({
                                         {/* Tooltip detallado del cupón validado */}
                                         {couponInfo && (
                                             <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                                <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
+                                                <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
                                                     <div className="px-5 py-4">
                                                         {/* Header del tooltip */}
                                                         <div className="flex items-center gap-3 mb-4">
@@ -1001,7 +1001,7 @@ const ExchangeCard = ({
             {/* Start Operation Button */}
             <button
                 onClick={handleOperationStart}
-                className="mt-3 py-4 rounded-full bg-neutral-dark text-white font-semibold tracking-wider text-sm w-full hover:bg-opacity-90 transition-all duration-200"
+                className="mt-3 py-4 rounded-full bg-neutral-dark text-white font-semibold tracking-wider text-sm w-full hover:bg-constrast transition-all duration-200"
             >
                 INICIAR OPERACIÓN
             </button>
