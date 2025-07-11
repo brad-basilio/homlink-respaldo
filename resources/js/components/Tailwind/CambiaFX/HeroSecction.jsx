@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 import ExchangeCard from './ExchangeCard';
@@ -8,8 +8,132 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
+    const [loopKey, setLoopKey] = useState(0); // Para reiniciar las animaciones
+    const [colorIndex, setColorIndex] = useState(0);
 
-    // Variantes de animación más suaves y elegantes
+    // Colores que van a rotar para las palabras con asterisco
+    const colors = ['text-neutral-dark', 'text-constrast', 'text-secondary'];
+
+    // Effect para reiniciar las animaciones cada 8 segundos
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setLoopKey(prev => prev + 1);
+        }, 8000); // Loop cada 8 segundos
+
+        return () => clearInterval(interval);
+    }, []);
+
+    // Effect para cambiar colores cada 2 segundos
+    useEffect(() => {
+        const colorInterval = setInterval(() => {
+            setColorIndex(prev => (prev + 1) % colors.length);
+        }, 2000);
+
+        return () => clearInterval(colorInterval);
+    }, []);
+
+    // Componente para renderizar texto con colores cambiantes (sin typing)
+    const TextWithColors = ({ text, className = '' }) => {
+        if (!text) return null;
+
+        // Dividir por coma para mantener la funcionalidad original
+        const lines = text.split(',');
+        
+        return (
+            <div className={`${className} flex flex-col`}>
+                {lines.map((line, lineIndex) => {
+                    const parts = line.trim().split(/(\*[^*]+\*)/g); // Separa las partes con asterisco
+                    
+                    return (
+                        <motion.span 
+                            key={lineIndex} 
+                            className="block"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: lineIndex * 0.2, duration: 0.5 }}
+                        >
+                            {parts.map((part, partIndex) => {
+                                if (part.startsWith("*") && part.endsWith("*")) {
+                                    return (
+                                        <motion.span
+                                            key={`${lineIndex}-${partIndex}-${colorIndex}`}
+                                            className={`${colors[colorIndex]} font-bold relative`}
+                                            initial={{ opacity: 0.7, scale: 0.98 }}
+                                            animate={{ 
+                                                opacity: 1, 
+                                                scale: 1,
+                                                transition: { 
+                                                    duration: 0.6, 
+                                                    ease: "easeInOut",
+                                                    type: "spring",
+                                                    stiffness: 150 
+                                                }
+                                            }}
+                                            whileHover={{
+                                                scale: 1.05,
+                                                transition: { duration: 0.2 }
+                                            }}
+                                            style={{
+                                                textShadow: 
+                                                    colorIndex === 1 ? "0 0 20px rgba(126, 90, 251, 0.4), 0 0 40px rgba(126, 90, 251, 0.2)" : 
+                                                    colorIndex === 2 ? "0 0 15px rgba(187, 255, 82, 0.4), 0 0 30px rgba(187, 255, 82, 0.2)" : 
+                                                    "0 2px 4px rgba(12, 12, 12, 0.1)",
+                                                filter: 
+                                                    colorIndex === 1 ? "drop-shadow(0 0 15px rgba(126, 90, 251, 0.3))" : 
+                                                    colorIndex === 2 ? "drop-shadow(0 0 10px rgba(187, 255, 82, 0.3))" : 
+                                                    "none"
+                                            }}
+                                        >
+                                            {part.slice(1, -1)}
+                                            {/* Efecto de partículas para colores especiales */}
+                                            {(colorIndex === 1 || colorIndex === 2) && (
+                                                <motion.span
+                                                    className="absolute -top-1 -right-1 w-2 h-2 rounded-full"
+                                                    style={{
+                                                        backgroundColor: colorIndex === 1 ? '#7E5AFB' : '#BBFF52'
+                                                    }}
+                                                    animate={{
+                                                        scale: [0, 1, 0],
+                                                        opacity: [0, 1, 0]
+                                                    }}
+                                                    transition={{
+                                                        duration: 2,
+                                                        repeat: Infinity,
+                                                        ease: "easeInOut"
+                                                    }}
+                                                />
+                                            )}
+                                            {/* Efecto de pulso adicional */}
+                                            {colorIndex === 1 && (
+                                                <motion.span
+                                                    className="absolute inset-0 rounded-lg"
+                                                    style={{
+                                                        background: 'linear-gradient(45deg, rgba(126, 90, 251, 0.1), rgba(126, 90, 251, 0.05))'
+                                                    }}
+                                                    animate={{
+                                                        opacity: [0, 0.3, 0],
+                                                        scale: [0.95, 1.05, 0.95]
+                                                    }}
+                                                    transition={{
+                                                        duration: 3,
+                                                        repeat: Infinity,
+                                                        ease: "easeInOut"
+                                                    }}
+                                                />
+                                            )}
+                                        </motion.span>
+                                    );
+                                }
+                                return <span key={partIndex}>{part}</span>;
+                            })}
+                        </motion.span>
+                    );
+                })}
+            </div>
+        );
+    };
+
+    // Variantes de animación más suaves y elegantes con loop
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -32,6 +156,60 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
             transition: {
                 duration: 0.8,
                 ease: [0.25, 0.46, 0.45, 0.94] // easing más natural
+            }
+        }
+    };
+
+    // Variantes para el texto principal con loop
+    const textLoopVariants = {
+        hidden: { 
+            opacity: 0, 
+            x: -50,
+            scale: 0.95
+        },
+        visible: {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            transition: {
+                duration: 1.2,
+                ease: "easeOut"
+            }
+        },
+        exit: {
+            opacity: 0,
+            x: 50,
+            scale: 0.95,
+            transition: {
+                duration: 0.8,
+                ease: "easeIn"
+            }
+        }
+    };
+
+    // Variantes para apps con loop en desktop
+    const appsLoopVariants = {
+        hidden: { 
+            opacity: 0, 
+            y: 30,
+            scale: 0.8
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            transition: {
+                duration: 0.6,
+                ease: "easeOut"
+            }
+        },
+        exit: {
+            opacity: 0,
+            y: -30,
+            scale: 0.8,
+            transition: {
+                duration: 0.5,
+                ease: "easeIn"
             }
         }
     };
@@ -106,14 +284,18 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
 
             {/* Contenido principal */}
             <div className="relative z-10 mx-auto px-[5%] flex flex-col lg:flex-row gap-10 items-center">
-                {/* Izquierda: Texto principal */}
+                {/* Izquierda: Texto principal con loop */}
                 <motion.div 
-                    className='order-1 lg:order-0 lg:w-7/12 '
+                    className='order-1 lg:order-0 lg:w-7/12'
                     variants={itemVariants}
                 >
                     <motion.p
+                        key={`subtitle-${loopKey}`}
                         className="text-sm font-medium tracking-widest text-constrast mb-2 uppercase"
-                        variants={textVariants}
+                        variants={textLoopVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                         whileHover={{ 
                             scale: 1.02, 
                             color: '#7c3aed',
@@ -123,18 +305,26 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                         CASA DE CAMBIO
                     </motion.p>
                     <motion.h1
+                        key={`title-${loopKey}`}
                         className="text-4xl md:text-7xl font-title font-medium text-neutral-dark leading-tight mb-4"
-                        variants={textVariants}
+                        variants={textLoopVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                         transition={{ delay: 0.2 }}
                     >
-                        {/* Simulación de typing effect para el título */}
-                        <span style={{ display: 'inline-block', whiteSpace: 'pre-line' }}>
-                            <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold ' split_coma />
-                        </span>
+                        {/* Texto con colores cambiantes para palabras con asterisco */}
+                        <TextWithColors 
+                            text={data?.title}
+                        />
                     </motion.h1>
                     <motion.p
+                        key={`description-${loopKey}`}
                         className="text-lg text-neutral-light lg:mb-6 max-w-lg"
-                        variants={textVariants}
+                        variants={textLoopVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
                         transition={{ delay: 0.4 }}
                     >
                         {data?.description || ""}
@@ -170,47 +360,65 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                 transition={{ delay: 0.9 }}
                             >
                                 <motion.span 
+                                    key={`app-title-${loopKey}`}
                                     className="text-lg font-medium"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 1, duration: 0.6 }}
+                                    variants={textLoopVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    transition={{ delay: 0.6 }}
                                 >
                                     ¡Descarga nuestra app!
                                 </motion.span>
                                 
-                                {/* Desktop version - Mantener original */}
+                                {/* Desktop version - Con loop */}
                                 <motion.div 
+                                    key={`apps-desktop-${loopKey}`}
                                     className="hidden lg:flex gap-4 mt-4"
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 1.1, duration: 0.6 }}
+                                    variants={appsLoopVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="exit"
+                                    transition={{ delay: 0.8 }}
                                 >
                                     {apps?.map((app, index) => (
                                         <motion.a
                                             href={app?.link}
-                                            key={index}
+                                            key={`${app?.name}-${index}-${loopKey}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                                            transition={{ 
-                                                delay: 1.2 + index * 0.1, 
-                                                duration: 0.5,
-                                                type: "spring",
-                                                stiffness: 200
+                                            initial={{ opacity: 0, scale: 0.6, y: 30, rotate: -10 }}
+                                            animate={{ 
+                                                opacity: 1, 
+                                                scale: 1, 
+                                                y: 0, 
+                                                rotate: 0,
+                                                transition: {
+                                                    delay: 1 + index * 0.15,
+                                                    duration: 0.7,
+                                                    type: "spring",
+                                                    stiffness: 150,
+                                                    damping: 12
+                                                }
                                             }}
                                             whileHover={{ 
-                                                scale: 1.08, 
-                                                y: -3,
-                                                transition: { duration: 0.2 }
+                                                scale: 1.12, 
+                                                y: -8,
+                                                rotate: 5,
+                                                boxShadow: "0 15px 35px rgba(0,0,0,0.2)",
+                                                transition: { duration: 0.3 }
                                             }}
-                                            whileTap={{ scale: 0.96 }}
+                                            whileTap={{ scale: 0.95, rotate: -2 }}
                                         >
                                             <motion.img
                                                 src={`/api/app/media/${app?.image}`}
                                                 alt={app?.name}
-                                                className="h-12 w-auto"
+                                                className="h-12 w-auto filter drop-shadow-lg"
                                                 onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                                                whileHover={{
+                                                    filter: "brightness(1.1) contrast(1.1)",
+                                                    transition: { duration: 0.2 }
+                                                }}
                                             />
                                         </motion.a>
                                     ))}
@@ -277,37 +485,50 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                 </motion.div>
                             </motion.div>
                             <motion.div
+                                key={`indicators-${loopKey}`}
                                 className="flex gap-10 mt-6"
-                                initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.4, duration: 0.8 }}
+                                variants={textLoopVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="exit"
+                                transition={{ delay: 1.2 }}
                             >
                                 {
                                     indicators?.map((indicator, index) => (
                                         <motion.div
-                                            key={index}
+                                            key={`${indicator?.name}-${index}-${loopKey}`}
                                             className="flex flex-col items-start"
-                                            initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{ 
-                                                delay: 1.5 + index * 0.15, 
-                                                duration: 0.6,
-                                                type: "spring",
-                                                stiffness: 150,
-                                                damping: 20
+                                            initial={{ opacity: 0, y: 40, scale: 0.8, rotate: -5 }}
+                                            animate={{ 
+                                                opacity: 1, 
+                                                y: 0, 
+                                                scale: 1, 
+                                                rotate: 0,
+                                                transition: {
+                                                    delay: 1.4 + index * 0.2,
+                                                    duration: 0.8,
+                                                    type: "spring",
+                                                    stiffness: 120,
+                                                    damping: 15
+                                                }
                                             }}
                                             whileHover={{ 
-                                                scale: 1.05, 
-                                                y: -2,
-                                                backgroundColor: 'rgba(243, 244, 246, 0.6)',
-                                                borderRadius: '12px',
-                                                padding: '8px',
+                                                scale: 1.08, 
+                                                y: -4,
+                                              
+                                                borderRadius: '16px',
+                                                padding: '12px',
+                                              
                                                 transition: { duration: 0.3 }
                                             }}
                                         >
                                             <motion.span 
                                                 className="text-[52px] leading-[3rem] font-semibold text-neutral-dark"
-                                                whileHover={{ scale: 1.1 }}
+                                                whileHover={{ 
+                                                    scale: 1.15,
+                                                    color: '#7E5AFB',
+                                                    textShadow: "0 0 20px rgba(126, 90, 251, 0.3)"
+                                                }}
                                                 transition={{ duration: 0.2 }}
                                             >
                                                 <TextWithHighlight text={indicator?.name} color='bg-constrast' counter />
@@ -316,7 +537,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 className="text-sm font-medium text-neutral-dark"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
-                                                transition={{ delay: 1.7 + index * 0.1 }}
+                                                transition={{ delay: 1.6 + index * 0.15 }}
                                             >
                                                 <TextWithHighlight text={indicator?.description} color='bg-constrast' />
                                             </motion.span>
