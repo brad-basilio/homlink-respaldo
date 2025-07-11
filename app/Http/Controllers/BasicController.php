@@ -21,6 +21,7 @@ use Illuminate\Http\Response as HttpResponse;
 use Illuminate\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use SoDe\Extend\Crypto;
@@ -459,14 +460,66 @@ class BasicController extends Controller
   {
     $response = new Response();
     try {
+      // 🔧 DEBUG: Log de datos recibidos
+      Log::info('🔧 BOOLEAN METHOD - Datos recibidos:', [
+        'id' => $request->id,
+        'field' => $request->field,
+        'value' => $request->value,
+        'value_type' => gettype($request->value),
+        'model' => $this->model,
+        'all_request_data' => $request->all()
+      ]);
+
+      // 🔧 DEBUG: Verificar estructura de la tabla
+      if ($request->field === 'visible') {
+        $tableName = (new $this->model)->getTable();
+        $columns = DB::select("DESCRIBE {$tableName}");
+        $visibleColumn = collect($columns)->firstWhere('Field', 'visible');
+        
+        Log::info('🗃️ TABLE STRUCTURE - visible column:', [
+          'table_name' => $tableName,
+          'visible_column_info' => $visibleColumn,
+          'mysql_version' => DB::select('SELECT VERSION() as version')[0]->version ?? 'unknown'
+        ]);
+      }
+
       // Start a transaction to ensure all database operations use the same connection
       DB::connection()->beginTransaction();
+      
+      // 🔧 DEBUG: Verificar registro antes de actualizar
+      $recordBefore = $this->model::where('id', $request->id)->first();
+      Log::info('📝 BEFORE UPDATE:', [
+        'record_exists' => $recordBefore ? true : false,
+        'current_visible_value' => $recordBefore?->{$request->field} ?? 'NOT_FOUND',
+        'current_visible_type' => $recordBefore ? gettype($recordBefore->{$request->field}) : 'NO_RECORD'
+      ]);
       
       $data = [];
       $data[$request->field] = $request->value;
 
-      $this->model::where('id', $request->id)
+      // 🔧 DEBUG: Log de datos que se van a actualizar
+      Log::info('💾 UPDATE DATA:', [
+        'data_to_update' => $data,
+        'field_value_type' => gettype($data[$request->field])
+      ]);
+
+      $updateResult = $this->model::where('id', $request->id)
         ->update($data);
+
+      // 🔧 DEBUG: Resultado de la actualización
+      Log::info('✅ UPDATE RESULT:', [
+        'affected_rows' => $updateResult,
+        'update_successful' => $updateResult > 0
+      ]);
+
+      // 🔧 DEBUG: Verificar registro después de actualizar
+      $recordAfter = $this->model::where('id', $request->id)->first();
+      Log::info('📝 AFTER UPDATE:', [
+        'new_visible_value' => $recordAfter?->{$request->field} ?? 'NOT_FOUND',
+        'new_visible_type' => $recordAfter ? gettype($recordAfter->{$request->field}) : 'NO_RECORD',
+        'value_changed' => $recordBefore && $recordAfter ? 
+          ($recordBefore->{$request->field} !== $recordAfter->{$request->field}) : 'UNKNOWN'
+      ]);
 
       $response->status = 200;
       $response->message = 'Operacion correcta';
@@ -474,6 +527,12 @@ class BasicController extends Controller
       // Commit the transaction on success
       DB::connection()->commit();
     } catch (\Throwable $th) {
+      // 🔧 DEBUG: Log de errores
+      Log::error('❌ BOOLEAN METHOD ERROR:', [
+        'error_message' => $th->getMessage(),
+        'error_trace' => $th->getTraceAsString()
+      ]);
+      
       $response->status = 400;
       $response->message = $th->getMessage();
       
