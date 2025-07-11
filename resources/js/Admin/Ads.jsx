@@ -31,8 +31,8 @@ const Ads = ({ items }) => {
     const secondsRef = useRef();
     const linkRef = useRef();
     const invasivoRef = useRef();
-    //const actionsRef = useRef();
-  //  const itemRef = useRef();
+    
+    // Estados
     const [isEditing, setIsEditing] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [selectedAction, setSelectedAction] = useState(false);

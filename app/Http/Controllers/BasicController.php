@@ -13,6 +13,7 @@ use App\Models\Message;
 use App\Models\Service;
 use App\Models\Slider;
 use App\Models\Social;
+use App\Helpers\SimpleImageProcessor;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -345,18 +346,25 @@ class BasicController extends Controller
         $snake_case = 'item';
       }
 
-      // Procesar imágenes - Sistema original simplificado
+      // Procesar imágenes - Sistema simple con validación y compresión
       foreach ($this->imageFields as $field) {
         if (!$request->hasFile($field)) continue;
         
         $file = $request->file($field);
-        $uuid = Crypto::randomUUID();
-        $ext = $file->getClientOriginalExtension();
-        $path = "images/{$snake_case}/{$uuid}.{$ext}";
         
-        // Guardar la imagen directamente
-        Storage::put($path, file_get_contents($file));
-        $body[$field] = "{$uuid}.{$ext}";
+        // Usar SimpleImageProcessor para validar, comprimir y optimizar
+        $result = SimpleImageProcessor::processAndStore($file, $snake_case, 1.5); // Máximo 1.5MB
+        
+        if (!$result['success']) {
+          // Si hay error, retornar mensaje específico
+          $response = new Response();
+          $response->status = 422;
+          $response->message = $result['message'];
+          return \response($response->toArray(), $response->status);
+        }
+        
+        // Guardar el nombre del archivo optimizado
+        $body[$field] = $result['filename'];
       }
 
       // Procesar videos
