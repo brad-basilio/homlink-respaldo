@@ -127,16 +127,29 @@ const Ads = ({ items }) => {
         // Convertir boolean a número para MySQL
         const numericValue = value ? 1 : 0;
         
-        const result = await adsRest.boolean({ 
-            id, 
-            field: "visible", 
-            value: numericValue 
-        });
-        
-        console.log('📤 Respuesta del servidor:', result);
-        
-        if (!result) return;
-        $(gridRef.current).dxDataGrid("instance").refresh();
+        try {
+            const result = await adsRest.boolean({ 
+                id, 
+                field: "visible", 
+                value: numericValue 
+            });
+            
+            console.log('📤 Respuesta del servidor:', result);
+            
+            if (!result) {
+                console.error('❌ Error en la respuesta del servidor');
+                return;
+            }
+            
+            // Forzar refresh de la tabla después de la operación exitosa
+            console.log('🔄 Refrescando tabla después de cambio exitoso...');
+            $(gridRef.current).dxDataGrid("instance").refresh();
+            
+        } catch (error) {
+            console.error('❌ Error en onVisibleChange:', error);
+            // Si hay error, también refrescar para restaurar el estado correcto
+            $(gridRef.current).dxDataGrid("instance").refresh();
+        }
     };
 
     const onDeleteClicked = async (id) => {
@@ -337,13 +350,19 @@ const Ads = ({ items }) => {
                             ReactAppend(
                                 container,
                                 <SwitchFormGroup
-                                    checked={data.visible}
-                                    onChange={(e) =>
+                                    checked={!!data.visible} // Forzar boolean
+                                    onChange={(e) => {
+                                        console.log('🎯 Switch clicked:', {
+                                            dataId: data.id,
+                                            currentValue: data.visible,
+                                            newValue: e.target.checked
+                                        });
+                                        
                                         onVisibleChange({
                                             id: data.id,
                                             value: e.target.checked,
-                                        })
-                                    }
+                                        });
+                                    }}
                                 />
                             );
                         },
