@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CambiaFXService from '../../../services/CambiaFXService';
 import WhatsAppButton from '../../Shared/WhatsAppButton';
+import { Search } from 'lucide-react';
 
 const ExchangeCard = ({ 
     title = "Comienza tu cambio ahora", 
@@ -21,6 +22,8 @@ const ExchangeCard = ({
     const [showCouponInput, setShowCouponInput] = useState(false);
     const [couponInfo, setCouponInfo] = useState(null); // Info del cupón (rango, TC, etc.)
     const [showCouponModal, setShowCouponModal] = useState(false); // Modal informativo
+    const [isConsultingCoupons, setIsConsultingCoupons] = useState(false); // Loading para consulta de cupones
+    const [invalidCoupon, setInvalidCoupon] = useState(null); // Información del cupón inválido
 
     // Cargar tipos de cambio iniciales
     useEffect(() => {
@@ -228,14 +231,20 @@ const ExchangeCard = ({
             console.log('🎫 result.message:', result.message);
             
             if (!result.valid && tipo === 'c') {
-                console.log('❌ Cupón inválido, mostrando alert y limpiando...');
+                console.log('❌ Cupón inválido, guardando información...');
                 setPromotionalCode('');
                 setCouponInfo(null);
-                alert(result.message || 'El código de promoción no es válido.');
+                setInvalidCoupon({
+                    codigo: couponCode,
+                    message: result.message || 'El código de promoción no es válido.'
+                });
                 // Restaurar tipos de cambio base
                 updateCurrentRates();
             } else if (result.valid) {
                 console.log('✅ Cupón válido, FORZANDO actualización inmediata...');
+                
+                // Limpiar cupón inválido si existía
+                setInvalidCoupon(null);
                 
                 // Guardar información del cupón para mostrar al usuario
                 const cuponData = result.data[0];
@@ -285,7 +294,10 @@ const ExchangeCard = ({
             if (tipo === 'c') {
                 setPromotionalCode('');
                 setCouponInfo(null);
-                alert('El código de promoción no es válido.');
+                setInvalidCoupon({
+                    codigo: promotionalCode,
+                    message: 'Error al validar el código de promoción.'
+                });
                 // Restaurar tipos de cambio base en caso de error
                 updateCurrentRates();
             }
@@ -296,6 +308,12 @@ const ExchangeCard = ({
 
     const handleCouponChange = (value) => {
         setPromotionalCode(value);
+        setIsValidatingCoupon(true)
+        
+        // Limpiar cupón inválido cuando el usuario empiece a escribir
+        if (invalidCoupon) {
+            setInvalidCoupon(null);
+        }
         
         if (couponTimeout) {
             clearTimeout(couponTimeout);
@@ -304,7 +322,7 @@ const ExchangeCard = ({
         const timeout = setTimeout(() => {
             validateCoupon(value, 'c');
         }, 2000);
-        
+         setIsValidatingCoupon(false)
         setCouponTimeout(timeout);
     };
 
@@ -317,6 +335,7 @@ const ExchangeCard = ({
         setCurrentTc(0);
         setPromotionalCode('');
         setCouponInfo(null);
+        setInvalidCoupon(null);
         setCurrentRates({ compra: '0.0000', venta: '0.0000' });
         
         // Reinicializar servicio
@@ -345,6 +364,27 @@ const ExchangeCard = ({
         }
         
         return { applies: true, reason: '' };
+    };
+
+    // 🔍 SIMULAR CONSULTA DE CUPONES DISPONIBLES
+    const handleConsultCoupons = async () => {
+        console.log('🔍 Iniciando consulta de cupones disponibles...');
+        setIsConsultingCoupons(true);
+        
+        try {
+            // Simular delay de consulta (1.5-2.5 segundos para parecer real)
+            const delay = 1500 + Math.random() * 1000; // Entre 1.5 y 2.5 segundos
+            await new Promise(resolve => setTimeout(resolve, delay));
+            
+            // Mostrar resultado de la consulta (simulado)
+            console.log('✅ Consulta de cupones completada');
+            
+        } catch (error) {
+            console.error('❌ Error en consulta de cupones:', error);
+        } finally {
+            setIsConsultingCoupons(false);
+            console.log('🏁 Consulta de cupones finalizada');
+        }
     };
 
     // 🎨 OBTENER TASA PREFERENCIAL PARA MOSTRAR EN BOTONES
@@ -692,8 +732,11 @@ const ExchangeCard = ({
                             {!showCouponInput ? (
                                 <div className="flex-1 flex gap-2">
                                     <button 
-                                        onClick={() => setShowCouponInput(true)}
-                                        className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl text-neutral-dark font-medium text-sm hover:bg-neutral hover:shadow-md transition-all duration-200 border-2 border-transparent hover:border-secondary/30 group relative"
+                                        onClick={() => {
+                                            console.log('🎯 Click en USAR CUPÓN - Abriendo input directamente');
+                                            setShowCouponInput(true);
+                                        }}
+                                        className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl font-medium text-sm transition-all duration-200 border-2 group relative text-neutral-dark hover:bg-neutral hover:shadow-md border-transparent hover:border-secondary/30"
                                         title="Ingresa tu código promocional para obtener una tasa preferencial"
                                     >
                                         USAR CUPÓN 
@@ -703,7 +746,7 @@ const ExchangeCard = ({
                                             <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         
-                                        {/* Tooltip */}
+                                        {/* Tooltip normal */}
                                         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-neutral-dark text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap">
                                             💡 Obtén tasas preferenciales con tu código promocional
                                             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
@@ -805,6 +848,7 @@ const ExchangeCard = ({
                                                 console.log('🧹 Limpiando cupón y restaurando TC base...');
                                                 CambiaFXService.validateCoupon(''); // Esto restaura tcBase
                                                 setCouponInfo(null);
+                                                setInvalidCoupon(null);
                                                 updateCurrentRates();
                                                 if (amount1) {
                                                     calculateExchange('O');
@@ -820,22 +864,63 @@ const ExchangeCard = ({
                                     
                                     {/* Ícono de ayuda dinámico */}
                                     <div className="relative group">
-                                        {!couponInfo ? (
-                                            // Antes de validar: Muestra modal de cupones disponibles
-                                            <button
-                                                onClick={() => setShowCouponModal(true)}
-                                                className="py-4 px-3 rounded-xl bg-constrast/10 border-2 border-constrast/30 hover:bg-constrast/20 text-constrast transition-all duration-200 group"
-                                                title="Ver cupones disponibles"
+                                        {isConsultingCoupons ? (
+                                            // Durante la consulta: Mostrar loading
+                                            <button 
+                                                disabled
+                                                className="py-4 px-4 rounded-xl bg-constrast text-white transition-all duration-200 cursor-wait"
+                                                title="Consultando cupones disponibles..."
                                             >
+                                                {/* Spinner de loading */}
+                                                <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                                                
+                                                {/* Tooltip durante loading */}
+                                                <div className="absolute bottom-full right-0 mb-3 opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
+                                                        <div className="flex items-center gap-2">
+                                                          
+                                                            <p className="text-xs font-medium">🔍 Consultando cupones disponibles...</p>
+                                                        </div>
+                                                        <div className="absolute top-full right-3 transform">
+                                                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        ) : invalidCoupon ? (
+                                            // Cupón inválido: Mostrar estado de error
+                                            <button className="py-4 px-4 rounded-xl bg-red-600  text-white transition-all duration-200">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
-                                                    <path d="M8 12V8M8 5.5H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                    <path d="M8 5v3M8 11h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                                 </svg>
                                                 
-                                                {/* Tooltip para mostrar modal */}
+                                                {/* Tooltip de cupón inválido */}
+                                                <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                                    <div className="bg-gradient-to-br from-red-500 to-red-600 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-red-400/20 px-3 py-2 whitespace-nowrap">
+                                                        <div className="flex items-center gap-2">
+                                                        
+                                                            <p className="text-xs font-medium">{invalidCoupon.message}</p>
+                                                        </div>
+                                                        <div className="absolute top-full right-3 transform">
+                                                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-600"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        ) : !couponInfo ? (
+                                            // Antes de validar: Consultar cupones disponibles
+                                            <button
+                                                onClick={handleConsultCoupons}
+                                                className="py-3 px-3 rounded-xl bg-constrast hover:bg-neutral-dark text-white transition-all duration-200 group"
+                                                title="Consultar cupones disponibles"
+                                            >
+                                               <Search/>
+                                                
+                                                {/* Tooltip para consultar */}
                                                 <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
                                                     <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
-                                                        <p className="text-xs font-medium">💡 Visita nuestra web para ver los cupones del mes</p>
+                                                        <p className="text-xs font-medium">💡 Clic aqui para validar el cupón</p>
                                                         <div className="absolute top-full right-3 transform">
                                                             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
                                                         </div>
@@ -844,7 +929,7 @@ const ExchangeCard = ({
                                             </button>
                                         ) : (
                                             // Después de validar: Muestra detalles del cupón en hover
-                                            <button className="py-4 px-3 rounded-xl bg-secondary-500/10 border-2 border-secondary-400/30 hover:bg-secondary-500/20 text-constrast transition-all duration-200">
+                                            <button className="py-4 px-4 rounded-xl bg-green-600 text-white transition-all duration-200">
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="currentColor"/>
                                                 </svg>
@@ -891,7 +976,7 @@ const ExchangeCard = ({
                                                         {/* Estado del cupón */}
                                                         <div className=" border  rounded-lg px-3 py-2 text-center">
                                                             <div className="flex items-center justify-center gap-2">
-                                                                <div className="w-2 h-2 rounded-full bg-secondary"></div>
+                                                                
                                                                 <p className="text-xs font-medium">🎉 Cupón activo</p>
                                                             </div>
                                                             <p className="text-xs text-white/70 mt-1">Disfruta de tu tasa preferencial</p>
@@ -907,12 +992,7 @@ const ExchangeCard = ({
                                         )}
                                     </div>
                                     
-                                    {/* Loading spinner para validación del cupón */}
-                                    {isValidatingCoupon && (
-                                        <div className="absolute right-16 top-1/2 transform -translate-y-1/2">
-                                            <div className="animate-spin w-4 h-4 border-2 border-constrast border-t-transparent rounded-full"></div>
-                                        </div>
-                                    )}
+                                   
                                 </div>
                             )}
                         </>
