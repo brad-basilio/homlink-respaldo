@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react'
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
+import AnimatedIndicator from './AnimatedIndicator';
 
 export default function IndicadoresSecctionEmpresa({ indicators }) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
@@ -23,26 +24,13 @@ export default function IndicadoresSecctionEmpresa({ indicators }) {
                 </h2>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
-                    {/* Indicador 1 - Millones de soles cambiados */}
                     {indicators.map((indicator, index) => (
-                        <div className="flex flex-col items-center text-center">
-                            <div className="w-20 h-20 bg-secondary rounded-full flex items-center justify-center mb-6">
-                                <img src={`/api/indicator/media/${indicator.symbol}`} alt={indicator.name} className="w-12 h-12" />
-
-                            </div>
-                            <div className="text-4xl md:text-[56px] font-semibold text-neutral-dark mb-2">
-                                <TextWithHighlight text={`${indicator.name}`} color="bg-constrast" counter/>
-                               </div>
-                            <div className="text-neutral-dark ">
-                                <TextWithHighlight text={`${indicator.description}`} color="bg-neutral-light font-semibold" />
-                                
-                            </div>
-                        </div>
+                        <AnimatedIndicator 
+                            key={indicator.id || index} 
+                            indicator={indicator} 
+                            index={index} 
+                        />
                     ))}
-
-                    {/* Indicador 2 - Empresas registradas */}
-
-
                 </div>
             </div>
         </section>
