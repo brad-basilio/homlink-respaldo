@@ -72,8 +72,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const Instagram = socials.find(
         (social) => social.description === "Instagram"
     );
-    const Youtube = socials.find((social) => social.description === "Youtube");
-    const Tiktok = socials.find((social) => social.description === "Tiktok");
+    const Youtube = socials.find((social) => social.description === "YouTube");
+    const Tiktok = socials.find((social) => social.description === "TikTok");
     const Whatsapp = socials.find((social) => social.description === "WhatsApp");
     const LinkedIn = socials.find((social) => social.description === "LinkedIn");
 
@@ -533,7 +533,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                         </div>
 
                         {/* Columna 3 - Legal */}
-                        <div className="w-full lg:w-4/12 flex flex-col gap-2 text-sm">
+                        <div className="w-full lg:w-5/12 flex flex-col gap-2 text-sm">
                             <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
                                 Legal
                             </h3>
@@ -544,10 +544,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 <p className="font-medium">Registrada en la SBS</p>
                                 <p>Resolución 04993-2018</p>
                             </div>
-                        </div>
 
-                        {/* Columna 4 - Contacto */}
-                        <div className="w-full lg:w-6/12 flex flex-col gap-4 text-sm">
+                             {/* Columna 4 - Contacto */}
+                        <div className="w-full  flex flex-col gap-4 text-sm mt-4">
                             <div className="flex items-start gap-2">
                                 <svg className="w-4 h-4 lg:w-5 lg:h-5 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M11.3481 17.8052C10.9867 18.1435 10.5037 18.3327 10.0009 18.3327C9.49817 18.3327 9.01517 18.1435 8.65375 17.8052C5.34418 14.6877 0.908967 11.2051 3.07189 6.14907C4.24136 3.41532 7.04862 1.66602 10.0009 1.66602C12.9532 1.66602 15.7605 3.41532 16.93 6.14907C19.0902 11.1988 14.6658 14.6984 11.3481 17.8052Z" fill="white" stroke="#0C0C0C" strokeWidth="1.25" />
@@ -568,6 +567,9 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary transition-colors text-xs lg:text-sm">{emailContact || 'hola@cambiafx.pe'}</a>
                             </div>
                         </div>
+                        </div>
+
+                       
                     </div>
                 </div>
 
