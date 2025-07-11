@@ -43,8 +43,13 @@ const Ads = ({ items }) => {
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
         descriptionRef.current.value = data?.description ?? "";
-        imageRef.image.src = `/api/ads/media/${data?.image}`;
-        imageRef.current.value = null;
+        
+        // Corregir la referencia de la imagen
+        if (imageRef.image && data?.image) {
+            imageRef.image.src = `/api/ads/media/${data.image}`;
+        }
+        imageRef.current.value = null; // Limpiar el input file
+        
         dateBeginRef.current.value = data?.date_begin ?? "";
         dateEndRef.current.value = data?.date_end ?? "";
         secondsRef.current.value = data?.seconds ?? 0;
@@ -89,6 +94,7 @@ const Ads = ({ items }) => {
             for (const key in request) {
                 formData.append(key, request[key]);
             }
+            
             const file = imageRef.current.files[0];
             if (file) {
                 formData.append("image", file);

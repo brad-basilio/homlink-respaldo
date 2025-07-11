@@ -39,11 +39,16 @@ class BasicController extends Controller
   public $reactRootView = 'admin';
   public $imageFields = [];
   public $videoFields = []; // Nuevo: Campos para videos
-
+  
   public $prefix4filter = null;
   public $throwMediaError = false;
   public $reactData = null;
   public $with4get = [];
+
+  public function __construct()
+  {
+    // Constructor simplificado
+  }
 
   public function get(Request $request, string $id)
   {
@@ -340,14 +345,17 @@ class BasicController extends Controller
         $snake_case = 'item';
       }
 
-      // Procesar imágenes
+      // Procesar imágenes - Sistema original simplificado
       foreach ($this->imageFields as $field) {
         if (!$request->hasFile($field)) continue;
-        $full = $request->file($field);
+        
+        $file = $request->file($field);
         $uuid = Crypto::randomUUID();
-        $ext = $full->getClientOriginalExtension();
+        $ext = $file->getClientOriginalExtension();
         $path = "images/{$snake_case}/{$uuid}.{$ext}";
-        Storage::put($path, file_get_contents($full));
+        
+        // Guardar la imagen directamente
+        Storage::put($path, file_get_contents($file));
         $body[$field] = "{$uuid}.{$ext}";
       }
 
@@ -375,6 +383,7 @@ class BasicController extends Controller
       // Crear o actualizar registro
       $jpa = $this->model::find(isset($body['id']) ? $body['id'] : null);
       $isNew = !$jpa; // Determinar si es un nuevo registro
+      
       if (!$jpa) {
         $body['slug'] = Crypto::randomUUID();
         $jpa = $this->model::create($body);
@@ -582,5 +591,48 @@ class BasicController extends Controller
         $response->status
       );
     }
+  }
+
+  /**
+   * Determinar el tipo de modelo para configuración específica de imágenes
+   */
+  protected function getModelTypeForImage(string $modelName, string $fieldName): string
+  {
+    // Mapeo específico por modelo
+    $modelMapping = [
+      'banner' => 'banner',
+      'slider' => 'slider',
+      'ad' => 'banner',
+      'item' => 'product',
+      'post' => 'post',
+      'user' => 'avatar',
+      'staff' => 'avatar',
+      'brand' => 'logo',
+      'social' => 'logo',
+      'general' => 'logo'
+    ];
+
+    // Mapeo específico por campo
+    $fieldMapping = [
+      'avatar' => 'avatar',
+      'logo' => 'logo',
+      'banner' => 'banner',
+      'image' => 'product',
+      'photo' => 'product',
+      'picture' => 'product'
+    ];
+
+    // Primero buscar por nombre de campo
+    if (isset($fieldMapping[$fieldName])) {
+      return $fieldMapping[$fieldName];
+    }
+
+    // Luego buscar por modelo
+    if (isset($modelMapping[$modelName])) {
+      return $modelMapping[$modelName];
+    }
+
+    // Por defecto
+    return 'product';
   }
 }

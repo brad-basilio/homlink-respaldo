@@ -252,19 +252,20 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/sale-statuses/by-sale/{id}', [AdminSaleStatusController::class, 'bySale']);
 
-        Route::post('/posts', [AdminPostController::class, 'save']);
+        // Rutas con validación de imágenes
+        Route::post('/posts', [AdminPostController::class, 'save'])->middleware('validate.image');
         Route::post('/posts/paginate', [AdminPostController::class, 'paginate']);
         Route::patch('/posts/status', [AdminPostController::class, 'status']);
         Route::patch('/posts/{field}', [AdminPostController::class, 'boolean']);
         Route::delete('/posts/{id}', [AdminPostController::class, 'delete']);
 
-        Route::post('/infoproducts', [AdminInfoproductController::class, 'save']);
+        Route::post('/infoproducts', [AdminInfoproductController::class, 'save'])->middleware('validate.image');
         Route::post('/infoproducts/paginate', [AdminInfoproductController::class, 'paginate']);
         Route::patch('/infoproducts/status', [AdminInfoproductController::class, 'status']);
         Route::patch('/infoproducts/{field}', [AdminInfoproductController::class, 'boolean']);
         Route::delete('/infoproducts/{id}', [AdminInfoproductController::class, 'delete']);
 
-        Route::post('/items', [AdminItemController::class, 'save']);
+        Route::post('/items', [AdminItemController::class, 'save'])->middleware('validate.image');
         Route::post('/items/paginate', [AdminItemController::class, 'paginate']);
         Route::patch('/items/status', [AdminItemController::class, 'status']);
         Route::patch('/items/{field}', [AdminItemController::class, 'boolean']);
@@ -313,7 +314,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/ads/{field}', [AdminAdController::class, 'boolean']);
         Route::delete('/ads/{id}', [AdminAdController::class, 'delete']);
 
-        Route::post('/banners', [AdminBannerController::class, 'save']);
+        Route::post('/banners', [AdminBannerController::class, 'save'])->middleware('validate.image');
         Route::post('/banners/paginate', [AdminBannerController::class, 'paginate']);
         Route::patch('/banners/status', [AdminBannerController::class, 'status']);
         Route::patch('/banners/{field}', [AdminBannerController::class, 'boolean']);
@@ -384,25 +385,25 @@ Route::middleware('auth')->group(function () {
         Route::patch('/apps/{field}', [AdminAppController::class, 'boolean']);
         Route::delete('/apps/{id}', [AdminAppController::class, 'delete']);
 
-        Route::post('/sliders', [AdminSliderController::class, 'save']);
+        Route::post('/sliders', [AdminSliderController::class, 'save'])->middleware('validate.image');
         Route::post('/sliders/paginate', [AdminSliderController::class, 'paginate']);
         Route::patch('/sliders/status', [AdminSliderController::class, 'status']);
         Route::patch('/sliders/{field}', [AdminSliderController::class, 'boolean']);
         Route::delete('/sliders/{id}', [AdminSliderController::class, 'delete']);
 
-        Route::post('/testimonies', [AdminTestimonyController::class, 'save']);
+        Route::post('/testimonies', [AdminTestimonyController::class, 'save'])->middleware('validate.image');
         Route::post('/testimonies/paginate', [AdminTestimonyController::class, 'paginate']);
         Route::patch('/testimonies/status', [AdminTestimonyController::class, 'status']);
         Route::patch('/testimonies/{field}', [AdminTestimonyController::class, 'boolean']);
         Route::delete('/testimonies/{id}', [AdminTestimonyController::class, 'delete']);
 
-        Route::post('/categories', [AdminCategoryController::class, 'save']);
+        Route::post('/categories', [AdminCategoryController::class, 'save'])->middleware('validate.image');
         Route::post('/categories/paginate', [AdminCategoryController::class, 'paginate']);
         Route::patch('/categories/status', [AdminCategoryController::class, 'status']);
         Route::patch('/categories/{field}', [AdminCategoryController::class, 'boolean']);
         Route::delete('/categories/{id}', [AdminCategoryController::class, 'delete']);
 
-        Route::post('/infoproductcategories', [AdminInfoproductCategoryController::class, 'save']);
+        Route::post('/infoproductcategories', [AdminInfoproductCategoryController::class, 'save'])->middleware('validate.image');
         Route::post('/infoproductcategories/paginate', [AdminInfoproductCategoryController::class, 'paginate']);
         Route::patch('/infoproductcategories/status', [AdminInfoproductCategoryController::class, 'status']);
         Route::patch('/infoproductcategories/{field}', [AdminInfoproductCategoryController::class, 'boolean']);
@@ -422,7 +423,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/complaints/{id}/attachments', [AdminComplaintController::class, 'attachments']);
         Route::patch('/complaints/{id}/update-estado', [AdminComplaintController::class, 'updateEstado']);
 
-        Route::post('/brands', [AdminBrandController::class, 'save']);
+        Route::post('/brands', [AdminBrandController::class, 'save'])->middleware('validate.image');
         Route::post('/brands/paginate', [AdminBrandController::class, 'paginate']);
         Route::patch('/brands/status', [AdminBrandController::class, 'status']);
         Route::patch('/brands/{field}', [AdminBrandController::class, 'boolean']);
@@ -436,19 +437,19 @@ Route::middleware('auth')->group(function () {
         Route::patch('/faqs/{field}', [AdminFaqController::class, 'boolean']);
         Route::delete('/faqs/{id}', [AdminFaqController::class, 'delete']);
 
-        Route::post('/strengths', [AdminStrengthController::class, 'save']);
+        Route::post('/strengths', [AdminStrengthController::class, 'save'])->middleware('validate.image');
         Route::post('/strengths/paginate', [AdminStrengthController::class, 'paginate']);
         Route::patch('/strengths/status', [AdminStrengthController::class, 'status']);
         Route::patch('/strengths/{field}', [AdminStrengthController::class, 'boolean']);
         Route::delete('/strengths/{id}', [AdminStrengthController::class, 'delete']);
 
-        Route::post('/core_values', [AdminCoreValueController::class, 'save']);
+        Route::post('/core_values', [AdminCoreValueController::class, 'save'])->middleware('validate.image');
         Route::post('/core_values/paginate', [AdminCoreValueController::class, 'paginate']);
         Route::patch('/core_values/status', [AdminCoreValueController::class, 'status']);
         Route::patch('/core_values/{field}', [AdminCoreValueController::class, 'boolean']);
         Route::delete('/core_values/{id}', [AdminCoreValueController::class, 'delete']);
 
-        Route::post('/benefits', [AdminBenefitController::class, 'save']);
+        Route::post('/benefits', [AdminBenefitController::class, 'save'])->middleware('validate.image');
         Route::post('/benefits/paginate', [AdminBenefitController::class, 'paginate']);
         Route::patch('/benefits/status', [AdminBenefitController::class, 'status']);
         Route::patch('/benefits/{field}', [AdminBenefitController::class, 'boolean']);
@@ -473,7 +474,7 @@ Route::middleware('auth')->group(function () {
         Route::patch('/generals/{field}', [AdminGeneralController::class, 'boolean']);
         Route::delete('/generals/{id}', [AdminGeneralController::class, 'delete']);
 
-        Route::post('/users', [AdminUserController::class, 'save']);
+        Route::post('/users', [AdminUserController::class, 'save'])->middleware('validate.image');
         Route::post('/users/paginate', [AdminUserController::class, 'paginate']);
         Route::patch('/users/status', [AdminUserController::class, 'status']);
         Route::patch('/users/{field}', [AdminUserController::class, 'boolean']);
@@ -481,8 +482,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/profile/{uuid}', [AdminProfileController::class, 'full']);
         Route::get('/profile/thumbnail/{uuid}', [AdminProfileController::class, 'thumbnail']);
-        Route::post('/profile', [AdminProfileController::class, 'saveProfile']);
-        Route::patch('/profile', [AdminProfileController::class, 'save']);
+        Route::post('/profile', [AdminProfileController::class, 'saveProfile'])->middleware('validate.image');
+        Route::patch('/profile', [AdminProfileController::class, 'save'])->middleware('validate.image');
 
         Route::patch('/account/email', [AdminAccountController::class, 'email']);
         Route::patch('/account/password', [AdminAccountController::class, 'password']);
