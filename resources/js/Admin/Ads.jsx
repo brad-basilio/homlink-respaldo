@@ -31,7 +31,7 @@ const Ads = ({ items }) => {
     const secondsRef = useRef();
     const linkRef = useRef();
     const invasivoRef = useRef();
-    const actionsRef = useRef();
+    //const actionsRef = useRef();
   //  const itemRef = useRef();
     const [isEditing, setIsEditing] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -50,11 +50,11 @@ const Ads = ({ items }) => {
         secondsRef.current.value = data?.seconds ?? 0;
        // itemRef.current.value = data?.item_id ?? null;
         linkRef.current.value = data?.link ?? "";
-        if (data?.actions) {
+      {/*  if (data?.actions) {
             $(actionsRef.current).prop("checked", false).trigger("click");
         } else {
             $(actionsRef.current).prop("checked", true).trigger("click");
-        }
+        } */}
         if (data?.invasivo) {
             $(invasivoRef.current).prop("checked", false).trigger("click");
         } else {
@@ -77,12 +77,10 @@ const Ads = ({ items }) => {
                 date_begin: dateBeginRef.current.value,
                 date_end: dateEndRef.current.value,
                 seconds: secondsRef.current.value || 0,
-                actions: actionsRef.current.checked ? 1 : 0,
+               // actions: actionsRef.current.checked ? 1 : 0,
                 item_id: null,
                 link: linkRef.current.value,
-                invasivo: actionsRef.current.checked
-                    ? 0
-                    : invasivoRef.current.checked
+                invasivo: invasivoRef.current.checked
                     ? 1
                     : 0,
             };
@@ -479,12 +477,12 @@ const Ads = ({ items }) => {
                                     specification="Solo se mostrará este popup y bloqueará otros (ideal para anuncios importantes)"
                                 />
                                 
-                                <SwitchFormGroup
+                               {/* <SwitchFormGroup
                                     eRef={actionsRef}
                                     onChange={(e) => setSelectedAction(e.target.checked)}
                                     label="🛒 Mostrar al agregar producto al carrito"
                                     specification="El popup aparecerá cuando se añada un producto específico al carrito"
-                                />
+                                /> */}
 
                                 {/*selectedAction && (
                                     <div className="mt-3 p-3 bg-light rounded">

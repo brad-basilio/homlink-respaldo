@@ -29,6 +29,13 @@ class Ad extends Model
         'status',
     ];
 
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+        'invasivo' => 'boolean',
+        'actions' => 'boolean',
+    ];
+
     public static function today()
     {
         // Primero verificamos si hay anuncios invasivos activos
