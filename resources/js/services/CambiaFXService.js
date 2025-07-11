@@ -225,8 +225,8 @@ class CambiaFXService {
             console.log('⚠️ Monto <= 0, usando primer TC disponible');
             if (this.tcData.length > 0) {
                 const obj = this.tcData[0];
-                // Corregir lógica: C = cliente compra USD (usamos tc_venta), V = cliente vende USD (usamos tc_compra)
-                const tc = operationType === 'C' ? obj.tc_venta : obj.tc_compra;
+                // CORREGIDO: C = cliente tiene USD, quiere PEN (usamos tc_compra), V = cliente tiene PEN, quiere USD (usamos tc_venta)
+                const tc = operationType === 'C' ? obj.tc_compra : obj.tc_venta;
                 console.log('💱 TC base seleccionado:', { obj, tc, operationType });
                 return tc;
             }
@@ -285,8 +285,9 @@ class CambiaFXService {
         }
         
         if (tcObj !== null) {
-            // Corregir lógica: C = cliente compra USD (usamos tc_venta), V = cliente vende USD (usamos tc_compra)
-            const tc = operationType === 'C' ? tcObj.tc_venta : tcObj.tc_compra;
+            // VENTA: Cliente envía SOLES, recibe DÓLARES (usamos tc_venta)
+            // COMPRA: Cliente envía DÓLARES, recibe SOLES (usamos tc_compra)
+            const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
             console.log('🎯 TC final calculado:', { tc, operationType, rango: tcObj });
             return tc;
         }
@@ -301,7 +302,7 @@ class CambiaFXService {
         
         for (let obj of this.tcBase) {
             if (obj.desde <= amount && amount <= obj.hasta) {
-                const tc = operationType === 'C' ? obj.tc_venta : obj.tc_compra;
+                const tc = operationType === 'V' ? obj.tc_venta : obj.tc_compra;
                 console.log('✅ TC base encontrado:', { tc, operationType, rango: obj });
                 return tc;
             }
@@ -310,7 +311,7 @@ class CambiaFXService {
         // Si no se encuentra, usar el último rango base
         if (this.tcBase.length > 0) {
             const lastObj = this.tcBase[this.tcBase.length - 1];
-            const tc = operationType === 'C' ? lastObj.tc_venta : lastObj.tc_compra;
+            const tc = operationType === 'V' ? lastObj.tc_venta : lastObj.tc_compra;
             console.log('📊 Usando último TC base:', { tc, operationType, rango: lastObj });
             return tc;
         }
@@ -327,29 +328,29 @@ class CambiaFXService {
 
         if (origin === 'from') {
             // Calculando desde el monto origen
-            if (operationType === 'C') {
-                // Cliente COMPRA USD: Pone PEN, recibe USD
+            if (operationType === 'V') {
+                // VENTA: Cliente envía SOLES, recibe DÓLARES
                 // PEN / tc_venta = USD
                 result = amount / tc;
-                console.log('Cliente Compra USD: PEN', amount, '/ tc_venta', tc, '=', result, 'USD');
+                console.log('VENTA: PEN', amount, '/ tc_venta', tc, '=', result, 'USD');
             } else {
-                // Cliente VENDE USD: Pone USD, recibe PEN  
+                // COMPRA: Cliente envía DÓLARES, recibe SOLES
                 // USD * tc_compra = PEN
                 result = amount * tc;
-                console.log('Cliente Vende USD: USD', amount, '* tc_compra', tc, '=', result, 'PEN');
+                console.log('COMPRA: USD', amount, '* tc_compra', tc, '=', result, 'PEN');
             }
         } else {
             // Calculando desde el monto destino (inverso)
-            if (operationType === 'C') {
-                // Cliente COMPRA USD: Quiere USD, calcula PEN necesarios
+            if (operationType === 'V') {
+                // VENTA: Quiere USD, calcula PEN necesarios
                 // USD * tc_venta = PEN
                 result = amount * tc;
-                console.log('Cliente Compra USD inverso: USD', amount, '* tc_venta', tc, '=', result, 'PEN');
+                console.log('VENTA inverso: USD', amount, '* tc_venta', tc, '=', result, 'PEN');
             } else {
-                // Cliente VENDE USD: Quiere PEN, calcula USD necesarios
+                // COMPRA: Quiere PEN, calcula USD necesarios
                 // PEN / tc_compra = USD
                 result = amount / tc;
-                console.log('Cliente Vende USD inverso: PEN', amount, '/ tc_compra', tc, '=', result, 'USD');
+                console.log('COMPRA inverso: PEN', amount, '/ tc_compra', tc, '=', result, 'USD');
             }
         }
 
@@ -369,15 +370,15 @@ class CambiaFXService {
         
         if (this.tcData.length === 0) {
             console.log('⚠️ tcData vacío, retornando valores por defecto');
-            return { compra: '3.5650', venta: '3.5330' };  // compra = tc_venta (alto), venta = tc_compra (bajo)
+            return { compra: '3.5330', venta: '3.5650' };  // CORREGIDO: compra = tc_compra (bajo), venta = tc_venta (alto)
         }
         
         const rates = this.tcData[0];
         console.log('🏦 Primer elemento tcData:', rates);
         
         const result = {
-            compra: rates.tc_venta.toFixed(4),  // Cliente COMPRA USD = nosotros VENDEMOS USD (tc_venta = precio alto)
-            venta: rates.tc_compra.toFixed(4)   // Cliente VENDE USD = nosotros COMPRAMOS USD (tc_compra = precio bajo)
+            compra: rates.tc_compra.toFixed(4),  // COMPRA: Cliente tiene USD, quiere PEN = nosotros COMPRAMOS USD (tc_compra = precio bajo)
+            venta: rates.tc_venta.toFixed(4)     // VENTA: Cliente tiene PEN, quiere USD = nosotros VENDEMOS USD (tc_venta = precio alto)
         };
         
         console.log('✅ Rates calculados:', result);

@@ -354,10 +354,10 @@ const ExchangeCard = ({
         const couponApplies = checkCouponApplies();
         
         if (couponApplies.applies) {
-            // Mostrar tasas del cupón
+            // Mostrar tasas del cupón (CORREGIDO)
             return {
-                compra: couponInfo.tcVenta.toFixed(4),
-                venta: couponInfo.tcCompra.toFixed(4)
+                compra: couponInfo.tcCompra.toFixed(4), // COMPRA: Cliente tiene USD → usar tc_compra
+                venta: couponInfo.tcVenta.toFixed(4)    // VENTA: Cliente tiene PEN → usar tc_venta
             };
         } else {
             // Mostrar tasas normales pero con indicador de que hay cupón disponible
@@ -442,19 +442,76 @@ const ExchangeCard = ({
                     }`}
                 >
                     <div className="flex flex-col items-center">
-                        <span className="text-sm font-semibold">COMPRA S/ {rates.compra}</span>
-                        {couponInfo && couponStatus.applies && (
-                            <div className="flex items-center gap-1 mt-1">
-                                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
-                                <span className="text-xs opacity-90 font-medium">¡Cupón activo!</span>
+                        <div className="flex items-center gap-2">
+                            {couponInfo && couponStatus.applies ? (
+                                <div className="text-center">
+                                    <div className="text-xs opacity-75 font-medium">
+                                        <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_compra.toFixed(4)}</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-secondary">Ahora S/ {rates.compra}</span>
+                                </div>
+                            ) : (
+                                <span className="text-sm font-semibold">COMPRA S/ {rates.compra}</span>
+                            )}
+                            
+                            {/* Icono de ayuda para COMPRA */}
+                            <div className="relative group">
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${
+                                    operationType === 'compra' 
+                                        ? 'bg-white/20 text-white hover:bg-white/30' 
+                                        : 'bg-neutral-light/20 text-neutral-light hover:bg-neutral-light/30'
+                                }`}>
+                                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <circle cx="8.5" cy="12" r="0.5" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                
+                                {/* Tooltip mejorado para COMPRA */}
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/90 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                        <div className="px-5 py-4">
+                                            {/* Header del tooltip */}
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-constrast to-constrast/80 rounded-full flex items-center justify-center shadow-lg">
+                                                    <span className="text-sm">💵</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-constrast text-sm">COMPRA DE DÓLARES</h4>
+                                                    <p className="text-xs text-white/70">Operación de cambio</p>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Contenido principal */}
+                                            <div className="space-y-2 mb-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                                                    <span className="text-sm">Tienes: <span className="font-semibold text-secondary">Dólares USD</span></span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                                                    <span className="text-sm">Quieres: <span className="font-semibold text-secondary">Soles PEN</span></span>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Footer explicativo */}
+                                            <div className="bg-white/5 rounded-lg px-3 py-2">
+                                                <p className="text-xs text-white/80 text-center">
+                                                    <span className="font-medium text-constrast">Nosotros</span> compramos tus dólares
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Flecha del tooltip */}
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2">
+                                            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        )}
-                        {couponInfo && !couponStatus.applies && (
-                            <div className="flex items-center gap-1 mt-1">
-                                <div className="w-2 h-2 bg-secondary/60 rounded-full"></div>
-                                <span className="text-xs opacity-75 font-medium">S/ {couponInfo.tcVenta.toFixed(4)} disponible</span>
-                            </div>
-                        )}
+                        </div>
+                        
+                       
                     </div>
                     {couponInfo && couponStatus.applies && (
                         <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
@@ -469,19 +526,76 @@ const ExchangeCard = ({
                     }`}
                 >
                     <div className="flex flex-col items-center">
-                        <span className="text-sm font-semibold">VENTA S/ {rates.venta}</span>
-                        {couponInfo && couponStatus.applies && (
-                            <div className="flex items-center gap-1 mt-1">
-                                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
-                                <span className="text-xs opacity-90 font-medium">¡Cupón activo!</span>
+                        <div className="flex items-center gap-2">
+                            {couponInfo && couponStatus.applies ? (
+                                <div className="text-center">
+                                    <div className="text-xs opacity-75 font-medium">
+                                        <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_venta.toFixed(4)}</span>
+                                    </div>
+                                    <span className="text-sm font-semibold text-secondary">Ahora S/ {rates.venta}</span>
+                                </div>
+                            ) : (
+                                <span className="text-sm font-semibold">VENTA S/ {rates.venta}</span>
+                            )}
+                            
+                            {/* Icono de ayuda para VENTA */}
+                            <div className="relative group">
+                                <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${
+                                    operationType === 'venta' 
+                                        ? 'bg-white/20 text-white hover:bg-white/30' 
+                                        : 'bg-neutral-light/20 text-neutral-light hover:bg-neutral-light/30'
+                                }`}>
+                                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                                        <circle cx="8.5" cy="12" r="0.5" fill="currentColor"/>
+                                    </svg>
+                                </div>
+                                
+                                {/* Tooltip mejorado para VENTA */}
+                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/90 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                        <div className="px-5 py-4">
+                                            {/* Header del tooltip */}
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-constrast to-constrast/80 rounded-full flex items-center justify-center shadow-lg">
+                                                    <span className="text-sm">💰</span>
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-constrast text-sm">VENTA DE DÓLARES</h4>
+                                                    <p className="text-xs text-white/70">Operación de cambio</p>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Contenido principal */}
+                                            <div className="space-y-2 mb-3">
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                                                    <span className="text-sm">Tienes: <span className="font-semibold text-secondary">Soles PEN</span></span>
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-2 h-2 bg-secondary rounded-full"></div>
+                                                    <span className="text-sm">Quieres: <span className="font-semibold text-secondary">Dólares USD</span></span>
+                                                </div>
+                                            </div>
+                                            
+                                            {/* Footer explicativo */}
+                                            <div className="bg-white/5 rounded-lg px-3 py-2">
+                                                <p className="text-xs text-white/80 text-center">
+                                                    <span className="font-medium text-constrast">Nosotros</span> te vendemos dólares
+                                                </p>
+                                            </div>
+                                        </div>
+                                        
+                                        {/* Flecha del tooltip */}
+                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2">
+                                            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        )}
-                        {couponInfo && !couponStatus.applies && (
-                            <div className="flex items-center gap-1 mt-1">
-                                <div className="w-2 h-2 bg-secondary/60 rounded-full"></div>
-                                <span className="text-xs opacity-75 font-medium">S/ {couponInfo.tcCompra.toFixed(4)} disponible</span>
-                            </div>
-                        )}
+                        </div>
+                        
+                        
                     </div>
                     {couponInfo && couponStatus.applies && (
                         <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
@@ -495,7 +609,7 @@ const ExchangeCard = ({
                 <div className="flex items-center bg-white rounded-2xl shadow-lg p-2 w-full relative">
                     <div className="flex-1 h-full flex flex-col ml-2 justify-center">
                         <p className="text-neutral-light text-[8px] uppercase font-semibold">
-                            {operationType === 'compra' ? "ENVÍO SOLES" : "ENVÍO DÓLARES"}
+                            {operationType === 'compra' ? "ENVÍO DÓLARES" : "ENVÍO SOLES"}
                         </p>
                         <input
                             type="number"
@@ -514,12 +628,12 @@ const ExchangeCard = ({
                     </div>
                     <div className="flex items-center bg-secondary bg-opacity-50 rounded-xl px-6 py-3 ml-4">
                         <img
-                            src={operationType === 'compra' ? "https://flagcdn.com/w580/pe.png" : "https://flagcdn.com/w580/us.png"}
-                            alt={operationType === 'compra' ? "PEN Flag" : "USD Flag"}
+                            src={operationType === 'compra' ? "https://flagcdn.com/w580/us.png" : "https://flagcdn.com/w580/pe.png"}
+                            alt={operationType === 'compra' ? "USD Flag" : "PEN Flag"}
                             className="w-6 h-6 object-cover rounded-full mr-2"
                         />
                         <span className="text-base font-medium tracking-wide text-neutral-light">
-                            {operationType === 'compra' ? 'PEN' : 'USD'}
+                            {operationType === 'compra' ? 'USD' : 'PEN'}
                         </span>
                     </div>
                 </div>
@@ -540,7 +654,7 @@ const ExchangeCard = ({
                 <div className="flex items-center bg-white rounded-2xl shadow-lg p-2 w-full relative">
                     <div className="flex-1 h-full flex flex-col ml-2 justify-center">
                         <p className="text-neutral-light text-[8px] uppercase font-semibold">
-                            {operationType === 'compra' ? "RECIBO DÓLARES" : "RECIBO SOLES"}
+                            {operationType === 'compra' ? "RECIBO SOLES" : "RECIBO DÓLARES"}
                         </p>
                         <input
                             type="number"
@@ -559,58 +673,16 @@ const ExchangeCard = ({
                     </div>
                     <div className="flex items-center bg-secondary bg-opacity-50 rounded-xl px-6 py-3 ml-4">
                         <img
-                            src={operationType === 'compra' ? "https://flagcdn.com/w580/us.png" : "https://flagcdn.com/w580/pe.png"}
-                            alt={operationType === 'compra' ? "USD Flag" : "PEN Flag"}
+                            src={operationType === 'compra' ? "https://flagcdn.com/w580/pe.png" : "https://flagcdn.com/w580/us.png"}
+                            alt={operationType === 'compra' ? "PEN Flag" : "USD Flag"}
                             className="w-6 h-6 object-cover rounded-full mr-2"
                         />
                         <span className="text-base font-medium tracking-wide text-neutral-light">
-                            {operationType === 'compra' ? 'USD' : 'PEN'}
+                            {operationType === 'compra' ? 'PEN' : 'USD'}
                         </span>
                     </div>
                 </div>
             </div>
-
-            {/* Indicador de Estado del Cupón */}
-            {couponInfo && !couponStatus.applies && (
-                <div className="bg-gradient-to-r from-secondary/10 to-secondary/20 border-2 border-secondary/30 rounded-2xl p-4 shadow-lg">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="#0C0C0C"/>
-                            </svg>
-                        </div>
-                        <span className="font-semibold text-neutral-dark text-sm">
-                            Cupón {couponInfo.codigo} disponible
-                        </span>
-                    </div>
-                    <div className="ml-11 space-y-1">
-                        <p className="text-xs text-neutral-light font-medium">{couponStatus.reason}</p>
-                        <p className="text-xs text-constrast font-semibold">
-                            💰 Tasa preferencial: S/ {operationType === 'compra' ? couponInfo.tcVenta.toFixed(4) : couponInfo.tcCompra.toFixed(4)}
-                        </p>
-                    </div>
-                </div>
-            )}
-
-            {couponInfo && couponStatus.applies && (
-                <div className="bg-gradient-to-r from-constrast/10 to-constrast/20 border-2 border-constrast/40 rounded-2xl p-4 shadow-lg">
-                    <div className="flex items-center gap-3 mb-2">
-                        <div className="w-8 h-8 bg-constrast rounded-full flex items-center justify-center">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M13.5 6L6 13.5L2.5 10" stroke="#F9F3E0" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>
-                        </div>
-                        <span className="font-semibold text-neutral-dark text-sm">
-                            ¡Cupón {couponInfo.codigo} aplicado!
-                        </span>
-                    </div>
-                    <div className="ml-11">
-                        <p className="text-xs text-neutral-light font-medium">
-                            🎉 Estás obteniendo la tasa preferencial de <span className="font-bold text-constrast">S/ {operationType === 'compra' ? couponInfo.tcVenta.toFixed(4) : couponInfo.tcCompra.toFixed(4)}</span>
-                        </p>
-                    </div>
-                </div>
-            )}
 
             {/* Coupon and Credits */}
             {(showCoupons || showCredits) && (
@@ -618,20 +690,104 @@ const ExchangeCard = ({
                     {showCoupons && (
                         <>
                             {!showCouponInput ? (
-                                <button 
-                                    onClick={() => setShowCouponInput(true)}
-                                    className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl text-neutral-dark font-medium text-sm hover:bg-neutral hover:shadow-md transition-all duration-200 border-2 border-transparent hover:border-secondary/30"
-                                >
-                                    USAR CUPÓN 
-                                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.74985 14.3412L6.39628 13.5378C6.05276 13.3339 5.88099 13.2319 5.69036 13.2261C5.48436 13.2197 5.30956 13.3175 4.93835 13.5378C4.52261 13.7846 3.69594 14.4643 3.1612 14.1402C2.83398 13.9418 2.83398 13.4379 2.83398 12.4301V5.33301C2.83398 3.44739 2.83398 2.50458 3.41977 1.91879C4.00556 1.33301 4.94836 1.33301 6.83398 1.33301H10.1673C12.0529 1.33301 12.9957 1.33301 13.5815 1.91879C14.1673 2.50458 14.1673 3.44739 14.1673 5.33301V12.4301C14.1673 13.4379 14.1673 13.9418 13.8401 14.1402C13.3054 14.4643 12.4787 13.7846 12.0629 13.5378C11.7194 13.3339 11.5477 13.2319 11.3571 13.2261C11.1511 13.2197 10.9763 13.3175 10.6051 13.5378L9.25145 14.3412C8.88638 14.5579 8.70378 14.6663 8.50065 14.6663C8.29752 14.6663 8.11492 14.5579 7.74985 14.3412Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.5 5.33301L6.5 9.33301" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
-                                        <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
-                                    </svg>
-                                </button>
+                                <div className="flex-1 flex gap-2">
+                                    <button 
+                                        onClick={() => setShowCouponInput(true)}
+                                        className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl text-neutral-dark font-medium text-sm hover:bg-neutral hover:shadow-md transition-all duration-200 border-2 border-transparent hover:border-secondary/30 group relative"
+                                        title="Ingresa tu código promocional para obtener una tasa preferencial"
+                                    >
+                                        USAR CUPÓN 
+                                        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.74985 14.3412L6.39628 13.5378C6.05276 13.3339 5.88099 13.2319 5.69036 13.2261C5.48436 13.2197 5.30956 13.3175 4.93835 13.5378C4.52261 13.7846 3.69594 14.4643 3.1612 14.1402C2.83398 13.9418 2.83398 13.4379 2.83398 12.4301V5.33301C2.83398 3.44739 2.83398 2.50458 3.41977 1.91879C4.00556 1.33301 4.94836 1.33301 6.83398 1.33301H10.1673C12.0529 1.33301 12.9957 1.33301 13.5815 1.91879C14.1673 2.50458 14.1673 3.44739 14.1673 5.33301V12.4301C14.1673 13.4379 14.1673 13.9418 13.8401 14.1402C13.3054 14.4643 12.4787 13.7846 12.0629 13.5378C11.7194 13.3339 11.5477 13.2319 11.3571 13.2261C11.1511 13.2197 10.9763 13.3175 10.6051 13.5378L9.25145 14.3412C8.88638 14.5579 8.70378 14.6663 8.50065 14.6663C8.29752 14.6663 8.11492 14.5579 7.74985 14.3412Z" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M10.5 5.33301L6.5 9.33301" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
+                                            <path d="M10.5 9.33301H10.494M6.50598 5.33301H6.5" stroke="currentColor" strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                        
+                                        {/* Tooltip */}
+                                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-neutral-dark text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap">
+                                            💡 Obtén tasas preferenciales con tu código promocional
+                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
+                                        </div>
+                                    </button>
+                                    
+                                    {/* Icono de información del cupón aplicado */}
+                                    {couponInfo && (
+                                        <div className="relative group">
+                                            <button className="py-4 px-3 rounded-xl bg-constrast/10 border-2 border-constrast/30 hover:bg-constrast/20 transition-all duration-200">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                                                    <path d="M8 12V8M8 5.5H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                </svg>
+                                            </button>
+                                            
+                                            {/* Tooltip detallado del cupón aplicado */}
+                                            <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                                <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
+                                                    <div className="px-5 py-4">
+                                                        {/* Header del tooltip */}
+                                                        <div className="flex items-center gap-3 mb-4">
+                                                            <div className="w-10 h-10 bg-gradient-to-br from-constrast to-constrast/80 rounded-full flex items-center justify-center shadow-lg">
+                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="#F9F3E0"/>
+                                                                </svg>
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="font-bold text-constrast text-sm">CUPÓN {couponInfo.codigo}</h4>
+                                                                <p className="text-xs text-white/70">Actualmente aplicado</p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {/* Detalles del cupón */}
+                                                        <div className="space-y-3 mb-4">
+                                                            <div className="bg-white/5 rounded-lg p-3">
+                                                                <h5 className="text-xs font-semibold text-constrast mb-2">RANGO VÁLIDO</h5>
+                                                                <p className="text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
+                                                            </div>
+                                                            
+                                                            <div className="grid grid-cols-2 gap-2">
+                                                                <div className="bg-white/5 rounded-lg p-3">
+                                                                    <h5 className="text-xs font-semibold text-constrast mb-1">COMPRA</h5>
+                                                                    <p className="text-sm font-bold">S/ {couponInfo.tcCompra.toFixed(4)}</p>
+                                                                </div>
+                                                                <div className="bg-white/5 rounded-lg p-3">
+                                                                    <h5 className="text-xs font-semibold text-constrast mb-1">VENTA</h5>
+                                                                    <p className="text-sm font-bold">S/ {couponInfo.tcVenta.toFixed(4)}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {/* Estado del cupón */}
+                                                        <div className={`rounded-lg px-3 py-2 text-center ${
+                                                            couponStatus.applies 
+                                                                ? 'bg-green-500/20 border border-secondary/30' 
+                                                                : 'bg-yellow-500/20 border border-yellow-400/30'
+                                                        }`}>
+                                                            <div className="flex items-center justify-center gap-2">
+                                                                <div className={`w-2 h-2 rounded-full ${
+                                                                    couponStatus.applies ? 'bg-secondary' : 'bg-yellow-400'
+                                                                }`}></div>
+                                                                <p className="text-xs font-medium">
+                                                                    {couponStatus.applies ? '✅ Cupón activo' : '⏳ Cupón disponible'}
+                                                                </p>
+                                                            </div>
+                                                            {!couponStatus.applies && (
+                                                                <p className="text-xs text-white/70 mt-1">{couponStatus.reason}</p>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* Flecha del tooltip */}
+                                                    <div className="absolute top-full right-6 transform">
+                                                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             ) : (
-                                <div className="flex-1 relative">
-                                    <div className="relative">
+                                <div className="flex-1 flex gap-2 items-center">
+                                    <div className="flex-1 relative">
                                         <input
                                             type="text"
                                             placeholder="Ingresa tu código promocional"
@@ -644,15 +800,16 @@ const ExchangeCard = ({
                                         <button
                                             onClick={() => {
                                                 setShowCouponInput(false);
-                                                setPromotionalCode('');                                // Limpiar cupón del servicio y restaurar TC base
-                                console.log('🧹 Limpiando cupón y restaurando TC base...');
-                                CambiaFXService.validateCoupon(''); // Esto restaura tcBase
-                                setCouponInfo(null);
-                                updateCurrentRates();
-                                if (amount1) {
-                                    calculateExchange('O');
-                                }
-                            }}
+                                                setPromotionalCode('');                                
+                                                // Limpiar cupón del servicio y restaurar TC base
+                                                console.log('🧹 Limpiando cupón y restaurando TC base...');
+                                                CambiaFXService.validateCoupon(''); // Esto restaura tcBase
+                                                setCouponInfo(null);
+                                                updateCurrentRates();
+                                                if (amount1) {
+                                                    calculateExchange('O');
+                                                }
+                                            }}
                                             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-light/60 hover:text-neutral-dark transition-colors p-1 hover:bg-neutral/50 rounded-lg"
                                         >
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -660,8 +817,99 @@ const ExchangeCard = ({
                                             </svg>
                                         </button>
                                     </div>
+                                    
+                                    {/* Ícono de ayuda dinámico */}
+                                    <div className="relative group">
+                                        {!couponInfo ? (
+                                            // Antes de validar: Muestra modal de cupones disponibles
+                                            <button
+                                                onClick={() => setShowCouponModal(true)}
+                                                className="py-4 px-3 rounded-xl bg-constrast/10 border-2 border-constrast/30 hover:bg-constrast/20 text-constrast transition-all duration-200 group"
+                                                title="Ver cupones disponibles"
+                                            >
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+                                                    <path d="M8 12V8M8 5.5H8.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                </svg>
+                                                
+                                                {/* Tooltip para mostrar modal */}
+                                                <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
+                                                        <p className="text-xs font-medium">💡 Visita nuestra web para ver los cupones del mes</p>
+                                                        <div className="absolute top-full right-3 transform">
+                                                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            // Después de validar: Muestra detalles del cupón en hover
+                                            <button className="py-4 px-3 rounded-xl bg-secondary-500/10 border-2 border-secondary-400/30 hover:bg-secondary-500/20 text-constrast transition-all duration-200">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="currentColor"/>
+                                                </svg>
+                                            </button>
+                                        )}
+                                        
+                                        {/* Tooltip detallado del cupón validado */}
+                                        {couponInfo && (
+                                            <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
+                                                <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden w-72">
+                                                    <div className="px-5 py-4">
+                                                        {/* Header del tooltip */}
+                                                        <div className="flex items-center gap-3 mb-4">
+                                                            <div className="w-10 h-10 bg-gradient-to-br from-secondary to-green-500 rounded-full flex items-center justify-center shadow-lg">
+                                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M8 1L10.5 6L16 6.75L12 10.5L13 16L8 13L3 16L4 10.5L0 6.75L5.5 6L8 1Z" fill="white"/>
+                                                                </svg>
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="font-bold text-secondary text-sm">CUPÓN {couponInfo.codigo}</h4>
+                                                                <p className="text-xs text-white">✅ Validado y aplicado</p>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {/* Detalles del cupón */}
+                                                        <div className="space-y-3 mb-4">
+                                                            <div className="bg-white/5 rounded-lg p-3">
+                                                                <h5 className="text-xs font-semibold text-secondary mb-2">RANGO VÁLIDO</h5>
+                                                                <p className="text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
+                                                            </div>
+                                                            
+                                                            <div className="grid grid-cols-2 gap-2">
+                                                                <div className="bg-white/5 rounded-lg p-3">
+                                                                    <h5 className="text-xs font-semibold text-secondary mb-1">COMPRA</h5>
+                                                                    <p className="text-sm font-medium">S/ {couponInfo.tcCompra.toFixed(4)}</p>
+                                                                </div>
+                                                                <div className="bg-white/5 rounded-lg p-3">
+                                                                    <h5 className="text-xs font-semibold text-secondary mb-1">VENTA</h5>
+                                                                    <p className="text-sm font-medium">S/ {couponInfo.tcVenta.toFixed(4)}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        {/* Estado del cupón */}
+                                                        <div className=" border  rounded-lg px-3 py-2 text-center">
+                                                            <div className="flex items-center justify-center gap-2">
+                                                                <div className="w-2 h-2 rounded-full bg-secondary"></div>
+                                                                <p className="text-xs font-medium">🎉 Cupón activo</p>
+                                                            </div>
+                                                            <p className="text-xs text-white/70 mt-1">Disfruta de tu tasa preferencial</p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {/* Flecha del tooltip */}
+                                                    <div className="absolute top-full right-6 transform">
+                                                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    
+                                    {/* Loading spinner para validación del cupón */}
                                     {isValidatingCoupon && (
-                                        <div className="absolute right-12 top-1/2 transform -translate-y-1/2">
+                                        <div className="absolute right-16 top-1/2 transform -translate-y-1/2">
                                             <div className="animate-spin w-4 h-4 border-2 border-constrast border-t-transparent rounded-full"></div>
                                         </div>
                                     )}
@@ -693,8 +941,9 @@ const ExchangeCard = ({
                 INICIAR OPERACIÓN
             </button>
 
-            {/* Modal Informativo del Cupón */}
-            {showCouponModal && couponInfo && (
+            {/* Modal Informativo del Cupón 
+            
+             {showCouponModal && couponInfo && (
                 <div className="fixed inset-0 bg-neutral-dark/80 backdrop-blur-sm flex items-center justify-center z-[100000] p-4">
                     <div className="bg-primary rounded-3xl p-8 max-w-md w-full mx-4 shadow-2xl border border-neutral/20">
                         <div className="text-center">
@@ -722,11 +971,11 @@ const ExchangeCard = ({
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-constrast rounded-full"></span>
-                                        Tasa de compra: <span className="font-semibold text-constrast">S/ {couponInfo.tcVenta.toFixed(4)}</span>
+                                        Tasa de compra: <span className="font-semibold text-constrast">S/ {couponInfo.tcCompra.toFixed(4)}</span>
                                     </li>
                                     <li className="flex items-center gap-2">
                                         <span className="w-1.5 h-1.5 bg-constrast rounded-full"></span>
-                                        Tasa de venta: <span className="font-semibold text-constrast">S/ {couponInfo.tcCompra.toFixed(4)}</span>
+                                        Tasa de venta: <span className="font-semibold text-constrast">S/ {couponInfo.tcVenta.toFixed(4)}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -743,6 +992,9 @@ const ExchangeCard = ({
                     </div>
                 </div>
             )}
+            
+            */}
+           
         </div>
     );
 };
