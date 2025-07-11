@@ -27,7 +27,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     useEffect(() => {
         const colorInterval = setInterval(() => {
             setColorIndex(prev => (prev + 1) % colors.length);
-        }, 2000);
+        }, 000);
 
         return () => clearInterval(colorInterval);
     }, []);
