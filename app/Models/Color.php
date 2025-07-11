@@ -23,6 +23,11 @@ class Color extends Model
         'status',
     ];
 
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
+
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);

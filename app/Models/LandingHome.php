@@ -28,6 +28,12 @@ class LandingHome extends Model
         'lang_id',
         'original_id',
     ];
+
+    protected $casts = [
+        'status' => 'boolean',
+        'visible' => 'boolean',
+        'is_video' => 'boolean',
+    ];
     public function lang(): BelongsTo
     {
         return $this->belongsTo(Lang::class);

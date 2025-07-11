@@ -21,4 +21,10 @@ class Status extends Model
         'visible',
         'status',
     ];
+
+    protected $casts = [
+        'reversible' => 'boolean',
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
 }

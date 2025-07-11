@@ -22,6 +22,12 @@ class App extends Model
         'visible'
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'visible' => 'boolean',
+        'order' => 'integer',
+    ];
+
 
 
     public function scopeActive($query)

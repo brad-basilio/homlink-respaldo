@@ -21,6 +21,10 @@ class General extends Model
         'status',
         'lang_id',
     ];
+
+    protected $casts = [
+        'status' => 'boolean',
+    ];
     public function lang()
     {
         return $this->belongsTo(Lang::class);

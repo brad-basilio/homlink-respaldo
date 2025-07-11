@@ -499,8 +499,8 @@ const ExchangeCard = ({
                             {/* Icono de ayuda para COMPRA */}
                             <div className="relative group">
                                 <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'compra'
-                                        ? 'bg-white/20 text-white hover:bg-white/30'
-                                        : 'bg-neutral-light/20 text-neutral-light hover:bg-neutral-light/30'
+                                        ? 'bg-secondary text-neutral-dark'
+                                        : 'bg-neutral-dark text-white'
                                     }`}>
                                     <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -510,7 +510,7 @@ const ExchangeCard = ({
 
                                 {/* Tooltip mejorado para COMPRA */}
                                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                    <div className="bg-gradient-to-br min-w-max from-neutral-dark to-neutral-dark/90 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                    <div className="bg-neutral-dark min-w-max backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-5 py-4">
                                             {/* Header del tooltip */}
                                            
@@ -578,8 +578,8 @@ const ExchangeCard = ({
                             {/* Icono de ayuda para VENTA */}
                             <div className="relative group">
                                 <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'venta'
-                                        ? 'bg-white/20 text-white hover:bg-white/30'
-                                        : 'bg-neutral-light/20 text-neutral-light hover:bg-neutral-light/30'
+                                        ? 'bg-neutral-light text-white'
+                                        : 'bg-neutral-dark text-white'
                                     }`}>
                                     <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
@@ -589,7 +589,7 @@ const ExchangeCard = ({
 
                                 {/* Tooltip mejorado para VENTA */}
                                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]">
-                                    <div className="bg-gradient-to-br min-w-max from-neutral-dark to-neutral-dark/90 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                    <div className="bg-neutral-dark min-w-max backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-5 py-4">
                                           
 

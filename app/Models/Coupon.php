@@ -26,4 +26,15 @@ class Coupon extends Model
         'one_time_use',
         'status'
     ];
+
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'sale_amount' => 'decimal:2',
+        'initial_stock' => 'integer',
+        'stock' => 'integer',
+        'date_begin' => 'date',
+        'date_end' => 'date',
+        'one_time_use' => 'boolean',
+        'status' => 'boolean',
+    ];
 }

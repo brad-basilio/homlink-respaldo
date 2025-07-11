@@ -22,6 +22,11 @@ class Faq extends Model
         'lang_id',
     ];
 
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
+
     public function service()
     {
         return $this->belongsTo(Service::class);

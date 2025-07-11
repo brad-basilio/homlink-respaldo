@@ -23,6 +23,13 @@ class Bundle extends Model
         'status',
     ];
 
+    protected $casts = [
+        'percentage' => 'decimal:2',
+        'items_quantity' => 'integer',
+        'includes_all_items' => 'boolean',
+        'status' => 'boolean',
+    ];
+
     public function items () {
         return $this->hasManyThrough(Item::class, BundleItem::class, 'bundle_id', 'id', 'id', 'item_id');
     }

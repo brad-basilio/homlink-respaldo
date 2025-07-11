@@ -35,6 +35,21 @@ class Item extends Model
         'stock',
         'score'
     ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'discount' => 'decimal:2',
+        'final_price' => 'decimal:2',
+        'discount_percent' => 'decimal:2',
+        'is_new' => 'boolean',
+        'offering' => 'boolean',
+        'recommended' => 'boolean',
+        'featured' => 'boolean',
+        'visible' => 'boolean',
+        'status' => 'boolean',
+        'stock' => 'integer',
+        'score' => 'decimal:2',
+    ];
     /*
      
     */

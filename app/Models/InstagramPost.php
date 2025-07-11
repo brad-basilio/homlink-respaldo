@@ -21,4 +21,9 @@ class InstagramPost extends Model
         'visible',
         'status'
     ];
+
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
 }

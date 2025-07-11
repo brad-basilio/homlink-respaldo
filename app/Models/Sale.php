@@ -45,6 +45,13 @@ class Sale extends Model
         'status_id',
     ];
 
+    protected $casts = [
+        'amount' => 'decimal:2',
+        'delivery' => 'decimal:2',
+        'coupon_discount' => 'decimal:2',
+        'total_amount' => 'decimal:2',
+    ];
+
 
 
     public function status(): BelongsTo

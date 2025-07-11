@@ -19,4 +19,9 @@ class Tag extends Model
         'visible',
         'status',
     ];
+
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
 }

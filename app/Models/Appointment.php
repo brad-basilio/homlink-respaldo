@@ -23,4 +23,9 @@ class Appointment extends Model
         'seen',
         'status',
     ];
+
+    protected $casts = [
+        'seen' => 'boolean',
+        'status' => 'boolean',
+    ];
 }

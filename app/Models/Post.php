@@ -27,6 +27,12 @@ class Post extends Model
         'lang_id'
     ];
 
+    protected $casts = [
+        'featured' => 'boolean',
+        'status' => 'boolean',
+        'post_date' => 'date',
+    ];
+
     public function category()
     {
         return $this->hasOne(Category::class, 'id', 'category_id');

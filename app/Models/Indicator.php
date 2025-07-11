@@ -24,6 +24,13 @@ class Indicator extends Model
         'correlative',
         'order',
     ];
+
+    protected $casts = [
+        'percentage' => 'decimal:2',
+        'visible' => 'boolean',
+        'status' => 'boolean',
+        'order' => 'integer',
+    ];
     public function lang()
     {
         return $this->belongsTo(Lang::class);

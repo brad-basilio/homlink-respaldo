@@ -22,6 +22,11 @@ class CoreValue extends Model
         'lang_id',
     ];
 
+    protected $casts = [
+        'visible' => 'boolean',
+        'status' => 'boolean',
+    ];
+
     public function lang()
     {
         return $this->belongsTo(Lang::class);
