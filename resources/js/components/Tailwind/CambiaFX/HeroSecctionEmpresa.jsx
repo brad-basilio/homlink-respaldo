@@ -12,9 +12,9 @@ export default function HeroSecctionEmpresa({landing}) {
     };
     return (
         <section className="bg-neutral-dark py-10 md:py-20 font-title relative overflow-hidden">
-            <div className=" mx-auto px-[5%]  flex  gap-10 items-center">
+            <div className=" mx-auto px-[5%]  flex flex-col lg:flex-row  gap-10 items-center">
                 {/* Izquierda: Texto principal */}
-                <div className='w-7/12'>
+                <div className='lg:w-7/12'>
 
                     <h1 className="text-6xl font-title font-medium text-white  mb-4">
 <TextWithHighlight text={landing?.title} color='bg-white font-semibold' />
@@ -61,7 +61,7 @@ export default function HeroSecctionEmpresa({landing}) {
 
                 </div>
                 {/* Derecha: Card de cambio */}
-                <div className='flex justify-end w-5/12'>
+                <div className='flex justify-end lg:w-5/12'>
                     <ExchangeCard 
                         title="Comienza tu cambio ahora"
                         initialOperationType="venta"
