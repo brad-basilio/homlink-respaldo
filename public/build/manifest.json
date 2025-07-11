@@ -102,8 +102,8 @@
       "_Header-CBDTXKJB.js"
     ]
   },
-  "_ExchangeCard-Dre5i1mT.js": {
-    "file": "assets/ExchangeCard-Dre5i1mT.js",
+  "_ExchangeCard-BdtrqaxU.js": {
+    "file": "assets/ExchangeCard-BdtrqaxU.js",
     "name": "ExchangeCard",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -129,8 +129,8 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-DLGNtXbN.js": {
-    "file": "assets/FuncionSection-DLGNtXbN.js",
+  "_FuncionSection-Cv2rC6So.js": {
+    "file": "assets/FuncionSection-Cv2rC6So.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -138,7 +138,7 @@
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_WhatsAppButton-Cs43liLs.js",
       "_proxy-Dg7W2VMC.js",
-      "_ExchangeCard-Dre5i1mT.js"
+      "_ExchangeCard-BdtrqaxU.js"
     ]
   },
   "_Header-CBDTXKJB.js": {
@@ -2564,7 +2564,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-DTLT1tSL.js",
+    "file": "assets/BlogArticle-C6TCMmbd.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2582,7 +2582,7 @@
       "_PostCard-UdlaTIWj.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_main-Y8JAyXgE.js",
-      "_ExchangeCard-Dre5i1mT.js",
+      "_ExchangeCard-BdtrqaxU.js",
       "_WhatsAppButton-Cs43liLs.js",
       "_CintilloSection-bqzgqYqT.js",
       "_proxy-Dg7W2VMC.js",
@@ -3205,7 +3205,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-DxHu8c6a.js",
+    "file": "assets/Home-Bvbsjjqg.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3229,7 +3229,7 @@
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
       "_createLucideIcon-D_WcjKff.js",
-      "_FuncionSection-DLGNtXbN.js",
+      "_FuncionSection-Cv2rC6So.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_autoplay-BgjrnjSJ.js",
       "_proxy-Dg7W2VMC.js",
@@ -3250,7 +3250,7 @@
       "_chevron-down-DEuKezfs.js",
       "_WhatsAppButton-Cs43liLs.js",
       "_phone-B_ERI8hO.js",
-      "_ExchangeCard-Dre5i1mT.js",
+      "_ExchangeCard-BdtrqaxU.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
     "css": [
@@ -3259,7 +3259,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-BTcPH5tC.js",
+    "file": "assets/HomeEmpresa-DXXTA6Y5.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3281,10 +3281,10 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-CwkQEQRH.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-DLGNtXbN.js",
+      "_FuncionSection-Cv2rC6So.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
-      "_ExchangeCard-Dre5i1mT.js",
+      "_ExchangeCard-BdtrqaxU.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_navigation-Ctv9exgr.js",
       "_pagination-qz-hCLaO.js",
@@ -4338,7 +4338,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -5112,7 +5112,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5824,7 +5824,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -6012,10 +6012,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-DR32cJ8V.js",
+    "file": "assets/Treatment-Dwtff5Cv.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6130,7 +6130,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
