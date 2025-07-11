@@ -861,7 +861,7 @@ const ExchangeCard = ({
 
                                                 {/* Tooltip durante loading */}
                                                 <div className="absolute bottom-full right-0 mb-3 opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
+                                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
                                                         <div className="flex items-center gap-2">
 
                                                             <p className="text-xs font-medium">🔍 Consultando cupones disponibles...</p>
@@ -904,8 +904,8 @@ const ExchangeCard = ({
 
                                                 {/* Tooltip para consultar */}
                                                 <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50">
-                                                    <div className="bg-gradient-to-br from-neutral-dark to-neutral-dark/95 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
-                                                        <p className="text-xs font-medium">💡 Clic aqui para validar el cupón</p>
+                                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-3 py-2 whitespace-nowrap">
+                                                        <p className="text-xs font-medium">💡 Click aqui para validar el cupón</p>
                                                         <div className="absolute top-full right-3 transform">
                                                             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
                                                         </div>
