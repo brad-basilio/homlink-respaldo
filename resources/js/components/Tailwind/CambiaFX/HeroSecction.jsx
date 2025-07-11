@@ -12,7 +12,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const [colorIndex, setColorIndex] = useState(0);
 
     // Colores que van a rotar para las palabras con asterisco
-    const colors = ['text-neutral-dark', 'text-constrast', 'text-secondary'];
+    const colors = ['text-neutral-dark', 'text-constrast'];
 
     // Effect para reiniciar las animaciones cada 8 segundos
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     useEffect(() => {
         const colorInterval = setInterval(() => {
             setColorIndex(prev => (prev + 1) % colors.length);
-        }, 000);
+        }, 2000);
 
         return () => clearInterval(colorInterval);
     }, []);
@@ -80,7 +80,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                     "0 2px 4px rgba(12, 12, 12, 0.1)",
                                                 filter: 
                                                     colorIndex === 1 ? "drop-shadow(0 0 15px rgba(126, 90, 251, 0.3))" : 
-                                                    colorIndex === 2 ? "drop-shadow(0 0 10px rgba(187, 255, 82, 0.3))" : 
+                                                    colorIndex === 2 ? "drop-shadow(0 0 10px rgba(149, 255, 0,0.1))" : 
                                                     "none"
                                             }}
                                         >
