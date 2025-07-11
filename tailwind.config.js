@@ -14,9 +14,14 @@ export default {
                     '60%': { opacity: 0.7, transform: 'translateY(-8px)' },
                     '100%': { opacity: 1, transform: 'translateY(0)' },
                 },
+                'slide-down': {
+                    '0%': { transform: 'translateY(-100%)', opacity: 0 },
+                    '100%': { transform: 'translateY(0)', opacity: 1 },
+                },
             },
             animation: {
                 'fade-in-up': 'fade-in-up 1.1s cubic-bezier(0.22, 1, 0.36, 1) both',
+                'slide-down': 'slide-down 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
             },
             fontFamily: {
                 title: ["GeneralSans", "sans-serif"],

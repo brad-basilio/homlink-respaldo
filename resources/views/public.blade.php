@@ -9,7 +9,24 @@
 <head>
     @viteReactRefresh
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=dev        </script>
+        <!--End of Tawk.to Script-->
+
+        <!-- PWA Service Worker Registration -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/serviceworker.js')
+                        .then(function(registration) {
+                            console.log('PWA: Service Worker registered successfully:', registration.scope);
+                        })
+                        .catch(function(error) {
+                            console.log('PWA: Service Worker registration failed:', error);
+                        });
+                });
+            }
+        </script>
+</body>-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ env('APP_NAME', 'NoPain') }}</title>
 
@@ -23,7 +40,15 @@
         <meta name="keywords" content="{{ $seoKeywords }}" />
     @endisset
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    <link rel="manifest" href="/manifest.webmanifest">
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#007bff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="CambiaFX">
+    <link rel="apple-touch-icon" href="/icon-192x192.png">
+    
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">
 
     <link href="/lte/assets/css/icons.min.css" rel="stylesheet" type="text/css" />

@@ -129,8 +129,8 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-kKyoR6YM.js": {
-    "file": "assets/FuncionSection-kKyoR6YM.js",
+  "_FuncionSection-DLGNtXbN.js": {
+    "file": "assets/FuncionSection-DLGNtXbN.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -581,13 +581,13 @@
       "_index-RYns6xqu.js"
     ]
   },
-  "_swiper-!~{04A}~.js": {
+  "_swiper-!~{04G}~.js": {
     "file": "swiper.css",
-    "src": "_swiper-!~{04A}~.js"
+    "src": "_swiper-!~{04G}~.js"
   },
-  "_tippy-!~{04r}~.js": {
+  "_tippy-!~{04x}~.js": {
     "file": "tippy.css",
-    "src": "_tippy-!~{04r}~.js"
+    "src": "_tippy-!~{04x}~.js"
   },
   "_tippy-react.esm-DYFqe69e.js": {
     "file": "assets/tippy-react.esm-DYFqe69e.js",
@@ -3205,7 +3205,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-OY_bN3yN.js",
+    "file": "assets/Home-B9Lze-6G.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3228,7 +3228,8 @@
       "_ModalAppointment-CwkQEQRH.js",
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-kKyoR6YM.js",
+      "_createLucideIcon-D_WcjKff.js",
+      "_FuncionSection-DLGNtXbN.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_autoplay-BgjrnjSJ.js",
       "_proxy-Dg7W2VMC.js",
@@ -3241,7 +3242,6 @@
       "resources/js/components/Blog/Filter.jsx",
       "_index.esm-zkRd-kwu.js",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
-      "_createLucideIcon-D_WcjKff.js",
       "_HtmlContent-CZmf3wHb.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "_index-DNUR7M9R.js",
@@ -3259,7 +3259,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-c-uqcXaK.js",
+    "file": "assets/HomeEmpresa-BTcPH5tC.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3281,7 +3281,7 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-CwkQEQRH.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-kKyoR6YM.js",
+      "_FuncionSection-DLGNtXbN.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
       "_ExchangeCard-Dre5i1mT.js",
@@ -4461,6 +4461,36 @@
       "_axios-B4uVmeYG.js"
     ]
   },
+  "resources/js/components/Apps/AppDebugInfo.jsx": {
+    "file": "assets/AppDebugInfo-Dwtff5Cv.js",
+    "name": "AppDebugInfo",
+    "src": "resources/js/components/Apps/AppDebugInfo.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/components/Apps/AppStoreBanner.jsx": {
+    "file": "assets/AppStoreBanner-Dwtff5Cv.js",
+    "name": "AppStoreBanner",
+    "src": "resources/js/components/Apps/AppStoreBanner.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/components/Apps/AppStoreLinks.jsx": {
+    "file": "assets/AppStoreLinks-Dwtff5Cv.js",
+    "name": "AppStoreLinks",
+    "src": "resources/js/components/Apps/AppStoreLinks.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
   "resources/js/components/Blog/BlogHeader.jsx": {
     "file": "assets/BlogHeader-B6_1mLDL.js",
     "name": "BlogHeader",
@@ -4957,6 +4987,36 @@
       "_index-RYns6xqu.js"
     ]
   },
+  "resources/js/components/PWA/PWABanner.jsx": {
+    "file": "assets/PWABanner-Dwtff5Cv.js",
+    "name": "PWABanner",
+    "src": "resources/js/components/PWA/PWABanner.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/components/PWA/PWADebugInfo.jsx": {
+    "file": "assets/PWADebugInfo-Dwtff5Cv.js",
+    "name": "PWADebugInfo",
+    "src": "resources/js/components/PWA/PWADebugInfo.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
+  "resources/js/components/PWA/PWAInstallPrompt.jsx": {
+    "file": "assets/PWAInstallPrompt-Dwtff5Cv.js",
+    "name": "PWAInstallPrompt",
+    "src": "resources/js/components/PWA/PWAInstallPrompt.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js"
+    ]
+  },
   "resources/js/components/PopupManager/PopupManager.jsx": {
     "file": "assets/PopupManager-Dwtff5Cv.js",
     "name": "PopupManager",
@@ -5052,7 +5112,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5764,7 +5824,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5882,10 +5942,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-Kbv258F4.js",
+    "file": "assets/Email-B6_1mLDL.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5896,15 +5956,13 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-CWZ5d7UB.js",
+    "file": "assets/Fragrance-Dwtff5Cv.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_tippy-react.esm-DYFqe69e.js",
-      "_index-RYns6xqu.js",
-      "_index-CXU7o9CY.js"
+      "_index-RYns6xqu.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -5931,10 +5989,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -5954,10 +6012,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-DR32cJ8V.js",
+    "file": "assets/Treatment-Dwtff5Cv.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"

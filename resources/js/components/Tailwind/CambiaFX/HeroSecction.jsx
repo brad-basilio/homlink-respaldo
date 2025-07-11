@@ -108,7 +108,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
             <div className="relative z-10 mx-auto px-[5%] flex flex-col lg:flex-row gap-10 items-center">
                 {/* Izquierda: Texto principal */}
                 <motion.div 
-                    className='lg:w-7/12'
+                    className='order-1 lg:order-0 lg:w-7/12 '
                     variants={itemVariants}
                 >
                     <motion.p
@@ -329,7 +329,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                 </motion.div>
                 {/* Derecha: Card de cambio */}
                 <motion.div
-                    className='flex justify-end lg:w-5/12'
+                    className='flex order-0  lg:order-1 justify-end lg:w-5/12'
                     variants={itemVariants}
                     transition={{ delay: 1.8 }}
                     whileHover={{ 

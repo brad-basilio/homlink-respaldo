@@ -33,6 +33,8 @@ import { PersistentScrollAnimation } from "./animations/PersistentScrollAnimatio
 import BlurText from "./Utils/BlurText";
 import { useTranslation } from "./hooks/useTranslation";
 import SliderInteractive from "./components/Tailwind/Sliders/SliderInteractive";
+import AppStoreBanner from "./components/Apps/AppStoreBanner";
+import AppStoreLinks from "./components/Apps/AppStoreLinks";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 import HomeSeccionNosotros from "./components/Tailwind/CambioGerencia/HomeSeccionNosotros";
 import HomeSeccionImpacto from "./components/Tailwind/CambioGerencia/HomeSeccionImpacto";
@@ -200,6 +202,9 @@ const Home = ({
 
     return (
         <div>
+            {/* App Store Banner - Enlaces a tiendas de aplicaciones */}
+            <AppStoreBanner apps={apps} />
+            
             <Header showSlogan={showSlogan} />
 
             <CintilloSection />
@@ -293,6 +298,7 @@ const Home = ({
 
             {/* Sistema de Popups Programables */}
             <PopupManager />
+
 
             {/* Modal */}
             <ModalAppointment
