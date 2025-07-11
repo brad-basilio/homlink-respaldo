@@ -510,25 +510,23 @@ const ExchangeCard = ({
 
                                 {/* Tooltip mejorado para COMPRA - Responsive */}
                                 <div className="absolute bottom-full right-0 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 
-                                               sm:right-0 sm:min-w-max
-                                               min-w-0 w-64 -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:w-auto">
-                                    <div className="bg-neutral-dark !max-w-40 lg:!max-w-48 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                               w-40 sm:w-auto sm:min-w-max
+                                               -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-3 py-3 sm:px-5 sm:py-4">
                                             {/* Contenido principal */}
                                             <div className="space-y-2 mb-3">
-                                                <div className="flex text-start items-center gap-2">
-                                                
-                                                    <span className="text-xs sm:text-sm">Tienes: <span className="font-semibold text-secondary">Dólares </span></span>
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-xs sm:text-sm leading-tight">Tienes: <span className="font-semibold text-secondary">Dólares</span></span>
                                                 </div>
-                                                <div className="flex text-start items-center gap-2">
-                                                   
-                                                    <span className="text-xs sm:text-sm">Quieres: <span className="font-semibold text-secondary">Soles </span></span>
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-xs sm:text-sm leading-tight">Quieres: <span className="font-semibold text-secondary">Soles</span></span>
                                                 </div>
                                             </div>
 
                                             {/* Footer explicativo */}
                                             <div className="bg-white/5 rounded-lg px-2 py-2 sm:px-3">
-                                                <p className="text-xs text-white/80 text-center">
+                                                <p className="text-xs text-white/80 text-center leading-tight">
                                                     <span className="font-medium text-secondary">Nosotros</span> compramos tus dólares
                                                 </p>
                                             </div>
@@ -588,24 +586,22 @@ const ExchangeCard = ({
 
                                 {/* Tooltip mejorado para VENTA - Responsive */}
                                 <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]
-                                                min-w-max sm:left-1/2 sm:-translate-x-1/2">
-                                    <div className="bg-neutral-dark !max-w-40 lg:!max-w-48 backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
+                                                w-40 sm:w-auto sm:min-w-max">
+                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-3 py-3 sm:px-5 sm:py-4">
                                             {/* Contenido principal */}
                                             <div className="space-y-2 mb-3">
-                                                <div className="flex text-start justify-start items-start gap-2">
-                                                  
-                                                    <span className="text-xs sm:text-sm">Tienes: <span className="font-semibold text-secondary">Soles </span></span>
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-xs sm:text-sm leading-tight">Tienes: <span className="font-semibold text-secondary">Soles</span></span>
                                                 </div>
-                                                <div className="flex text-start  justify-start items-start gap-2">
-                                                  
-                                                    <span className="text-xs sm:text-sm">Quieres: <span className="font-semibold text-secondary">Dólares </span></span>
+                                                <div className="flex items-start gap-2">
+                                                    <span className="text-xs sm:text-sm leading-tight">Quieres: <span className="font-semibold text-secondary">Dólares</span></span>
                                                 </div>
                                             </div>
 
                                             {/* Footer explicativo */}
                                             <div className="bg-white/5 rounded-lg px-2 py-2 sm:px-3">
-                                                <p className="text-xs text-white/80 text-center">
+                                                <p className="text-xs text-white/80 text-center leading-tight">
                                                     <span className="font-medium text-secondary">Nosotros</span> te vendemos dólares
                                                 </p>
                                             </div>
