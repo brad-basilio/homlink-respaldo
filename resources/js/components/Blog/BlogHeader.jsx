@@ -148,7 +148,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                         <div className="space-y-8 h-full grid grid-cols-1 ">
                             {/* Artículo 1 */}
                             {postRecent[1] && (
-                                <motion.div
+                                <motion.a   href={`/blog/${postRecent[1]?.slug}`}
                                 className="group cursor-pointer"
                                 variants={itemVariants}
                                 whileHover="hover"
@@ -185,11 +185,15 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                         </button>
                                     </div>
                                 </motion.div>
-                            </motion.div>
+                            </motion.a>
                             )}
 
                             {/* Artículo 2 */}
-                            {postRecent[2] && (  <motion.div
+                            {postRecent[2] && ( 
+                                
+                                
+                            <motion.a
+                               href={`/blog/${postRecent[2]?.slug}`}
                                 className="group cursor-pointer"
                                 variants={itemVariants}
                                 whileHover="hover"
@@ -225,7 +229,7 @@ const BlogHeader = ({ categories, postRecent, landing }) => {
                                         </button>
                                     </div>
                                 </motion.div>
-                            </motion.div>)}
+                            </motion.a>)}
                             
                         </div>
                     </div>

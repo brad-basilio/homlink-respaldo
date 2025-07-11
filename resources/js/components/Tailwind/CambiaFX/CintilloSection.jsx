@@ -1,6 +1,21 @@
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 const CintilloSection = () => {
+    const [activeLink, setActiveLink] = useState("/");
+
+    useEffect(() => {
+        // Detectar la ruta actual
+        setActiveLink(window.location.pathname);
+    }, []);
+
+    const handleLinkClick = (path) => {
+        setActiveLink(path);
+    };
+
+    const isActive = (path) => {
+        return activeLink === path;
+    };
     const containerVariants = {
         hidden: { opacity: 0, y: -20 },
         visible: {
@@ -61,6 +76,7 @@ const CintilloSection = () => {
                         <motion.li variants={itemVariants}>
                            <motion.a 
                                 href="/"
+                                onClick={() => handleLinkClick("/")}
                                 whileHover={{ 
                                     scale: 1.05,
                                     x: 2,
@@ -72,20 +88,30 @@ const CintilloSection = () => {
                                     stiffness: 400,
                                     damping: 17
                                 }}
-                                className="relative inline-block group"
+                                className={`relative inline-block group transition-all duration-300 ${
+                                    isActive("/") 
+                                        ? 'text-secondary font-bold scale-105' 
+                                        : 'text-white hover:text-secondary'
+                                }`}
                             >
                                 Personas
                                 <motion.div
-                                    className="absolute bottom-0 left-0 h-0.5 bg-secondary rounded-full"
-                                    initial={{ width: 0 }}
+                                    className={`absolute bottom-0 left-0 h-0.5 rounded-full ${
+                                        isActive("/") ? 'bg-secondary' : 'bg-secondary'
+                                    }`}
+                                    initial={{ width: isActive("/") ? "100%" : 0 }}
                                     whileHover={{ width: "100%" }}
+                                    animate={{ width: isActive("/") ? "100%" : 0 }}
                                     transition={{ duration: 0.3, ease: "easeOut" }}
                                 />
+                                
+                              
                             </motion.a>
                         </motion.li>
                         <motion.li variants={itemVariants}>
                             <motion.a 
                                 href="/empresas"
+                                onClick={() => handleLinkClick("/empresas")}
                                 whileHover={{ 
                                     scale: 1.05,
                                     x: 2,
@@ -97,15 +123,31 @@ const CintilloSection = () => {
                                     stiffness: 400,
                                     damping: 17
                                 }}
-                                className="relative inline-block group"
+                                className={`relative inline-block group transition-all duration-300 ${
+                                    isActive("/empresas") 
+                                        ? 'text-secondary font-bold scale-105' 
+                                        : 'text-white hover:text-secondary'
+                                }`}
                             >
                                 Empresas
                                 <motion.div
-                                    className="absolute bottom-0 left-0 h-0.5 bg-secondary rounded-full"
-                                    initial={{ width: 0 }}
+                                    className={`absolute bottom-0 left-0 h-0.5 rounded-full ${
+                                        isActive("/empresas") ? 'bg-secondary' : 'bg-secondary'
+                                    }`}
+                                    initial={{ width: isActive("/empresas") ? "100%" : 0 }}
                                     whileHover={{ width: "100%" }}
+                                    animate={{ width: isActive("/empresas") ? "100%" : 0 }}
                                     transition={{ duration: 0.3, ease: "easeOut" }}
                                 />
+                                
+                              {/*  {/* Indicador adicional para el item activo 
+                                {isActive("/empresas") && (
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        className="absolute -left-2 top-1/2 transform -translate-y-1/2 w-1 h-1 bg-secondary rounded-full"
+                                    />
+                                )}*/}
                             </motion.a>
                         </motion.li>
                     </motion.ul>
