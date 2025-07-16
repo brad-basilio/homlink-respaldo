@@ -477,24 +477,66 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </motion.form>
                             
                             <motion.div 
-                                className="flex items-center mt-4 space-x-2"
+                                className="flex items-center mt-4 space-x-3"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.6, delay: 0.9 }}
                             >
-                                <motion.div className="relative flex-shrink-0 items-center justify-center mt-0.5">
-                                    <motion.input 
-                                        type="checkbox" 
+                                {/* Checkbox customizado */}
+                                <motion.div
+                                    className="relative flex-shrink-0"
+                                    whileTap={{ scale: 0.9 }}
+                                >
+                                    <input
+                                        type="checkbox"
                                         id="terms-checkbox"
                                         name="terms-accepted"
-                                        className="h-3 w-3 text-secondary bg-transparent border-neutral-light rounded bg-secondary focus:ring-secondary checked:bg-secondary checked:border-secondary"
                                         checked={termsAccepted}
                                         onChange={(e) => setTermsAccepted(e.target.checked)}
+                                        className="sr-only"
+                                    />
+                                    <motion.div
+                                        className={`w-5 h-5 rounded-md border-2 cursor-pointer transition-all duration-300 ${
+                                            termsAccepted
+                                                ? 'bg-secondary border-secondary shadow-lg shadow-secondary/25'
+                                                : 'bg-white border-neutral-light hover:border-secondary hover:shadow-sm'
+                                        }`}
+                                        onClick={() => setTermsAccepted(!termsAccepted)}
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
-                                    />
-                                   
+                                        animate={{
+                                            backgroundColor: termsAccepted ? '#BBFF52' : '#ffffff',
+                                            borderColor: termsAccepted ? '#BBFF52' : '#9CA3AF'
+                                        }}
+                                        transition={{ duration: 0.2 }}
+                                    >
+                                        <AnimatePresence>
+                                            {termsAccepted && (
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.3 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.3 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="absolute inset-0 flex items-center justify-center"
+                                                >
+                                                    <svg
+                                                        className="w-3 h-3 text-neutral-dark"
+                                                        fill="none"
+                                                        stroke="currentColor"
+                                                        viewBox="0 0 24 24"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth={3}
+                                                            d="M5 13l4 4L19 7"
+                                                        />
+                                                    </svg>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </motion.div>
                                 </motion.div>
                                 
                                 <motion.label 
