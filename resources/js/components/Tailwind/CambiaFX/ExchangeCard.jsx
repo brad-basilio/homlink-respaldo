@@ -498,11 +498,11 @@ const ExchangeCard = ({
 
                             {/* Icono de ayuda para COMPRA */}
                             <div className="relative group">
-                                <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'compra'
+                                <div className={`w-5 h-5 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'compra'
                                         ? 'bg-secondary text-neutral-dark'
                                         : 'bg-neutral-dark text-white'
                                     }`}>
-                                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className='w-4 h-4' width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                                         <circle cx="8.5" cy="12" r="0.5" fill="currentColor" />
                                     </svg>
@@ -574,11 +574,11 @@ const ExchangeCard = ({
 
                             {/* Icono de ayuda para VENTA */}
                             <div className="relative group">
-                                <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'venta'
+                                <div className={`min-w-5 min-h-5  max-w-5 max-h-5 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'venta'
                                         ? 'bg-secondary text-neutral-dark'
                                         : 'bg-neutral-dark text-white'
                                     }`}>
-                                    <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <svg className=' min-w-4 min-h-4' width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M6.5 6.5C6.5 5.39543 7.39543 4.5 8.5 4.5C9.60457 4.5 10.5 5.39543 10.5 6.5C10.5 7.60457 9.60457 8.5 8.5 8.5V9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                                         <circle cx="8.5" cy="12" r="0.5" fill="currentColor" />
                                     </svg>
