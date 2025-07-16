@@ -14,23 +14,9 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     // Colores que van a rotar para las palabras con asterisco
     const colors = ['text-neutral-dark', 'text-constrast'];
 
-    // Effect para reiniciar las animaciones cada 8 segundos
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setLoopKey(prev => prev + 1);
-        }, 8000); // Loop cada 8 segundos
+ 
 
-        return () => clearInterval(interval);
-    }, []);
-
-    // Effect para cambiar colores cada 2 segundos
-    useEffect(() => {
-        const colorInterval = setInterval(() => {
-            setColorIndex(prev => (prev + 1) % colors.length);
-        }, 2000);
-
-        return () => clearInterval(colorInterval);
-    }, []);
+ 
 
     // Componente para renderizar texto con colores cambiantes (sin typing)
     const TextWithColors = ({ text, className = '' }) => {
@@ -248,9 +234,9 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         // También cambiar el tipo de operación
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
     };
-    console.log("indicators", indicators);
+
     const handleOperationStart = (operationData) => {
-        console.log('Operation data:', operationData);
+     
         // Aquí puedes manejar los datos de la operación como necesites
         // Por defecto redirigirá a mi.cambiafx.pe/login
         window.location.href = 'https://mi.cambiafx.pe/login';

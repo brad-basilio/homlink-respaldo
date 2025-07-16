@@ -488,8 +488,8 @@ const ExchangeCard = ({
                                         <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_compra.toFixed(4)}</span>
                                     </div>
                                      <span className={`text-sm font-semibold  ${operationType === 'venta'
-                                            ? 'text-secondary'
-                                            : ' text-neutral-dark'
+                                            ? ' text-neutral-dark'
+                                            : ' text-white'
                                         }`}>COMPRA  <br className='lg:hidden'/> S/ {rates.compra}</span>
                                 </div>
                             ) : (
@@ -563,8 +563,8 @@ const ExchangeCard = ({
                                     </div>
 
                                       <span className={`text-sm font-semibold  ${operationType === 'venta'
-                                            ? 'text-secondary'
-                                            : ' text-neutral-dark'
+                                             ? 'text-white '
+                                            : '  text-neutral-dark'
                                         }`}>VENTA   <br className='lg:hidden'/> S/ {rates.venta}</span>
 
                                 </div>
@@ -575,7 +575,7 @@ const ExchangeCard = ({
                             {/* Icono de ayuda para VENTA */}
                             <div className="relative group">
                                 <div className={`w-4 h-4 rounded-full flex items-center justify-center cursor-help transition-all duration-200 ${operationType === 'venta'
-                                        ? 'bg-neutral-light text-white'
+                                        ? 'bg-secondary text-neutral-dark'
                                         : 'bg-neutral-dark text-white'
                                     }`}>
                                     <svg width="10" height="10" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -11,7 +11,7 @@ export default function HeroSecctionEmpresa({landing}) {
     // Colores que van a rotar para las palabras con asterisco
     const colors = ['text-white', 'text-secondary', 'text-white'];
 
-    // Effect para reiniciar las animaciones cada 8 segundos
+ {/*   // Effect para reiniciar las animaciones cada 8 segundos
     useEffect(() => {
         const interval = setInterval(() => {
             setLoopKey(prev => prev + 1);
@@ -27,7 +27,7 @@ export default function HeroSecctionEmpresa({landing}) {
         }, 2000);
 
         return () => clearInterval(colorInterval);
-    }, []);
+    }, []); */}
 
     // Componente para renderizar texto con colores cambiantes (sin typing)
     const TextWithColors = ({ text, className = '' }) => {
