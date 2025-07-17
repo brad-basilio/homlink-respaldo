@@ -133,12 +133,12 @@ const Menu = ({
                         <li className="menu-title">Navigation Panel</li>
                         {hasRole("Admin") && (
                             <>
-                                <MenuItem
+                               {/** <MenuItem
                                     href="/admin/home"
                                     icon="mdi mdi-home"
                                 >
                                     {t("admin.sidebar.dashboard", "Dashboard")}
-                                </MenuItem>
+                                </MenuItem> */}
                                 {/* <MenuItem
                                     href="/admin/langs"
                                     icon="mdi mdi-google-translate"

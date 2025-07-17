@@ -2,25 +2,44 @@
     $component = Route::currentRouteName();
 @endphp
 
+
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     @viteReactRefresh
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=dev        </script>
+        <!--End of Tawk.to Script-->
+
+        <!-- PWA Service Worker Registration -->
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                    navigator.serviceWorker.register('/serviceworker.js')
+                        .then(function(registration) {
+                            console.log('PWA: Service Worker registered successfully:', registration.scope);
+                        })
+                        .catch(function(error) {
+                            console.log('PWA: Service Worker registration failed:', error);
+                        });
+                });
+            }
+        </script>
+</body>-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ env('APP_NAME', 'NoPain') }}</title>
+
+    @isset($seoTitle)
+        <meta name="title" content="{{ $seoTitle }}" />
+    @endisset
+    @isset($seoDescription)
+        <meta name="description" content="{{ $seoDescription }}" />
+    @endisset
+    @isset($seoKeywords)
+        <meta name="keywords" content="{{ $seoKeywords }}" />
+    @endisset
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    
-    <!-- SEO Meta Tags -->
-    @include('components.seo-meta-tags', [
-        'title' => $seoTitle ?? null,
-        'description' => $seoDescription ?? null,
-        'keywords' => $seoKeywords ?? null,
-        'image' => $seoImage ?? null,
-        'url' => $seoUrl ?? null,
-        'schemaType' => $schemaType ?? 'Organization'
-    ])
     
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json">
@@ -45,10 +64,12 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 
     <!--CAMBIO GERENCIA-->
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
     
     <!-- Añadido para traducir -->
     <script>
@@ -64,6 +85,7 @@
 
     <style>
         * {
+
             box-sizing: border-box;
         }
     </style>
@@ -127,7 +149,6 @@
     <!-- End Meta Pixel Code -->
     <link rel="stylesheet" href="/assets/fonts/aspekta/font-face.css" />
 </head>
-
 <style>
     body {
         /*background-image: url('/assets/img/maqueta/Blog.png');*/
@@ -175,35 +196,20 @@
         });
     </script>
 
-    <!--Start of Tawk.to Script-->
-    <script type="text/javascript">
-        var Tawk_API=Tawk_API||{};
-        Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/5c3563c212db2461b16b4a9b/default';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-    </script>
-    <!--End of Tawk.to Script-->
-
-    <!-- PWA Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/serviceworker.js')
-                    .then(function(registration) {
-                        console.log('PWA: Service Worker registered successfully:', registration.scope);
-                    })
-                    .catch(function(error) {
-                        console.log('PWA: Service Worker registration failed:', error);
-                    });
-            });
-        }
-    </script>
+       <!--Start of Tawk.to Script-->
+        <script type="text/javascript">
+            var Tawk_API=Tawk_API||{};
+            Tawk_LoadStart=new Date();
+            (function(){
+            var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+            s1.async=true;
+            s1.src='https://embed.tawk.to/5c3563c212db2461b16b4a9b/default';
+            s1.charset='UTF-8';
+            s1.setAttribute('crossorigin','*');
+            s0.parentNode.insertBefore(s1,s0);
+            })();
+        </script>
+        <!--End of Tawk.to Script-->
 </body>
 
 </html>

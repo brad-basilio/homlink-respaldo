@@ -1,5 +1,11 @@
 @php
     $component = Route::currentRouteName();
+    // Obtener datos SEO de la tabla generals
+    $seoData = App\Helpers\SeoHelper::getSeoData();
+    $basicMeta = App\Helpers\SeoHelper::getBasicMetaTags($seoTitle ?? null, $seoDescription ?? null, $seoKeywords ?? null);
+    $openGraphTags = App\Helpers\SeoHelper::getOpenGraphTags($seoTitle ?? null, $seoDescription ?? null, $seoImage ?? null, $seoUrl ?? null);
+    $twitterCardTags = App\Helpers\SeoHelper::getTwitterCardTags($seoTitle ?? null, $seoDescription ?? null, $seoImage ?? null);
+    $jsonLD = App\Helpers\SeoHelper::getJsonLD();
 @endphp
 
 <!DOCTYPE html>
@@ -10,17 +16,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf_token" content="{{ csrf_token() }}">
     
     <!-- SEO Meta Tags -->
-    @include('components.seo-meta-tags', [
-        'title' => $seoTitle ?? null,
-        'description' => $seoDescription ?? null,
-        'keywords' => $seoKeywords ?? null,
-        'image' => $seoImage ?? null,
-        'url' => $seoUrl ?? null,
-        'schemaType' => $schemaType ?? 'Organization'
-    ])
+    <title>{{ $basicMeta['title'] }}</title>
+    <meta name="description" content="{{ $basicMeta['description'] }}" />
+    <meta name="keywords" content="{{ $basicMeta['keywords'] }}" />
+    <meta name="author" content="{{ $seoData['company_name'] ?? 'CambiaFX' }}" />
+    <meta name="robots" content="index, follow" />
+    <meta name="csrf_token" content="{{ csrf_token() }}">
+    
+    <!-- Open Graph Meta Tags para redes sociales -->
+    @foreach($openGraphTags as $property => $content)
+        <meta property="{{ $property }}" content="{{ $content }}" />
+    @endforeach
+    
+    <!-- Twitter Card Meta Tags -->
+    @foreach($twitterCardTags as $name => $content)
+        <meta name="{{ $name }}" content="{{ $content }}" />
+    @endforeach
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ url()->current() }}" />
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {!! json_encode($jsonLD, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
     
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json">

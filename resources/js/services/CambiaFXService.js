@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class CambiaFXService {
     constructor() {
-        this.baseURL = '/api/cambiafx'; // Usar proxy local para evitar CORS
+        this.baseURL = 'https://cambiafx.pe/api'; // Usar proxy local para evitar CORS
         this.localAPI = '/api'; // API local para otras funciones
         this.tcData = [];
         this.tcBase = [];
@@ -11,30 +11,78 @@ class CambiaFXService {
     // Obtener tipos de cambio reales de la API de CambiaFX
     async getExchangeRates() {
         try {
-            console.log('🔧 CambiaFXService.getExchangeRates() iniciado - USANDO DATOS REALES ACTUALIZADOS');
+            console.log('🔧 CambiaFXService.getExchangeRates() iniciado - LLAMANDO A LA API');
             
-            // Datos reales actuales de CambiaFX (actualizado 2025-07-07)
-            const realTimeData = [
-                { id: 1, desde: 0, hasta: 1000, tc_compra: 3.5330, tc_venta: 3.5650 },
-                { id: 2, desde: 1001, hasta: 5000, tc_compra: 3.5340, tc_venta: 3.5660 },
-                { id: 3, desde: 5001, hasta: 10000, tc_compra: 3.5350, tc_venta: 3.5670 },
-                { id: 4, desde: 10001, hasta: 999999, tc_compra: 3.5360, tc_venta: 3.5680 }
-            ];
+            // Primero intentar con la API local
+            let response;
+            try {
+                console.log('🔧 Intentando con API local /api/tc');
+                 response = await axios.get(`${this.baseURL}/tc`, {
+                    timeout: 8000,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('📡 Respuesta de API local exitosa:', response.data);
+            } catch (localError) {
+                console.warn('⚠️ Error con API local, intentando con proxy:', localError.message);
+                
+                // Si falla la API local, intentar con el proxy
+                response = await axios.get(`${this.baseURL}/tc`, {
+                    timeout: 8000,
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                console.log('📡 Respuesta del proxy exitosa:', response.data);
+            }
             
-            console.log('📊 Usando datos reales actualizados:', realTimeData);
-            this.tcBase = realTimeData;
-            this.tcData = [...realTimeData];
+            let realTimeData = [];
             
-            console.log('✅ TC Data asignado (REAL):', {
+            // Procesar la respuesta de la API
+            if (response.data && response.data.status === 200 && Array.isArray(response.data.data)) {
+                realTimeData = response.data.data;
+                console.log('✅ Datos obtenidos con formato wrapper:', realTimeData);
+            } else if (Array.isArray(response.data)) {
+                realTimeData = response.data;
+                console.log('✅ Datos obtenidos como array directo:', realTimeData);
+            } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
+                realTimeData = response.data.data;
+                console.log('✅ Datos obtenidos de propiedad data:', realTimeData);
+            } else {
+                throw new Error('Formato de respuesta inesperado: ' + JSON.stringify(response.data));
+            }
+            
+            // Validar que tenemos datos válidos
+            if (realTimeData.length === 0) {
+                throw new Error('No se obtuvieron datos de tipos de cambio');
+            }
+            
+            // Asegurar que los datos están en el formato correcto
+            const processedData = realTimeData.map(item => ({
+                id: item.id || 0,
+                desde: parseFloat(item.desde || 0),
+                hasta: parseFloat(item.hasta || 999999),
+                tc_compra: parseFloat(item.tc_compra || 0),
+                tc_venta: parseFloat(item.tc_venta || 0)
+            }));
+            
+            console.log('📊 Datos procesados:', processedData);
+            this.tcBase = processedData;
+            this.tcData = [...processedData];
+            
+            console.log('✅ TC Data asignado (API REAL):', {
                 tcBase: this.tcBase,
                 tcData: this.tcData
             });
             
-            return realTimeData;
+            return processedData;
         } catch (error) {
             console.error('❌ Error en getExchangeRates:', error);
             
-            // Fallback a datos reales si hay algún error
+            // Fallback a datos estáticos si hay algún error con la API
             const fallbackData = [
                 { id: 1, desde: 0, hasta: 1000, tc_compra: 3.5330, tc_venta: 3.5650 },
                 { id: 2, desde: 1001, hasta: 5000, tc_compra: 3.5340, tc_venta: 3.5660 },
@@ -42,7 +90,7 @@ class CambiaFXService {
                 { id: 4, desde: 10001, hasta: 999999, tc_compra: 3.5360, tc_venta: 3.5680 }
             ];
             
-            console.log('📊 Usando datos de respaldo actualizados:', fallbackData);
+            console.log('📊 Usando datos de respaldo (API no disponible):', fallbackData);
             this.tcBase = fallbackData;
             this.tcData = [...fallbackData];
             

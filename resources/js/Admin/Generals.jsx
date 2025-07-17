@@ -109,6 +109,44 @@ const Generals = ({ generals }) => {
         cintillo:
             generals.find((x) => x.correlative == "cintillo")?.description ?? "",
 
+        // Datos de empresa para SEO
+        companyName:
+            generals.find((x) => x.correlative == "company_name")?.description ?? "",
+        companyDescription:
+            generals.find((x) => x.correlative == "company_description")?.description ?? "",
+        companyLogo:
+            generals.find((x) => x.correlative == "company_logo")?.description ?? "",
+        companyUrl:
+            generals.find((x) => x.correlative == "company_url")?.description ?? "",
+        companyPhone:
+            generals.find((x) => x.correlative == "company_phone")?.description ?? "",
+        companyEmail:
+            generals.find((x) => x.correlative == "company_email")?.description ?? "",
+        companyAddress:
+            generals.find((x) => x.correlative == "company_address")?.description ?? "",
+        
+        // Redes sociales
+        twitterSite:
+            generals.find((x) => x.correlative == "twitter_site")?.description ?? "",
+        facebookPage:
+            generals.find((x) => x.correlative == "facebook_page")?.description ?? "",
+        instagramProfile:
+            generals.find((x) => x.correlative == "instagram_profile")?.description ?? "",
+        linkedinProfile:
+            generals.find((x) => x.correlative == "linkedin_profile")?.description ?? "",
+        
+        // Imágenes por defecto
+        ogImageDefault:
+            generals.find((x) => x.correlative == "og_image_default")?.description ?? "",
+        twitterImageDefault:
+            generals.find((x) => x.correlative == "twitter_image_default")?.description ?? "",
+        
+        // Verificaciones de sitio
+        googleSiteVerification:
+            generals.find((x) => x.correlative == "google_site_verification")?.description ?? "",
+        bingSiteVerification:
+            generals.find((x) => x.correlative == "bing_site_verification")?.description ?? "",
+
         copyright:
             generals.find((x) => x.correlative == "copyright")?.description ?? 
             "Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957",
@@ -239,6 +277,85 @@ const Generals = ({ generals }) => {
                     name: "Palabras clave - SEO",
                     description: formData.seoKeywords,
                 },
+                // Datos de empresa para SEO
+                {
+                    correlative: "company_name",
+                    name: "Nombre de la Empresa",
+                    description: formData.companyName,
+                },
+                {
+                    correlative: "company_description",
+                    name: "Descripción de la Empresa",
+                    description: formData.companyDescription,
+                },
+                {
+                    correlative: "company_logo",
+                    name: "Logo de la Empresa",
+                    description: formData.companyLogo,
+                },
+                {
+                    correlative: "company_url",
+                    name: "URL de la Empresa",
+                    description: formData.companyUrl,
+                },
+                {
+                    correlative: "company_phone",
+                    name: "Teléfono de la Empresa",
+                    description: formData.companyPhone,
+                },
+                {
+                    correlative: "company_email",
+                    name: "Email de la Empresa",
+                    description: formData.companyEmail,
+                },
+                {
+                    correlative: "company_address",
+                    name: "Dirección de la Empresa",
+                    description: formData.companyAddress,
+                },
+                // Redes sociales
+                {
+                    correlative: "twitter_site",
+                    name: "Twitter Site",
+                    description: formData.twitterSite,
+                },
+                {
+                    correlative: "facebook_page",
+                    name: "Página de Facebook",
+                    description: formData.facebookPage,
+                },
+                {
+                    correlative: "instagram_profile",
+                    name: "Perfil de Instagram",
+                    description: formData.instagramProfile,
+                },
+                {
+                    correlative: "linkedin_profile",
+                    name: "Perfil de LinkedIn",
+                    description: formData.linkedinProfile,
+                },
+                // Imágenes por defecto
+                {
+                    correlative: "og_image_default",
+                    name: "Imagen Open Graph por Defecto",
+                    description: formData.ogImageDefault,
+                },
+                {
+                    correlative: "twitter_image_default",
+                    name: "Imagen Twitter por Defecto",
+                    description: formData.twitterImageDefault,
+                },
+                // Verificaciones de sitio
+                {
+                    correlative: "google_site_verification",
+                    name: "Verificación de Google",
+                    description: formData.googleSiteVerification,
+                },
+                {
+                    correlative: "bing_site_verification",
+                    name: "Verificación de Bing",
+                    description: formData.bingSiteVerification,
+                },
                 {
                     correlative: "copyright",
                     name: "Texto de Copyright",
@@ -311,7 +428,29 @@ const Generals = ({ generals }) => {
                             type="button"
                             role="tab"
                         >
-                            SEO (Metatags)
+                            SEO Básico
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button
+                            className={`nav-link ${activeTab === "seo-advanced" ? "active" : ""
+                                }`}
+                            onClick={() => setActiveTab("seo-advanced")}
+                            type="button"
+                            role="tab"
+                        >
+                            SEO Avanzado
+                        </button>
+                    </li>
+                    <li className="nav-item" role="presentation">
+                        <button
+                            className={`nav-link ${activeTab === "social" ? "active" : ""
+                                }`}
+                            onClick={() => setActiveTab("social")}
+                            type="button"
+                            role="tab"
+                        >
+                            Redes Sociales
                         </button>
                     </li>
                     <li className="nav-item" role="presentation">
@@ -704,6 +843,10 @@ const Generals = ({ generals }) => {
                             }`}
                         role="tabpanel"
                     >
+                        <div className="alert alert-info">
+                            <strong>SEO Básico:</strong> Estos campos son los principales para el posicionamiento en buscadores.
+                        </div>
+                        
                         <InputFormGroup
                             label="Titulo - SEO"
                             value={formData.seoTitle ?? ""}
@@ -713,7 +856,12 @@ const Generals = ({ generals }) => {
                                     seoTitle: e.target.value,
                                 })
                             }
+                            placeholder="CambiaFX - Casa de Cambio Online"
                         />
+                        <small className="form-text text-muted mb-3">
+                            Máximo 60 caracteres. Aparece en resultados de Google y pestañas del navegador.
+                        </small>
+                        
                         <TextareaFormGroup
                             label="Descripcion - SEO"
                             value={formData.seoDescription ?? ""}
@@ -723,7 +871,13 @@ const Generals = ({ generals }) => {
                                     seoDescription: e.target.value,
                                 })
                             }
+                            placeholder="Casa de cambio online con las mejores tasas de cambio. Compra y vende dólares de forma segura y rápida."
+                            rows={3}
                         />
+                        <small className="form-text text-muted mb-3">
+                            Entre 150-160 caracteres. Aparece debajo del título en Google.
+                        </small>
+                        
                         <SelectFormGroup
                             id="cbo-keywords"
                             label="Palabras clave - SEO"
@@ -746,6 +900,259 @@ const Generals = ({ generals }) => {
                                 );
                             })}
                         </SelectFormGroup>
+                        <small className="form-text text-muted mb-3">
+                            Separadas por comas. Máximo 10 palabras clave relevantes.
+                        </small>
+                    </div>
+
+                    <div
+                        className={`tab-pane fade ${activeTab === "seo-advanced" ? "show active" : ""
+                            }`}
+                        role="tabpanel"
+                    >
+                        <div className="alert alert-info">
+                            <strong>SEO Avanzado:</strong> Datos de empresa para Schema.org y Open Graph.
+                        </div>
+                        
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Nombre de la Empresa"
+                                    value={formData.companyName ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            companyName: e.target.value,
+                                        })
+                                    }
+                                    placeholder="CambiaFX - Tu Cambio S.A.C."
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="URL de la Empresa"
+                                    value={formData.companyUrl ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            companyUrl: e.target.value,
+                                        })
+                                    }
+                                    placeholder="https://cambiafx.com"
+                                />
+                            </div>
+                        </div>
+                        
+                        <TextareaFormGroup
+                            label="Descripción de la Empresa"
+                            value={formData.companyDescription ?? ""}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    companyDescription: e.target.value,
+                                })
+                            }
+                            placeholder="Casa de cambio online líder en Perú..."
+                            rows={3}
+                        />
+                        
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Teléfono de la Empresa"
+                                    value={formData.companyPhone ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            companyPhone: e.target.value,
+                                        })
+                                    }
+                                    placeholder="+51 945 622 983"
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Email de la Empresa"
+                                    value={formData.companyEmail ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            companyEmail: e.target.value,
+                                        })
+                                    }
+                                    placeholder="info@cambiafx.com"
+                                />
+                            </div>
+                        </div>
+                        
+                        <InputFormGroup
+                            label="Dirección de la Empresa"
+                            value={formData.companyAddress ?? ""}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    companyAddress: e.target.value,
+                                })
+                            }
+                            placeholder="Lima, Perú"
+                        />
+                        
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Logo de la Empresa (Open Graph)"
+                                    value={formData.companyLogo ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            companyLogo: e.target.value,
+                                        })
+                                    }
+                                    placeholder="/assets/img/logo-og.png"
+                                />
+                                <small className="form-text text-muted">
+                                    Tamaño recomendado: 1200x630 píxeles
+                                </small>
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Imagen Open Graph por Defecto"
+                                    value={formData.ogImageDefault ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            ogImageDefault: e.target.value,
+                                        })
+                                    }
+                                    placeholder="/assets/img/og-default.jpg"
+                                />
+                                <small className="form-text text-muted">
+                                    Se usa cuando no se especifica imagen
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <h5 className="mt-4 mb-3">Verificaciones de Sitio Web</h5>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Google Site Verification"
+                                    value={formData.googleSiteVerification ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            googleSiteVerification: e.target.value,
+                                        })
+                                    }
+                                    placeholder="código de verificación de Google"
+                                />
+                                <small className="form-text text-muted">
+                                    Desde Google Search Console
+                                </small>
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Bing Site Verification"
+                                    value={formData.bingSiteVerification ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            bingSiteVerification: e.target.value,
+                                        })
+                                    }
+                                    placeholder="código de verificación de Bing"
+                                />
+                                <small className="form-text text-muted">
+                                    Desde Bing Webmaster Tools
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        className={`tab-pane fade ${activeTab === "social" ? "show active" : ""
+                            }`}
+                        role="tabpanel"
+                    >
+                        <div className="alert alert-info">
+                            <strong>Redes Sociales:</strong> URLs de perfiles para Open Graph y Schema.org.
+                        </div>
+                        
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Twitter Site"
+                                    value={formData.twitterSite ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            twitterSite: e.target.value,
+                                        })
+                                    }
+                                    placeholder="@cambiafx"
+                                />
+                                <small className="form-text text-muted">
+                                    Usuario de Twitter (incluye @)
+                                </small>
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Página de Facebook"
+                                    value={formData.facebookPage ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            facebookPage: e.target.value,
+                                        })
+                                    }
+                                    placeholder="https://facebook.com/cambiafx"
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="row">
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Perfil de Instagram"
+                                    value={formData.instagramProfile ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            instagramProfile: e.target.value,
+                                        })
+                                    }
+                                    placeholder="https://instagram.com/cambiafx"
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <InputFormGroup
+                                    label="Perfil de LinkedIn"
+                                    value={formData.linkedinProfile ?? ""}
+                                    onChange={(e) =>
+                                        setFormData({
+                                            ...formData,
+                                            linkedinProfile: e.target.value,
+                                        })
+                                    }
+                                    placeholder="https://linkedin.com/company/cambiafx"
+                                />
+                            </div>
+                        </div>
+                        
+                        <InputFormGroup
+                            label="Imagen Twitter por Defecto"
+                            value={formData.twitterImageDefault ?? ""}
+                            onChange={(e) =>
+                                setFormData({
+                                    ...formData,
+                                    twitterImageDefault: e.target.value,
+                                })
+                            }
+                            placeholder="/assets/img/twitter-default.jpg"
+                        />
+                        <small className="form-text text-muted">
+                            Tamaño recomendado: 1200x600 píxeles para Twitter Cards
+                        </small>
                     </div>
 
                     <div
