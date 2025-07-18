@@ -12,7 +12,7 @@ const ExchangeCard = ({
     onOperationStart = null
 }) => {
     const [operationType, setOperationType] = useState(initialOperationType);
-    const [amount1, setAmount1] = useState('');
+    const [amount1, setAmount1] = useState('1,000'); // Valor por defecto con formato
     const [amount2, setAmount2] = useState('');
     const [currentTc, setCurrentTc] = useState(0);
     const [promotionalCode, setPromotionalCode] = useState('');
@@ -25,6 +25,41 @@ const ExchangeCard = ({
     const [isConsultingCoupons, setIsConsultingCoupons] = useState(false); // Loading para consulta de cupones
     const [invalidCoupon, setInvalidCoupon] = useState(null); // Información del cupón inválido
 
+    // 🔢 FUNCIONES PARA FORMATEAR NÚMEROS CON COMAS
+    const formatNumberWithCommas = (num) => {
+        if (!num || isNaN(num)) return '';
+        return parseFloat(num).toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 2
+        });
+    };
+
+    const parseNumberFromFormatted = (str) => {
+        if (!str) return 0;
+        // Remover comas y convertir a número
+        return parseFloat(str.toString().replace(/,/g, '')) || 0;
+    };
+
+    const formatInputValue = (value) => {
+        // Remover caracteres no numéricos excepto punto y coma
+        let cleanValue = value.replace(/[^0-9.,]/g, '');
+        
+        // Si tiene punto, mantenerlo para decimales
+        if (cleanValue.includes('.')) {
+            const parts = cleanValue.split('.');
+            const integerPart = parts[0].replace(/,/g, '');
+            const decimalPart = parts[1] ? parts[1].substring(0, 2) : ''; // Máximo 2 decimales
+            
+            // Formatear la parte entera con comas
+            const formattedInteger = formatNumberWithCommas(integerPart);
+            return decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
+        } else {
+            // Solo números enteros, formatear con comas
+            const numericValue = cleanValue.replace(/,/g, '');
+            return formatNumberWithCommas(numericValue);
+        }
+    };
+
     // Cargar tipos de cambio iniciales
     useEffect(() => {
         console.log('🚀 ExchangeCard - useEffect inicial ejecutándose');
@@ -32,6 +67,15 @@ const ExchangeCard = ({
             console.log('🔄 Iniciando inicialización...');
             await initializeExchangeRates();
             checkUrlCoupon();
+            
+            // Calcular automáticamente con el valor por defecto de 1000
+            if (amount1) {
+                console.log('💰 Calculando con valor por defecto:', amount1);
+                setTimeout(() => {
+                    calculateExchange('O', amount1);
+                }, 500); // Pequeño delay para asegurar que todo esté inicializado
+            }
+            
             console.log('✅ Inicialización completada');
         };
         init();
@@ -123,12 +167,12 @@ const ExchangeCard = ({
         // Use inputValue if provided, otherwise use state
         let amount;
         if (inputValue !== null) {
-            amount = CambiaFXService.formatStringToNumber(inputValue);
+            amount = parseNumberFromFormatted(inputValue);
             console.log('💰 Usando valor directo del input:', { inputValue, amount });
         } else {
             amount = origin === 'O'
-                ? CambiaFXService.formatStringToNumber(amount1)
-                : CambiaFXService.formatStringToNumber(amount2);
+                ? parseNumberFromFormatted(amount1)
+                : parseNumberFromFormatted(amount2);
             console.log('💰 Usando valor del estado:', { origin, rawAmount: origin === 'O' ? amount1 : amount2, amount });
         }
 
@@ -182,11 +226,11 @@ const ExchangeCard = ({
         console.log('💱 TC actualizado en estado:', calculation.exchangeRate);
 
         if (origin === 'O') {
-            const formattedResult = CambiaFXService.formatNumberToString(calculation.result);
+            const formattedResult = formatNumberWithCommas(calculation.result);
             console.log('📝 Actualizando amount2:', { result: calculation.result, formatted: formattedResult });
             setAmount2(formattedResult);
         } else {
-            const formattedResult = CambiaFXService.formatNumberToString(calculation.result);
+            const formattedResult = formatNumberWithCommas(calculation.result);
             console.log('📝 Actualizando amount1:', { result: calculation.result, formatted: formattedResult });
             setAmount1(formattedResult);
         }
@@ -199,26 +243,37 @@ const ExchangeCard = ({
         setAmount1(amount2);
         setAmount2(temp);
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
+        
+        // Recalcular inmediatamente después del swap
+        if (amount2) {
+            setTimeout(() => {
+                calculateExchange('O', amount2);
+            }, 100);
+        }
     };
 
     const handleAmountChange = (value, origin) => {
         console.log('🔥🔥🔥 USUARIO ESCRIBIENDO:', { value, origin, operationType });
         console.log('⌨️ handleAmountChange SIN DELAY - valor inmediato:', value);
 
+        // Formatear el valor con comas automáticamente
+        const formattedValue = formatInputValue(value);
+        console.log('🔢 Valor formateado:', { original: value, formatted: formattedValue });
+
         if (origin === 'O') {
-            console.log('📝 Actualizando amount1 de', amount1, 'a', value);
-            setAmount1(value);
+            console.log('📝 Actualizando amount1 de', amount1, 'a', formattedValue);
+            setAmount1(formattedValue);
         } else {
-            console.log('📝 Actualizando amount2 de', amount2, 'a', value);
-            setAmount2(value);
+            console.log('📝 Actualizando amount2 de', amount2, 'a', formattedValue);
+            setAmount2(formattedValue);
         }
 
-        // CALCULAR INMEDIATAMENTE con el valor actual
-        console.log('⚡ Calculando INMEDIATAMENTE con valor:', value);
+        // CALCULAR INMEDIATAMENTE con el valor formateado
+        console.log('⚡ Calculando INMEDIATAMENTE con valor:', formattedValue);
 
-        // Pasar el valor directamente para evitar problemas de estado
+        // Pasar el valor formateado directamente para evitar problemas de estado
         setTimeout(() => {
-            calculateExchange(origin, value);
+            calculateExchange(origin, formattedValue);
         }, 0);
     };
 
@@ -287,7 +342,7 @@ const ExchangeCard = ({
                 if (amount1) {
                     console.log('💥 RECALCULANDO INMEDIATAMENTE con amount1:', amount1);
                     const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
-                    const amount = CambiaFXService.formatStringToNumber(amount1);
+                    const amount = parseNumberFromFormatted(amount1);
                     const tcActual = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
                     console.log('🎯 TC actual después del cupón:', tcActual);
                     console.log('📊 Datos tcData actuales:', CambiaFXService.tcData);
@@ -345,7 +400,7 @@ const ExchangeCard = ({
     const forceReset = () => {
         console.log('🔄 RESET COMPLETO FORZADO');
         // Limpiar todo el estado
-        setAmount1('');
+        setAmount1('1,000'); // Valor por defecto con formato
         setAmount2('');
         setCurrentTc(0);
         setPromotionalCode('');
@@ -362,7 +417,7 @@ const ExchangeCard = ({
     const checkCouponApplies = () => {
         if (!couponInfo || !amount1) return { applies: false, reason: '' };
 
-        const amount = CambiaFXService.formatStringToNumber(amount1);
+        const amount = parseNumberFromFormatted(amount1);
 
         // Si hay múltiples rangos, verificar si el monto está en alguno de ellos
         if (couponInfo.rangos && couponInfo.rangos.length > 0) {
@@ -468,7 +523,7 @@ const ExchangeCard = ({
     };
 
     const handleOperationStart = () => {
-        const amountValue = CambiaFXService.formatStringToNumber(amount1);
+        const amountValue = parseNumberFromFormatted(amount1);
 
         if (amountValue === 0) {
             alert('Debe ingresar un monto');
@@ -477,8 +532,8 @@ const ExchangeCard = ({
 
         const operationData = {
             type: operationType === 'venta' ? 'V' : 'C',
-            fromAmount: operationType === 'venta' ? amountValue : CambiaFXService.formatStringToNumber(amount2),
-            toAmount: operationType === 'venta' ? CambiaFXService.formatStringToNumber(amount2) : amountValue,
+            fromAmount: operationType === 'venta' ? amountValue : parseNumberFromFormatted(amount2),
+            toAmount: operationType === 'venta' ? parseNumberFromFormatted(amount2) : amountValue,
             exchangeRate: currentTc,
             couponCode: promotionalCode
         };
@@ -695,8 +750,8 @@ const ExchangeCard = ({
                             {operationType === 'compra' ? "ENVÍO DÓLARES" : "ENVÍO SOLES"}
                         </p>
                         <input
-                            type="number"
-                            placeholder="00.00"
+                            type="text"
+                            placeholder="1,000.00"
                             value={amount1}
                             onChange={(e) => {
                                 console.log('🖊️ Input onChange disparado:', {
@@ -740,8 +795,8 @@ const ExchangeCard = ({
                             {operationType === 'compra' ? "RECIBO SOLES" : "RECIBO DÓLARES"}
                         </p>
                         <input
-                            type="number"
-                            placeholder="00.00"
+                            type="text"
+                            placeholder="1,000.00"
                             value={amount2}
                             onChange={(e) => {
                                 console.log('🖊️ Input onChange disparado:', {
