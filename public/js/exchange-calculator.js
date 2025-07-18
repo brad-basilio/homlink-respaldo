@@ -5,12 +5,13 @@
 
 class ExchangeCalculator {
     constructor() {
-        this.baseURL = 'https://cambiafx.pe/api';
-        this.localAPI = '/api';
+        this.baseURL = 'https://apiluna.cambiafx.pe/api/BackendPizarra'; // Nueva API de Luna
+        this.localAPI = '/api'; // API local para otras funciones
         this.tcBase = [];
         this.tcDetalle = [];
         this.isVenta = true;
         this.promotionalCodeTimeout = null;
+        this.idParCurrency = 1; // USD-PEN par
         
         this.init();
     }
@@ -78,7 +79,7 @@ class ExchangeCalculator {
 
     async loadExchangeRates() {
         try {
-            console.log('📡 Cargando tipos de cambio...');
+            console.log('📡 Cargando tipos de cambio desde Nueva API Luna...');
             
             // Intentar API local primero
             let response;
@@ -91,25 +92,39 @@ class ExchangeCalculator {
                 });
                 console.log('✅ API local exitosa:', response);
             } catch (localError) {
-                console.warn('⚠️ Error con API local, intentando API externa:', localError);
+                console.warn('⚠️ Error con API local, intentando API Luna directa:', localError);
                 
-                // Fallback a API externa
+                // Fallback a API Luna directa
                 response = await $.ajax({
-                    url: this.baseURL + '/tc',
+                    url: this.baseURL + '/getTcCustomerNoAuth',
                     method: 'GET',
+                    data: {
+                        idParCurrency: this.idParCurrency
+                    },
                     timeout: 8000,
                     dataType: 'json'
                 });
-                console.log('✅ API externa exitosa:', response);
+                console.log('✅ API Luna directa exitosa:', response);
             }
             
             // Procesar respuesta
             let exchangeData = [];
             
             if (response && response.status === 200 && Array.isArray(response.data)) {
+                // Respuesta del proxy Laravel
                 exchangeData = response.data;
             } else if (Array.isArray(response)) {
-                exchangeData = response;
+                // Respuesta directa de API Luna
+                exchangeData = response.map(item => ({
+                    id: item.idRange || item.id,
+                    desde: parseFloat(item.tcFrom || item.desde),
+                    hasta: parseFloat(item.tcTo || item.hasta),
+                    tc_compra: parseFloat(item.tcBuy || item.tc_compra),
+                    tc_venta: parseFloat(item.tcSale || item.tc_venta),
+                    coupon: item.coupon,
+                    amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                    amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+                }));
             } else if (response && response.data && Array.isArray(response.data)) {
                 exchangeData = response.data;
             }
@@ -259,7 +274,7 @@ class ExchangeCalculator {
     }
 
     async handlePromotionalCode(code) {
-        console.log('🎫 Manejando código promocional:', code);
+        console.log('🎫 Manejando código promocional con Nueva API Luna:', code);
         
         if (!code || code.trim() === '') {
             // Restaurar tipos de cambio base
@@ -269,32 +284,64 @@ class ExchangeCalculator {
         }
         
         try {
-            // Intentar validar cupón
+            // Intentar validar cupón con API local primero
             let response;
             try {
                 response = await $.ajax({
-                    url: this.baseURL + '/cupon/' + code,
+                    url: this.localAPI + '/tc/cupon/' + code,
                     method: 'GET',
                     timeout: 8000,
                     dataType: 'json'
                 });
-                console.log('✅ Cupón validado:', response);
-            } catch (error) {
-                console.warn('⚠️ Error validando cupón:', error);
-                throw error;
+                console.log('✅ Cupón validado (API local):', response);
+            } catch (localError) {
+                console.warn('⚠️ Error con API local, intentando API Luna directa:', localError);
+                
+                // Fallback a API Luna directa
+                response = await $.ajax({
+                    url: this.baseURL + '/getTcCustomerNoAuth',
+                    method: 'GET',
+                    data: {
+                        idParCurrency: this.idParCurrency,
+                        codePromo: code
+                    },
+                    timeout: 8000,
+                    dataType: 'json'
+                });
+                console.log('✅ Cupón validado (API Luna directa):', response);
             }
             
-            if (response && Array.isArray(response) && response.length > 0) {
+            let tcData = null;
+            
+            // Manejar respuesta del proxy Laravel
+            if (response && response.status === 200 && Array.isArray(response.data)) {
+                tcData = response.data;
+            }
+            // Manejar respuesta directa de API Luna
+            else if (Array.isArray(response) && response.length > 0) {
+                tcData = response.map(item => ({
+                    id: item.idRange || item.id,
+                    desde: parseFloat(item.tcFrom || item.desde),
+                    hasta: parseFloat(item.tcTo || item.hasta),
+                    tc_compra: parseFloat(item.tcBuy || item.tc_compra),
+                    tc_venta: parseFloat(item.tcSale || item.tc_venta),
+                    coupon: item.coupon,
+                    amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                    amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+                }));
+            }
+            
+            if (tcData && tcData.length > 0) {
                 // Procesar datos del cupón
-                this.tcDetalle = response.map(item => ({
+                this.tcDetalle = tcData.map(item => ({
                     id: parseInt(item.id),
-                    desde: parseFloat(item.desde),
-                    hasta: parseFloat(item.hasta),
+                    desde: parseFloat(item.desde || 0),
+                    hasta: parseFloat(item.hasta || 999999),
                     tc_compra: parseFloat(item.tc_compra),
                     tc_venta: parseFloat(item.tc_venta),
-                    pizarra: item.pizarra,
-                    puntos_compra: parseFloat(item.puntos_compra || 0),
-                    puntos_venta: parseFloat(item.puntos_venta || 0)
+                    coupon: item.coupon,
+                    amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                    amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
                 }));
                 
                 console.log('✅ Cupón aplicado:', this.tcDetalle);

@@ -18,9 +18,10 @@ let promotionalCodeTimeout = null;
 
 // Configuración de APIs
 const API_CONFIG = {
-    baseURL: 'https://cambiafx.pe/api',
+    baseURL: 'https://apiluna.cambiafx.pe/api/BackendPizarra',
     localAPI: '/api',
-    timeout: 8000
+    timeout: 8000,
+    idParCurrency: 1 // USD-PEN
 };
 
 /**
@@ -28,7 +29,7 @@ const API_CONFIG = {
  */
 async function loadExchangeRates() {
     try {
-        console.log('📡 Cargando tipos de cambio desde API...');
+        console.log('📡 Cargando tipos de cambio desde Nueva API Luna...');
         
         // Intentar API local primero
         let response;
@@ -42,26 +43,40 @@ async function loadExchangeRates() {
             });
             console.log('✅ API local exitosa:', response.data);
         } catch (localError) {
-            console.warn('⚠️ Error con API local, intentando API externa:', localError.message);
+            console.warn('⚠️ Error con API local, intentando API Luna directa:', localError.message);
             
-            // Fallback a API externa
-            response = await axios.get(API_CONFIG.baseURL + '/tc', {
+            // Fallback a API Luna directa
+            response = await axios.get(API_CONFIG.baseURL + '/getTcCustomerNoAuth', {
+                params: {
+                    idParCurrency: API_CONFIG.idParCurrency
+                },
                 timeout: API_CONFIG.timeout,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }
             });
-            console.log('✅ API externa exitosa:', response.data);
+            console.log('✅ API Luna directa exitosa:', response.data);
         }
         
         // Procesar respuesta
         let exchangeData = [];
         
         if (response.data && response.data.status === 200 && Array.isArray(response.data.data)) {
+            // Respuesta del proxy Laravel
             exchangeData = response.data.data;
         } else if (Array.isArray(response.data)) {
-            exchangeData = response.data;
+            // Respuesta directa de la API Luna
+            exchangeData = response.data.map(item => ({
+                id: item.idRange || item.id,
+                desde: parseFloat(item.tcFrom || item.desde),
+                hasta: parseFloat(item.tcTo || item.hasta),
+                tc_compra: parseFloat(item.tcBuy || item.tc_compra),
+                tc_venta: parseFloat(item.tcSale || item.tc_venta),
+                coupon: item.coupon,
+                amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+            }));
         } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
             exchangeData = response.data.data;
         }
@@ -75,7 +90,7 @@ async function loadExchangeRates() {
                 tc_venta: parseFloat(item.tc_venta)
             }));
             TC_DETALLE = [...TC_BASE];
-            console.log('✅ Tipos de cambio cargados desde API:', TC_BASE);
+            console.log('✅ Tipos de cambio cargados desde Nueva API Luna:', TC_BASE);
             
             // Actualizar display inicial
             updateInitialDisplay();
@@ -236,7 +251,7 @@ function calcularTC(origin = 'O') {
 }
 
 function validarCupon(tipo, cuponCode) {
-    console.log('🎫 Validando cupón:', { tipo, cuponCode });
+    console.log('🎫 Validando cupón con Nueva API Luna:', { tipo, cuponCode });
     
     if (!cuponCode || cuponCode.trim() === '') {
         TC_DETALLE = [...TC_BASE];
@@ -244,51 +259,101 @@ function validarCupon(tipo, cuponCode) {
         return;
     }
     
-    axios.get(API_CONFIG.baseURL + '/cupon/' + cuponCode, {
+    // Intentar primero con API local, luego con API Luna directa
+    const tryLocal = axios.get(API_CONFIG.localAPI + '/tc/cupon/' + cuponCode, {
         timeout: API_CONFIG.timeout,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-    })
-    .then((response) => {
-        console.log('✅ Respuesta del cupón:', response.data);
-        
-        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
-            TC_DETALLE = response.data.map(item => ({
-                id: parseInt(item.id),
-                desde: parseFloat(item.desde),
-                hasta: parseFloat(item.hasta),
-                tc_compra: parseFloat(item.tc_compra),
-                tc_venta: parseFloat(item.tc_venta),
-                pizarra: item.pizarra,
-                puntos_compra: parseFloat(item.puntos_compra || 0),
-                puntos_venta: parseFloat(item.puntos_venta || 0)
-            }));
-            
-            console.log('✅ Cupón aplicado:', TC_DETALLE);
-            calcularTC();
-        } else {
-            throw new Error('Cupón no válido');
-        }
-    })
-    .catch((error) => {
-        console.error('❌ Error validando cupón:', error);
-        
-        if (tipo === 'c') {
-            $('.promotional-code').val('');
-        }
-        
-        if (typeof Swal !== 'undefined') {
-            Swal.fire({
-                icon: 'error',
-                text: 'El código de promoción no es válido.'
-            });
-        }
-        
-        TC_DETALLE = [...TC_BASE];
-        calcularTC();
     });
+    
+    const tryDirect = axios.get(API_CONFIG.baseURL + '/getTcCustomerNoAuth', {
+        params: {
+            idParCurrency: API_CONFIG.idParCurrency,
+            codePromo: cuponCode
+        },
+        timeout: API_CONFIG.timeout,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    });
+    
+    // Intentar API local primero, luego API directa
+    tryLocal
+        .then((response) => {
+            console.log('✅ Respuesta del cupón (API local):', response.data);
+            return processCouponResponse(response.data, cuponCode);
+        })
+        .catch((localError) => {
+            console.warn('⚠️ Error con API local, intentando API Luna directa:', localError.message);
+            return tryDirect
+                .then((response) => {
+                    console.log('✅ Respuesta del cupón (API Luna directa):', response.data);
+                    return processCouponResponse(response.data, cuponCode);
+                });
+        })
+        .catch((error) => {
+            console.error('❌ Error validando cupón:', error);
+            
+            if (tipo === 'c') {
+                $('.promotional-code').val('');
+            }
+            
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'El código de promoción no es válido.'
+                });
+            }
+            
+            TC_DETALLE = [...TC_BASE];
+            calcularTC();
+        });
+}
+
+function processCouponResponse(data, cuponCode) {
+    let tcData = null;
+    
+    // Manejar respuesta del proxy Laravel
+    if (data && data.status === 200 && Array.isArray(data.data)) {
+        tcData = data.data;
+    }
+    // Manejar respuesta directa de API Luna
+    else if (Array.isArray(data) && data.length > 0) {
+        tcData = data.map(item => ({
+            id: item.idRange || item.id,
+            desde: parseFloat(item.tcFrom || item.desde),
+            hasta: parseFloat(item.tcTo || item.hasta),
+            tc_compra: parseFloat(item.tcBuy || item.tc_compra),
+            tc_venta: parseFloat(item.tcSale || item.tc_venta),
+            coupon: item.coupon,
+            amountMinOperation: parseFloat(item.amountMinOperation || 0),
+            amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+        }));
+    }
+    
+    if (tcData && tcData.length > 0) {
+        // Asegurar formato consistente
+        const processedData = tcData.map(item => ({
+            id: parseInt(item.id),
+            desde: parseFloat(item.desde || 0),
+            hasta: parseFloat(item.hasta || 999999),
+            tc_compra: parseFloat(item.tc_compra),
+            tc_venta: parseFloat(item.tc_venta),
+            // Campos adicionales
+            coupon: item.coupon,
+            amountMinOperation: parseFloat(item.amountMinOperation || 0),
+            amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+        }));
+        
+        console.log('✅ Cupón aplicado:', processedData);
+        TC_DETALLE = processedData;
+        calcularTC();
+    } else {
+        throw new Error('Cupón no válido');
+    }
 }
 
 function setTCPROMO() {

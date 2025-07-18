@@ -2,55 +2,38 @@ import axios from 'axios';
 
 class CambiaFXService {
     constructor() {
-        this.baseURL = 'https://cambiafx.pe/api'; // Usar proxy local para evitar CORS
+        this.baseURL = 'https://apiluna.cambiafx.pe/api/BackendPizarra'; // Nueva API de Luna
         this.localAPI = '/api'; // API local para otras funciones
         this.tcData = [];
         this.tcBase = [];
+        this.idParCurrency = 1; // USD-PEN par
     }
 
-    // Obtener tipos de cambio reales de la API de CambiaFX
+    // Obtener tipos de cambio reales de la nueva API de Luna
     async getExchangeRates() {
         try {
-            console.log('🔧 CambiaFXService.getExchangeRates() iniciado - LLAMANDO A LA API');
+            console.log('🔧 CambiaFXService.getExchangeRates() iniciado - LLAMANDO A LA NUEVA API DE LUNA');
             
-            // Primero intentar con la API local
-            let response;
-            try {
-                console.log('🔧 Intentando con API local /api/tc');
-                 response = await axios.get(`${this.baseURL}/tc`, {
-                    timeout: 8000,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-                console.log('📡 Respuesta de API local exitosa:', response.data);
-            } catch (localError) {
-                console.warn('⚠️ Error con API local, intentando con proxy:', localError.message);
-                
-                // Si falla la API local, intentar con el proxy
-                response = await axios.get(`${this.baseURL}/tc`, {
-                    timeout: 8000,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-                console.log('📡 Respuesta del proxy exitosa:', response.data);
-            }
+            // Llamar a la nueva API
+            const response = await axios.get(`${this.baseURL}/getTcCustomerNoAuth`, {
+                params: {
+                    idParCurrency: this.idParCurrency
+                },
+                timeout: 8000,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            console.log('📡 Respuesta de API Luna exitosa:', response.data);
             
             let realTimeData = [];
             
-            // Procesar la respuesta de la API
-            if (response.data && response.data.status === 200 && Array.isArray(response.data.data)) {
-                realTimeData = response.data.data;
-                console.log('✅ Datos obtenidos con formato wrapper:', realTimeData);
-            } else if (Array.isArray(response.data)) {
+            // La nueva API devuelve directamente un array
+            if (Array.isArray(response.data)) {
                 realTimeData = response.data;
                 console.log('✅ Datos obtenidos como array directo:', realTimeData);
-            } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                realTimeData = response.data.data;
-                console.log('✅ Datos obtenidos de propiedad data:', realTimeData);
             } else {
                 throw new Error('Formato de respuesta inesperado: ' + JSON.stringify(response.data));
             }
@@ -60,25 +43,30 @@ class CambiaFXService {
                 throw new Error('No se obtuvieron datos de tipos de cambio');
             }
             
-            // Asegurar que los datos están en el formato correcto
+            // Mapear el nuevo formato al formato interno
             const processedData = realTimeData.map(item => ({
-                id: item.id || 0,
-                desde: parseFloat(item.desde || 0),
-                hasta: parseFloat(item.hasta || 999999),
-                tc_compra: parseFloat(item.tc_compra || 0),
-                tc_venta: parseFloat(item.tc_venta || 0)
+                id: item.idRange || 0,
+                desde: parseFloat(item.tcFrom || 0),
+                hasta: parseFloat(item.tcTo || 999999),
+                tc_compra: parseFloat(item.tcBuy || 0),
+                tc_venta: parseFloat(item.tcSale || 0),
+                // Campos adicionales de la nueva API
+                coupon: item.coupon,
+                amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
             }));
             
-            console.log('📊 Datos procesados:', processedData);
+            console.log('📊 Datos procesados con nuevo formato:', processedData);
             this.tcBase = processedData;
             this.tcData = [...processedData];
             
-            console.log('✅ TC Data asignado (API REAL):', {
+            console.log('✅ TC Data asignado (API LUNA REAL):', {
                 tcBase: this.tcBase,
                 tcData: this.tcData
             });
             
             return processedData;
+            
         } catch (error) {
             console.error('❌ Error en getExchangeRates:', error);
             
@@ -98,7 +86,7 @@ class CambiaFXService {
         }
     }
 
-    // Validar cupón de descuento
+    // Validar cupón de descuento con la nueva API
     async validateCoupon(couponCode) {
         try {
             if (!couponCode || !couponCode.trim()) {
@@ -107,145 +95,54 @@ class CambiaFXService {
                 return { valid: false, data: this.tcData };
             }
 
-            console.log('🎫 Validando cupón:', couponCode);
+            console.log('🎫 Validando cupón con nueva API:', couponCode);
             
-            // Intentar primero con el proxy Laravel (más confiable)
-            try {
-                console.log('🎫 Intentando validar via proxy Laravel:', couponCode);
-                console.log('🎫 URL completa:', `${this.baseURL}/cupon/${couponCode}`);
-                
-                const response = await axios.get(`${this.baseURL}/cupon/${couponCode}`, {
-                    timeout: 8000,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                console.log('🎫 Status de respuesta proxy:', response.status);
-                console.log('🎫 Respuesta completa proxy:', response.data);
-                
-                // Verificar diferentes formatos de respuesta del proxy
-                let tcData = null;
-                
-                // El proxy Laravel devuelve: { status: 200, message: "...", data: [...] }
-                if (response.data && response.data.status === 200 && Array.isArray(response.data.data)) {
-                    tcData = response.data.data;
-                    console.log('✅ Formato proxy: Laravel Response wrapper con data');
-                } else if (Array.isArray(response.data)) {
-                    tcData = response.data;
-                    console.log('✅ Formato proxy: Array directo');
-                } else if (response.data && response.data.data && Array.isArray(response.data.data)) {
-                    tcData = response.data.data;
-                    console.log('✅ Formato proxy: Objeto con propiedad data');
-                } else if (response.data && response.data.success && Array.isArray(response.data.result)) {
-                    tcData = response.data.result;
-                    console.log('✅ Formato proxy: success/result');
+            const response = await axios.get(`${this.baseURL}/getTcCustomerNoAuth`, {
+                params: {
+                    idParCurrency: this.idParCurrency,
+                    codePromo: couponCode
+                },
+                timeout: 8000,
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 }
-                
-                if (tcData && tcData.length > 0) {
-                    // Asegurar que los datos están en el formato correcto
-                    const processedData = tcData.map(item => ({
-                        id: item.id,
-                        desde: parseFloat(item.desde || 0),
-                        hasta: parseFloat(item.hasta || 999999),
-                        tc_compra: parseFloat(item.tc_compra),
-                        tc_venta: parseFloat(item.tc_venta),
-                        pizarra: item.pizarra || null,
-                        puntos_compra: parseFloat(item.puntos_compra || 0),
-                        puntos_venta: parseFloat(item.puntos_venta || 0)
-                    }));
-                    
-                    // 🚀 FORZAR ACTUALIZACIÓN INMEDIATA
-                    this.tcData = processedData;
-                    console.log('✅ Cupón válido via proxy, TC FORZADAMENTE actualizados:', this.tcData);
-                    console.log('🔍 Verificación: tcData[0]:', this.tcData[0]);
-                    console.log('🎯 TC Compra ahora es:', this.tcData[0].tc_compra);
-                    console.log('🎯 TC Venta ahora es:', this.tcData[0].tc_venta);
-                    
-                    return { valid: true, data: processedData };
-                }
-            } catch (proxyError) {
-                console.warn('⚠️ Error con proxy Laravel, intentando con API directa:', proxyError.message);
-                
-                // Si falla el proxy, intentar con la API directa como fallback
-                try {
-                    console.log('🎫 Intentando validar via API directa de CambiaFX:', couponCode);
-                    const apiUrl = `https://cambiafx.pe/api/cupon/${couponCode}`;
-                    console.log('🎫 URL de la API:', apiUrl);
-                    
-                    const response = await axios.get(apiUrl, {
-                        timeout: 5000,
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    
-                    console.log('🎫 Status de respuesta API directa:', response.status);
-                    console.log('🎫 Respuesta completa de la API:', response.data);
-                    
-                    // La API devuelve un array con información del cupón
-                    if (Array.isArray(response.data) && response.data.length > 0) {
-                        console.log('✅ Cupón válido encontrado en API directa');
-                        
-                        // Transformar la respuesta de la API al formato esperado por nuestro sistema
-                        const couponData = response.data[0]; // Tomar el primer elemento del array
-                        
-                        // Crear estructura de datos compatible con nuestro sistema
-                        const transformedData = [{
-                            id: couponData.id,
-                            desde: parseFloat(couponData.desde),
-                            hasta: parseFloat(couponData.hasta),
-                            tc_compra: parseFloat(couponData.tc_compra),
-                            tc_venta: parseFloat(couponData.tc_venta),
-                            // Información adicional del cupón
-                            pizarra: couponData.pizarra,
-                            puntos_compra: parseFloat(couponData.puntos_compra),
-                            puntos_venta: parseFloat(couponData.puntos_venta)
-                        }];
-                        
-                        console.log('🔄 Datos transformados:', transformedData);
-                        
-                        this.tcData = transformedData;
-                        console.log('✅ TC actualizados con cupón de API directa:', this.tcData);
-                        return { valid: true, data: transformedData };
-                    }
-                } catch (directApiError) {
-                    console.warn('⚠️ Error con API directa:', directApiError.message);
-                }
+            });
+            
+            console.log('🎫 Respuesta del cupón:', response.data);
+            
+            let tcData = null;
+            
+            // La nueva API devuelve directamente un array
+            if (Array.isArray(response.data) && response.data.length > 0) {
+                tcData = response.data;
+                console.log('✅ Cupón válido, datos recibidos:', tcData);
+            } else {
+                throw new Error('Cupón no válido o sin datos');
             }
             
-            // Lista de cupones de fallback para desarrollo/testing
-            const fallbackCoupons = {
-                'FELIZ28': [{
-                    id: 3742,
-                    desde: 100,
-                    hasta: 50000,
-                    tc_compra: 3.557,   // Actualizado: 20 USD → 71.14 PEN (3.557)
-                    tc_venta: 3.571,    // Actualizado: 20 PEN → 5.60 USD (3.571)
-                    pizarra: 3713,
-                    puntos_compra: 0.002,
-                    puntos_venta: -0.002
-                }],
-                'TEST': [{
-                    id: 9999,
-                    desde: 0,
-                    hasta: 999999,
-                    tc_compra: 3.520,
-                    tc_venta: 3.550,
-                    pizarra: 1,
-                    puntos_compra: 0.005,
-                    puntos_venta: -0.005
-                }]
-            };
-            
-            // Verificar cupones de fallback
-            if (fallbackCoupons[couponCode.toUpperCase()]) {
-                console.log('✅ Cupón encontrado en fallback:', couponCode);
-                this.tcData = fallbackCoupons[couponCode.toUpperCase()];
-                console.log('✅ TC actualizados con fallback:', this.tcData);
-                return { valid: true, data: this.tcData };
+            if (tcData && tcData.length > 0) {
+                // Mapear el nuevo formato al formato interno
+                const processedData = tcData.map(item => ({
+                    id: item.idRange,
+                    desde: parseFloat(item.tcFrom || 0),
+                    hasta: parseFloat(item.tcTo || 999999),
+                    tc_compra: parseFloat(item.tcBuy),
+                    tc_venta: parseFloat(item.tcSale),
+                    // Campos adicionales
+                    coupon: item.coupon,
+                    amountMinOperation: parseFloat(item.amountMinOperation || 0),
+                    amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
+                }));
+                
+                // 🚀 FORZAR ACTUALIZACIÓN INMEDIATA
+                this.tcData = processedData;
+                console.log('✅ Cupón válido, TC FORZADAMENTE actualizados:', this.tcData);
+                console.log('🔍 Verificación: tcData[0]:', this.tcData[0]);
+                console.log('🎯 TC Compra ahora es:', this.tcData[0].tc_compra);
+                console.log('🎯 TC Venta ahora es:', this.tcData[0].tc_venta);
+                
+                return { valid: true, data: processedData };
             }
             
             // Si llegamos aquí, el cupón no es válido
@@ -286,43 +183,27 @@ class CambiaFXService {
         
         console.log('🔍 Buscando rango para monto:', amount);
         
-        // Si solo hay un elemento en tcData (como viene de la API de cupones)
-        if (this.tcData.length === 1) {
-            const singleObj = this.tcData[0];
-            console.log('📊 Solo hay un elemento en tcData (cupón):', singleObj);
-            console.log('🔍 Verificando rango del cupón:', {
-                desde: singleObj.desde,
-                hasta: singleObj.hasta,
-                amount,
-                dentroDelRango: singleObj.desde <= amount && amount <= singleObj.hasta
-            });
+        // Buscar el rango correcto para el monto
+        // LÓGICA CORREGIDA: Para evitar superposición en límites exactos
+        for (let obj of this.tcData) {
+            console.log('🔎 Verificando rango:', { desde: obj.desde, hasta: obj.hasta, monto: amount });
             
-            // Verificar si el monto está dentro del rango del cupón
-            if (singleObj.desde <= amount && amount <= singleObj.hasta) {
-                tcObj = singleObj;
-                console.log('✅ Monto dentro del rango del cupón:', tcObj);
-                console.log('🎯 TC que se usará:', {
-                    operationType,
-                    tc_compra: tcObj.tc_compra,
-                    tc_venta: tcObj.tc_venta,
-                    seleccionado: operationType === 'C' ? tcObj.tc_venta : tcObj.tc_compra
+            // Lógica de rangos sin superposición:
+            // Primer rango: desde <= amount < hasta (no incluye el límite superior)
+            // Último rango: desde <= amount <= hasta (incluye ambos límites)
+            const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
+            const isInRange = isLastRange 
+                ? (obj.desde <= amount && amount <= obj.hasta)  // Último rango incluye límite superior
+                : (obj.desde <= amount && amount < obj.hasta);   // Otros rangos NO incluyen límite superior
+            
+            if (isInRange) {
+                tcObj = obj;
+                console.log('✅ Rango encontrado:', { 
+                    rango: tcObj, 
+                    isLastRange, 
+                    logicaUsada: isLastRange ? 'desde <= amount <= hasta' : 'desde <= amount < hasta'
                 });
-            } else {
-                console.log('⚠️ Monto fuera del rango del cupón, usando TC base');
-                // Si está fuera del rango del cupón, usar datos base
-                if (this.tcBase.length > 0) {
-                    return this.getTCFromBase(amount, operationType);
-                }
-            }
-        } else {
-            // Buscar el rango correcto para el monto (múltiples rangos)
-            for (let obj of this.tcData) {
-                console.log('🔎 Verificando rango:', { desde: obj.desde, hasta: obj.hasta, monto: amount });
-                if (obj.desde <= amount && amount <= obj.hasta) {
-                    tcObj = obj;
-                    console.log('✅ Rango encontrado:', tcObj);
-                    break;
-                }
+                break;
             }
         }
         

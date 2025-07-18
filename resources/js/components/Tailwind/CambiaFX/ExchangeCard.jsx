@@ -102,8 +102,9 @@ const ExchangeCard = ({
         console.log('🔢 Verificación post-actualización:', {
             ratesCompra: rates.compra,
             ratesVenta: rates.venta,
-            deberiaSerConCupon: CambiaFXService.tcData?.length === 1,
-            tcDataActual: CambiaFXService.tcData[0]
+            tienePromotionalCode: !!promotionalCode,
+            tcDataActual: CambiaFXService.tcData[0],
+            totalRangos: CambiaFXService.tcData?.length || 0
         });
     };
 
@@ -159,7 +160,7 @@ const ExchangeCard = ({
             serviceOperationType,
             tcDataActual: CambiaFXService.tcData,
             tcDataLength: CambiaFXService.tcData?.length,
-            esCupon: CambiaFXService.tcData?.length === 1,
+            tienePromotionalCode: !!promotionalCode,
             promotionalCode
         });
 
@@ -170,8 +171,11 @@ const ExchangeCard = ({
         console.log('🎯 VERIFICACIÓN DEL CÁLCULO:', {
             tcUsado: calculation.exchangeRate,
             resultadoObtenido: calculation.result,
-            deberiaSerConCuponFELIZ28: calculation.exchangeRate === 3.557 || calculation.exchangeRate === 3.571,
-            calculoManual: operationType === 'venta' ? `${amount} * ${calculation.exchangeRate} = ${(amount * calculation.exchangeRate).toFixed(2)}` : `${amount} / ${calculation.exchangeRate} = ${(amount / calculation.exchangeRate).toFixed(2)}`
+            montoIngresado: amount,
+            tienePromotionalCode: !!promotionalCode,
+            couponInfo: couponInfo,
+            calculoManual: operationType === 'venta' ? `${amount} / ${calculation.exchangeRate} = ${(amount / calculation.exchangeRate).toFixed(2)}` : `${amount} * ${calculation.exchangeRate} = ${(amount * calculation.exchangeRate).toFixed(2)}`,
+            rangosCupón: couponInfo?.rangos?.length || 0
         });
 
         setCurrentTc(calculation.exchangeRate);
@@ -247,17 +251,28 @@ const ExchangeCard = ({
                 setInvalidCoupon(null);
 
                 // Guardar información del cupón para mostrar al usuario
-                const cuponData = result.data[0];
+                // Con múltiples rangos, tomamos el rango más general para mostrar
+                const rangos = result.data;
+                const rangoMinimo = Math.min(...rangos.map(r => r.desde));
+                const rangoMaximo = Math.max(...rangos.map(r => r.hasta));
+                const primerRango = rangos[0];
+                
                 setCouponInfo({
                     codigo: couponCode,
-                    montoMinimo: cuponData.desde,
-                    montoMaximo: cuponData.hasta,
-                    tcCompra: cuponData.tc_compra,
-                    tcVenta: cuponData.tc_venta
+                    montoMinimo: rangoMinimo,
+                    montoMaximo: rangoMaximo,
+                    tcCompra: primerRango.tc_compra,
+                    tcVenta: primerRango.tc_venta,
+                    rangos: rangos // Guardamos todos los rangos para referencia
                 });
 
-                // Mostrar modal informativo
-                setShowCouponModal(true);
+                console.log('🎫 Información del cupón guardada:', {
+                    codigo: couponCode,
+                    montoMinimo: rangoMinimo,
+                    montoMaximo: rangoMaximo,
+                    totalRangos: rangos.length,
+                    rangos: rangos
+                });
 
                 // ⚡ ACTUALIZACIÓN INMEDIATA Y FORZADA
                 console.log('🚀 Estado actual tcData antes de actualizar:', CambiaFXService.tcData);
@@ -276,11 +291,11 @@ const ExchangeCard = ({
                     const tcActual = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
                     console.log('🎯 TC actual después del cupón:', tcActual);
                     console.log('📊 Datos tcData actuales:', CambiaFXService.tcData);
-
-                    // Calcular de nuevo con los datos actualizados
+                    
+                    // Forzar recálculo inmediato
                     calculateExchange('O');
                 }
-
+                
                 console.log('✅ Actualización de cupón completada');
             }
 
@@ -349,6 +364,45 @@ const ExchangeCard = ({
 
         const amount = CambiaFXService.formatStringToNumber(amount1);
 
+        // Si hay múltiples rangos, verificar si el monto está en alguno de ellos
+        if (couponInfo.rangos && couponInfo.rangos.length > 0) {
+            let rangoAplicable = null;
+            
+            // Buscar el rango correcto sin superposición
+            for (let i = 0; i < couponInfo.rangos.length; i++) {
+                const rango = couponInfo.rangos[i];
+                const isLastRange = i === couponInfo.rangos.length - 1;
+                
+                // Lógica de rangos sin superposición:
+                // Primer rango: desde <= amount < hasta (no incluye el límite superior)
+                // Último rango: desde <= amount <= hasta (incluye ambos límites)
+                const isInRange = isLastRange 
+                    ? (rango.desde <= amount && amount <= rango.hasta)  // Último rango incluye límite superior
+                    : (rango.desde <= amount && amount < rango.hasta);   // Otros rangos NO incluyen límite superior
+                
+                if (isInRange) {
+                    rangoAplicable = rango;
+                    console.log('✅ Cupón aplica en rango correcto:', { 
+                        rango: rangoAplicable, 
+                        isLastRange, 
+                        logicaUsada: isLastRange ? 'desde <= amount <= hasta' : 'desde <= amount < hasta'
+                    });
+                    break;
+                }
+            }
+            
+            if (rangoAplicable) {
+                return { applies: true, reason: '', rangoActual: rangoAplicable };
+            } else {
+                console.log('❌ Monto no está en ningún rango del cupón');
+                return {
+                    applies: false,
+                    reason: `Rangos válidos: ${couponInfo.rangos.map(r => `$${r.desde}-$${r.hasta}`).join(', ')}`
+                };
+            }
+        }
+
+        // Fallback para cupones con un solo rango (compatibilidad)
         if (amount < couponInfo.montoMinimo) {
             return {
                 applies: false,
@@ -393,11 +447,19 @@ const ExchangeCard = ({
 
         const couponApplies = checkCouponApplies();
 
-        if (couponApplies.applies) {
-            // Mostrar tasas del cupón (CORREGIDO)
+        if (couponApplies.applies && couponApplies.rangoActual) {
+            // Mostrar tasas del rango específico que aplica (CORREGIDO para múltiples rangos)
+            const rangoActual = couponApplies.rangoActual;
+            console.log('📊 Mostrando tasas del rango actual:', rangoActual);
             return {
-                compra: couponInfo.tcCompra.toFixed(4), // COMPRA: Cliente tiene USD → usar tc_compra
-                venta: couponInfo.tcVenta.toFixed(4)    // VENTA: Cliente tiene PEN → usar tc_venta
+                compra: rangoActual.tc_compra.toFixed(4), // COMPRA: Cliente tiene USD → usar tc_compra
+                venta: rangoActual.tc_venta.toFixed(4)    // VENTA: Cliente tiene PEN → usar tc_venta
+            };
+        } else if (couponApplies.applies) {
+            // Fallback para cupones de un solo rango
+            return {
+                compra: couponInfo.tcCompra.toFixed(4),
+                venta: couponInfo.tcVenta.toFixed(4)
             };
         } else {
             // Mostrar tasas normales pero con indicador de que hay cupón disponible

@@ -220,6 +220,7 @@ Route::post('/coupons', [CouponController::class, 'save']);
 Route::post('/coupons/is-first', [CouponController::class, 'isFirst']);
 
 Route::get('/tc', [App\Http\Controllers\ExchangeRateController::class, 'getExchangeRates']);
+Route::get('/tc/cupon/{code}', [App\Http\Controllers\ExchangeRateController::class, 'validateCoupon']);
 
 // Proxy para CambiaFX API externa (evita problemas de CORS)
 Route::get('/cambiafx/tc', [App\Http\Controllers\CambiaFXProxyController::class, 'getExchangeRates']);
