@@ -585,7 +585,7 @@ const Header = ({
                                 className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
-                                    ¿Eres nuevo? registrate
+                                    ¿Eres nuevo? regístrate
                                 </span>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
@@ -922,7 +922,7 @@ const Header = ({
                                 className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
-                                    ¿Eres nuevo? registrate
+                                    ¿Eres nuevo? regístrate
                                 </span>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
