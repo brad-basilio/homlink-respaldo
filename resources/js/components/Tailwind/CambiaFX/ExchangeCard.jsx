@@ -423,24 +423,37 @@ const ExchangeCard = ({
         if (couponInfo.rangos && couponInfo.rangos.length > 0) {
             let rangoAplicable = null;
             
+            // Filtrar rangos válidos primero
+            const rangosValidos = couponInfo.rangos.filter(r => {
+                const minAmount = r.montoMinimo ?? r.desde;
+                const maxAmount = r.montoMaximo ?? r.hasta;
+                return r && minAmount != null && maxAmount != null;
+            });
+            
             // Buscar el rango correcto sin superposición
-            for (let i = 0; i < couponInfo.rangos.length; i++) {
-                const rango = couponInfo.rangos[i];
-                const isLastRange = i === couponInfo.rangos.length - 1;
+            for (let i = 0; i < rangosValidos.length; i++) {
+                const rango = rangosValidos[i];
+                const isLastRange = i === rangosValidos.length - 1;
                 
-                // Lógica de rangos sin superposición:
-                // Primer rango: desde <= amount < hasta (no incluye el límite superior)
-                // Último rango: desde <= amount <= hasta (incluye ambos límites)
+                // Manejar tanto la estructura nueva como la del backend
+                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                
+                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
+                // Último rango incluye el límite superior, otros no
                 const isInRange = isLastRange 
-                    ? (rango.desde <= amount && amount <= rango.hasta)  // Último rango incluye límite superior
-                    : (rango.desde <= amount && amount < rango.hasta);   // Otros rangos NO incluyen límite superior
+                    ? (minAmount <= amount && amount <= maxAmount)  // Último rango incluye límite superior
+                    : (minAmount <= amount && amount < maxAmount);   // Otros rangos NO incluyen límite superior
                 
                 if (isInRange) {
                     rangoAplicable = rango;
                     console.log('✅ Cupón aplica en rango correcto:', { 
-                        rango: rangoAplicable, 
-                        isLastRange, 
-                        logicaUsada: isLastRange ? 'desde <= amount <= hasta' : 'desde <= amount < hasta'
+                        rango: rangoAplicable,
+                        minAmount,
+                        maxAmount,
+                        isLastRange,
+                        amount,
+                        logicaUsada: isLastRange ? 'minAmount <= amount <= maxAmount' : 'minAmount <= amount < maxAmount'
                     });
                     break;
                 }
@@ -505,16 +518,22 @@ const ExchangeCard = ({
         if (couponApplies.applies && couponApplies.rangoActual) {
             // Mostrar tasas del rango específico que aplica (CORREGIDO para múltiples rangos)
             const rangoActual = couponApplies.rangoActual;
+            const buyRate = rangoActual.tcCompra ?? rangoActual.tc_compra ?? currentRates.compra;
+            const sellRate = rangoActual.tcVenta ?? rangoActual.tc_venta ?? currentRates.venta;
+            
             console.log('📊 Mostrando tasas del rango actual:', rangoActual);
             return {
-                compra: rangoActual.tc_compra.toFixed(4), // COMPRA: Cliente tiene USD → usar tc_compra
-                venta: rangoActual.tc_venta.toFixed(4)    // VENTA: Cliente tiene PEN → usar tc_venta
+                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate, // COMPRA: Cliente tiene USD → usar tc_compra
+                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate   // VENTA: Cliente tiene PEN → usar tc_venta
             };
         } else if (couponApplies.applies) {
             // Fallback para cupones de un solo rango
+            const buyRate = couponInfo.tcCompra ?? couponInfo.tc_compra ?? currentRates.compra;
+            const sellRate = couponInfo.tcVenta ?? couponInfo.tc_venta ?? currentRates.venta;
+            
             return {
-                compra: couponInfo.tcCompra.toFixed(4),
-                venta: couponInfo.tcVenta.toFixed(4)
+                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate,
+                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate
             };
         } else {
             // Mostrar tasas normales pero con indicador de que hay cupón disponible
@@ -835,7 +854,7 @@ const ExchangeCard = ({
                                             setShowCouponInput(true);
                                         }}
                                         className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl font-medium text-sm transition-all duration-200 border-2 group relative text-neutral-dark hover:bg-neutral hover:shadow-md border-transparent hover:border-secondary/30"
-                                        title="Ingresa tu código promocional para obtener una tasa preferencial"
+                                        title="Ingresa tu cupón promocional para obtener una tasa preferencial"
                                     >
                                         USAR CUPÓN
                                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -882,21 +901,114 @@ const ExchangeCard = ({
 
                                                         {/* Detalles del cupón */}
                                                         <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
-                                                            <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                <h5 className="text-xs font-semibold text-constrast mb-1 sm:mb-2">RANGO VÁLIDO</h5>
-                                                                <p className="text-xs sm:text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
-                                                            </div>
+                                                            {/* Si tiene múltiples rangos, mostrar cada uno */}
+                                                            {couponInfo?.rangos && couponInfo.rangos.length > 1 ? (
+                                                                <>
+                                                                    <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                        <h5 className="text-xs font-semibold text-constrast mb-2">RANGOS DISPONIBLES</h5>
+                                                                        <div className="space-y-2">
+                                                                            {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
+                                                                                const currentAmount = parseNumberFromFormatted(amount1);
+                                                                                // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
+                                                                                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
+                                                                                const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
+                                                                                
+                                                                                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
+                                                                                // Último rango incluye el límite superior, otros no
+                                                                                const isLastRange = index === couponInfo.rangos.filter(r => r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null)).length - 1;
+                                                                                const isCurrentRange = isLastRange 
+                                                                                    ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
+                                                                                    : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                                
+                                                                                return (
+                                                                                    <div key={index} className={`flex justify-between items-center p-2 rounded-md text-xs ${
+                                                                                        isCurrentRange 
+                                                                                            ? 'bg-constrast/20 border border-constrast/40' 
+                                                                                            : 'bg-white/5'
+                                                                                    }`}>
+                                                                                        <span className="font-medium">
+                                                                                            ${(minAmount || 0).toLocaleString()} - ${(maxAmount || 0).toLocaleString()}
+                                                                                            {isCurrentRange && <span className="ml-1 text-constrast">✓</span>}
+                                                                                        </span>
+                                                                                        <div className="flex gap-2 text-xs">
+                                                                                            <span>C: {typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate}</span>
+                                                                                            <span>V: {typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                );
+                                                                            })}
+                                                                        </div>
+                                                                    </div>
 
-                                                            <div className="grid grid-cols-2 gap-1 sm:gap-2">
-                                                                <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                    <h5 className="text-xs font-semibold text-constrast mb-1">COMPRA</h5>
-                                                                    <p className="text-xs sm:text-sm font-bold">S/ {couponInfo.tcCompra.toFixed(4)}</p>
-                                                                </div>
-                                                                <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                    <h5 className="text-xs font-semibold text-constrast mb-1">VENTA</h5>
-                                                                    <p className="text-xs sm:text-sm font-bold">S/ {couponInfo.tcVenta.toFixed(4)}</p>
-                                                                </div>
-                                                            </div>
+                                                                    {/* Mostrar tasas del rango actual */}
+                                                                    {(() => {
+                                                                        const currentAmount = parseNumberFromFormatted(amount1);
+                                                                        
+                                                                        // 🔧 LÓGICA CORREGIDA: Filtrar rangos válidos y aplicar lógica sin superposición
+                                                                        const rangosValidos = couponInfo.rangos.filter(r => {
+                                                                            return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
+                                                                        });
+                                                                        
+                                                                        let currentRange = null;
+                                                                        for (let i = 0; i < rangosValidos.length; i++) {
+                                                                            const rango = rangosValidos[i];
+                                                                            const isLastRange = i === rangosValidos.length - 1;
+                                                                            const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                            const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            
+                                                                            // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
+                                                                            const isInRange = isLastRange 
+                                                                                ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
+                                                                                : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                            
+                                                                            if (isInRange) {
+                                                                                currentRange = rango;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        
+                                                                        if (currentRange) {
+                                                                            const buyRate = currentRange.tcCompra ?? currentRange.tc_compra ?? 'N/A';
+                                                                            const sellRate = currentRange.tcVenta ?? currentRange.tc_venta ?? 'N/A';
+                                                                            
+                                                                            return (
+                                                                                <div className="grid grid-cols-2 gap-1 sm:gap-2">
+                                                                                    <div className="bg-constrast/10 border border-constrast/30 rounded-lg p-2 sm:p-3">
+                                                                                        <h5 className="text-xs font-semibold text-constrast mb-1">COMPRA</h5>
+                                                                                        <p className="text-xs sm:text-sm font-bold">S/ {typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate}</p>
+                                                                                    </div>
+                                                                                    <div className="bg-constrast/10 border border-constrast/30 rounded-lg p-2 sm:p-3">
+                                                                                        <h5 className="text-xs font-semibold text-constrast mb-1">VENTA</h5>
+                                                                                        <p className="text-xs sm:text-sm font-bold">S/ {typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            );
+                                                                        }
+                                                                        return null;
+                                                                    })()}
+                                                                </>
+                                                            ) : (
+                                                                // Cupón con un solo rango (comportamiento original)
+                                                                <>
+                                                                    <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                        <h5 className="text-xs font-semibold text-constrast mb-1 sm:mb-2">RANGO VÁLIDO</h5>
+                                                                        <p className="text-xs sm:text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
+                                                                    </div>
+
+                                                                    <div className="grid grid-cols-2 gap-1 sm:gap-2">
+                                                                        <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                            <h5 className="text-xs font-semibold text-constrast mb-1">COMPRA</h5>
+                                                                            <p className="text-xs sm:text-sm font-bold">S/ {couponInfo.tcCompra.toFixed(4)}</p>
+                                                                        </div>
+                                                                        <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                            <h5 className="text-xs font-semibold text-constrast mb-1">VENTA</h5>
+                                                                            <p className="text-xs sm:text-sm font-bold">S/ {couponInfo.tcVenta.toFixed(4)}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </>
+                                                            )}
                                                         </div>
 
                                                         {/* Estado del cupón */}
@@ -931,7 +1043,7 @@ const ExchangeCard = ({
                                     <div className="flex-1 relative">
                                         <input
                                             type="text"
-                                            placeholder="Ingresa tu código promocional"
+                                            placeholder="Ingresa tu cupón promocional"
                                             value={promotionalCode}
                                             onChange={(e) => handleCouponChange(e.target.value)}
                                             className="w-full py-4 px-4 pr-12 rounded-xl border-2 border-constrast/30 bg-white text-sm text-neutral-dark placeholder:text-neutral-light/60 focus:outline-none focus:border-constrast focus:ring-4 focus:ring-constrast/20 transition-all duration-200 font-paragraph"
@@ -1056,21 +1168,114 @@ const ExchangeCard = ({
 
                                                         {/* Detalles del cupón */}
                                                         <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
-                                                            <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                <h5 className="text-xs font-semibold text-secondary mb-1 sm:mb-2">RANGO VÁLIDO</h5>
-                                                                <p className="text-xs sm:text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
-                                                            </div>
+                                                            {/* Si tiene múltiples rangos, mostrar cada uno */}
+                                                            {couponInfo.rangos && couponInfo.rangos.length > 1 ? (
+                                                                <>
+                                                                    <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                        <h5 className="text-xs font-semibold text-secondary mb-2">RANGOS DISPONIBLES</h5>
+                                                                        <div className="space-y-2">
+                                                                            {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
+                                                                                const currentAmount = parseNumberFromFormatted(amount1);
+                                                                                // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
+                                                                                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
+                                                                                const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
+                                                                                
+                                                                                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
+                                                                                // Último rango incluye el límite superior, otros no
+                                                                                const isLastRange = index === couponInfo.rangos.filter(r => r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null)).length - 1;
+                                                                                const isCurrentRange = isLastRange 
+                                                                                    ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
+                                                                                    : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                                
+                                                                                return (
+                                                                                    <div key={index} className={`flex justify-between items-center p-2 rounded-md text-xs ${
+                                                                                        isCurrentRange 
+                                                                                            ? 'bg-secondary/20 border border-secondary/40' 
+                                                                                            : 'bg-white/5'
+                                                                                    }`}>
+                                                                                        <span className="font-medium">
+                                                                                            ${(minAmount || 0).toLocaleString()} - ${(maxAmount || 0).toLocaleString()}
+                                                                                            {isCurrentRange && <span className="ml-1 text-secondary">✓</span>}
+                                                                                        </span>
+                                                                                        <div className="flex gap-2 text-xs">
+                                                                                            <span>C: {typeof buyRate === 'number' ? buyRate.toFixed(3) : buyRate}</span>
+                                                                                            <span>V: {typeof sellRate === 'number' ? sellRate.toFixed(3) : sellRate}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                );
+                                                                            })}
+                                                                        </div>
+                                                                    </div>
 
-                                                            <div className="grid grid-cols-2 gap-1 sm:gap-2">
-                                                                <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                    <h5 className="text-xs font-semibold text-secondary mb-1">COMPRA</h5>
-                                                                    <p className="text-xs sm:text-sm font-medium">S/ {couponInfo.tcCompra.toFixed(4)}</p>
-                                                                </div>
-                                                                <div className="bg-white/5 rounded-lg p-2 sm:p-3">
-                                                                    <h5 className="text-xs font-semibold text-secondary mb-1">VENTA</h5>
-                                                                    <p className="text-xs sm:text-sm font-medium">S/ {couponInfo.tcVenta.toFixed(4)}</p>
-                                                                </div>
-                                                            </div>
+                                                                    {/* Mostrar tasas del rango actual */}
+                                                                    {(() => {
+                                                                        const currentAmount = parseNumberFromFormatted(amount1);
+                                                                        
+                                                                        // 🔧 LÓGICA CORREGIDA: Filtrar rangos válidos y aplicar lógica sin superposición
+                                                                        const rangosValidos = couponInfo.rangos.filter(r => {
+                                                                            return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
+                                                                        });
+                                                                        
+                                                                        let currentRange = null;
+                                                                        for (let i = 0; i < rangosValidos.length; i++) {
+                                                                            const rango = rangosValidos[i];
+                                                                            const isLastRange = i === rangosValidos.length - 1;
+                                                                            const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                            const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            
+                                                                            // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
+                                                                            const isInRange = isLastRange 
+                                                                                ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
+                                                                                : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                            
+                                                                            if (isInRange) {
+                                                                                currentRange = rango;
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        
+                                                                        if (currentRange) {
+                                                                            const buyRate = currentRange.tcCompra ?? currentRange.tc_compra ?? 'N/A';
+                                                                            const sellRate = currentRange.tcVenta ?? currentRange.tc_venta ?? 'N/A';
+                                                                            
+                                                                            return (
+                                                                                <div className="grid grid-cols-2 gap-1 sm:gap-2">
+                                                                                    <div className="bg-secondary/10 border border-secondary/30 rounded-lg p-2 sm:p-3">
+                                                                                        <h5 className="text-xs font-semibold text-secondary mb-1">COMPRA</h5>
+                                                                                        <p className="text-xs sm:text-sm font-bold">S/ {typeof buyRate === 'number' ? buyRate.toFixed(3) : buyRate}</p>
+                                                                                    </div>
+                                                                                    <div className="bg-secondary/10 border border-secondary/30 rounded-lg p-2 sm:p-3">
+                                                                                        <h5 className="text-xs font-semibold text-secondary mb-1">VENTA </h5>
+                                                                                        <p className="text-xs sm:text-sm font-bold">S/ {typeof sellRate === 'number' ? sellRate.toFixed(3) : sellRate}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            );
+                                                                        }
+                                                                        return null;
+                                                                    })()}
+                                                                </>
+                                                            ) : (
+                                                                // Cupón con un solo rango (comportamiento original)
+                                                                <>
+                                                                    <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                        <h5 className="text-xs font-semibold text-secondary mb-1 sm:mb-2">RANGO VÁLIDO</h5>
+                                                                        <p className="text-xs sm:text-sm font-medium">${couponInfo.montoMinimo} - ${couponInfo.montoMaximo} USD</p>
+                                                                    </div>
+
+                                                                    <div className="grid grid-cols-2 gap-1 sm:gap-2">
+                                                                        <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                            <h5 className="text-xs font-semibold text-secondary mb-1">COMPRA</h5>
+                                                                            <p className="text-xs sm:text-sm font-medium">S/ {couponInfo.tcCompra.toFixed(4)}</p>
+                                                                        </div>
+                                                                        <div className="bg-white/5 rounded-lg p-2 sm:p-3">
+                                                                            <h5 className="text-xs font-semibold text-secondary mb-1">VENTA</h5>
+                                                                            <p className="text-xs sm:text-sm font-medium">S/ {couponInfo.tcVenta.toFixed(4)}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </>
+                                                            )}
                                                         </div>
 
                                                         {/* Estado del cupón */}
