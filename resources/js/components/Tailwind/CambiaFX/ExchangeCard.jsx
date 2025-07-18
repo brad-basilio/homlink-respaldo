@@ -430,16 +430,25 @@ const ExchangeCard = ({
                 return r && minAmount != null && maxAmount != null;
             });
             
+            // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+            const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+            
             // Buscar el rango correcto sin superposición
             for (let i = 0; i < rangosValidos.length; i++) {
                 const rango = rangosValidos[i];
                 const isLastRange = i === rangosValidos.length - 1;
                 
                 // Manejar tanto la estructura nueva como la del backend
-                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
                 
-                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
+                // � Si es VENTA, convertir rangos de USD a PEN usando TC base
+                if (operationType === 'venta' && tcBase) {
+                    minAmount = minAmount * tcBase.tc_venta;
+                    maxAmount = maxAmount * tcBase.tc_venta;
+                }
+                
+                // �🔧 LÓGICA CORREGIDA: Sin superposición de rangos
                 // Último rango incluye el límite superior, otros no
                 const isInRange = isLastRange 
                     ? (minAmount <= amount && amount <= maxAmount)  // Último rango incluye límite superior
@@ -449,10 +458,13 @@ const ExchangeCard = ({
                     rangoAplicable = rango;
                     console.log('✅ Cupón aplica en rango correcto:', { 
                         rango: rangoAplicable,
-                        minAmount,
-                        maxAmount,
+                        minAmountOriginal: rango.montoMinimo ?? rango.desde,
+                        maxAmountOriginal: rango.montoMaximo ?? rango.hasta,
+                        minAmountConverted: minAmount,
+                        maxAmountConverted: maxAmount,
                         isLastRange,
                         amount,
+                        operationType,
                         logicaUsada: isLastRange ? 'minAmount <= amount <= maxAmount' : 'minAmount <= amount < maxAmount'
                     });
                     break;
@@ -463,9 +475,17 @@ const ExchangeCard = ({
                 return { applies: true, reason: '', rangoActual: rangoAplicable };
             } else {
                 console.log('❌ Monto no está en ningún rango del cupón');
+                const rangosDisplay = couponInfo.rangos.map(r => {
+                    const min = r.desde ?? r.montoMinimo;
+                    const max = r.hasta ?? r.montoMaximo;
+                    if (operationType === 'venta' && tcBase) {
+                        return `$${(min * tcBase.tc_venta).toLocaleString()}-$${(max * tcBase.tc_venta).toLocaleString()} PEN`;
+                    }
+                    return `$${min}-$${max} USD`;
+                }).join(', ');
                 return {
                     applies: false,
-                    reason: `Rangos válidos: ${couponInfo.rangos.map(r => `$${r.desde}-$${r.hasta}`).join(', ')}`
+                    reason: `Rangos válidos: ${rangosDisplay}`
                 };
             }
         }
@@ -910,10 +930,17 @@ const ExchangeCard = ({
                                                                             {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
                                                                                 const currentAmount = parseNumberFromFormatted(amount1);
                                                                                 // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
-                                                                                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
                                                                                 const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
                                                                                 const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
+                                                                                
+                                                                                // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                                const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                                if (operationType === 'venta' && tcBase) {
+                                                                                    minAmount = minAmount * tcBase.tc_venta;
+                                                                                    maxAmount = maxAmount * tcBase.tc_venta;
+                                                                                }
                                                                                 
                                                                                 // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
                                                                                 // Último rango incluye el límite superior, otros no
@@ -929,7 +956,10 @@ const ExchangeCard = ({
                                                                                             : 'bg-white/5'
                                                                                     }`}>
                                                                                         <span className="font-medium">
-                                                                                            ${(minAmount || 0).toLocaleString()} - ${(maxAmount || 0).toLocaleString()}
+                                                                                            {operationType === 'compra' 
+                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()}`
+                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()}`
+                                                                                            }
                                                                                             {isCurrentRange && <span className="ml-1 text-constrast">✓</span>}
                                                                                         </span>
                                                                                         <div className="flex gap-2 text-xs">
@@ -951,12 +981,21 @@ const ExchangeCard = ({
                                                                             return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
                                                                         });
                                                                         
+                                                                        // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                        const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                        
                                                                         let currentRange = null;
                                                                         for (let i = 0; i < rangosValidos.length; i++) {
                                                                             const rango = rangosValidos[i];
                                                                             const isLastRange = i === rangosValidos.length - 1;
-                                                                            const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                            const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                            let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            
+                                                                            // 💱 Si es VENTA, convertir rangos de USD a PEN usando TC base
+                                                                            if (operationType === 'venta' && tcBase) {
+                                                                                minAmount = minAmount * tcBase.tc_venta;
+                                                                                maxAmount = maxAmount * tcBase.tc_venta;
+                                                                            }
                                                                             
                                                                             // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
                                                                             const isInRange = isLastRange 
@@ -1177,10 +1216,17 @@ const ExchangeCard = ({
                                                                             {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
                                                                                 const currentAmount = parseNumberFromFormatted(amount1);
                                                                                 // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
-                                                                                const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                                const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
                                                                                 const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
                                                                                 const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
+                                                                                
+                                                                                // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                                const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                                if (operationType === 'venta' && tcBase) {
+                                                                                    minAmount = minAmount * tcBase.tc_venta;
+                                                                                    maxAmount = maxAmount * tcBase.tc_venta;
+                                                                                }
                                                                                 
                                                                                 // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
                                                                                 // Último rango incluye el límite superior, otros no
@@ -1196,7 +1242,10 @@ const ExchangeCard = ({
                                                                                             : 'bg-white/5'
                                                                                     }`}>
                                                                                         <span className="font-medium">
-                                                                                            ${(minAmount || 0).toLocaleString()} - ${(maxAmount || 0).toLocaleString()}
+                                                                                            {operationType === 'compra' 
+                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()}`
+                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()}`
+                                                                                            }
                                                                                             {isCurrentRange && <span className="ml-1 text-secondary">✓</span>}
                                                                                         </span>
                                                                                         <div className="flex gap-2 text-xs">
@@ -1218,12 +1267,21 @@ const ExchangeCard = ({
                                                                             return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
                                                                         });
                                                                         
+                                                                        // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                        const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                        
                                                                         let currentRange = null;
                                                                         for (let i = 0; i < rangosValidos.length; i++) {
                                                                             const rango = rangosValidos[i];
                                                                             const isLastRange = i === rangosValidos.length - 1;
-                                                                            const minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                            const maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                            let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            
+                                                                            // 💱 Si es VENTA, convertir rangos de USD a PEN usando TC base
+                                                                            if (operationType === 'venta' && tcBase) {
+                                                                                minAmount = minAmount * tcBase.tc_venta;
+                                                                                maxAmount = maxAmount * tcBase.tc_venta;
+                                                                            }
                                                                             
                                                                             // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
                                                                             const isInRange = isLastRange 
