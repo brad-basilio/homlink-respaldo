@@ -665,9 +665,9 @@ const ExchangeCard = ({
                                 </div>
 
                                 {/* Tooltip mejorado para COMPRA - Responsive */}
-                                <div className="absolute bottom-full right-0 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 
-                                               w-40 sm:w-auto sm:min-w-max
-                                               -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                <div className="absolute bottom-full mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 
+                                               w-40 max-w-[calc(100vw-2rem)] right-0
+                                               sm:w-auto sm:min-w-max sm:right-0">
                                     <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-3 py-3 sm:px-5 sm:py-4">
                                             {/* Contenido principal */}
@@ -689,8 +689,8 @@ const ExchangeCard = ({
                                         </div>
 
                                         {/* Flecha del tooltip - Responsive */}
-                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0">
-                                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark sm:border-l-8 sm:border-r-8 sm:border-t-8"></div>
+                                        <div className="absolute top-full right-6">
+                                            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -741,8 +741,8 @@ const ExchangeCard = ({
                                 </div>
 
                                 {/* Tooltip mejorado para VENTA - Responsive */}
-                                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]
-                                                w-40 sm:w-auto sm:min-w-max">
+                                <div className="absolute bottom-full mb-5 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-[999]
+                                                w-40 max-w-[calc(100vw-2rem)] right-0 sm:w-auto sm:min-w-max sm:right-0">
                                     <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                         <div className="px-3 py-3 sm:px-5 sm:py-4">
                                             {/* Contenido principal */}
@@ -764,8 +764,8 @@ const ExchangeCard = ({
                                         </div>
 
                                         {/* Flecha del tooltip - Responsive */}
-                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2">
-                                            <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark sm:border-l-8 sm:border-r-8 sm:border-t-8"></div>
+                                        <div className="absolute top-full right-6">
+                                            <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -884,10 +884,13 @@ const ExchangeCard = ({
                                         </svg>
 
                                         {/* Tooltip normal - Responsive */}
-                                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-2 sm:px-3 bg-neutral-dark text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 
-                                                       w-56 sm:w-auto sm:whitespace-nowrap text-center">
-                                            💡 Obtén tasas preferenciales con tu código promocional
-                                            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
+                                        <div className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 
+                                                       w-56 max-w-[calc(100vw-2rem)] right-0 
+                                                       sm:w-auto sm:whitespace-nowrap">
+                                            <div className="bg-neutral-dark text-white text-xs rounded-lg px-2 py-2 sm:px-3 text-center">
+                                                💡 Obtén tasas preferenciales con tu código promocional
+                                                <div className="absolute top-full right-6 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
+                                            </div>
                                         </div>
                                     </button>
 
@@ -902,8 +905,9 @@ const ExchangeCard = ({
                                             </button>
 
                                             {/* Tooltip detallado del cupón aplicado - Responsive */}
-                                            <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                           w-80 sm:w-72 -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                            <div className="absolute bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
+                                                           w-72 max-w-[calc(100vw-2rem)] right-0 
+                                                           sm:w-72 sm:right-0">
                                                 <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                                     <div className="px-3 py-3 sm:px-5 sm:py-4">
                                                         {/* Header del tooltip */}
@@ -1069,8 +1073,8 @@ const ExchangeCard = ({
                                                     </div>
 
                                                     {/* Flecha del tooltip - Responsive */}
-                                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0">
-                                                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark sm:border-l-8 sm:border-r-8 sm:border-t-8"></div>
+                                                    <div className="absolute top-full right-6">
+                                                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1125,13 +1129,13 @@ const ExchangeCard = ({
 
                                                 {/* Tooltip durante loading - Responsive */}
                                                 <div className="absolute bottom-full mb-3 opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                               w-52 max-w-[calc(100vw-2rem)] left-1/2 transform -translate-x-1/2 
-                                                               sm:w-auto sm:right-0 sm:left-auto sm:translate-x-0">
+                                                               w-52 max-w-[calc(100vw-2rem)] right-0 
+                                                               sm:w-auto sm:right-0">
                                                     <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-2 py-2 sm:px-3 text-center">
                                                         <div className="flex items-center gap-2 justify-center">
                                                             <p className="text-xs font-medium">🔍 Consultando cupones disponibles...</p>
                                                         </div>
-                                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-3 sm:translate-x-0">
+                                                        <div className="absolute top-full right-3">
                                                             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
                                                         </div>
                                                     </div>
@@ -1146,13 +1150,14 @@ const ExchangeCard = ({
                                                 </svg>
 
                                                 {/* Tooltip de cupón inválido - Responsive */}
-                                                <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                               w-64 sm:w-auto -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                                <div className="absolute bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
+                                                               w-52 max-w-[calc(100vw-2rem)] right-0 
+                                                               sm:w-auto sm:right-0">
                                                     <div className="bg-gradient-to-br from-red-500 to-red-600 backdrop-blur-sm text-white rounded-lg shadow-2xl border border-red-400/20 px-2 py-2 sm:px-3 text-center sm:whitespace-nowrap">
                                                         <div className="flex items-center gap-2 justify-center">
                                                             <p className="text-xs font-medium">{invalidCoupon.message}</p>
                                                         </div>
-                                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-3 sm:translate-x-0">
+                                                        <div className="absolute top-full right-3">
                                                             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-red-600"></div>
                                                         </div>
                                                     </div>
@@ -1168,11 +1173,12 @@ const ExchangeCard = ({
                                                 <Search />
 
                                                 {/* Tooltip para consultar - Responsive */}
-                                                <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                               w-56 sm:w-auto -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                                <div className="absolute bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
+                                                               w-48 max-w-[calc(100vw-2rem)] right-0 
+                                                               sm:w-auto sm:right-0">
                                                     <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-2 py-2 sm:px-3 text-center sm:whitespace-nowrap">
                                                         <p className="text-xs font-medium">💡 Click aqui para validar el cupón</p>
-                                                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-3 sm:translate-x-0">
+                                                        <div className="absolute top-full right-3">
                                                             <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark"></div>
                                                         </div>
                                                     </div>
@@ -1189,8 +1195,9 @@ const ExchangeCard = ({
 
                                         {/* Tooltip detallado del cupón validado - Responsive */}
                                         {couponInfo && (
-                                            <div className="absolute bottom-full right-0 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                           w-80 sm:w-72 -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
+                                            <div className="absolute bottom-full mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50
+                                                           w-72 max-w-[calc(100vw-2rem)] right-0 
+                                                           sm:w-72 sm:right-0">
                                                 <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-2xl shadow-2xl border border-white/10 overflow-hidden">
                                                     <div className="px-3 py-3 sm:px-5 sm:py-4">
                                                         {/* Header del tooltip */}
@@ -1348,8 +1355,8 @@ const ExchangeCard = ({
                                                     </div>
 
                                                     {/* Flecha del tooltip - Responsive */}
-                                                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 sm:left-auto sm:right-6 sm:translate-x-0">
-                                                        <div className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-neutral-dark sm:border-l-8 sm:border-r-8 sm:border-t-8"></div>
+                                                    <div className="absolute top-full right-6">
+                                                        <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-neutral-dark"></div>
                                                     </div>
                                                 </div>
                                             </div>
