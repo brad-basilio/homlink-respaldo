@@ -957,8 +957,8 @@ const ExchangeCard = ({
                                                                                     }`}>
                                                                                         <span className="font-medium">
                                                                                             {operationType === 'compra' 
-                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()}`
-                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()}`
+                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()} USD`
+                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()} PEN`
                                                                                             }
                                                                                             {isCurrentRange && <span className="ml-1 text-constrast">✓</span>}
                                                                                         </span>
@@ -1216,24 +1216,26 @@ const ExchangeCard = ({
                                                                             {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
                                                                                 const currentAmount = parseNumberFromFormatted(amount1);
                                                                                 // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
-                                                                                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                const minAmountOriginal = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                const maxAmountOriginal = rango.montoMaximo ?? rango.hasta ?? 0;
                                                                                 const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
                                                                                 const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
                                                                                 
-                                                                                // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                                // 💱 CONVERSIÓN SOLO PARA VALIDACIÓN: Los rangos están en USD, convertir para VENTA solo para determinar si aplica
+                                                                                let minAmountForValidation = minAmountOriginal;
+                                                                                let maxAmountForValidation = maxAmountOriginal;
                                                                                 const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
                                                                                 if (operationType === 'venta' && tcBase) {
-                                                                                    minAmount = minAmount * tcBase.tc_venta;
-                                                                                    maxAmount = maxAmount * tcBase.tc_venta;
+                                                                                    minAmountForValidation = minAmountOriginal * tcBase.tc_venta;
+                                                                                    maxAmountForValidation = maxAmountOriginal * tcBase.tc_venta;
                                                                                 }
                                                                                 
                                                                                 // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
                                                                                 // Último rango incluye el límite superior, otros no
                                                                                 const isLastRange = index === couponInfo.rangos.filter(r => r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null)).length - 1;
                                                                                 const isCurrentRange = isLastRange 
-                                                                                    ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
-                                                                                    : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                                    ? (currentAmount >= minAmountForValidation && currentAmount <= maxAmountForValidation)  // Último: incluye límite superior
+                                                                                    : (currentAmount >= minAmountForValidation && currentAmount < maxAmountForValidation);   // Otros: NO incluye límite superior
                                                                                 
                                                                                 return (
                                                                                     <div key={index} className={`flex justify-between items-center p-2 rounded-md text-xs ${
@@ -1242,10 +1244,7 @@ const ExchangeCard = ({
                                                                                             : 'bg-white/5'
                                                                                     }`}>
                                                                                         <span className="font-medium">
-                                                                                            {operationType === 'compra' 
-                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()}`
-                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()}`
-                                                                                            }
+                                                                                            ${(minAmountOriginal || 0).toLocaleString()} - ${(maxAmountOriginal || 0).toLocaleString()} 
                                                                                             {isCurrentRange && <span className="ml-1 text-secondary">✓</span>}
                                                                                         </span>
                                                                                         <div className="flex gap-2 text-xs">
@@ -1267,26 +1266,28 @@ const ExchangeCard = ({
                                                                             return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
                                                                         });
                                                                         
-                                                                        // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
+                                                                        // 💱 CONVERSIÓN SOLO PARA VALIDACIÓN: Los rangos están en USD, convertir para VENTA solo para determinar el rango actual
                                                                         const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
                                                                         
                                                                         let currentRange = null;
                                                                         for (let i = 0; i < rangosValidos.length; i++) {
                                                                             const rango = rangosValidos[i];
                                                                             const isLastRange = i === rangosValidos.length - 1;
-                                                                            let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                            let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                            const minAmountOriginal = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                            const maxAmountOriginal = rango.montoMaximo ?? rango.hasta ?? 0;
                                                                             
-                                                                            // 💱 Si es VENTA, convertir rangos de USD a PEN usando TC base
+                                                                            // 💱 Conversión solo para validación, no para mostrar
+                                                                            let minAmountForValidation = minAmountOriginal;
+                                                                            let maxAmountForValidation = maxAmountOriginal;
                                                                             if (operationType === 'venta' && tcBase) {
-                                                                                minAmount = minAmount * tcBase.tc_venta;
-                                                                                maxAmount = maxAmount * tcBase.tc_venta;
+                                                                                minAmountForValidation = minAmountOriginal * tcBase.tc_venta;
+                                                                                maxAmountForValidation = maxAmountOriginal * tcBase.tc_venta;
                                                                             }
                                                                             
                                                                             // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
                                                                             const isInRange = isLastRange 
-                                                                                ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
-                                                                                : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                                ? (currentAmount >= minAmountForValidation && currentAmount <= maxAmountForValidation)  // Último: incluye límite superior
+                                                                                : (currentAmount >= minAmountForValidation && currentAmount < maxAmountForValidation);   // Otros: NO incluye límite superior
                                                                             
                                                                             if (isInRange) {
                                                                                 currentRange = rango;
