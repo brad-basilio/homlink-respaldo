@@ -1124,9 +1124,10 @@ const ExchangeCard = ({
                                                 <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
 
                                                 {/* Tooltip durante loading - Responsive */}
-                                                <div className="absolute bottom-full right-0 mb-3 opacity-100 transition-all duration-300 pointer-events-none z-50
-                                                               w-64 sm:w-auto -translate-x-1/2 left-1/2 sm:translate-x-0 sm:left-auto sm:right-0">
-                                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-2 py-2 sm:px-3 text-center sm:whitespace-nowrap">
+                                                <div className="absolute bottom-full mb-3 opacity-100 transition-all duration-300 pointer-events-none z-50
+                                                               w-52 max-w-[calc(100vw-2rem)] left-1/2 transform -translate-x-1/2 
+                                                               sm:w-auto sm:right-0 sm:left-auto sm:translate-x-0">
+                                                    <div className="bg-neutral-dark backdrop-blur-sm text-white rounded-lg shadow-2xl border border-white/10 px-2 py-2 sm:px-3 text-center">
                                                         <div className="flex items-center gap-2 justify-center">
                                                             <p className="text-xs font-medium">🔍 Consultando cupones disponibles...</p>
                                                         </div>
