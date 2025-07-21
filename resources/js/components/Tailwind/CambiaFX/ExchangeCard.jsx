@@ -239,17 +239,12 @@ const ExchangeCard = ({
     };
 
     const handleSwap = () => {
-        const temp = amount1;
-        setAmount1(amount2);
-        setAmount2(temp);
+        console.log('🔄 Swap - Solo cambiando tipo de operación de', operationType, 'a', operationType === 'compra' ? 'venta' : 'compra');
+        
+        // SOLO cambiar el tipo de operación - nada más
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
         
-        // Recalcular inmediatamente después del swap
-        if (amount2) {
-            setTimeout(() => {
-                calculateExchange('O', amount2);
-            }, 100);
-        }
+        // NO hacer ningún cálculo adicional - dejar que el sistema reaccione naturalmente
     };
 
     const handleAmountChange = (value, origin) => {
