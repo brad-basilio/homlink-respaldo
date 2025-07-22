@@ -132,7 +132,7 @@
     body {
         /*background-image: url('/assets/img/maqueta/Blog.png');*/
         width: 100%;
-        overflow: hidden;
+        overflow-x: hidden;
         height: auto;
         background-color:#FFFFFF;
         background-size: 100% auto;
