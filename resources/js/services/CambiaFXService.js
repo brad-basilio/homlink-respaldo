@@ -6,6 +6,7 @@ class CambiaFXService {
         this.localAPI = '/api'; // API local para otras funciones
         this.tcData = [];
         this.tcBase = [];
+        this.tcBaseOriginal = null; // 🔥 GUARDAR TC BASE ORIGINAL para conversiones
         this.idParCurrency = 1; // USD-PEN par
     }
 
@@ -60,9 +61,19 @@ class CambiaFXService {
             this.tcBase = processedData;
             this.tcData = [...processedData];
             
+            // 🔥 GUARDAR TC BASE ORIGINAL para conversiones de rangos
+            if (processedData.length > 0) {
+                this.tcBaseOriginal = {
+                    tc_compra: processedData[0].tc_compra,
+                    tc_venta: processedData[0].tc_venta
+                };
+                console.log('💾 TC BASE ORIGINAL guardado para conversiones:', this.tcBaseOriginal);
+            }
+            
             console.log('✅ TC Data asignado (API LUNA REAL):', {
                 tcBase: this.tcBase,
-                tcData: this.tcData
+                tcData: this.tcData,
+                tcBaseOriginal: this.tcBaseOriginal
             });
             
             return processedData;
@@ -81,6 +92,15 @@ class CambiaFXService {
             console.log('📊 Usando datos de respaldo (API no disponible):', fallbackData);
             this.tcBase = fallbackData;
             this.tcData = [...fallbackData];
+            
+            // 🔥 GUARDAR TC BASE ORIGINAL para conversiones de rangos (fallback)
+            if (fallbackData.length > 0) {
+                this.tcBaseOriginal = {
+                    tc_compra: fallbackData[0].tc_compra,
+                    tc_venta: fallbackData[0].tc_venta
+                };
+                console.log('💾 TC BASE ORIGINAL guardado (fallback):', this.tcBaseOriginal);
+            }
             
             return fallbackData;
         }
@@ -183,18 +203,71 @@ class CambiaFXService {
         
         console.log('🔍 Buscando rango para monto:', amount);
         
+        // **CONVERSIÓN PARA VENTA**: Si es venta, el monto está en PEN pero los rangos están en USD
+        let amountForComparison = amount;
+        if (operationType === 'V') {
+            // Para VENTA necesitamos convertir el monto PEN a USD para comparar con rangos
+            // 🔥 USAMOS EL TC BASE ORIGINAL (el que vino sin cupón) para convertir a USD
+            if (!this.tcBaseOriginal) {
+                console.error('❌ ERROR: tcBaseOriginal no existe. Debe llamarse getExchangeRates() primero');
+                return 0;
+            }
+            
+            const baseTcOriginal = this.tcBaseOriginal.tc_venta; // TC BASE ORIGINAL de la API sin cupón
+            amountForComparison = amount / baseTcOriginal;
+            console.log('💱 CONVERSIÓN PARA VENTA (TC BASE ORIGINAL):', {
+                montoOriginalPEN: amount,
+                tcBaseORIGINAL: baseTcOriginal,
+                tcBaseOriginalCompleto: this.tcBaseOriginal,
+                montoConvertidoUSD: amountForComparison,
+                formula: `${amount} ÷ ${baseTcOriginal} = ${amountForComparison}`,
+                explicacion: 'Usamos TC base original sin cupón para convertir PEN → USD y comparar rangos'
+            });
+        }
+        
         // Buscar el rango correcto para el monto
         // LÓGICA CORREGIDA: Para evitar superposición en límites exactos
+        console.log('🔍 INICIANDO BÚSQUEDA DE RANGO - ESTADO ACTUAL:', {
+            totalRangos: this.tcData.length,
+            amountForComparison,
+            todosLosRangos: this.tcData.map((r, i) => ({
+                index: i,
+                id: r.id,
+                desde: r.desde,
+                hasta: r.hasta,
+                tc_venta: r.tc_venta,
+                tc_compra: r.tc_compra
+            }))
+        });
+        
         for (let obj of this.tcData) {
-            console.log('🔎 Verificando rango:', { desde: obj.desde, hasta: obj.hasta, monto: amount });
+            console.log('🔎 Verificando rango:', { 
+                desde: obj.desde, 
+                hasta: obj.hasta, 
+                montoComparar: amountForComparison,
+                montoOriginal: amount,
+                tcCompra: obj.tc_compra,
+                tcVenta: obj.tc_venta
+            });
             
             // Lógica de rangos sin superposición:
-            // Primer rango: desde <= amount < hasta (no incluye el límite superior)
-            // Último rango: desde <= amount <= hasta (incluye ambos límites)
+            // CORREGIDO: Todos los rangos incluyen límite inferior, SOLO el último incluye límite superior
             const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
             const isInRange = isLastRange 
-                ? (obj.desde <= amount && amount <= obj.hasta)  // Último rango incluye límite superior
-                : (obj.desde <= amount && amount < obj.hasta);   // Otros rangos NO incluyen límite superior
+                ? (obj.desde <= amountForComparison && amountForComparison <= obj.hasta)  // Último rango: desde <= amount <= hasta
+                : (obj.desde <= amountForComparison && amountForComparison < obj.hasta);   // Otros rangos: desde <= amount < hasta
+            
+            console.log('🎯 Evaluación rango:', {
+                rangoIndex: this.tcData.indexOf(obj),
+                totalRangos: this.tcData.length,
+                isLastRange,
+                condicion: isLastRange ? 'desde <= amount <= hasta' : 'desde <= amount < hasta',
+                evaluacion: isLastRange 
+                    ? `${obj.desde} <= ${amountForComparison} <= ${obj.hasta}` 
+                    : `${obj.desde} <= ${amountForComparison} < ${obj.hasta}`,
+                cumple: isInRange,
+                explicacion: isLastRange ? 'ÚLTIMO RANGO (incluye ambos límites)' : 'RANGO INTERMEDIO (no incluye límite superior)'
+            });
             
             if (isInRange) {
                 tcObj = obj;
@@ -217,7 +290,24 @@ class CambiaFXService {
             // VENTA: Cliente envía SOLES, recibe DÓLARES (usamos tc_venta)
             // COMPRA: Cliente envía DÓLARES, recibe SOLES (usamos tc_compra)
             const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
-            console.log('🎯 TC final calculado:', { tc, operationType, rango: tcObj });
+            console.log('🎯 TC final calculado:', { 
+                tc, 
+                operationType, 
+                rango: tcObj,
+                tcVentaDelRango: tcObj.tc_venta,
+                tcCompraDelRango: tcObj.tc_compra,
+                queTcUsar: operationType === 'V' ? 'tc_venta' : 'tc_compra'
+            });
+            
+            // 🔥 VERIFICACIÓN CRÍTICA: ¿Estamos usando el TC correcto del cupón?
+            console.log('🔍 VERIFICACIÓN CRÍTICA TC:', {
+                tcSeleccionado: tc,
+                deberiaSerCupon: operationType === 'V' ? '3.563' : '3.549',
+                diferencia: operationType === 'V' ? Math.abs(tc - 3.563) : Math.abs(tc - 3.549),
+                esDelCupon: tcObj.id >= 3750 ? 'SÍ (ID >= 3750)' : 'NO (ID < 3750)',
+                idDelRango: tcObj.id
+            });
+            
             return tc;
         }
         
@@ -250,9 +340,9 @@ class CambiaFXService {
 
     // Calcular conversión
     calculateExchange(amount, operationType = 'venta', origin = 'from') {
-        console.log('Calculando cambio:', { amount, operationType, origin });
+        console.log('🔢 calculateExchange INICIADO:', { amount, operationType, origin });
         const tc = this.getTCFromAmount(amount, operationType);
-        console.log('TC obtenido:', tc);
+        console.log('💱 TC obtenido del getTCFromAmount:', tc);
         let result = 0;
 
         if (origin === 'from') {
@@ -261,12 +351,28 @@ class CambiaFXService {
                 // VENTA: Cliente envía SOLES, recibe DÓLARES
                 // PEN / tc_venta = USD
                 result = amount / tc;
-                console.log('VENTA: PEN', amount, '/ tc_venta', tc, '=', result, 'USD');
+                console.log('🔢 CÁLCULO VENTA DETALLADO:', {
+                    formula: `${amount} ÷ ${tc}`,
+                    calculo: `${amount} / ${tc}`,
+                    resultado: result,
+                    resultadoRedondeado: parseFloat(result.toFixed(2)),
+                    tcUsado: tc,
+                    operationType,
+                    origin
+                });
             } else {
                 // COMPRA: Cliente envía DÓLARES, recibe SOLES
                 // USD * tc_compra = PEN
                 result = amount * tc;
-                console.log('COMPRA: USD', amount, '* tc_compra', tc, '=', result, 'PEN');
+                console.log('🔢 CÁLCULO COMPRA DETALLADO:', {
+                    formula: `${amount} × ${tc}`,
+                    calculo: `${amount} * ${tc}`,
+                    resultado: result,
+                    resultadoRedondeado: parseFloat(result.toFixed(2)),
+                    tcUsado: tc,
+                    operationType,
+                    origin
+                });
             }
         } else {
             // Calculando desde el monto destino (inverso)
@@ -274,12 +380,12 @@ class CambiaFXService {
                 // VENTA: Quiere USD, calcula PEN necesarios
                 // USD * tc_venta = PEN
                 result = amount * tc;
-                console.log('VENTA inverso: USD', amount, '* tc_venta', tc, '=', result, 'PEN');
+                console.log('🔢 VENTA INVERSO DETALLADO: USD', amount, '* tc_venta', tc, '=', result, 'PEN');
             } else {
                 // COMPRA: Quiere PEN, calcula USD necesarios
                 // PEN / tc_compra = USD
                 result = amount / tc;
-                console.log('COMPRA inverso: PEN', amount, '/ tc_compra', tc, '=', result, 'USD');
+                console.log('🔢 COMPRA INVERSO DETALLADO: PEN', amount, '/ tc_compra', tc, '=', result, 'USD');
             }
         }
 
@@ -288,7 +394,7 @@ class CambiaFXService {
             exchangeRate: tc,
             operation: operationType
         };
-        console.log('Resultado final:', finalResult);
+        console.log('🎯 RESULTADO FINAL calculateExchange:', finalResult);
         return finalResult;
     }
 

@@ -198,7 +198,7 @@ const ExchangeCard = ({
         const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
         console.log('🔄 Convertido operationType:', { original: operationType, service: serviceOperationType });
 
-        // DIAGNÓSTICO DETALLADO
+        // DIAGNÓSTICO DETALLADO PRE-CÁLCULO
         console.log('🔍 DIAGNÓSTICO PRE-CÁLCULO:', {
             amount,
             serviceOperationType,
@@ -208,8 +208,42 @@ const ExchangeCard = ({
             promotionalCode
         });
 
+        // OBTENER TC ESPECÍFICO PARA DEBUG
+        const tcParaDebug = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
+        console.log('🎯 TC específico obtenido para debug:', {
+            tcParaDebug,
+            amount,
+            serviceOperationType
+        });
+
         const calculation = CambiaFXService.calculateExchange(amount, serviceOperationType, origin === 'O' ? 'from' : 'to');
         console.log('📊 Resultado del cálculo completo:', calculation);
+
+        // VERIFICACIÓN MANUAL DEL CÁLCULO
+        let calculoManual;
+        if (operationType === 'venta' && origin === 'O') {
+            // VENTA: SOLES → DÓLARES
+            calculoManual = amount / calculation.exchangeRate;
+            console.log('🧮 VERIFICACIÓN MANUAL VENTA:', {
+                formula: `${amount} ÷ ${calculation.exchangeRate}`,
+                calculoManual: calculoManual,
+                resultadoServicio: calculation.result,
+                diferencia: Math.abs(calculoManual - calculation.result),
+                tcUsado: calculation.exchangeRate,
+                tcDebug: tcParaDebug
+            });
+        } else if (operationType === 'compra' && origin === 'O') {
+            // COMPRA: DÓLARES → SOLES
+            calculoManual = amount * calculation.exchangeRate;
+            console.log('🧮 VERIFICACIÓN MANUAL COMPRA:', {
+                formula: `${amount} × ${calculation.exchangeRate}`,
+                calculoManual: calculoManual,
+                resultadoServicio: calculation.result,
+                diferencia: Math.abs(calculoManual - calculation.result),
+                tcUsado: calculation.exchangeRate,
+                tcDebug: tcParaDebug
+            });
+        }
 
         // VERIFICACIÓN POST-CÁLCULO
         console.log('🎯 VERIFICACIÓN DEL CÁLCULO:', {
@@ -218,7 +252,6 @@ const ExchangeCard = ({
             montoIngresado: amount,
             tienePromotionalCode: !!promotionalCode,
             couponInfo: couponInfo,
-            calculoManual: operationType === 'venta' ? `${amount} / ${calculation.exchangeRate} = ${(amount / calculation.exchangeRate).toFixed(2)}` : `${amount} * ${calculation.exchangeRate} = ${(amount * calculation.exchangeRate).toFixed(2)}`,
             rangosCupón: couponInfo?.rangos?.length || 0
         });
 
