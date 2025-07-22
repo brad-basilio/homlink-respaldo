@@ -87,7 +87,7 @@ const swiperStyles = `
 const PilaresSection = ({data,core_values=[]}) => {
     const [animationOffset, setAnimationOffset] = useState(0);
     const [isAutoplay, setIsAutoplay] = useState(true);
-    console.log("core_values", core_values);
+  
    
     useEffect(() => {
         if (!isAutoplay) return;

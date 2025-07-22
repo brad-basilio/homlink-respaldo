@@ -15,8 +15,6 @@ class CambiaFXService {
     // Obtener tipos de cambio desde la API real de CambiaFX
     async fetchRealRates() {
         try {
-            console.log('🌐 Conectando a API real de CambiaFX:', this.apiURL);
-            
             const response = await axios.get(this.apiURL, {
                 timeout: 8000,
                 headers: {
@@ -24,8 +22,6 @@ class CambiaFXService {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
                 }
             });
-            
-            console.log('✅ Respuesta de API real:', response.data);
             
             // Procesar respuesta según el formato de la API
             if (response.data) {
@@ -51,7 +47,6 @@ class CambiaFXService {
                 if (compra && venta && !isNaN(compra) && !isNaN(venta)) {
                     this.rates = { compra, venta };
                     this.lastUpdate = new Date();
-                    console.log('💱 Tipos de cambio actualizados desde API real:', this.rates);
                     return { success: true, rates: this.rates };
                 }
             }
@@ -59,7 +54,6 @@ class CambiaFXService {
             throw new Error('Formato de respuesta no reconocido');
             
         } catch (error) {
-            console.warn('⚠️ Error con API real:', error.message);
             return await this.fetchFallbackRates();
         }
     }
@@ -67,13 +61,9 @@ class CambiaFXService {
     // Usar API de respaldo del proyecto original
     async fetchFallbackRates() {
         try {
-            console.log('🔄 Intentando API de respaldo:', this.fallbackURL);
-            
             const response = await axios.get(`${this.fallbackURL}/tc`, {
                 timeout: 5000
             });
-            
-            console.log('📊 Respuesta de API de respaldo:', response.data);
             
             if (response.data && Array.isArray(response.data) && response.data.length > 0) {
                 const rates = response.data[0];
@@ -82,15 +72,12 @@ class CambiaFXService {
                     venta: parseFloat(rates.tc_venta)
                 };
                 this.lastUpdate = new Date();
-                console.log('💱 Usando tipos de cambio de respaldo:', this.rates);
                 return { success: true, rates: this.rates };
             }
             
             throw new Error('API de respaldo no disponible');
             
         } catch (error) {
-            console.error('❌ Error con API de respaldo:', error.message);
-            console.log('🔧 Usando valores por defecto');
             return { success: false, rates: this.rates, error: error.message };
         }
     }
@@ -98,7 +85,6 @@ class CambiaFXService {
     // Obtener tipos de cambio (método principal)
     async getExchangeRates() {
         if (this.isLoading) {
-            console.log('🔄 Ya hay una consulta en progreso...');
             return { success: true, rates: this.rates };
         }
         
@@ -114,7 +100,6 @@ class CambiaFXService {
 
     // Obtener tasas actuales para mostrar en la UI
     getCurrentRates() {
-        console.log('📊 getCurrentRates - Rates actuales:', this.rates);
         return {
             compra: this.rates.compra.toFixed(4),
             venta: this.rates.venta.toFixed(4)
@@ -139,14 +124,12 @@ class CambiaFXService {
             rate += (operationType === 'C' ? 0.001 : -0.001);
         }
         
-        console.log(`💰 TC para ${amount} ${operationType}:`, rate);
         return rate;
     }
 
     // Realizar cálculo de conversión
     async calculateExchange(amount1, operationType, inputValue = null) {
         try {
-            console.log('🧮 calculateExchange:', { amount1, operationType, inputValue });
             
             const amountToCalculate = inputValue !== null ? inputValue : amount1;
             const numAmount = parseFloat(amountToCalculate) || 0;
@@ -178,11 +161,9 @@ class CambiaFXService {
                 rates: this.getCurrentRates()
             };
             
-            console.log('✅ Resultado del cálculo:', finalResult);
             return finalResult;
             
         } catch (error) {
-            console.error('❌ Error en calculateExchange:', error);
             return {
                 amount1: '0',
                 amount2: '0.00',

@@ -3,7 +3,7 @@ import ExchangeCard from './components/Tailwind/CambiaFX/ExchangeCard';
 
 export default function TestExchangeCard() {
     const handleOperationStart = (operationData) => {
-        console.log('🎯 Operation data from test:', operationData);
+        // Handle operation test data
     };
 
     return (

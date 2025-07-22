@@ -78,7 +78,6 @@ La empresa está interesada en conocer más sobre los servicios de cambio de mon
                 clearForm();
             }
         } catch (error) {
-            console.error('Error al enviar el mensaje:', error);
             await Swal.fire({
                 title: 'Error al enviar',
                 text: 'Hubo un problema al enviar tu mensaje. Por favor, inténtalo nuevamente.',

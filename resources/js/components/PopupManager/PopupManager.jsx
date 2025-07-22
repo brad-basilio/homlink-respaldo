@@ -14,7 +14,7 @@ const PopupManager = () => {
     const loadPopups = async () => {
         try {
             const response = await axios.get('/api/ads/today');
-            console.log('🎯 Popups cargados:', response.data);
+         
             
             if (response.data && response.data.length > 0) {
                 setPopups(response.data);
@@ -26,7 +26,7 @@ const PopupManager = () => {
     };
 
     const schedulePopups = (popupsData) => {
-        console.log('📅 Programando popups...');
+       
         
         // Separar popups por tipo
         const immediatePopups = popupsData.filter(popup => 
@@ -44,8 +44,7 @@ const PopupManager = () => {
         // Programar popups con delay
         delayedPopups.forEach(popup => {
             const delay = popup.seconds * 1000;
-            console.log(`⏰ Popup "${popup.name}" se mostrará en ${popup.seconds} segundos`);
-            
+         
             setTimeout(() => {
                 showPopup(popup);
             }, delay);
@@ -53,7 +52,7 @@ const PopupManager = () => {
     };
 
     const showPopup = (popup) => {
-        console.log('🎪 Mostrando popup:', popup);
+     
         setCurrentPopup(popup);
         setIsVisible(true);
         
@@ -66,7 +65,7 @@ const PopupManager = () => {
     };
 
     const closePopup = () => {
-        console.log('❌ Cerrando popup');
+       
         setIsVisible(false);
         setCurrentPopup(null);
         
@@ -93,7 +92,7 @@ const PopupManager = () => {
     useEffect(() => {
         const handleCartAction = (event) => {
             const { itemId } = event.detail;
-            console.log('🛒 Producto añadido al carrito:', itemId);
+         
             
             // Buscar popups que se activen con este producto
             const cartPopups = popups.filter(popup => 

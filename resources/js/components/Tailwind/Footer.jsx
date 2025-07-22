@@ -112,7 +112,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const aboutusData = aboutuses?.aboutus || [];
     const generalsData = aboutuses?.generals || [];
     const sedesData = aboutuses?.sedes || [];
-    // console.log(sedesData);
+    
     const policyItems = {
         privacy_policy: t("public.footer.privacity", "Políticas de privacidad"),
         terms_conditions: t("public.form.terms", "Términos y condiciones"),

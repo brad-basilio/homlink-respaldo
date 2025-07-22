@@ -131,7 +131,7 @@ export default function HeroSecctionEmpresa({landing}) {
         );
     };
     const handleOperationStart = (operationData) => {
-        console.log('Operation data:', operationData);
+
         // Aquí puedes manejar los datos de la operación como necesites
         // Por defecto redirigirá a mi.cambiafx.pe/login
         window.location.href = 'https://mi.cambiafx.pe/login';

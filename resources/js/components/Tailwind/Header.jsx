@@ -266,7 +266,7 @@ const Header = ({
                 setSelectLanguage(langData);
                 window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
             } else {
-                console.log("Error de extracion:", await response.text());
+              //
             }
         } catch (error) {
             console.error("Error de red:", error);

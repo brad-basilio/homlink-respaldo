@@ -3,7 +3,6 @@ import ExchangeCard from './components/Tailwind/CambiaFX/ExchangeCard';
 
 const ExchangeCardExample = () => {
     const handleOperationStart = (operationData) => {
-        console.log('Datos de la operación:', operationData);
         // Aquí puedes manejar los datos como necesites
         // Por ejemplo, enviar a un API, abrir un modal, etc.
         
@@ -101,7 +100,6 @@ const ExchangeCardExample = () => {
 
 const MyComponent = () => {
     const handleOperation = (data) => {
-        console.log('Operación:', data);
         // Manejar datos de la operación
     };
 

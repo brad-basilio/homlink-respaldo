@@ -12,13 +12,13 @@ export default function PrimeraOperacionSection({ banner }) {
         fetch('/api/payment-methods/immediate-10min')
             .then(response => response.json())
             .then(data => setPaymentMethods10min(data))
-            .catch(error => console.error('Error loading 10min payment methods:', error));
+            .catch(error => {});
 
         // Cargar métodos de pago de 24h
         fetch('/api/payment-methods/immediate-24h')
             .then(response => response.json())
             .then(data => setPaymentMethods24h(data))
-            .catch(error => console.error('Error loading 24h payment methods:', error));
+            .catch(error => {});
     }, []);
 
     return (

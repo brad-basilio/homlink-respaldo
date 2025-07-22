@@ -91,25 +91,25 @@
     "file": "assets/DxButton-CsjWvhyj.js",
     "name": "DxButton"
   },
-  "_EmpresasSection-CJi7A1t8.js": {
-    "file": "assets/EmpresasSection-CJi7A1t8.js",
+  "_EmpresasSection-BgmJJUnt.js": {
+    "file": "assets/EmpresasSection-BgmJJUnt.js",
     "name": "EmpresasSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_proxy-Dg7W2VMC.js",
       "_Header-RQYzW6wl.js"
     ]
   },
-  "_ExchangeCard-B8aGywFz.js": {
-    "file": "assets/ExchangeCard-B8aGywFz.js",
+  "_ExchangeCard-BMmW3BNW.js": {
+    "file": "assets/ExchangeCard-BMmW3BNW.js",
     "name": "ExchangeCard",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
       "_axios-B4uVmeYG.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_createLucideIcon-D_WcjKff.js"
     ]
   },
@@ -129,16 +129,16 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-FjYp5zNa.js": {
-    "file": "assets/FuncionSection-FjYp5zNa.js",
+  "_FuncionSection-CK-3x1BS.js": {
+    "file": "assets/FuncionSection-CK-3x1BS.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_proxy-Dg7W2VMC.js",
-      "_ExchangeCard-B8aGywFz.js"
+      "_ExchangeCard-BMmW3BNW.js"
     ]
   },
   "_Header-RQYzW6wl.js": {
@@ -434,8 +434,8 @@
       "swiper.css"
     ]
   },
-  "_WhatsAppButton-CMCnmI5E.js": {
-    "file": "assets/WhatsAppButton-CMCnmI5E.js",
+  "_WhatsAppButton-hI3EU9cM.js": {
+    "file": "assets/WhatsAppButton-hI3EU9cM.js",
     "name": "WhatsAppButton",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -679,7 +679,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-CT2BVe6x.js",
+    "file": "assets/About-CxC9aCNL.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -697,7 +697,7 @@
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_proxy-Dg7W2VMC.js",
       "_index.esm-zkRd-kwu.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
       "_CintilloSection-bqzgqYqT.js",
       "_pagination-qz-hCLaO.js",
@@ -2523,7 +2523,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-y0_hTqLA.js",
+    "file": "assets/Blog-AQ-2pLNJ.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -2547,7 +2547,7 @@
       "_useTranslation-CZbMeh78.js",
       "_HtmlContent-CZmf3wHb.js",
       "_index-SDlHnhXR.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_CintilloSection-bqzgqYqT.js",
       "_index.esm-zkRd-kwu.js",
       "_axios-B4uVmeYG.js",
@@ -2564,7 +2564,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-H5UQY1BD.js",
+    "file": "assets/BlogArticle-LWtgRefZ.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2582,8 +2582,8 @@
       "_PostCard-UdlaTIWj.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_main-Y8JAyXgE.js",
-      "_ExchangeCard-B8aGywFz.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_ExchangeCard-BMmW3BNW.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_CintilloSection-bqzgqYqT.js",
       "_proxy-Dg7W2VMC.js",
       "_createLucideIcon-D_WcjKff.js",
@@ -2686,7 +2686,7 @@
     ]
   },
   "resources/js/Checkout.jsx": {
-    "file": "assets/Checkout-NbCgnHg7.js",
+    "file": "assets/Checkout-DpUvopWN.js",
     "name": "Checkout",
     "src": "resources/js/Checkout.jsx",
     "isEntry": true,
@@ -2953,7 +2953,7 @@
     ]
   },
   "resources/js/DetailService.jsx": {
-    "file": "assets/DetailService-42xlpYLk.js",
+    "file": "assets/DetailService-BFKFuMh8.js",
     "name": "DetailService",
     "src": "resources/js/DetailService.jsx",
     "isEntry": true,
@@ -2972,7 +2972,7 @@
       "resources/js/components/Blog/Filter.jsx",
       "resources/js/components/Tailwind/CambiaFX/CuponesSection.jsx",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_ServiceSeccionFaq-Dxeudwp6.js",
       "_HomeSeccionTestimonios-CIa45qbN.js",
       "_autoplay-BgjrnjSJ.js",
@@ -3036,7 +3036,7 @@
     ]
   },
   "resources/js/DetalleCasoExito.jsx": {
-    "file": "assets/DetalleCasoExito--mKARlqD.js",
+    "file": "assets/DetalleCasoExito-CRNI3I-F.js",
     "name": "DetalleCasoExito",
     "src": "resources/js/DetalleCasoExito.jsx",
     "isEntry": true,
@@ -3050,7 +3050,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_Header-RQYzW6wl.js",
       "_Footer-DqfifMLq.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_axios-B4uVmeYG.js",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
@@ -3205,7 +3205,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-NRAEf2mp.js",
+    "file": "assets/Home-DOviu_ZF.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3229,12 +3229,12 @@
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
       "_createLucideIcon-D_WcjKff.js",
-      "_FuncionSection-FjYp5zNa.js",
+      "_FuncionSection-CK-3x1BS.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_autoplay-BgjrnjSJ.js",
       "_proxy-Dg7W2VMC.js",
       "_pagination-qz-hCLaO.js",
-      "_EmpresasSection-CJi7A1t8.js",
+      "_EmpresasSection-BgmJJUnt.js",
       "_navigation-Ctv9exgr.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
@@ -3248,9 +3248,9 @@
       "resources/js/components/Appointment/ModalAppointment.jsx",
       "_AppointmentsRest-qLh4Dh2j.js",
       "_chevron-down-DEuKezfs.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_phone-B_ERI8hO.js",
-      "_ExchangeCard-B8aGywFz.js",
+      "_ExchangeCard-BMmW3BNW.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
     "css": [
@@ -3259,7 +3259,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-DaUzr7I5.js",
+    "file": "assets/HomeEmpresa-BhJLer_y.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3281,17 +3281,17 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-Blv8AswU.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-FjYp5zNa.js",
+      "_FuncionSection-CK-3x1BS.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
-      "_ExchangeCard-B8aGywFz.js",
+      "_ExchangeCard-BMmW3BNW.js",
       "_proxy-Dg7W2VMC.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_navigation-Ctv9exgr.js",
       "_pagination-qz-hCLaO.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "_MessagesRest-ySlFG0Jr.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_index-CXU7o9CY.js",
       "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js",
@@ -3808,7 +3808,7 @@
     ]
   },
   "resources/js/ServiciosPage.jsx": {
-    "file": "assets/ServiciosPage-DRkC4MPD.js",
+    "file": "assets/ServiciosPage-BeagTwzS.js",
     "name": "ServiciosPage",
     "src": "resources/js/ServiciosPage.jsx",
     "isEntry": true,
@@ -3827,7 +3827,7 @@
       "resources/js/components/Blog/Filter.jsx",
       "_CintilloSection-bqzgqYqT.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_EmpresasSection-CJi7A1t8.js",
+      "_EmpresasSection-BgmJJUnt.js",
       "_proxy-Dg7W2VMC.js",
       "resources/js/components/Tailwind/CambiaFX/CuponesSection.jsx",
       "_pagination-qz-hCLaO.js",
@@ -3844,7 +3844,7 @@
       "_index-SDlHnhXR.js",
       "_index-DNUR7M9R.js",
       "_HtmlContent-CZmf3wHb.js",
-      "_WhatsAppButton-CMCnmI5E.js",
+      "_WhatsAppButton-hI3EU9cM.js",
       "_phone-B_ERI8hO.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
@@ -4250,7 +4250,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4348,7 +4348,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4358,7 +4358,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
+    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -4978,7 +4978,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5112,7 +5112,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5827,7 +5827,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5959,13 +5959,15 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-Dwtff5Cv.js",
+    "file": "assets/Fragrance-CWZ5d7UB.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js"
+      "_tippy-react.esm-DYFqe69e.js",
+      "_index-RYns6xqu.js",
+      "_index-CXU7o9CY.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -5992,20 +5994,20 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-90rnymIv.js",
+    "file": "assets/Main-Dwtff5Cv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-Chu0TyCG.js",
+    "file": "assets/ScalpType-CnD_D-a9.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6015,10 +6017,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-Dwtff5Cv.js",
+    "file": "assets/Treatment-DR32cJ8V.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6143,7 +6145,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -6153,7 +6155,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
+    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,

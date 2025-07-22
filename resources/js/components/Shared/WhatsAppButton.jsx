@@ -47,7 +47,6 @@ const WhatsAppButton = ({
                     });
                 }
             } catch (error) {
-                console.error('Error fetching WhatsApp data:', error);
                 // Valores por defecto en caso de error
                 setWhatsappData({
                     phone: null,
@@ -66,7 +65,6 @@ const WhatsAppButton = ({
         const message = customMessage || whatsappData.message;
 
         if (!phone) {
-            console.warn('No se encontró número de WhatsApp configurado');
             return;
         }
 

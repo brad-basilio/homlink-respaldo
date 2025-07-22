@@ -31,7 +31,6 @@ const ServiciosPage = ({ landing, services,banner_slider=[], linkWhatsApp, rando
         return () => clearTimeout(timer);
     }, []);
 
-    console.log(banner_slider)
     return (
         <div className="font-title">
             <Header />

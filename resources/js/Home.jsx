@@ -93,7 +93,7 @@ const Home = ({
         return () => clearTimeout(timer);
     }, []);
 
-    console.log("landing", landing);
+ 
 
     const landingInicio = landing?.find(
         (item) => item.correlative === "page_home_inicio"

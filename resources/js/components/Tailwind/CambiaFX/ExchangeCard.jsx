@@ -62,44 +62,33 @@ const ExchangeCard = ({
 
     // Cargar tipos de cambio iniciales
     useEffect(() => {
-        console.log('🚀 ExchangeCard - useEffect inicial ejecutándose');
         const init = async () => {
-            console.log('🔄 Iniciando inicialización...');
             await initializeExchangeRates();
             checkUrlCoupon();
             
             // Calcular automáticamente con el valor por defecto de 1000
             if (amount1) {
-                console.log('💰 Calculando con valor por defecto:', amount1);
                 setTimeout(() => {
                     calculateExchange('O', amount1);
                 }, 500); // Pequeño delay para asegurar que todo esté inicializado
             }
-            
-            console.log('✅ Inicialización completada');
         };
         init();
     }, []);
 
     // Actualizar TC cuando cambie el tipo de operación
     useEffect(() => {
-        console.log('🔄 useEffect operationType ejecutándose:', { operationType, amount1 });
         if (amount1) {
-            console.log('💰 Recalculando por cambio de operationType...');
             calculateExchange('O');
         }
-        console.log('📊 Actualizando rates por cambio de operationType...');
         updateCurrentRates();
     }, [operationType]);
 
     // Escuchar cambios en el cupón promocional para actualizar rates
     useEffect(() => {
-        console.log('🎫 useEffect promotionalCode ejecutándose:', { promotionalCode });
         if (promotionalCode) {
-            console.log('🔄 Cupón aplicado, actualizando rates...');
             updateCurrentRates();
             if (amount1) {
-                console.log('💰 Recalculando con cupón aplicado...');
                 calculateExchange('O');
             }
         }
@@ -107,49 +96,20 @@ const ExchangeCard = ({
 
     const initializeExchangeRates = async () => {
         try {
-            console.log('🔧 Inicializando tipos de cambio...');
             const result = await CambiaFXService.getExchangeRates();
-            console.log('📈 Tipos de cambio obtenidos desde API:', result);
-            console.log('📊 Detalle de tipos de cambio - Compra:', result?.tcData?.compra || 'N/A', 'Venta:', result?.tcData?.venta || 'N/A');
             updateCurrentRates();
             // Establecer TC inicial
             const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
             const initialTc = CambiaFXService.getTCFromAmount(1, serviceOperationType);
-            console.log('🎯 TC inicial calculado:', { initialTc, operationType, serviceOperationType });
             setCurrentTc(initialTc);
-            console.log('✅ Tipos de cambio inicializados:', CambiaFXService.tcData);
-            console.log('📊 Estado actual del servicio:', {
-                tcData: CambiaFXService.tcData,
-                tcBase: CambiaFXService.tcBase
-            });
         } catch (error) {
-            console.error('❌ Error initializing exchange rates:', error);
+            // Error silencioso en producción
         }
     };
 
     const updateCurrentRates = () => {
-        console.log('📊 updateCurrentRates llamado');
-        console.log('🔍 Estado actual del servicio antes de getCurrentRates:', {
-            tcData: CambiaFXService.tcData,
-            tcBase: CambiaFXService.tcBase,
-            tcDataLength: CambiaFXService.tcData?.length
-        });
-
         const rates = CambiaFXService.getCurrentRates();
-        console.log('💱 Tasas obtenidas del servicio:', rates);
-        console.log('🏦 Estado previo currentRates:', currentRates);
-
         setCurrentRates(rates);
-        console.log('✅ currentRates actualizado a:', rates);
-
-        // Verificar que los valores se aplicaron correctamente
-        console.log('🔢 Verificación post-actualización:', {
-            ratesCompra: rates.compra,
-            ratesVenta: rates.venta,
-            tienePromotionalCode: !!promotionalCode,
-            tcDataActual: CambiaFXService.tcData[0],
-            totalRangos: CambiaFXService.tcData?.length || 0
-        });
     };
 
     const checkUrlCoupon = () => {
@@ -162,118 +122,46 @@ const ExchangeCard = ({
     };
 
     const calculateExchange = (origin = 'O', inputValue = null) => {
-        console.log('🧮 calculateExchange iniciado:', { origin, inputValue, amount1, amount2, operationType });
-
         // Use inputValue if provided, otherwise use state
         let amount;
         if (inputValue !== null) {
             amount = parseNumberFromFormatted(inputValue);
-            console.log('💰 Usando valor directo del input:', { inputValue, amount });
         } else {
             amount = origin === 'O'
                 ? parseNumberFromFormatted(amount1)
                 : parseNumberFromFormatted(amount2);
-            console.log('💰 Usando valor del estado:', { origin, rawAmount: origin === 'O' ? amount1 : amount2, amount });
         }
 
         if (amount === 0) {
-            console.log('⚠️ Monto es 0, limpiando campos...');
             if (origin === 'O') {
                 setAmount2('');
-                console.log('🧹 amount2 limpiado');
             } else {
                 setAmount1('');
-                console.log('🧹 amount1 limpiado');
             }
             // Obtener TC base para mostrar
             const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
             const baseTc = CambiaFXService.getTCFromAmount(1, serviceOperationType);
             setCurrentTc(baseTc);
-            console.log('🎯 TC base establecido:', { baseTc, operationType, serviceOperationType });
             return;
         }
 
-        console.log('🔄 Llamando calculateExchange del servicio...');
         // Convertir operationType a formato del servicio: 'compra' -> 'C', 'venta' -> 'V'
         const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
-        console.log('🔄 Convertido operationType:', { original: operationType, service: serviceOperationType });
-
-        // DIAGNÓSTICO DETALLADO PRE-CÁLCULO
-        console.log('🔍 DIAGNÓSTICO PRE-CÁLCULO:', {
-            amount,
-            serviceOperationType,
-            tcDataActual: CambiaFXService.tcData,
-            tcDataLength: CambiaFXService.tcData?.length,
-            tienePromotionalCode: !!promotionalCode,
-            promotionalCode
-        });
-
-        // OBTENER TC ESPECÍFICO PARA DEBUG
-        const tcParaDebug = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
-        console.log('🎯 TC específico obtenido para debug:', {
-            tcParaDebug,
-            amount,
-            serviceOperationType
-        });
 
         const calculation = CambiaFXService.calculateExchange(amount, serviceOperationType, origin === 'O' ? 'from' : 'to');
-        console.log('📊 Resultado del cálculo completo:', calculation);
-
-        // VERIFICACIÓN MANUAL DEL CÁLCULO
-        let calculoManual;
-        if (operationType === 'venta' && origin === 'O') {
-            // VENTA: SOLES → DÓLARES
-            calculoManual = amount / calculation.exchangeRate;
-            console.log('🧮 VERIFICACIÓN MANUAL VENTA:', {
-                formula: `${amount} ÷ ${calculation.exchangeRate}`,
-                calculoManual: calculoManual,
-                resultadoServicio: calculation.result,
-                diferencia: Math.abs(calculoManual - calculation.result),
-                tcUsado: calculation.exchangeRate,
-                tcDebug: tcParaDebug
-            });
-        } else if (operationType === 'compra' && origin === 'O') {
-            // COMPRA: DÓLARES → SOLES
-            calculoManual = amount * calculation.exchangeRate;
-            console.log('🧮 VERIFICACIÓN MANUAL COMPRA:', {
-                formula: `${amount} × ${calculation.exchangeRate}`,
-                calculoManual: calculoManual,
-                resultadoServicio: calculation.result,
-                diferencia: Math.abs(calculoManual - calculation.result),
-                tcUsado: calculation.exchangeRate,
-                tcDebug: tcParaDebug
-            });
-        }
-
-        // VERIFICACIÓN POST-CÁLCULO
-        console.log('🎯 VERIFICACIÓN DEL CÁLCULO:', {
-            tcUsado: calculation.exchangeRate,
-            resultadoObtenido: calculation.result,
-            montoIngresado: amount,
-            tienePromotionalCode: !!promotionalCode,
-            couponInfo: couponInfo,
-            rangosCupón: couponInfo?.rangos?.length || 0
-        });
 
         setCurrentTc(calculation.exchangeRate);
-        console.log('💱 TC actualizado en estado:', calculation.exchangeRate);
 
         if (origin === 'O') {
             const formattedResult = formatNumberWithCommas(calculation.result);
-            console.log('📝 Actualizando amount2:', { result: calculation.result, formatted: formattedResult });
             setAmount2(formattedResult);
         } else {
             const formattedResult = formatNumberWithCommas(calculation.result);
-            console.log('📝 Actualizando amount1:', { result: calculation.result, formatted: formattedResult });
             setAmount1(formattedResult);
         }
-
-        console.log('✅ calculateExchange completado');
     };
 
     const handleSwap = () => {
-        console.log('🔄 Swap - Solo cambiando tipo de operación de', operationType, 'a', operationType === 'compra' ? 'venta' : 'compra');
-        
         // SOLO cambiar el tipo de operación - nada más
         setOperationType(operationType === 'compra' ? 'venta' : 'compra');
         
@@ -281,24 +169,16 @@ const ExchangeCard = ({
     };
 
     const handleAmountChange = (value, origin) => {
-        console.log('🔥🔥🔥 USUARIO ESCRIBIENDO:', { value, origin, operationType });
-        console.log('⌨️ handleAmountChange SIN DELAY - valor inmediato:', value);
-
         // Formatear el valor con comas automáticamente
         const formattedValue = formatInputValue(value);
-        console.log('🔢 Valor formateado:', { original: value, formatted: formattedValue });
 
         if (origin === 'O') {
-            console.log('📝 Actualizando amount1 de', amount1, 'a', formattedValue);
             setAmount1(formattedValue);
         } else {
-            console.log('📝 Actualizando amount2 de', amount2, 'a', formattedValue);
             setAmount2(formattedValue);
         }
 
         // CALCULAR INMEDIATAMENTE con el valor formateado
-        console.log('⚡ Calculando INMEDIATAMENTE con valor:', formattedValue);
-
         // Pasar el valor formateado directamente para evitar problemas de estado
         setTimeout(() => {
             calculateExchange(origin, formattedValue);
@@ -306,19 +186,12 @@ const ExchangeCard = ({
     };
 
     const validateCoupon = async (couponCode, tipo = 'c') => {
-        console.log('🎫 validateCoupon iniciado:', { couponCode, tipo });
         setIsValidatingCoupon(true);
 
         try {
-            console.log('🎫 Llamando CambiaFXService.validateCoupon...');
             const result = await CambiaFXService.validateCoupon(couponCode);
-            console.log('🎫 Resultado completo de validateCoupon:', result);
-            console.log('🎫 result.valid:', result.valid);
-            console.log('🎫 result.data:', result.data);
-            console.log('🎫 result.message:', result.message);
 
             if (!result.valid && tipo === 'c') {
-                console.log('❌ Cupón inválido, guardando información...');
                 setPromotionalCode('');
                 setCouponInfo(null);
                 setInvalidCoupon({
@@ -328,8 +201,6 @@ const ExchangeCard = ({
                 // Restaurar tipos de cambio base
                 updateCurrentRates();
             } else if (result.valid) {
-                console.log('✅ Cupón válido, FORZANDO actualización inmediata...');
-
                 // Limpiar cupón inválido si existía
                 setInvalidCoupon(null);
 
@@ -349,17 +220,7 @@ const ExchangeCard = ({
                     rangos: rangos // Guardamos todos los rangos para referencia
                 });
 
-                console.log('🎫 Información del cupón guardada:', {
-                    codigo: couponCode,
-                    montoMinimo: rangoMinimo,
-                    montoMaximo: rangoMaximo,
-                    totalRangos: rangos.length,
-                    rangos: rangos
-                });
-
                 // ⚡ ACTUALIZACIÓN INMEDIATA Y FORZADA
-                console.log('🚀 Estado actual tcData antes de actualizar:', CambiaFXService.tcData);
-
                 // Actualizar rates inmediatamente
                 updateCurrentRates();
 
@@ -368,27 +229,16 @@ const ExchangeCard = ({
 
                 // Recalcular INMEDIATAMENTE sin delay
                 if (amount1) {
-                    console.log('💥 RECALCULANDO INMEDIATAMENTE con amount1:', amount1);
                     const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
                     const amount = parseNumberFromFormatted(amount1);
                     const tcActual = CambiaFXService.getTCFromAmount(amount, serviceOperationType);
-                    console.log('🎯 TC actual después del cupón:', tcActual);
-                    console.log('📊 Datos tcData actuales:', CambiaFXService.tcData);
                     
                     // Forzar recálculo inmediato
                     calculateExchange('O');
                 }
-                
-                console.log('✅ Actualización de cupón completada');
             }
 
         } catch (error) {
-            console.error('❌ Error en validateCoupon:', error);
-            console.error('❌ Error details:', {
-                message: error.message,
-                response: error.response?.data,
-                status: error.response?.status
-            });
             if (tipo === 'c') {
                 setPromotionalCode('');
                 setCouponInfo(null);
@@ -426,7 +276,6 @@ const ExchangeCard = ({
 
     // 🚀 FUNCIÓN DE RESET COMPLETO PARA DEBUGGING
     const forceReset = () => {
-        console.log('🔄 RESET COMPLETO FORZADO');
         // Limpiar todo el estado
         setAmount1('1,000'); // Valor por defecto con formato
         setAmount2('');
@@ -438,7 +287,6 @@ const ExchangeCard = ({
 
         // Reinicializar servicio
         CambiaFXService.tcData = [...CambiaFXService.tcBase];
-        console.log('✅ Reset completado, estado limpio');
     };
 
     // 🎯 VERIFICAR SI EL CUPÓN APLICA AL MONTO ACTUAL
@@ -484,17 +332,6 @@ const ExchangeCard = ({
                 
                 if (isInRange) {
                     rangoAplicable = rango;
-                    console.log('✅ Cupón aplica en rango correcto:', { 
-                        rango: rangoAplicable,
-                        minAmountOriginal: rango.montoMinimo ?? rango.desde,
-                        maxAmountOriginal: rango.montoMaximo ?? rango.hasta,
-                        minAmountConverted: minAmount,
-                        maxAmountConverted: maxAmount,
-                        isLastRange,
-                        amount,
-                        operationType,
-                        logicaUsada: isLastRange ? 'minAmount <= amount <= maxAmount' : 'minAmount <= amount < maxAmount'
-                    });
                     break;
                 }
             }
@@ -502,7 +339,6 @@ const ExchangeCard = ({
             if (rangoAplicable) {
                 return { applies: true, reason: '', rangoActual: rangoAplicable };
             } else {
-                console.log('❌ Monto no está en ningún rango del cupón');
                 const rangosDisplay = couponInfo.rangos.map(r => {
                     const min = r.desde ?? r.montoMinimo;
                     const max = r.hasta ?? r.montoMaximo;
@@ -538,7 +374,6 @@ const ExchangeCard = ({
 
     // 🔍 SIMULAR CONSULTA DE CUPONES DISPONIBLES
     const handleConsultCoupons = async () => {
-        console.log('🔍 Iniciando consulta de cupones disponibles...');
         setIsConsultingCoupons(true);
 
         try {
@@ -547,13 +382,11 @@ const ExchangeCard = ({
             await new Promise(resolve => setTimeout(resolve, delay));
 
             // Mostrar resultado de la consulta (simulado)
-            console.log('✅ Consulta de cupones completada');
 
         } catch (error) {
-            console.error('❌ Error en consulta de cupones:', error);
+            // Error silencioso en producción
         } finally {
             setIsConsultingCoupons(false);
-            console.log('🏁 Consulta de cupones finalizada');
         }
     };
 
@@ -569,7 +402,6 @@ const ExchangeCard = ({
             const buyRate = rangoActual.tcCompra ?? rangoActual.tc_compra ?? currentRates.compra;
             const sellRate = rangoActual.tcVenta ?? rangoActual.tc_venta ?? currentRates.venta;
             
-            console.log('📊 Mostrando tasas del rango actual:', rangoActual);
             return {
                 compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate, // COMPRA: Cliente tiene USD → usar tc_compra
                 venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate   // VENTA: Cliente tiene PEN → usar tc_venta
@@ -616,17 +448,6 @@ const ExchangeCard = ({
     // Obtener las tasas de cambio actuales para mostrar en los botones
     const rates = getDisplayRates();
     const couponStatus = checkCouponApplies();
-
-    // Log del estado actual del componente
-    console.log('🎯 ESTADO ACTUAL DEL COMPONENTE:', {
-        operationType,
-        amount1,
-        amount2,
-        currentTc,
-        currentRates,
-        rates,
-        initialized: CambiaFXService.tcData?.length > 0
-    });
 
     return (
         <div className={`bg-secondary z-[99999] rounded-2xl  lg:rounded-3xl p-4  lg:p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>
@@ -821,11 +642,6 @@ const ExchangeCard = ({
                             placeholder="1,000.00"
                             value={amount1}
                             onChange={(e) => {
-                                console.log('🖊️ Input onChange disparado:', {
-                                    value: e.target.value,
-                                    tipo: 'amount1',
-                                    operationType
-                                });
                                 handleAmountChange(e.target.value, 'O');
                             }}
                             className="text-lg text-neutral-light bg-transparent border-none outline-none w-full placeholder:text-neutral-light"
@@ -866,11 +682,6 @@ const ExchangeCard = ({
                             placeholder="1,000.00"
                             value={amount2}
                             onChange={(e) => {
-                                console.log('🖊️ Input onChange disparado:', {
-                                    value: e.target.value,
-                                    tipo: 'amount2',
-                                    operationType
-                                });
                                 handleAmountChange(e.target.value, 'D');
                             }}
                             className="text-lg text-neutral-light bg-transparent border-none outline-none w-full placeholder:text-neutral-light"
@@ -898,7 +709,6 @@ const ExchangeCard = ({
                                 <div className="flex-1 flex gap-2">
                                     <button
                                         onClick={() => {
-                                            console.log('🎯 Click en USAR CUPÓN - Abriendo input directamente');
                                             setShowCouponInput(true);
                                         }}
                                         className="flex-1 justify-center flex gap-3 items-center py-4 px-4 rounded-xl font-medium text-sm transition-all duration-200 border-2 group relative text-neutral-dark hover:bg-neutral hover:shadow-md border-transparent hover:border-secondary/30"
@@ -1126,7 +936,6 @@ const ExchangeCard = ({
                                                 setShowCouponInput(false);
                                                 setPromotionalCode('');
                                                 // Limpiar cupón del servicio y restaurar TC base
-                                                console.log('🧹 Limpiando cupón y restaurando TC base...');
                                                 CambiaFXService.validateCoupon(''); // Esto restaura tcBase
                                                 setCouponInfo(null);
                                                 setInvalidCoupon(null);
