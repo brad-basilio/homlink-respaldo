@@ -30,6 +30,7 @@ class AdController extends BasicController
                     'image' => $ad->image,
                     'link' => $ad->link,
                     'seconds' => (int) $ad->seconds,
+                    'duration' => (int) ($ad->duration ?? 10),
                     'actions' => (int) $ad->actions,
                     'item_id' => $ad->item_id,
                     'invasivo' => (bool) $ad->invasivo,

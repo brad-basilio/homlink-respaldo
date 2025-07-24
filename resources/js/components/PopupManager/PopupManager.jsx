@@ -14,7 +14,6 @@ const PopupManager = () => {
     const loadPopups = async () => {
         try {
             const response = await axios.get('/api/ads/today');
-         
             
             if (response.data && response.data.length > 0) {
                 setPopups(response.data);
@@ -52,7 +51,6 @@ const PopupManager = () => {
     };
 
     const showPopup = (popup) => {
-     
         setCurrentPopup(popup);
         setIsVisible(true);
         
