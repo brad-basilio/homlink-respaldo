@@ -13,6 +13,9 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
+        // Eliminar el usuario anterior de cambiogerencia.com.pe si existe
+        User::where('email', 'admin@cambiogerencia.com.pe')->delete();
+        
         User::updateOrCreate([
             'email' => 'admin@mundoweb.pe'
         ], [
@@ -20,12 +23,21 @@ class UsersSeeder extends Seeder
             'lastname' => 'Admin',
             'password' => 'r00tme'
         ])->assignRole('Admin');
+        
         User::updateOrCreate([
-            'email' => 'admin@cambiogerencia.com.pe'
+            'email' => 'admin@cambiafx.com'
         ], [
             'name' => 'Admin',
-            'lastname' => 'Cambio & Gerencia',
-            'password' => 'C@mbio&G3renc1a!2025'
+            'lastname' => 'CambiaFX',
+            'password' => 'C@mbiaFX!2025'
+        ])->assignRole('Admin');
+
+        User::updateOrCreate([
+            'email' => 'admin@cambiafx.pe'
+        ], [
+            'name' => 'Admin',
+            'lastname' => 'CambiaFX Peru',
+            'password' => 'C@mbiaFX.Pe!2025'
         ])->assignRole('Admin');
 
         User::updateOrCreate([
