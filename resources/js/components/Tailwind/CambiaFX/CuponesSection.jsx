@@ -19,10 +19,16 @@ const CuponesSection = ({ data, cupones, indicators = [] }) => {
     // Función para formatear fecha de YYYY-MM-DD a DD/MM/YYYY
     const formatDate = (dateString) => {
         if (!dateString) return '';
-        const date = new Date(dateString);
-        const day = date.getDate().toString().padStart(2, '0');
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const year = date.getFullYear();
+        // Extraer la parte de fecha sin procesar zona horaria
+        let dateOnly = dateString;
+        if (dateString.includes('T')) {
+            dateOnly = dateString.split('T')[0];
+        } else {
+            dateOnly = dateString.substring(0, 10);
+        }
+        
+        // Dividir la fecha YYYY-MM-DD
+        const [year, month, day] = dateOnly.split('-');
         return `${day}/${month}/${year}`;
     };
     return (

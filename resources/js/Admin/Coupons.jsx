@@ -35,6 +35,24 @@ const Coupons = ({ }) => {
 
   const [isEditing, setIsEditing] = useState(false)
 
+  // Función para formatear fecha para input type="date" (YYYY-MM-DD)
+  const formatDateForInput = (dateString) => {
+    if (!dateString) return '';
+    // Solo extraer la parte de la fecha (YYYY-MM-DD) sin procesar zona horaria
+    if (dateString.includes('T')) {
+      return dateString.split('T')[0];
+    }
+    // Si es solo fecha (YYYY-MM-DD), devolverla tal como está
+    return dateString.substring(0, 10);
+  };
+
+  // Función para formatear fecha para envío al servidor
+  const formatDateForServer = (dateString) => {
+    if (!dateString) return null;
+    // El input type="date" ya nos da el formato correcto YYYY-MM-DD
+    return dateString;
+  };
+
   const onModalOpen = (data) => {
     if (data?.id) setIsEditing(true)
     else setIsEditing(false)
@@ -46,8 +64,8 @@ const Coupons = ({ }) => {
    // amountRef.current.value = data?.amount ?? 0
   // saleAmountRef.current.value = data?.sale_amount ?? 0
    // initialStockRef.current.value = data?.initial_stock ?? null
-    dateBeginRef.current.value = data?.date_begin ?? null
-    dateEndRef.current.value = data?.date_end ?? null
+    dateBeginRef.current.value = formatDateForInput(data?.date_begin)
+    dateEndRef.current.value = formatDateForInput(data?.date_end)
     //oneTimeUseRef.current.value = data?.one_time_use ?? false
 
     $(modalRef.current).modal('show')
@@ -63,8 +81,8 @@ const Coupons = ({ }) => {
       amount:0, //amountRef.current.value,
       sale_amount: 0,//saleAmountRef.current.value,
      // initial_stock: initialStockRef.current.value,
-      date_begin: dateBeginRef.current.value,
-      date_end: dateEndRef.current.value,
+      date_begin: formatDateForServer(dateBeginRef.current.value),
+      date_end: formatDateForServer(dateEndRef.current.value),
      // one_time_use: oneTimeUseRef.current.checked ?? false,
      // description: descriptionRef.current.value,
     }
@@ -167,11 +185,29 @@ const Coupons = ({ }) => {
           dataField: 'date_begin',
           caption: 'Fecha de inicio',
           dataType: 'date',
+          cellTemplate: (container, { data }) => {
+            if (data.date_begin) {
+              const formattedDate = formatDateForInput(data.date_begin);
+              const [year, month, day] = formattedDate.split('-');
+              container.text(`${day}/${month}/${year}`);
+            } else {
+              container.text('-');
+            }
+          }
         },
         {
           dataField: 'date_end',
           caption: 'Fecha de fin',
           dataType: 'date',
+          cellTemplate: (container, { data }) => {
+            if (data.date_end) {
+              const formattedDate = formatDateForInput(data.date_end);
+              const [year, month, day] = formattedDate.split('-');
+              container.text(`${day}/${month}/${year}`);
+            } else {
+              container.text('-');
+            }
+          }
         },
         {
           caption: 'Acciones',
