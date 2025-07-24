@@ -5,8 +5,10 @@ import TextWithHighlight from '../../../Utils/TextWithHighlight';
 const AnimatedIndicator = ({ indicator, index }) => {
     // Función mejorada para extraer números de diferentes formatos
     const extractNumber = (text) => {
-        // Buscar patrones como: 1000, 1,000, 1.5M, 1.2K, 500+, etc.
+        // Buscar patrones más específicos para formatos como *+*5000
         const patterns = [
+            /\*\+\*(\d+(?:,\d+)*(?:\.\d+)?)[Kk]?/,   // Patrón específico para *+*número con K opcional
+            /\*\+\*(\d+(?:,\d+)*(?:\.\d+)?)/,       // Patrón específico para *+*número
             /(\d+(?:,\d+)*(?:\.\d+)?)\s*[MmKk]?/,  // Números con M, K, etc.
             /(\d+(?:,\d+)*(?:\.\d+)?)\+?/,          // Números con o sin +
             /(\d+(?:\.\d+)?)/                        // Números simples
@@ -17,11 +19,16 @@ const AnimatedIndicator = ({ indicator, index }) => {
             if (match) {
                 let number = parseFloat(match[1].replace(/,/g, ''));
                 
-                // Manejar sufijos como K, M
-                if (text.includes('K') || text.includes('k')) {
+                // Manejar sufijos como K, M (solo si NO está en formato *+*)
+                if (!text.includes('*+*')) {
+                    if (text.includes('K') || text.includes('k')) {
+                        number *= 1000;
+                    } else if (text.includes('M') || text.includes('m')) {
+                        number *= 1000000;
+                    }
+                } else if (text.includes('*+*') && (text.includes('k') || text.includes('K'))) {
+                    // Para formato *+*134k, multiplicar por 1000
                     number *= 1000;
-                } else if (text.includes('M') || text.includes('m')) {
-                    number *= 1000000;
                 }
                 
                 return number;
@@ -54,14 +61,28 @@ const AnimatedIndicator = ({ indicator, index }) => {
     const formatNumber = (num) => {
         const originalText = indicator.name;
         
-        if (originalText.includes('M') || originalText.includes('m')) {
-            return (num / 1000000).toFixed(decimals) + 'M';
+        // Redondear el número para evitar decimales en la animación
+        const roundedNum = Math.round(num);
+        
+        if (originalText.includes('*+*')) {
+            if (originalText.includes('k') || originalText.includes('K')) {
+                // Para formato *+*134k - mostrar siempre el formato durante la animación
+                const kValue = Math.round(roundedNum / 1000);
+                return '*+*' + kValue + 'k';
+            } else {
+                // Para formato *+*5900 - mostrar siempre el formato durante la animación
+                return '*+*' + roundedNum.toLocaleString();
+            }
+        } else if (originalText.includes('M') || originalText.includes('m')) {
+            return (roundedNum / 1000000).toFixed(decimals) + 'M';
         } else if (originalText.includes('K') || originalText.includes('k')) {
-            return (num / 1000).toFixed(decimals) + 'K';
+            // Para formato como +36k, dividir por 1000 y mostrar formato durante animación
+            const kValue = Math.round(roundedNum / 1000);
+            return (originalText.includes('+') ? '+' : '') + kValue + 'k';
         } else if (originalText.includes('+')) {
-            return num.toLocaleString() + '+';
+            return roundedNum.toLocaleString() + '+';
         } else {
-            return decimals > 0 ? num.toFixed(decimals) : num.toLocaleString();
+            return decimals > 0 ? roundedNum.toFixed(decimals) : roundedNum.toLocaleString();
         }
     };
 
@@ -73,8 +94,8 @@ const AnimatedIndicator = ({ indicator, index }) => {
         
         const formattedNumber = formatNumber(currentValue);
         
-        // Reemplazar el número original con el número animado
-        return indicator.name.replace(/(\d+(?:,\d+)*(?:\.\d+)?)\s*[MmKk]?\+?/, formattedNumber);
+        // Simplemente devolver el número formateado ya que formatNumber maneja todos los casos
+        return formattedNumber;
     };
 
     return (
