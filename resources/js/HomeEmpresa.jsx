@@ -280,6 +280,9 @@ const Home = ({
     const landingBeneficios = landing?.find(
         (item) => item.correlative === "page_empresas_beneficios"
     );
+     const landingContacto = landing?.find(
+        (item) => item.correlative === "page_empresas_contacto"
+    );
     const landingTestimonios = landing?.find(
         (item) => item.correlative === "page_home_testimonios"
     );
@@ -486,7 +489,7 @@ const Home = ({
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
             >
-                <ContactoSecctionEmpresa />
+                <ContactoSecctionEmpresa landing={landingContacto} />
             </motion.div>
 
             {/* FOOTER - Fade-in simple */}

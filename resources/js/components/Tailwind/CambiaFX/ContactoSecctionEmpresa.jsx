@@ -1,8 +1,9 @@
 import React, { useState, useRef } from 'react'
 import Swal from 'sweetalert2'
 import MessagesRest from '../../../Actions/MessagesRest'
+import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
-export default function ContactoSecctionEmpresa() {
+export default function ContactoSecctionEmpresa({landing}) {
     const messagesRest = new MessagesRest();
 
     const [formData, setFormData] = useState({
@@ -106,7 +107,8 @@ La empresa está interesada en conocer más sobre los servicios de cambio de mon
                         <div className="w-full lg:w-1/2"></div>
                         <div className="hidden lg:block w-1/2 relative">
                             <img
-                                src="/assets/cambiafx/blog-1.png"
+                                src={`/api/landing_home/media/${landing?.image}` || '/assets/cambiafx/blog-1.png'}
+s
                                 alt="Background"
                                 className="w-full h-full object-cover "
                             />
@@ -124,11 +126,13 @@ La empresa está interesada en conocer más sobre los servicios de cambio de mon
                                 </div>
 
                                 <h2 className="text-3xl lg:text-[40px] font-medium text-white mb-4 leading-tight">
-                                    <span className='font-semibold'>Déjanos</span> tu datos
+
+                                    <TextWithHighlight text={landing?.title || '*Déjanos tus datos*'} color="bg-white font-semibold" />
+                                   
                                 </h2>
 
-                                <p className="text-white text-base mb-8 leading-relaxed">
-                                    Nos comunicaremos contigo para ofrecerte información detallada
+                                <p className="text-white text-base mb-8 leading-relaxed whitespace-pre-line">
+                                    {landing?.description || 'Si deseas más información sobre nuestros servicios de cambio de moneda para empresas, por favor completa el siguiente formulario y nos pondremos en contacto contigo lo antes posible.'}
                                 </p>
 
                                 <form onSubmit={handleSubmit} className="space-y-6">
