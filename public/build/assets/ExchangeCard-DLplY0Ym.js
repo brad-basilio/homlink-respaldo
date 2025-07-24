@@ -1,4 +1,4 @@
-import{j as e}from"./RequirementCard-DEdD30eg.js";import{r as v}from"./index-RYns6xqu.js";import{a as K}from"./axios-B4uVmeYG.js";import{W as xe}from"./WhatsAppButton-hI3EU9cM.js";import{c as ue}from"./createLucideIcon-D_WcjKff.js";/**
+import{j as e}from"./RequirementCard-DEdD30eg.js";import{r as v}from"./index-RYns6xqu.js";import{a as K}from"./axios-B4uVmeYG.js";import{W as xe}from"./WhatsAppButton-D2jm8qaM.js";import{c as ue}from"./createLucideIcon-D_WcjKff.js";/**
  * @license lucide-react v0.445.0 - ISC
  *
  * This source code is licensed under the ISC license.

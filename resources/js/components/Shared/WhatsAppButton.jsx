@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, MessageCircle, Phone, ExternalLink } from "lucide-react";
 import GeneralRest from "../../actions/GeneralRest";
 
 const WhatsAppButton = ({ 
@@ -9,8 +9,9 @@ const WhatsAppButton = ({
     size = "medium", // small, medium, large
     showIcon = true,
     className = "",
-    customMessage = null,
-    customPhone = null,
+    customMessage = null, // Mensaje personalizado para WhatsApp
+    customPhone = null,   // Teléfono personalizado para WhatsApp
+    customLink = null,    // Enlace personalizado (anula WhatsApp y abre este enlace)
     ...props 
 }) => {
     const [whatsappData, setWhatsappData] = useState({
@@ -60,7 +61,25 @@ const WhatsAppButton = ({
         fetchWhatsAppData();
     }, []);
 
+    // Función helper para determinar el ícono apropiado
+    const getIcon = () => {
+        if (!showIcon) return null;
+        
+        if (customLink) {
+            return <ExternalLink className="w-4 h-4 mr-2" />;
+        }
+        
+        return <MessageCircle className="w-4 h-4 mr-2" />;
+    };
+
     const handleClick = () => {
+        // Si hay un enlace personalizado, usarlo directamente
+        if (customLink) {
+            window.open(customLink, '_blank');
+            return;
+        }
+
+        // Lógica original para WhatsApp
         const phone = customPhone || whatsappData.phone;
         const message = customMessage || whatsappData.message;
 
@@ -126,7 +145,7 @@ const WhatsAppButton = ({
         );
     }
 
-    if (!whatsappData.phone && !customPhone) {
+    if (!whatsappData.phone && !customPhone && !customLink) {
         return (
             <motion.div
                 className={`inline-flex items-center justify-center rounded-md ${getSizeClasses()} bg-gray-300 text-gray-500 cursor-not-allowed ${className}`}
@@ -149,10 +168,8 @@ const WhatsAppButton = ({
             `}
             {...props}
         >
-           
-                {children}
-               
-           
+     
+            {children}
         </button>
     );
 };

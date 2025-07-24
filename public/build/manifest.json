@@ -91,25 +91,25 @@
     "file": "assets/DxButton-CsjWvhyj.js",
     "name": "DxButton"
   },
-  "_EmpresasSection-BgmJJUnt.js": {
-    "file": "assets/EmpresasSection-BgmJJUnt.js",
+  "_EmpresasSection-GgN8p9Lm.js": {
+    "file": "assets/EmpresasSection-GgN8p9Lm.js",
     "name": "EmpresasSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_proxy-Dg7W2VMC.js",
       "_Header-RQYzW6wl.js"
     ]
   },
-  "_ExchangeCard-DY-33YBV.js": {
-    "file": "assets/ExchangeCard-DY-33YBV.js",
+  "_ExchangeCard-DLplY0Ym.js": {
+    "file": "assets/ExchangeCard-DLplY0Ym.js",
     "name": "ExchangeCard",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
       "_axios-B4uVmeYG.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_createLucideIcon-D_WcjKff.js"
     ]
   },
@@ -129,16 +129,16 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-hSyrgbd0.js": {
-    "file": "assets/FuncionSection-hSyrgbd0.js",
+  "_FuncionSection-ymt44Lad.js": {
+    "file": "assets/FuncionSection-ymt44Lad.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_proxy-Dg7W2VMC.js",
-      "_ExchangeCard-DY-33YBV.js"
+      "_ExchangeCard-DLplY0Ym.js"
     ]
   },
   "_Header-RQYzW6wl.js": {
@@ -434,8 +434,8 @@
       "swiper.css"
     ]
   },
-  "_WhatsAppButton-hI3EU9cM.js": {
-    "file": "assets/WhatsAppButton-hI3EU9cM.js",
+  "_WhatsAppButton-D2jm8qaM.js": {
+    "file": "assets/WhatsAppButton-D2jm8qaM.js",
     "name": "WhatsAppButton",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -473,6 +473,13 @@
   "_chevron-down-DEuKezfs.js": {
     "file": "assets/chevron-down-DEuKezfs.js",
     "name": "chevron-down",
+    "imports": [
+      "_createLucideIcon-D_WcjKff.js"
+    ]
+  },
+  "_chevron-right-D45_ion_.js": {
+    "file": "assets/chevron-right-D45_ion_.js",
+    "name": "chevron-right",
     "imports": [
       "_createLucideIcon-D_WcjKff.js"
     ]
@@ -679,7 +686,7 @@
     "isEntry": true
   },
   "resources/js/About.jsx": {
-    "file": "assets/About-De3YmVGv.js",
+    "file": "assets/About-gcpmH2gE.js",
     "name": "About",
     "src": "resources/js/About.jsx",
     "isEntry": true,
@@ -697,7 +704,7 @@
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_proxy-Dg7W2VMC.js",
       "_index.esm-zkRd-kwu.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "resources/js/components/Tailwind/Carrusel/CarruselBrands.jsx",
       "_CintilloSection-bqzgqYqT.js",
       "_pagination-qz-hCLaO.js",
@@ -2523,7 +2530,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-AQ-2pLNJ.js",
+    "file": "assets/Blog-BRGeOmrY.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -2547,7 +2554,7 @@
       "_useTranslation-CZbMeh78.js",
       "_HtmlContent-CZmf3wHb.js",
       "_index-SDlHnhXR.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_CintilloSection-bqzgqYqT.js",
       "_index.esm-zkRd-kwu.js",
       "_axios-B4uVmeYG.js",
@@ -2564,7 +2571,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-B4tPeVvA.js",
+    "file": "assets/BlogArticle-Be_9YkfM.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2582,8 +2589,8 @@
       "_PostCard-UdlaTIWj.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_main-Y8JAyXgE.js",
-      "_ExchangeCard-DY-33YBV.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_ExchangeCard-DLplY0Ym.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_CintilloSection-bqzgqYqT.js",
       "_proxy-Dg7W2VMC.js",
       "_createLucideIcon-D_WcjKff.js",
@@ -2953,7 +2960,7 @@
     ]
   },
   "resources/js/DetailService.jsx": {
-    "file": "assets/DetailService-CPTQBAJ9.js",
+    "file": "assets/DetailService-_U4sWeEt.js",
     "name": "DetailService",
     "src": "resources/js/DetailService.jsx",
     "isEntry": true,
@@ -2972,7 +2979,7 @@
       "resources/js/components/Blog/Filter.jsx",
       "resources/js/components/Tailwind/CambiaFX/CuponesSection.jsx",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_ServiceSeccionFaq-DTgBw4i3.js",
       "_HomeSeccionTestimonios-DmNRuVeV.js",
       "_autoplay-BgjrnjSJ.js",
@@ -3036,7 +3043,7 @@
     ]
   },
   "resources/js/DetalleCasoExito.jsx": {
-    "file": "assets/DetalleCasoExito-CRNI3I-F.js",
+    "file": "assets/DetalleCasoExito-DFEbqStI.js",
     "name": "DetalleCasoExito",
     "src": "resources/js/DetalleCasoExito.jsx",
     "isEntry": true,
@@ -3050,7 +3057,7 @@
       "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
       "_Header-RQYzW6wl.js",
       "_Footer-DqfifMLq.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_axios-B4uVmeYG.js",
       "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
@@ -3133,7 +3140,7 @@
     ]
   },
   "resources/js/FisioTerapiaPage.jsx": {
-    "file": "assets/FisioTerapiaPage-Dua43kHH.js",
+    "file": "assets/FisioTerapiaPage-DQ7pb_6k.js",
     "name": "FisioTerapiaPage",
     "src": "resources/js/FisioTerapiaPage.jsx",
     "isEntry": true,
@@ -3155,6 +3162,7 @@
       "_MaintenancePage-BOY49r__.js",
       "_useTranslation-CZbMeh78.js",
       "_proxy-Dg7W2VMC.js",
+      "_chevron-right-D45_ion_.js",
       "_createLucideIcon-D_WcjKff.js",
       "_chevron-down-DEuKezfs.js",
       "_index-CXU7o9CY.js",
@@ -3205,7 +3213,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-fuoIdnNu.js",
+    "file": "assets/Home-C6Og55BC.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3229,12 +3237,12 @@
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
       "_createLucideIcon-D_WcjKff.js",
-      "_FuncionSection-hSyrgbd0.js",
+      "_FuncionSection-ymt44Lad.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_autoplay-BgjrnjSJ.js",
       "_proxy-Dg7W2VMC.js",
       "_pagination-qz-hCLaO.js",
-      "_EmpresasSection-BgmJJUnt.js",
+      "_EmpresasSection-GgN8p9Lm.js",
       "_navigation-Ctv9exgr.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
@@ -3248,9 +3256,9 @@
       "resources/js/components/Appointment/ModalAppointment.jsx",
       "_AppointmentsRest-qLh4Dh2j.js",
       "_chevron-down-DEuKezfs.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_phone-B_ERI8hO.js",
-      "_ExchangeCard-DY-33YBV.js",
+      "_ExchangeCard-DLplY0Ym.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
     "css": [
@@ -3259,7 +3267,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-1AnhcIzq.js",
+    "file": "assets/HomeEmpresa-Caaw0yhs.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3281,17 +3289,19 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-Blv8AswU.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-hSyrgbd0.js",
+      "_FuncionSection-ymt44Lad.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
-      "_ExchangeCard-DY-33YBV.js",
+      "_ExchangeCard-DLplY0Ym.js",
+      "_WhatsAppButton-D2jm8qaM.js",
+      "resources/js/components/Tailwind/CambiaFX/HeroSecctionEmpresa.jsx",
       "_proxy-Dg7W2VMC.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_navigation-Ctv9exgr.js",
       "_pagination-qz-hCLaO.js",
+      "_chevron-right-D45_ion_.js",
       "_sweetalert2.all-DJo0UVK6.js",
       "_MessagesRest-ySlFG0Jr.js",
-      "_WhatsAppButton-hI3EU9cM.js",
       "_index-CXU7o9CY.js",
       "resources/js/components/Blog/Filter.jsx",
       "_axios-B4uVmeYG.js",
@@ -3303,8 +3313,8 @@
       "resources/js/components/Appointment/ModalAppointment.jsx",
       "_AppointmentsRest-qLh4Dh2j.js",
       "_chevron-down-DEuKezfs.js",
-      "_classes-to-selector-CyqfpjkH.js",
-      "_phone-B_ERI8hO.js"
+      "_phone-B_ERI8hO.js",
+      "_classes-to-selector-CyqfpjkH.js"
     ],
     "css": [
       "swiper.css",
@@ -3808,7 +3818,7 @@
     ]
   },
   "resources/js/ServiciosPage.jsx": {
-    "file": "assets/ServiciosPage-BeagTwzS.js",
+    "file": "assets/ServiciosPage-CajZLtXP.js",
     "name": "ServiciosPage",
     "src": "resources/js/ServiciosPage.jsx",
     "isEntry": true,
@@ -3827,7 +3837,7 @@
       "resources/js/components/Blog/Filter.jsx",
       "_CintilloSection-bqzgqYqT.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
-      "_EmpresasSection-BgmJJUnt.js",
+      "_EmpresasSection-GgN8p9Lm.js",
       "_proxy-Dg7W2VMC.js",
       "resources/js/components/Tailwind/CambiaFX/CuponesSection.jsx",
       "_pagination-qz-hCLaO.js",
@@ -3844,7 +3854,7 @@
       "_index-SDlHnhXR.js",
       "_index-DNUR7M9R.js",
       "_HtmlContent-CZmf3wHb.js",
-      "_WhatsAppButton-hI3EU9cM.js",
+      "_WhatsAppButton-D2jm8qaM.js",
       "_phone-B_ERI8hO.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
@@ -4250,7 +4260,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4338,7 +4348,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4348,7 +4358,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4358,7 +4368,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
+    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -4382,7 +4392,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-B0ALEkqN.js",
+    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -4711,7 +4721,7 @@
     ]
   },
   "resources/js/components/DataGrid.jsx": {
-    "file": "assets/DataGrid-Dwtff5Cv.js",
+    "file": "assets/DataGrid-B0ALEkqN.js",
     "name": "DataGrid",
     "src": "resources/js/components/DataGrid.jsx",
     "isEntry": true,
@@ -4978,7 +4988,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5286,7 +5296,7 @@
     ]
   },
   "resources/js/components/Tailwind/CambiaFX/HeroSecctionEmpresa.jsx": {
-    "file": "assets/HeroSecctionEmpresa-B4hXxCV_.js",
+    "file": "assets/HeroSecctionEmpresa-gnvjS4y5.js",
     "name": "HeroSecctionEmpresa",
     "src": "resources/js/components/Tailwind/CambiaFX/HeroSecctionEmpresa.jsx",
     "isEntry": true,
@@ -5596,7 +5606,7 @@
     ]
   },
   "resources/js/components/Tailwind/DataGrid.jsx": {
-    "file": "assets/DataGrid-B0ALEkqN.js",
+    "file": "assets/DataGrid-Dwtff5Cv.js",
     "name": "DataGrid",
     "src": "resources/js/components/Tailwind/DataGrid.jsx",
     "isEntry": true,
@@ -5979,10 +5989,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-BzSP4Kvf.js",
+    "file": "assets/HairType-Chu0TyCG.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6133,7 +6143,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -6143,7 +6153,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -6153,7 +6163,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
+    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -6165,7 +6175,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
+    "file": "assets/SelectFormGroup-B0ALEkqN.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,

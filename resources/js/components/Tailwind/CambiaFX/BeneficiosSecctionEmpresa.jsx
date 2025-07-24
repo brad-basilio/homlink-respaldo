@@ -1,16 +1,22 @@
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
 
 export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
     const [amount1, setAmount1] = useState('');
     const [amount2, setAmount2] = useState('');
+    
+    // Referencias para los botones de navegación
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
+    const paginationRef = useRef(null);
 
     // Función para intercambiar los valores
     const handleSwap = () => {
@@ -27,8 +33,8 @@ export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
         .sort((a, b) => (a.order || 0) - (b.order || 0));
 
     return (
-        <section className="w-full bg-secondary py-16 px-[5%] font-title">
-            <div className=" mx-auto flex flex-col lg:flex-row items-center gap-12">
+        <section className="w-full bg-secondary py-16 px-[5%] mx-auto font-title">
+            <div className="mx-auto max-w-7xl  flex flex-col lg:flex-row items-center gap-12">
                 {/* Columna izquierda - Texto */}
                 <div className="flex-1 max-w-xl">
                     <div className="uppercase text-neutral-dark text-sm font-medium tracking-[8%] mb-4">
@@ -47,18 +53,24 @@ export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
                 </div>
 
                 {/* Columna derecha - Swiper */}
-                <div className="flex-1 w-full max-w-2xl">
+                <div className="flex-1 w-full max-w-2xl relative">
                     <Swiper
                         modules={[Navigation, Pagination]}
                         spaceBetween={20}
                         slidesPerView={1}
+                        loop={true}
                         navigation={{
-                            nextEl: '.beneficios-next',
-                            prevEl: '.beneficios-prev',
+                            nextEl: nextRef.current,
+                            prevEl: prevRef.current,
                         }}
                         pagination={{
                             clickable: true,
-                            el: '.beneficios-pagination'
+                            el: paginationRef.current
+                        }}
+                        onBeforeInit={(swiper) => {
+                            swiper.params.navigation.prevEl = prevRef.current;
+                            swiper.params.navigation.nextEl = nextRef.current;
+                            swiper.params.pagination.el = paginationRef.current;
                         }}
                         breakpoints={{
                             640: {
@@ -103,22 +115,52 @@ export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
                         ))}
                     </Swiper>
 
-                  
+                    {/* Botones de navegación */}
+                    <button 
+                        ref={prevRef}
+                        className="absolute -left-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
+                    >
+                        <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" />
+                    </button>
+                    
+                    <button 
+                        ref={nextRef}
+                        className="absolute -right-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
+                    >
+                        <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
+                    </button>
+
+                   
                 </div>
             </div>
 
             <style jsx>{`
-                .beneficios-pagination .swiper-pagination-bullet {
-                    width: 12px;
-                    height: 12px;
-                    background: rgba(45, 55, 72, 0.3);
-                    opacity: 1;
-                    transition: all 0.3s ease;
+                .swiper-pagination-bullet {
+                    width: 12px !important;
+                    height: 12px !important;
+                    background: rgba(45, 55, 72, 0.3) !important;
+                    opacity: 1 !important;
+                    transition: all 0.3s ease !important;
+                    margin: 0 6px !important;
                 }
                 
-                .beneficios-pagination .swiper-pagination-bullet-active {
-                    background: #2D3748;
-                    transform: scale(1.2);
+                .swiper-pagination-bullet-active {
+                    background: #2D3748 !important;
+                    transform: scale(1.3) !important;
+                    box-shadow: 0 0 8px rgba(45, 55, 72, 0.4) !important;
+                }
+
+                .swiper-pagination-bullet:hover {
+                    background: rgba(45, 55, 72, 0.6) !important;
+                    transform: scale(1.1) !important;
+                }
+
+                /* Ocultar botones de navegación en móvil */
+                @media (max-width: 640px) {
+                    .beneficios-prev,
+                    .beneficios-next {
+                        display: none;
+                    }
                 }
             `}</style>
         </section>
