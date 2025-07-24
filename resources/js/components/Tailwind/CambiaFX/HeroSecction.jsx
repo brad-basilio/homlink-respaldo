@@ -288,7 +288,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                             transition: { duration: 0.3 }
                         }}
                     >
-                        CASA DE CAMBIO
+                        CASA DE CAMBIO ONLINE
                     </motion.p>
                     <motion.h1
                         key={`title-${loopKey}`}
