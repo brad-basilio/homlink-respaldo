@@ -451,7 +451,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                     >
                         <motion.div
                             variants={fadeInLeft}
-                            className="overflow-hidden rounded-2xl shadow-2xl bg-white"
+                            className="lg:w-2/3 lg:flex-shrink-0 overflow-hidden rounded-2xl shadow-2xl bg-white"
                             whileHover={{ 
                                 scale: 1.02, 
                                 boxShadow: "0 25px 50px rgba(0,0,0,0.15)" 
@@ -459,7 +459,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
                             <motion.div 
-                                className="relative h-full flex gap-10"
+                                className="relative w-full h-full object-cover"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 transition={{ duration: 0.8 }}
@@ -468,7 +468,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                                 <motion.img
                                     src={`/api/posts/media/${article.image}`}
                                     alt={article.name}
-                                    className="w-full h-full object-cover object-center"
+                                    className="absolute inset-0 w-full h-full object-cover object-center"
                                     initial={{ opacity: 0, scale: 1.2 }}
                                     whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 1.2, ease: "easeOut" }}
@@ -486,7 +486,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                         </motion.div>
                         
                         <motion.div 
-                            className="w-full  lg:min-w-max"
+                            className="lg:w-1/3 lg:flex-shrink-0"
                             variants={fadeInRight}
                         >
                             <motion.div
