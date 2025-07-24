@@ -17,7 +17,7 @@ import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
 
 const bannersRest = new BannersRest();
 
-const Banners = ({ sections, positions, sectionPositions }) => {
+const Banners = ({ sections, positions, sectionPositions, multipleAllowedPositions }) => {
     const gridRef = useRef();
     const modalRef = useRef();
 
@@ -81,14 +81,52 @@ const Banners = ({ sections, positions, sectionPositions }) => {
     const onModalSubmit = async (e) => {
         e.preventDefault();
         try {
+            const section = sectionRef.current.value;
+            const position = positionRef.current.value;
+            const bannerId = idRef.current.value;
+            
+            // Verificar si la posición permite múltiples banners
+            let allowsMultiple = multipleAllowedPositions.includes(position);
+            
+            // Lógica especial para 'cambia_empresas': solo permite múltiples en sección 'home'
+            if (position === 'cambia_empresas' && section !== 'home') {
+                allowsMultiple = false;
+            }
+            
+            if (!allowsMultiple) {
+                // Verificar si ya existe un banner para esta section/position
+                // Usamos paginate en lugar de get() porque no hay ruta GET definida
+                const paginationResult = await bannersRest.paginate({
+                    skip: 0,
+                    take: 1000 // Obtener todos los banners para la validación
+                });
+                
+                const existingBanners = paginationResult.data || [];
+                const conflictingBanner = existingBanners.find(banner => 
+                    banner.section === section && 
+                    banner.position === position &&
+                    banner.id != bannerId // Excluir el banner actual si estamos editando
+                );
+                
+                if (conflictingBanner) {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Banner duplicado",
+                        text: `Ya existe un banner para la sección "${sections[section]}" en la posición "${sectionPositions[section][position]}". Solo se permite un banner por posición para esta ubicación.`,
+                        confirmButtonText: "Entendido"
+                    });
+                    return;
+                }
+            }
+
             const request = {
-                id: idRef.current.value || undefined,
+                id: bannerId || undefined,
                 name: nameRef.current.value,
                 description: descriptionRef.current.value,
                 button_text: buttonTextRef.current.value,
                 button_link: buttonLinkRef.current.value,
-                section: sectionRef.current.value,
-                position: positionRef.current.value,
+                section: section,
+                position: position,
                 order: parseInt(orderRef.current.value) || 0,
              
             };
@@ -113,11 +151,22 @@ const Banners = ({ sections, positions, sectionPositions }) => {
             $(modalRef.current).modal("hide");
         } catch (error) {
             console.error("Error al enviar el formulario:", error);
-            Swal.fire({
-                icon: "error",
-                title: "Error",
-                text: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
-            });
+            
+            // Si el error viene del backend sobre banner duplicado
+            if (error.message && error.message.includes("Ya existe un banner")) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Banner duplicado",
+                    text: error.message,
+                    confirmButtonText: "Entendido"
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo.",
+                });
+            }
         }
     };
 
@@ -252,15 +301,28 @@ const Banners = ({ sections, positions, sectionPositions }) => {
                     {
                         dataField: "position",
                         caption: "Posición",
-                        width: "120px",
+                        width: "150px",
                         cellTemplate: (container, { data }) => {
                             const sectionPos = sectionPositions[data.section] || {};
                             const positionName = sectionPos[data.position] || data.position;
+                            let allowsMultiple = multipleAllowedPositions.includes(data.position);
+                            
+                            // Lógica especial para 'cambia_empresas': solo permite múltiples en sección 'home'
+                            if (data.position === 'cambia_empresas' && data.section !== 'home') {
+                                allowsMultiple = false;
+                            }
+                            
                             container.html(
                                 renderToString(
-                                    <span className="badge text-black badge-secondary">
-                                        {positionName}
-                                    </span>
+                                    <div>
+                                        <span className="badge text-black badge-secondary">
+                                            {positionName}
+                                        </span>
+                                        <br />
+                                        <small className={`text-${allowsMultiple ? 'success' : 'warning'}`}>
+                                            {allowsMultiple ? 'Múltiples permitidos' : 'Solo uno permitido'}
+                                        </small>
+                                    </div>
                                 )
                             );
                         },
@@ -408,11 +470,21 @@ const Banners = ({ sections, positions, sectionPositions }) => {
                         required
                         dropdownParent={"#form-banner"}
                     >
-                        {Object.entries(availablePositions).map(([key, value]) => (
-                            <option key={key} value={key}>
-                                {value}
-                            </option>
-                        ))}
+                        {Object.entries(availablePositions).map(([key, value]) => {
+                            let allowsMultiple = multipleAllowedPositions.includes(key);
+                            
+                            // Lógica especial para 'cambia_empresas': solo permite múltiples en sección 'home'
+                            if (key === 'cambia_empresas' && selectedSection !== 'home') {
+                                allowsMultiple = false;
+                            }
+                            
+                            return (
+                                <option key={key} value={key}>
+                                    {value}
+                                    {allowsMultiple ? " (Múltiples permitidos)" : " (Solo uno)"}
+                                </option>
+                            );
+                        })}
                     </SelectFormGroup>
 
                     <InputFormGroup
