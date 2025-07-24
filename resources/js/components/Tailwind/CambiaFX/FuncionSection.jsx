@@ -12,13 +12,7 @@ const FuncionSection = ({ data, pasos }) => {
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ duration: 0.7 }}
                 >
-                    <motion.div
-                        className="text-constrast font-medium tracking-widest text-sm mb-2 uppercase"
-                        initial={{ opacity: 0, y: -10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
-                    >PASO A PASO</motion.div>
+                  
                     <motion.h2
                         className="text-4xl md:text-6xl font-medium text-neutral-dark mb-4"
                         initial={{ opacity: 0, x: -30 }}
@@ -72,20 +66,7 @@ const FuncionSection = ({ data, pasos }) => {
                                     transition={{ duration: 0.5, delay: 0.3 + index * 0.15 }}
                                 />
                             </motion.div>
-                            <motion.div
-                                className="text-constrast font-medium text-sm mb-1 uppercase cursor-pointer"
-                                initial={{ opacity: 0, x: -10 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.5, delay: 0.35 + index * 0.15 }}
-                                whileHover={{
-                                    x: 5,
-                                    color: '#7c3aed',
-                                    transition: { duration: 0.2 }
-                                }}
-                            >
-                                PASO
-                            </motion.div>
+                          
                             <motion.div
                                 className="text-2xl md:text-2xl font-medium text-neutral-dark mb-2 cursor-pointer"
                                 initial={{ opacity: 0, x: 10 }}
