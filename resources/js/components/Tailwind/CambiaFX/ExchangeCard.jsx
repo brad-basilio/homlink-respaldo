@@ -639,7 +639,7 @@ const ExchangeCard = ({
                         </p>
                         <input
                             type="text"
-                            placeholder="1,000.00"
+                            placeholder="0.00"
                             value={amount1}
                             onChange={(e) => {
                                 handleAmountChange(e.target.value, 'O');
@@ -679,7 +679,7 @@ const ExchangeCard = ({
                         </p>
                         <input
                             type="text"
-                            placeholder="1,000.00"
+                            placeholder="0.00"
                             value={amount2}
                             onChange={(e) => {
                                 handleAmountChange(e.target.value, 'D');
