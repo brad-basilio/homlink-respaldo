@@ -183,7 +183,7 @@ const PilaresSection = ({data,core_values=[]}) => {
                             <TextWithHighlight text={data?.title} color='bg-secondary font-semibold' split_coma/>
                         </motion.h2>
                         <motion.p
-                            className="text-xl text-white mb-4 max-w-md"
+                            className="text-xl text-white mb-4 max-w-md whitespace-pre-line"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
@@ -353,7 +353,7 @@ const PilaresSection = ({data,core_values=[]}) => {
                     </motion.h2>
                     
                     <motion.p
-                        className="text-sm text-white mb-6 leading-relaxed"
+                        className="text-sm text-white mb-6 leading-relaxed whitespace-pre-line"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}

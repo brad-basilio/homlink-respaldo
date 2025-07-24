@@ -39,7 +39,7 @@ export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
                      <TextWithHighlight  text={data?.title} color='bg-constrast font-semibold' />
                       
                     </h2>
-                    <p className="text-xl text-neutral-light  max-w-md leading-relaxed">
+                    <p className="text-xl whitespace-pre-line text-neutral-light  max-w-md leading-relaxed">
                          <TextWithHighlight  text={data?.description} color='bg-neutral-light font-semibold' />
                        
                      

@@ -109,7 +109,7 @@ const HomeSeccionServicios = ({ data, allServices }) => {
                         <TextWithHighlight text={data?.title} split_coma={true} />
 
                     </h2>
-                    <p className="mt-4 text-lg text-neutral max-w-3xl mx-auto">
+                    <p className="mt-4 text-lg text-neutral max-w-3xl mx-auto whitespace-pre-line">
                         {data?.description}
                     </p>
                 </div>

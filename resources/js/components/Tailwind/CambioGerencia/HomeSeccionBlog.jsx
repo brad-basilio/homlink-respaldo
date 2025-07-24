@@ -24,7 +24,7 @@ const HomeSeccionBlog = ({ data, posts }) => {
           <TextWithHighlight text={data?.title} />
 
         </h2>
-        <p className="text-lg text-neutral">
+        <p className="text-lg text-neutral whitespace-pre-line">
           {data?.description}
         </p>
       </header>

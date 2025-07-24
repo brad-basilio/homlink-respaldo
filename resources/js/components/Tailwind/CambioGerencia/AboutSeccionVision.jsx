@@ -164,7 +164,7 @@ const AboutSeccionVision = ({ data, vision, mision, valor }) => {
                 </motion.h2>
                 
                 <motion.p 
-                    className="text-neutral-light mb-10 text-lg max-w-md"
+                    className="text-neutral-light mb-10 text-lg max-w-md whitespace-pre-line"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.9 }}

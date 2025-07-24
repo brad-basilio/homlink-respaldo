@@ -53,7 +53,7 @@ const HomeSeccionTestimonios = ({ bg_color, data, testimonios }) => {
                             <TextWithHighlight text={data?.title} />
 
                         </h2>
-                        <p className="mt-2  text-lg text-neutral max-w-xl">
+                        <p className="mt-2  text-lg text-neutral max-w-xl whitespace-pre-line">
                             {data?.description}
                         </p>
                     </div>

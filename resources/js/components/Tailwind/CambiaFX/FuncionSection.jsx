@@ -23,7 +23,7 @@ const FuncionSection = ({ data, pasos }) => {
                         <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' />
                     </motion.h2>
                     <motion.p
-                        className="text-base text-neutral-light max-w-xl mx-auto"
+                        className="text-base whitespace-pre-line text-neutral-light max-w-xl mx-auto"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, amount: 0.2 }}

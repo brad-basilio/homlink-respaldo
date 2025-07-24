@@ -85,7 +85,7 @@ const HomeSeccionImpacto = ({data,indicators}) => {
                 <TextWithHighlight text={data?.title} color="bg-accent" />
           
             </h2>
-            <p className="mt-4 text-lg text-white max-w-xl">
+            <p className="mt-4 text-lg text-white max-w-xl whitespace-pre-line">
               {data?.description}
             </p>
           </div>

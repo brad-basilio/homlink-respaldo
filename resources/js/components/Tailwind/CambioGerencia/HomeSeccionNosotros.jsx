@@ -228,7 +228,7 @@ const HomeSeccionNosotros = ({ data, strengths, button_about = true }) => {
 
                         {/* Párrafo principal animado */}
                         <motion.p 
-                            className="text-neutral-light mb-10 text-lg"
+                            className="text-neutral-light mb-10 text-lg whitespace-pre-line"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.8 }}

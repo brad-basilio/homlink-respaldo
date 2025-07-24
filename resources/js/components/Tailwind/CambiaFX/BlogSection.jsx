@@ -138,7 +138,7 @@ const BlogSection = ({data,posts}) => {
 
           </motion.h2>
           <motion.p 
-            className="text-xl text-neutral-light mb-2 max-w-[420px] mt-4"
+            className="text-xl whitespace-pre-line text-neutral-light mb-2 max-w-[420px] mt-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

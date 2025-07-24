@@ -515,7 +515,7 @@ const CarruselCoreValues = ({ items, data, correlative = "core_value" }) => {
                                 <h2 className="text-3xl font-medium mb-3">
                                     <TextWithHighlight text={data?.title} color="bg-neutral-dark font-semibold" />
                                 </h2>
-                                <p className="text-neutral-light text-sm">
+                                <p className="text-neutral-light text-sm whitespace-pre-line">
                                     {data?.description}
                                 </p>
                             </div>

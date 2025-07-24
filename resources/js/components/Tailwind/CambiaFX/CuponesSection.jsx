@@ -61,7 +61,7 @@ const CuponesSection = ({ data, cupones, indicators = [] }) => {
                             <TextWithHighlight text={data?.title} color='bg-neutral-dark font-semibold' split_coma />
                         </motion.h2>
                         <motion.p
-                            className="text-lg text-neutral-light mb-4 max-w-lg"
+                            className="text-lg text-neutral-light mb-4 max-w-lg whitespace-pre-line"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
@@ -293,7 +293,7 @@ const CuponesSection = ({ data, cupones, indicators = [] }) => {
                         </motion.h2>
                         
                         <motion.p
-                            className="text-sm text-neutral-light mb-4 leading-relaxed"
+                            className="text-sm whitespace-pre-line text-neutral-light mb-4 leading-relaxed"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
