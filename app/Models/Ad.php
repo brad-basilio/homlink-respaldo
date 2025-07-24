@@ -20,6 +20,7 @@ class Ad extends Model
         'image',
         'link',
         'seconds',
+        'duration',
         'actions',
         'item_id',
         'date_begin',

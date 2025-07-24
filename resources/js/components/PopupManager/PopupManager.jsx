@@ -56,10 +56,13 @@ const PopupManager = () => {
         setCurrentPopup(popup);
         setIsVisible(true);
         
-        // Auto-cerrar después de 10 segundos si no hay interacción
+        // Usar la duración configurada del popup o 10 segundos por defecto
+        const displayDuration = (popup.duration || 10) * 1000;
+        
+        // Auto-cerrar después del tiempo configurado
         const autoCloseTimeout = setTimeout(() => {
             closePopup();
-        }, 10000);
+        }, displayDuration);
         
         setTimeoutId(autoCloseTimeout);
     };
@@ -183,7 +186,7 @@ const PopupManager = () => {
                 {currentPopup.invasivo && (
                     <div className="text-center pb-4">
                         <span className="text-xs text-neutral-light/60 font-paragraph">
-                            Este anuncio se cerrará automáticamente
+                            Este anuncio se cerrará automáticamente en {currentPopup.duration || 10} segundos
                         </span>
                     </div>
                 )}

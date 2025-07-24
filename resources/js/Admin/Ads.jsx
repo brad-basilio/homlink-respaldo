@@ -29,6 +29,7 @@ const Ads = ({ items }) => {
     const dateBeginRef = useRef();
     const dateEndRef = useRef();
     const secondsRef = useRef();
+    const durationRef = useRef();
     const linkRef = useRef();
     const invasivoRef = useRef();
     
@@ -53,6 +54,7 @@ const Ads = ({ items }) => {
         dateBeginRef.current.value = data?.date_begin ?? "";
         dateEndRef.current.value = data?.date_end ?? "";
         secondsRef.current.value = data?.seconds ?? 0;
+        durationRef.current.value = data?.duration ?? 10;
        // itemRef.current.value = data?.item_id ?? null;
         linkRef.current.value = data?.link ?? "";
       {/*  if (data?.actions) {
@@ -82,6 +84,7 @@ const Ads = ({ items }) => {
                 date_begin: dateBeginRef.current.value,
                 date_end: dateEndRef.current.value,
                 seconds: secondsRef.current.value || 0,
+                duration: durationRef.current.value || 10,
                // actions: actionsRef.current.checked ? 1 : 0,
                 item_id: null,
                 link: linkRef.current.value,
@@ -308,6 +311,12 @@ const Ads = ({ items }) => {
                             )}
                         </p>
                         <p className="mb-0">
+                            <b>Duración:</b>{" "}
+                            <span className="badge bg-primary">
+                                {data.duration || 10} segundos visible
+                            </span>
+                        </p>
+                        <p className="mb-0">
                             <b>Tipo:</b>{" "}
                             {data.invasivo && data.actions === 0 ? (
                                 <span className="badge bg-danger">
@@ -510,13 +519,24 @@ const Ads = ({ items }) => {
 
                                 {!selectedAction && (
                                     <div className="mt-3 p-3 bg-light rounded">
-                                        <InputFormGroup
-                                            eRef={secondsRef}
-                                            label="⏱️ Retraso en segundos"
-                                            type="number"
-                                            placeholder="0"
-                                            helpText="0 = inmediato, 5 = después de 5 segundos, etc."
-                                        />
+                                        <div className="row">
+                                            <InputFormGroup
+                                                eRef={secondsRef}
+                                                label="⏱️ Retraso en segundos"
+                                                type="number"
+                                                placeholder="0"
+                                                helpText="0 = inmediato, 5 = después de 5 segundos, etc."
+                                                col="col-md-6"
+                                            />
+                                            <InputFormGroup
+                                                eRef={durationRef}
+                                                label="⏰ Duración visible (segundos)"
+                                                type="number"
+                                                placeholder="10"
+                                                helpText="Tiempo que permanecerá visible el popup"
+                                                col="col-md-6"
+                                            />
+                                        </div>
                                     </div>
                                 )}
                             </div>
