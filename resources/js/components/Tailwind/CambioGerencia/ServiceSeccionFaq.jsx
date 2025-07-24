@@ -150,7 +150,7 @@ const ServiceSeccionFaq = ({ landingFAQS, faqs = [] }) => {
                     transition={{ duration: 0.3, delay: 0.1 }}
                   >
                     {item.description ? (
-                      <p className="text-sm w-10/12 md:text-lg leading-relaxed">
+                      <p className="text-sm w-10/12 md:text-lg leading-relaxed whitespace-pre-line">
                         {item.description}
                       </p>
                     ) : (
