@@ -277,6 +277,11 @@ const Generals = ({ generals }) => {
                     name: "Palabras clave - SEO",
                     description: formData.seoKeywords,
                 },
+                {
+                    correlative: "cintillo",
+                    name: "Texto del Cintillo",
+                    description: formData.cintillo,
+                },
                 // Datos de empresa para SEO
                 {
                     correlative: "company_name",
