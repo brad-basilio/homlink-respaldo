@@ -28,13 +28,33 @@ const AppStoreBanner = ({ apps = [] }) => {
         const bannerDismissed = localStorage.getItem('app-store-banner-dismissed');
         const lastDismissed = localStorage.getItem('app-store-banner-last-dismissed');
         
+        console.log('🔧 AppStoreBanner Debug:', {
+            userAgent,
+            isAndroid,
+            isIOS,
+            isHuawei,
+            isMobile,
+            isStandalone,
+            appsLength: apps?.length || 0,
+            apps: apps,
+            bannerDismissed,
+            lastDismissed
+        });
+        
         setDeviceInfo({ isAndroid, isIOS, isHuawei, isMobile });
 
         // Condiciones para mostrar el banner
-        const shouldShow = isMobile && 
+        const shouldShow = true || (isMobile && 
                           !isStandalone && 
                           (isAndroid || isIOS || isHuawei) &&
-                          apps && apps.length > 0;
+                          apps && apps.length > 0);
+
+        console.log('🎯 Should show banner:', shouldShow, {
+            isMobile,
+            isStandalone,
+            hasDeviceMatch: (isAndroid || isIOS || isHuawei),
+            hasApps: apps && apps.length > 0
+        });
 
         if (!shouldShow) return;
 
@@ -43,12 +63,14 @@ const AppStoreBanner = ({ apps = [] }) => {
             const now = Date.now();
             const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
             if ((now - parseInt(lastDismissed)) < threeDaysInMs) {
+                console.log('⏰ Banner dismissed recently, still within 3 days');
                 return;
             }
         }
 
         // Mostrar después de 2 segundos
         const timer = setTimeout(() => {
+            console.log('✅ Showing AppStoreBanner after 2 seconds');
             setShowBanner(true);
         }, 2000);
 
@@ -57,36 +79,62 @@ const AppStoreBanner = ({ apps = [] }) => {
 
     // Obtener la app correcta según el dispositivo
     const getAppForDevice = () => {
-        if (!apps || apps.length === 0) return null;
+        console.log('🔍 Looking for app, device info:', deviceInfo);
+        console.log('📱 Available apps:', apps);
+        
+        if (!apps || apps.length === 0) {
+            console.log('❌ No apps available');
+            return null;
+        }
+
+        // Para testing, devolver la primera app disponible
+        if (apps.length > 0) {
+            console.log('🧪 Testing mode: returning first app:', apps[0]);
+            return apps[0];
+        }
 
         if (deviceInfo.isAndroid) {
-            return apps.find(app => 
+            const androidApp = apps.find(app => 
                 app.name?.toLowerCase().includes('google play') ||
                 app.name?.toLowerCase().includes('android') ||
                 app.name?.toLowerCase().includes('play store')
             );
+            console.log('🤖 Android app found:', androidApp);
+            return androidApp;
         }
         
         if (deviceInfo.isIOS) {
-            return apps.find(app => 
+            const iosApp = apps.find(app => 
                 app.name?.toLowerCase().includes('app store') ||
                 app.name?.toLowerCase().includes('ios') ||
                 app.name?.toLowerCase().includes('apple')
             );
+            console.log('🍎 iOS app found:', iosApp);
+            return iosApp;
         }
         
         if (deviceInfo.isHuawei) {
-            return apps.find(app => 
+            const huaweiApp = apps.find(app => 
                 app.name?.toLowerCase().includes('app gallery') ||
                 app.name?.toLowerCase().includes('huawei') ||
                 app.name?.toLowerCase().includes('harmony')
             );
+            console.log('📲 Huawei app found:', huaweiApp);
+            return huaweiApp;
         }
 
+        console.log('❓ No device match found');
         return null;
     };
 
     const currentApp = getAppForDevice();
+
+    console.log('🎯 Final render check:', {
+        showBanner,
+        currentApp,
+        deviceInfo,
+        shouldRender: showBanner && currentApp
+    });
 
     const handleDismiss = () => {
         setShowBanner(false);
