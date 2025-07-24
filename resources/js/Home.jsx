@@ -203,8 +203,8 @@ const Home = ({
 
     return (
         <div>
-            {/* Debug Info */}
-            <AppDebugInfo apps={apps} />
+            {/* Debug Info <AppDebugInfo apps={apps} />*/}
+            
             
             {/* App Store Banner - Enlaces a tiendas de aplicaciones */}
             <AppStoreBanner apps={apps} />
