@@ -221,7 +221,7 @@ export default function HeroSecctionEmpresa({landing}) {
                     
                     <motion.p 
                         key={`description-${loopKey}`}
-                        className="text-2xl font-medium uppercase tracking-[8%] text-secondary mb-6 max-w-xl"
+                        className="text-2xl font-medium uppercase tracking-[8%] text-secondary mb-6 max-w-xl whitespace-pre-line"
                         variants={textLoopVariants}
                         initial="hidden"
                         animate="visible"
