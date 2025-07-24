@@ -52,6 +52,12 @@ const ExchangeCard = ({
             
             // Formatear la parte entera con comas
             const formattedInteger = formatNumberWithCommas(integerPart);
+            
+            // Preservar el punto decimal incluso si no hay decimales aún
+            if (cleanValue.endsWith('.') && decimalPart === '') {
+                return `${formattedInteger}.`;
+            }
+            
             return decimalPart ? `${formattedInteger}.${decimalPart}` : formattedInteger;
         } else {
             // Solo números enteros, formatear con comas
