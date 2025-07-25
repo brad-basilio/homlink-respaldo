@@ -197,20 +197,48 @@ class CambiaFXService {
     }
 
     calculateExchange(amount, operationType = 'venta', origin = 'from') {
-        const tc = this.getTCFromAmount(amount, operationType);
-        let result = 0;
-
-        if (origin === 'from') {
-            if (operationType === 'V') {
-                result = amount / tc;
+        // ✅ LÓGICA CORREGIDA PARA MANEJAR FLUJO BIDIRECCIONAL
+        
+        // Determinar qué moneda está siendo ingresada basado en la operación y el origen
+        let inputCurrency = 'USD';
+        
+        if (operationType === 'V') { // VENTA - Cliente tiene Soles, quiere Dólares
+            if (origin === 'from') {
+                // Input principal: Soles (lo normal en venta)
+                inputCurrency = 'PEN';
             } else {
-                result = amount * tc;
+                // Input secundario: Dólares (el cliente prueba con USD para ver cuántos soles necesita)
+                inputCurrency = 'USD';
             }
-        } else {
-            if (operationType === 'V') {
-                result = amount * tc;
+        } else { // COMPRA - Cliente tiene Dólares, quiere Soles
+            if (origin === 'from') {
+                // Input principal: Dólares (lo normal en compra)
+                inputCurrency = 'USD';
             } else {
-                result = amount / tc;
+                // Input secundario: Soles (el cliente prueba con PEN para ver cuántos dólares obtiene)
+                inputCurrency = 'PEN';
+            }
+        }
+        
+        // Obtener el TC correcto basado en la moneda de entrada
+        const tc = this.getTCFromAmount(amount, operationType, inputCurrency);
+        let result = 0;
+        
+        if (inputCurrency === 'USD') {
+            if (operationType === 'V') {
+                // VENTA: USD ingresado → calcular PEN necesarios
+                result = amount * tc; // USD × tc_venta = PEN
+            } else {
+                // COMPRA: USD ingresado → calcular PEN que se obtienen  
+                result = amount * tc; // USD × tc_compra = PEN
+            }
+        } else { // inputCurrency === 'PEN'
+            if (operationType === 'V') {
+                // VENTA: PEN ingresado → calcular USD que se obtienen
+                result = amount / tc; // PEN ÷ tc_venta = USD
+            } else {
+                // COMPRA: PEN ingresado → calcular USD necesarios
+                result = amount / tc; // PEN ÷ tc_compra = USD
             }
         }
 
@@ -220,6 +248,51 @@ class CambiaFXService {
             operation: operationType
         };
         return finalResult;
+    }
+
+    getTCFromAmount(amount, operationType = 'venta', currency = 'USD') {
+        if (!amount || amount <= 0) {
+            if (this.tcData.length > 0) {
+                const obj = this.tcData[0];
+                const tc = operationType === 'C' ? obj.tc_compra : obj.tc_venta;
+                return tc;
+            }
+            return 0;
+        }
+
+        let tcObj = null;
+        let amountForComparison = amount;
+        
+        // Si la moneda es PEN, convertir a USD para encontrar el rango
+        if (currency === 'PEN') {
+            const baseTc = this.tcData[0] ? (operationType === 'V' ? this.tcData[0].tc_venta : this.tcData[0].tc_compra) : 3.55;
+            amountForComparison = amount / baseTc;
+        }
+        // Si es USD, usar directamente
+        
+        // Buscar el rango correspondiente (siempre en USD)
+        for (let obj of this.tcData) {
+            const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
+            const isInRange = isLastRange 
+                ? (obj.desde <= amountForComparison && amountForComparison <= obj.hasta)
+                : (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
+            
+            if (isInRange) {
+                tcObj = obj;
+                break;
+            }
+        }
+        
+        if (tcObj === null && this.tcData.length > 0) {
+            tcObj = this.tcData[this.tcData.length - 1];
+        }
+        
+        if (tcObj !== null) {
+            const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
+            return tc;
+        }
+        
+        return 0;
     }
 
     getCurrentRates() {

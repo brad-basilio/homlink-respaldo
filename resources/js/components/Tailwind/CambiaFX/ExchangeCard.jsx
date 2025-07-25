@@ -402,28 +402,37 @@ const ExchangeCard = ({
 
         const couponApplies = checkCouponApplies();
 
+        // ✅ SOLO mostrar precio anterior cuando el cupón REALMENTE APLICA
         if (couponApplies.applies && couponApplies.rangoActual) {
-            // Mostrar tasas del rango específico que aplica (CORREGIDO para múltiples rangos)
+            // Mostrar tasas del rango específico que aplica
             const rangoActual = couponApplies.rangoActual;
             const buyRate = rangoActual.tcCompra ?? rangoActual.tc_compra ?? currentRates.compra;
             const sellRate = rangoActual.tcVenta ?? rangoActual.tc_venta ?? currentRates.venta;
             
             return {
-                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate, // COMPRA: Cliente tiene USD → usar tc_compra
-                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate   // VENTA: Cliente tiene PEN → usar tc_venta
+                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate,
+                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate,
+                showPreviousPrice: true, // ✅ SOLO cuando realmente aplica
+                isActive: true // El cupón está activo para este monto
             };
         } else if (couponApplies.applies) {
-            // Fallback para cupones de un solo rango
+            // Fallback para cupones de un solo rango que aplican
             const buyRate = couponInfo.tcCompra ?? couponInfo.tc_compra ?? currentRates.compra;
             const sellRate = couponInfo.tcVenta ?? couponInfo.tc_venta ?? currentRates.venta;
             
             return {
                 compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate,
-                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate
+                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate,
+                showPreviousPrice: true, // ✅ SOLO cuando realmente aplica
+                isActive: true
             };
         } else {
-            // Mostrar tasas normales pero con indicador de que hay cupón disponible
-            return currentRates;
+            // ✅ CUPÓN DISPONIBLE PERO NO APLICA - NO mostrar precio anterior
+            return {
+                ...currentRates,
+                showPreviousPrice: false, // ✅ NO mostrar precio anterior
+                isActive: false // El cupón está disponible pero no activo
+            };
         }
     };
 
@@ -493,7 +502,7 @@ const ExchangeCard = ({
                 >
                     <div className="flex flex-col items-center">
                         <div className="flex items-center gap-2">
-                            {couponInfo && couponStatus.applies ? (
+                            {couponInfo && rates.showPreviousPrice ? (
                                 <div className="text-center">
                                     <div className=" text-[10px] lg:text-xs opacity-75 font-medium">
                                         <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_compra.toFixed(4)}</span>
@@ -554,8 +563,10 @@ const ExchangeCard = ({
 
 
                     </div>
-                    {couponInfo && couponStatus.applies && (
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
+                    {couponInfo && rates.showPreviousPrice && (
+                        <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
+                            rates.isActive ? 'bg-secondary' : 'bg-yellow-400'
+                        }`}></div>
                     )}
                 </button>
                 <button
@@ -567,7 +578,7 @@ const ExchangeCard = ({
                 >
                     <div className="flex flex-col items-center">
                         <div className="flex items-center gap-2">
-                            {couponInfo && couponStatus.applies ? (
+                            {couponInfo && rates.showPreviousPrice ? (
                                 <div className="text-center">
                                     <div className="text-[10px] lg:text-xs opacity-75 font-medium">
                                         <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_venta.toFixed(4)}</span>
@@ -629,8 +640,10 @@ const ExchangeCard = ({
 
 
                     </div>
-                    {couponInfo && couponStatus.applies && (
-                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-white"></div>
+                    {couponInfo && rates.showPreviousPrice && (
+                        <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
+                            rates.isActive ? 'bg-secondary' : 'bg-yellow-400'
+                        }`}></div>
                     )}
                 </button>
             </div>
