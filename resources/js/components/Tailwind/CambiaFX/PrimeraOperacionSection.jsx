@@ -127,7 +127,8 @@ export default function PrimeraOperacionSection({ banner }) {
 
                             <div>
                                 <div className="text-white text-xl  leading-tight">Transferencias Inmediatas</div>
-                                <div className="text-[#C6FF6B] text-xl font-semibold leading-tight">10 min</div>
+                                <div className="text-[#C6FF6B] text-xl font-semibold leading-tight">24 hrs hábiles
+</div>
                             </div>
                         </div>
                         <div className="flex items-center gap-2 mt-2 md:mt-0">
@@ -166,8 +167,8 @@ export default function PrimeraOperacionSection({ banner }) {
                             </svg>
 
                             <div>
-                                <div className="text-white text-xl  leading-tight">Transferencias Inmediatas</div>
-                                <div className="text-[#C6FF6B] text-xl font-semibold leading-tight">24 hrs hábiles</div>
+                                <div className="text-white text-xl  leading-tight">Transferencias Interbancarias </div>
+                                <div className="text-[#C6FF6B] text-xl font-semibold leading-tight">24 horas</div>
                             </div>
                         </div>
                         <div className="flex items-center gap-2 mt-2 md:mt-0">
