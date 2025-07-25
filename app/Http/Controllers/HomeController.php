@@ -55,9 +55,9 @@ class HomeController extends BasicController
             ->orderBy('created_at', 'asc')
             ->get();
         $cupones = Coupon::where('status', true)
-
+            ->where('date_begin', '<=', now())
+            ->where('date_end', '>=', now())
             ->orderBy('created_at', 'desc')
-          
             ->get();
 
         $core_values = CoreValue::where('status', true)
