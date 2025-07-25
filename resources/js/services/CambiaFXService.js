@@ -119,7 +119,8 @@ class CambiaFXService {
                     amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
                 }));
                 
-                this.tcData = processedData;
+                // ✅ NO modificar tcData automáticamente, solo almacenar la info del cupón
+                // this.tcData = processedData; // ❌ COMENTADO - Esto causaba el problema
                 
                 return { valid: true, data: processedData };
             }
