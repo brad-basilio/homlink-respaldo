@@ -112,7 +112,7 @@ export default function PrimeraOperacionSection({ banner }) {
                 <div className={`flex flex-col md:flex-row justify-between lg:items-end gap-8 ${banner ? 'mt-10' : 'mt-0'}`}>
                     {/* Izquierda */}
                     <motion.div
-                        className="flex flex-col md:flex-row items-center gap-6 md:gap-10"
+                        className="flex flex-col md:flex-row items-start gap-6 md:gap-10"
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
@@ -153,7 +153,7 @@ export default function PrimeraOperacionSection({ banner }) {
                     </motion.div>
                     {/* Derecha */}
                     <motion.div
-                        className="flex flex-col md:flex-row items-center gap-6 md:gap-10"
+                        className="flex flex-col md:flex-row items-start gap-6 md:gap-10"
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, amount: 0.2 }}
