@@ -190,7 +190,9 @@ const EmpresasSection = ({ banner_slider }) => {
     const currentBanner = banner_slider[currentSlide];
 
     return (
-        <motion.section 
+      banner_slider && banner_slider.length > 0 && (
+
+          <motion.section 
             className="w-full overflow-hidden bg-primary py-12 md:py-32 flex justify-center items-center font-title px-[3%] md:px-[5%] mx-auto "
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -514,6 +516,7 @@ const EmpresasSection = ({ banner_slider }) => {
                 </AnimatePresence>
             </motion.div>
         </motion.section>
+      )
     );
 };
 

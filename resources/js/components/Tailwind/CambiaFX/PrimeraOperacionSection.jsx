@@ -22,10 +22,12 @@ export default function PrimeraOperacionSection({ banner }) {
     }, []);
 
     return (
-        <section className="bg-neutral-dark px-[5%] py-6 md:pt-20 md:pb-10 w-full font-title">
+        <section className={`bg-neutral-dark px-[5%] py-6  md:pb-10 w-full font-title ${banner ? "md:pt-20":"md:pt-10"}`}>
             <div className=" mx-auto px-4">
                 {/* Banner central */}
-                <motion.div
+               {banner && (
+
+                 <motion.div
                     className="bg-[#C6FF6B] p-4  lg:px-16 lg:py-2 rounded-2xl flex flex-col md:flex-row items-center justify-between   relative overflow-hidden  lg:overflow-visible "
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -104,9 +106,10 @@ export default function PrimeraOperacionSection({ banner }) {
                         </motion.button></WhatsAppButton>
                     </motion.div>
                 </motion.div>
+               )}
 
                 {/* Bloques de transferencias */}
-                <div className="flex flex-col md:flex-row justify-between lg:items-end gap-8 mt-10">
+                <div className={`flex flex-col md:flex-row justify-between lg:items-end gap-8 ${banner ? 'mt-10' : 'mt-0'}`}>
                     {/* Izquierda */}
                     <motion.div
                         className="flex flex-col md:flex-row items-center gap-6 md:gap-10"
