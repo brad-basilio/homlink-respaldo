@@ -335,27 +335,50 @@ const Banners = ({ sections, positions, sectionPositions, multipleAllowedPositio
                     },
                     {
                         dataField: "button_link",
-                        caption: "Mensaje personalizado",
+                        caption: "Enlace/Mensaje",
                         cellTemplate: (container, { data }) => {
                             if (data.button_link) {
-                                container.html(
-                                    renderToString(
-                                        <a 
-                                            href="#"
-                                            
-                                            className="text-truncate d-block"
-                                            style={{ maxWidth: "200px" }}
-                                        >
-                                            {data.button_link}
-                                        </a>
-                                    )
-                                );
+                                // Verificar si es un enlace válido
+                                const isUrl = (() => {
+                                    try {
+                                        const url = new URL(data.button_link);
+                                        return url.protocol === 'http:' || url.protocol === 'https:';
+                                    } catch (_) {
+                                        return false;
+                                    }
+                                })();
+
+                                if (isUrl) {
+                                    container.html(
+                                        renderToString(
+                                            <div>
+                                                <span className="badge badge-info">Enlace externo</span>
+                                                <br />
+                                                <small className="text-muted text-truncate d-block" style={{maxWidth: '200px'}}>
+                                                    {data.button_link}
+                                                </small>
+                                            </div>
+                                        )
+                                    );
+                                } else {
+                                    container.html(
+                                        renderToString(
+                                            <div>
+                                                <span className="badge badge-success">Mensaje WhatsApp</span>
+                                                <br />
+                                                <small className="text-muted">
+                                                    {data.button_link.length > 30 
+                                                        ? data.button_link.substring(0, 30) + '...' 
+                                                        : data.button_link}
+                                                </small>
+                                            </div>
+                                        )
+                                    );
+                                }
                             } else {
                                 container.html(
                                     renderToString(
-                                        <i className="text-muted">
-                                            - Sin mensaje personalizado -
-                                        </i>
+                                        <span className="text-muted">Sin configurar</span>
                                     )
                                 );
                             }
@@ -438,12 +461,14 @@ const Banners = ({ sections, positions, sectionPositions, multipleAllowedPositio
                             <InputFormGroup
                                 eRef={buttonTextRef}
                                 label="Texto del botón"
-                                col="col-md-6"
+                                col="col-md-12"
                             />
                             <InputFormGroup
                                 eRef={buttonLinkRef}
-                                label="Mensaje personalizado del botón"
-                                col="col-md-6"
+                                label="Enlace personalizado o mensaje de WhatsApp"
+                                col="col-md-12"
+                                placeholder="https://ejemplo.com o mensaje personalizado"
+                                help="Ingrese una URL (https://...) para enlace externo o un mensaje para WhatsApp"
                             />
                         </div>
                     </div>

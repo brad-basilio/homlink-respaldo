@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle, Phone, ExternalLink } from "lucide-react";
+import { ArrowRight, MessageCircle, Phone, ExternalLink, Globe, Mail, Link as LinkIcon } from "lucide-react";
 import GeneralRest from "../../actions/GeneralRest";
 
 const WhatsAppButton = ({ 
@@ -12,6 +12,8 @@ const WhatsAppButton = ({
     customMessage = null, // Mensaje personalizado para WhatsApp
     customPhone = null,   // Teléfono personalizado para WhatsApp
     customLink = null,    // Enlace personalizado (anula WhatsApp y abre este enlace)
+    buttonData = null,    // Datos del banner que pueden contener link o mensaje
+    customIcon = null,    // Ícono personalizado: 'whatsapp', 'external', 'mail', 'link', 'globe' o componente React
     ...props 
 }) => {
     const [whatsappData, setWhatsappData] = useState({
@@ -19,7 +21,67 @@ const WhatsAppButton = ({
         message: null
     });
     const [loading, setLoading] = useState(true);
- const [aboutuses, setAboutuses] = useState(null); // o useState({});
+    const [aboutuses, setAboutuses] = useState(null);
+
+    // Función para detectar si es un enlace válido
+    const isValidUrl = (string) => {
+        try {
+            const url = new URL(string);
+            return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (_) {
+            return false;
+        }
+    };
+
+    // Función para determinar el tipo de acción y datos
+    const getActionData = () => {
+        // Prioridad 1: customLink explícito
+        if (customLink) {
+            return {
+                type: 'link',
+                value: customLink,
+                isExternal: isValidUrl(customLink)
+            };
+        }
+
+        // Prioridad 2: buttonData del banner
+        if (buttonData) {
+            if (isValidUrl(buttonData)) {
+                return {
+                    type: 'link',
+                    value: buttonData,
+                    isExternal: true
+                };
+            } else {
+                return {
+                    type: 'whatsapp',
+                    value: buttonData
+                };
+            }
+        }
+
+        // Prioridad 3: customMessage para WhatsApp
+        if (customMessage) {
+            if (isValidUrl(customMessage)) {
+                return {
+                    type: 'link',
+                    value: customMessage,
+                    isExternal: true
+                };
+            } else {
+                return {
+                    type: 'whatsapp',
+                    value: customMessage
+                };
+            }
+        }
+
+        // Default: WhatsApp con mensaje por defecto
+        return {
+            type: 'whatsapp',
+            value: whatsappData.message
+        };
+    };
 
   
 
@@ -65,23 +127,69 @@ const WhatsAppButton = ({
     const getIcon = () => {
         if (!showIcon) return null;
         
-        if (customLink) {
-            return <ExternalLink className="w-4 h-4 mr-2" />;
+        // Si hay un ícono personalizado, usarlo
+        if (customIcon) {
+            if (typeof customIcon === 'string') {
+                switch (customIcon) {
+                    case 'whatsapp':
+                        return <MessageCircle className="w-4 h-4 mr-2" />;
+                    case 'external':
+                        return <ExternalLink className="w-4 h-4 mr-2" />;
+                    case 'mail':
+                        return <Mail className="w-4 h-4 mr-2" />;
+                    case 'link':
+                        return <LinkIcon className="w-4 h-4 mr-2" />;
+                    case 'globe':
+                        return <Globe className="w-4 h-4 mr-2" />;
+                    default:
+                        return <ExternalLink className="w-4 h-4 mr-2" />;
+                }
+            } else {
+                // Si es un componente React
+                return React.cloneElement(customIcon, { className: "w-4 h-4 mr-2" });
+            }
+        }
+        
+        // Lógica automática basada en el tipo de acción
+        const actionData = getActionData();
+        
+        if (actionData.type === 'link') {
+            // Detectar tipos específicos de enlaces
+            const url = actionData.value.toLowerCase();
+            if (url.includes('mailto:')) {
+                return <Mail className="w-4 h-4 mr-2" />;
+            } else if (url.includes('tel:')) {
+                return <Phone className="w-4 h-4 mr-2" />;
+            } else {
+                return <ExternalLink className="w-4 h-4 mr-2" />;
+            }
         }
         
         return <MessageCircle className="w-4 h-4 mr-2" />;
     };
 
     const handleClick = () => {
-        // Si hay un enlace personalizado, usarlo directamente
-        if (customLink) {
-            window.open(customLink, '_blank');
+        const actionData = getActionData();
+        
+        // Detectar tipos especiales de enlaces
+        if (actionData.type === 'link') {
+            const url = actionData.value.toLowerCase();
+            if (url.includes('mailto:')) {
+                window.location.href = actionData.value;
+            } else if (url.includes('tel:')) {
+                window.location.href = actionData.value;
+            } else if (actionData.isExternal) {
+                window.open(actionData.value, '_blank');
+            } else {
+                // Para enlaces internos o relativos
+                window.location.href = actionData.value;
+            }
             return;
         }
 
-        // Lógica original para WhatsApp
+        // Lógica para WhatsApp
         const phone = customPhone || whatsappData.phone;
-        const message = customMessage || whatsappData.message;
+        const message = actionData.value || whatsappData.message;
 
         if (!phone) {
             return;
@@ -145,7 +253,7 @@ const WhatsAppButton = ({
         );
     }
 
-    if (!whatsappData.phone && !customPhone && !customLink) {
+    if (!whatsappData.phone && !customPhone && getActionData().type === 'whatsapp') {
         return (
             <motion.div
                 className={`inline-flex items-center justify-center rounded-md ${getSizeClasses()} bg-gray-300 text-gray-500 cursor-not-allowed ${className}`}

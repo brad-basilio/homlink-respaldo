@@ -45,7 +45,7 @@ export default function BannerFxEmpresas({banner}) {
                         <div className="text-white max-w-32 text-lg text-center">
                             <TextWithHighlight text={banner?.button_text} color='bg-white font-semibold italic' split_coma />
                         </div>
-                        <WhatsAppButton customMessage={banner?.button_link}>
+                        <WhatsAppButton buttonData={banner?.button_link}>
                             <span className="animate-pulse z-10">
                                 <svg width="70" height="70" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="49.567" cy="49.567" r="49.567" transform="matrix(1 0 0 -1 0.933594 100.066)" fill="#D9D9D9" fillOpacity="0.4" />
@@ -75,7 +75,7 @@ export default function BannerFxEmpresas({banner}) {
                             <TextWithHighlight text={banner?.button_text} color='bg-white font-semibold italic' split_coma />
                         </div>
                         <div className="relative">
-                            <WhatsAppButton customMessage={banner?.button_link}>
+                            <WhatsAppButton buttonData={banner?.button_link}>
                                 <span className="animate-pulse z-10">
                                     <svg width="101" height="101" viewBox="0 0 101 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="49.567" cy="49.567" r="49.567" transform="matrix(1 0 0 -1 0.933594 100.066)" fill="#D9D9D9" fillOpacity="0.4" />

@@ -319,7 +319,7 @@ const EmpresasSection = ({ banner_slider }) => {
                                 className="relative"
                                 variants={textVariants}
                             >
-                                <WhatsAppButton customMessage={banner_slider?.button_link}>   
+                                <WhatsAppButton buttonData={currentBanner.button_link}>   
                                     <motion.span 
                                         className="z-10 block"
                                         animate={{
@@ -487,7 +487,7 @@ const EmpresasSection = ({ banner_slider }) => {
                                 className="relative"
                                 variants={textVariants}
                             >
-                                <WhatsAppButton customMessage={banner_slider?.button_link}>   
+                                <WhatsAppButton buttonData={currentBanner.button_link}>   
                                     <motion.span 
                                         className="z-10 block"
                                         animate={{

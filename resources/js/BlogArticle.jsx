@@ -216,7 +216,7 @@ const BannerArticle = ({ banner }) => {
                     transition={{ duration: 0.8, delay: 0.5 }}
                     viewport={{ once: true }}
                 >
-                     <WhatsAppButton customMessage={banner?.button_link}>   
+                     <WhatsAppButton buttonData={banner?.button_link}>   
                     <motion.span 
                         className="bg-constrast uppercase text-white px-6 py-4 rounded-full font-medium text-sm flex items-center gap-3 transition-all duration-300 shadow-lg"
                         whileHover={{ 

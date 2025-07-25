@@ -224,7 +224,7 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                         }}
                                         whileTap={{ scale: 0.95 }}
                                     >
-                                        <WhatsAppButton customMessage={banner?.button_link}>   
+                                        <WhatsAppButton buttonData={banner?.button_link}>   
                                             <motion.span 
                                                 className="animate-pulse z-10"
                                                 animate={{

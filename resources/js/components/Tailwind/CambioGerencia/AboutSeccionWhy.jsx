@@ -603,7 +603,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
               transition={{ duration: 0.6, delay: 2 }}
               viewport={{ once: true }}
             >
-              <WhatsAppButton customMessage={banner_why?.button_link}>   
+              <WhatsAppButton buttonData={banner_why?.button_link}>   
                 <motion.span 
                   className="z-10 relative"
                   animate={{
@@ -909,7 +909,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
               transition={{ duration: 0.6, delay: 2 }}
               viewport={{ once: true }}
             >
-              <WhatsAppButton customMessage={banner_why?.button_link}>   
+              <WhatsAppButton buttonData={banner_why?.button_link}>   
                 <motion.span 
                   className="z-10 relative"
                   animate={{

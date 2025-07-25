@@ -70,7 +70,7 @@ class AboutController extends BasicController
             ->first();
         $benefits = Benefit::where('status', true)
         ->where('visible', true)
-          ->where('correlative', 'principales')
+          ->where('correlative', 'pr incipales')
             ->get();
 
 

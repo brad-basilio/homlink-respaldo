@@ -87,7 +87,7 @@ export default function PrimeraOperacionSection({ banner }) {
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.7, delay: 0.6 }}
                     >
-                    <WhatsAppButton customMessage={banner?.button_link}>    <motion.button
+                    <WhatsAppButton buttonData={banner?.button_link}>    <motion.button
                             className="bg-constrast uppercase  text-white px-6 py-4 rounded-full font-medium text-sm flex items-center gap-3 transition-all duration-300 shadow-lg"
                             whileHover={{ scale: 1.07, backgroundColor: '#1A1A1A', boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.2)' }}
                         >

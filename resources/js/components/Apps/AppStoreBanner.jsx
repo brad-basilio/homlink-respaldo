@@ -161,7 +161,7 @@ const AppStoreBanner = ({ apps = [] }) => {
     }
 
     return (
-        <div className="fixed top-0 left-0 right-0 z-[9999] bg-primary shadow-2xl backdrop-blur-sm border-b border-neutral-dark/10 shadow-lg shadow-blue-800/30 animate-slide-down">
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-[9999] bg-primary shadow-2xl backdrop-blur-sm border-b border-neutral-dark/10 shadow-lg shadow-blue-800/30 animate-slide-down">
             <div className="flex items-center px-5 py-3.5 max-w-6xl mx-auto gap-4 sm:px-4 sm:py-3 sm:gap-3">
                 <div className="flex-shrink-0 p-0.5 backdrop-blur-sm">
                     <img 
