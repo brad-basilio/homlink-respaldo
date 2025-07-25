@@ -55,8 +55,25 @@ class HomeController extends BasicController
             ->orderBy('created_at', 'asc')
             ->get();
         $cupones = Coupon::where('status', true)
-            ->where('date_begin', '<=', now())
-            ->where('date_end', '>=', now())
+            ->where(function($query) {
+                $query->where(function($subQuery) {
+                    // Cupones con fechas válidas
+                    $subQuery->where('date_begin', '<=', now())
+                             ->where('date_end', '>=', now());
+                })->orWhere(function($subQuery) {
+                    // Cupones sin fechas (siempre vigentes)
+                    $subQuery->whereNull('date_begin')
+                             ->whereNull('date_end');
+                })->orWhere(function($subQuery) {
+                    // Cupones solo con fecha de inicio
+                    $subQuery->where('date_begin', '<=', now())
+                             ->whereNull('date_end');
+                })->orWhere(function($subQuery) {
+                    // Cupones solo con fecha de fin
+                    $subQuery->whereNull('date_begin')
+                             ->where('date_end', '>=', now());
+                });
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 

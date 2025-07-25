@@ -242,8 +242,8 @@ const Coupons = ({ }) => {
     {/*    <InputFormGroup eRef={amountRef} label='Descuento' type='number' step={0.01} col='col-md-4' required /> */}
       {/*  <InputFormGroup eRef={saleAmountRef} label='Monto de venta' specification='Monto mínimo de compra para aplicar el descuento' type='number' step={0.01} col='col-md-4' /> */}
       {/*  <InputFormGroup eRef={initialStockRef} label='Cantidad' type='number' col='col-md-4 col-sm-6' /> */}
-        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' />
-        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' />
+        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' required />
+        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' required />
        {/** <SwitchFormGroup eRef={oneTimeUseRef} label='De uso único' col='col-md-4 col-sm-6' /> */}
       </div>
     </Modal>
