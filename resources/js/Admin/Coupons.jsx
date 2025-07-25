@@ -152,35 +152,7 @@ const Coupons = ({ }) => {
             </p>)
           }
         },
-        {
-          dataField: 'percentage',
-          caption: 'Descuento',
-          dataType: 'number',
-          cellTemplate: (container, { data }) => {
-            if (data.type === 'percentage') {
-              container.text(`${Math.round(data.amount * 100) / 100}%`)
-            } else {
-              container.text(`S/. ${Number2Currency(data.amount)}`)
-            }
-          }
-        },
-        {
-          dataField: 'stock',
-          caption: 'Cantidad',
-          cellTemplate: (container, { data }) => {
-            if (data.initial_stock == null) {
-              container.html(renderToString(<>
-                <b className='d-block'>Ilimitado</b >
-                <small className='text-muted'>{data.one_time_use ? 'De uso único' : 'De uso múltiple'}</small>
-              </>))
-            } else {
-              container.html(renderToString(<>
-                <b className='d-block'>{data.stock} de {data.initial_stock}</b>
-                <small className='text-muted'>{data.one_time_use ? 'De uso único' : 'De uso múltiple'}</small>
-              </>))
-            }
-          }
-        },
+       
         {
           dataField: 'date_begin',
           caption: 'Fecha de inicio',
@@ -242,8 +214,8 @@ const Coupons = ({ }) => {
     {/*    <InputFormGroup eRef={amountRef} label='Descuento' type='number' step={0.01} col='col-md-4' required /> */}
       {/*  <InputFormGroup eRef={saleAmountRef} label='Monto de venta' specification='Monto mínimo de compra para aplicar el descuento' type='number' step={0.01} col='col-md-4' /> */}
       {/*  <InputFormGroup eRef={initialStockRef} label='Cantidad' type='number' col='col-md-4 col-sm-6' /> */}
-        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-4 col-sm-6' required />
-        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-4 col-sm-6' required />
+        <InputFormGroup eRef={dateBeginRef} label='Fecha de inicio' type='date' col='col-md-6 col-sm-6'  />
+        <InputFormGroup eRef={dateEndRef} label='Fecha de fin' type='date' col='col-md-6 col-sm-6'  />
        {/** <SwitchFormGroup eRef={oneTimeUseRef} label='De uso único' col='col-md-4 col-sm-6' /> */}
       </div>
     </Modal>
