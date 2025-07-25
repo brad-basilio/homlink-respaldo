@@ -384,7 +384,8 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
         viewport={{ once: true, amount: 0.3 }}
       >
         {/* VERSIÓN DESKTOP - visible solo en md y superior */}
-        <motion.div 
+      { banner_why && (
+          <motion.div 
           className="relative mt-16 w-full px-16 rounded-[56px] bg-constrast hidden md:flex flex-col md:flex-row items-center py-10 min-h-[380px]"
           whileHover={{ 
             scale: 1.02,
@@ -678,9 +679,11 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
             </motion.div>
           </motion.div>
         </motion.div>
+      )}
         
         {/* VERSIÓN MOBILE - visible solo en pantallas pequeñas */}
-        <motion.div 
+    {          banner_why && (
+          <motion.div 
           className="relative mt-16 w-full px-4 rounded-[32px] bg-constrast flex md:hidden flex-col items-center py-8 min-h-[450px] overflow-hidden"
           whileHover={{ 
             scale: 1.02,
@@ -982,6 +985,7 @@ const AboutSeccionWhy = ({ data, beneficios_clave, core_values, banner_why }) =>
             </motion.div>
           </motion.div>
         </motion.div>
+    )}
       </motion.div>
     </motion.div>
   );

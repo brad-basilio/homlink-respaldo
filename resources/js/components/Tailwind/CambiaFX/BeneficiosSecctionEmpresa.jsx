@@ -118,14 +118,14 @@ export default function BeneficiosSecctionEmpresa({data, beneficios = []}) {
                     {/* Botones de navegación */}
                     <button 
                         ref={prevRef}
-                        className="absolute -left-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
+                        className="hidden lg:block absolute -left-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
                     >
                         <ChevronLeft className="w-5 h-5 group-hover:-translate-x-0.5 transition-transform duration-300" />
                     </button>
                     
                     <button 
                         ref={nextRef}
-                        className="absolute -right-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
+                        className="hidden lg:block absolute -right-14 top-1/2 -translate-y-1/2 z-10 bg-white/90 hover:bg-white text-neutral-dark rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110 group"
                     >
                         <ChevronRight className="w-5 h-5 group-hover:translate-x-0.5 transition-transform duration-300" />
                     </button>
