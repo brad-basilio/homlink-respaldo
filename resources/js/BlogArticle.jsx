@@ -360,7 +360,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                 viewport={{ once: true, margin: "-100px" }}
                 className="px-[5%] bg-white pt-10 lg:pt-16 pb-8 font-title"
             >
-                <div className="mx-auto">
+                <div className="mx-auto ">
                     <motion.div
                         variants={fadeInUp}
                         className="mb-8 w-auto flex flex-col gap-4"
@@ -654,11 +654,29 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                             
                             .blog-article-content :global(img),
                             .blog-article-content-part :global(img) {
-                                max-width: 100%;
-                                height: auto;
-                                border-radius: 8px;
-                                margin: 2rem 0;
-                                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+                             
+                                height: auto !important;
+                                margin-left: auto !important;
+                                margin-right: auto !important;
+                                margin-top: 2rem !important;
+                                margin-bottom: 2rem !important;
+                                border-radius: 18px !important;
+                                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+                                object-fit: cover !important;
+                                position: relative !important;
+                                display: block !important;
+                                overflow: hidden !important;
+                            }
+                            
+                            /* Para pantallas grandes, centrar la imagen cuando excede el contenedor */
+                            @media (min-width: 1280px) {
+                                .blog-article-content :global(img),
+                                .blog-article-content-part :global(img) {
+                                   
+                                   
+                                    margin-left: calc(-40rem + 50%) !important;
+                                    margin-right: calc(-40rem + 50%) !important;
+                                }
                             }
                             
                             .blog-article-content :global(strong), 
@@ -792,6 +810,12 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                                 .blog-article-content-part :global(ul), 
                                 .blog-article-content-part :global(ol) {
                                     padding-left: 1.5rem;
+                                }
+                                
+                                .blog-article-content :global(img),
+                                .blog-article-content-part :global(img) {
+                                    margin-top: 1.5rem;
+                                    margin-bottom: 1.5rem;
                                 }
                             }
                         `}</style>

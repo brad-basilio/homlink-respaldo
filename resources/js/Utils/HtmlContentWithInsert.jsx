@@ -2,6 +2,34 @@ import React from 'react';
 import HtmlContent from './HtmlContent';
 
 const HtmlContentWithInsert = ({ html, insertComponent, className = "" }) => {
+    // Función para procesar las imágenes y envolverlas en un div con border-radius
+    const processImages = (htmlString) => {
+        if (!htmlString) return htmlString;
+        
+        // Reemplazar todas las etiquetas img con un wrapper
+        return htmlString.replace(/<img([^>]*)>/g, (match, attributes) => {
+            return `<div class="image-wrapper-rounded" style="
+               
+                margin-left: auto !important;
+                margin-right: auto !important;
+                margin-top: 2rem !important;
+                margin-bottom: 2rem !important;
+                border-radius: 18px !important;
+                overflow: hidden !important;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+                position: relative !important;
+                display: block !important;
+            "><img${attributes} style="
+                width: 100% !important;
+                height: auto !important;
+                display: block !important;
+                border-radius: 18px !important;
+                margin: 0 !important;
+                object-fit: cover !important;
+            "></div>`;
+        });
+    };
+
     // Función para contar párrafos reales en el HTML
     const countParagraphs = (htmlString) => {
         if (!htmlString) return 0;
@@ -79,13 +107,17 @@ const HtmlContentWithInsert = ({ html, insertComponent, className = "" }) => {
         insertPosition = null;
     }
 
-    // Si no hay posición válida, renderizar el HTML normal
+    // Si no hay posición válida, renderizar el HTML normal con imágenes procesadas
     if (!insertPosition || !insertComponent) {
-        return <HtmlContent className={className} html={html} />;
+        const processedHtml = processImages(html);
+        return <HtmlContent className={className} html={processedHtml} />;
     }
 
+    // Procesar las imágenes antes de hacer la inserción
+    const htmlWithProcessedImages = processImages(html);
+    
     // Procesar el HTML con la inserción
-    const processedHtml = insertComponentAtPosition(html, insertPosition);
+    const processedHtml = insertComponentAtPosition(htmlWithProcessedImages, insertPosition);
 
     // Dividir el HTML en partes antes y después del marcador
     const parts = processedHtml.split('<!-- COMPONENT_INSERTION_POINT -->');
