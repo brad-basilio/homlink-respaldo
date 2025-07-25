@@ -20,7 +20,6 @@ const WhatsAppButton = ({
         phone: null,
         message: null
     });
-    const [loading, setLoading] = useState(true);
     const [aboutuses, setAboutuses] = useState(null);
 
     // Función para detectar si es un enlace válido
@@ -115,8 +114,6 @@ const WhatsAppButton = ({
                     phone: null,
                     message: "Hola, me gustaría reservar una consulta."
                 });
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -236,33 +233,7 @@ const WhatsAppButton = ({
         }
     };
 
-    if (loading) {
-        return (
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className={`inline-flex items-center justify-center rounded-md ${getSizeClasses()} ${getVariantClasses()} ${className} opacity-70 cursor-not-allowed`}
-            >
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                    className="w-4 h-4 border-2 border-current border-t-transparent rounded-full mr-2"
-                />
-              
-            </motion.div>
-        );
-    }
-
-    if (!whatsappData.phone && !customPhone && getActionData().type === 'whatsapp') {
-        return (
-            <motion.div
-                className={`inline-flex items-center justify-center rounded-md ${getSizeClasses()} bg-gray-300 text-gray-500 cursor-not-allowed ${className}`}
-            >
-                <Phone className="w-4 h-4 mr-2" />
-                No disponible
-            </motion.div>
-        );
-    }
+   
 
     return (
         <button
