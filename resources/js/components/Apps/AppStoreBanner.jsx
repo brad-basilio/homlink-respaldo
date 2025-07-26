@@ -87,11 +87,8 @@ const AppStoreBanner = ({ apps = [] }) => {
             return null;
         }
 
-        // Para testing, devolver la primera app disponible
-        if (apps.length > 0) {
-            console.log('🧪 Testing mode: returning first app:', apps[0]);
-            return apps[0];
-        }
+        // 🔧 LÓGICA CORREGIDA: Buscar la app correcta según el dispositivo
+        console.log('🔍 Searching for correct app based on device:', deviceInfo);
 
         if (deviceInfo.isAndroid) {
             const androidApp = apps.find(app => 
@@ -123,8 +120,9 @@ const AppStoreBanner = ({ apps = [] }) => {
             return huaweiApp;
         }
 
-        console.log('❓ No device match found');
-        return null;
+        // 🔧 FALLBACK: Si no encuentra una app específica, devolver la primera disponible
+        console.log('❓ No device-specific app found, returning first available app:', apps[0]);
+        return apps.length > 0 ? apps[0] : null;
     };
 
     const currentApp = getAppForDevice();
@@ -161,7 +159,7 @@ const AppStoreBanner = ({ apps = [] }) => {
     }
 
     return (
-        <div className="lg:hidden fixed top-0 left-0 right-0 z-[9999] bg-primary shadow-2xl backdrop-blur-sm border-b border-neutral-dark/10 shadow-lg shadow-blue-800/30 animate-slide-down">
+        <div className="lg:hidden fixed top-0 left-0 right-0 z-[9999] bg-primary shadow-2xl backdrop-blur-sm border-b border-neutral-dark/10 shadow-blue-800/30 animate-slide-down">
             <div className="flex items-center px-5 py-3.5 max-w-6xl mx-auto gap-4 sm:px-4 sm:py-3 sm:gap-3">
                 <div className="flex-shrink-0 p-0.5 backdrop-blur-sm">
                     <img 
