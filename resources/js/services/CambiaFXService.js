@@ -154,60 +154,41 @@ class CambiaFXService {
         return 0;
     }
 
-    calculateExchange(amount, operationType = 'venta', origin = 'from') {
-        // 📊 LÓGICA SEGÚN LA CAPTURA EXACTAMENTE
+    // � MÉTODO CALCULATEEXCHANGE SEGÚN DOCUMENTACIÓN CAMBIAFX
+    calculateExchange(amount, operationType = 'V', origin = 'from') {
+        let total = 0;
         
-        // Determinar qué moneda está siendo ingresada basado en la operación y el origen
-        let inputCurrency = 'USD';
+        // Mapear parámetros al formato de la documentación
+        const mappedOrigin = origin === 'from' ? 'O' : 'D';
         
-        if (operationType === 'V') { // VENTA - Cliente tiene Soles, quiere Dólares
-            if (origin === 'from') {
-                // Input principal: Soles (lo normal en venta)
-                inputCurrency = 'PEN';
-            } else {
-                // Input secundario: Dólares (el cliente prueba con USD para ver cuántos soles necesita)
-                inputCurrency = 'USD';
-            }
-        } else { // COMPRA - Cliente tiene Dólares, quiere Soles
-            if (origin === 'from') {
-                // Input principal: Dólares (lo normal en compra)
-                inputCurrency = 'USD';
-            } else {
-                // Input secundario: Soles (el cliente prueba con PEN para ver cuántos dólares obtiene)
-                inputCurrency = 'PEN';
-            }
-        }
-        
-        // Obtener el TC correcto según el RANGO en USD al que corresponde el monto
-        const tc = this.getTCFromAmount(amount, operationType, inputCurrency);
-        
-        // Debug para verificar valores
-        console.log(`Calculando: ${amount} ${inputCurrency} con TC ${tc} (${operationType})`);
-        
-        let result = 0;
-        
-        // Aplicar cálculos según la tabla de la captura:
-        if (inputCurrency === 'USD') {
-            // Si el input es USD, multiplicar por el TC para obtener PEN
-            result = amount * tc;
-        } else { // inputCurrency === 'PEN'
-            // Si el input es PEN, dividir por el TC para obtener USD
-            result = amount / tc;
-        }
-        
-        // Asegurar la precisión exacta para evitar errores de punto flotante
-        // Redondear a 2 decimales para montos
-        result = Math.round(result * 100) / 100;
+        // Paso 1: Obtener el tipo de cambio correspondiente
+        const _tc = this.getTCFromAmount(amount, operationType, mappedOrigin);
 
-        const finalResult = {
-            result: parseFloat(result.toFixed(2)),
-            exchangeRate: tc,
+        // Paso 2: Calcular el monto convertido según documentación CambiaFX
+        // VENTA = soles → dólares (dividir por TC)
+        // COMPRA = dólares → soles (multiplicar por TC)  
+        const isVenta = operationType === 'V' || operationType === 'venta';
+        
+        if (mappedOrigin === 'O') {
+            total = isVenta ? amount / _tc : amount * _tc;
+        } else if (mappedOrigin === 'D') {
+            total = isVenta ? amount * _tc : amount / _tc;
+        }
+
+        // Redondear a 2 decimales para montos
+        total = Math.round(total * 100) / 100;
+
+        console.log(`🔁 calculateExchange: ${amount} (${mappedOrigin}) → ${total} (TC: ${_tc}, isVenta: ${isVenta})`);
+
+        return {
+            result: parseFloat(total.toFixed(2)),
+            exchangeRate: _tc,
             operation: operationType
         };
-        return finalResult;
     }
 
-    getTCFromAmount(amount, operationType = 'venta', currency = 'USD') {
+    // 🧠 IMPLEMENTACIÓN SEGÚN DOCUMENTACIÓN CAMBIAFX - MÉTODO PRINCIPAL
+    getTCFromAmount(amount, operationType = 'V', origin = 'O') {
         if (!amount || amount <= 0) {
             if (this.tcData.length > 0) {
                 const obj = this.tcData[0];
@@ -217,97 +198,82 @@ class CambiaFXService {
             return 0;
         }
 
-        let tcObj = null;
-        let amountForComparison = amount;
+        // Mapear formato de operationType a boolean isBuy
+        const isBuy = operationType === 'C' || operationType === 'compra';
         
-        // � IMPLEMENTACIÓN SEGÚN LA CAPTURA - LÓGICA EXACTA
-        // Los rangos SIEMPRE están definidos en DÓLARES
-        // Si la moneda de entrada es PEN, debemos convertir a USD para determinar el rango
-        if (currency === 'PEN') {
-            // Usar TC base para convertir PEN → USD y encontrar el rango correcto
-            // Este TC es siempre el del primer rango disponible
-            const baseObj = this.tcBaseOriginal || (this.tcData.length > 0 ? this.tcData[0] : null);
-            if (!baseObj) return 0;
-            
-            // Usar el TC base del tipo de operación correspondiente
-            const baseTc = operationType === 'C' ? baseObj.tc_compra : baseObj.tc_venta;
-            
-            // Convertir PEN → USD usando TC base
-            amountForComparison = amount / baseTc;
+        // Determinar si el monto está en PEN según la documentación
+        const isPenCurrency = this.isPenCurrency(origin, isBuy);
+
+        // Obtener el rango de tipo de cambio según la moneda
+        const objTC = isPenCurrency
+            ? this.getTcRangePEN(this.tcData, amount, isBuy)
+            : this.getTcRangeUSD(this.tcData, amount);
+
+        if (!objTC) {
+            // Fallback a tasas base
+            const baseRates = this.tcBase[0] || { tc_compra: 0, tc_venta: 0 };
+            return isBuy ? baseRates.tc_compra : baseRates.tc_venta;
         }
-        
-        // Buscar el rango correspondiente (siempre evaluando en USD)
-        console.log(`🔍 Buscando rango para ${amountForComparison} USD en:`, this.tcData.map(obj => `${obj.desde}-${obj.hasta} (TC: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta})`));
-        
-        for (let obj of this.tcData) {
-            // 🎯 LÓGICA CORREGIDA PARA RANGOS:
-            // - Si hay múltiples rangos: primeros rangos usan "desde <= x < hasta", último rango usa "desde <= x <= hasta"
-            // - Si hay un solo rango: usa "desde <= x <= hasta"
-            const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
-            const hasMultipleRanges = this.tcData.length > 1;
-            
-            console.log(`🔍 DEBUG: obj.desde=${obj.desde}, obj.hasta=${obj.hasta}, amountForComparison=${amountForComparison}`);
-            
-            let isInRange;
-            if (hasMultipleRanges && !isLastRange) {
-                // Múltiples rangos - rangos intermedios: desde <= x < hasta
-                isInRange = (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
-            } else {
-                // Último rango de múltiples O un solo rango: desde <= x <= hasta
-                isInRange = (obj.desde <= amountForComparison && amountForComparison <= obj.hasta);
-            }
-            
-            console.log(`📋 Evaluando rango ${obj.desde}-${obj.hasta}: ${amountForComparison} está en rango = ${isInRange} (${hasMultipleRanges ? (isLastRange ? 'último rango' : 'rango intermedio') : 'rango único'}) (TC: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta})`);
-            
-            if (isInRange) {
-                tcObj = obj;
-                break;
-            }
+
+        // Retorna el tipo de cambio (buy o sell)
+        return isBuy ? objTC.tc_compra : objTC.tc_venta;
+    }
+
+    // 💰 ¿El monto ingresado está en Soles? (según documentación CambiaFX)
+    isPenCurrency(origin = 'O', isBuy = false) {
+        // IMPORTANTE: Corrección de lógica final
+        // VENTA = Usuario vende dólares por soles (PEN → USD) - ingresa soles, obtiene dólares
+        // COMPRA = Usuario compra dólares con soles (USD → PEN) - ingresa dólares, obtiene soles
+        const typeOperation = isBuy ? 'compra' : 'venta';
+
+        if (typeOperation === 'venta' && origin === 'O') return true;  // PEN (input soles para obtener USD)
+        if (typeOperation === 'compra' && origin === 'D') return true;   // PEN (recibe soles al ingresar USD)
+
+        return false; // USD
+    }
+
+    // 🔸 Para montos en Soles: getTcRangePEN (según documentación CambiaFX)
+    getTcRangePEN(dataRangesTc = [], amount = 0, isBuy = false) {
+        const typeOperation = isBuy ? 'compra' : 'venta';
+
+        if (!amount) {
+            return dataRangesTc[0] ?? null;
         }
-        
-        if (tcObj === null) {
-            // 🚨 IMPORTANTE: Si no se encuentra rango en el cupón, usar TC BASE original
-            // Esto evita que se use el TC del cupón para montos que no califican
-            if (this.tcBase.length > 0) {
-                // Buscar en los rangos base (sin cupón)
-                for (let obj of this.tcBase) {
-                    const isLastRange = this.tcBase.indexOf(obj) === this.tcBase.length - 1;
-                    const hasMultipleRanges = this.tcBase.length > 1;
-                    
-                    let isInRange;
-                    if (hasMultipleRanges && !isLastRange) {
-                        isInRange = (amountForComparison >= obj.desde && amountForComparison < obj.hasta);
-                    } else {
-                        isInRange = (amountForComparison >= obj.desde && amountForComparison <= obj.hasta);
-                    }
-                    
-                    if (isInRange) {
-                        tcObj = obj;
-                        console.log(`✅ Usando TC base (sin cupón) del rango ${obj.desde}-${obj.hasta}: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta}`);
-                        break;
-                    }
-                }
+
+        for (const data of dataRangesTc) {
+            const tc = typeOperation === 'compra' ? data.tc_compra : data.tc_venta;
+            const amountUsd = Number((amount / tc).toFixed(2));
+
+            // Usar desde/hasta para evaluar rangos
+            const from = data.desde || data.from || 0;
+            const to = data.hasta || data.to || 0;
+
+            if (amountUsd >= from && amountUsd < to) return data;
+        }
+
+        return dataRangesTc[dataRangesTc.length - 1] ?? null;
+    }
+
+    // 🔹 Para montos en Dólares: getTcRangeUSD (según documentación CambiaFX)
+    getTcRangeUSD(dataRangesTc = [], amount = 0) {
+        let objTC = null;
+
+        if (amount) {
+            for (const obj of dataRangesTc) {
+                const from = obj.desde || obj.from || 0;
+                const to = obj.hasta || obj.to || 0;
                 
-                // Si aún no encuentra, usar el último rango base
-                if (tcObj === null) {
-                    tcObj = this.tcBase[this.tcBase.length - 1];
-                    console.log(`⚠️ Usando último rango base: ${tcObj.desde}-${tcObj.hasta}`);
+                if (from <= amount && amount < to) {
+                    objTC = obj;
+                    break; // Salir del loop
                 }
             }
+            objTC = objTC ?? (dataRangesTc[dataRangesTc.length - 1] ?? null);
+        } else {
+            objTC = dataRangesTc[0] ?? null;
         }
-        
-        if (tcObj !== null) {
-            // Determinar TC según operación (Compra o Venta)
-            const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
-            
-            console.log(`✅ TC seleccionado del rango ${tcObj.desde}-${tcObj.hasta}: ${tc} (${operationType})`);
-            
-            // Para evitar problemas con decimales, devolver el valor exacto del objeto
-            // sin manipulación adicional
-            return tc;
-        }
-        
-        return 0;
+
+        return objTC;
     }
 
     getCurrentRates() {
