@@ -153,8 +153,10 @@ const ExchangeCard = ({
         }
         
         // 🔥 NUEVA LÓGICA: Verificar si hay cupón activo y si aplica
-        if (couponInfo && amount1) {
-            const couponApplies = checkCouponApplies();
+        if (couponInfo && (amount1 || debouncedAmount1)) {
+            // Usar debouncedAmount1 si amount1 está vacío (para asegurar actualización en botones)
+            const amountToCheck = amount1 || debouncedAmount1;
+            const couponApplies = checkCouponApplies(amountToCheck);
             console.log(`🔄 updateCurrentRates: couponApplies =`, couponApplies);
             
             if (couponApplies.applies) {
@@ -238,15 +240,70 @@ const ExchangeCard = ({
         // Convertir operationType a formato del servicio: 'compra' -> 'C', 'venta' -> 'V'
         const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
 
-        const calculation = CambiaFXService.calculateExchange(amount, serviceOperationType, origin === 'O' ? 'from' : 'to');
+        // 🔥 VERIFICAR SI HAY CUPÓN ACTIVO Y USAR SUS TASAS
+        let exchangeRate = null;
+        let result = null;
 
-        setCurrentTc(calculation.exchangeRate);
+        if (couponInfo) {
+            const couponApplies = checkCouponApplies(inputValue || amount1);
+            console.log(`💰 calculateExchange: Verificando cupón - applies: ${couponApplies.applies}`);
+            
+            if (couponApplies.applies) {
+                // Usar tasas del cupón
+                let tcCompra, tcVenta;
+                
+                if (couponApplies.rangoActual) {
+                    tcCompra = couponApplies.rangoActual.tcCompra ?? couponApplies.rangoActual.tc_compra;
+                    tcVenta = couponApplies.rangoActual.tcVenta ?? couponApplies.rangoActual.tc_venta;
+                } else {
+                    tcCompra = couponInfo.tcCompra;
+                    tcVenta = couponInfo.tcVenta;
+                }
+                
+                console.log(`💰 calculateExchange: Usando tasas del cupón - compra: ${tcCompra}, venta: ${tcVenta}`);
+                
+                // Calcular manualmente con las tasas del cupón
+                if (serviceOperationType === 'C') {
+                    // Compra: USD → PEN
+                    exchangeRate = tcCompra;
+                    if (origin === 'O') {
+                        // Usuario ingresa USD, calcular PEN
+                        result = amount * tcCompra;
+                    } else {
+                        // Usuario ingresa PEN, calcular USD
+                        result = amount / tcCompra;
+                    }
+                } else {
+                    // Venta: PEN → USD
+                    exchangeRate = tcVenta;
+                    if (origin === 'O') {
+                        // Usuario ingresa PEN, calcular USD
+                        result = amount / tcVenta;
+                    } else {
+                        // Usuario ingresa USD, calcular PEN
+                        result = amount * tcVenta;
+                    }
+                }
+                
+                console.log(`💰 calculateExchange: Resultado con cupón - rate: ${exchangeRate}, result: ${result}`);
+            }
+        }
+
+        // Si no hay cupón o no aplica, usar el servicio normal
+        if (exchangeRate === null || result === null) {
+            console.log(`💰 calculateExchange: Usando servicio normal (sin cupón)`);
+            const calculation = CambiaFXService.calculateExchange(amount, serviceOperationType, origin === 'O' ? 'from' : 'to');
+            exchangeRate = calculation.exchangeRate;
+            result = calculation.result;
+        }
+
+        setCurrentTc(exchangeRate);
 
         if (origin === 'O') {
-            const formattedResult = formatNumberWithCommas(calculation.result);
+            const formattedResult = formatNumberWithCommas(result);
             setAmount2(formattedResult);
         } else {
-            const formattedResult = formatNumberWithCommas(calculation.result);
+            const formattedResult = formatNumberWithCommas(result);
             setAmount1(formattedResult);
         }
         
@@ -255,10 +312,30 @@ const ExchangeCard = ({
     };
 
     const handleSwap = () => {
-        // SOLO cambiar el tipo de operación - nada más
-        setOperationType(operationType === 'compra' ? 'venta' : 'compra');
+        // Cambiar el tipo de operación
+        const newOperationType = operationType === 'compra' ? 'venta' : 'compra';
+        setOperationType(newOperationType);
         
-        // NO hacer ningún cálculo adicional - dejar que el sistema reaccione naturalmente
+        console.log(`🔄 handleSwap: Cambiando de ${operationType} a ${newOperationType}`);
+        console.log(`🔄 handleSwap: Cupón activo: ${couponInfo ? 'Sí' : 'No'}`);
+        console.log(`🔄 handleSwap: Amount1: ${amount1}`);
+        
+        // 🔥 FORZAR RECÁLCULO INMEDIATO cuando hay cupón activo O cuando hay valores
+        // Esto evita que al cambiar de venta→compra→venta se pierdan los valores correctos del cupón
+        if (amount1) {
+            console.log(`🔄 handleSwap: Forzando recálculo inmediato`);
+            
+            // Usar setTimeout para asegurar que el estado del operationType se actualice primero
+            setTimeout(() => {
+                // Forzar actualización de las tasas ANTES del cálculo
+                updateCurrentRates();
+                
+                // Luego recalcular con las tasas correctas
+                setTimeout(() => {
+                    calculateExchange('O', amount1);
+                }, 10);
+            }, 50); // Delay para que React actualice el estado
+        }
     };
 
     const handleAmountChange = (value, origin) => {
@@ -326,6 +403,9 @@ const ExchangeCard = ({
                 // ⚡ ACTUALIZACIÓN INMEDIATA Y FORZADA
                 // Actualizar rates inmediatamente
                 updateCurrentRates();
+
+                // 🔥 FORZAR ACTUALIZACIÓN INMEDIATA del debouncedAmount1 para que los botones se actualicen
+                setDebouncedAmount1(amount1);
 
                 // Forzar re-render del componente
                 setCurrentRates(CambiaFXService.getCurrentRates());
@@ -1155,6 +1235,10 @@ const ExchangeCard = ({
                                                 CambiaFXService.validateCoupon(''); // Esto restaura tcBase
                                                 setCouponInfo(null);
                                                 setInvalidCoupon(null);
+                                                
+                                                // 🔥 FORZAR ACTUALIZACIÓN INMEDIATA del debounce para refrescar botones
+                                                setDebouncedAmount1(amount1);
+                                                
                                                 updateCurrentRates();
                                                 if (amount1) {
                                                     calculateExchange('O');
