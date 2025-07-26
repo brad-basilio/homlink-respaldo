@@ -310,6 +310,61 @@ const ExchangeCard = ({
         return isBuy ? buyRate : sellRate;
     };
 
+    // 🎯 FUNCIÓN ESPECIAL: Buscar TC correcto para VENTA con input en soles
+    const findCorrectTcForVentaSoles = (amountSoles) => {
+        // Obtener todos los rangos disponibles
+        let tcRanges = [];
+        
+        if (couponInfo && couponInfo.rangos && couponInfo.rangos.length > 0) {
+            tcRanges = couponInfo.rangos;
+        } else if (couponInfo) {
+            // Cupón simple (sin rangos múltiples)
+            tcRanges = [{
+                desde: couponInfo.montoMinimo,
+                hasta: couponInfo.montoMaximo,
+                tc_compra: couponInfo.tcCompra,
+                tc_venta: couponInfo.tcVenta
+            }];
+        } else {
+            // Usar rangos del servicio base
+            tcRanges = CambiaFXService.tcData || CambiaFXService.tcBase || [];
+        }
+
+        let bestTc = null;
+        let bestRange = null;
+
+        // Probar cada rango, quedarnos con el último que coincida
+        for (const range of tcRanges) {
+            const tcVenta = range.tc_venta || range.sell || 0;
+            if (tcVenta === 0) continue;
+
+            // Calcular qué cantidad de dólares resultaría con este TC
+            const calculatedUSD = amountSoles / tcVenta;
+
+            // Verificar si este resultado cae dentro del rango de dólares
+            const rangeMinUSD = range.desde || 0;
+            const rangeMaxUSD = range.hasta || Infinity;
+
+            if (calculatedUSD >= rangeMinUSD && calculatedUSD <= rangeMaxUSD) {
+                // Este rango coincide, guardarlo (se quedará con el último)
+                bestTc = tcVenta;
+                bestRange = range;
+                console.log(`🎯 VENTA Soles: ${amountSoles} ÷ ${tcVenta} = $${calculatedUSD.toFixed(2)} (Rango: $${rangeMinUSD}-$${rangeMaxUSD}) ✅`);
+            } else {
+                console.log(`🎯 VENTA Soles: ${amountSoles} ÷ ${tcVenta} = $${calculatedUSD.toFixed(2)} (Rango: $${rangeMinUSD}-$${rangeMaxUSD}) ❌`);
+            }
+        }
+
+        // Si no encontramos ningún rango que coincida, usar la lógica normal
+        if (bestTc === null) {
+            console.log(`🎯 VENTA Soles: No se encontró rango coincidente, usando lógica normal`);
+            return getTCFromAmount(amountSoles, 'O');
+        }
+
+        console.log(`🎯 VENTA Soles: Rango final seleccionado - TC: ${bestTc}`);
+        return bestTc;
+    };
+
     // 🔁 FUNCIÓN PRINCIPAL DE CÁLCULO (según documentación CambiaFX)
     const calculateExchange = (origin = 'O', inputValue = null) => {
         let total = 0;
@@ -338,19 +393,29 @@ const ExchangeCard = ({
         }
 
         // Paso 2: Obtener el tipo de cambio correspondiente
-        const _tc = getTCFromAmount(amount, origin);
+        let _tc;
+        const isVentaOperation = operationType === 'venta';
+        
+        // 🎯 LÓGICA ESPECIAL PARA VENTA CON INPUT EN SOLES
+        if (isVentaOperation && origin === 'O') {
+            // En VENTA cuando se ingresa soles, buscar el rango correcto
+            // probando cada tc_venta hasta encontrar el que coincida
+            _tc = findCorrectTcForVentaSoles(amount);
+        } else {
+            // Para todos los demás casos, usar la lógica normal
+            _tc = getTCFromAmount(amount, origin);
+        }
 
         // Paso 3: Calcular el monto convertido
         // VENTA = soles → dólares (dividir por TC)
         // COMPRA = dólares → soles (multiplicar por TC)
-        const isVenta = operationType === 'venta';
         
         if (origin === 'O') {
             // Origen O = input en primer campo
-            total = isVenta ? amount / _tc : amount * _tc;
+            total = isVentaOperation ? amount / _tc : amount * _tc;
         } else if (origin === 'D') {
             // Origen D = input en segundo campo  
-            total = isVenta ? amount * _tc : amount / _tc;
+            total = isVentaOperation ? amount * _tc : amount / _tc;
         }
 
         // Paso 4: Mostrar el resultado en el input contrario
