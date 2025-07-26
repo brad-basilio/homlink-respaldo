@@ -24,6 +24,8 @@ const ExchangeCard = ({
     const [showCouponModal, setShowCouponModal] = useState(false); // Modal informativo
     const [isConsultingCoupons, setIsConsultingCoupons] = useState(false); // Loading para consulta de cupones
     const [invalidCoupon, setInvalidCoupon] = useState(null); // Información del cupón inválido
+    const [debouncedAmount1, setDebouncedAmount1] = useState('1,000'); // Estado debounced para actualizar botones
+    const [baseRates, setBaseRates] = useState({ compra: '0.0000', venta: '0.0000' }); // Tasas base sin cupón
 
     // 🔢 FUNCIONES PARA FORMATEAR NÚMEROS CON COMAS
     const formatNumberWithCommas = (num) => {
@@ -66,6 +68,15 @@ const ExchangeCard = ({
         }
     };
 
+    // 🔄 DEBOUNCE: Actualizar botones después de que el usuario termine de escribir
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedAmount1(amount1);
+        }, 300); // 300ms de debounce
+        
+        return () => clearTimeout(timer);
+    }, [amount1]);
+
     // Cargar tipos de cambio iniciales
     useEffect(() => {
         const init = async () => {
@@ -100,20 +111,18 @@ const ExchangeCard = ({
         }
     }, [promotionalCode]);
 
-    // 🔥 NUEVO: Escuchar cambios en couponInfo y amount1 para actualizar currentRates
+    // 🔥 ACTUALIZAR: Solo actualizar tasas cuando cambie cupón, tipo de operación o monto (con debounce)
     useEffect(() => {
-        console.log(`🔄 useEffect: couponInfo, amount1 o operationType cambiaron`);
+        console.log(`🔄 useEffect: couponInfo, operationType o debouncedAmount1 cambiaron`);
         console.log(`🔍 couponInfo:`, couponInfo);
-        console.log(`🔍 amount1:`, amount1);
         console.log(`🔍 operationType:`, operationType);
+        console.log(`🔍 debouncedAmount1:`, debouncedAmount1);
         
-        // Actualizar las tasas según el estado del cupón
+        // Solo actualizar las tasas según el estado del cupón
         updateCurrentRates();
         
-        if (amount1) {
-            calculateExchange('O');
-        }
-    }, [couponInfo, amount1, operationType]);
+        // NO llamar calculateExchange aquí para evitar interferir con la entrada del usuario
+    }, [couponInfo, operationType, debouncedAmount1]); // 🔥 USANDO debouncedAmount1 en lugar de amount1
 
     const initializeExchangeRates = async () => {
         try {
@@ -132,6 +141,16 @@ const ExchangeCard = ({
         console.log(`🔄 updateCurrentRates: iniciando...`);
         console.log(`🔍 CambiaFXService.tcBase:`, CambiaFXService.tcBase);
         console.log(`🔍 CambiaFXService.tcData:`, CambiaFXService.tcData);
+        
+        // 🏦 ACTUALIZAR TASAS BASE (siempre disponibles para mostrar precios tachados)
+        if (CambiaFXService.tcBase.length > 0) {
+            const tcBase = CambiaFXService.tcBase[0];
+            setBaseRates({
+                compra: tcBase.tc_compra.toFixed(4),
+                venta: tcBase.tc_venta.toFixed(4)
+            });
+            console.log(`🏦 baseRates actualizadas - compra=${tcBase.tc_compra.toFixed(4)}, venta=${tcBase.tc_venta.toFixed(4)}`);
+        }
         
         // 🔥 NUEVA LÓGICA: Verificar si hay cupón activo y si aplica
         if (couponInfo && amount1) {
@@ -211,6 +230,8 @@ const ExchangeCard = ({
             const serviceOperationType = operationType === 'compra' ? 'C' : 'V';
             const baseTc = CambiaFXService.getTCFromAmount(1, serviceOperationType);
             setCurrentTc(baseTc);
+            // Actualizar tasas de los botones después de limpiar
+            setTimeout(() => updateCurrentRates(), 0);
             return;
         }
 
@@ -228,6 +249,9 @@ const ExchangeCard = ({
             const formattedResult = formatNumberWithCommas(calculation.result);
             setAmount1(formattedResult);
         }
+        
+        // 🔥 ACTUALIZAR tasas de los botones después del cálculo
+        setTimeout(() => updateCurrentRates(), 0);
     };
 
     const handleSwap = () => {
@@ -353,16 +377,19 @@ const ExchangeCard = ({
         setCouponInfo(null);
         setInvalidCoupon(null);
         setCurrentRates({ compra: '0.0000', venta: '0.0000' });
+        setBaseRates({ compra: '0.0000', venta: '0.0000' });
 
         // Reinicializar servicio
         CambiaFXService.tcData = [...CambiaFXService.tcBase];
     };
 
     // 🎯 VERIFICAR SI EL CUPÓN APLICA AL MONTO ACTUAL
-    const checkCouponApplies = () => {
-        if (!couponInfo || !amount1) return { applies: false, reason: '' };
+    const checkCouponApplies = (amountToCheck = null) => {
+        // Usar el monto pasado como parámetro o amount1 por defecto
+        const amountInput = amountToCheck || amount1;
+        if (!couponInfo || !amountInput) return { applies: false, reason: '' };
 
-        const amount = parseNumberFromFormatted(amount1);
+        const amount = parseNumberFromFormatted(amountInput);
 
         // 🔧 LÓGICA CORREGIDA: Convertir el monto de entrada a USD para comparar con rangos
         let amountForComparison = amount;
@@ -482,40 +509,60 @@ const ExchangeCard = ({
         console.log(`🎨 useMemo rates: recalculando...`);
         console.log(`🔍 DEBUG - couponInfo:`, couponInfo);
         console.log(`🔍 DEBUG - currentRates:`, currentRates);
-        console.log(`🔍 DEBUG - amount1:`, amount1);
+        console.log(`🔍 DEBUG - baseRates:`, baseRates);
+        console.log(`🔍 DEBUG - debouncedAmount1:`, debouncedAmount1);
         
         if (!couponInfo) {
             console.log(`🎨 useMemo rates: sin cupón, usando currentRates`, currentRates);
             return {
-                ...currentRates,
+                // Precio actual (sin cupón, igual a base)
+                compra: currentRates.compra,
+                venta: currentRates.venta,
+                // Sin precio anterior
+                previousCompra: null,
+                previousVenta: null,
                 showPreviousPrice: false,
                 isActive: false
             };
         }
 
-        const couponApplies = checkCouponApplies();
+        const couponApplies = checkCouponApplies(debouncedAmount1);
         console.log(`🎨 useMemo rates: couponApplies =`, couponApplies);
         console.log(`🔍 DEBUG - couponApplies.applies:`, couponApplies.applies);
+        console.log(`🔍 DEBUG - currentRates:`, currentRates);
+        console.log(`🔍 DEBUG - baseRates:`, baseRates);
 
         // ✅ Mostrar precio anterior solo cuando el cupón REALMENTE APLICA
         if (couponApplies.applies) {
             console.log(`🎨 useMemo rates: cupón APLICA, mostrando precio anterior`);
+            console.log(`💰 Precio base (tachado): compra=${baseRates.compra}, venta=${baseRates.venta}`);
+            console.log(`🎫 Precio cupón (actual): compra=${currentRates.compra}, venta=${currentRates.venta}`);
             return {
-                ...currentRates, // currentRates ya contiene las tasas correctas
+                // Precio actual con cupón
+                compra: currentRates.compra,
+                venta: currentRates.venta,
+                // Precio anterior (base, tachado)
+                previousCompra: baseRates.compra,
+                previousVenta: baseRates.venta,
                 showPreviousPrice: true, // ✅ SOLO cuando realmente aplica
                 isActive: true
             };
         } else {
             console.log(`🎨 useMemo rates: cupón NO APLICA, usando tasas base sin precio anterior`);
             return {
-                ...currentRates, // currentRates ya contiene las tasas base
+                // Precio actual (base, porque cupón no aplica)
+                compra: currentRates.compra,
+                venta: currentRates.venta,
+                // Sin precio anterior
+                previousCompra: null,
+                previousVenta: null,
                 showPreviousPrice: false, // ✅ NO mostrar precio anterior
                 isActive: false
             };
         }
-    }, [couponInfo, currentRates, amount1, operationType]); // 🔥 DEPENDENCIAS CRÍTICAS para reactividad
+    }, [couponInfo, currentRates, baseRates, debouncedAmount1, operationType]); // 🔥 DEPENDENCIAS CRÍTICAS incluyendo baseRates
     
-    const couponStatus = useMemo(() => checkCouponApplies(), [couponInfo, amount1, operationType]);
+    const couponStatus = useMemo(() => checkCouponApplies(debouncedAmount1), [couponInfo, debouncedAmount1, operationType]);
 
     const handleOperationStart = () => {
         const amountValue = parseNumberFromFormatted(amount1);
@@ -582,7 +629,7 @@ const ExchangeCard = ({
                             {couponInfo && rates.showPreviousPrice ? (
                                 <div className="text-center">
                                     <div className=" text-[10px] lg:text-xs opacity-75 font-medium">
-                                        <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_compra.toFixed(4)}</span>
+                                        <span className="line-through">Antes S/ {rates.previousCompra}</span>
                                     </div>
                                      <span className={`text-sm font-semibold  ${operationType === 'venta'
                                             ? ' text-neutral-dark'
@@ -658,7 +705,7 @@ const ExchangeCard = ({
                             {couponInfo && rates.showPreviousPrice ? (
                                 <div className="text-center">
                                     <div className="text-[10px] lg:text-xs opacity-75 font-medium">
-                                        <span className="line-through">Antes S/ {CambiaFXService.tcBase[0]?.tc_venta.toFixed(4)}</span>
+                                        <span className="line-through">Antes S/ {rates.previousVenta}</span>
                                     </div>
 
                                       <span className={`text-sm font-semibold  ${operationType === 'venta'
