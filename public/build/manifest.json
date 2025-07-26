@@ -102,8 +102,8 @@
       "_Header-RQYzW6wl.js"
     ]
   },
-  "_ExchangeCard-DQn_Rawj.js": {
-    "file": "assets/ExchangeCard-DQn_Rawj.js",
+  "_ExchangeCard-CA69g8ow.js": {
+    "file": "assets/ExchangeCard-CA69g8ow.js",
     "name": "ExchangeCard",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -129,8 +129,8 @@
       "_proxy-Dg7W2VMC.js"
     ]
   },
-  "_FuncionSection-BaX_s-W1.js": {
-    "file": "assets/FuncionSection-BaX_s-W1.js",
+  "_FuncionSection-Cbfrz8aD.js": {
+    "file": "assets/FuncionSection-Cbfrz8aD.js",
     "name": "FuncionSection",
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
@@ -138,7 +138,7 @@
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_WhatsAppButton-z5neXPDh.js",
       "_proxy-Dg7W2VMC.js",
-      "_ExchangeCard-DQn_Rawj.js"
+      "_ExchangeCard-CA69g8ow.js"
     ]
   },
   "_Header-RQYzW6wl.js": {
@@ -2559,7 +2559,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-6MsGxbq5.js",
+    "file": "assets/BlogArticle-CkWHFnxb.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2577,7 +2577,7 @@
       "_PostCard-UdlaTIWj.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_main-Y8JAyXgE.js",
-      "_ExchangeCard-DQn_Rawj.js",
+      "_ExchangeCard-CA69g8ow.js",
       "_WhatsAppButton-z5neXPDh.js",
       "_CintilloSection-bqzgqYqT.js",
       "_proxy-Dg7W2VMC.js",
@@ -3197,7 +3197,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-DqLNsFvv.js",
+    "file": "assets/Home-TaZb48Td.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3221,7 +3221,7 @@
       "_axios-B4uVmeYG.js",
       "resources/js/Utils/BlurText.jsx",
       "_createLucideIcon-D_WcjKff.js",
-      "_FuncionSection-BaX_s-W1.js",
+      "_FuncionSection-Cbfrz8aD.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_autoplay-BgjrnjSJ.js",
       "_proxy-Dg7W2VMC.js",
@@ -3241,7 +3241,7 @@
       "_AppointmentsRest-qLh4Dh2j.js",
       "_chevron-down-DEuKezfs.js",
       "_WhatsAppButton-z5neXPDh.js",
-      "_ExchangeCard-DQn_Rawj.js",
+      "_ExchangeCard-CA69g8ow.js",
       "_classes-to-selector-CyqfpjkH.js"
     ],
     "css": [
@@ -3250,7 +3250,7 @@
     ]
   },
   "resources/js/HomeEmpresa.jsx": {
-    "file": "assets/HomeEmpresa-B8EAZEPW.js",
+    "file": "assets/HomeEmpresa-7MjVRLrU.js",
     "name": "HomeEmpresa",
     "src": "resources/js/HomeEmpresa.jsx",
     "isEntry": true,
@@ -3272,10 +3272,10 @@
       "_index-SDlHnhXR.js",
       "_ModalAppointment-Blv8AswU.js",
       "resources/js/Utils/BlurText.jsx",
-      "_FuncionSection-BaX_s-W1.js",
+      "_FuncionSection-Cbfrz8aD.js",
       "resources/js/components/Home/Supplies.jsx",
       "_CintilloSection-bqzgqYqT.js",
-      "_ExchangeCard-DQn_Rawj.js",
+      "_ExchangeCard-CA69g8ow.js",
       "_WhatsAppButton-z5neXPDh.js",
       "resources/js/components/Tailwind/CambiaFX/HeroSecctionEmpresa.jsx",
       "_proxy-Dg7W2VMC.js",
@@ -4241,7 +4241,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4289,7 +4289,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4339,7 +4339,7 @@
     ]
   },
   "resources/js/components/Adminto/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-B0ALEkqN.js",
+    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/Adminto/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -4373,7 +4373,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-B0ALEkqN.js",
+    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -4969,7 +4969,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5103,7 +5103,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5818,7 +5818,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -5936,10 +5936,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-Kbv258F4.js",
+    "file": "assets/Email-B6_1mLDL.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -5950,13 +5950,15 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-Dwtff5Cv.js",
+    "file": "assets/Fragrance-CWZ5d7UB.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js"
+      "_tippy-react.esm-DYFqe69e.js",
+      "_index-RYns6xqu.js",
+      "_index-CXU7o9CY.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -5970,10 +5972,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-BzSP4Kvf.js",
+    "file": "assets/HairType-Chu0TyCG.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6104,7 +6106,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -6134,7 +6136,7 @@
     ]
   },
   "resources/js/components/form/QuillFormGroup.jsx": {
-    "file": "assets/QuillFormGroup-Dwtff5Cv.js",
+    "file": "assets/QuillFormGroup-B0ALEkqN.js",
     "name": "QuillFormGroup",
     "src": "resources/js/components/form/QuillFormGroup.jsx",
     "isEntry": true,
@@ -6156,7 +6158,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
+    "file": "assets/SelectFormGroup-B0ALEkqN.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,

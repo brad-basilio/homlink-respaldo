@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import CambiaFXService from '../../../services/CambiaFXService';
 import WhatsAppButton from '../../Shared/WhatsAppButton';
 import { Search } from 'lucide-react';
@@ -474,8 +474,11 @@ const ExchangeCard = ({
     };
 
     // 🎯 VERIFICAR SI EL CUPÓN APLICA AL MONTO ACTUAL
-    const checkCouponApplies = (amountToCheck = null) => {
+    const checkCouponApplies = (amountToCheck = null, opType = null) => {
         if (!couponInfo) return { applies: false, reason: '' };
+
+        // Usar el operationType pasado como parámetro o el actual
+        const currentOpType = opType || operationType;
 
         // 🔧 DETERMINAR QUÉ MONEDA ESTÁ SIENDO INGRESADA
         // Los rangos del cupón SIEMPRE están en USD
@@ -487,7 +490,7 @@ const ExchangeCard = ({
         const amount1Value = parseNumberFromFormatted(amount1);
         const amount2Value = parseNumberFromFormatted(amount2);
 
-        if (operationType === 'venta') {
+        if (currentOpType === 'venta') {
             // En VENTA:
             // - amount1 (input superior) = PEN (soles que envía)
             // - amount2 (input inferior) = USD (dólares que recibe)
@@ -535,7 +538,7 @@ const ExchangeCard = ({
             return { applies: false, reason: 'Sin monto válido' };
         }
 
-        console.log(`🔍 checkCouponApplies: ${amount} ${inputCurrency} → ${amountForComparison} USD (operación: ${operationType})`);
+        console.log(`🔍 checkCouponApplies: ${amount} ${inputCurrency} → ${amountForComparison} USD (operación: ${currentOpType})`);
 
         // Si hay múltiples rangos, verificar si el monto está en alguno de ellos
         if (couponInfo.rangos && couponInfo.rangos.length > 0) {
@@ -704,9 +707,100 @@ const ExchangeCard = ({
                 isActive: false
             };
         }
-    }, [couponInfo, currentRates, baseRates, debouncedAmount1, operationType]); // 🔥 DEPENDENCIAS CRÍTICAS incluyendo baseRates
+    }, [couponInfo, currentRates, baseRates, debouncedAmount1]); // 🔥 REMOVIDO operationType para evitar recálculos innecesarios
+
+    // 🎯 SOLUCIÓN DEFINITIVA: Usar valores directos sin ningún memo para botones
+    const [lastValidRates, setLastValidRates] = useState({
+        compra: 0,
+        venta: 0,
+        previousCompra: 0,
+        previousVenta: 0,
+        showPreviousPrice: false,
+        isActive: false
+    });
+
+    // Solo actualizar cuando las tasas cambien por razones legítimas 
+    useEffect(() => {
+        if (rates.compra && rates.venta) {
+            setLastValidRates({
+                compra: rates.compra,
+                venta: rates.venta,
+                previousCompra: rates.previousCompra,
+                previousVenta: rates.previousVenta,
+                showPreviousPrice: rates.showPreviousPrice,
+                isActive: rates.isActive
+            });
+        }
+    }, [rates.compra, rates.venta, rates.previousCompra, rates.previousVenta, rates.showPreviousPrice, rates.isActive]);
+
+    // 🎯 PREVENIR PARPADEO: Detectar cambios de operationType y usar valores estables
+    const [isChangingOperationType, setIsChangingOperationType] = useState(false);
+    const prevOperationTypeRef = useRef(operationType);
     
-    const couponStatus = useMemo(() => checkCouponApplies(debouncedAmount1), [couponInfo, debouncedAmount1, operationType]);
+    useEffect(() => {
+        if (prevOperationTypeRef.current !== operationType) {
+            setIsChangingOperationType(true);
+            // Muy breve pausa para evitar parpadeo
+            const timer = setTimeout(() => {
+                setIsChangingOperationType(false);
+            }, 50);
+            prevOperationTypeRef.current = operationType;
+            return () => clearTimeout(timer);
+        }
+    }, [operationType]);
+
+    // Estado persistente para el rango y tasas del cupón activas
+    const [activeCouponRange, setActiveCouponRange] = useState(null);
+    const [activeCouponRates, setActiveCouponRates] = useState({
+        compra: 0,
+        venta: 0,
+        previousCompra: 0,
+        previousVenta: 0,
+        showPreviousPrice: false,
+        isActive: false
+    });
+
+    // Determinar el rango de cupón válido actual
+    const couponStatus = useMemo(() => {
+        const status = checkCouponApplies(debouncedAmount1, operationType);
+        
+        // Si hay cupón info, mantener siempre activo independientemente del estado temporal
+        if (couponInfo) {
+            // Si el cupón es válido y el monto está en rango, actualiza el estado persistente
+            if (status.applies && status.rangoActual) {
+                console.log(`🎯 CUPÓN APLICA - rangoActual:`, status.rangoActual);
+                console.log(`🎯 Tasas del cupón: compra=${status.rangoActual.tcCompra ?? status.rangoActual.tc_compra}, venta=${status.rangoActual.tcVenta ?? status.rangoActual.tc_venta}`);
+                console.log(`🎯 Tasas base (anteriores): compra=${baseRates.compra}, venta=${baseRates.venta}`);
+                
+                setActiveCouponRange(status.rangoActual);
+                setActiveCouponRates({
+                    compra: status.rangoActual.tcCompra ?? status.rangoActual.tc_compra ?? 0,
+                    venta: status.rangoActual.tcVenta ?? status.rangoActual.tc_venta ?? 0,
+                    previousCompra: baseRates.compra,
+                    previousVenta: baseRates.venta,
+                    showPreviousPrice: true,
+                    isActive: true
+                });
+            }
+            // 🎯 MANTENER CUPÓN ACTIVO MIENTRAS EXISTA couponInfo - NO REINICIAR
+        } else {
+            // Solo limpiar si NO hay couponInfo
+            setActiveCouponRange(null);
+            setActiveCouponRates({
+                compra: rates.compra,
+                venta: rates.venta,
+                previousCompra: 0,
+                previousVenta: 0,
+                showPreviousPrice: false,
+                isActive: false
+            });
+        }
+        return status;
+    }, [couponInfo, debouncedAmount1, operationType]);
+
+    // Usar siempre los últimos valores persistentes para los botones
+    // 🎯 USAR SIEMPRE activeCouponRates SI HAY CUPÓN ACTIVO
+    const stableButtonRates = couponInfo && activeCouponRates.isActive ? activeCouponRates : lastValidRates;
 
     const handleOperationStart = () => {
         const amountValue = parseNumberFromFormatted(amount1);
@@ -770,18 +864,18 @@ const ExchangeCard = ({
                 >
                     <div className="flex flex-col items-center">
                         <div className="flex items-center gap-2">
-                            {couponInfo && rates.showPreviousPrice ? (
+                            {couponInfo && stableButtonRates.showPreviousPrice ? (
                                 <div className="text-center">
-                                    <div className=" text-[10px] lg:text-xs opacity-75 font-medium">
-                                        <span className="line-through">Antes S/ {rates.previousCompra}</span>
+                                    <div className="text-[10px] lg:text-xs opacity-75 font-medium">
+                                        <span className="line-through">Antes S/ {stableButtonRates.previousCompra}</span>
                                     </div>
-                                     <span className={`text-sm font-semibold  ${operationType === 'venta'
-                                            ? ' text-neutral-dark'
-                                            : ' text-white'
-                                        }`}>COMPRA  <br className='lg:hidden'/> S/ {rates.compra}</span>
+                                    <span className={`text-sm font-semibold ${operationType === 'compra'
+                                        ? 'text-white'
+                                        : 'text-neutral-dark'
+                                    }`}>COMPRA <br className='lg:hidden'/> S/ {stableButtonRates.compra}</span>
                                 </div>
                             ) : (
-                                <span className="text-xs lg:text-sm font-semibold">COMPRA <br className='lg:hidden'/> S/ {rates.compra}</span>
+                                <span className="text-xs lg:text-sm font-semibold">COMPRA <br className='lg:hidden'/> S/ {stableButtonRates.compra}</span>
                             )}
 
                             {/* Icono de ayuda para COMPRA */}
@@ -831,9 +925,9 @@ const ExchangeCard = ({
 
 
                     </div>
-                    {couponInfo && rates.showPreviousPrice && (
+                    {couponInfo && stableButtonRates.showPreviousPrice && (
                         <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
-                            rates.isActive ? 'bg-secondary' : 'bg-yellow-400'
+                            stableButtonRates.isActive ? 'bg-secondary' : 'bg-yellow-400'
                         }`}></div>
                     )}
                 </button>
@@ -846,20 +940,18 @@ const ExchangeCard = ({
                 >
                     <div className="flex flex-col items-center">
                         <div className="flex items-center gap-2">
-                            {couponInfo && rates.showPreviousPrice ? (
+                            {couponInfo && stableButtonRates.showPreviousPrice ? (
                                 <div className="text-center">
                                     <div className="text-[10px] lg:text-xs opacity-75 font-medium">
-                                        <span className="line-through">Antes S/ {rates.previousVenta}</span>
+                                        <span className="line-through">Antes S/ {stableButtonRates.previousVenta}</span>
                                     </div>
-
-                                      <span className={`text-sm font-semibold  ${operationType === 'venta'
-                                             ? 'text-white '
-                                            : '  text-neutral-dark'
-                                        }`}>VENTA   <br className='lg:hidden'/> S/ {rates.venta}</span>
-
+                                    <span className={`text-sm font-semibold ${operationType === 'venta'
+                                        ? 'text-white'
+                                        : 'text-neutral-dark'
+                                    }`}>VENTA <br className='lg:hidden'/> S/ {stableButtonRates.venta}</span>
                                 </div>
                             ) : (
-                                <span className="text-xs lg:text-sm font-semibold">VENTA  <br className='lg:hidden'/>S/ {rates.venta}</span>
+                                <span className="text-xs lg:text-sm font-semibold">VENTA <br className='lg:hidden'/>S/ {stableButtonRates.venta}</span>
                             )}
 
                             {/* Icono de ayuda para VENTA */}
@@ -908,9 +1000,9 @@ const ExchangeCard = ({
 
 
                     </div>
-                    {couponInfo && rates.showPreviousPrice && (
+                    {couponInfo && stableButtonRates.showPreviousPrice && (
                         <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full border-2 border-white ${
-                            rates.isActive ? 'bg-secondary' : 'bg-yellow-400'
+                            stableButtonRates.isActive ? 'bg-secondary' : 'bg-yellow-400'
                         }`}></div>
                     )}
                 </button>
