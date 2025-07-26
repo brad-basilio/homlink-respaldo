@@ -338,6 +338,21 @@ const ExchangeCard = ({
         }
     };
 
+    // 🎯 Función para cambiar tipo de operación y refrescar tasas del cupón
+    const handleOperationTypeChange = (newType) => {
+        if (newType === operationType) return; // No hacer nada si es el mismo tipo
+        
+        console.log(`🔄 Cambiando operación de ${operationType} a ${newType}`);
+        
+        // Cambiar el tipo de operación
+        setOperationType(newType);
+        
+        // Forzar actualización de tasas después del cambio para refrescar botones
+        setTimeout(() => {
+            updateCurrentRates();
+        }, 100);
+    };
+
     const handleAmountChange = (value, origin) => {
         // Formatear el valor con comas automáticamente
         const formattedValue = formatInputValue(value);
@@ -486,7 +501,8 @@ const ExchangeCard = ({
         let inputCurrency = 'USD';
         let amount = 0;
 
-        // 💡 LÓGICA CORREGIDA: Analizar ambos inputs para determinar cuál tiene el valor principal
+        // 💡 LÓGICA CORREGIDA: Usar siempre debouncedAmount1 para determinar el rango
+        const debouncedAmount1Value = parseNumberFromFormatted(debouncedAmount1);
         const amount1Value = parseNumberFromFormatted(amount1);
         const amount2Value = parseNumberFromFormatted(amount2);
 
@@ -494,30 +510,43 @@ const ExchangeCard = ({
             // En VENTA:
             // - amount1 (input superior) = PEN (soles que envía)
             // - amount2 (input inferior) = USD (dólares que recibe)
+            // USAR SIEMPRE debouncedAmount1 para detectar el rango
             
-            if (amount2Value > 0) {
-                // Si hay valor en amount2 (USD), usar ese como referencia
-                inputCurrency = 'USD';
-                amount = amount2Value;
-                amountForComparison = amount; // Ya está en USD
-                console.log(`🎯 VENTA - Usando amount2 (USD): ${amount}`);
+            if (debouncedAmount1Value > 0) {
+                // Usar debouncedAmount1 (PEN) convertido a USD para rango
+                inputCurrency = 'PEN';
+                amount = debouncedAmount1Value;
+                const tcBase = CambiaFXService.tcBase[0];
+                if (tcBase) {
+                    // En VENTA: PEN → USD, usar tc_venta (precio de venta de USD)
+                    amountForComparison = amount / tcBase.tc_venta;
+                }
+                console.log(`🎯 VENTA - Usando debouncedAmount1 (PEN): ${amount} → ${amountForComparison} USD (tc_venta=${tcBase?.tc_venta})`);
             } else if (amount1Value > 0) {
-                // Si solo hay valor en amount1 (PEN), convertir a USD
+                // Fallback a amount1 si debouncedAmount1 está vacío
                 inputCurrency = 'PEN';
                 amount = amount1Value;
                 const tcBase = CambiaFXService.tcBase[0];
                 if (tcBase) {
+                    // En VENTA: PEN → USD, usar tc_venta (precio de venta de USD)
                     amountForComparison = amount / tcBase.tc_venta;
                 }
-                console.log(`🎯 VENTA - Usando amount1 (PEN): ${amount} → ${amountForComparison} USD`);
+                console.log(`🎯 VENTA - Usando amount1 (PEN): ${amount} → ${amountForComparison} USD (tc_venta=${tcBase?.tc_venta})`);
             }
         } else {
             // En COMPRA:
-            // - amount1 (input superior) = USD (dólares que envía)
+            // - amount1 (input superior) = USD (dólares que envía)  
             // - amount2 (input inferior) = PEN (soles que recibe)
+            // USAR SIEMPRE debouncedAmount1 para detectar el rango
             
-            if (amount1Value > 0) {
-                // Si hay valor en amount1 (USD), usar ese como referencia
+            if (debouncedAmount1Value > 0) {
+                // Usar debouncedAmount1 (USD) directamente para rango
+                inputCurrency = 'USD';
+                amount = debouncedAmount1Value;
+                amountForComparison = amount; // Ya está en USD
+                console.log(`🎯 COMPRA - Usando debouncedAmount1 (USD): ${amount}`);
+            } else if (amount1Value > 0) {
+                // Fallback a amount1 si debouncedAmount1 está vacío
                 inputCurrency = 'USD';
                 amount = amount1Value;
                 amountForComparison = amount; // Ya está en USD
@@ -528,9 +557,10 @@ const ExchangeCard = ({
                 amount = amount2Value;
                 const tcBase = CambiaFXService.tcBase[0];
                 if (tcBase) {
-                    amountForComparison = amount / tcBase.tc_compra;
+                    // En COMPRA: PEN → USD, usar tc_venta (el sistema "vende" USD por PEN)
+                    amountForComparison = amount / tcBase.tc_venta;
                 }
-                console.log(`🎯 COMPRA - Usando amount2 (PEN): ${amount} → ${amountForComparison} USD`);
+                console.log(`🎯 COMPRA - Usando amount2 (PEN): ${amount} → ${amountForComparison} USD (tc_venta=${tcBase?.tc_venta})`);
             }
         }
 
@@ -546,12 +576,12 @@ const ExchangeCard = ({
             
             // Filtrar rangos válidos primero
             const rangosValidos = couponInfo.rangos.filter(r => {
-                const minAmount = r.montoMinimo ?? r.desde;
-                const maxAmount = r.montoMaximo ?? r.hasta;
+                const minAmount = r.tcFrom ?? r.montoMinimo ?? r.desde;
+                const maxAmount = r.tcTo ?? r.montoMaximo ?? r.hasta;
                 return r && minAmount != null && maxAmount != null;
             });
             
-            console.log(`🎯 Rangos disponibles:`, rangosValidos.map(r => `${r.desde ?? r.montoMinimo}-${r.hasta ?? r.montoMaximo}`));
+            console.log(`🎯 Rangos disponibles:`, rangosValidos.map(r => `${r.tcFrom ?? r.montoMinimo ?? r.desde}-${r.tcTo ?? r.montoMaximo ?? r.hasta}`));
             
             // Buscar el rango correcto sin superposición
             for (let i = 0; i < rangosValidos.length; i++) {
@@ -559,8 +589,8 @@ const ExchangeCard = ({
                 const isLastRange = i === rangosValidos.length - 1;
                 
                 // Los rangos están en USD, usar directamente
-                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                let minAmount = rango.tcFrom ?? rango.montoMinimo ?? rango.desde ?? 0;
+                let maxAmount = rango.tcTo ?? rango.montoMaximo ?? rango.hasta ?? 0;
                 
                 // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos + tolerancia para decimales
                 // Último rango incluye el límite superior, otros no
@@ -856,7 +886,7 @@ const ExchangeCard = ({
             {/* Operation Type Buttons */}
             <div className="flex gap-2 mb-4 tracking-wider bg-white rounded-2xl p-2 !font-paragraph">
                 <button
-                    onClick={() => setOperationType('compra')}
+                    onClick={() => handleOperationTypeChange('compra')}
                     className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 relative ${operationType === 'compra'
                             ? 'bg-constrast text-white shadow-lg shadow-constrast/25'
                             : 'bg-white text-neutral-dark hover:bg-neutral hover:shadow-md'
@@ -932,7 +962,7 @@ const ExchangeCard = ({
                     )}
                 </button>
                 <button
-                    onClick={() => setOperationType('venta')}
+                    onClick={() => handleOperationTypeChange('venta')}
                     className={`flex-1 py-3 rounded-xl font-medium transition-all duration-200 relative ${operationType === 'venta'
                             ? 'bg-constrast text-white shadow-lg shadow-constrast/25'
                             : 'bg-white text-neutral-dark hover:bg-neutral hover:shadow-md'
