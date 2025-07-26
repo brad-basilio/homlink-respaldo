@@ -124,7 +124,7 @@ const BlogSection = ({data,posts}) => {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            CASOS DE EXITO | BLOG
+            CASOS DE ÉXITO | BLOG
           </motion.div>
           <motion.h2 
             className="text-4xl md:text-[64px] font-medium leading-[94%] text-neutral-dark mb-2"
