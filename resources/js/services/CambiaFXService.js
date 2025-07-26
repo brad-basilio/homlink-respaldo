@@ -276,9 +276,9 @@ class CambiaFXService {
                     
                     let isInRange;
                     if (hasMultipleRanges && !isLastRange) {
-                        isInRange = (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
+                        isInRange = (amountForComparison >= obj.desde && amountForComparison < obj.hasta);
                     } else {
-                        isInRange = (obj.desde <= amountForComparison && amountForComparison <= obj.hasta);
+                        isInRange = (amountForComparison >= obj.desde && amountForComparison <= obj.hasta);
                     }
                     
                     if (isInRange) {

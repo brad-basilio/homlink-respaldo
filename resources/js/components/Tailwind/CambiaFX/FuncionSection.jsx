@@ -149,15 +149,7 @@ const FuncionSection = ({ data, pasos }) => {
                                     </motion.div>
 
                                     <motion.div className="text-center px-2">
-                                        <motion.div
-                                            className="text-constrast font-medium text-sm mb-2 uppercase"
-                                            initial={{ opacity: 0, y: 10 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true, amount: 0.2 }}
-                                            transition={{ duration: 0.5, delay: 0.35 + index * 0.1 }}
-                                        >
-                                            PASO {index + 1}
-                                        </motion.div>
+                                       
 
                                         <motion.div
                                             className="text-xl font-medium text-neutral-dark mb-3"

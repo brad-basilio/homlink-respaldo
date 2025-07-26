@@ -395,27 +395,67 @@ const ExchangeCard = ({
 
     // 🎯 VERIFICAR SI EL CUPÓN APLICA AL MONTO ACTUAL
     const checkCouponApplies = (amountToCheck = null) => {
-        // Usar el monto pasado como parámetro o amount1 por defecto
-        const amountInput = amountToCheck || amount1;
-        if (!couponInfo || !amountInput) return { applies: false, reason: '' };
+        if (!couponInfo) return { applies: false, reason: '' };
 
-        const amount = parseNumberFromFormatted(amountInput);
-
-        // 🔧 LÓGICA CORREGIDA: Convertir el monto de entrada a USD para comparar con rangos
-        let amountForComparison = amount;
-        
+        // 🔧 DETERMINAR QUÉ MONEDA ESTÁ SIENDO INGRESADA
         // Los rangos del cupón SIEMPRE están en USD
-        // Si la operación es VENTA (input en PEN), convertir a USD para la comparación
+        let amountForComparison = 0;
+        let inputCurrency = 'USD';
+        let amount = 0;
+
+        // 💡 LÓGICA CORREGIDA: Analizar ambos inputs para determinar cuál tiene el valor principal
+        const amount1Value = parseNumberFromFormatted(amount1);
+        const amount2Value = parseNumberFromFormatted(amount2);
+
         if (operationType === 'venta') {
-            const tcBase = CambiaFXService.tcBase[0];
-            if (tcBase) {
-                // Convertir PEN → USD usando TC base
-                amountForComparison = amount / tcBase.tc_venta;
+            // En VENTA:
+            // - amount1 (input superior) = PEN (soles que envía)
+            // - amount2 (input inferior) = USD (dólares que recibe)
+            
+            if (amount2Value > 0) {
+                // Si hay valor en amount2 (USD), usar ese como referencia
+                inputCurrency = 'USD';
+                amount = amount2Value;
+                amountForComparison = amount; // Ya está en USD
+                console.log(`🎯 VENTA - Usando amount2 (USD): ${amount}`);
+            } else if (amount1Value > 0) {
+                // Si solo hay valor en amount1 (PEN), convertir a USD
+                inputCurrency = 'PEN';
+                amount = amount1Value;
+                const tcBase = CambiaFXService.tcBase[0];
+                if (tcBase) {
+                    amountForComparison = amount / tcBase.tc_venta;
+                }
+                console.log(`🎯 VENTA - Usando amount1 (PEN): ${amount} → ${amountForComparison} USD`);
+            }
+        } else {
+            // En COMPRA:
+            // - amount1 (input superior) = USD (dólares que envía)
+            // - amount2 (input inferior) = PEN (soles que recibe)
+            
+            if (amount1Value > 0) {
+                // Si hay valor en amount1 (USD), usar ese como referencia
+                inputCurrency = 'USD';
+                amount = amount1Value;
+                amountForComparison = amount; // Ya está en USD
+                console.log(`🎯 COMPRA - Usando amount1 (USD): ${amount}`);
+            } else if (amount2Value > 0) {
+                // Si solo hay valor en amount2 (PEN), convertir a USD
+                inputCurrency = 'PEN';
+                amount = amount2Value;
+                const tcBase = CambiaFXService.tcBase[0];
+                if (tcBase) {
+                    amountForComparison = amount / tcBase.tc_compra;
+                }
+                console.log(`🎯 COMPRA - Usando amount2 (PEN): ${amount} → ${amountForComparison} USD`);
             }
         }
-        // Si la operación es COMPRA (input en USD), usar directamente
 
-        console.log(`🔍 checkCouponApplies: ${amount} ${operationType === 'venta' ? 'PEN' : 'USD'} → ${amountForComparison} USD`);
+        if (amountForComparison <= 0) {
+            return { applies: false, reason: 'Sin monto válido' };
+        }
+
+        console.log(`🔍 checkCouponApplies: ${amount} ${inputCurrency} → ${amountForComparison} USD (operación: ${operationType})`);
 
         // Si hay múltiples rangos, verificar si el monto está en alguno de ellos
         if (couponInfo.rangos && couponInfo.rangos.length > 0) {
@@ -923,38 +963,99 @@ const ExchangeCard = ({
                                                                         <h5 className="text-xs font-semibold text-constrast mb-2">RANGOS DISPONIBLES</h5>
                                                                         <div className="space-y-2">
                                                                             {couponInfo.rangos.filter(rango => rango && (rango.montoMinimo != null || rango.desde != null) && (rango.montoMaximo != null || rango.hasta != null)).map((rango, index) => {
-                                                                                const currentAmount = parseNumberFromFormatted(amount1);
-                                                                                // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
-                                                                                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
-                                                                                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
-                                                                                const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
-                                                                                const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
-                                                                                
-                                                                                // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
-                                                                                const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
-                                                                                if (operationType === 'venta' && tcBase) {
-                                                                                    minAmount = minAmount * tcBase.tc_venta;
-                                                                                    maxAmount = maxAmount * tcBase.tc_venta;
-                                                                                }
-                                                                                
-                                                                                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos
-                                                                                // Último rango incluye el límite superior, otros no
-                                                                                const isLastRange = index === couponInfo.rangos.filter(r => r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null)).length - 1;
-                                                                                const isCurrentRange = isLastRange 
-                                                                                    ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
-                                                                                    : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
-                                                                                
-                                                                                return (
+                                                                                                // 🔧 DETERMINAR MONTO CORRECTO: Usar EXACTAMENTE la misma lógica que checkCouponApplies
+                                                                                                const amount1Value = parseNumberFromFormatted(amount1);
+                                                                                                const amount2Value = parseNumberFromFormatted(amount2);
+                                                                                                
+                                                                                                let amountForComparison = 0;
+                                                                                                let inputCurrency = 'USD';
+                                                                                                
+                                                                                                if (operationType === 'venta') {
+                                                                                                    // En VENTA: amount1=PEN, amount2=USD
+                                                                                                    if (amount2Value > 0) {
+                                                                                                        // Si hay valor en amount2 (USD), usar ese como referencia
+                                                                                                        inputCurrency = 'USD';
+                                                                                                        amountForComparison = amount2Value; // Ya está en USD
+                                                                                                    } else if (amount1Value > 0) {
+                                                                                                        // Si solo hay valor en amount1 (PEN), convertir a USD
+                                                                                                        inputCurrency = 'PEN';
+                                                                                                        const tcBase = CambiaFXService.tcBase[0];
+                                                                                                        if (tcBase) {
+                                                                                                            amountForComparison = amount1Value / tcBase.tc_venta;
+                                                                                                        }
+                                                                                                    }
+                                                                                                } else {
+                                                                                                    // En COMPRA: amount1=USD, amount2=PEN
+                                                                                                    if (amount1Value > 0) {
+                                                                                                        // Si hay valor en amount1 (USD), usar ese como referencia
+                                                                                                        inputCurrency = 'USD';
+                                                                                                        amountForComparison = amount1Value; // Ya está en USD
+                                                                                                    } else if (amount2Value > 0) {
+                                                                                                        // Si solo hay valor en amount2 (PEN), convertir a USD
+                                                                                                        inputCurrency = 'PEN';
+                                                                                                        const tcBase = CambiaFXService.tcBase[0];
+                                                                                                        if (tcBase) {
+                                                                                                            amountForComparison = amount2Value / tcBase.tc_compra;
+                                                                                                        }
+                                                                                                    }
+                                                                                                }
+                                                                                                
+                                                                                                // Manejar tanto la estructura nueva (montoMinimo/montoMaximo) como la del backend (desde/hasta)
+                                                                                                let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                                let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                                const buyRate = rango.tcCompra ?? rango.tc_compra ?? 'N/A';
+                                                                                                const sellRate = rango.tcVenta ?? rango.tc_venta ?? 'N/A';
+                                                                                                
+                                                                                                // 💱 CONVERSIÓN PARA DISPLAY: Si estamos usando PEN, convertir rangos para mostrar
+                                                                                                // Pero para comparación, ya tenemos amountForComparison en USD
+                                                                                                const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                                                let displayMinAmount = minAmount;
+                                                                                                let displayMaxAmount = maxAmount;
+                                                                                                
+                                                                                                if (inputCurrency === 'PEN') {
+                                                                                                    // Convertir rangos para mostrar en PEN
+                                                                                                    if (operationType === 'venta' && tcBase) {
+                                                                                                        displayMinAmount = minAmount * tcBase.tc_venta;
+                                                                                                        displayMaxAmount = maxAmount * tcBase.tc_venta;
+                                                                                                    } else if (operationType === 'compra' && tcBase) {
+                                                                                                        displayMinAmount = minAmount * tcBase.tc_compra;
+                                                                                                        displayMaxAmount = maxAmount * tcBase.tc_compra;
+                                                                                                    }
+                                                                                                }
+                                                                                                
+                                                                                                // 🔧 LÓGICA CORREGIDA: Comparar usando EXACTAMENTE la misma lógica que checkCouponApplies
+                                                                                                // Los rangos están en USD, amountForComparison está en USD
+                                                                                                const isLastRange = index === couponInfo.rangos.filter(r => r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null)).length - 1;
+                                                                                                const tolerance = 0.1;
+                                                                                                
+                                                                                                // 🔍 DEBUG: Mostrar información del rango actual
+                                                                                                console.log(`🔍 TOOLTIP DEBUG - Rango ${index + 1}: min=${minAmount}, max=${maxAmount}, amount=${amountForComparison}, isLast=${isLastRange}`);
+                                                                                                
+                                                                                                const isCurrentRange = isLastRange 
+                                                                                                    ? (minAmount - tolerance <= amountForComparison && amountForComparison <= maxAmount)  // Último: incluye límite superior
+                                                                                                    : (minAmount - tolerance <= amountForComparison && amountForComparison < maxAmount);   // Otros: NO incluye límite superior
+                                                                                                
+                                                                                                console.log(`🔍 TOOLTIP DEBUG - Evaluación: ${isLastRange ? `${minAmount - tolerance} <= ${amountForComparison} <= ${maxAmount}` : `${minAmount - tolerance} <= ${amountForComparison} < ${maxAmount}`} = ${isCurrentRange}`);
+                                                                                                
+                                                                                                return (
                                                                                     <div key={index} className={`flex justify-between items-center p-2 rounded-md text-xs ${
                                                                                         isCurrentRange 
                                                                                             ? 'bg-constrast/20 border border-constrast/40' 
                                                                                             : 'bg-white/5'
                                                                                     }`}>
                                                                                         <span className="font-medium">
-                                                                                            {operationType === 'compra' 
-                                                                                                ? `$${(minAmount || 0).toLocaleString()} - $${(maxAmount || 0).toLocaleString()} USD`
-                                                                                                : `S/${(minAmount || 0).toLocaleString()} - S/${(maxAmount || 0).toLocaleString()} PEN`
-                                                                                            }
+                                                                                            {/* 🔧 MOSTRAR RANGOS SEGÚN QUÉ INPUT ESTÁ SIENDO USADO */}
+                                                                                            {(() => {
+                                                                                                if (inputCurrency === 'USD') {
+                                                                                                    // Mostrar en USD (original) 
+                                                                                                    const originalMin = rango.montoMinimo ?? rango.desde ?? 0;
+                                                                                                    const originalMax = rango.montoMaximo ?? rango.hasta ?? 0;
+                                                                                                    return `$${(originalMin || 0).toLocaleString()} - $${(originalMax || 0).toLocaleString()} USD`;
+                                                                                                } else {
+                                                                                                    // Mostrar en PEN (convertido)
+                                                                                                    return `S/${(displayMinAmount || 0).toLocaleString()} - S/${(displayMaxAmount || 0).toLocaleString()} PEN`;
+                                                                                                }
+                                                                                            })()}
                                                                                             {isCurrentRange && <span className="ml-1 text-constrast">✓</span>}
                                                                                         </span>
                                                                                         <div className="flex gap-2 text-xs">
@@ -969,33 +1070,70 @@ const ExchangeCard = ({
 
                                                                     {/* Mostrar tasas del rango actual */}
                                                                     {(() => {
-                                                                        const currentAmount = parseNumberFromFormatted(amount1);
+                                                                        // 🔧 DETERMINAR MONTO CORRECTO: Usar EXACTAMENTE la misma lógica que checkCouponApplies
+                                                                        const amount1Value = parseNumberFromFormatted(amount1);
+                                                                        const amount2Value = parseNumberFromFormatted(amount2);
+                                                                        
+                                                                        let amountForComparison = 0;
+                                                                        let inputCurrency = 'USD';
+                                                                        
+                                                                        if (operationType === 'venta') {
+                                                                            // En VENTA: amount1=PEN, amount2=USD
+                                                                            if (amount2Value > 0) {
+                                                                                // Si hay valor en amount2 (USD), usar ese como referencia
+                                                                                inputCurrency = 'USD';
+                                                                                amountForComparison = amount2Value; // Ya está en USD
+                                                                            } else if (amount1Value > 0) {
+                                                                                // Si solo hay valor en amount1 (PEN), convertir a USD
+                                                                                inputCurrency = 'PEN';
+                                                                                const tcBase = CambiaFXService.tcBase[0];
+                                                                                if (tcBase) {
+                                                                                    amountForComparison = amount1Value / tcBase.tc_venta;
+                                                                                }
+                                                                            }
+                                                                        } else {
+                                                                            // En COMPRA: amount1=USD, amount2=PEN
+                                                                            if (amount1Value > 0) {
+                                                                                // Si hay valor en amount1 (USD), usar ese como referencia
+                                                                                inputCurrency = 'USD';
+                                                                                amountForComparison = amount1Value; // Ya está en USD
+                                                                            } else if (amount2Value > 0) {
+                                                                                // Si solo hay valor en amount2 (PEN), convertir a USD
+                                                                                inputCurrency = 'PEN';
+                                                                                const tcBase = CambiaFXService.tcBase[0];
+                                                                                if (tcBase) {
+                                                                                    amountForComparison = amount2Value / tcBase.tc_compra;
+                                                                                }
+                                                                            }
+                                                                        }
                                                                         
                                                                         // 🔧 LÓGICA CORREGIDA: Filtrar rangos válidos y aplicar lógica sin superposición
                                                                         const rangosValidos = couponInfo.rangos.filter(r => {
                                                                             return r && (r.montoMinimo != null || r.desde != null) && (r.montoMaximo != null || r.hasta != null);
                                                                         });
                                                                         
-                                                                        // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
-                                                                        const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+                                                                        // 💱 CONVERSIÓN: Comparar en USD directamente (amountForComparison ya está en USD)
                                                                         
                                                                         let currentRange = null;
                                                                         for (let i = 0; i < rangosValidos.length; i++) {
                                                                             const rango = rangosValidos[i];
                                                                             const isLastRange = i === rangosValidos.length - 1;
+                                                                            
+                                                                            // Los rangos están en USD, usar directamente
                                                                             let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
                                                                             let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
                                                                             
-                                                                            // 💱 Si es VENTA, convertir rangos de USD a PEN usando TC base
-                                                                            if (operationType === 'venta' && tcBase) {
-                                                                                minAmount = minAmount * tcBase.tc_venta;
-                                                                                maxAmount = maxAmount * tcBase.tc_venta;
-                                                                            }
+                                                                            // 🔧 LÓGICA SIN SUPERPOSICIÓN: Mismo que checkCouponApplies
+                                                                            const tolerance = 0.1;
                                                                             
-                                                                            // 🔧 LÓGICA SIN SUPERPOSICIÓN: Último rango incluye límite superior, otros no
+                                                                            // 🔍 DEBUG: Mostrar información del rango actual
+                                                                            console.log(`🔍 TOOLTIP TASAS DEBUG - Rango ${i + 1}: min=${minAmount}, max=${maxAmount}, amount=${amountForComparison}, isLast=${isLastRange}`);
+                                                                            
                                                                             const isInRange = isLastRange 
-                                                                                ? (currentAmount >= minAmount && currentAmount <= maxAmount)  // Último: incluye límite superior
-                                                                                : (currentAmount >= minAmount && currentAmount < maxAmount);   // Otros: NO incluye límite superior
+                                                                                ? (minAmount - tolerance <= amountForComparison && amountForComparison <= maxAmount)  // Último: incluye límite superior
+                                                                                : (minAmount - tolerance <= amountForComparison && amountForComparison < maxAmount);   // Otros: NO incluye límite superior
+                                                                            
+                                                                            console.log(`🔍 TOOLTIP TASAS DEBUG - Evaluación: ${isLastRange ? `${minAmount - tolerance} <= ${amountForComparison} <= ${maxAmount}` : `${minAmount - tolerance} <= ${amountForComparison} < ${maxAmount}`} = ${isInRange}`);
                                                                             
                                                                             if (isInRange) {
                                                                                 currentRange = rango;
