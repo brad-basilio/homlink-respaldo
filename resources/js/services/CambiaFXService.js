@@ -119,8 +119,9 @@ class CambiaFXService {
                     amountMaxOperation: parseFloat(item.amountMaxOperation || 0)
                 }));
                 
-                // ✅ NO modificar tcData automáticamente, solo almacenar la info del cupón
-                // this.tcData = processedData; // ❌ COMENTADO - Esto causaba el problema
+                // ✅ ACTUALIZAMOS los datos con el cupón para que se use en los cálculos
+                this.tcData = processedData;
+                console.log(`🎫 Cupón aplicado: ${couponCode}`, processedData);
                 
                 return { valid: true, data: processedData };
             }
@@ -134,51 +135,7 @@ class CambiaFXService {
         }
     }
 
-    getTCFromAmount(amount, operationType = 'venta') {
-        if (!amount || amount <= 0) {
-            if (this.tcData.length > 0) {
-                const obj = this.tcData[0];
-                const tc = operationType === 'C' ? obj.tc_compra : obj.tc_venta;
-                return tc;
-            }
-            return 0;
-        }
-
-        let tcObj = null;
-        
-        let amountForComparison = amount;
-        if (operationType === 'V') {
-            if (!this.tcBaseOriginal) {
-                return 0;
-            }
-            
-            const baseTcOriginal = this.tcBaseOriginal.tc_venta;
-            amountForComparison = amount / baseTcOriginal;
-        }
-        
-        for (let obj of this.tcData) {
-            const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
-            const isInRange = isLastRange 
-                ? (obj.desde <= amountForComparison && amountForComparison <= obj.hasta)
-                : (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
-            
-            if (isInRange) {
-                tcObj = obj;
-                break;
-            }
-        }
-        
-        if (tcObj === null && this.tcData.length > 0) {
-            tcObj = this.tcData[this.tcData.length - 1];
-        }
-        
-        if (tcObj !== null) {
-            const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
-            return tc;
-        }
-        
-        return 0;
-    }
+    // El método getTCFromAmount() se ha reemplazado por la versión actualizada más abajo
 
     getTCFromBase(amount, operationType = 'venta') {
         for (let obj of this.tcBase) {
@@ -198,7 +155,7 @@ class CambiaFXService {
     }
 
     calculateExchange(amount, operationType = 'venta', origin = 'from') {
-        // ✅ LÓGICA CORREGIDA PARA MANEJAR FLUJO BIDIRECCIONAL
+        // 📊 LÓGICA SEGÚN LA CAPTURA EXACTAMENTE
         
         // Determinar qué moneda está siendo ingresada basado en la operación y el origen
         let inputCurrency = 'USD';
@@ -221,27 +178,26 @@ class CambiaFXService {
             }
         }
         
-        // Obtener el TC correcto basado en la moneda de entrada
+        // Obtener el TC correcto según el RANGO en USD al que corresponde el monto
         const tc = this.getTCFromAmount(amount, operationType, inputCurrency);
+        
+        // Debug para verificar valores
+        console.log(`Calculando: ${amount} ${inputCurrency} con TC ${tc} (${operationType})`);
+        
         let result = 0;
         
+        // Aplicar cálculos según la tabla de la captura:
         if (inputCurrency === 'USD') {
-            if (operationType === 'V') {
-                // VENTA: USD ingresado → calcular PEN necesarios
-                result = amount * tc; // USD × tc_venta = PEN
-            } else {
-                // COMPRA: USD ingresado → calcular PEN que se obtienen  
-                result = amount * tc; // USD × tc_compra = PEN
-            }
+            // Si el input es USD, multiplicar por el TC para obtener PEN
+            result = amount * tc;
         } else { // inputCurrency === 'PEN'
-            if (operationType === 'V') {
-                // VENTA: PEN ingresado → calcular USD que se obtienen
-                result = amount / tc; // PEN ÷ tc_venta = USD
-            } else {
-                // COMPRA: PEN ingresado → calcular USD necesarios
-                result = amount / tc; // PEN ÷ tc_compra = USD
-            }
+            // Si el input es PEN, dividir por el TC para obtener USD
+            result = amount / tc;
         }
+        
+        // Asegurar la precisión exacta para evitar errores de punto flotante
+        // Redondear a 2 decimales para montos
+        result = Math.round(result * 100) / 100;
 
         const finalResult = {
             result: parseFloat(result.toFixed(2)),
@@ -264,19 +220,42 @@ class CambiaFXService {
         let tcObj = null;
         let amountForComparison = amount;
         
-        // Si la moneda es PEN, convertir a USD para encontrar el rango
+        // � IMPLEMENTACIÓN SEGÚN LA CAPTURA - LÓGICA EXACTA
+        // Los rangos SIEMPRE están definidos en DÓLARES
+        // Si la moneda de entrada es PEN, debemos convertir a USD para determinar el rango
         if (currency === 'PEN') {
-            const baseTc = this.tcData[0] ? (operationType === 'V' ? this.tcData[0].tc_venta : this.tcData[0].tc_compra) : 3.55;
+            // Usar TC base para convertir PEN → USD y encontrar el rango correcto
+            // Este TC es siempre el del primer rango disponible
+            const baseObj = this.tcBaseOriginal || (this.tcData.length > 0 ? this.tcData[0] : null);
+            if (!baseObj) return 0;
+            
+            // Usar el TC base del tipo de operación correspondiente
+            const baseTc = operationType === 'C' ? baseObj.tc_compra : baseObj.tc_venta;
+            
+            // Convertir PEN → USD usando TC base
             amountForComparison = amount / baseTc;
         }
-        // Si es USD, usar directamente
         
-        // Buscar el rango correspondiente (siempre en USD)
+        // Buscar el rango correspondiente (siempre evaluando en USD)
+        console.log(`🔍 Buscando rango para ${amountForComparison} USD en:`, this.tcData.map(obj => `${obj.desde}-${obj.hasta} (TC: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta})`));
+        
         for (let obj of this.tcData) {
+            // 🎯 LÓGICA CORREGIDA PARA RANGOS:
+            // - Si hay múltiples rangos: primeros rangos usan "desde <= x < hasta", último rango usa "desde <= x <= hasta"
+            // - Si hay un solo rango: usa "desde <= x <= hasta"
             const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
-            const isInRange = isLastRange 
-                ? (obj.desde <= amountForComparison && amountForComparison <= obj.hasta)
-                : (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
+            const hasMultipleRanges = this.tcData.length > 1;
+            
+            let isInRange;
+            if (hasMultipleRanges && !isLastRange) {
+                // Múltiples rangos - rangos intermedios: desde <= x < hasta
+                isInRange = (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
+            } else {
+                // Último rango de múltiples O un solo rango: desde <= x <= hasta
+                isInRange = (obj.desde >= amountForComparison && amountForComparison <= obj.hasta);
+            }
+            
+            console.log(`📋 Evaluando rango ${obj.desde}-${obj.hasta}: ${amountForComparison} está en rango = ${isInRange} (${hasMultipleRanges ? (isLastRange ? 'último rango' : 'rango intermedio') : 'rango único'}) (TC: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta})`);
             
             if (isInRange) {
                 tcObj = obj;
@@ -286,10 +265,17 @@ class CambiaFXService {
         
         if (tcObj === null && this.tcData.length > 0) {
             tcObj = this.tcData[this.tcData.length - 1];
+            console.log(`⚠️ No se encontró rango, usando último: ${tcObj.desde}-${tcObj.hasta}`);
         }
         
         if (tcObj !== null) {
+            // Determinar TC según operación (Compra o Venta)
             const tc = operationType === 'V' ? tcObj.tc_venta : tcObj.tc_compra;
+            
+            console.log(`✅ TC seleccionado del rango ${tcObj.desde}-${tcObj.hasta}: ${tc} (${operationType})`);
+            
+            // Para evitar problemas con decimales, devolver el valor exacto del objeto
+            // sin manipulación adicional
             return tc;
         }
         
