@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import CambiaFXService from '../../../services/CambiaFXService';
 import WhatsAppButton from '../../Shared/WhatsAppButton';
 import { Search } from 'lucide-react';
@@ -100,6 +100,21 @@ const ExchangeCard = ({
         }
     }, [promotionalCode]);
 
+    // 🔥 NUEVO: Escuchar cambios en couponInfo y amount1 para actualizar currentRates
+    useEffect(() => {
+        console.log(`🔄 useEffect: couponInfo, amount1 o operationType cambiaron`);
+        console.log(`🔍 couponInfo:`, couponInfo);
+        console.log(`🔍 amount1:`, amount1);
+        console.log(`🔍 operationType:`, operationType);
+        
+        // Actualizar las tasas según el estado del cupón
+        updateCurrentRates();
+        
+        if (amount1) {
+            calculateExchange('O');
+        }
+    }, [couponInfo, amount1, operationType]);
+
     const initializeExchangeRates = async () => {
         try {
             const result = await CambiaFXService.getExchangeRates();
@@ -114,8 +129,56 @@ const ExchangeCard = ({
     };
 
     const updateCurrentRates = () => {
-        const rates = CambiaFXService.getCurrentRates();
-        setCurrentRates(rates);
+        console.log(`🔄 updateCurrentRates: iniciando...`);
+        console.log(`🔍 CambiaFXService.tcBase:`, CambiaFXService.tcBase);
+        console.log(`🔍 CambiaFXService.tcData:`, CambiaFXService.tcData);
+        
+        // 🔥 NUEVA LÓGICA: Verificar si hay cupón activo y si aplica
+        if (couponInfo && amount1) {
+            const couponApplies = checkCouponApplies();
+            console.log(`🔄 updateCurrentRates: couponApplies =`, couponApplies);
+            
+            if (couponApplies.applies) {
+                // Cupón aplica: usar tasas del cupón
+                if (couponApplies.rangoActual) {
+                    const rangoActual = couponApplies.rangoActual;
+                    const buyRate = rangoActual.tcCompra ?? rangoActual.tc_compra;
+                    const sellRate = rangoActual.tcVenta ?? rangoActual.tc_venta;
+                    
+                    setCurrentRates({
+                        compra: buyRate.toFixed(4),
+                        venta: sellRate.toFixed(4)
+                    });
+                    console.log(`� updateCurrentRates: usando tasas del RANGO - compra=${buyRate.toFixed(4)}, venta=${sellRate.toFixed(4)}`);
+                    return;
+                } else if (couponInfo.tcCompra && couponInfo.tcVenta) {
+                    setCurrentRates({
+                        compra: couponInfo.tcCompra.toFixed(4),
+                        venta: couponInfo.tcVenta.toFixed(4)
+                    });
+                    console.log(`🔄 updateCurrentRates: usando tasas del CUPÓN - compra=${couponInfo.tcCompra.toFixed(4)}, venta=${couponInfo.tcVenta.toFixed(4)}`);
+                    return;
+                }
+            }
+        }
+        
+        // Cupón no aplica o no hay cupón: usar tasas BASE
+        if (CambiaFXService.tcBase.length > 0) {
+            const baseRates = CambiaFXService.tcBase[0];
+            console.log(`🔍 baseRates encontradas:`, baseRates);
+            setCurrentRates({
+                compra: baseRates.tc_compra.toFixed(4),
+                venta: baseRates.tc_venta.toFixed(4)
+            });
+            console.log(`🔄 updateCurrentRates: usando tasas BASE - compra=${baseRates.tc_compra.toFixed(4)}, venta=${baseRates.tc_venta.toFixed(4)}`);
+        } else {
+            // Fallback si no hay tasas base
+            console.log(`⚠️ No hay tcBase, usando fallback`);
+            const rates = CambiaFXService.getCurrentRates();
+            console.log(`🔍 fallback rates:`, rates);
+            setCurrentRates(rates);
+            console.log(`🔄 updateCurrentRates: fallback a getCurrentRates - compra=${rates.compra}, venta=${rates.venta}`);
+        }
     };
 
     const checkUrlCoupon = () => {
@@ -301,6 +364,22 @@ const ExchangeCard = ({
 
         const amount = parseNumberFromFormatted(amount1);
 
+        // 🔧 LÓGICA CORREGIDA: Convertir el monto de entrada a USD para comparar con rangos
+        let amountForComparison = amount;
+        
+        // Los rangos del cupón SIEMPRE están en USD
+        // Si la operación es VENTA (input en PEN), convertir a USD para la comparación
+        if (operationType === 'venta') {
+            const tcBase = CambiaFXService.tcBase[0];
+            if (tcBase) {
+                // Convertir PEN → USD usando TC base
+                amountForComparison = amount / tcBase.tc_venta;
+            }
+        }
+        // Si la operación es COMPRA (input en USD), usar directamente
+
+        console.log(`🔍 checkCouponApplies: ${amount} ${operationType === 'venta' ? 'PEN' : 'USD'} → ${amountForComparison} USD`);
+
         // Si hay múltiples rangos, verificar si el monto está en alguno de ellos
         if (couponInfo.rangos && couponInfo.rangos.length > 0) {
             let rangoAplicable = null;
@@ -312,32 +391,30 @@ const ExchangeCard = ({
                 return r && minAmount != null && maxAmount != null;
             });
             
-            // 💱 CONVERSIÓN DE MONEDA: Los rangos están en USD, convertir para VENTA
-            const tcBase = CambiaFXService.tcBase[0]; // TC base sin cupón
+            console.log(`🎯 Rangos disponibles:`, rangosValidos.map(r => `${r.desde ?? r.montoMinimo}-${r.hasta ?? r.montoMaximo}`));
             
             // Buscar el rango correcto sin superposición
             for (let i = 0; i < rangosValidos.length; i++) {
                 const rango = rangosValidos[i];
                 const isLastRange = i === rangosValidos.length - 1;
                 
-                // Manejar tanto la estructura nueva como la del backend
+                // Los rangos están en USD, usar directamente
                 let minAmount = rango.montoMinimo ?? rango.desde ?? 0;
                 let maxAmount = rango.montoMaximo ?? rango.hasta ?? 0;
                 
-                // � Si es VENTA, convertir rangos de USD a PEN usando TC base
-                if (operationType === 'venta' && tcBase) {
-                    minAmount = minAmount * tcBase.tc_venta;
-                    maxAmount = maxAmount * tcBase.tc_venta;
-                }
-                
-                // �🔧 LÓGICA CORREGIDA: Sin superposición de rangos
+                // 🔧 LÓGICA CORREGIDA: Sin superposición de rangos + tolerancia para decimales
                 // Último rango incluye el límite superior, otros no
+                // Usar tolerancia de 0.1 USD para evitar problemas de precisión decimal
+                const tolerance = 0.1;
                 const isInRange = isLastRange 
-                    ? (minAmount <= amount && amount <= maxAmount)  // Último rango incluye límite superior
-                    : (minAmount <= amount && amount < maxAmount);   // Otros rangos NO incluyen límite superior
+                    ? (minAmount - tolerance <= amountForComparison && amountForComparison <= maxAmount)  // Último rango incluye límite superior
+                    : (minAmount - tolerance <= amountForComparison && amountForComparison < maxAmount);   // Otros rangos NO incluyen límite superior
+                
+                console.log(`📋 Evaluando rango ${minAmount}-${maxAmount}: ${amountForComparison} está en rango = ${isInRange} (${isLastRange ? 'último' : 'intermedio'})`);
                 
                 if (isInRange) {
                     rangoAplicable = rango;
+                    console.log(`✅ Rango aplicable encontrado:`, rango);
                     break;
                 }
             }
@@ -348,11 +425,9 @@ const ExchangeCard = ({
                 const rangosDisplay = couponInfo.rangos.map(r => {
                     const min = r.desde ?? r.montoMinimo;
                     const max = r.hasta ?? r.montoMaximo;
-                    if (operationType === 'venta' && tcBase) {
-                        return `$${(min * tcBase.tc_venta).toLocaleString()}-$${(max * tcBase.tc_venta).toLocaleString()} PEN`;
-                    }
                     return `$${min}-$${max} USD`;
                 }).join(', ');
+                console.log(`❌ No se encontró rango aplicable para ${amountForComparison} USD`);
                 return {
                     applies: false,
                     reason: `Rangos válidos: ${rangosDisplay}`
@@ -361,20 +436,26 @@ const ExchangeCard = ({
         }
 
         // Fallback para cupones con un solo rango (compatibilidad)
-        if (amount < couponInfo.montoMinimo) {
+        console.log(`📊 Verificando cupón simple: ${amountForComparison} USD vs ${couponInfo.montoMinimo}-${couponInfo.montoMaximo} USD`);
+        
+        // Usar tolerancia de 0.1 USD para evitar problemas de precisión decimal
+        const tolerance = 0.1;
+        
+        if (amountForComparison < (couponInfo.montoMinimo - tolerance)) {
             return {
                 applies: false,
                 reason: `Monto mínimo requerido: $${couponInfo.montoMinimo} USD`
             };
         }
 
-        if (amount > couponInfo.montoMaximo) {
+        if (amountForComparison > couponInfo.montoMaximo) {
             return {
                 applies: false,
                 reason: `Monto máximo permitido: $${couponInfo.montoMaximo} USD`
             };
         }
 
+        console.log(`✅ Cupón simple aplica`);
         return { applies: true, reason: '' };
     };
 
@@ -396,45 +477,45 @@ const ExchangeCard = ({
         }
     };
 
-    // 🎨 OBTENER TASA PREFERENCIAL PARA MOSTRAR EN BOTONES
-    const getDisplayRates = () => {
-        if (!couponInfo) return currentRates;
+    // 🎨 OBTENER TASA PREFERENCIAL PARA MOSTRAR EN BOTONES (usando useMemo para reactividad)
+    const rates = useMemo(() => {
+        console.log(`🎨 useMemo rates: recalculando...`);
+        console.log(`🔍 DEBUG - couponInfo:`, couponInfo);
+        console.log(`🔍 DEBUG - currentRates:`, currentRates);
+        console.log(`🔍 DEBUG - amount1:`, amount1);
+        
+        if (!couponInfo) {
+            console.log(`🎨 useMemo rates: sin cupón, usando currentRates`, currentRates);
+            return {
+                ...currentRates,
+                showPreviousPrice: false,
+                isActive: false
+            };
+        }
 
         const couponApplies = checkCouponApplies();
+        console.log(`🎨 useMemo rates: couponApplies =`, couponApplies);
+        console.log(`🔍 DEBUG - couponApplies.applies:`, couponApplies.applies);
 
-        // ✅ SOLO mostrar precio anterior cuando el cupón REALMENTE APLICA
-        if (couponApplies.applies && couponApplies.rangoActual) {
-            // Mostrar tasas del rango específico que aplica
-            const rangoActual = couponApplies.rangoActual;
-            const buyRate = rangoActual.tcCompra ?? rangoActual.tc_compra ?? currentRates.compra;
-            const sellRate = rangoActual.tcVenta ?? rangoActual.tc_venta ?? currentRates.venta;
-            
+        // ✅ Mostrar precio anterior solo cuando el cupón REALMENTE APLICA
+        if (couponApplies.applies) {
+            console.log(`🎨 useMemo rates: cupón APLICA, mostrando precio anterior`);
             return {
-                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate,
-                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate,
-                showPreviousPrice: true, // ✅ SOLO cuando realmente aplica
-                isActive: true // El cupón está activo para este monto
-            };
-        } else if (couponApplies.applies) {
-            // Fallback para cupones de un solo rango que aplican
-            const buyRate = couponInfo.tcCompra ?? couponInfo.tc_compra ?? currentRates.compra;
-            const sellRate = couponInfo.tcVenta ?? couponInfo.tc_venta ?? currentRates.venta;
-            
-            return {
-                compra: typeof buyRate === 'number' ? buyRate.toFixed(4) : buyRate,
-                venta: typeof sellRate === 'number' ? sellRate.toFixed(4) : sellRate,
+                ...currentRates, // currentRates ya contiene las tasas correctas
                 showPreviousPrice: true, // ✅ SOLO cuando realmente aplica
                 isActive: true
             };
         } else {
-            // ✅ CUPÓN DISPONIBLE PERO NO APLICA - NO mostrar precio anterior
+            console.log(`🎨 useMemo rates: cupón NO APLICA, usando tasas base sin precio anterior`);
             return {
-                ...currentRates,
+                ...currentRates, // currentRates ya contiene las tasas base
                 showPreviousPrice: false, // ✅ NO mostrar precio anterior
-                isActive: false // El cupón está disponible pero no activo
+                isActive: false
             };
         }
-    };
+    }, [couponInfo, currentRates, amount1, operationType]); // 🔥 DEPENDENCIAS CRÍTICAS para reactividad
+    
+    const couponStatus = useMemo(() => checkCouponApplies(), [couponInfo, amount1, operationType]);
 
     const handleOperationStart = () => {
         const amountValue = parseNumberFromFormatted(amount1);
@@ -459,10 +540,6 @@ const ExchangeCard = ({
             CambiaFXService.initializeOperation(operationData);
         }
     };
-
-    // Obtener las tasas de cambio actuales para mostrar en los botones
-    const rates = getDisplayRates();
-    const couponStatus = checkCouponApplies();
 
     return (
         <div className={`bg-secondary z-[99999] rounded-2xl  lg:rounded-3xl p-4  lg:p-8 shadow-xl flex flex-col gap-6 w-full max-w-[480px] ${className}`}>

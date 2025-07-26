@@ -246,13 +246,15 @@ class CambiaFXService {
             const isLastRange = this.tcData.indexOf(obj) === this.tcData.length - 1;
             const hasMultipleRanges = this.tcData.length > 1;
             
+            console.log(`🔍 DEBUG: obj.desde=${obj.desde}, obj.hasta=${obj.hasta}, amountForComparison=${amountForComparison}`);
+            
             let isInRange;
             if (hasMultipleRanges && !isLastRange) {
                 // Múltiples rangos - rangos intermedios: desde <= x < hasta
                 isInRange = (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
             } else {
                 // Último rango de múltiples O un solo rango: desde <= x <= hasta
-                isInRange = (obj.desde >= amountForComparison && amountForComparison <= obj.hasta);
+                isInRange = (obj.desde <= amountForComparison && amountForComparison <= obj.hasta);
             }
             
             console.log(`📋 Evaluando rango ${obj.desde}-${obj.hasta}: ${amountForComparison} está en rango = ${isInRange} (${hasMultipleRanges ? (isLastRange ? 'último rango' : 'rango intermedio') : 'rango único'}) (TC: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta})`);
@@ -263,9 +265,35 @@ class CambiaFXService {
             }
         }
         
-        if (tcObj === null && this.tcData.length > 0) {
-            tcObj = this.tcData[this.tcData.length - 1];
-            console.log(`⚠️ No se encontró rango, usando último: ${tcObj.desde}-${tcObj.hasta}`);
+        if (tcObj === null) {
+            // 🚨 IMPORTANTE: Si no se encuentra rango en el cupón, usar TC BASE original
+            // Esto evita que se use el TC del cupón para montos que no califican
+            if (this.tcBase.length > 0) {
+                // Buscar en los rangos base (sin cupón)
+                for (let obj of this.tcBase) {
+                    const isLastRange = this.tcBase.indexOf(obj) === this.tcBase.length - 1;
+                    const hasMultipleRanges = this.tcBase.length > 1;
+                    
+                    let isInRange;
+                    if (hasMultipleRanges && !isLastRange) {
+                        isInRange = (obj.desde <= amountForComparison && amountForComparison < obj.hasta);
+                    } else {
+                        isInRange = (obj.desde <= amountForComparison && amountForComparison <= obj.hasta);
+                    }
+                    
+                    if (isInRange) {
+                        tcObj = obj;
+                        console.log(`✅ Usando TC base (sin cupón) del rango ${obj.desde}-${obj.hasta}: ${operationType === 'C' ? obj.tc_compra : obj.tc_venta}`);
+                        break;
+                    }
+                }
+                
+                // Si aún no encuentra, usar el último rango base
+                if (tcObj === null) {
+                    tcObj = this.tcBase[this.tcBase.length - 1];
+                    console.log(`⚠️ Usando último rango base: ${tcObj.desde}-${tcObj.hasta}`);
+                }
+            }
         }
         
         if (tcObj !== null) {
