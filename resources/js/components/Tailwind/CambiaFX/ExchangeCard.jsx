@@ -281,6 +281,16 @@ const ExchangeCard = ({
     const validateCoupon = async (couponCode, tipo = 'c') => {
         setIsValidatingCoupon(true);
 
+        // 🏦 CAPTURAR TASAS BASE ANTES DE VALIDAR EL CUPÓN
+        if (CambiaFXService.tcBase.length > 0) {
+            const tcBase = CambiaFXService.tcBase[0];
+            setBaseRates({
+                compra: tcBase.tc_compra.toFixed(4),
+                venta: tcBase.tc_venta.toFixed(4)
+            });
+            console.log(`🏦 baseRates capturadas ANTES del cupón - compra=${tcBase.tc_compra.toFixed(4)}, venta=${tcBase.tc_venta.toFixed(4)}`);
+        }
+
         try {
             const result = await CambiaFXService.validateCoupon(couponCode);
 
