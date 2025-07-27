@@ -121,7 +121,7 @@ class CambiaFXService {
                 
                 // ✅ ACTUALIZAMOS los datos con el cupón para que se use en los cálculos
                 this.tcData = processedData;
-                console.log(`🎫 Cupón aplicado: ${couponCode}`, processedData);
+              //  console.log(`🎫 Cupón aplicado: ${couponCode}`, processedData);
                 
                 return { valid: true, data: processedData };
             }
@@ -178,7 +178,7 @@ class CambiaFXService {
         // Redondear a 2 decimales para montos
         total = Math.round(total * 100) / 100;
 
-        console.log(`🔁 calculateExchange: ${amount} (${mappedOrigin}) → ${total} (TC: ${_tc}, isVenta: ${isVenta})`);
+     //   console.log(`🔁 calculateExchange: ${amount} (${mappedOrigin}) → ${total} (TC: ${_tc}, isVenta: ${isVenta})`);
 
         return {
             result: parseFloat(total.toFixed(2)),
