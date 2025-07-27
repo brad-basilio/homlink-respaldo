@@ -17,7 +17,9 @@ class App extends Model
         'name',
         'image',
         'link',
+        'app_scheme',
         'order',
+        'platform',
         'status',
         'visible'
     ];
@@ -26,6 +28,7 @@ class App extends Model
         'status' => 'boolean',
         'visible' => 'boolean',
         'order' => 'integer',
+        'platform' => 'string',
     ];
 
 

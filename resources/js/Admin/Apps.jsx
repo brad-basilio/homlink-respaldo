@@ -12,6 +12,7 @@ import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
 
 import Swal from "sweetalert2";
 import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
+import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
 import AppsRest from "../Actions/Admin/AppsRest";
 
 const appsRest = new AppsRest();
@@ -24,7 +25,9 @@ const Apps = () => {
     const idRef = useRef();
     const nameRef = useRef();
     const linkRef = useRef();
+    const appSchemeRef = useRef();
     const orderRef = useRef();
+    const platformRef = useRef();
     const imageRef = useRef();
     const statusRef = useRef();
 
@@ -37,7 +40,9 @@ const Apps = () => {
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
         linkRef.current.value = data?.link ?? "";
+        appSchemeRef.current.value = data?.app_scheme ?? "";
         orderRef.current.value = data?.order ?? "";
+        platformRef.current.value = data?.platform ?? "other";
         statusRef.current.checked = data?.status == 1 ?? true;
         
         // Handle image
@@ -56,7 +61,9 @@ const Apps = () => {
             id: idRef.current.value || undefined,
             name: nameRef.current.value,
             link: linkRef.current.value,
+            app_scheme: appSchemeRef.current.value,
             order: orderRef.current.value,
+            platform: platformRef.current.value,
             status: statusRef.current.checked ? 1 : 0,
         };
 
@@ -140,6 +147,26 @@ const Apps = () => {
                         caption: "Orden",
                         width: "80px",
                         dataType: "number",
+                    },
+                    {
+                        dataField: "platform",
+                        caption: "Plataforma",
+                        width: "120px",
+                        cellTemplate: (container, { data }) => {
+                            const platformLabels = {
+                                android: "🤖 Android",
+                                ios: "🍎 iOS",
+                                huawei: "📲 Huawei",
+                                web: "🌐 Web",
+                                other: "❓ Otro"
+                            };
+                            ReactAppend(
+                                container,
+                                <span className="badge badge-soft-primary">
+                                    {platformLabels[data.platform] || "❓ Otro"}
+                                </span>
+                            );
+                        },
                     },
                     {
                         dataField: "image",
@@ -275,6 +302,29 @@ const Apps = () => {
                             placeholder="https://play.google.com/store/apps/..."
                             required
                         />
+                        
+                        <InputFormGroup
+                            eRef={appSchemeRef}
+                            label="URL Scheme de la App"
+                            placeholder="cambiafx://, myapp://, etc."
+                            help="URL scheme para abrir la app instalada directamente"
+                        />
+                        
+                        <SelectFormGroup
+                            eRef={platformRef}
+                            label="Plataforma"
+            
+                            required
+                            dropdownParent={"#apps-container"}
+
+                        >
+                            <option value="">Selecciona una plataforma</option>
+                            <option value="android">🤖 Android (Google Play)</option        >
+                            <option value="ios">🍎 iOS (App Store)</option>
+                            <option value="huawei">📲 Huawei (AppGallery)</option>
+                            <option value="web">🌐 Web (PWA)</option>
+                            <option value="other">❓ Otro</option>
+                        </SelectFormGroup>
                         
                         <div className="row">
                             <div className="col-md-6">

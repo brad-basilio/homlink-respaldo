@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import CambiaFXService from '../../../services/CambiaFXService';
 import WhatsAppButton from '../../Shared/WhatsAppButton';
 import { Search } from 'lucide-react';
+import GeneralRest from '../../../actions/GeneralRest';
+
+const generalRest = new GeneralRest();
 
 const ExchangeCard = ({
     title = "Comienza tu cambio ahora",
@@ -26,6 +29,7 @@ const ExchangeCard = ({
     const [invalidCoupon, setInvalidCoupon] = useState(null); // Información del cupón inválido
     const [debouncedAmount1, setDebouncedAmount1] = useState('1,000'); // Estado debounced para actualizar botones
     const [baseRates, setBaseRates] = useState({ compra: '0.0000', venta: '0.0000' }); // Tasas base sin cupón
+    const [apps, setApps] = useState([]); // 📱 ESTADO PARA LAS APPS MÓVILES
 
     // 🔢 FUNCIONES PARA FORMATEAR NÚMEROS CON COMAS
     const formatNumberWithCommas = (num) => {
@@ -82,6 +86,9 @@ const ExchangeCard = ({
         const init = async () => {
             await initializeExchangeRates();
             checkUrlCoupon();
+            
+            // 📱 CARGAR APPS MÓVILES
+            await fetchApps();
             
             // Calcular automáticamente con el valor por defecto de 1000
             if (amount1) {
@@ -208,6 +215,18 @@ const ExchangeCard = ({
         if (couponCode) {
             setPromotionalCode(couponCode);
             validateCoupon(couponCode, 'p');
+        }
+    };
+
+    // 📱 CARGAR APPS DESDE LA BASE DE DATOS
+    const fetchApps = async () => {
+        try {
+            const data = await generalRest.getApps();
+            console.log('📱 Apps cargadas:', data);
+            setApps(data);
+        } catch (error) {
+            console.error("Error fetching apps:", error);
+            setApps([]);
         }
     };
 
@@ -921,14 +940,150 @@ const ExchangeCard = ({
     // 🎯 USAR SIEMPRE activeCouponRates SI HAY CUPÓN ACTIVO
     const stableButtonRates = couponInfo && activeCouponRates.isActive ? activeCouponRates : lastValidRates;
 
-    const handleOperationStart = () => {
-        const amountValue = parseNumberFromFormatted(amount1);
+    // 📱 DETECTAR SI ES DISPOSITIVO MÓVIL
+    const isMobileDevice = () => {
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        
+        // Detectar iOS
+        if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            return 'ios';
+        }
+        
+        // Detectar Android
+        if (/android/i.test(userAgent)) {
+            return 'android';
+        }
+        
+        // Detectar otros móviles
+        if (/Mobile|mini|Fennec|Android|iP(ad|od|hone)/.test(userAgent)) {
+            return 'mobile';
+        }
+        
+        return false;
+    };
 
-        if (amountValue === 0) {
-            alert('Debe ingresar un monto');
-            return;
+    // 📱 OBTENER LA APP CORRECTA SEGÚN EL DISPOSITIVO (usando campo platform)
+    const getAppForDevice = () => {
+        const deviceInfo = {
+            isAndroid: /android/i.test(navigator.userAgent),
+            isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
+            isHuawei: /huawei|honor/i.test(navigator.userAgent) || /harmony/i.test(navigator.userAgent)
+        };
+
+        console.log('📱 Buscando app para dispositivo:', deviceInfo);
+        console.log('📱 Apps disponibles:', apps);
+        
+        if (!apps || apps.length === 0) {
+            console.log('❌ No hay apps disponibles');
+            return null;
         }
 
+        // 🎯 NUEVA LÓGICA: Buscar por campo 'platform' en lugar del nombre
+        if (deviceInfo.isAndroid) {
+            const androidApp = apps.find(app => app.platform === 'android');
+            console.log('🤖 Android app encontrada por platform:', androidApp);
+            return androidApp;
+        }
+        
+        if (deviceInfo.isIOS) {
+            const iosApp = apps.find(app => app.platform === 'ios');
+            console.log('🍎 iOS app encontrada por platform:', iosApp);
+            return iosApp;
+        }
+        
+        if (deviceInfo.isHuawei) {
+            const huaweiApp = apps.find(app => app.platform === 'huawei');
+            console.log('📲 Huawei app encontrada por platform:', huaweiApp);
+            return huaweiApp;
+        }
+
+        // Fallback: devolver la primera app disponible
+        console.log('❓ No se encontró app específica por platform, usando la primera disponible:', apps[0]);
+        return apps.length > 0 ? apps[0] : null;
+    };
+
+    // 🚀 INTENTAR ABRIR LA APLICACIÓN MÓVIL CON DEEP LINKING
+    const tryOpenMobileApp = () => {
+        const deviceType = isMobileDevice();
+        
+        if (!deviceType) {
+            // No es dispositivo móvil, ejecutar acción normal
+            console.log('🖥️ Dispositivo de escritorio detectado');
+            return false;
+        }
+
+        // 📱 OBTENER LA APP CORRECTA DINÁMICAMENTE
+        const targetApp = getAppForDevice();
+        
+        if (!targetApp || !targetApp.app_scheme) {
+            console.log('❌ No se encontró app con URL scheme configurado para este dispositivo');
+            // Si no hay app configurada o no tiene scheme, continuar con operación normal web
+            return false;
+        }
+
+        console.log('🎯 App seleccionada:', targetApp);
+
+        try {
+            // Variable para rastrear si la app se abrió
+            let appOpened = false;
+            let startTime = Date.now();
+            
+            // Detectar si la página se oculta (la app se abrió)
+            const handleVisibilityChange = () => {
+                if (document.hidden) {
+                    appOpened = true;
+                    console.log('✅ App instalada abierta exitosamente');
+                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                }
+            };
+            
+            // Detectar si el foco sale de la ventana (iOS principalmente)
+            const handleBlur = () => {
+                // En iOS, el blur ocurre cuando la app se abre
+                if (Date.now() - startTime < 1000) {
+                    appOpened = true;
+                    console.log('✅ App instalada abierta exitosamente (iOS)');
+                    window.removeEventListener('blur', handleBlur);
+                }
+            };
+
+            // Agregar event listeners
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+            window.addEventListener('blur', handleBlur);
+
+            console.log('🔗 Intentando abrir app instalada con scheme:', targetApp.app_scheme);
+
+            // Intentar abrir la app con el URL scheme
+            window.location.href = targetApp.app_scheme;
+
+            // ⏰ TIMEOUT: Si después de 2 segundos no se abrió la app, 
+            // continuar con la operación web normal (no ir a tienda)
+            setTimeout(() => {
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+                window.removeEventListener('blur', handleBlur);
+                
+                if (!appOpened) {
+                    console.log('❌ App no instalada, continuando con operación web normal');
+                    
+                    // 🌐 CONTINUAR CON OPERACIÓN WEB NORMAL (como desktop)
+                    // En lugar de ir a la tienda, ejecutar la operación normal
+                    executeNormalOperation();
+                }
+            }, 2000);
+
+            return true; // Se intentó abrir la app móvil
+            
+        } catch (error) {
+            console.warn('❌ Error al intentar abrir app con scheme:', error);
+            // Si falla el scheme, continuar con operación normal
+            return false;
+        }
+    };
+
+    // 🖥️ EJECUTAR OPERACIÓN NORMAL (ESCRITORIO O FALLBACK)
+    const executeNormalOperation = () => {
+        const amountValue = parseNumberFromFormatted(amount1);
+        
         const operationData = {
             type: operationType === 'venta' ? 'V' : 'C',
             fromAmount: operationType === 'venta' ? amountValue : parseNumberFromFormatted(amount2),
@@ -942,6 +1097,32 @@ const ExchangeCard = ({
         } else {
             // Usar el servicio para inicializar la operación
             CambiaFXService.initializeOperation(operationData);
+        }
+    };
+
+    const handleOperationStart = () => {
+        const amountValue = parseNumberFromFormatted(amount1);
+
+        if (amountValue === 0) {
+            alert('Debe ingresar un monto');
+            return;
+        }
+
+        // 📱 VERIFICAR SI ES MÓVIL Y INTENTAR ABRIR LA APP
+        const isOnMobile = isMobileDevice();
+        
+        if (isOnMobile) {
+            // Es dispositivo móvil: intentar abrir la app
+            const appOpened = tryOpenMobileApp();
+            
+            if (!appOpened) {
+                // Si no se pudo abrir la app, ejecutar operación normal
+                executeNormalOperation();
+            }
+            // Si se abrió la app, no hacer nada más (la app manejará la operación)
+        } else {
+            // Es dispositivo de escritorio: ejecutar operación normal
+            executeNormalOperation();
         }
     };
 

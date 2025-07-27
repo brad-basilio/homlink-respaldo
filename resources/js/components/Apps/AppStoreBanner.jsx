@@ -28,18 +28,7 @@ const AppStoreBanner = ({ apps = [] }) => {
         const bannerDismissed = localStorage.getItem('app-store-banner-dismissed');
         const lastDismissed = localStorage.getItem('app-store-banner-last-dismissed');
         
-        console.log('🔧 AppStoreBanner Debug:', {
-            userAgent,
-            isAndroid,
-            isIOS,
-            isHuawei,
-            isMobile,
-            isStandalone,
-            appsLength: apps?.length || 0,
-            apps: apps,
-            bannerDismissed,
-            lastDismissed
-        });
+      
         
         setDeviceInfo({ isAndroid, isIOS, isHuawei, isMobile });
 
@@ -49,12 +38,6 @@ const AppStoreBanner = ({ apps = [] }) => {
                           (isAndroid || isIOS || isHuawei) &&
                           apps && apps.length > 0);
 
-        console.log('🎯 Should show banner:', shouldShow, {
-            isMobile,
-            isStandalone,
-            hasDeviceMatch: (isAndroid || isIOS || isHuawei),
-            hasApps: apps && apps.length > 0
-        });
 
         if (!shouldShow) return;
 
@@ -63,14 +46,14 @@ const AppStoreBanner = ({ apps = [] }) => {
             const now = Date.now();
             const threeDaysInMs = 3 * 24 * 60 * 60 * 1000;
             if ((now - parseInt(lastDismissed)) < threeDaysInMs) {
-                console.log('⏰ Banner dismissed recently, still within 3 days');
+           //     console.log('⏰ Banner dismissed recently, still within 3 days');
                 return;
             }
         }
 
         // Mostrar después de 2 segundos
         const timer = setTimeout(() => {
-            console.log('✅ Showing AppStoreBanner after 2 seconds');
+          //  console.log('✅ Showing AppStoreBanner after 2 seconds');
             setShowBanner(true);
         }, 2000);
 
@@ -79,60 +62,61 @@ const AppStoreBanner = ({ apps = [] }) => {
 
     // Obtener la app correcta según el dispositivo
     const getAppForDevice = () => {
-        console.log('🔍 Looking for app, device info:', deviceInfo);
-        console.log('📱 Available apps:', apps);
+      
         
         if (!apps || apps.length === 0) {
             console.log('❌ No apps available');
             return null;
         }
 
-        // 🔧 LÓGICA CORREGIDA: Buscar la app correcta según el dispositivo
-        console.log('🔍 Searching for correct app based on device:', deviceInfo);
-
+        // 🎯 NUEVA LÓGICA: Buscar por campo 'platform' en lugar del nombre
+      
         if (deviceInfo.isAndroid) {
-            const androidApp = apps.find(app => 
+            const androidApp = apps.find(app => app.platform === 'android');
+            if (androidApp) return androidApp;
+            
+            // Fallback: buscar por nombre si no tiene platform configurado
+            const androidAppByName = apps.find(app => 
                 app.name?.toLowerCase().includes('google play') ||
                 app.name?.toLowerCase().includes('android') ||
                 app.name?.toLowerCase().includes('play store')
             );
-            console.log('🤖 Android app found:', androidApp);
-            return androidApp;
+            return androidAppByName;
         }
         
         if (deviceInfo.isIOS) {
-            const iosApp = apps.find(app => 
+            const iosApp = apps.find(app => app.platform === 'ios');
+            if (iosApp) return iosApp;
+            
+            // Fallback: buscar por nombre si no tiene platform configurado
+            const iosAppByName = apps.find(app => 
                 app.name?.toLowerCase().includes('app store') ||
                 app.name?.toLowerCase().includes('ios') ||
                 app.name?.toLowerCase().includes('apple')
             );
-            console.log('🍎 iOS app found:', iosApp);
-            return iosApp;
+            return iosAppByName;
         }
         
         if (deviceInfo.isHuawei) {
-            const huaweiApp = apps.find(app => 
+            const huaweiApp = apps.find(app => app.platform === 'huawei');
+            if (huaweiApp) return huaweiApp;
+            
+            // Fallback: buscar por nombre si no tiene platform configurado
+            const huaweiAppByName = apps.find(app => 
                 app.name?.toLowerCase().includes('app gallery') ||
                 app.name?.toLowerCase().includes('huawei') ||
                 app.name?.toLowerCase().includes('harmony')
             );
-            console.log('📲 Huawei app found:', huaweiApp);
-            return huaweiApp;
+            return huaweiAppByName;
         }
 
         // 🔧 FALLBACK: Si no encuentra una app específica, devolver la primera disponible
-        console.log('❓ No device-specific app found, returning first available app:', apps[0]);
         return apps.length > 0 ? apps[0] : null;
     };
 
     const currentApp = getAppForDevice();
 
-    console.log('🎯 Final render check:', {
-        showBanner,
-        currentApp,
-        deviceInfo,
-        shouldRender: showBanner && currentApp
-    });
+   
 
     const handleDismiss = () => {
         setShowBanner(false);
