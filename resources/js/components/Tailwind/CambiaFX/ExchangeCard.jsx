@@ -455,28 +455,9 @@ const ExchangeCard = ({
     const handleSwap = () => {
         // Cambiar el tipo de operación
         const newOperationType = operationType === 'compra' ? 'venta' : 'compra';
-        setOperationType(newOperationType);
-
-        // console.log(`🔄 handleSwap: Cambiando de ${operationType} a ${newOperationType}`);
-        // console.log(`🔄 handleSwap: Cupón activo: ${couponInfo ? 'Sí' : 'No'}`);
-        // console.log(`🔄 handleSwap: Amount1: ${amount1}`);
-
-        // 🔥 FORZAR RECÁLCULO INMEDIATO cuando hay cupón activo O cuando hay valores
-        // Esto evita que al cambiar de venta→compra→venta se pierdan los valores correctos del cupón
-        if (amount1) {
-            // console.log(`🔄 handleSwap: Forzando recálculo inmediato`);
-            
-            // Usar setTimeout para asegurar que el estado del operationType se actualice primero
-            setTimeout(() => {
-                // Forzar actualización de las tasas ANTES del cálculo
-                updateCurrentRates();
-                
-                // Luego recalcular con las tasas correctas
-                setTimeout(() => {
-                    calculateExchange('O', amount1);
-                }, 10);
-            }, 50); // Delay para que React actualice el estado
-        }
+        
+        // Usar la misma lógica que handleOperationTypeChange que funciona correctamente
+        handleOperationTypeChange(newOperationType);
     };
 
     // 🎯 Función para cambiar tipo de operación y refrescar tasas del cupón
