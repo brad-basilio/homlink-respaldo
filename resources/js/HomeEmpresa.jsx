@@ -386,7 +386,7 @@ const Home = ({
         >
             {/* Header con animación desde arriba */}
             <motion.div
-                className="animate-section"
+                className="animate-section relative z-[99999]"
                 initial={{ opacity: 0, y: -50 }}
                 animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -410,7 +410,7 @@ const Home = ({
 
             {/* SECCIÓN HERO - Slide desde la izquierda */}
             <motion.div
-                className="animate-section"
+                className="animate-section relative z-10"
                 initial={{ opacity: 0, x: -100 }}
                 animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
                 whileInView={{ opacity: 1, x: 0 }}

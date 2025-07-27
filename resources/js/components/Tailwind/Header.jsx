@@ -27,7 +27,7 @@ const containerVariants = {
 };
 
 const itemVariants = {
-    hidden: { y: -20, opacity: 0 },
+    hidden: { y: -20, opacity: 100 },
     visible: {
         y: 0,
         opacity: 1,
@@ -713,7 +713,7 @@ const Header = ({
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]"
+                                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[999999]"
                                 style={{ zIndex: 99998 }}
                                 onClick={() => setIsOpen(false)}
                             />
@@ -732,8 +732,8 @@ const Header = ({
                                 className={`fixed left-[5%] right-[5%] ${isScrolled
                                     ? "top-16"
                                     : "top-[100px]"
-                                    } z-[99999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto`}
-                                style={{ zIndex: 99999 }}
+                                    } z-[99999999] bg-gradient-to-br from-white via-white to-blue-50 rounded-2xl shadow-2xl border border-gray-100 overflow-hidden max-h-[calc(100vh-120px)] overflow-y-auto`}
+                                style={{ zIndex: 99999999 }}
                             >
                                 {/* Header del menú */}
                                 <div className="bg-gradient-to-r from-accent to-constrast p-6 text-white">

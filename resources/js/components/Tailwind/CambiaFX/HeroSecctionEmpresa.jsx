@@ -301,7 +301,7 @@ export default function HeroSecctionEmpresa({ landing }) {
 
                 {/* Derecha: Card de cambio */}
                 <motion.div
-                    className='flex justify-end lg:w-5/12'
+                    className='flex justify-end lg:w-5/12 z-0'
                     variants={itemVariants}
                     transition={{ delay: 1.8 }}
                     whileHover={{
