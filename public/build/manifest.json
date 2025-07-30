@@ -3305,6 +3305,44 @@
       "tippy.css"
     ]
   },
+  "resources/js/InfoProductos.jsx": {
+    "file": "assets/InfoProductos-DdpIN3PM.js",
+    "name": "InfoProductos",
+    "src": "resources/js/InfoProductos.jsx",
+    "isEntry": true,
+    "imports": [
+      "resources/js/Admin/components/RequirementCard.jsx",
+      "_index-RYns6xqu.js",
+      "_CreateReactScript-BuKYEKxn.js",
+      "resources/js/Utils/ReactAppend.jsx",
+      "_Base-B0jCVaQs.js",
+      "_sweetalert2.all-DJo0UVK6.js",
+      "resources/js/components/Blog/Results.jsx",
+      "_TextWithHighlight-DJ4ZjNW2.js",
+      "resources/js/components/Blog/Filter.jsx",
+      "_Header-LwLnF1Zs.js",
+      "_Footer-BbtRT4fc.js",
+      "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
+      "_MaintenancePage-BOY49r__.js",
+      "_index-SDlHnhXR.js",
+      "_main-Y8JAyXgE.js",
+      "_ResultsInfoProducto-Ikb1peA1.js",
+      "_index.esm-zkRd-kwu.js",
+      "_axios-B4uVmeYG.js",
+      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
+      "_index-CXU7o9CY.js",
+      "_useTranslation-CZbMeh78.js",
+      "_createLucideIcon-D_WcjKff.js",
+      "_proxy-Dg7W2VMC.js",
+      "_HtmlContent-CZmf3wHb.js",
+      "_index-DNUR7M9R.js",
+      "_ArrayJoin-BjKPV8SR.js"
+    ],
+    "css": [
+      "swiper.css",
+      "tippy.css"
+    ]
+  },
   "resources/js/InfoProductos3.jsx": {
     "file": "assets/InfoProductos3-CJOAJkki.js",
     "name": "InfoProductos3",
@@ -3335,44 +3373,6 @@
       "_index-DNUR7M9R.js",
       "_HtmlContent-CZmf3wHb.js",
       "_sweetalert2.all-DJo0UVK6.js",
-      "_ArrayJoin-BjKPV8SR.js"
-    ],
-    "css": [
-      "swiper.css",
-      "tippy.css"
-    ]
-  },
-  "resources/js/Infoproductos.jsx": {
-    "file": "assets/Infoproductos-DdpIN3PM.js",
-    "name": "Infoproductos",
-    "src": "resources/js/Infoproductos.jsx",
-    "isEntry": true,
-    "imports": [
-      "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js",
-      "_CreateReactScript-BuKYEKxn.js",
-      "resources/js/Utils/ReactAppend.jsx",
-      "_Base-B0jCVaQs.js",
-      "_sweetalert2.all-DJo0UVK6.js",
-      "resources/js/components/Blog/Results.jsx",
-      "_TextWithHighlight-DJ4ZjNW2.js",
-      "resources/js/components/Blog/Filter.jsx",
-      "_Header-LwLnF1Zs.js",
-      "_Footer-BbtRT4fc.js",
-      "resources/js/components/Tailwind/DetailProduct/Detail.jsx",
-      "_MaintenancePage-BOY49r__.js",
-      "_index-SDlHnhXR.js",
-      "_main-Y8JAyXgE.js",
-      "_ResultsInfoProducto-Ikb1peA1.js",
-      "_index.esm-zkRd-kwu.js",
-      "_axios-B4uVmeYG.js",
-      "____vite-browser-external_commonjs-proxy-DbMF7jdq.js",
-      "_index-CXU7o9CY.js",
-      "_useTranslation-CZbMeh78.js",
-      "_createLucideIcon-D_WcjKff.js",
-      "_proxy-Dg7W2VMC.js",
-      "_HtmlContent-CZmf3wHb.js",
-      "_index-DNUR7M9R.js",
       "_ArrayJoin-BjKPV8SR.js"
     ],
     "css": [
@@ -4331,7 +4331,7 @@
     ]
   },
   "resources/js/components/Adminto/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
+    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/Adminto/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -4351,7 +4351,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
+    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/Adminto/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
@@ -5995,10 +5995,10 @@
     ]
   },
   "resources/js/components/Test/ScalpType.jsx": {
-    "file": "assets/ScalpType-Chu0TyCG.js",
+    "file": "assets/ScalpType-CnD_D-a9.js",
     "name": "ScalpType",
     "src": "resources/js/components/Test/ScalpType.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6126,7 +6126,7 @@
     ]
   },
   "resources/js/components/form/PasswordFormGroup.jsx": {
-    "file": "assets/PasswordFormGroup-B0ALEkqN.js",
+    "file": "assets/PasswordFormGroup-Dwtff5Cv.js",
     "name": "PasswordFormGroup",
     "src": "resources/js/components/form/PasswordFormGroup.jsx",
     "isEntry": true,
@@ -6146,7 +6146,7 @@
     ]
   },
   "resources/js/components/form/SelectAPIFormGroup.jsx": {
-    "file": "assets/SelectAPIFormGroup-Bw9LmeQW.js",
+    "file": "assets/SelectAPIFormGroup-Ct_g3vIX.js",
     "name": "SelectAPIFormGroup",
     "src": "resources/js/components/form/SelectAPIFormGroup.jsx",
     "isEntry": true,
