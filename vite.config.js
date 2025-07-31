@@ -28,11 +28,11 @@ export default defineConfig({
         alias: {
             "@Adminto": path.resolve(
                 __dirname,
-                "resources/js/Components/Adminto"
+                "resources/js/components/Adminto"
             ),
             "@Tailwind": path.resolve(
                 __dirname,
-                "resources/js/Components/Tailwind"
+                "resources/js/components/Tailwind"
             ),
             "@Utils": path.resolve(__dirname, "resources/js/Utils"),
             "@Rest": path.resolve(__dirname, "resources/js/Actions"),

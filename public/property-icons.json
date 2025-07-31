@@ -1,0 +1,267 @@
+[
+  {
+    "id": "fas fa-wifi",
+    "name": "WiFi",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-tv",
+    "name": "TV",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-car",
+    "name": "Estacionamiento",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-swimming-pool",
+    "name": "Piscina",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-dumbbell",
+    "name": "Gimnasio",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-hot-tub",
+    "name": "Jacuzzi",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-utensils",
+    "name": "Cocina completa",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-coffee",
+    "name": "Cafetera",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-wind",
+    "name": "Aire acondicionado",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-fire",
+    "name": "Calefacción",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-bath",
+    "name": "Bañera",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-shower",
+    "name": "Ducha",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-tshirt",
+    "name": "Lavadora",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-snowflake",
+    "name": "Refrigeradora",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-microwave",
+    "name": "Microondas",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-bed",
+    "name": "Ropa de cama",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-soap",
+    "name": "Artículos de aseo",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-shield-alt",
+    "name": "Caja fuerte",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-baby",
+    "name": "Apto para niños",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-paw",
+    "name": "Se admiten mascotas",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-smoking-ban",
+    "name": "No fumar",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-concierge-bell",
+    "name": "Servicio de limpieza",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-user-tie",
+    "name": "Conserje",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-taxi",
+    "name": "Transporte",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-utensils",
+    "name": "Room service",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-spa",
+    "name": "Spa",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-bicycle",
+    "name": "Alquiler de bicicletas",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-plane",
+    "name": "Transfer aeropuerto",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-shopping-bag",
+    "name": "Servicio de compras",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-baby-carriage",
+    "name": "Servicio de niñera",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-paw",
+    "name": "Cuidado de mascotas",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-home",
+    "name": "Apartamento completo",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-door-open",
+    "name": "Habitación privada",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-users",
+    "name": "Habitación compartida",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-key",
+    "name": "Acceso independiente",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-stairs",
+    "name": "Segundo piso",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-mountain",
+    "name": "Vista a la montaña",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-water",
+    "name": "Vista al mar",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-city",
+    "name": "Vista a la ciudad",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-tree",
+    "name": "Vista al jardín",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-sun",
+    "name": "Muy luminoso",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-volume-mute",
+    "name": "Zona tranquila",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-wheelchair",
+    "name": "Accesible",
+    "category": "characteristic"
+  },
+  {
+    "id": "fas fa-info-circle",
+    "name": "Check-in flexible",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-clock",
+    "name": "Check-in: 15:00",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-sign-out-alt",
+    "name": "Check-out: 11:00",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-volume-down",
+    "name": "No ruidos después 22:00",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-glass-cheers",
+    "name": "No fiestas",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-smoking-ban",
+    "name": "Prohibido fumar",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-ban",
+    "name": "No mascotas",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-child",
+    "name": "Solo adultos",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-id-card",
+    "name": "Documento requerido",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-credit-card",
+    "name": "Depósito requerido",
+    "category": "houseRule"
+  }
+]

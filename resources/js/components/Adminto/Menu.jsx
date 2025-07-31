@@ -185,6 +185,12 @@ const Menu = ({
                                     Subscripciones
                                 </MenuItem>
                                 <MenuItem
+                                    href="/admin/properties"
+                                    icon="mdi mdi-help-circle"
+                                >
+                                    {t("admin.sidebar.properties", "Propiedades")}
+                                </MenuItem>
+                                <MenuItem
                                     href="/admin/services"
                                     icon="mdi mdi-star-cog"
                                 >
