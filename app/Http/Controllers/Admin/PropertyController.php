@@ -6,8 +6,8 @@ use App\Http\Controllers\BasicController;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use SoDe\Extend\Crypto;
-use SoDe\Extend\Response;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class PropertyController extends BasicController
 {
@@ -24,11 +24,19 @@ class PropertyController extends BasicController
     {
         $body = $request->all();
 
+        // Debug para ver qué datos estamos recibiendo
+        Log::info('PropertyController beforeSave - Request data:', [
+            'all_data' => $request->all(),
+            'files' => $request->allFiles(),
+            'has_gallery' => $request->hasFile('gallery'),
+            'gallery_files' => $request->file('gallery')
+        ]);
+
         // Procesar galería de imágenes
         $gallery = [];
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $file) {
-                $uuid = Crypto::randomUUID();
+                $uuid = Str::uuid();
                 $ext = $file->getClientOriginalExtension();
                 $path = "images/property/{$uuid}.{$ext}";
                 Storage::put($path, file_get_contents($file));
@@ -39,7 +47,9 @@ class PropertyController extends BasicController
         // Mantener imágenes existentes
         if ($request->has('existing_gallery')) {
             $existing = json_decode($request->existing_gallery, true);
-            $gallery = array_merge($gallery, $existing);
+            if (is_array($existing)) {
+                $gallery = array_merge($gallery, $existing);
+            }
         }
 
         $body['gallery'] = $gallery;
@@ -51,7 +61,7 @@ class PropertyController extends BasicController
             foreach ($amenities as $index => $amenity) {
                 $name = trim($amenity['name'] ?? '');
                 $icon = trim($amenity['icon'] ?? '');
-                $available = $amenity['available'] ?? false;
+                $available = isset($amenity['available']) ? filter_var($amenity['available'], FILTER_VALIDATE_BOOLEAN) : false;
 
                 if ($name) {
                     $processedAmenities[] = [
@@ -72,7 +82,7 @@ class PropertyController extends BasicController
                 $name = trim($service['name'] ?? '');
                 $description = trim($service['description'] ?? '');
                 $icon = trim($service['icon'] ?? '');
-                $available = $service['available'] ?? false;
+                $available = isset($service['available']) ? filter_var($service['available'], FILTER_VALIDATE_BOOLEAN) : false;
 
                 if ($name) {
                     $processedServices[] = [
@@ -135,11 +145,21 @@ class PropertyController extends BasicController
         }
         $body['check_in_info'] = $checkInInfo;
 
+        // Log del body procesado
+        Log::info('PropertyController beforeSave - Processed body:', $body);
+
         return $body;
     }
 
     public function afterSave(Request $request, $property, ?bool $isNew)
     {
+        // Log adicional para verificar qué se guardó
+        Log::info('PropertyController afterSave - Property saved:', [
+            'property_id' => $property->id,
+            'isNew' => $isNew,
+            'property_data' => $property->toArray()
+        ]);
+
         return $property;
     }
 
@@ -179,6 +199,6 @@ class PropertyController extends BasicController
 
         $properties = $query->paginate(12);
 
-        return Response::success($properties);
+        return response()->json($properties);
     }
 }

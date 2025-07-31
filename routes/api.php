@@ -170,6 +170,7 @@ Route::get('/landing_home/media/{uuid}', [LandingHomeController::class, 'media']
 Route::get('/landing_home/video/{uuid}', [LandingHomeController::class, 'video']);
 
 Route::get('/service/media/{uuid}', [ServiceController::class, 'media']);
+Route::get('/property/media/{uuid}', [PropertyController::class, 'media']);
 
 // Rutas públicas para propiedades
 Route::get('/properties/public', [AdminPropertyController::class, 'getPublicProperties']);

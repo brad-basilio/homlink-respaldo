@@ -5,6 +5,7 @@ import BaseAdminto from "@Adminto/Base";
 import Table from "../components/Adminto/Table";
 import Modal from "../components/Adminto/Modal";
 import InputFormGroup from "../components/Adminto/form/InputFormGroup";
+import ImageFormGroup from "../components/Adminto/form/ImageFormGroup";
 import DragDropImage from "../components/Adminto/form/DragDropImage";
 import SelectFormGroup from "../components/Adminto/form/SelectFormGroup";
 import CreateReactScript from "../Utils/CreateReactScript";
@@ -73,7 +74,7 @@ const FeatureCard = ({
             case "service": return addService;
             case "characteristic": return addCharacteristic;
             case "houseRule": return addHouseRule;
-            default: return () => {};
+            default: return () => { };
         }
     };
 
@@ -120,7 +121,7 @@ const FeatureCard = ({
                         />
                     </div>
                     <div className="col-lg-6 mb-3">
-                        <SelectFormGroup 
+                        <SelectFormGroup
                             label="Icono"
                             value={feature.icon || ""}
                             onChange={(e) => handleFieldChange("icon", e.target.value)}
@@ -259,12 +260,12 @@ const Properties = () => {
     useEffect(() => {
         console.log('Provinces state cambió:', provinces);
         console.log('Cantidad de provincias:', provinces.length);
-        
+
         // Forzar actualización del select2 de provincia
         if (provinceRef.current && provinces.length > 0) {
             console.log('Actualizando select2 de provincia...');
             $(provinceRef.current).trigger('change.select2');
-            
+
             // Debug después de un pequeño delay
             setTimeout(() => {
                 debugSelectHTML();
@@ -276,7 +277,7 @@ const Properties = () => {
     useEffect(() => {
         console.log('Districts state cambió:', districts);
         console.log('Cantidad de distritos:', districts.length);
-        
+
         // Forzar actualización del select2 de distrito
         if (districtRef.current && districts.length > 0) {
             console.log('Actualizando select2 de distrito...');
@@ -314,14 +315,14 @@ const Properties = () => {
             console.log('Primer registro:', data[0]);
             console.log('Estructura del primer registro:', Object.keys(data[0]));
             setUbigeoData(data);
-            
+
             // Extraer departamentos únicos con trim
             const uniqueDepartments = [...new Set(
                 data
                     .map(item => item.departamento ? item.departamento.trim() : '')
                     .filter(dept => dept.length > 0)
             )].sort();
-            
+
             console.log('Departamentos únicos extraídos:', uniqueDepartments);
             console.log('Total departamentos:', uniqueDepartments.length);
             setDepartments(uniqueDepartments);
@@ -334,11 +335,11 @@ const Properties = () => {
         console.log('=== CAMBIO DE DEPARTAMENTO ===');
         console.log('Departamento seleccionado:', department);
         console.log('ubigeoData length:', ubigeoData.length);
-        
+
         setSelectedDepartment(department);
         setSelectedProvince("");
         setSelectedDistrict("");
-        
+
         // Limpiar los selects de provincia y distrito
         if (provinceRef.current) {
             $(provinceRef.current).val("").trigger('change.select2');
@@ -346,7 +347,7 @@ const Properties = () => {
         if (districtRef.current) {
             $(districtRef.current).val("").trigger('change.select2');
         }
-        
+
         if (department && department.trim()) {
             // Si ubigeoData está vacío, intentar recargar los datos
             let dataToUse = ubigeoData;
@@ -365,42 +366,42 @@ const Properties = () => {
                     return;
                 }
             }
-            
+
             const departmentTrimmed = department.trim();
             console.log('Departamento después de trim:', departmentTrimmed);
-            
+
             // Mostrar algunos ejemplos de departamentos en los datos
             const sampleDepartments = dataToUse.slice(0, 5).map(item => item.departamento);
             console.log('Primeros 5 departamentos en los datos:', sampleDepartments);
-            
-            const filteredData = dataToUse.filter(item => 
+
+            const filteredData = dataToUse.filter(item =>
                 item.departamento && item.departamento.trim() === departmentTrimmed
             );
             console.log('Datos filtrados por departamento:', filteredData.length);
             console.log('Primeros 3 registros filtrados:', filteredData.slice(0, 3));
-            
+
             if (filteredData.length === 0) {
                 console.log('⚠️ NO SE ENCONTRARON DATOS para departamento:', departmentTrimmed);
                 console.log('Departamentos únicos disponibles:', [...new Set(dataToUse.map(item => item.departamento))]);
             }
-            
+
             const provincesSet = new Set(
                 filteredData
                     .map(item => item.provincia ? item.provincia.trim() : '')
                     .filter(provincia => provincia.length > 0)
             );
             console.log('Provincias set:', provincesSet);
-            
+
             const departmentProvinces = [...provincesSet].sort();
             console.log('Provincias finales:', departmentProvinces);
-            
+
             setProvinces(departmentProvinces);
-            
+
             // Verificar que el estado se actualice correctamente
             setTimeout(() => {
                 console.log('Estado de provinces después de 100ms:', departmentProvinces);
             }, 100);
-            
+
         } else {
             setProvinces([]);
         }
@@ -411,21 +412,21 @@ const Properties = () => {
     const handleProvinceChange = async (province, departmentValue = null) => {
         console.log('=== CAMBIO DE PROVINCIA ===');
         console.log('Provincia seleccionada:', province);
-        
+
         // Usar el parámetro departmentValue si se proporciona, sino usar selectedDepartment
         const currentDepartment = departmentValue || selectedDepartment;
         console.log('Departamento a usar:', currentDepartment);
         console.log('selectedDepartment del estado:', selectedDepartment);
         console.log('ubigeoData length:', ubigeoData.length);
-        
+
         setSelectedProvince(province);
         setSelectedDistrict("");
-        
+
         // Limpiar el select de distrito
         if (districtRef.current) {
             $(districtRef.current).val("").trigger('change.select2');
         }
-        
+
         if (province && province.trim() && currentDepartment && currentDepartment.trim()) {
             // Si ubigeoData está vacío, intentar recargar los datos
             let dataToUse = ubigeoData;
@@ -444,26 +445,26 @@ const Properties = () => {
                     return;
                 }
             }
-            
+
             const provinceTrimmed = province.trim();
             const departmentTrimmed = currentDepartment.trim();
-            
+
             console.log('Buscando distritos para:', { departmentTrimmed, provinceTrimmed });
             console.log('Datos disponibles para filtrar:', dataToUse.length, 'registros');
-            
-            const filteredByDeptAndProv = dataToUse.filter(item => 
-                item.departamento && item.departamento.trim() === departmentTrimmed && 
+
+            const filteredByDeptAndProv = dataToUse.filter(item =>
+                item.departamento && item.departamento.trim() === departmentTrimmed &&
                 item.provincia && item.provincia.trim() === provinceTrimmed
             );
-            
+
             console.log('Registros filtrados por depto y provincia:', filteredByDeptAndProv.length);
             console.log('Primeros 3 registros filtrados:', filteredByDeptAndProv.slice(0, 3));
-            
+
             const provinceDistricts = filteredByDeptAndProv
                 .map(item => item.distrito ? item.distrito.trim() : '')
                 .filter(distrito => distrito.length > 0)
                 .sort();
-                
+
             console.log('Distritos encontrados:', provinceDistricts);
             console.log('Cantidad de distritos:', provinceDistricts.length);
             setDistricts(provinceDistricts);
@@ -509,7 +510,7 @@ const Properties = () => {
     };
 
     const updateAmenity = useCallback((index, field, value) => {
-        setAmenities(prev => prev.map((item, i) => 
+        setAmenities(prev => prev.map((item, i) =>
             i === index ? { ...item, [field]: value } : item
         ));
     }, []);
@@ -526,7 +527,7 @@ const Properties = () => {
     };
 
     const updateService = useCallback((index, field, value) => {
-        setServices(prev => prev.map((item, i) => 
+        setServices(prev => prev.map((item, i) =>
             i === index ? { ...item, [field]: value } : item
         ));
     }, []);
@@ -543,7 +544,7 @@ const Properties = () => {
     };
 
     const updateCharacteristic = useCallback((index, field, value) => {
-        setCharacteristics(prev => prev.map((item, i) => 
+        setCharacteristics(prev => prev.map((item, i) =>
             i === index ? { ...item, [field]: value } : item
         ));
     }, []);
@@ -560,7 +561,7 @@ const Properties = () => {
     };
 
     const updateHouseRule = useCallback((index, field, value) => {
-        setHouseRules(prev => prev.map((item, i) => 
+        setHouseRules(prev => prev.map((item, i) =>
             i === index ? { ...item, [field]: value } : item
         ));
     }, []);
@@ -572,9 +573,9 @@ const Properties = () => {
     };
 
     // Cargar datos al editar
-    const onModalOpen = (data) => {
+    const onModalOpen = async (data) => {
         setIsEditing(!!data);
-        
+
         if (data) {
             idRef.current.value = data.id || "";
             titleRef.current.value = data.title || "";
@@ -582,22 +583,31 @@ const Properties = () => {
             priceRef.current.value = data.price_per_night || "";
             currencyRef.current.value = data.currency || "PEN";
             addressRef.current.value = data.address || "";
-            
-            // Cargar ubicación
+
+            // Cargar ubicación en secuencia asíncrona
             if (data.department) {
                 setSelectedDepartment(data.department);
-                handleDepartmentChange(data.department);
+                await handleDepartmentChange(data.department);
                 $(departmentRef.current).val(data.department).trigger('change');
+                
+                // Ahora que las provincias están cargadas, establecer la provincia
+                if (data.province) {
+                    setSelectedProvince(data.province);
+                    await handleProvinceChange(data.province, data.department);
+                    setTimeout(() => {
+                        $(provinceRef.current).val(data.province).trigger('change');
+                    }, 100);
+                    
+                    // Ahora que los distritos están cargados, establecer el distrito
+                    if (data.district) {
+                        setSelectedDistrict(data.district);
+                        setTimeout(() => {
+                            $(districtRef.current).val(data.district).trigger('change');
+                        }, 200);
+                    }
+                }
             }
-            if (data.province) {
-                setSelectedProvince(data.province);
-                handleProvinceChange(data.province);
-                $(provinceRef.current).val(data.province).trigger('change');
-            }
-            if (data.district) {
-                $(districtRef.current).val(data.district).trigger('change');
-            }
-            
+
             bedroomsRef.current.value = data.bedrooms || 1;
             bathroomsRef.current.value = data.bathrooms || 1;
             maxGuestsRef.current.value = data.max_guests || 2;
@@ -606,6 +616,12 @@ const Properties = () => {
             shortDescriptionRef.current.value = data.short_description || "";
             ratingRef.current.value = data.rating || 5.0;
             reviewsCountRef.current.value = data.reviews_count || 0;
+
+            // Configurar imagen principal si existe
+            if (data.main_image) {
+                mainImageRef.image.src = `/api/property/media/${data.main_image}`;
+              
+            }
 
             // Cargar arrays dinámicos
             setAmenities(data.amenities?.length ? data.amenities : [{ name: "", icon: "", available: true }]);
@@ -621,14 +637,14 @@ const Properties = () => {
             priceRef.current.value = "";
             currencyRef.current.value = "PEN";
             addressRef.current.value = "";
-            
+
             // Limpiar ubicación
             setSelectedDepartment("");
             setSelectedProvince("");
             $(departmentRef.current).val("").trigger('change');
             $(provinceRef.current).val("").trigger('change');
             $(districtRef.current).val("").trigger('change');
-            
+
             bedroomsRef.current.value = 1;
             bathroomsRef.current.value = 1;
             maxGuestsRef.current.value = 2;
@@ -637,6 +653,9 @@ const Properties = () => {
             shortDescriptionRef.current.value = "";
             ratingRef.current.value = 5.0;
             reviewsCountRef.current.value = 0;
+
+            mainImageRef.current.value = "";
+            mainImageRef.current.image.src = `/api/property/media/undefined`;
 
             setAmenities([{ name: "", icon: "", available: true }]);
             setServices([{ name: "", description: "", icon: "", available: true }]);
@@ -653,7 +672,7 @@ const Properties = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        
+
         // Campos básicos
         if (idRef.current.value) formData.append("id", idRef.current.value);
         formData.append("title", titleRef.current.value);
@@ -684,7 +703,7 @@ const Properties = () => {
                 formData.append(`gallery[]`, image);
             }
         });
-        
+
         // Galería existente (para edición)
         if (isEditing) {
             const existingGallery = gallery.filter(image => typeof image === 'string');
@@ -809,7 +828,7 @@ const Properties = () => {
                                             icon: "plus",
                                             text: "Nueva Propiedad",
                                             hint: "Crear nueva propiedad",
-                                            onClick: () => onModalOpen(),
+                                            onClick: async () => await onModalOpen(),
                                         },
                                     });
                                 }}
@@ -829,7 +848,7 @@ const Properties = () => {
                                                 container,
                                                 data.main_image ? (
                                                     <img
-                                                        src={`/storage/images/property/${data.main_image}`}
+                                                        src={`/api/property/media/${data.main_image}`}
                                                         alt="Propiedad"
                                                         className="rounded"
                                                         style={{ width: "60px", height: "40px", objectFit: "cover" }}
@@ -956,7 +975,7 @@ const Properties = () => {
                                                 <div className="d-flex gap-1">
                                                     <button
                                                         className="btn btn-sm btn-outline-primary"
-                                                        onClick={() => onModalOpen(data)}
+                                                        onClick={async () => await onModalOpen(data)}
                                                         title="Editar"
                                                     >
                                                         <i className="fas fa-edit"></i>
@@ -990,7 +1009,7 @@ const Properties = () => {
             >
                 <div className="row" id="principal-container">
                     <input type="hidden" ref={idRef} />
-                    
+
                     {/* Información básica */}
                     <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
@@ -1010,7 +1029,8 @@ const Properties = () => {
                                     </div>
                                     <div className="col-lg-4 mb-3">
                                         <label className="form-label fw-semibold">Plataforma</label>
-                                        <select className="form-select" ref={platformRef} required>
+                                        <select className="form-select" ref={platformRef} required disabled
+                                        >
                                             <option value="Airbnb">Airbnb</option>
                                             <option value="Booking">Booking.com</option>
                                             <option value="Vrbo">Vrbo</option>
@@ -1072,10 +1092,10 @@ const Properties = () => {
                                 </div>
                             </div>
                             <div className="col-lg-4">
-                                <DragDropImage
+                                <ImageFormGroup
                                     label="Imagen principal"
                                     eRef={mainImageRef}
-                                    aspect={16/9}
+                                    aspect={16 / 9}
                                 />
                             </div>
                         </div>
@@ -1090,7 +1110,7 @@ const Properties = () => {
                         <div className="row">
                             <div className="col-12 mb-3">
                                 <label className="form-label fw-semibold">Agregar imágenes a la galería</label>
-                                <div 
+                                <div
                                     className="border border-dashed border-primary rounded p-4 text-center"
                                     onDrop={handleDrop}
                                     onDragOver={handleDragOver}
@@ -1122,7 +1142,7 @@ const Properties = () => {
                                             <div key={index} className="col-lg-2 col-md-3 col-sm-4 mb-3">
                                                 <div className="position-relative">
                                                     <img
-                                                        src={image instanceof File ? URL.createObjectURL(image) : `/storage/images/property/gallery/${image}`}
+                                                        src={image instanceof File ? URL.createObjectURL(image) : `/api/property/media/${image}`}
                                                         alt={`Galería ${index + 1}`}
                                                         className="img-fluid rounded"
                                                         style={{ width: '100%', height: '100px', objectFit: 'cover' }}
@@ -1184,12 +1204,12 @@ const Properties = () => {
                                     onChange={(e) => {
                                         const value = e.target.value;
                                         setSelectedProvince(value);
-                                        
+
                                         // Obtener el departamento actual del select
                                         const currentDept = departmentRef.current ? $(departmentRef.current).val() : selectedDepartment;
                                         console.log('🔍 Provincia onChange - Departamento actual:', currentDept);
                                         console.log('🔍 Provincia onChange - selectedDepartment estado:', selectedDepartment);
-                                        
+
                                         handleProvinceChange(value, currentDept);
                                     }}
                                     disabled={!selectedDepartment}

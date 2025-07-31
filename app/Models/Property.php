@@ -19,6 +19,8 @@ class Property extends Model
         'price_per_night',
         'currency',
         'address',
+        'department',
+        'province',
         'district',
         'city',
         'country',
