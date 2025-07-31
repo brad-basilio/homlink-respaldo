@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Property;
+use Illuminate\Support\Str;
 
 class PropertySeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class PropertySeeder extends Seeder
         $properties = [
             [
                 'title' => 'Apartamento moderno en Miraflores',
+                'slug' => 'apartamento-moderno-miraflores',
                 'platform' => 'Airbnb',
                 'price_per_night' => 120.00,
                 'currency' => 'PEN',
@@ -67,6 +69,7 @@ class PropertySeeder extends Seeder
             ],
             [
                 'title' => 'Departamento acogedor en San Isidro',
+                'slug' => 'departamento-acogedor-san-isidro',
                 'platform' => 'Booking',
                 'price_per_night' => 85.00,
                 'currency' => 'PEN',
@@ -114,6 +117,7 @@ class PropertySeeder extends Seeder
             ],
             [
                 'title' => 'Studio en Barranco con vista al mar',
+                'slug' => 'studio-barranco-vista-mar',
                 'platform' => 'Airbnb',
                 'price_per_night' => 95.00,
                 'currency' => 'PEN',
@@ -161,6 +165,7 @@ class PropertySeeder extends Seeder
             ],
             [
                 'title' => 'Loft moderno en La Molina',
+                'slug' => 'loft-moderno-la-molina',
                 'platform' => 'Vrbo',
                 'price_per_night' => 140.00,
                 'currency' => 'PEN',

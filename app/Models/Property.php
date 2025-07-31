@@ -15,6 +15,7 @@ class Property extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'platform',
         'price_per_night',
         'currency',
@@ -65,6 +66,12 @@ class Property extends Model
     public function getMainImageUrlAttribute()
     {
         return $this->main_image ? asset('storage/images/property/' . $this->main_image) : null;
+    }
+
+    // Accessor para generar slug si no existe
+    public function getSlugAttribute($value)
+    {
+        return $value ?: $this->id;
     }
 
     // Accessor para la galería

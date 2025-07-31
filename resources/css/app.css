@@ -11,40 +11,89 @@
   opacity: 1;
 }
 
+/* Estilos específicos para el Swiper en DestacadosSection */
+.property-swiper {
+  --swiper-pagination-bottom: 8px;
+  --swiper-pagination-bullet-size: 8px;
+  --swiper-pagination-bullet-inactive-opacity: 0.7;
+}
+
+.property-swiper .swiper-pagination {
+  bottom: 8px !important;
+}
+
+.property-swiper .swiper-pagination-bullet {
+  background: white !important;
+  opacity: 0.7 !important;
+  margin: 0 2px !important;
+}
+
+.property-swiper .swiper-pagination-bullet-active {
+  background: white !important;
+  opacity: 1 !important;
+}
+
+/* Ocultar navegación en hover por defecto, mostrar en hover */
+.property-swiper .swiper-button-next,
+.property-swiper .swiper-button-prev {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.property-swiper:hover .swiper-button-next,
+.property-swiper:hover .swiper-button-prev {
+  opacity: 1;
+}
+
+/* Responsive arrows size */
+@media (max-width: 768px) {
+  .property-swiper .swiper-button-next,
+  .property-swiper .swiper-button-prev {
+    width: 32px !important;
+    height: 32px !important;
+  }
+  
+  .property-swiper .swiper-button-next svg,
+  .property-swiper .swiper-button-prev svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
 
 
 /* General Sans Font Faces */
 @font-face {
-  font-family: "GeneralSans";
-  src: url("../../public/assets/fonts/general-sans/GeneralSans-Light.woff2") format("woff2");
+  font-family: "Aeonik";
+  src: url("../../public/assets/fonts/aeonik/Aeonik-Regular.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GeneralSans";
-  src: url("../../public/assets/fonts/general-sans/GeneralSans-Regular.woff2") format("woff2");
+  font-family: "Aeonik";
+  src: url("../../public/assets/fonts/aeonik/Aeonik-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GeneralSans";
-  src: url("../../public/assets/fonts/general-sans/GeneralSans-Medium.woff2") format("woff2");
+  font-family: "Aeonik";
+  src: url("../../public/assets/fonts/aeonik/Aeonik-Regular.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GeneralSans";
-  src: url("../../public/assets/fonts/general-sans/GeneralSans-Semibold.woff2") format("woff2");
+  font-family: "Aeonik";
+  src: url("../../public/assets/fonts/aeonik/Aeonik-Regular.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "GeneralSans";
-  src: url("../../public/assets/fonts/general-sans/GeneralSans-Bold.woff2") format("woff2");
+  font-family: "Aeonik";
+  src: url("../../public/assets/fonts/aeonik/Aeonik-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }

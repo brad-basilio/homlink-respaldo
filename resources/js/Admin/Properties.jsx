@@ -797,12 +797,7 @@ const Properties = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="card">
-                        <div className="card-header">
-                            <h3 className="card-title">
-                                <i className="fas fa-home me-2"></i>
-                                Gestión de Propiedades
-                            </h3>
-                        </div>
+                        
                         <div className="card-body">
                             <Table
                                 gridRef={gridRef}

@@ -20,6 +20,16 @@
     "category": "amenity"
   },
   {
+    "id": "fas fa-swimmer",
+    "name": "Piscina",
+    "category": "amenity"
+  },
+  {
+    "id": "fas fa-parking",
+    "name": "Estacionamiento",
+    "category": "amenity"
+  },
+  {
     "id": "fas fa-dumbbell",
     "name": "Gimnasio",
     "category": "amenity"
@@ -120,8 +130,13 @@
     "category": "service"
   },
   {
-    "id": "fas fa-utensils",
-    "name": "Room service",
+    "id": "fas fa-gamepad",
+    "name": "Área de juegos",
+    "category": "service"
+  },
+  {
+    "id": "fas fa-tree",
+    "name": "Áreas verdes",
     "category": "service"
   },
   {
@@ -147,11 +162,6 @@
   {
     "id": "fas fa-baby-carriage",
     "name": "Servicio de niñera",
-    "category": "service"
-  },
-  {
-    "id": "fas fa-paw",
-    "name": "Cuidado de mascotas",
     "category": "service"
   },
   {
@@ -195,11 +205,6 @@
     "category": "characteristic"
   },
   {
-    "id": "fas fa-tree",
-    "name": "Vista al jardín",
-    "category": "characteristic"
-  },
-  {
     "id": "fas fa-sun",
     "name": "Muy luminoso",
     "category": "characteristic"
@@ -240,11 +245,6 @@
     "category": "houseRule"
   },
   {
-    "id": "fas fa-smoking-ban",
-    "name": "Prohibido fumar",
-    "category": "houseRule"
-  },
-  {
     "id": "fas fa-ban",
     "name": "No mascotas",
     "category": "houseRule"
@@ -262,6 +262,11 @@
   {
     "id": "fas fa-credit-card",
     "name": "Depósito requerido",
+    "category": "houseRule"
+  },
+  {
+    "id": "fas fa-gavel",
+    "name": "Regla de la casa",
     "category": "houseRule"
   }
 ]

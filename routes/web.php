@@ -82,6 +82,7 @@ use App\Http\Controllers\LoginVuaController;
 use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
+use App\Http\Controllers\PropertyDetailController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\PurchaseOptionController;
@@ -131,6 +132,7 @@ Route::get('/catalog', [CatalogController::class, 'reactView'])->name('CatalogPr
 Route::get('/instructions', [InstructionController::class, 'reactView'])->name('Instructions.jsx');
 Route::get('/quiz', [CatalogController::class, 'reactView'])->name('Quiz.jsx');
 Route::get('/product/{slug}', [DetailController::class, 'reactView'])->name('DetailProduct.jsx');
+Route::get('/property/{slug}', [PropertyDetailController::class, 'reactView'])->name('PropertyDetail.jsx');
 Route::get('/servicio/{slug}', [ServiceController::class, 'reactView'])->name('DetailService.jsx');
 Route::get('/solucion/{slug}', [SolutionController::class, 'reactView'])->name('DetailSolution.jsx');
 Route::get('/opcion/{slug}', [PurchaseOptionController::class, 'reactView'])->name('DetailPurchaseOption.jsx');

@@ -67,8 +67,8 @@ const Home = ({
     landing,
 
     apps,
-    pasos=[],
-    cupones=[],
+    pasos = [],
+    cupones = [],
     core_values = [],
 
     sliders,
@@ -81,6 +81,10 @@ const Home = ({
     allServices = [],
     banner_operacion = {},
     banner_slider = [],
+
+    // Nuevas propiedades
+    destinosVisitados = [],
+    masBuscados = [],
 }) => {
     const { t, loading, error } = useTranslation();
 
@@ -93,11 +97,11 @@ const Home = ({
         const timer = setTimeout(() => {
             setSectionsReady(true);
         }, 100);
-        
+
         return () => clearTimeout(timer);
     }, []);
 
- 
+
 
     const landingInicio = landing?.find(
         (item) => item.correlative === "page_home_inicio"
@@ -109,16 +113,16 @@ const Home = ({
 
     const landingCupones = landing?.find(
         (item) => item.correlative === "page_home_cupones"
-    );  
+    );
     const landingPilares = landing?.find(
         (item) => item.correlative === "page_home_pilares"
-    );  
+    );
 
     // Filtrar indicadores para cupones
     const indicadoresCupones = indicators?.filter(
         (indicator) => indicator.correlative === "inicio_cupones"
     ) || [];
-      const indicadoresInicio = indicators?.filter(
+    const indicadoresInicio = indicators?.filter(
         (indicator) => indicator.correlative === "inicio_hero"
     ) || [];
 
@@ -207,11 +211,11 @@ const Home = ({
     return (
         <div>
             {/* Debug Info <AppDebugInfo apps={apps} />*/}
-            
-            
+
+
             {/* App Store Banner - Enlaces a tiendas de aplicaciones */}
             <AppStoreBanner apps={apps} />
-            
+
             <Header showSlogan={showSlogan} />
 
 
@@ -237,9 +241,9 @@ const Home = ({
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
             >
-                <BeneficiosSection  />
+                <BeneficiosSection />
             </motion.div>
-            {/*SECCION DESTACADOS */}
+            {/*SECCION LO MAS VISITADO */}
             <motion.div
                 className="animate-section"
                 initial={{ opacity: 0, y: 40 }}
@@ -248,16 +252,33 @@ const Home = ({
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7 }}
             >
-                <DestacadosSection  />
-</motion.div>
+                <DestacadosSection
+                    propiedades={destinosVisitados}
+                    titulo="Destinos más visitados"
+                />
+            </motion.div>
 
-{/*BANNER 1 */}
-<BannerSection />
+            {/*BANNER 1 */}
+            <BannerSection />
+            {/*SECCION LO MAS BUSCADO */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7 }}
+            >
+                <DestacadosSection
+                    propiedades={masBuscados}
+                    titulo="Los más buscados"
+                />
+            </motion.div>
 
-                {/* SLIDER  <SliderInteractive ... /> */}
+            {/* SLIDER  <SliderInteractive ... /> */}
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-           {/* <motion.div
+            {/* <motion.div
                 className="animate-section"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}

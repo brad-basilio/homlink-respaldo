@@ -15,6 +15,7 @@ use App\Models\Item;
 use App\Models\LandingHome;
 use App\Models\Lang;
 use App\Models\Post;
+use App\Models\Property;
 use App\Models\Service;
 use App\Models\Solution;
 use App\Models\PurchaseOption;
@@ -96,6 +97,20 @@ class HomeController extends BasicController
             ->orderBy('order', 'asc')
             ->get();
 
+        // Obtener propiedades destacadas para la sección "Destino más visitados"
+        $destinosVisitados = Property::active()
+            ->featured()
+            ->orderBy('created_at', 'desc')
+            ->limit(6)
+            ->get();
+
+        // Obtener propiedades más buscadas/populares
+        $masBuscados = Property::active()
+            ->orderBy('rating', 'desc')
+            ->orderBy('reviews_count', 'desc')
+            ->limit(6)
+            ->get();
+
         return [
             'landing' => $landing,
             'sliders' => $sliders,
@@ -105,16 +120,14 @@ class HomeController extends BasicController
             'testimonios' => $testimonios,
             'indicators' => $indicators,
             'allServices' => $allServices,
-
-
-
             'apps' => $apps,
             'pasos' => $pasos,
             'cupones' => $cupones,
             'core_values' => $core_values,
             'banner_operacion' => $banner_operacion,
             'banner_slider' => $banner_slider,
-            
+            'destinosVisitados' => $destinosVisitados,
+            'masBuscados' => $masBuscados,
         ];
     }
 }
