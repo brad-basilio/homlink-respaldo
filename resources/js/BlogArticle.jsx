@@ -24,9 +24,8 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import { Check } from "lucide-react";
 import moment from "moment";
 import "moment/locale/es"; // Para fechas en español
-import ExchangeCard from "./components/Tailwind/CambiaFX/ExchangeCard";
-import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import PrimeraOperacionSection from "./components/Tailwind/Sections/PrimeraOperacionSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 import WhatsAppButton from "./components/Shared/WhatsAppButton";
 
 // Configurar moment en español
@@ -333,8 +332,8 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
     const handleOperationStart = (operationData) => {
         console.log('Operation data:', operationData);
         // Aquí puedes manejar los datos de la operación como necesites
-        // Por defecto redirigirá a mi.cambiafx.pe/login
-        window.location.href = 'https://mi.cambiafx.pe/login';
+        // Redirigir a la página de contacto en lugar de cambiafx
+        window.location.href = '/contacto';
     };
 
     return (

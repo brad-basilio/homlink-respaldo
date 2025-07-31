@@ -15,7 +15,7 @@ import MessagesRest from "./Actions/MessagesRest";
 import Swal from "sweetalert2";
 import GeneralRest from "./actions/GeneralRest";
 import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 // Importaciones de Swiper para la versión móvil
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";

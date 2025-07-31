@@ -11,10 +11,10 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import ModalAppointment from "./components/Appointment/ModalAppointment";
 import DynamicGalleryServiceService from "./DynamicGalleryService";
 import { useTranslation } from "./hooks/useTranslation";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
-import HeroServiceSection from "./components/Tailwind/CambiaFX/HeroServiceSection";
-import TransferenciaServiceSection from "./components/Tailwind/CambiaFX/TransferenciaServiceSection";
-import MoreServiceSection from "./components/Tailwind/CambiaFX/MoreServiceSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
+import HeroServiceSection from "./components/Tailwind/Sections/HeroServiceSection";
+import TransferenciaServiceSection from "./components/Tailwind/Sections/TransferenciaServiceSection";
+import MoreServiceSection from "./components/Tailwind/Sections/MoreServiceSection";
 
 const ServiciosPage = ({ landing, services,banner_slider=[], linkWhatsApp, randomImage }) => {
     

@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
-import ExchangeCard from './ExchangeCard';
 
 export default function HeroSecction({ data = [], apps = [], indicators = [] }) {
     const [operationType, setOperationType] = useState('venta'); // 'compra' o 'venta'
@@ -238,8 +237,8 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const handleOperationStart = (operationData) => {
      
         // Aquí puedes manejar los datos de la operación como necesites
-        // Por defecto redirigirá a mi.cambiafx.pe/login
-        window.location.href = 'https://mi.cambiafx.pe/login';
+        // Redirigir a la página de contacto en lugar de cambiafx
+        window.location.href = '/contacto';
     };
     return (
         <motion.section 
@@ -544,13 +543,26 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                         transition: { duration: 0.3 }
                     }}
                 >
-                    <ExchangeCard
-                        title="Comienza tu cambio ahora"
-                        initialOperationType="venta"
-                        showCoupons={true}
-                        showCredits={true}
-                        onOperationStart={handleOperationStart}
-                    />
+                    {/* Contact Section instead of ExchangeCard */}
+                    <div className="bg-white rounded-2xl p-6 shadow-xl border border-gray-100 max-w-md mx-auto">
+                        <h3 className="text-2xl font-bold text-neutral-dark mb-4 text-center">
+                            ¿Necesitas más información?
+                        </h3>
+                        <p className="text-gray-600 text-center mb-6">
+                            Contáctanos para conocer todos nuestros servicios
+                        </p>
+                        <motion.a
+                            href="/contacto"
+                            whileHover={{ 
+                                scale: 1.05,
+                                boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            className="w-full bg-constrast text-white py-3 px-6 rounded-xl font-semibold text-center block hover:bg-constrast/90 transition-colors duration-300"
+                        >
+                            Contáctanos Ahora
+                        </motion.a>
+                    </div>
                 </motion.div>
             </div>
         </motion.section>

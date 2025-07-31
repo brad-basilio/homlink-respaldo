@@ -16,7 +16,7 @@
 <title>{{ $basicMeta['title'] }}</title>
 <meta name="description" content="{{ $basicMeta['description'] }}" />
 <meta name="keywords" content="{{ $basicMeta['keywords'] }}" />
-<meta name="author" content="{{ $seoData['company_name'] ?? 'CambiaFX' }}" />
+<meta name="author" content="{{ $seoData['company_name'] ?? 'HomLink' }}" />
 <meta name="robots" content="index, follow" />
 
 <!-- Open Graph Meta Tags para redes sociales -->

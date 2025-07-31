@@ -18,7 +18,7 @@ let promotionalCodeTimeout = null;
 
 // Configuración de APIs
 const API_CONFIG = {
-    baseURL: 'https://apiluna.cambiafx.pe/api/BackendPizarra',
+    baseURL: '/api',
     localAPI: '/api',
     timeout: 8000,
     idParCurrency: 1 // USD-PEN
@@ -407,7 +407,7 @@ function handleLogin() {
     });
     
     // Redirigir a login
-    const url = 'https://mi.cambiafx.pe/login?' + params.toString();
+    const url = '/contacto?' + params.toString();
     window.location.href = url;
 }
 

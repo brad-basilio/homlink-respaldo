@@ -21,7 +21,7 @@
     <title>{{ $basicMeta['title'] }}</title>
     <meta name="description" content="{{ $basicMeta['description'] }}" />
     <meta name="keywords" content="{{ $basicMeta['keywords'] }}" />
-    <meta name="author" content="{{ $seoData['company_name'] ?? 'CambiaFX' }}" />
+    <meta name="author" content="{{ $seoData['company_name'] ?? 'HomLink' }}" />
     <meta name="robots" content="index, follow" />
     <meta name="csrf_token" content="{{ csrf_token() }}">
     
@@ -48,7 +48,7 @@
     <meta name="theme-color" content="#007bff">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="CambiaFX">
+    <meta name="apple-mobile-web-app-title" content="HomLink">
     <link rel="apple-touch-icon" href="/icon-192x192.png">
     
     <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/png">

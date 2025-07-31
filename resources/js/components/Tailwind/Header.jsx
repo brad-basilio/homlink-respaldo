@@ -221,7 +221,7 @@ const Header = ({
     const ContactNumber = generals.find((general) => general.correlative === "phone_contact");
     const ContactEmail = generals.find((general) => general.correlative === "email_contact");
 
-    const Cintillo = generals.find((general) => general.correlative === "cintillo");
+    const Cintillo = generals.find((general) => general.correlative === "address");
 
     useEffect(() => {
         const currentPath = window.location.pathname;
@@ -327,65 +327,68 @@ const Header = ({
         <>
             <div className={`w-full max-w-full relative font-paragraph ${backgroundHeight} z-[9999]`}>
                 {/* CINTILLO INICIO */}
-                <div className="bg-accent relative  overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
-                    <div className="absolute top-0 -left-4 flex justify-end w-full h-full   lg:z-[9999] pointer-events-none">
-                        <img
-                            src={`/assets/cambiafx/cintillo-overlay.png`}
-                            alt="overlay Image"
-                            className="h-full  object-cover rounded-xl "
-                        />
+                <div className="bg-primary relative overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
+                    <div className="px-[5%] mx-auto flex flex-row items-center justify-between">
+                        {/* Título del cintillo - lado izquierdo */}
+                        <div className="flex items-center gap-2 relative">
+                            <p className="font-bold text-sm whitespace-nowrap flex gap-2">
+                                <span className="inline-flex">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.3481 17.8071C10.9867 18.1455 10.5037 18.3346 10.0009 18.3346C9.49817 18.3346 9.01517 18.1455 8.65375 17.8071C5.34418 14.6896 0.908967 11.2071 3.07189 6.15102C4.24136 3.41727 7.04862 1.66797 10.0009 1.66797C12.9532 1.66797 15.7605 3.41727 16.93 6.15102C19.0902 11.2007 14.6658 14.7004 11.3481 17.8071Z" stroke="white" stroke-width="1.25"/>
+<path d="M12.9163 9.16667C12.9163 10.7775 11.6105 12.0833 9.99967 12.0833C8.38884 12.0833 7.08301 10.7775 7.08301 9.16667C7.08301 7.55583 8.38884 6.25 9.99967 6.25C11.6105 6.25 12.9163 7.55583 12.9163 9.16667Z" stroke="white" stroke-width="1.25"/>
+</svg>
+
+                                </span>
+                                {renderHighlightedText(Cintillo?.description)}
+                            </p>
+                        </div>
                         
-                    </div>
-                    <div className="px-[5%] mx-auto  flex flex-row items-center justify-center ">
-                        <div className="flex items-center gap-2 relative max-w-max">
+                        {/* Información de contacto - lado derecho */}
+                        <div className="flex items-center gap-4 text-xs md:text-sm">
+                            {/* Teléfonos de contacto */}
+                            {ContactNumber?.description && (
+                                <div className="flex items-center gap-1">
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.14932 9.9533C2.3593 8.57572 1.97784 7.45087 1.74783 6.31065C1.40765 4.62429 2.18614 2.97698 3.47578 1.92586C4.02084 1.48162 4.64566 1.6334 4.96797 2.21164L5.69562 3.51706C6.27238 4.55178 6.56075 5.06913 6.50355 5.61763C6.44636 6.16613 6.05744 6.61285 5.27961 7.50631L3.14932 9.9533ZM3.14932 9.9533C4.74839 12.7416 7.25783 15.2524 10.0493 16.8533M10.0493 16.8533C11.4269 17.6433 12.5517 18.0248 13.692 18.2548C15.3783 18.595 17.0256 17.8165 18.0767 16.5268C18.521 15.9818 18.3692 15.357 17.791 15.0346L16.4855 14.307C15.4508 13.7302 14.9335 13.4419 14.385 13.4991C13.8365 13.5562 13.3897 13.9451 12.4963 14.723L10.0493 16.8533Z" stroke="white" stroke-width="1.25" stroke-linejoin="round"/>
+</svg>
 
-
-                            <img src="/assets/cambiafx/cintillo.webp" alt="Cintillo Icon" className="w-10 z-[999]  absolute top-0 -left-10 transform scale-y-[-1] rotate-90" />
-                            <div className="overflow-hidden whitespace-nowrap w-full relative"
-                            
-                            
-                            >
-                                {/*agregar overlay que este transparente y finalize en bg-accent */}
-
-                                <div 
-                                    className="absolute w-10 h-full z-[999] bg-gradient-to-l from-transparent to-accent"
-                                  
-                                ></div>
-                                <div className="relative">
-                                    <motion.h1
-                                        animate={{ x: [0, "-100%"] }}
-                                        transition={{
-                                            x: {
-                                                repeat: Infinity,
-                                                repeatType: "loop",
-                                                duration: 10,
-                                                ease: "linear",
-                                            },
-                                        }}
-                                        className="font-bold text-sm absolute whitespace-nowrap"
-                                    >
-                                        {renderHighlightedText(Cintillo?.description)}
-                                    </motion.h1>
-                                    <motion.h1
-                                        animate={{ x: ["100%", "0%"] }}
-                                        transition={{
-                                            x: {
-                                                repeat: Infinity,
-                                                repeatType: "loop",
-                                                duration: 10,
-                                                ease: "linear",
-                                            },
-                                        }}
-                                        className="font-bold ml-4 text-sm absolute whitespace-nowrap"
-                                    >
-                                        {renderHighlightedText(Cintillo?.description)}
-                                    </motion.h1>
-                                    <h1 className="font-bold ml-4 text-sm opacity-0 whitespace-nowrap">
-                                        {renderHighlightedText(Cintillo?.description)}
-                                    </h1>
+                                    <div className="flex flex-wrap gap-1">
+                                        {ContactNumber.description.split(',').map((phone, index) => (
+                                            <a 
+                                                key={index}
+                                                href={`tel:${phone.trim()}`}
+                                                className="hover:text-secondary transition-colors duration-200 whitespace-nowrap"
+                                            >
+                                                {phone.trim()}
+                                                {index < ContactNumber.description.split(',').length - 1 && <span className="ml-1">|</span>}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
-                                 
-                            </div>
+                            )}
+                            
+                            {/* Emails de contacto */}
+                            {ContactEmail?.description && (
+                                <div className="flex items-center gap-1">
+                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="white" stroke-width="1.25" stroke-linejoin="round"/>
+<path d="M1.68111 11.231C1.73559 13.7856 1.76283 15.0629 2.70544 16.0091C3.64804 16.9553 4.95991 16.9882 7.58366 17.0541C9.20072 17.0948 10.8019 17.0948 12.419 17.0541C15.0427 16.9882 16.3546 16.9553 17.2972 16.0091C18.2398 15.0629 18.2671 13.7856 18.3215 11.231C18.3391 10.4096 18.3391 9.59305 18.3215 8.77164C18.2671 6.21702 18.2398 4.93971 17.2972 3.99352C16.3546 3.04733 15.0427 3.01437 12.419 2.94844C10.8019 2.90781 9.20072 2.90781 7.58365 2.94844C4.95991 3.01435 3.64804 3.04731 2.70543 3.99351C1.76282 4.9397 1.73559 6.21701 1.6811 8.77164C1.66359 9.59305 1.66359 10.4096 1.68111 11.231Z" stroke="white" stroke-width="1.25" stroke-linejoin="round"/>
+</svg>
+
+                                    <div className="flex flex-wrap gap-1">
+                                        {ContactEmail.description.split(',').map((email, index) => (
+                                            <a 
+                                                key={index}
+                                                href={`mailto:${email.trim()}`}
+                                                className="hover:text-secondary transition-colors duration-200 whitespace-nowrap"
+                                            >
+                                                {email.trim()}
+                                                {index < ContactEmail.description.split(',').length - 1 && <span className="ml-1">|</span>}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -395,12 +398,12 @@ const Header = ({
                     animate="visible"
                     variants={containerVariants}
                     className={` static lg:w-full top-0 z-[9998] transition-colors duration-300 py-1 ${backgroundType === "none"
-                        ? "bg-primary mt-0"
+                        ? "bg-white mt-0"
                         : isScrolled
-                            ? "bg-primary pt-0 !mt-0"
-                            : "bg-primary top-4 pt-8 md:pt-14 lg:pt-10"
+                            ? "bg-white pt-0 !mt-0"
+                            : "bg-white top-4 pt-8 md:pt-14 lg:pt-10"
                         } ${isScrolled &&
-                        "bg-primary pt-0 !mt-0 transition-all duration-150"
+                        "bg-white pt-0 !mt-0 transition-all duration-150"
                         }`}
                 >
                     <div
@@ -435,7 +438,7 @@ const Header = ({
 
                         <motion.div
                             variants={containerVariants}
-                            className="hidden xl:flex py-6 mx-auto justify-center items-center font-normal text-base"
+                            className="hidden xl:flex py-6  justify-center items-center font-normal text-base"
                         >
                             <nav className="flex gap-2">
                                 {[
@@ -539,21 +542,7 @@ const Header = ({
                                     );
                                 })}
                             </nav>
-                        </motion.div>
-
-                        {/*
-                        <motion.div
-                            variants={itemVariants}
-                            className="flex h-full items-center gap-4 justify-end mr-4"
-                        >
-                            <LanguageDropdown 
-                                languagesSystem={languagesSystem} 
-                                selectLanguage={selectLanguage} 
-                                onUseLanguage={onUseLanguage} 
-                            />
-                        </motion.div> */}
-
-                        <motion.div
+                               <motion.div
                             variants={itemVariants}
                             className="hidden xl:flex gap-4 justify-center items-center _Medium"
                         >
@@ -564,10 +553,8 @@ const Header = ({
                             >
                                 Reserva una consulta
                             </WhatsAppButtonWithArrow> */}
-                            <motion.a 
-                            href="https://mi.cambiafx.pe/registro" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
+                                                        <motion.a 
+                                href="/contacto" 
                                 whileHover={{ 
                                     scale: 1.06,
                                     y: -2,
@@ -585,75 +572,30 @@ const Header = ({
                                 className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
-                                    ¿Eres nuevo? regístrate
+                                    Contáctanos
                                 </span>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
                                     transition={{ duration: 0.3 }}
                                 />
                             </motion.a>
-                            <motion.a 
-                                href="https://mi.cambiafx.pe/login" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                whileHover={{ 
-                                    scale: 1.06,
-                                    y: -2,
-                                    boxShadow: "0 10px 25px rgba(187, 255, 82, 0.3)"
-                                }}
-                                whileTap={{ 
-                                    scale: 0.95,
-                                    y: 0
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 400,
-                                    damping: 17
-                                }}
-                                className="py-3 px-4 bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full relative overflow-hidden group"
-                            >
-                                <span className="relative z-10 flex items-center gap-2">
-                                    iniciar operación
-                                    <motion.svg 
-                                        width="16" 
-                                        height="16" 
-                                        viewBox="0 0 24 24" 
-                                        fill="none" 
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-4 h-4"
-                                        animate={{
-                                            rotate: [0, 360]
-                                        }}
-                                        transition={{
-                                            rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                                        }}
-                                    >
-                                        <path 
-                                            d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2" 
-                                            strokeLinecap="round"
-                                        />
-                                        <circle 
-                                            cx="12" 
-                                            cy="12" 
-                                            r="3" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2"
-                                        />
-                                        <path 
-                                            d="M12 9C10.34 9 9 10.34 9 12S10.34 15 12 15" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2"
-                                        />
-                                    </motion.svg>
-                                </span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-primary/90 opacity-0 group-hover:opacity-100"
-                                    transition={{ duration: 0.3 }}
-                                />
-                            </motion.a>
+                          
                         </motion.div>
+                        </motion.div>
+
+                        {/*
+                        <motion.div
+                            variants={itemVariants}
+                            className="flex h-full items-center gap-4 justify-end mr-4"
+                        >
+                            <LanguageDropdown 
+                                languagesSystem={languagesSystem} 
+                                selectLanguage={selectLanguage} 
+                                onUseLanguage={onUseLanguage} 
+                            />
+                        </motion.div> */}
+
+                     
 
                         <motion.div
                             variants={itemVariants}
@@ -902,9 +844,7 @@ const Header = ({
                         >
                            
                             <motion.a 
-                            href="https://mi.cambiafx.pe/registro" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
+                                href="/contacto" 
                                 whileHover={{ 
                                     scale: 1.06,
                                     y: -2,
@@ -922,74 +862,14 @@ const Header = ({
                                 className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
-                                    ¿Eres nuevo? regístrate
+                                    Contáctanos
                                 </span>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
                                     transition={{ duration: 0.3 }}
                                 />
                             </motion.a>
-                            <motion.a 
-                                href="https://mi.cambiafx.pe/login" 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                whileHover={{ 
-                                    scale: 1.06,
-                                    y: -2,
-                                    boxShadow: "0 10px 25px rgba(187, 255, 82, 0.3)"
-                                }}
-                                whileTap={{ 
-                                    scale: 0.95,
-                                    y: 0
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 400,
-                                    damping: 17
-                                }}
-                                className="py-3 px-4 flex items-center justify-center bg-secondary uppercase text-sm font-medium text-neutral-dark rounded-full relative overflow-hidden group"
-                            >
-                                <span className="relative z-10 flex items-center gap-2">
-                                    iniciar operación
-                                    <motion.svg 
-                                        width="16" 
-                                        height="16" 
-                                        viewBox="0 0 24 24" 
-                                        fill="none" 
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="w-4 h-4"
-                                        animate={{
-                                            rotate: [0, 360]
-                                        }}
-                                        transition={{
-                                            rotate: { duration: 8, repeat: Infinity, ease: "linear" }
-                                        }}
-                                    >
-                                        <path 
-                                            d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2" 
-                                            strokeLinecap="round"
-                                        />
-                                        <circle 
-                                            cx="12" 
-                                            cy="12" 
-                                            r="3" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2"
-                                        />
-                                        <path 
-                                            d="M12 9C10.34 9 9 10.34 9 12S10.34 15 12 15" 
-                                            stroke="currentColor" 
-                                            strokeWidth="2"
-                                        />
-                                    </motion.svg>
-                                </span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-secondary/90 to-primary/90 opacity-0 group-hover:opacity-100"
-                                    transition={{ duration: 0.3 }}
-                                />
-                            </motion.a>
+                    
                         </motion.div>
 
                                

@@ -18,7 +18,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const openModal = (index) => setModalOpen(index);
     const closeModal = () => setModalOpen(false);
-    const generalRest = new GeneralRest();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+    const generalRest = new GeneralRest();
 
     // Configurar notificaciones para GeneralRest (principalmente para consistencia)
     // Las consultas GET normalmente solo muestran errores, no éxitos
@@ -112,7 +112,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const aboutusData = aboutuses?.aboutus || [];
     const generalsData = aboutuses?.generals || [];
     const sedesData = aboutuses?.sedes || [];
-    
+
     const policyItems = {
         privacy_policy: t("public.footer.privacity", "Políticas de privacidad"),
         terms_conditions: t("public.form.terms", "Términos y condiciones"),
@@ -176,7 +176,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const onEmailSubmit = async (e) => {
         e.preventDefault();
         if (saving) return; // Prevenir múltiples envíos
-        
+
         // Validar que se hayan aceptado los términos
         if (!termsAccepted) {
             Swal.fire({
@@ -239,7 +239,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
             // Limpiar el campo del email y resetear términos
             clearEmailForm();
-            
+
         } catch (error) {
             setSaving(false);
             console.error("Error al suscribirse:", error);
@@ -256,104 +256,68 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
     return (
         <>
-            <footer className="bg-neutral-dark text-white font-title">
+            <footer className="bg-accent text-white font-title">
 
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 w-full px-[5%] py-8 lg:py-16">
                     {/* Columna 1 - Logo, App Badges y Suscripción */}
-                    <div className="w-full lg:w-6/12 flex flex-col gap-6">
+                    <div className="w-full lg:w-4/12 flex flex-col gap-6">
                         <a href="/">
                             <img
                                 className="h-12 lg:h-14"
                                 src="/assets/img/logo-white.png"
-                                alt="CambiaFX Logo"
+                                alt="HomLink Logo"
                             />
                         </a>
-                        <motion.div 
-                            className="flex flex-wrap gap-2"
-                            variants={{
-                                hidden: { opacity: 0 },
-                                show: {
-                                    opacity: 1,
-                                    transition: {
-                                        staggerChildren: 0.1,
-                                        delayChildren: 0.3
-                                    }
-                                }
-                            }}
-                            initial="hidden"
-                            whileInView="show"
-                            viewport={{ once: true }}
-                        >
-                            {apps?.map((app, index) => (
-                                <motion.a 
-                                    href={app?.link} 
-                                    key={index} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    variants={{
-                                        hidden: { 
-                                            scale: 0, 
-                                            opacity: 0,
-                                            rotate: -180
-                                        },
-                                        show: {
-                                            scale: 1,
-                                            opacity: 1,
-                                            rotate: 0,
-                                            transition: {
-                                                type: "spring",
-                                                stiffness: 300,
-                                                damping: 20,
-                                                duration: 0.6
-                                            }
-                                        }
-                                    }}
-                                    whileHover={{ 
-                                        scale: 1.15, 
-                                        y: -5,
-                                        rotate: 5,
-                                        transition: { 
-                                            type: "spring",
-                                            stiffness: 400,
-                                            damping: 10
-                                        }
-                                    }}
-                                    whileTap={{ 
-                                        scale: 0.9,
-                                        rotate: -5
-                                    }}
-                                >
-                                    <motion.img 
-                                        src={`/api/app/media/${app?.image}`} 
-                                        alt={app?.name} 
-                                        className="h-8 lg:h-10 rounded-lg shadow-md"
-                                        onError={(e) =>
-                                            (e.target.src = "/api/cover/thumbnail/null")
-                                        }
-                                        animate={{
-                                            boxShadow: [
-                                                "0 4px 8px rgba(0,0,0,0.1)",
-                                                "0 6px 12px rgba(0,0,0,0.15)",
-                                                "0 4px 8px rgba(0,0,0,0.1)"
-                                            ]
-                                        }}
-                                        transition={{
-                                            duration: 2,
-                                            repeat: Infinity,
-                                            ease: "easeInOut"
-                                        }}
-                                    />
-                                </motion.a>
-                            ))}
-                        </motion.div>
-                        <motion.div 
+                    
+                    </div>
+
+                    {/* Columna 2 - Horario de Atención */}
+                    <div className="w-full lg:w-4/12 flex flex-col lg:flex-row lg:flex-wrap lg:justify-end gap-6 lg:gap-0">
+                        <div className="w-full lg:w-6/12 flex flex-col gap-2 text-sm pb-4 lg:pb-8">
+                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
+Menu
+                            </h3>
+                          
+                                <div className="whitespace-pre-line">
+                                    Alquilar
+                                </div>
+                                  <div className="whitespace-pre-line">
+                                    Comprar
+                                </div>
+                                  <div className="whitespace-pre-line">
+                                    Blog
+                                </div>
+                                  <div className="whitespace-pre-line">
+                                    Contacto
+                                </div>
+                           
+                        </div>
+
+                        {/* Columna 3 - Legal */}
+                        <div className="w-full lg:w-5/12 flex flex-col gap-2 text-sm">
+                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
+                                Legal
+                            </h3>
+                            <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary transition-colors">Política de Privacidad</a>
+                            <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary transition-colors">Términos y Condiciones</a>
+                            <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary transition-colors">Libro de Reclamaciones</a>
+                          
+
+                        </div>
+
+
+                    </div>
+                    <div className="w-full lg:w-4/12 flex flex-col gap-6">
+
+
+                        <motion.div
                             className="mt-4 max-w-full lg:max-w-md"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.5 }}
                         >
-                            <motion.h3 
+                            <motion.h3
                                 className="text-lg lg:text-xl font-medium mb-2"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
@@ -362,8 +326,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             >
                                 Suscríbete
                             </motion.h3>
-                            
-                            <motion.p 
+
+                            <motion.p
                                 className="text-sm lg:text-base text-neutral mb-4"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
@@ -372,8 +336,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             >
                                 Recibe actualizaciones, tips de finanzas y cupones de mejor tipo de cambio.
                             </motion.p>
-                            
-                            <motion.form 
+
+                            <motion.form
                                 onSubmit={onEmailSubmit}
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -381,13 +345,13 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 transition={{ duration: 0.6, delay: 0.8 }}
                             >
                                 {/* Versión Desktop - Original */}
-                                <motion.div 
+                                <motion.div
                                     className="hidden overflow-hidden lg:flex items-center bg-white rounded-full p-1"
-                                    whileHover={{ 
+                                    whileHover={{
                                         scale: 1.02,
                                         boxShadow: "0 8px 25px rgba(0,0,0,0.15)"
                                     }}
-                                    whileFocus={{ 
+                                    whileFocus={{
                                         scale: 1.02,
                                         boxShadow: "0 0 0 3px rgba(187, 255, 82, 0.3)"
                                     }}
@@ -400,7 +364,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         name="email"
                                         placeholder="Correo"
                                         className="flex-grow px-4 py-2 placeholder:text-neutral-light bg-transparent text-neutral-dark focus:outline-none"
-                                        whileFocus={{ 
+                                        whileFocus={{
                                             scale: 1.01,
                                             transition: { duration: 0.2 }
                                         }}
@@ -408,14 +372,13 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     <motion.button
                                         type="submit"
                                         disabled={saving || !termsAccepted}
-                                        className={`font-bold text-sm px-6 py-3 rounded-full transition-colors ${
-                                            !termsAccepted 
-                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
-                                                : 'bg-secondary text-neutral-light hover:bg-[#b7f556]'
-                                        }`}
-                                        whileHover={termsAccepted ? { 
+                                        className={`font-bold text-sm px-3  py-3 rounded-full transition-colors ${!termsAccepted
+                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                                                : 'bg-primary text-neutral-light hover:bg-secondary'
+                                            }`}
+                                        whileHover={termsAccepted ? {
                                             scale: 1.05,
-                                            backgroundColor: "#b7f556"
+                                            backgroundColor: "#ff3d2a"
                                         } : {}}
                                         whileTap={termsAccepted ? { scale: 0.95 } : {}}
                                         animate={saving ? {
@@ -427,7 +390,20 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         } : {}}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        {saving ? 'Enviando...' : 'SUSCRIBIRME'}
+                                        {saving ? (
+                                            <div className="flex items-center justify-center">
+                                                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-neutral-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                
+                                            </div>
+                                        ) : (
+                                            <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M0.0498047 14.9492L5.0498 7.94922L0.0498047 0.949219H2.4998L7.4998 7.94922L2.4998 14.9492H0.0498047ZM5.9998 14.9492L10.9998 7.94922L5.9998 0.949219H8.44981L13.4498 7.94922L8.44981 14.9492H5.9998Z" fill="white" />
+                                            </svg>
+                                        )
+                                        }
                                     </motion.button>
                                 </motion.div>
 
@@ -440,7 +416,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         name="email-mobile"
                                         placeholder="Correo electrónico"
                                         className="w-full px-4 py-3 placeholder:text-neutral-light bg-white text-neutral-dark focus:outline-none rounded-full border-2 border-transparent focus:border-secondary transition-colors"
-                                        whileFocus={{ 
+                                        whileFocus={{
                                             scale: 1.02,
                                             transition: { duration: 0.2 }
                                         }}
@@ -448,16 +424,15 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                             boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
                                         }}
                                     />
-                                    
+
                                     <motion.button
                                         type="submit"
                                         disabled={saving || !termsAccepted}
-                                        className={`w-full font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 ${
-                                            !termsAccepted 
-                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed' 
-                                                : 'bg-secondary text-neutral-dark hover:bg-[#b7f556] shadow-lg hover:shadow-xl'
-                                        }`}
-                                        whileHover={termsAccepted ? { 
+                                        className={`w-full font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 ${!termsAccepted
+                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                                                : 'bg-secondary text-neutral-dark hover:bg-accent hover:text-white shadow-lg hover:shadow-xl'
+                                            }`}
+                                        whileHover={termsAccepted ? {
                                             scale: 1.02,
                                             y: -2
                                         } : {}}
@@ -471,12 +446,20 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         } : {}}
                                         transition={{ duration: 0.2 }}
                                     >
-                                        {saving ? 'Enviando...' : 'SUSCRIBIRME'}
+                                        {saving ? (
+                                            <div className="flex items-center justify-center space-x-2">
+                                                <svg className="animate-spin h-4 w-4 text-neutral-dark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <span>Enviando</span>
+                                            </div>
+                                        ) : 'SUSCRIBIRME'}
                                     </motion.button>
                                 </div>
                             </motion.form>
-                            
-                            <motion.div 
+
+                            <motion.div
                                 className="flex items-center mt-4 space-x-3"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
@@ -497,11 +480,10 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         className="sr-only"
                                     />
                                     <motion.div
-                                        className={`w-5 h-5 rounded-md border-2 cursor-pointer transition-all duration-300 ${
-                                            termsAccepted
+                                        className={`w-5 h-5 rounded-md border-2 cursor-pointer transition-all duration-300 ${termsAccepted
                                                 ? 'bg-secondary border-secondary shadow-lg shadow-secondary/25'
                                                 : 'bg-white border-neutral-light hover:border-secondary hover:shadow-sm'
-                                        }`}
+                                            }`}
                                         onClick={() => setTermsAccepted(!termsAccepted)}
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
@@ -538,11 +520,11 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         </AnimatePresence>
                                     </motion.div>
                                 </motion.div>
-                                
-                                <motion.label 
-                                    htmlFor="terms-checkbox" 
+
+                                <motion.label
+                                    htmlFor="terms-checkbox"
                                     className="text-xs text-neutral cursor-pointer leading-tight"
-                                    whileHover={{ 
+                                    whileHover={{
                                         color: "#BBFF52",
                                         x: 2
                                     }}
@@ -553,164 +535,103 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </motion.div>
                         </motion.div>
                     </div>
-
-                    {/* Columna 2 - Horario de Atención */}
-                    <div className="w-full lg:w-6/12 flex flex-col lg:flex-row lg:flex-wrap lg:justify-end gap-6 lg:gap-0">
-                        <div className="w-full lg:w-6/12 flex flex-col gap-2 text-sm pb-4 lg:pb-8">
-                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
-                                Horario de Atención
-                            </h3>
-                            {openingHours ? (
-                                <div className="whitespace-pre-line">
-                                    {openingHours.split('\n').map(line => line.replace(/:/, ':\n')).join('\n')}
-                                </div>
-                            ) : (
-                                <>
-                                    <p><strong className="font-medium">Lunes a viernes:</strong><br />9:00 a.m. - 7:00 p.m.</p>
-                                    <p className="mt-2"><strong className="font-medium">Sábados:</strong><br />10:00 a.m. - 1:00 p.m.</p>
-                                    <p className="mt-2"><strong className="font-medium">Otros Horarios:</strong><br />Abonamos el día siguiente hábil</p>
-                                    <p className="mt-2"><strong className="font-medium">No atendemos:</strong><br />Domingos y feriados</p>
-                                </>
-                            )}
-                        </div>
-
-                        {/* Columna 3 - Legal */}
-                        <div className="w-full lg:w-5/12 flex flex-col gap-2 text-sm">
-                            <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
-                                Legal
-                            </h3>
-                            <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary transition-colors">Política de Privacidad</a>
-                            <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary transition-colors">Términos y Condiciones</a>
-                            <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary transition-colors">Libro de Reclamaciones</a>
-                            <div className="mt-4">
-                                <p className="font-medium">Registrada en la SBS</p>
-                                <p>Resolución 04993-2018</p>
-                            </div>
-
-                             {/* Columna 4 - Contacto */}
-                        <div className="w-full  flex flex-col gap-4 text-sm mt-4">
-                            <div className="flex items-start gap-2">
-                                <svg className="w-4 h-4 lg:w-5 lg:h-5 mt-1 flex-shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M11.3481 17.8052C10.9867 18.1435 10.5037 18.3327 10.0009 18.3327C9.49817 18.3327 9.01517 18.1435 8.65375 17.8052C5.34418 14.6877 0.908967 11.2051 3.07189 6.14907C4.24136 3.41532 7.04862 1.66602 10.0009 1.66602C12.9532 1.66602 15.7605 3.41532 16.93 6.14907C19.0902 11.1988 14.6658 14.6984 11.3481 17.8052Z" fill="white" stroke="#0C0C0C" strokeWidth="1.25" />
-                                    <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" fill="#1A1A1A" />
-                                </svg>
-
-                                <div className="whitespace-pre-line text-xs lg:text-sm">
-                                    {address || "Av. Javier Prado Este N.560,\nOficina 2302 San Isidro - Lima - Perú"}
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 lg:w-5 lg:h-5 flex-shrink-0" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.67916 11.229C1.73363 13.7837 1.76087 15.0609 2.70348 16.0072C3.64608 16.9534 4.95796 16.9863 7.58171 17.0522C9.19877 17.0928 10.7999 17.0928 12.417 17.0522C15.0408 16.9863 16.3526 16.9534 17.2953 16.0072C18.2378 15.0609 18.2651 13.7837 18.3195 11.229C18.3371 10.4076 18.3371 9.5911 18.3195 8.76968C18.2651 6.21507 18.2378 4.93776 17.2953 3.99157C16.3526 3.04537 15.0408 3.01242 12.417 2.94649C10.7999 2.90586 9.19876 2.90586 7.5817 2.94648C4.95796 3.0124 3.64608 3.04536 2.70347 3.99156C1.76087 4.93775 1.73363 6.21506 1.67915 8.76968C1.66163 9.5911 1.66164 10.4076 1.67916 11.229Z" fill="white" stroke="#1A1A1A" strokeWidth="1.25" strokeLinejoin="round" />
-                                    <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" strokeWidth="1.25" strokeLinejoin="round" />
-                                </svg>
-
-                                <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary transition-colors text-xs lg:text-sm">{emailContact || 'hola@cambiafx.pe'}</a>
-                            </div>
-                        </div>
-                        </div>
-
-                       
-                    </div>
                 </div>
 
-                <div className="">
-                    <div className="w-full px-[5%] mx-auto">
-                        <div className="h-0.5 bg-neutral"></div>
-                    </div>
+                <div className="bg-primary">
+                  
                     <div className="flex flex-col lg:flex-row justify-between items-center w-full px-[5%] py-4 text-center lg:text-left gap-4 lg:gap-0">
-                        <p className="text-sm lg:text-base text-neutral mb-0">
-                            {copyrightText}
-                        </p>
+                      
                         <div className="flex items-center gap-2 lg:gap-3 flex-wrap justify-center">
                             {(phoneContact || supportPhone) && (
-                                <a 
-                                    href={`tel:${phoneContact || supportPhone}`} 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={`tel:${phoneContact || supportPhone}`}
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="Llamar"
                                 >
                                     <i className="fa-solid fa-phone"></i>
                                 </a>
                             )}
                             {Facebook?.link && (
-                                <a 
-                                    href={Facebook.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Facebook.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="Facebook"
                                 >
                                     <i className="fa-brands fa-facebook-f"></i>
                                 </a>
                             )}
                             {Instagram?.link && (
-                                <a 
-                                    href={Instagram.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Instagram.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="Instagram"
                                 >
                                     <i className="fa-brands fa-instagram"></i>
                                 </a>
                             )}
                             {Twitter?.link && (
-                                <a 
-                                    href={Twitter.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Twitter.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="Twitter"
                                 >
                                     <i className="fa-brands fa-twitter"></i>
                                 </a>
                             )}
                             {LinkedIn?.link && (
-                                <a 
-                                    href={LinkedIn.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={LinkedIn.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="LinkedIn"
                                 >
                                     <i className="fa-brands fa-linkedin-in"></i>
                                 </a>
                             )}
                             {Youtube?.link && (
-                                <a 
-                                    href={Youtube.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Youtube.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="YouTube"
                                 >
                                     <i className="fa-brands fa-youtube"></i>
                                 </a>
                             )}
                             {Tiktok?.link && (
-                                <a 
-                                    href={Tiktok.link} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Tiktok.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="TikTok"
                                 >
                                     <i className="fa-brands fa-tiktok"></i>
                                 </a>
                             )}
                             {(Whatsapp?.link || whatsappPhone) && (
-                                <a 
-                                    href={Whatsapp?.link || `https://wa.me/${whatsappPhone?.replace(/[^0-9]/g, '')}`} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="bg-secondary text-neutral-dark w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-[#b7f556] transition-colors text-sm"
+                                <a
+                                    href={Whatsapp?.link || `https://wa.me/${whatsappPhone?.replace(/[^0-9]/g, '')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-white text-primary w-7 h-7 lg:w-8 lg:h-8 rounded-full flex items-center justify-center hover:bg-accent hover:text-white transition-colors text-sm"
                                     title="WhatsApp"
                                 >
                                     <i className="fa-brands fa-whatsapp"></i>
                                 </a>
                             )}
                         </div>
+                          <p className="text-sm lg:text-base text-neutral mb-0">
+                            {copyrightText}
+                        </p>
                     </div>
                 </div>
 
@@ -718,7 +639,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                 {Object.keys(policyItems).map((key, index) => {
                     const title = policyItems[key];
                     const content =
-                        generals.find((x) => x.correlative == key)?.description ?? 
+                        generals.find((x) => x.correlative == key)?.description ??
                         generalsData.find((x) => x.correlative == key)?.description ?? "";
                     return (
                         <ReactModal

@@ -15,7 +15,7 @@ import AboutSeccionVision from "./components/Tailwind/CambioGerencia/AboutSeccio
 import AboutSeccionWhy from "./components/Tailwind/CambioGerencia/AboutSeccionWhy";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
 import AboutSeccionStaff from "./components/Tailwind/CambioGerencia/AboutSeccionStaff";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 import CarruselCoreValues from "./components/Tailwind/Carrusel/CarruselCoreValues";
 import { image } from "framer-motion/client";
 

@@ -33,13 +33,13 @@ export default {
                 negro: "#242424",
 
                 /**CAMBIO Y GERENCIA */
-                accent:"#1A1A1A",
-                secondary:"#BBFF52",
-                primary:"#F9F3E0",
+                accent:"#07132D",
+                secondary:"#FF3D2A",
+                primary:"#195AEA",
                 constrast:"#7E5AFB",
-                "neutral-dark":"#0C0C0C",
+                "neutral-dark":"#07132D",
                 "neutral":"#ECE6FE",
-                "neutral-light":"#222222",
+                "neutral-light":"#07132D99",
             },
             // Puedes agregar personalizaciones aquí si es necesario
             lineClamp: {

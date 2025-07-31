@@ -122,8 +122,6 @@ Route::get('/infoproductos', [InfoproductController::class, 'reactView'])->name(
 
 Route::get('/', [HomeController::class, 'reactView'])->name('Home.jsx');
 Route::get('/empresas', [HomeEmpresaController::class, 'reactView'])->name('HomeEmpresa.jsx');
-Route::get('/test-exchange', [HomeController::class, 'reactView'])->name('TestExchangeCard.jsx');
-Route::get('/test-exchange-card', [HomeController::class, 'reactView'])->name('TestExchangeCard.jsx');
 Route::get('/nosotros', [AboutController::class, 'reactView'])->name('About.jsx');
 Route::get('/contacto', [ContactController::class, 'reactView'])->name('Contacto.jsx');
 Route::get('/offices', [FacilityController::class, 'reactView'])->name('InstalacionesPage.jsx');

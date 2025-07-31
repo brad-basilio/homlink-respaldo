@@ -42,14 +42,17 @@ import HomeSeccionImpacto from "./components/Tailwind/CambioGerencia/HomeSeccion
 import HomeSeccionServicios from "./components/Tailwind/CambioGerencia/HomeSeccionServicios";
 import HomeSeccionTestimonios from "./components/Tailwind/CambioGerencia/HomeSeccionTestimonios";
 import HomeSeccionBlog from "./components/Tailwind/CambioGerencia/HomeSeccionBlog";
-import HeroSecction from "./components/Tailwind/CambiaFX/HeroSecction";
-import PrimeraOperacionSection from "./components/Tailwind/CambiaFX/PrimeraOperacionSection";
-import FuncionSection from "./components/Tailwind/CambiaFX/FuncionSection";
-import CuponesSection from "./components/Tailwind/CambiaFX/CuponesSection";
-import PilaresSection from "./components/Tailwind/CambiaFX/PilaresSection";
-import EmpresasSection from "./components/Tailwind/CambiaFX/EmpresasSection";
-import BlogSection from "./components/Tailwind/CambiaFX/BlogSection";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import HeroSecction from "./components/Tailwind/Sections/HeroSecction";
+import PrimeraOperacionSection from "./components/Tailwind/Sections/PrimeraOperacionSection";
+import FuncionSection from "./components/Tailwind/Sections/FuncionSection";
+import CuponesSection from "./components/Tailwind/Sections/CuponesSection";
+import PilaresSection from "./components/Tailwind/Sections/PilaresSection";
+import EmpresasSection from "./components/Tailwind/Sections/EmpresasSection";
+import BlogSection from "./components/Tailwind/Sections/BlogSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
+import BeneficiosSection from "./components/Tailwind/Sections/BeneficiosSection";
+import DestacadosSection from "./components/Tailwind/Sections/DestacadosSection";
+import BannerSection from "./components/Tailwind/Sections/BannerSection";
 
 
 
@@ -211,7 +214,7 @@ const Home = ({
             
             <Header showSlogan={showSlogan} />
 
-            <CintilloSection />
+
 
             {/* SECCIÓN CAMBIO FX */}
             <motion.div
@@ -225,10 +228,36 @@ const Home = ({
                 <HeroSecction data={landingInicio} apps={apps} indicators={indicadoresInicio} />
             </motion.div>
 
-            {/* SLIDER  <SliderInteractive ... /> */}
+            {/* beneficios */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+            >
+                <BeneficiosSection  />
+            </motion.div>
+            {/*SECCION DESTACADOS */}
+            <motion.div
+                className="animate-section"
+                initial={{ opacity: 0, y: 40 }}
+                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7 }}
+            >
+                <DestacadosSection  />
+</motion.div>
+
+{/*BANNER 1 */}
+<BannerSection />
+
+                {/* SLIDER  <SliderInteractive ... /> */}
 
             {/* SECCIÓN HAZ TU PRIMERA OPERACION - DISEÑO FIEL */}
-            <motion.div
+           {/* <motion.div
                 className="animate-section"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
@@ -287,7 +316,7 @@ const Home = ({
                 transition={{ duration: 0.7, delay: 0.6 }}
             >
                 <BlogSection data={landingBlog} posts={posts} />
-            </motion.div>
+            </motion.div> */}
 
             {/*
             <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />

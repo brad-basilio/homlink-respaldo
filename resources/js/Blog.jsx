@@ -15,7 +15,7 @@ import SliderInteractive from "./components/Tailwind/Sliders/SliderInteractive";
 import FilterAgencia from "./components/Blog/FilterAgencia";
 import TextWithHighlight from "./Utils/TextWithHighlight";
 import WhatsAppButton from "./components/Shared/WhatsAppButton";
-import CintilloSection from "./components/Tailwind/CambiaFX/CintilloSection";
+import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 function Blog({ categories, postRecent, landing, sliders, banner }) {
 
     const landingDestacados = landing?.find(

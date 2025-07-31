@@ -2,7 +2,7 @@ import axios from 'axios';
 
 class CambiaFXService {
     constructor() {
-        this.baseURL = 'https://apiluna.cambiafx.pe/api/BackendPizarra';
+        this.baseURL = '/api';
         this.localAPI = '/api';
         this.tcData = [];
         this.tcBase = [];
@@ -309,7 +309,7 @@ class CambiaFXService {
 
     async initializeOperation(operationData) {
         try {
-            const url = 'https://mi.cambiafx.pe/login';
+            const url = '/contacto';
             window.location.href = url;
             
             return { success: true, redirectUrl: url };

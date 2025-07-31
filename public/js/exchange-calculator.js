@@ -5,7 +5,7 @@
 
 class ExchangeCalculator {
     constructor() {
-        this.baseURL = 'https://apiluna.cambiafx.pe/api/BackendPizarra'; // Nueva API de Luna
+        this.baseURL = '/api'; // Local API
         this.localAPI = '/api'; // API local para otras funciones
         this.tcBase = [];
         this.tcDetalle = [];
@@ -412,7 +412,7 @@ class ExchangeCalculator {
             code: $('.promotional-code').val() || ''
         });
         
-        const url = `https://mi.cambiafx.pe/login?${params.toString()}`;
+        const url = `/contacto?${params.toString()}`;
         window.location.href = url;
     }
 
