@@ -77,8 +77,8 @@ class BannerController extends BasicController
         // Configuración de posiciones por sección
         $sectionPositions = [
             'home' => [
-                'primera_operacion' => 'Banner Primera operación',
-                'cambia_empresas' => 'Slider Cambia Empresas'
+                'banner_inicial' => 'Banner Inicial',
+                'banner_secundario' => 'Banner Secundario'
             ],
           
             'servicios' => [

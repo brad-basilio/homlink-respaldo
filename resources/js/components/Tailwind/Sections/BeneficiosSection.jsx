@@ -1,101 +1,64 @@
 import React from 'react';
 
-const BeneficiosSection = () => {
-  // Sample benefit data
-  const beneficios = [
-    {
-      id: 1,
-      titulo: "Beneficio o valor",
-      descripcion: "Donec vehicula purus at diam facilisis tempor. Donec lacinia felis nibh, vel consectetur leo tincidunt nec."
-    },
-    {
-      id: 2,
-      titulo: "Beneficio o valor",
-      descripcion: "Donec vehicula purus at diam facilisis tempor. Donec lacinia felis nibh, vel consectetur leo tincidunt nec."
-    },
-    {
-      id: 3,
-      titulo: "Beneficio o valor",
-      descripcion: "Donec vehicula purus at diam facilisis tempor. Donec lacinia felis nibh, vel consectetur leo tincidunt nec."
-    },
-    {
-      id: 4,
-      titulo: "Beneficio o valor",
-      descripcion: "Donec vehicula purus at diam facilisis tempor. Donec lacinia felis nibh, vel consectetur leo tincidunt nec."
-    }
-  ];
+const BeneficiosSection = ({ benefits, data }) => {
+
 
   return (
-    <section className="bg-blue-600 relative overflow-hidden py-16 md:py-24">
+    <section className="bg-primary relative overflow-hidden py-24">
       {/* Decorative shape - orange curve */}
       <div className="absolute top-0 left-0 w-2/3 h-full">
-        <svg 
-          viewBox="0 0 500 800" 
-          className="h-full" 
-          preserveAspectRatio="none"
-          fill="none"
-        >
-          <path 
-            d="M0,0 Q300,100 350,400 Q400,700 0,800" 
-            fill="#FF5533" 
-            opacity="0.85"
-          />
+        <svg width="690" height="413" viewBox="0 0 690 413" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fillRule="evenodd" clipRule="evenodd" d="M656.662 -223.797C621.732 -288.109 573.052 -338.48 510.622 -374.911C448.564 -410.97 377.588 -429 297.693 -429C218.17 -429 147.194 -410.97 84.7646 -374.911C22.7068 -338.48 -25.7875 -288.109 -60.7183 -223.797C-88.9601 -171.381 -105.682 -113.761 -110.885 -50.9364C-110.885 -49.8212 -110.885 -48.8918 -110.885 -48.1483C-113.672 -25.8437 -132.066 -8.55762 -154.92 -8C-155.291 -8 -155.663 -8 -156.035 -8C-156.406 -8 -156.778 -8 -157.149 -8C-238.531 -8 -295.386 72.2967 -268.073 149.248C-260.641 169.322 -251.908 188.838 -241.875 207.797C-206.944 272.109 -158.45 322.48 -96.3922 358.911C-33.9628 394.97 37.0135 413 116.537 413C196.431 413 267.408 394.97 329.466 358.911C391.895 322.48 440.389 272.109 474.948 207.797C503.933 154.638 520.841 96.2742 525.672 32.706C527.902 10.959 545.181 -6.32715 567.478 -8C568.592 -8 569.707 -8 570.822 -8C571.937 -8 573.052 -8 574.166 -8C654.433 -8 709.616 -87.1815 683.418 -163.017C675.986 -183.835 667.067 -204.095 656.662 -223.797ZM478.293 -8C409.174 -8 350.089 37.1669 328.351 102.408C325.006 112.445 321.104 122.11 316.645 131.404C297.693 172.668 270.938 204.823 236.379 227.872C201.448 251.291 161.501 263.001 116.537 263.001C70.8294 263.001 30.6962 251.291 -3.86295 227.872C-38.7937 204.823 -65.5491 172.668 -84.1293 131.404C-96.3922 105.754 -104.568 77.8729 -108.655 47.7616C-109.398 44.7876 -109.77 41.9996 -109.77 39.3974C-109.77 39.0256 -109.77 38.8397 -109.77 38.8397C-109.77 38.468 -109.77 37.9104 -109.77 37.1669C-109.77 12.0742 -89.7033 -8 -64.6201 -8C3.94077 -8 63.5831 -53.1669 85.3219 -118.408C88.6664 -128.445 92.5682 -138.11 97.0275 -147.404C115.979 -188.668 142.735 -220.823 177.294 -243.872C211.853 -267.291 251.986 -279.001 297.693 -279.001C342.657 -279.001 382.605 -267.291 417.535 -243.872C452.095 -220.823 478.85 -188.668 497.802 -147.404C510.065 -121.01 518.24 -92.3859 522.328 -61.5311C522.699 -60.0441 523.071 -58.5572 523.443 -57.0702C523.443 -55.955 523.443 -54.6538 523.443 -53.1669C523.443 -28.6318 503.376 -8 478.293 -8Z" fill="#FE3D2B" />
         </svg>
+
       </div>
-      
-      <div className="container mx-auto px-4 relative z-10">
+
+      <div className="px-[5%]  mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div className="text-white">
-            <h2 className="text-5xl font-bold mb-4">
-              Conectamos personas<br /> 
-              con su lugar ideal
+            <h2 className="text-[52px] leading-[52px] font-bold mb-4">
+              {data?.title}
             </h2>
-            <p className="text-xl mb-8">
-              Desde la exploración hasta la celebración de tu nuevo hogar o local,
-              nuestra tecnología hace el proceso más claro y accesible.
+            <p className="text-lg mb-8">
+              {data?.description}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {beneficios.map((beneficio) => (
-                <div 
-                  key={beneficio.id} 
-                  className="bg-white text-gray-800 p-6 rounded-lg shadow-md"
+              {benefits && benefits.map((beneficio, index) => (
+                <div
+                  key={index}
+                  className="bg-white text-neutral-dark p-6 rounded-xl shadow-md"
                 >
-                  <div className="bg-red-500 rounded-full w-8 h-8 flex items-center justify-center mb-3">
-                    <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                  <div className="relative w-8 h-8 flex items-center justify-center mb-3">
+                    {/* SVG como fondo */}
+                    <svg width="32" height="32" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute inset-0">
+                      <path d="M17.9905 18H18H17.9905ZM17.9905 18C17.3678 18.6175 16.2393 18.4637 15.4479 18.4637C14.4765 18.4637 14.0087 18.6537 13.3154 19.347C12.7251 19.9374 11.9337 21 11 21C10.0663 21 9.2749 19.9374 8.68457 19.347C7.99128 18.6537 7.52349 18.4637 6.55206 18.4637C5.76068 18.4637 4.63218 18.6175 4.00949 18C3.38181 17.3776 3.53628 16.2444 3.53628 15.4479C3.53628 14.4414 3.31616 13.9786 2.59938 13.2618C1.53314 12.1956 1.00002 11.6624 1 11C1.00001 10.3375 1.53312 9.8044 2.59935 8.73817C3.2392 8.09832 3.53628 7.46428 3.53628 6.55206C3.53628 5.76065 3.38249 4.63214 4 4.00944C4.62243 3.38178 5.7556 3.53626 6.55208 3.53626C7.46427 3.53626 8.09832 3.2392 8.73815 2.59937C9.8044 1.53312 10.3375 1 11 1C11.6625 1 12.1956 1.53312 13.2618 2.59937C13.9015 3.23907 14.5355 3.53626 15.4479 3.53626C16.2393 3.53626 17.3679 3.38247 17.9906 4C18.6182 4.62243 18.4637 5.75559 18.4637 6.55206C18.4637 7.55858 18.6839 8.02137 19.4006 8.73817C20.4669 9.8044 21 10.3375 21 11C21 11.6624 20.4669 12.1956 19.4006 13.2618C18.6838 13.9786 18.4637 14.4414 18.4637 15.4479C18.4637 16.2444 18.6182 17.3776 17.9905 18Z" fill="#FE3D2B" />
+                      <path d="M17.9905 18H18M17.9905 18C17.3678 18.6175 16.2393 18.4637 15.4479 18.4637C14.4765 18.4637 14.0087 18.6537 13.3154 19.347C12.7251 19.9374 11.9337 21 11 21C10.0663 21 9.2749 19.9374 8.68457 19.347C7.99128 18.6537 7.52349 18.4637 6.55206 18.4637C5.76068 18.4637 4.63218 18.6175 4.00949 18C3.38181 17.3776 3.53628 16.2444 3.53628 15.4479C3.53628 14.4414 3.31616 13.9786 2.59938 13.2618C1.53314 12.1956 1.00002 11.6624 1 11C1.00001 10.3375 1.53312 9.8044 2.59935 8.73817C3.2392 8.09832 3.53628 7.46428 3.53628 6.55206C3.53628 5.76065 3.38249 4.63214 4 4.00944C4.62243 3.38178 5.7556 3.53626 6.55208 3.53626C7.46427 3.53626 8.09832 3.2392 8.73815 2.59937C9.8044 1.53312 10.3375 1 11 1C11.6625 1 12.1956 1.53312 13.2618 2.59937C13.9015 3.23907 14.5355 3.53626 15.4479 3.53626C16.2393 3.53626 17.3679 3.38247 17.9906 4C18.6182 4.62243 18.4637 5.75559 18.4637 6.55206C18.4637 7.55858 18.6839 8.02137 19.4006 8.73817C20.4669 9.8044 21 10.3375 21 11C21 11.6624 20.4669 12.1956 19.4006 13.2618C18.6838 13.9786 18.4637 14.4414 18.4637 15.4479C18.4637 16.2444 18.6182 17.3776 17.9905 18Z" stroke="#FE3D2B" strokeWidth="1.5" />
                     </svg>
+                    {/* Imagen centrada encima */}
+                    <img
+                      src={`/api/benefit/media/${beneficio?.image}`}
+                      alt={beneficio?.name}
+                      className="relative z-10 w-4 h-4 object-cover"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{beneficio.titulo}</h3>
-                  <p className="text-gray-600">{beneficio.descripcion}</p>
+                  <h3 className="text-xl font-bold mb-2">{beneficio?.name}</h3>
+                  <p className="text-neutral-light">{beneficio?.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-            <div className="md:col-span-12 lg:col-span-8 h-96">
-              <img 
-                src="/assets/images/modern-house-with-pool.jpg" 
-                alt="Casa moderna con piscina"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="md:col-span-6 lg:col-span-4 h-48">
-              <img 
-                src="/assets/images/bedroom-design.jpg" 
-                alt="Diseño de dormitorio"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
-              />
-            </div>
-            <div className="md:col-span-6 lg:col-span-4 h-48">
-              <img 
-                src="/assets/images/living-room.jpg" 
-                alt="Sala de estar"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
-              />
-            </div>
-          </div>
+
+          <img
+            src={`/api/landing_home/media/${data?.image}`}
+            alt={data?.title}
+            className="w-full h-auto object-cover rounded-2xl relative z-0"
+
+          />
+
+
+
         </div>
       </div>
     </section>

@@ -6,6 +6,7 @@ use App\Models\Aboutus;
 use App\Models\Ad;
 use App\Models\App;
 use App\Models\Banner;
+use App\Models\Benefit;
 use App\Models\Brand;
 use App\Models\CoreValue;
 use App\Models\Coupon;
@@ -56,23 +57,23 @@ class HomeController extends BasicController
             ->orderBy('created_at', 'asc')
             ->get();
         $cupones = Coupon::where('status', true)
-            ->where(function($query) {
-                $query->where(function($subQuery) {
+            ->where(function ($query) {
+                $query->where(function ($subQuery) {
                     // Cupones con fechas válidas
                     $subQuery->where('date_begin', '<=', now())
-                             ->where('date_end', '>=', now());
-                })->orWhere(function($subQuery) {
+                        ->where('date_end', '>=', now());
+                })->orWhere(function ($subQuery) {
                     // Cupones sin fechas (siempre vigentes)
                     $subQuery->whereNull('date_begin')
-                             ->whereNull('date_end');
-                })->orWhere(function($subQuery) {
+                        ->whereNull('date_end');
+                })->orWhere(function ($subQuery) {
                     // Cupones solo con fecha de inicio
                     $subQuery->where('date_begin', '<=', now())
-                             ->whereNull('date_end');
-                })->orWhere(function($subQuery) {
+                        ->whereNull('date_end');
+                })->orWhere(function ($subQuery) {
                     // Cupones solo con fecha de fin
                     $subQuery->whereNull('date_begin')
-                             ->where('date_end', '>=', now());
+                        ->where('date_end', '>=', now());
                 });
             })
             ->orderBy('created_at', 'desc')
@@ -80,17 +81,24 @@ class HomeController extends BasicController
 
         $core_values = CoreValue::where('status', true)
             ->where('lang_id', $langId)
-        
+
             ->get();
 
-        $banner_operacion = Banner::where('status', true)
+        $banner_inicial = Banner::where('status', true)
             ->where('visible', true)
             ->where('section', 'home')
-            ->where('position', 'primera_operacion')
+            ->where('position', 'banner_inicial')
             ->orderBy('created_at', 'desc')
             ->first();
 
-         $banner_slider = Banner::where('status', true)
+        $banner_secundario = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'home')
+            ->where('position', 'banner_secundario')
+            ->orderBy('created_at', 'desc')
+            ->first();
+        
+        $banner_slider = Banner::where('status', true)
             ->where('visible', true)
             ->where('section', 'home')
             ->where('position', 'cambia_empresas')
@@ -111,6 +119,11 @@ class HomeController extends BasicController
             ->limit(6)
             ->get();
 
+        $benefits = Benefit::where('status', true)
+            ->where('visible', true)
+            ->where('correlative', 'principales')
+            ->get();
+
         return [
             'landing' => $landing,
             'sliders' => $sliders,
@@ -124,10 +137,13 @@ class HomeController extends BasicController
             'pasos' => $pasos,
             'cupones' => $cupones,
             'core_values' => $core_values,
-            'banner_operacion' => $banner_operacion,
+
             'banner_slider' => $banner_slider,
             'destinosVisitados' => $destinosVisitados,
             'masBuscados' => $masBuscados,
+            'benefits' => $benefits,
+            'banner_inicial' => $banner_inicial,
+            'banner_secundario' => $banner_secundario,
         ];
     }
 }

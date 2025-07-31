@@ -53,6 +53,7 @@ import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 import BeneficiosSection from "./components/Tailwind/Sections/BeneficiosSection";
 import DestacadosSection from "./components/Tailwind/Sections/DestacadosSection";
 import BannerSection from "./components/Tailwind/Sections/BannerSection";
+import BannerSectionSecundario from "./components/Tailwind/Sections/BannerSectionSecundario";
 
 
 
@@ -79,12 +80,14 @@ const Home = ({
     testimonios = [],
     indicators = [],
     allServices = [],
-    banner_operacion = {},
+    banner_inicial = {},
+    banner_secundario = {},
     banner_slider = [],
 
     // Nuevas propiedades
     destinosVisitados = [],
     masBuscados = [],
+    benefits = []
 }) => {
     const { t, loading, error } = useTranslation();
 
@@ -107,8 +110,8 @@ const Home = ({
         (item) => item.correlative === "page_home_inicio"
     );
 
-    const landingPasos = landing?.find(
-        (item) => item.correlative === "page_home_pasos"
+    const landingBeneficios = landing?.find(
+        (item) => item.correlative === "page_home_beneficios"
     );
 
     const landingCupones = landing?.find(
@@ -220,7 +223,7 @@ const Home = ({
 
 
 
-            {/* SECCIÓN CAMBIO FX */}
+            {/* SECCIÓN*/}
             <motion.div
                 className="animate-section"
                 initial={{ opacity: 0, y: 40 }}
@@ -241,7 +244,7 @@ const Home = ({
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.7, delay: 0.1 }}
             >
-                <BeneficiosSection />
+                <BeneficiosSection benefits={benefits} data={landingBeneficios} />
             </motion.div>
             {/*SECCION LO MAS VISITADO */}
             <motion.div
@@ -259,7 +262,7 @@ const Home = ({
             </motion.div>
 
             {/*BANNER 1 */}
-            <BannerSection />
+            <BannerSection banner={banner_inicial} />
             {/*SECCION LO MAS BUSCADO */}
             <motion.div
                 className="animate-section"
@@ -274,6 +277,8 @@ const Home = ({
                     titulo="Los más buscados"
                 />
             </motion.div>
+
+            <BannerSectionSecundario banner={banner_secundario} />
 
             {/* SLIDER  <SliderInteractive ... /> */}
 

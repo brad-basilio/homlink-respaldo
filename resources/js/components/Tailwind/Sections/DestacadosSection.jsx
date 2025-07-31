@@ -52,7 +52,7 @@ const DestacadosSection = ({ propiedades = [], titulo = "Destino más visitados"
     return (
       <div 
         key={propiedad.id} 
-        className="bg-[#E8EFFDB8] font-medium rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+        className="bg-[#E8EFFDB8]  font-medium rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer"
         onClick={() => handlePropertyClick(propiedad)}
       >
         {/* Property image carousel */}
@@ -170,13 +170,13 @@ const DestacadosSection = ({ propiedades = [], titulo = "Destino más visitados"
   };
 
   return (
-    <section className="py-10 font-paragraph bg-white px-[5%] 2xl:px-0 2xl:max-w-7xl mx-auto">
+    <section className="py-20 font-paragraph bg-white px-[5%]  mx-auto">
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-2xl md:text-[40px] font-bold text-gray-800">
             {titulo}
           </h2>
-          <button className="bg-secondary hover:bg-primary text-white px-4 py-2 rounded-full text-sm transition-colors">
+          <button className="bg-secondary hover:bg-primary text-white px-5 py-3 rounded-full text-base font-bold transition-colors">
             Ver todas
           </button>
         </div>
