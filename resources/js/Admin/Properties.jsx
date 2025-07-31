@@ -216,6 +216,8 @@ const Properties = () => {
     const bathroomsRef = useRef();
     const maxGuestsRef = useRef();
     const areaMRef = useRef();
+    const latitudeRef = useRef();
+    const longitudeRef = useRef();
     const descriptionRef = useRef();
     const shortDescriptionRef = useRef();
     const ratingRef = useRef();
@@ -612,6 +614,8 @@ const Properties = () => {
             bathroomsRef.current.value = data.bathrooms || 1;
             maxGuestsRef.current.value = data.max_guests || 2;
             areaMRef.current.value = data.area_m2 || "";
+            latitudeRef.current.value = data.latitude || "";
+            longitudeRef.current.value = data.longitude || "";
             descriptionRef.current.value = data.description || "";
             shortDescriptionRef.current.value = data.short_description || "";
             ratingRef.current.value = data.rating || 5.0;
@@ -649,6 +653,8 @@ const Properties = () => {
             bathroomsRef.current.value = 1;
             maxGuestsRef.current.value = 2;
             areaMRef.current.value = "";
+            latitudeRef.current.value = "";
+            longitudeRef.current.value = "";
             descriptionRef.current.value = "";
             shortDescriptionRef.current.value = "";
             ratingRef.current.value = 5.0;
@@ -687,6 +693,8 @@ const Properties = () => {
         formData.append("bathrooms", bathroomsRef.current.value);
         formData.append("max_guests", maxGuestsRef.current.value);
         formData.append("area_m2", areaMRef.current.value);
+        formData.append("latitude", latitudeRef.current.value);
+        formData.append("longitude", longitudeRef.current.value);
         formData.append("description", descriptionRef.current.value);
         formData.append("short_description", shortDescriptionRef.current.value);
         formData.append("rating", ratingRef.current.value);
@@ -1245,6 +1253,24 @@ const Properties = () => {
                                     type="number"
                                     min="1"
                                     placeholder="60"
+                                />
+                            </div>
+                            <div className="col-lg-4 mb-3">
+                                <InputFormGroup
+                                    label="Latitud"
+                                    eRef={latitudeRef}
+                                    type="number"
+                                    step="0.000001"
+                                    placeholder="-12.1211"
+                                />
+                            </div>
+                            <div className="col-lg-4 mb-3">
+                                <InputFormGroup
+                                    label="Longitud"
+                                    eRef={longitudeRef}
+                                    type="number"
+                                    step="0.000001"
+                                    placeholder="-77.0269"
                                 />
                             </div>
                         </div>

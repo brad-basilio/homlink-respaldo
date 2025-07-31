@@ -6,6 +6,8 @@ import Base from './Components/Tailwind/Base';
 import Header from './components/Tailwind/Header';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import Global from './Utils/Global';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -378,19 +380,69 @@ const PropertyDetail = ({ property: initialProperty }) => {
                         {/* Ubicación */}
                         <div className="mb-8">
                             <h2 className="text-xl font-semibold mb-6">Ubicación</h2>
-                            <div className="bg-gray-200 h-64 rounded-lg flex items-center justify-center">
+                            {latitude && longitude ? (
+                                <div className="h-64 rounded-lg overflow-hidden">
+                                    <LoadScript googleMapsApiKey={Global.GMAPS_API_KEY}>
+                                        <GoogleMap
+                                            mapContainerStyle={{
+                                                width: "100%",
+                                                height: "256px",
+                                            }}
+                                            center={{
+                                                lat: parseFloat(latitude),
+                                                lng: parseFloat(longitude)
+                                            }}
+                                            zoom={15}
+                                            options={{
+                                                disableDefaultUI: false,
+                                                zoomControl: true,
+                                                streetViewControl: false,
+                                                mapTypeControl: false,
+                                                fullscreenControl: true,
+                                            }}
+                                        >
+                                            <Marker 
+                                                position={{
+                                                    lat: parseFloat(latitude),
+                                                    lng: parseFloat(longitude)
+                                                }}
+                                                title={title}
+                                            />
+                                        </GoogleMap>
+                                    </LoadScript>
+                                </div>
+                            ) : (
                                 <div className="text-center">
                                     <svg className="w-12 h-12 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    <p className="text-gray-600">Mapa de ubicación</p>
-                                    <p className="text-sm text-gray-500">{[address, district, city, province].filter(Boolean).join(', ')}</p>
+                                    <p className="text-gray-600">Ubicación no disponible</p>
+                                    <p className="text-sm text-gray-500">No se han proporcionado coordenadas</p>
                                     {latitude && longitude && (
                                         <p className="text-xs text-gray-400 mt-1">
                                             Coordenadas: {latitude}, {longitude}
                                         </p>
                                     )}
+                                </div>
+                            )}
+                            
+                            {/* Información de ubicación */}
+                            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                                <div className="flex items-start">
+                                    <svg className="w-5 h-5 text-red-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 616 0z" />
+                                    </svg>
+                                    <div>
+                                        <p className="font-medium text-gray-900 mb-1">Dirección</p>
+                                        <p className="text-gray-600">{[address, district, city, province, department].filter(Boolean).join(', ')}</p>
+                                        {latitude && longitude && (
+                                            <p className="text-xs text-gray-400 mt-2">
+                                                Coordenadas: {latitude}, {longitude}
+                                            </p>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         </div>
