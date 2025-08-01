@@ -569,7 +569,7 @@ const Header = ({
                                     stiffness: 400,
                                     damping: 17
                                 }}
-                                className="py-3 px-6 bg-secondary  text-base font-semibold text-white rounded-full relative overflow-hidden group"
+                                className="ml-6 py-2 px-5 bg-secondary  text-base font-semibold text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
                                     Entrar
