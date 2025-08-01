@@ -554,7 +554,7 @@ const Header = ({
                                 Reserva una consulta
                             </WhatsAppButtonWithArrow> */}
                                                         <motion.a 
-                                href="/contacto" 
+                                href="/login" 
                                 whileHover={{ 
                                     scale: 1.06,
                                     y: -2,
