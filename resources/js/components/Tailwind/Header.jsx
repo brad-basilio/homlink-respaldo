@@ -442,16 +442,16 @@ const Header = ({
                         >
                             <nav className="flex gap-2">
                                 {[
+                                    "/catalogo",
                                     "/nosotros",
-                                    "/services",
                                     "/contacto",
                                     "/blog",
                                 ].map((path) => {
                                     const text = {
-                                        "/nosotros": t("public.header.home", "Nosotros"),
-                                        "/services": t(
-                                            "public.header.services",
-                                            "Servicios"
+                                        "/catalogo": t("public.header.catalogo", "Catálogo"),
+                                        "/nosotros": t(
+                                            "public.header.nosotros",
+                                            "Nosotros"
                                         ), "/contacto": t(
                                             "public.header.contact",
                                             "Contacto"
@@ -496,9 +496,9 @@ const Header = ({
                                                     stiffness: 400,
                                                     damping: 17
                                                 }}
-                                                className={`relative uppercase py-2 rounded-full transition-all duration-300 ${isActive(path)
-                                                    ? "bg-constrast pl-7 pr-3 text-white font-semibold shadow-lg"
-                                                    : "bg-transparent px-5 text-neutral-dark hover:bg-gradient-to-r hover:from-primary/50 hover:to-neutral/30"
+                                                className={`relative font-semibold !text-base py-2 rounded-full transition-all duration-300 ${isActive(path)
+                                                    ? "bg-transparent pl-7 pr-3 text-neutral-dark font-semibold shadow-lg"
+                                                    : "bg-transparent px-5 text-neutral-dark "
                                                     }`}
                                             >
                                                 {text}
@@ -544,7 +544,7 @@ const Header = ({
                             </nav>
                                <motion.div
                             variants={itemVariants}
-                            className="hidden xl:flex gap-4 justify-center items-center _Medium"
+                            className="hidden xl:flex gap-4 justify-center items-center"
                         >
                             {/*  <WhatsAppButtonWithArrow
                                 variant="primary"
@@ -569,13 +569,13 @@ const Header = ({
                                     stiffness: 400,
                                     damping: 17
                                 }}
-                                className="py-3 px-4 bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                className="py-3 px-6 bg-secondary  text-base font-semibold text-white rounded-full relative overflow-hidden group"
                             >
                                 <span className="relative z-10">
-                                    Contáctanos
+                                    Entrar
                                 </span>
                                 <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
+                                    className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
                                     transition={{ duration: 0.3 }}
                                 />
                             </motion.a>

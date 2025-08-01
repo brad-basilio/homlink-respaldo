@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Indicator;
 use App\Models\Item;
 use App\Models\Post;
+use App\Models\Property;
+use App\Models\LandingHome;
 use App\Models\Slider;
 use App\Models\Supply;
 use App\Models\Testimony;
@@ -16,13 +18,14 @@ use Illuminate\Http\Request;
 
 class CatalogController extends BasicController
 {
-    public $reactView = 'CatalogProducts';
+    public $reactView = 'CatalogoProductos';
     public $reactRootView = 'public';
 
     public function setReactViewProperties(Request $request)
     {
         $sliders = Slider::where('status', true)->where('visible', true)->get();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
+        $landing = LandingHome::where('status', true)->where('visible', true)->first();
 
         $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
         $anuncio = Ad::where('status', true)
@@ -38,14 +41,18 @@ class CatalogController extends BasicController
             })->orderBy('updated_at', 'desc')
             ->first();
 
+        // Obtener propiedades en lugar de items
+        $propiedades = Property::where('active', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
-
-        $items = Item::where('status', true)->where('visible', true)->with(['category', 'images'])->get();
         $categories = Category::all();
+        
         return [
             'sliders' => $sliders,
             'testimonies' => $testimonies,
-            'items' => $items,
+            'propiedades' => $propiedades,
+            'landing' => $landing,
             'supplies' => $supplies,
             'anuncio' => $anuncio,
             'categories' => $categories

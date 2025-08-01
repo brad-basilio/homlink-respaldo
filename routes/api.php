@@ -104,6 +104,7 @@ use App\Http\Controllers\UserFormulasController;
 
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\SuccessStoryController;
+use App\Http\Controllers\PropertyFilterController;
 use App\Models\InstagramPost;
 use App\Models\PurchaseOption;
 use Illuminate\Http\Request;
@@ -589,3 +590,10 @@ Route::middleware('auth')->group(function () {
         Route::patch('/profile', [CustomerProfileController::class, 'save']);
     });
 });
+
+// Property filtering routes
+Route::get('/property-filters/amenities', [App\Http\Controllers\PropertyFilterController::class, 'getAmenities']);
+Route::get('/property-filters/services', [App\Http\Controllers\PropertyFilterController::class, 'getServices']);
+Route::get('/property-filters/characteristics', [App\Http\Controllers\PropertyFilterController::class, 'getCharacteristics']);
+Route::get('/property-filters/property-types', [App\Http\Controllers\PropertyFilterController::class, 'getPropertyTypes']);
+Route::post('/property-filters/filter', [App\Http\Controllers\PropertyFilterController::class, 'filterProperties']);

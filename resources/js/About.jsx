@@ -11,6 +11,10 @@ import TextWithHighlight from "./Utils/TextWithHighlight";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import HomeSeccionNosotros from "./components/Tailwind/CambioGerencia/HomeSeccionNosotros";
+import AboutSeccionIndicadores from "./components/Tailwind/CambioGerencia/AboutSeccionIndicadores";
+import AboutSeccionBeneficios from "./components/Tailwind/CambioGerencia/AboutSeccionBeneficios";
+import AboutSeccionEstiloTrabajo from "./components/Tailwind/CambioGerencia/AboutSeccionEstiloTrabajo";
+import AboutSeccionTestimonios from "./components/Tailwind/CambioGerencia/AboutSeccionTestimonios";
 import AboutSeccionVision from "./components/Tailwind/CambioGerencia/AboutSeccionVision";
 import AboutSeccionWhy from "./components/Tailwind/CambioGerencia/AboutSeccionWhy";
 import CarruselBrands from "./components/Tailwind/Carrusel/CarruselBrands";
@@ -19,7 +23,7 @@ import CintilloSection from "./components/Tailwind/Sections/CintilloSection";
 import CarruselCoreValues from "./components/Tailwind/Carrusel/CarruselCoreValues";
 import { image } from "framer-motion/client";
 
-const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, staff = [],benefits }) => {
+const AboutUs = ({ aboutus, landing, brands, strengths, core_values, banner_why, staff = [], benefits, indicators = [], work_style = [], testimonials = [] }) => {
 
   // Estado para controlar cuando las secciones están listas para animar
   const [sectionsReady, setSectionsReady] = useState(false);
@@ -30,12 +34,12 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
     const timer = setTimeout(() => {
       setSectionsReady(true);
     }, 100);
-    
+
     return () => clearTimeout(timer);
   }, []);
 
-  const mision = aboutus?.find(
-    (item) => item.correlative === "mision"
+  const about = aboutus?.find(
+    (item) => item.correlative === "about"
   );
   const vision = aboutus?.find(
     (item) => item.correlative === "vision"
@@ -58,15 +62,27 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
   const landingEligenos = landing?.find(
     (item) => item.correlative === "page_aboutus_eligenos"
   );
- const landingBeneficios = landing?.find(
+  const landingBeneficios = landing?.find(
     (item) => item.correlative === "page_aboutus_beneficios"
+  );
+
+  const landingIndicadores = landing?.find(
+    (item) => item.correlative === "page_aboutus_indicadores"
+  );
+
+  const landingEstiloTrabajo = landing?.find(
+    (item) => item.correlative === "page_aboutus_estilo_trabajo"
+  );
+
+  const landingTestimonios = landing?.find(
+    (item) => item.correlative === "page_aboutus_testimonios"
   );
 
 
   return (
     <>
       <Header />
-      <CintilloSection />
+
 
       {/* SECCIÓN NOSOTROS */}
       <motion.div
@@ -77,22 +93,31 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7 }}
       >
-        <HomeSeccionNosotros data={landingNosotros} strengths={strengths} button_about={false} />
+        <HomeSeccionNosotros data={landingNosotros} strengths={strengths} about={about} />
       </motion.div>
-
-      {/* SECCIÓN VISIÓN */}
+      {/* SECCIÓN DE INDICADORES */}
       <motion.div
         className="animate-section"
         initial={{ opacity: 0, y: 40 }}
         animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.1 }}
+        transition={{ duration: 0.7, delay: 0.05 }}
       >
-        <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
+        <AboutSeccionIndicadores data={landingIndicadores} indicators={indicators} />
       </motion.div>
-
-      {/* SECCIÓN POR QUÉ ELEGIRNOS */}
+      {/* SECCIÓN BENEFICIOS DE TRABAJAR */}
+      <motion.div
+        className="animate-section"
+        initial={{ opacity: 0, y: 40 }}
+        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.15 }}
+      >
+        <AboutSeccionBeneficios data={landingBeneficios} benefits={benefits} />
+      </motion.div>
+      {/* SECCIÓN ESTILO DE TRABAJO */}
       <motion.div
         className="animate-section"
         initial={{ opacity: 0, y: 40 }}
@@ -101,20 +126,48 @@ const AboutUs = ({ aboutus, landing, brands, strengths, core_values,banner_why, 
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.7, delay: 0.2 }}
       >
-        <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} banner_why={banner_why} />
+        <AboutSeccionEstiloTrabajo data={landingEstiloTrabajo} work_style={work_style} />
       </motion.div>
 
-      {/* SECCIÓN CARRUSEL BENEFICIOS */}
+      {/* SECCIÓN TESTIMONIOS */}
       <motion.div
         className="animate-section"
         initial={{ opacity: 0, y: 40 }}
         animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.7, delay: 0.3 }}
+        transition={{ duration: 0.7, delay: 0.25 }}
       >
-        <CarruselCoreValues items={benefits} correlative="benefit" data={{ title: landingBeneficios?.title, description: landingBeneficios?.description, image: landingBeneficios?.image }} />
+        <AboutSeccionTestimonios data={landingTestimonios} testimonials={testimonials} />
       </motion.div>
+
+
+
+      {/* SECCIÓN VISIÓN */}
+      {/*<motion.div
+        className="animate-section"
+        initial={{ opacity: 0, y: 40 }}
+        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.1 }}
+      >
+        <AboutSeccionVision data={landingVision} vision={vision} mision={mision} valor={valor} />
+      </motion.div> */}
+
+      {/* SECCIÓN POR QUÉ ELEGIRNOS */}
+     {/* <motion.div
+        className="animate-section"
+        initial={{ opacity: 0, y: 40 }}
+        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.2 }}
+      >
+        <AboutSeccionWhy data={landingEligenos} beneficios_clave={beneficios_clave} core_values={core_values} banner_why={banner_why} />
+      </motion.div> */}
+
+
 
       {/* <AboutSeccionStaff staff={staff} />  <CarruselBrands items={brands} data={{ title: "15,000+ empresas, desde pequeñas startups hasta nombres conocidos..." }} />*/}
 
