@@ -37,7 +37,7 @@ const BeneficiosSection = ({ benefits, data }) => {
                     </svg>
                     {/* Imagen centrada encima */}
                     <img
-                      src={`/api/benefit/media/${beneficio?.image}`}
+                      src={`/api/strength/media/${beneficio?.image}`}
                       alt={beneficio?.name}
                       className="relative z-10 w-4 h-4 object-cover"
                     />

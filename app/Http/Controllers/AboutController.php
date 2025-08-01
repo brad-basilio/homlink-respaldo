@@ -74,6 +74,11 @@ class AboutController extends BasicController
             ->get();
 
 
+        $work_style = Specialty::where('status', true)
+        ->where('lang_id', $langId)
+        ->where('visible', true)
+        ->get();
+
 
         return [
             'landing' => $landing,
@@ -86,6 +91,7 @@ class AboutController extends BasicController
 
             'banner_why' => $banner_why,
             'benefits' => $benefits,
+            'work_style'=>$work_style
         ];
     }
 }

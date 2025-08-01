@@ -194,7 +194,7 @@ const cardHover = {
     },
 };
 
-const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
+const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal }) => {
     // Estado para controlar cuando las secciones están listas para animar
     const [sectionsReady, setSectionsReady] = useState(false);
     // Estado para detectar si es móvil
@@ -206,20 +206,20 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
         const timer = setTimeout(() => {
             setSectionsReady(true);
         }, 100);
-        
+
         return () => clearTimeout(timer);
     }, []);
-    
+
     // Efecto para detectar si es móvil
     useEffect(() => {
         const checkIfMobile = () => {
             setIsMobile(window.innerWidth < 768);
         };
-        
+
         // Verificar inicialmente y cada vez que cambia el tamaño de ventana
         checkIfMobile();
         window.addEventListener('resize', checkIfMobile);
-        
+
         return () => {
             window.removeEventListener('resize', checkIfMobile);
         };
@@ -384,7 +384,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
     const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbed = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true`;
     const mapSrcWithLocationAndEmbedAndOutputAndZoomAndKeyAndOutputAndEmbedAndZoom = `https://www.google.com/maps?q=${location}&z=12&output=embed&embed=true&key=AIzaSyD8b2d3f4e5f6g7h8i9j0k1l2m3n4o5p&output=embed&embed=true&zoom=12`;
 
-    
+
 
     const [apps, setApps] = useState([]);
 
@@ -409,11 +409,11 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
             transition={{ duration: 0.6 }}
         >
             <Header />
-            <CintilloSection/>
-            
+           
+
             {/* SECCIÓN PRINCIPAL DE CONTACTO */}
             <motion.main
-                className="flex flex-col items-center justify-center min-h-[80vh] py-16"
+                className="flex flex-col items-center justify-center min-h-[80vh] pt-16"
                 initial={{ opacity: 0, y: 40 }}
                 animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -430,7 +430,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                 >
                     {/* Left: Contact Form */}
                     <motion.div
-                        className="bg-constrast rounded-2xl p-8 flex flex-col justify-between shadow-md min-h-[500px]"
+                        className="bg-white rounded-2xl p-8 shadow-lg"
                         initial={{ opacity: 0, x: -50 }}
                         animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
@@ -438,86 +438,41 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         whileHover={{ y: -5, transition: { duration: 0.3 } }}
                     >
-                        <div>
+                        {/* Título principal */}
+                        <motion.h2
+                            className="text-3xl lg:text-4xl font-bold mb-2 leading-tight text-gray-900"
+                            variants={itemVariants}
+                        >
+                            {landingFormulario?.title || "Escríbenos si tienes alguna duda o consulta"}
+                        </motion.h2>
 
-                            <motion.div
-                                className="flex items-center mb-4"
-                                variants={itemVariants}
-                            >
-                                {/* <motion.div 
-                                className="mr-2"
-                                whileHover={{ rotate: 360 }}
-                                transition={{ duration: 0.5 }}
-                            >
-                                <span>
-                                    <svg width="15" height="24" viewBox="0 0 15 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7.50225 0C5.95566 0 4.69727 1.2584 4.69727 2.80499C4.69727 4.35158 5.95566 5.60998 7.50225 5.60998C9.04885 5.60998 10.3072 4.35158 10.3072 2.80499C10.3072 1.2584 9.04885 0 7.50225 0Z" fill="#D62828" />
-                                        <path d="M7.50112 24.0025C3.65842 24.0025 0.759766 22.4639 0.759766 20.4219C0.759766 19.9629 1.13269 19.59 1.59168 19.59C2.05066 19.59 2.42359 19.9629 2.42359 20.4219C2.42359 21.203 4.40166 22.3387 7.49981 22.3387C10.5993 22.3387 12.576 21.2043 12.576 20.4219C12.576 19.8743 12.4874 19.3657 12.3048 18.8689C12.147 18.4373 12.3674 17.9601 12.799 17.801C13.2306 17.6432 13.7092 17.8636 13.8669 18.2952C14.1147 18.9693 14.2399 19.6839 14.2399 20.4206C14.2425 22.4639 11.3451 24.0025 7.50112 24.0025Z" fill="#D62828" />
-                                        <path d="M11.4896 21.804C12.3046 21.4414 12.7754 20.9968 12.8132 20.6225C5.70098 16.9581 5.32021 11.2634 5.32021 10.1015C5.32021 9.64249 4.94725 9.26953 4.48823 9.26953C4.02921 9.26953 3.65625 9.64249 3.65625 10.1015C3.65625 11.4082 4.06181 17.6884 11.4896 21.804Z" fill="#D62828" />
-                                        <path d="M7.49991 6.25781C5.37954 6.25781 3.6543 7.98306 3.6543 10.1034C3.6543 10.5624 4.02725 10.9354 4.48627 10.9354C4.9453 10.9354 5.31825 10.5624 5.31825 10.1034C5.31825 8.9011 6.29628 7.92177 7.49991 7.92177C8.70353 7.92177 9.68156 8.8998 9.68156 10.1034C9.68156 10.9432 8.14671 11.9108 6.66272 12.8458C6.33019 13.0558 5.98722 13.2709 5.64296 13.4965C5.81248 13.9855 6.03026 14.5059 6.31454 15.047C6.72531 14.7732 7.1426 14.5111 7.55077 14.2542C9.58768 12.971 11.3468 11.8626 11.3468 10.1034C11.3455 7.98306 9.62158 6.25781 7.49991 6.25781Z" fill="#D62828" />
-                                        <path d="M4.23503 14.4766C2.36765 15.8954 0.759766 17.7158 0.759766 20.4191C0.759766 20.8781 1.13272 21.251 1.59174 21.251C2.05076 21.251 2.42372 20.8781 2.42372 20.4191C2.42372 18.5465 3.53085 17.1707 4.95486 16.0271C4.66406 15.4937 4.42673 14.9734 4.23503 14.4766Z" fill="#D62828" />
-                                    </svg>
-
-                                </span>
-                            </motion.div> */}
-                                <motion.h3
-                                    className="uppercase text-white text-sm  font-medium tracking-[8%]"
-                                    variants={itemVariants}
-                                >
-                                    Contáctanos
-                                </motion.h3>
-                            </motion.div>
-
-                            {/* Título principal */}
-                            <motion.h2
-                                className="text-4xl lg:text-[40px] font-medium mb-6 leading-tight text-white"
-                                variants={itemVariants}
-                            >
-                                <TextWithHighlight text={landingFormulario?.title || "Contáctenos"} color="bg-white font-semibold" />
-
-
-
-
-                            </motion.h2>
-
-                            <motion.p
-                                className="mt-4 text-base text-neutral max-w-3xl mx-auto"
-                                variants={itemVariants}
-                            >
-                                {landingFormulario?.description || ""}
-                            </motion.p>
-                        </div>
+                        <motion.p
+                            className="text-gray-600 mb-8 text-base"
+                            variants={itemVariants}
+                        >
+                            {landingFormulario?.description || "Aliquam quis lectus aliquam, bibendum urna vel, vehicula risus."}
+                        </motion.p>
 
 
 
                         {/* Contact Form */}
                         <motion.form
                             onSubmit={onSubmit}
-                            className="w-full flex flex-col gap-4 mt-8"
+                            className="w-full flex flex-col gap-6"
                             variants={containerVariants}
                             initial="hidden"
                             animate="visible"
                         >
-                            <motion.div
-                                className="flex flex-col lg:flex-row gap-3"
-                                variants={itemVariants}
-                            >
+                            {/* Nombre completo */}
+                            <motion.div variants={itemVariants}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Nombre completo
+                                </label>
                                 <motion.input
                                     ref={nameRef}
                                     type="text"
-                                    placeholder="Nombre"
-                                    className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
-                                    variants={inputFocus}
-                                    initial="rest"
-                                    whileFocus="focus"
-                                    whileHover={{ scale: 1.01 }}
-                                    style={{ transition: 'transform 0.2s ease-in-out' }}
-                                />
-                                <motion.input
-                                    ref={lastnameRef}
-                                    type="text"
-                                    placeholder="Apellido"
-                                    className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                                    placeholder="Nombre y Apellido"
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                     variants={inputFocus}
                                     initial="rest"
                                     whileFocus="focus"
@@ -525,26 +480,17 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                                     style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                             </motion.div>
-                            <motion.div
-                                className="flex flex-col lg:flex-row gap-3"
-                                variants={itemVariants}
-                            >
+
+                            {/* Celular */}
+                            <motion.div variants={itemVariants}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Celular
+                                </label>
                                 <motion.input
                                     ref={phoneRef}
                                     type="text"
-                                    placeholder="Teléfono"
-                                    className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
-                                    variants={inputFocus}
-                                    initial="rest"
-                                    whileFocus="focus"
-                                    whileHover={{ scale: 1.01 }}
-                                    style={{ transition: 'transform 0.2s ease-in-out' }}
-                                />
-                                <motion.input
-                                    ref={emailRef}
-                                    type="email"
-                                    placeholder="Correo electrónico"
-                                    className="flex-1 border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 transition-all duration-200"
+                                    placeholder="(+51)"
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
                                     variants={inputFocus}
                                     initial="rest"
                                     whileFocus="focus"
@@ -552,19 +498,46 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                                     style={{ transition: 'transform 0.2s ease-in-out' }}
                                 />
                             </motion.div>
-                            <motion.textarea
-                                ref={descriptionRef}
-                                placeholder="Escribir mensaje"
-                                rows={4}
-                                className="border border-[#cbd5e1] rounded-md px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-200 resize-none transition-all duration-200"
-                                variants={itemVariants}
-                                whileFocus={{ scale: 1.01 }}
-                                whileHover={{ scale: 1.01 }}
-                                style={{ transition: 'transform 0.2s ease-in-out' }}
-                            />
+
+                            {/* Correo electrónico */}
+                            <motion.div variants={itemVariants}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Correo electrónico
+                                </label>
+                                <motion.input
+                                    ref={emailRef}
+                                    type="email"
+                                    placeholder="hola@mail.com"
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                                    variants={inputFocus}
+                                    initial="rest"
+                                    whileFocus="focus"
+                                    whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
+                                />
+                            </motion.div>
+
+                            {/* Mensaje */}
+                            <motion.div variants={itemVariants}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Mensaje
+                                </label>
+                                <motion.textarea
+                                    ref={descriptionRef}
+                                    placeholder="Hola estoy..."
+                                    rows={6}
+                                    className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-all duration-200"
+                                    variants={itemVariants}
+                                    whileFocus={{ scale: 1.01 }}
+                                    whileHover={{ scale: 1.01 }}
+                                    style={{ transition: 'transform 0.2s ease-in-out' }}
+                                />
+                            </motion.div>
+
+                            {/* Botón */}
                             <motion.button
                                 type="submit"
-                                className="mt-2 bg-secondary max-w-max text-neutral-dark tracking-[8%]  text-sm font-medium uppercase rounded-full px-6 py-3 flex items-center justify-center gap-2 transition-all duration-300"
+                                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-full transition-all duration-300 text-base"
                                 variants={buttonHover}
                                 initial="rest"
                                 whileHover="hover"
@@ -578,14 +551,14 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            className="flex items-center gap-2"
+                                            className="flex items-center justify-center gap-2"
                                         >
                                             <motion.div
-                                                className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                                                className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                                                 animate={{ rotate: 360 }}
                                                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                             />
-                                            Enviando...
+                                            Enviando mensaje...
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -593,15 +566,8 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            className="flex items-center gap-2"
                                         >
-                                            Enviar
-                                            {/*  <motion.div
-                                                whileHover={{ x: 5 }}
-                                                transition={{ duration: 0.2 }}
-                                            >
-                                                <ArrowRight size={18} />
-                                            </motion.div> */}
+                                            Enviar mensaje
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
@@ -636,340 +602,272 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff,faqs }) => {
                             ></iframe>
                         </motion.div> */}
 
-                        {/* Info Cards */}
+                        {/* Tarjeta azul con datos de contacto */}
                         <motion.div
-                            className="flex flex-col gap-3"
+                            className="bg-gradient-to-br from-primary to-primary  rounded-3xl p-8 text-white relative overflow-hidden shadow-2xl"
                             initial={{ opacity: 0, y: 30 }}
                             animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, amount: 0.2 }}
                             transition={{ duration: 0.7, delay: 0.4 }}
+                            whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                         >
-                            <motion.div
-                                className="grid grid-cols-1  gap-3"
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={sectionsReady ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.6, delay: 0.5 }}
-                            >
-                                {/* Email */}
+                            {/* Efectos de fondo decorativos */}
+                            <div className="absolute inset-0  opacity-40 right-0 left-0 h-full">
+                                <svg className="h-full w-full" width="296" height="434" viewBox="0 0 296 434" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g opacity="0.6">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M734.71 -21.9338C707.164 -72.7263 668.774 -112.509 619.542 -141.281C570.604 -169.76 514.632 -184 451.627 -184C388.915 -184 332.943 -169.76 283.711 -141.281C234.772 -112.509 196.529 -72.7263 168.983 -21.9338C146.711 19.4636 133.524 64.9713 129.421 114.589C129.421 115.47 129.421 116.204 129.421 116.791C127.224 134.407 112.718 148.06 94.6954 148.5C94.4024 148.5 94.1093 148.5 93.8162 148.5C93.5232 148.5 93.2302 148.5 92.9371 148.5C28.7598 148.5 -16.0763 211.917 5.46263 272.692C11.3236 288.546 18.2102 303.96 26.1224 318.934C53.6688 369.726 91.9115 409.509 140.85 438.281C190.082 466.76 246.054 481 308.766 481C371.771 481 427.743 466.76 476.682 438.281C525.914 409.509 564.157 369.726 591.41 318.934C614.268 276.949 627.601 230.854 631.411 180.649C633.169 163.474 646.796 149.821 664.379 148.5C665.258 148.5 666.137 148.5 667.016 148.5C667.895 148.5 668.774 148.5 669.654 148.5C732.952 148.5 776.469 85.9636 755.809 26.0695C749.948 9.62802 742.915 -6.37305 734.71 -21.9338ZM594.047 148.5C539.541 148.5 492.946 184.172 475.803 235.699C473.166 243.626 470.089 251.259 466.572 258.599C451.627 291.189 430.527 316.585 403.274 334.788C375.727 353.285 344.225 362.533 308.766 362.533C272.721 362.533 241.072 353.285 213.819 334.788C186.273 316.585 165.173 291.189 150.521 258.599C140.85 238.341 134.403 216.321 131.18 192.54C130.594 190.191 130.301 187.989 130.301 185.934C130.301 185.64 130.301 185.493 130.301 185.493C130.301 185.2 130.301 184.759 130.301 184.172C130.301 164.354 146.125 148.5 165.906 148.5C219.973 148.5 267.007 112.828 284.15 61.3013C286.788 53.3742 289.865 45.7406 293.381 38.4007C308.327 5.81126 329.426 -19.585 356.679 -37.7881C383.933 -56.2848 415.582 -65.5331 451.627 -65.5331C487.085 -65.5331 518.588 -56.2848 546.134 -37.7881C573.388 -19.585 594.487 5.81126 609.432 38.4007C619.103 59.2461 625.55 81.8532 628.773 106.222C629.067 107.396 629.36 108.571 629.653 109.745C629.653 110.626 629.653 111.653 629.653 112.828C629.653 132.205 613.828 148.5 594.047 148.5Z" fill="white" />
+                                    </g>
+                                </svg>
+
+
+                            </div>
+
+                            <div className="relative z-10">
+                                {/* Título */}
+                                <motion.h3
+                                    className="text-2xl font-bold mb-8 border-b border-white  pb-4"
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.5 }}
+                                >
+                                    Datos de Contacto
+                                </motion.h3>
+
+                                {/* Lista de datos de contacto */}
                                 <motion.div
-                                    className="flex items-center gap-3 bg-neutral-dark rounded-xl p-4 shadow border "
-                                    variants={cardHover}
-                                    initial="rest"
-                                    whileHover="hover"
+                                    className="space-y-6"
+                                    initial={{ opacity: 0, y: 30 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.6, delay: 0.6 }}
                                 >
-                                    <motion.span
-                                        className="bg-secondary text-neutral-dark rounded-full p-2"
-                                        whileHover={{ rotate: 360, scale: 1.1 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M1.66602 4.83203L7.42687 8.10255C9.5316 9.29745 10.4671 9.29745 12.5718 8.10255L18.3327 4.83203" stroke="#222222" stroke-width="1.25" stroke-linejoin="round" />
-                                            <path d="M8.74935 16.9167C8.36077 16.9116 7.9717 16.9042 7.58171 16.8943C4.95796 16.8284 3.64608 16.7954 2.70348 15.8487C1.76087 14.9019 1.73363 13.6239 1.67916 11.0678C1.66164 10.2459 1.66163 9.42892 1.67915 8.60703C1.73363 6.05094 1.76087 4.7729 2.70347 3.82616C3.64608 2.87942 4.95796 2.84644 7.5817 2.78048C9.19877 2.73983 10.7999 2.73984 12.417 2.78049C15.0408 2.84645 16.3526 2.87943 17.2952 3.82617C18.2378 4.77291 18.2651 6.05095 18.3195 8.60703C18.3276 8.98543 18.3319 9.16375 18.3326 9.41667" stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M15.834 14.832C15.834 15.5224 15.2743 16.082 14.584 16.082C13.8937 16.082 13.334 15.5224 13.334 14.832C13.334 14.1417 13.8937 13.582 14.584 13.582C15.2743 13.582 15.834 14.1417 15.834 14.832ZM15.834 14.832V15.2487C15.834 15.939 16.3937 16.4987 17.084 16.4987C17.7743 16.4987 18.334 15.939 18.334 15.2487V14.832C18.334 12.7609 16.6551 11.082 14.584 11.082C12.5129 11.082 10.834 12.7609 10.834 14.832C10.834 16.9031 12.5129 18.582 14.584 18.582" stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-
-                                    </motion.span>
-                                    <div>
-                                        <motion.div
-                                            className="font-medium text-xl text-white"
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.2 }}
-                                        >
-                                            Correo electrónico
-                                        </motion.div>
-                                        <motion.div
-                                            className="text-white text-base"
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.3 }}
-                                        >
-                                            {generalsData.find(item => item.correlative === "email_contact")?.description || ""}
-                                        </motion.div>
-                                    </div>
-                                </motion.div>
-
-                                {/* Phone */}
-                                <motion.div
-                                    className="flex items-center gap-3 bg-neutral-dark rounded-xl p-4 shadow border border-[#f3f4f6]"
-                                    variants={cardHover}
-                                    initial="rest"
-                                    whileHover="hover"
-                                >
-                                    <motion.span
-                                        className="bg-secondary text-neutral-dark rounded-full p-2"
-                                        whileHover={{ rotate: 360, scale: 1.1 }}
-                                        transition={{ duration: 0.5 }}
-                                    >
-                                        <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.8729 14.0781C16.8778 13.1184 17.4993 11.7925 17.4993 10.3281C17.4993 8.86363 16.8778 7.53783 15.8729 6.57812M14.166 8.45313C14.6684 8.93297 14.9793 9.59588 14.9793 10.3281C14.9793 11.0604 14.6684 11.7233 14.166 12.2031" stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M13.3333 6.16667C13.3333 4.20248 13.3333 3.22039 12.7232 2.61019C12.1129 2 11.1308 2 9.16667 2H6.66667C4.70248 2 3.72039 2 3.11019 2.61019C2.5 3.22039 2.5 4.20248 2.5 6.16667V14.5C2.5 16.4642 2.5 17.4462 3.11019 18.0565C3.72039 18.6667 4.70248 18.6667 6.66667 18.6667H9.16667C11.1308 18.6667 12.1129 18.6667 12.7232 18.0565C13.3333 17.4462 13.3333 16.4642 13.3333 14.5" stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M9.58333 2H6.25L6.66667 2.83333H9.16667L9.58333 2Z" stroke="#222222" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-
-                                    </motion.span>
-                                    <div>
-                                        <motion.div
-                                            className="font-semibold text-white"
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.2 }}
-                                        >
-                                            Contacto
-                                        </motion.div>
-                                        <motion.div
-                                            className="text-white text-sm"
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            transition={{ delay: 0.3 }}
-                                        >
-                                            {generalsData.find(item => item.correlative === "phone_contact")?.description || ""}
-                                        </motion.div>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-
-                            {/* Location */}
-                            <motion.div
-                                className="flex items-center gap-3 bg-neutral-dark rounded-xl p-4 shadow border border-[#f3f4f6]"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.2 }}
-                                transition={{ duration: 0.6, delay: 0.6 }}
-                                variants={cardHover}
-                                whileHover="hover"
-                            >
-                                <motion.span
-                                    className="bg-secondary text-neutral-dark rounded-full p-2"
-                                    whileHover={{ rotate: 360, scale: 1.1 }}
-                                    transition={{ duration: 0.5 }}
-                                >
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11.3481 17.8071C10.9867 18.1455 10.5037 18.3346 10.0009 18.3346C9.49817 18.3346 9.01517 18.1455 8.65375 17.8071C5.34418 14.6896 0.908967 11.2071 3.07189 6.15102C4.24136 3.41727 7.04862 1.66797 10.0009 1.66797C12.9532 1.66797 15.7605 3.41727 16.93 6.15102C19.0902 11.2007 14.6658 14.7004 11.3481 17.8071Z" stroke="#222222" stroke-width="1.25" />
-                                        <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" stroke="#222222" stroke-width="1.25" />
-                                    </svg>
-
-                                </motion.span>
-                                <div>
+                                    {/* Dirección */}
                                     <motion.div
-                                        className="font-semibold text-white"
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.2 }}
+                                        className="flex items-start gap-4"
+                                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
                                     >
-                                        Ubicación
-                                    </motion.div>
-                                    <motion.div
-                                        className="text-white text-sm"
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.3 }}
-                                    >
-                                        {generalsData.find(item => item.correlative === "address")?.description || "Lima, Perú"}
-                                    </motion.div>
-                                </div>
-                            </motion.div>
-
-
-                            {/* Versión Desktop */}
-                            {!isMobile && (
-                                <motion.div 
-                                    className="relative w-full px-10 rounded-[56px] bg-secondary flex flex-col md:flex-row items-center py-10 min-h-[330px] mt-16"
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.8, delay: 0.7 }}
-                                    whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-                                >
-                                    {/* Fondo decorativo */}
-                                    <motion.div 
-                                        className="absolute w-full h-full right-0 left-0 bottom-0 z-0 overflow-hidden rounded-[56px]"
-                                    >
-                                        <motion.svg 
-                                            className="w-full" width="594" height="315" viewBox="0 0 594 315" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                        <motion.div
+                                            className="bg-white/20 rounded-full p-2 mt-1"
+                                            whileHover={{ rotate: 360, scale: 1.1 }}
+                                            transition={{ duration: 0.5 }}
                                         >
-                                            <motion.path 
-                                                d="M-147.68 355.4C-124.332 352.83 -90.2834 346.823 -51.955 331.329C15.4416 304.086 56.4845 263.505 84.5695 235.171C118.162 201.282 144.643 174.565 159.394 129.737C160.55 126.225 194.417 60.8935 156.7 21.3772C118.976 -18.1462 63.9491 17.6986 56.0136 78.5852C48.0781 139.472 71.91 172.287 100.769 195.167C141.703 227.622 194.435 225.044 235.103 219.599C412.543 195.829 504.016 89.5735 673.893 19.7087C764.865 -17.705 988.379 -133.776 1123.37 -75.0488" 
-                                                stroke="#719931" 
-                                                strokeOpacity="0.24" 
-                                                strokeWidth="29.8691" 
-                                                strokeMiterlimit="10"
-                                                initial={{ pathLength: 0 }}
-                                                animate={{ pathLength: 1 }}
-                                                transition={{ duration: 3, delay: 1 }}
-                                            />
-                                        </motion.svg>
-                                    </motion.div>
-
-                                    {/* Contenido principal */}
-                                    <motion.div 
-                                        className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-4 relative"
-                                        initial={{ opacity: 0, x: -30 }}
-                                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true, amount: 0.2 }}
-                                        transition={{ duration: 0.6, delay: 0.8 }}
-                                    >
-                                        {/* Título */}
-                                        <motion.span 
-                                            className="text-lg font-medium text-neutral-dark"
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-                                            transition={{ duration: 0.5, delay: 0.9 }}
-                                        >
-                                            ¡Descarga nuestra app!
-                                        </motion.span>
-                                        
-                                        {/* Apps desktop */}
-                                        <motion.div 
-                                            className="flex gap-2"
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                            transition={{ duration: 0.6, delay: 1 }}
-                                        >
-                                            {apps?.map((app, index) => (
-                                                <motion.a 
-                                                    href={app?.link} 
-                                                    key={index} 
-                                                    target="_blank" 
-                                                    rel="noopener noreferrer"
-                                                    whileHover={{ 
-                                                        scale: 1.1, 
-                                                        y: -5,
-                                                        transition: { duration: 0.2 }
-                                                    }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                >
-                                                    <img 
-                                                        src={`/api/app/media/${app?.image}`} 
-                                                        alt={app?.name} 
-                                                        className="h-12" 
-                                                        onError={(e) =>
-                                                            (e.target.src = "/api/cover/thumbnail/null")
-                                                        } 
-                                                    />
-                                                </motion.a>
-                                            ))}
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M11.3481 17.8071C10.9867 18.1455 10.5037 18.3346 10.0009 18.3346C9.49817 18.3346 9.01517 18.1455 8.65375 17.8071C5.34418 14.6896 0.908967 11.2071 3.07189 6.15102C4.24136 3.41727 7.04862 1.66797 10.0009 1.66797C12.9532 1.66797 15.7605 3.41727 16.93 6.15102C19.0902 11.2007 14.6658 14.7004 11.3481 17.8071Z" stroke="white" strokeWidth="1.5" />
+                                                <path d="M12.9173 9.16667C12.9173 10.7775 11.6115 12.0833 10.0007 12.0833C8.38982 12.0833 7.08398 10.7775 7.08398 9.16667C7.08398 7.55583 8.38982 6.25 10.0007 6.25C11.6115 6.25 12.9173 7.55583 12.9173 9.16667Z" stroke="white" strokeWidth="1.5" />
+                                            </svg>
                                         </motion.div>
+                                        <div>
+                                            <h4 className="font-semibold text-lg mb-1">Dirección</h4>
+                                            <p className="text-white/90 text-sm leading-relaxed">
+                                                {generalsData.find(item => item.correlative === "address")?.description || "ayuda@mail.com"}
+                                            </p>
+                                        </div>
                                     </motion.div>
 
-                                    {/* Imagen principal desktop */}
-                                    <motion.img 
-                                        src={`/api/landing_home/media/${landingFormulario?.image}`} 
-                                        alt="Empresas" 
-                                        className="h-[400px] object-cover absolute bottom-0 right-0 select-none" 
-                                        draggable="false"
-                                        initial={{ opacity: 0, x: 50 }}
-                                        animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        viewport={{ once: true, amount: 0.2 }}
-                                        transition={{ duration: 0.8, delay: 1.1 }}
-                                        whileHover={{ 
-                                            scale: 1.05,
-                                            y: -10,
-                                            transition: { duration: 0.4 }
-                                        }}
-                                    />
-                                </motion.div>
-                            )}
-
-                            {/* Versión Móvil - Completamente separada */}
-                            {isMobile && (
-                                <motion.div 
-                                    className="w-full mt-16 px-4 py-8 bg-secondary rounded-[32px]"
-                                    initial={{ opacity: 0, y: 40 }}
-                                    animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true, amount: 0.2 }}
-                                    transition={{ duration: 0.8, delay: 0.7 }}
-                                >
-                                    {/* Título móvil */}
+                                    {/* Número de Teléfono */}
                                     <motion.div
-                                        className="text-center mb-6"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                        transition={{ duration: 0.6, delay: 0.8 }}
+                                        className="flex items-start gap-4"
+                                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
                                     >
-                                        <h3 className="text-xl font-semibold text-neutral-dark mb-2">
-                                            ¡Descarga nuestra app!
-                                        </h3>
-                                        <p className="text-sm text-neutral-dark opacity-80">
-                                            Disponible en las principales tiendas
-                                        </p>
-                                    </motion.div>
-
-                                    {/* Swiper móvil */}
-                                    <motion.div
-                                        className="w-full"
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                                        transition={{ duration: 0.6, delay: 1 }}
-                                    >
-                                        <Swiper
-                                            modules={[Autoplay, Pagination]}
-                                            autoplay={{
-                                                delay: 3000,
-                                                disableOnInteraction: false,
-                                            }}
-                                            pagination={{
-                                                clickable: true,
-                                                dynamicBullets: true,
-                                            }}
-                                            loop={true}
-                                            spaceBetween={20}
-                                            slidesPerView={2}
-                                            centeredSlides={true}
-                                            className="app-download-swiper"
+                                        <motion.div
+                                            className="bg-white/20 rounded-full p-2 mt-1"
+                                            whileHover={{ rotate: 360, scale: 1.1 }}
+                                            transition={{ duration: 0.5 }}
                                         >
-                                            {apps?.map((app, index) => (
-                                                <SwiperSlide key={index}>
-                                                    <motion.a 
-                                                        href={app?.link}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        className="flex justify-center items-center   shadow-sm"
-                                                        whileHover={{ scale: 1.05 }}
-                                                        whileTap={{ scale: 0.95 }}
-                                                    >
-                                                        <img
-                                                            src={`/api/app/media/${app?.image}`}
-                                                            alt={app?.name}
-                                                            className="h-14 w-auto object-contain"
-                                                            onError={(e) =>
-                                                                (e.target.src = "/api/cover/thumbnail/null")
-                                                            }
-                                                        />
-                                                    </motion.a>
-                                                </SwiperSlide>
-                                            ))}
-                                        </Swiper>
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M15.8729 13.5781C16.8778 12.6184 17.4993 11.2925 17.4993 9.82812C17.4993 8.36363 16.8778 7.03783 15.8729 6.07812M14.166 7.95313C14.6684 8.43297 14.9793 9.09588 14.9793 9.82812C14.9793 10.5604 14.6684 11.2233 14.166 11.7031" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M13.3333 5.66667C13.3333 3.70248 13.3333 2.72039 12.7232 2.11019C12.1129 1.5 11.1308 1.5 9.16667 1.5H6.66667C4.70248 1.5 3.72039 1.5 3.11019 2.11019C2.5 2.72039 2.5 3.70248 2.5 5.66667V14C2.5 15.9642 2.5 16.9462 3.11019 17.5565C3.72039 18.1667 4.70248 18.1667 6.66667 18.1667H9.16667C11.1308 18.1667 12.1129 18.1667 12.7232 17.5565C13.3333 16.9462 13.3333 15.9642 13.3333 14" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M9.58333 1.5H6.25L6.66667 2.33333H9.16667L9.58333 1.5Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </motion.div>
+                                        <div>
+                                            <h4 className="font-semibold text-lg mb-1">Número de Teléfono</h4>
+                                            <div className="text-white/90 text-sm">
+                                                {(generalsData.find(item => item.correlative === "phone_contact")?.description || "+51 915 960 941")
+                                                    .split(',')
+                                                    .map((phone, index) => (
+                                                        <p key={index} className="mb-1">{phone.trim()}</p>
+                                                    ))
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Correo Electrónico */}
+                                    <motion.div
+                                        className="flex items-start gap-4"
+                                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                                    >
+                                        <motion.div
+                                            className="bg-white/20 rounded-full p-2 mt-1"
+                                            whileHover={{ rotate: 360, scale: 1.1 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.66602 4.33203L7.42687 7.60255C9.5316 8.79745 10.4671 8.79745 12.5718 7.60255L18.3327 4.33203" stroke="white" strokeWidth="1.5" strokeLinejoin="round" />
+                                                <path d="M8.74935 16.4167C8.36077 16.4116 7.9717 16.4042 7.58171 16.3943C4.95796 16.3284 3.64608 16.2954 2.70348 15.3487C1.76087 14.4019 1.73363 13.1239 1.67916 10.5678C1.66164 9.74589 1.66163 8.92892 1.67915 8.10703C1.73363 5.55094 1.76087 4.2729 2.70347 3.32616C3.64608 2.37942 4.95796 2.34644 7.5817 2.28048C9.19877 2.23983 10.7999 2.23984 12.417 2.28049C15.0408 2.34645 16.3526 2.37943 17.2952 3.32617C18.2378 4.27291 18.2651 5.55095 18.3195 8.10703C18.3276 8.48543 18.3319 8.66375 18.3326 8.91667" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <path d="M15.834 14.332C15.834 15.0224 15.2743 15.582 14.584 15.582C13.8937 15.582 13.334 15.0224 13.334 14.332C13.334 13.6417 13.8937 13.082 14.584 13.082C15.2743 13.082 15.834 13.6417 15.834 14.332ZM15.834 14.332V14.7487C15.834 15.439 16.3937 15.9987 17.084 15.9987C17.7743 15.9987 18.334 15.439 18.334 14.7487V14.332C18.334 12.2609 16.6551 10.582 14.584 10.582C12.5129 10.582 10.834 12.2609 10.834 14.332C10.834 16.4031 12.5129 18.082 14.584 18.082" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </motion.div>
+                                        <div>
+                                            <h4 className="font-semibold text-lg mb-1">Correo Electrónico</h4>
+                                            <p className="text-white/90 text-sm">
+                                                {generalsData.find(item => item.correlative === "email_contact")?.description || "ayuda@mail.com"}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Horario de Atención */}
+                                    <motion.div
+                                        className="flex items-start gap-4"
+                                        whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                                    >
+                                        <motion.div
+                                            className="bg-white/20 rounded-full p-2 mt-1"
+                                            whileHover={{ rotate: 360, scale: 1.1 }}
+                                            transition={{ duration: 0.5 }}
+                                        >
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="10" cy="10" r="8.33333" stroke="white" strokeWidth="1.5" />
+                                                <path d="M10 5.83333V10L13.3333 11.6667" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                        </motion.div>
+                                        <div>
+                                            <h4 className="font-semibold text-lg mb-1">Horario de Atención</h4>
+                                            <p className="text-white/90 text-sm whitespace-pre-line">
+                                                {generalsData.find(item => item.correlative === "opening_hours")?.description || "ayuda@mail.com"}
+
+                                            </p>
+
+                                        </div>
                                     </motion.div>
                                 </motion.div>
-                            )}
-
+                            </div>
                         </motion.div>
+
+
                     </motion.div>
                 </motion.div>
+
+
+
+
+                {/* Versión Desktop */}
+                {!isMobile && (
+                    <motion.div
+                        className="relative w-full px-[5%] bg-secondary flex flex-col md:flex-row items-center  min-h-[400px] mt-16"
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                        whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
+                    >
+                        {/* Fondo decorativo */}
+                        <motion.div
+                            className="absolute w-full h-full right-0 top-0 z-0 overflow-hidden rounded-[56px]"
+                        >
+                            <svg className="w-full h-full" width="1067" height="284" viewBox="0 0 1067 284" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="0.6">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M1242.69 459.804C1287.59 414.017 1306.13 360.173 1298.32 298.27C1290.38 236.775 1255.26 172.334 1192.97 104.947C1130.96 37.8742 1055.4 -17.4136 966.276 -60.9161C877.026 -104.011 782.715 -132.127 683.344 -145.265C602.531 -155.78 524.862 -155.258 450.338 -143.699C449.087 -143.416 448.045 -143.18 447.211 -142.992C420.02 -139.681 386.289 -150.807 367.844 -169.942C367.554 -170.255 367.265 -170.568 366.975 -170.882C366.685 -171.195 366.395 -171.509 366.106 -171.822C302.652 -240.462 168.257 -268.035 103.24 -225.465C86.5186 -214.101 71.4367 -201.782 57.9943 -188.507C13.0945 -142.72 -5.59354 -89.0322 1.93045 -27.4428C10.1611 34.3658 45.2789 98.8066 107.284 165.88C169.578 233.266 245.142 288.554 333.975 331.743C423.514 375.151 517.825 403.267 616.906 416.092C699.133 427.045 777.78 426.492 852.848 414.43C878.979 410.791 911.841 420.977 931.102 439.358C931.971 440.298 932.841 441.239 933.71 442.179C934.579 443.119 935.448 444.06 936.318 445C998.902 512.7 1130.74 539.145 1195.38 497.799C1212.93 486.246 1228.7 473.581 1242.69 459.804ZM861.564 364.136C807.672 305.839 710.942 267.469 620.814 265.694C606.948 265.421 593.064 264.583 579.163 263.181C518.103 257.67 461.174 243.266 408.376 219.968C354.871 196.451 310.589 165.73 275.53 127.805C239.892 89.2537 221.735 52.4313 221.058 17.338C219.674 -17.9744 234.88 -48.7033 266.677 -74.8486C285.886 -91.7026 310.784 -105.675 341.372 -116.766C344.128 -118.148 346.965 -119.169 349.884 -119.829C350.301 -119.924 350.51 -119.971 350.51 -119.971C350.927 -120.065 351.552 -120.207 352.386 -120.395C380.531 -126.765 418.694 -114.935 438.251 -93.7791C491.709 -35.952 588.874 2.88795 679.002 4.66302C692.868 4.93611 706.751 5.77372 720.652 7.17582C781.713 12.6865 838.642 27.0909 891.44 50.3891C944.655 73.593 989.081 104.471 1024.72 143.022C1059.78 180.947 1077.79 217.612 1078.76 253.019C1079.85 288.018 1064.65 318.747 1033.14 345.206C1013.1 362.248 987.363 376.409 955.942 387.689C954.564 388.38 953.186 389.071 951.808 389.762C950.557 390.045 949.097 390.375 947.429 390.752C919.909 396.98 881.122 385.292 861.564 364.136Z" fill="white" />
+                                </g>
+                            </svg>
+
+                        </motion.div>
+
+                        {/* Contenido principal */}
+                        <motion.div
+                            className="flex-1 z-10 h-full flex flex-col justify-end items-start gap-4 relative"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.6, delay: 0.8 }}
+                        >
+                            {/* Título */}
+                            <motion.span
+                                className="text-[40px] font-medium text-white"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                transition={{ duration: 0.5, delay: 0.9 }}
+                            >
+                                {banner_principal?.name}
+                            </motion.span>
+  {/* Título */}
+                            <motion.span
+                                className="text-lg font-medium text-white"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                                transition={{ duration: 0.5, delay: 0.9 }}
+                            >
+                                {banner_principal?.description}
+                            </motion.span>
+
+                            <button className="bg-primary  text-white py-3 px-4 rounded-full">
+                                {banner_principal?.button_text}
+                            </button>
+                        </motion.div>
+
+                        {/* Imagen principal desktop */}
+                        <motion.img
+                            src={`/api/banners/media/${banner_principal?.image}`}
+                            alt="Empresas"
+                            className="h-[500px] object-cover absolute bottom-0 right-24  select-none"
+                            draggable="false"
+                            initial={{ opacity: 0, x: 50 }}
+                            animate={sectionsReady ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, amount: 0.2 }}
+                            transition={{ duration: 0.8, delay: 1.1 }}
+                            whileHover={{
+                                scale: 1.05,
+                                y: -10,
+                                transition: { duration: 0.4 }
+                            }}
+                        />
+                    </motion.div>
+                )}
+
+                {/* Versión Móvil - Completamente separada */}
+                {isMobile && (
+                    <motion.div
+                        className="w-full mt-16 px-[5%] py-8 bg-secondary "
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, amount: 0.2 }}
+                        transition={{ duration: 0.8, delay: 0.7 }}
+                    >
+                        {/* Título móvil */}
+                        <motion.div
+                            className="text-center "
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                            transition={{ duration: 0.6, delay: 0.8 }}
+                        >
+                            <h3 className="text-xl font-semibold text-white mb-2">
+                                {banner_principal?.name}
+                            </h3>
+                            <p className="text-sm text-white opacity-80">
+                                {banner_principal?.description}
+                            </p>
+                            <button className="bg-primary mt-4 text-white py-2 px-4 rounded-full">
+                                {banner_principal?.button_text}
+                            </button>
+                        </motion.div>
+
+                    </motion.div>
+                )}
+
             </motion.main>
-            
-            {/* SECCIÓN FAQs */}
-            <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                animate={sectionsReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.7, delay: 0.5 }}
-            >
-                <ServiceSeccionFaq landingFAQS={landingFAQS} faqs={faqs} />
-            </motion.div>
-            
+
+
+
+
             <Footer />
         </motion.div>
+
     );
 };
 

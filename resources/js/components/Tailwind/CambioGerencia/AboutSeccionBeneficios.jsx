@@ -3,29 +3,9 @@ import { motion } from 'framer-motion';
 
 const AboutSeccionBeneficios = ({ data, benefits = [] }) => {
     // Datos de prueba mientras no lleguen de la DB
-    const defaultBenefits = [
-        {
-            icon: "📈",
-            title: "Optimización de Publicaciones",
-            description: "Mejoramos títulos, fotos, descripciones y precios para hacer que tus anuncios sean irresistibles.",
-            button_text: "Agenda una asesoría"
-        },
-        {
-            icon: "🎯",
-            title: "Asesoría Estratégica Personalizada",
-            description: "Te acompañamos con un plan de crecimiento adaptado a tus objetivos y recursos.",
-            button_text: "Agenda una asesoría"
-        },
-        {
-            icon: "📸",
-            title: "Fotografía y Video Profesional",
-            description: "Mejoramos títulos, fotos, descripciones y precios para hacer que tus anuncios sean irresistibles.",
-            button_text: "Agenda una asesoría"
-        }
-    ];
+   
 
-    // Usar datos de la DB si existen, sino usar datos de prueba
-    const benefitsData = benefits.length > 0 ? benefits : defaultBenefits;
+  
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -100,7 +80,7 @@ const AboutSeccionBeneficios = ({ data, benefits = [] }) => {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
                     variants={containerVariants}
                 >
-                    {benefitsData.map((benefit, index) => (
+                    {benefits && benefits.map((benefit, index) => (
                         <motion.div
                             key={index}
                             className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
@@ -116,31 +96,32 @@ const AboutSeccionBeneficios = ({ data, benefits = [] }) => {
                             <div className="relative z-10">
                                 {/* Icono */}
                                 <motion.div
-                                    className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-red-200 transition-colors duration-300"
+                                    className="w-14 h-14  rounded-2xl flex items-center justify-center mb-6  transition-colors duration-300"
                                     whileHover={{
                                         scale: 1.1,
                                         rotate: 5,
                                         transition: { duration: 0.3 }
                                     }}
                                 >
+                                    <img className='h-full w-full object-cover ' src={`/api/benefit/media/${benefit?.image}`} />
                                     <div className="text-2xl">
                                         {benefit.icon}
                                     </div>
                                 </motion.div>
 
                                 {/* Título */}
-                                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-red-600 transition-colors duration-300">
-                                    {benefit.title}
+                                <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-secondary transition-colors duration-300">
+                                    {benefit?.name}
                                 </h3>
 
                                 {/* Descripción */}
                                 <p className="text-gray-600 mb-6 leading-relaxed">
-                                    {benefit.description}
+                                    {benefit?.description}
                                 </p>
 
                                 {/* Botón */}
                                 <motion.button
-                                    className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 group-hover:shadow-lg"
+                                    className="bg-secondary hover:bg-secondary text-white px-6 py-3 rounded-full font-medium transition-all duration-300 group-hover:shadow-lg"
                                     whileHover={{
                                         scale: 1.05,
                                         boxShadow: "0 10px 25px rgba(239, 68, 68, 0.3)"
@@ -168,7 +149,7 @@ const AboutSeccionBeneficios = ({ data, benefits = [] }) => {
                     >
                         <motion.a
                             href={data.link}
-                            className="inline-flex items-center bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all duration-300"
+                            className="inline-flex items-center bg-secondary hover:bg-secondary text-white px-8 py-4 rounded-full font-medium text-lg transition-all duration-300"
                             whileHover={{
                                 scale: 1.05,
                                 boxShadow: "0 15px 30px rgba(239, 68, 68, 0.3)"

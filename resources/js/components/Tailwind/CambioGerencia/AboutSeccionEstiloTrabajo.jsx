@@ -135,7 +135,7 @@ const AboutSeccionEstiloTrabajo = ({ data, work_style = [] }) => {
                                         transition: { duration: 0.3 }
                                     }}
                                 >
-                                    {item.title}
+                                    {item?.name}
                                 </motion.h3>
                                 
                                 <motion.p
@@ -145,12 +145,12 @@ const AboutSeccionEstiloTrabajo = ({ data, work_style = [] }) => {
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                 >
-                                    {item.description}
+                                    {item?.description}
                                 </motion.p>
 
                                 {/* Línea decorativa */}
                                 <motion.div
-                                    className="w-16 h-1 bg-red-500 mt-6"
+                                    className="w-16 h-1 bg-secondary mt-6"
                                     initial={{ width: 0 }}
                                     whileInView={{ width: 64 }}
                                     viewport={{ once: true }}
@@ -175,7 +175,7 @@ const AboutSeccionEstiloTrabajo = ({ data, work_style = [] }) => {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"></div>
                                     
                                     <motion.img
-                                        src={item.image}
+                                        src={`/api/speciality/media/${item.image}`}
                                         alt={item.title}
                                         className="w-full h-[400px] lg:h-[450px] object-cover"
                                         initial={{ scale: 1.1 }}
@@ -232,7 +232,7 @@ const AboutSeccionEstiloTrabajo = ({ data, work_style = [] }) => {
                     >
                         <motion.a
                             href={data.link}
-                            className="inline-flex items-center bg-red-500 hover:bg-red-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all duration-300"
+                            className="inline-flex items-center bg-secondary hover:bg-red-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all duration-300"
                             whileHover={{
                                 scale: 1.05,
                                 boxShadow: "0 15px 30px rgba(239, 68, 68, 0.3)"

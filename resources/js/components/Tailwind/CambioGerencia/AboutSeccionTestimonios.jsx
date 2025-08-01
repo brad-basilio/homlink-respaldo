@@ -62,22 +62,22 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
 
     return (
         <motion.div
-            className="relative overflow-hidden bg-gray-50 py-16 px-[5%] font-title"
+            className="relative overflow-hidden bg-[#EEF3FE] py-16 px-[5%] font-title"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={containerVariants}
         >
             <motion.div
-                className="relative z-10 max-w-7xl mx-auto"
+                className="relative z-10  mx-auto"
                 variants={containerVariants}
             >
                 {/* Título principal */}
                 <motion.div
-                    className="text-center mb-12"
+                    className=" mb-12"
                     variants={titleVariants}
                 >
-                    <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+                    <h2 className="text-4xl lg:text-5xl font-bold text-neutral-dark mb-6">
                         {data?.title || "Lo que dicen nuestros clientes"}
                     </h2>
                     {data?.description && (
@@ -99,6 +99,7 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                         modules={[Pagination, Autoplay]}
                         spaceBetween={30}
                         slidesPerView={1}
+                        loop={true}
                         pagination={{
                             clickable: true,
                             bulletClass: 'swiper-pagination-bullet testimonial-bullet',
@@ -118,7 +119,7 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                                 spaceBetween: 50,
                             }
                         }}
-                        className="testimonials-swiper pb-16"
+                        className="testimonials-swiper !pb-20"
                     >
                         {testimonialsData.map((testimonial, index) => (
                             <SwiperSlide key={index}>
@@ -131,12 +132,12 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                                 >
                                     {/* Quote */}
                                     <div className="mb-6">
-                                        <svg 
-                                            className="w-8 h-8 text-blue-500 mb-4 opacity-50" 
-                                            fill="currentColor" 
+                                        <svg
+                                            className="w-8 h-8 text-blue-500 mb-4 opacity-50"
+                                            fill="currentColor"
                                             viewBox="0 0 24 24"
                                         >
-                                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z" />
                                         </svg>
                                         <p className="text-gray-800 text-lg leading-relaxed font-medium">
                                             {testimonial.quote}
@@ -163,7 +164,7 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                                             />
                                         </motion.div>
                                         <div>
-                                            <h4 className="font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">
+                                            <h4 className="font-bold text-neutral-dark group-hover:text-blue-600 transition-colors duration-300">
                                                 {testimonial.name}
                                             </h4>
                                             <p className="text-gray-600 text-sm">
@@ -180,31 +181,7 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                     </Swiper>
                 </motion.div>
 
-                {/* Llamada a la acción adicional si existe */}
-                {data?.link && (
-                    <motion.div
-                        className="text-center mt-12"
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                    >
-                        <motion.a
-                            href={data.link}
-                            className="inline-flex items-center bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all duration-300"
-                            whileHover={{
-                                scale: 1.05,
-                                boxShadow: "0 15px 30px rgba(59, 130, 246, 0.3)"
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            Ver más testimonios
-                            <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </motion.a>
-                    </motion.div>
-                )}
+
             </motion.div>
 
             {/* Estilos personalizados para la paginación */}
@@ -214,17 +191,22 @@ const AboutSeccionTestimonios = ({ data, testimonials = [] }) => {
                     height: 12px !important;
                     background: #cbd5e1 !important;
                     opacity: 1 !important;
-                    margin: 0 6px !important;
-                    transition: all 0.3s ease !important;
+                    margin: 0 8px !important;
+                    transition: all 0.4s ease !important;
+                    border-radius: 6px !important;
                 }
                 
                 .testimonials-swiper .testimonial-bullet-active {
+                    width: 20px !important;
                     background: #3b82f6 !important;
-                    transform: scale(1.2) !important;
+                    transform: none !important;
+                    border-radius: 10px !important;
                 }
                 
                 .testimonials-swiper .swiper-pagination {
-                    bottom: 0 !important;
+                    bottom: -10px !important;
+                    position: relative !important;
+                    margin-top: 30px !important;
                 }
             `}</style>
         </motion.div>

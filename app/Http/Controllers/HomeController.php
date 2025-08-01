@@ -119,9 +119,9 @@ class HomeController extends BasicController
             ->limit(6)
             ->get();
 
-        $benefits = Benefit::where('status', true)
+        $benefits = Strength::where('status', true)
             ->where('visible', true)
-            ->where('correlative', 'principales')
+         
             ->get();
 
         return [

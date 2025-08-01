@@ -70,8 +70,8 @@ class BannerController extends BasicController
             'empresa' => 'Empresas',
             'servicios' => 'Servicios',
             'nosotros' => 'Nosotros',
-         
-            'blog' => 'Blog'
+            'blog' => 'Blog',
+            'contacto' => 'Contacto'
         ];
 
         // Configuración de posiciones por sección
@@ -98,6 +98,10 @@ class BannerController extends BasicController
                 'primera_operacion' => 'Banner Primera operación',
                 'cambia_empresas' => 'Banner Cambia Empresas'
             ],
+            'contacto' => [
+                'banner_principal' => 'Banner de Contacto',
+              
+            ]
         ];
 
         // Todas las posiciones para mostrar en la tabla

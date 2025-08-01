@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Models\Facility;
 use App\Models\Faq;
 use App\Models\General;
@@ -34,6 +35,13 @@ class ContactController extends BasicController
             ->where('visible', true)
             ->where('lang_id', $langId)
             ->get();
+
+            $banner_principal = Banner::where('status', true)
+            ->where('visible', true)
+            ->where('section', 'contacto')
+            ->where('position', 'banner_principal')
+            ->orderBy('created_at', 'desc')
+            ->first();
         
         return [
             'landing' => $landing,
@@ -41,6 +49,7 @@ class ContactController extends BasicController
             'whatsapp' => $whatsapp,
             'staff' => $staff,
             'faqs' => $faqs,
+            'banner_principal' => $banner_principal,
         ];
     }
 }
