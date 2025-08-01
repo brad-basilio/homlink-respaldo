@@ -11,9 +11,9 @@ import PropertyMapView from "./components/Properties/PropertyMapView";
 import PropertyFiltersModal from "./components/Properties/PropertyFiltersModal";
 import "../css/property-catalog.css";
 
-function CatalogoProductos({ propiedades }) {
+function CatalogoProductos({ propiedades, searchFilters = {} }) {
     // Estados para los filtros de la barra superior
-    const [searchLocation, setSearchLocation] = useState("");
+    const [searchLocation, setSearchLocation] = useState(searchFilters.location || "");
     const [selectedDate, setSelectedDate] = useState("Fecha");
     const [selectedGuests, setSelectedGuests] = useState("");
     const [priceRange, setPriceRange] = useState([0, 500]);
@@ -42,6 +42,28 @@ function CatalogoProductos({ propiedades }) {
     // Estado para propiedades filtradas
     const [filteredProperties, setFilteredProperties] = useState(propiedades || []);
     const [propertyStats, setPropertyStats] = useState({ total: propiedades?.length || 0 });
+
+    // Inicializar filtros con los datos de búsqueda
+    useEffect(() => {
+        if (searchFilters) {
+            // Calcular el total de huéspedes
+            const totalGuests = (parseInt(searchFilters.adults) || 0) + (parseInt(searchFilters.children) || 0);
+            
+            if (totalGuests > 0) {
+                setSelectedGuests(totalGuests.toString());
+                // Actualizar filtros
+                setFilters(prev => ({
+                    ...prev,
+                    guests: totalGuests.toString()
+                }));
+            }
+            
+            // Si hay filtros de búsqueda, mostrar un mensaje o indicador
+            if (searchFilters.location || totalGuests > 0) {
+                console.log('Filtros de búsqueda aplicados:', searchFilters);
+            }
+        }
+    }, [searchFilters]);
 
     useEffect(() => {
         if (propiedades) {
@@ -230,6 +252,22 @@ function CatalogoProductos({ propiedades }) {
         }
     }, [sortBy]);
 
+    // Effect para aplicar filtros iniciales cuando se reciban nuevas propiedades
+    useEffect(() => {
+        if (propiedades) {
+            setFilteredProperties(propiedades);
+            setPropertyStats({ total: propiedades.length });
+            
+            // Si hay filtros de búsqueda activos, aplicar filtros automáticamente
+            if (searchFilters && (searchFilters.location || searchFilters.adults || searchFilters.children)) {
+                // Aplicar filtros después de un pequeño retraso para asegurar que el estado esté actualizado
+                setTimeout(() => {
+                    applyFilters();
+                }, 100);
+            }
+        }
+    }, [propiedades, searchFilters]);
+
     // Cerrar dropdowns al hacer click fuera
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -251,7 +289,7 @@ function CatalogoProductos({ propiedades }) {
             {/* Search and Filters Bar */}
             <div className="bg-white sticky top-0 z-40">
                 <div className="mx-auto px-[5%] py-4">
-                    <div className="flex items-center justify-between gap-4">
+                                        <div className="flex items-center justify-between gap-4">
                         {/* Search Location */}
                         <div className="flex-1 max-w-md">
                             <div className="relative">

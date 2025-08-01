@@ -13,6 +13,15 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const [colorIndex, setColorIndex] = useState(0);
     const [activeTab, setActiveTab] = useState('buscar'); // 'buscar' o 'anunciar'
 
+    // Estados para el formulario de búsqueda
+    const [searchFormData, setSearchFormData] = useState({
+        destination: '',
+        checkinDate: '',
+        checkoutDate: '',
+        adults: '',
+        children: ''
+    });
+
     // Pasos del proceso de anunciar propiedad
     const propertySteps = [
         {
@@ -239,6 +248,44 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const handleOperationStart = (operationData) => {
         // Redirigir a la página de contacto
         window.location.href = '/contacto';
+    };
+
+    // Función para manejar la búsqueda de propiedades
+    const handleSearchSubmit = () => {
+        // Construir los parámetros de búsqueda
+        const searchParams = new URLSearchParams();
+        
+        if (searchFormData.destination.trim()) {
+            searchParams.append('location', searchFormData.destination.trim());
+        }
+        
+        if (searchFormData.checkinDate) {
+            searchParams.append('checkin', searchFormData.checkinDate);
+        }
+        
+        if (searchFormData.checkoutDate) {
+            searchParams.append('checkout', searchFormData.checkoutDate);
+        }
+        
+        if (searchFormData.adults) {
+            searchParams.append('adults', searchFormData.adults);
+        }
+        
+        if (searchFormData.children) {
+            searchParams.append('children', searchFormData.children);
+        }
+
+        // Redirigir a la página de catálogo con los filtros
+        const searchUrl = `/catalogo${searchParams.toString() ? '?' + searchParams.toString() : ''}`;
+        window.location.href = searchUrl;
+    };
+
+    // Función para manejar cambios en los campos del formulario
+    const handleFormChange = (field, value) => {
+        setSearchFormData(prev => ({
+            ...prev,
+            [field]: value
+        }));
     };
 
     const nextStep = () => {
@@ -585,6 +632,8 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 <input
                                                     type="text"
                                                     placeholder="Buscar por ciudad"
+                                                    value={searchFormData.destination}
+                                                    onChange={(e) => handleFormChange('destination', e.target.value)}
                                                     className="w-full bg-transparent text-gray-600 placeholder-gray-500 border-none outline-none text-base"
                                                 />
                                             </div>
@@ -599,14 +648,12 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 <div className="flex-1">
                                                     <div className="text-sm font-semibold text-gray-900 mb-1">Llegada</div>
                                                     <input
-                                                        type="text"
-                                                        placeholder="Agregar fecha"
+                                                        type="date"
+                                                        value={searchFormData.checkinDate}
+                                                        onChange={(e) => handleFormChange('checkinDate', e.target.value)}
                                                         className="w-full bg-transparent text-gray-600 placeholder-gray-500 border-none outline-none text-base"
                                                     />
                                                 </div>
-                                                <svg className="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                                </svg>
                                             </div>
                                         </div>
                                         <div className="relative">
@@ -615,14 +662,12 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 <div className="flex-1">
                                                     <div className="text-sm font-semibold text-gray-900 mb-1">Salida</div>
                                                     <input
-                                                        type="text"
-                                                        placeholder="Agregar fecha"
+                                                        type="date"
+                                                        value={searchFormData.checkoutDate}
+                                                        onChange={(e) => handleFormChange('checkoutDate', e.target.value)}
                                                         className="w-full bg-transparent text-gray-600 placeholder-gray-500 border-none outline-none text-base"
                                                     />
                                                 </div>
-                                                <svg className="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                                                </svg>
                                             </div>
                                         </div>
                                     </div>
@@ -635,8 +680,12 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 <div className="flex-1">
                                                     <div className="text-sm font-semibold text-gray-900 mb-1">N. Adultos</div>
                                                     <input
-                                                        type="text"
+                                                        type="number"
+                                                        min="1"
+                                                        max="10"
                                                         placeholder="¿Cuántos?"
+                                                        value={searchFormData.adults}
+                                                        onChange={(e) => handleFormChange('adults', e.target.value)}
                                                         className="w-full bg-transparent text-gray-600 placeholder-gray-500 border-none outline-none text-base"
                                                     />
                                                 </div>
@@ -650,8 +699,12 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                 <div className="flex-1">
                                                     <div className="text-sm font-semibold text-gray-900 mb-1">N. Niños</div>
                                                     <input
-                                                        type="text"
+                                                        type="number"
+                                                        min="0"
+                                                        max="10"
                                                         placeholder="¿Cuántos?"
+                                                        value={searchFormData.children}
+                                                        onChange={(e) => handleFormChange('children', e.target.value)}
                                                         className="w-full bg-transparent text-gray-600 placeholder-gray-500 border-none outline-none text-base"
                                                     />
                                                 </div>
@@ -663,6 +716,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                     <motion.button
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
+                                        onClick={handleSearchSubmit}
                                         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors duration-200 text-lg mt-6"
                                     >
                                         Buscar destino

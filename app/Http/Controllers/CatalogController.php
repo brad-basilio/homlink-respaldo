@@ -41,12 +41,43 @@ class CatalogController extends BasicController
             })->orderBy('updated_at', 'desc')
             ->first();
 
-        // Obtener propiedades en lugar de items
-        $propiedades = Property::where('active', true)
-            ->orderBy('created_at', 'desc')
-            ->get();
+        // Obtener propiedades con filtros aplicados
+        $propertiesQuery = Property::where('active', true);
+
+        // Aplicar filtros de búsqueda si existen
+        if ($request->has('location') && !empty($request->location)) {
+            $location = $request->location;
+            $propertiesQuery->where(function($query) use ($location) {
+                $query->where('district', 'like', "%{$location}%")
+                      ->orWhere('province', 'like', "%{$location}%")
+                      ->orWhere('department', 'like', "%{$location}%")
+                      ->orWhere('address', 'like', "%{$location}%");
+            });
+        }
+
+        // Filtro por número de huéspedes (adultos + niños)
+        if ($request->has('adults') && !empty($request->adults)) {
+            $totalGuests = (int)$request->adults;
+            
+            if ($request->has('children') && !empty($request->children)) {
+                $totalGuests += (int)$request->children;
+            }
+            
+            $propertiesQuery->where('max_guests', '>=', $totalGuests);
+        }
+
+        $propiedades = $propertiesQuery->orderBy('created_at', 'desc')->get();
 
         $categories = Category::all();
+        
+        // Pasar los filtros de búsqueda al frontend
+        $searchFilters = [
+            'location' => $request->location ?? '',
+            'checkin' => $request->checkin ?? '',
+            'checkout' => $request->checkout ?? '',
+            'adults' => $request->adults ?? '',
+            'children' => $request->children ?? '',
+        ];
         
         return [
             'sliders' => $sliders,
@@ -55,7 +86,8 @@ class CatalogController extends BasicController
             'landing' => $landing,
             'supplies' => $supplies,
             'anuncio' => $anuncio,
-            'categories' => $categories
+            'categories' => $categories,
+            'searchFilters' => $searchFilters
         ];
     }
 }
