@@ -216,8 +216,8 @@ const Home = ({
             {/* Debug Info <AppDebugInfo apps={apps} />*/}
 
 
-            {/* App Store Banner - Enlaces a tiendas de aplicaciones */}
-            <AppStoreBanner apps={apps} />
+            {/* App Store Banner - Enlaces a tiendas de aplicaciones    <AppStoreBanner apps={apps} /> */}
+         
 
             <Header showSlogan={showSlogan} />
 

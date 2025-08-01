@@ -110,7 +110,7 @@ const LandingHome = ({
         //faqs: "Faqs",
         contact: "Contacto",
         blog: "Blog",
-        empresas: "Empresas",
+       // empresas: "Empresas",
     };
 
     // Cargar traducciones cuando cambia el idioma
