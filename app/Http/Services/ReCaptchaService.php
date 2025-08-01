@@ -8,6 +8,11 @@ class ReCaptchaService extends BasicService
 {
   static function verify($token)
   {
+    // Skip reCAPTCHA verification in local development
+    if (env('APP_ENV') === 'local' || env('APP_DOMAIN') === 'localhost') {
+      return true;
+    }
+
     $secret = env('RECAPTCHA_SECRET_KEY');
     $url = 'https://www.google.com/recaptcha/api/siteverify';
 

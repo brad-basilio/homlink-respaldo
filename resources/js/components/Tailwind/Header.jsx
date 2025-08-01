@@ -76,7 +76,6 @@ const cartItemVariants = {
 };
 
 const Header = ({
-    session,
     showSlogan = true,
     gradientStart,
     menuGradientEnd,
@@ -86,6 +85,40 @@ const Header = ({
     backgroundPosition = "object-top",
     children,
 }) => {
+    // Estado para la autenticación
+    const [auth, setAuth] = useState(null);
+    const [authLoading, setAuthLoading] = useState(true);
+
+    // Función para verificar autenticación
+    const checkAuth = async () => {
+        try {
+            const response = await fetch('/api/user-check', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setAuth(data.auth || null);
+            } else {
+                setAuth(null);
+            }
+        } catch (error) {
+            console.log('Auth check failed:', error);
+            setAuth(null);
+        } finally {
+            setAuthLoading(false);
+        }
+    };
+
+    // Verificar autenticación al montar el componente
+    useEffect(() => {
+        checkAuth();
+    }, []);
     const { t, loading, error } = useTranslation();
     /*  if (loading) {
         return <div className="text-center py-4">Cargando menú...</div>;
@@ -266,7 +299,7 @@ const Header = ({
                 setSelectLanguage(langData);
                 window.location.reload(); // ⚠️ Opcional temporal para forzar actualización
             } else {
-              //
+                //
             }
         } catch (error) {
             console.error("Error de red:", error);
@@ -334,27 +367,27 @@ const Header = ({
                             <p className="font-bold text-sm whitespace-nowrap flex gap-2">
                                 <span className="inline-flex">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.3481 17.8071C10.9867 18.1455 10.5037 18.3346 10.0009 18.3346C9.49817 18.3346 9.01517 18.1455 8.65375 17.8071C5.34418 14.6896 0.908967 11.2071 3.07189 6.15102C4.24136 3.41727 7.04862 1.66797 10.0009 1.66797C12.9532 1.66797 15.7605 3.41727 16.93 6.15102C19.0902 11.2007 14.6658 14.7004 11.3481 17.8071Z" stroke="white" strokeWidth="1.25"/>
-<path d="M12.9163 9.16667C12.9163 10.7775 11.6105 12.0833 9.99967 12.0833C8.38884 12.0833 7.08301 10.7775 7.08301 9.16667C7.08301 7.55583 8.38884 6.25 9.99967 6.25C11.6105 6.25 12.9163 7.55583 12.9163 9.16667Z" stroke="white" strokeWidth="1.25"/>
-</svg>
+                                        <path d="M11.3481 17.8071C10.9867 18.1455 10.5037 18.3346 10.0009 18.3346C9.49817 18.3346 9.01517 18.1455 8.65375 17.8071C5.34418 14.6896 0.908967 11.2071 3.07189 6.15102C4.24136 3.41727 7.04862 1.66797 10.0009 1.66797C12.9532 1.66797 15.7605 3.41727 16.93 6.15102C19.0902 11.2007 14.6658 14.7004 11.3481 17.8071Z" stroke="white" strokeWidth="1.25" />
+                                        <path d="M12.9163 9.16667C12.9163 10.7775 11.6105 12.0833 9.99967 12.0833C8.38884 12.0833 7.08301 10.7775 7.08301 9.16667C7.08301 7.55583 8.38884 6.25 9.99967 6.25C11.6105 6.25 12.9163 7.55583 12.9163 9.16667Z" stroke="white" strokeWidth="1.25" />
+                                    </svg>
 
                                 </span>
                                 {renderHighlightedText(Cintillo?.description)}
                             </p>
                         </div>
-                        
+
                         {/* Información de contacto - lado derecho */}
                         <div className="flex items-center gap-4 text-xs md:text-sm">
                             {/* Teléfonos de contacto */}
                             {ContactNumber?.description && (
                                 <div className="flex items-center gap-1">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M3.14932 9.9533C2.3593 8.57572 1.97784 7.45087 1.74783 6.31065C1.40765 4.62429 2.18614 2.97698 3.47578 1.92586C4.02084 1.48162 4.64566 1.6334 4.96797 2.21164L5.69562 3.51706C6.27238 4.55178 6.56075 5.06913 6.50355 5.61763C6.44636 6.16613 6.05744 6.61285 5.27961 7.50631L3.14932 9.9533ZM3.14932 9.9533C4.74839 12.7416 7.25783 15.2524 10.0493 16.8533M10.0493 16.8533C11.4269 17.6433 12.5517 18.0248 13.692 18.2548C15.3783 18.595 17.0256 17.8165 18.0767 16.5268C18.521 15.9818 18.3692 15.357 17.791 15.0346L16.4855 14.307C15.4508 13.7302 14.9335 13.4419 14.385 13.4991C13.8365 13.5562 13.3897 13.9451 12.4963 14.723L10.0493 16.8533Z" stroke="white" strokeWidth="1.25" strokeLinejoin="round"/>
-</svg>
+                                        <path d="M3.14932 9.9533C2.3593 8.57572 1.97784 7.45087 1.74783 6.31065C1.40765 4.62429 2.18614 2.97698 3.47578 1.92586C4.02084 1.48162 4.64566 1.6334 4.96797 2.21164L5.69562 3.51706C6.27238 4.55178 6.56075 5.06913 6.50355 5.61763C6.44636 6.16613 6.05744 6.61285 5.27961 7.50631L3.14932 9.9533ZM3.14932 9.9533C4.74839 12.7416 7.25783 15.2524 10.0493 16.8533M10.0493 16.8533C11.4269 17.6433 12.5517 18.0248 13.692 18.2548C15.3783 18.595 17.0256 17.8165 18.0767 16.5268C18.521 15.9818 18.3692 15.357 17.791 15.0346L16.4855 14.307C15.4508 13.7302 14.9335 13.4419 14.385 13.4991C13.8365 13.5562 13.3897 13.9451 12.4963 14.723L10.0493 16.8533Z" stroke="white" strokeWidth="1.25" strokeLinejoin="round" />
+                                    </svg>
 
                                     <div className="flex flex-wrap gap-1">
                                         {ContactNumber.description.split(',').map((phone, index) => (
-                                            <a 
+                                            <a
                                                 key={index}
                                                 href={`tel:${phone.trim()}`}
                                                 className="hover:text-secondary transition-colors duration-200 whitespace-nowrap"
@@ -366,18 +399,18 @@ const Header = ({
                                     </div>
                                 </div>
                             )}
-                            
+
                             {/* Emails de contacto */}
                             {ContactEmail?.description && (
                                 <div className="flex items-center gap-1">
-                                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="white" strokeWidth="1.25" strokeLinejoin="round"/>
-<path d="M1.68111 11.231C1.73559 13.7856 1.76283 15.0629 2.70544 16.0091C3.64804 16.9553 4.95991 16.9882 7.58366 17.0541C9.20072 17.0948 10.8019 17.0948 12.419 17.0541C15.0427 16.9882 16.3546 16.9553 17.2972 16.0091C18.2398 15.0629 18.2671 13.7856 18.3215 11.231C18.3391 10.4096 18.3391 9.59305 18.3215 8.77164C18.2671 6.21702 18.2398 4.93971 17.2972 3.99352C16.3546 3.04733 15.0427 3.01437 12.419 2.94844C10.8019 2.90781 9.20072 2.90781 7.58365 2.94844C4.95991 3.01435 3.64804 3.04731 2.70543 3.99351C1.76282 4.9397 1.73559 6.21701 1.6811 8.77164C1.66359 9.59305 1.66359 10.4096 1.68111 11.231Z" stroke="white" strokeWidth="1.25" strokeLinejoin="round"/>
-</svg>
+                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="white" strokeWidth="1.25" strokeLinejoin="round" />
+                                        <path d="M1.68111 11.231C1.73559 13.7856 1.76283 15.0629 2.70544 16.0091C3.64804 16.9553 4.95991 16.9882 7.58366 17.0541C9.20072 17.0948 10.8019 17.0948 12.419 17.0541C15.0427 16.9882 16.3546 16.9553 17.2972 16.0091C18.2398 15.0629 18.2671 13.7856 18.3215 11.231C18.3391 10.4096 18.3391 9.59305 18.3215 8.77164C18.2671 6.21702 18.2398 4.93971 17.2972 3.99352C16.3546 3.04733 15.0427 3.01437 12.419 2.94844C10.8019 2.90781 9.20072 2.90781 7.58365 2.94844C4.95991 3.01435 3.64804 3.04731 2.70543 3.99351C1.76282 4.9397 1.73559 6.21701 1.6811 8.77164C1.66359 9.59305 1.66359 10.4096 1.68111 11.231Z" stroke="white" strokeWidth="1.25" strokeLinejoin="round" />
+                                    </svg>
 
                                     <div className="flex flex-wrap gap-1">
                                         {ContactEmail.description.split(',').map((email, index) => (
-                                            <a 
+                                            <a
                                                 key={index}
                                                 href={`mailto:${email.trim()}`}
                                                 className="hover:text-secondary transition-colors duration-200 whitespace-nowrap"
@@ -415,7 +448,7 @@ const Header = ({
                         >
                             <a href="/">
                                 <motion.img
-                                    whileHover={{ 
+                                    whileHover={{
                                         scale: 1.08,
                                         y: -2,
                                         filter: "drop-shadow(0 0 10px rgba(187, 255, 82, 0.4))"
@@ -482,12 +515,12 @@ const Header = ({
                                                     }
                                                 }}
                                                 variants={itemVariants}
-                                                whileHover={{ 
+                                                whileHover={{
                                                     scale: 1.06,
                                                     y: -2,
                                                     boxShadow: "0 10px 25px rgba(126, 90, 251, 0.25)"
                                                 }}
-                                                whileTap={{ 
+                                                whileTap={{
                                                     scale: 0.95,
                                                     y: 0
                                                 }}
@@ -506,7 +539,7 @@ const Header = ({
                                                     <motion.span
                                                         layoutId="activeDot"
                                                         initial={{ scale: 0 }}
-                                                        animate={{ 
+                                                        animate={{
                                                             scale: [1, 1.1, 1],
                                                             boxShadow: [
                                                                 "0 0 0 0 rgba(187, 255, 82, 0.7)",
@@ -516,7 +549,7 @@ const Header = ({
                                                         }}
                                                         transition={{
                                                             scale: { duration: 1, repeat: Infinity, ease: "easeInOut" },
-                                                            boxShadow: { 
+                                                            boxShadow: {
                                                                 duration: 2,
                                                                 repeat: Infinity,
                                                                 ease: "easeInOut"
@@ -542,45 +575,108 @@ const Header = ({
                                     );
                                 })}
                             </nav>
-                               <motion.div
-                            variants={itemVariants}
-                            className="hidden xl:flex gap-4 justify-center items-center"
-                        >
-                            {/*  <WhatsAppButtonWithArrow
+                            <motion.div
+                                variants={itemVariants}
+                                className="hidden xl:flex gap-4 justify-center items-center"
+                            >
+                                {/*  <WhatsAppButtonWithArrow
                                 variant="primary"
                                 size="medium"
                                 className="text-base 2xl:text-lg"
                             >
                                 Reserva una consulta
                             </WhatsAppButtonWithArrow> */}
-                                                        <motion.a 
-                                href="/login" 
-                                whileHover={{ 
-                                    scale: 1.06,
-                                    y: -2,
-                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
-                                }}
-                                whileTap={{ 
-                                    scale: 0.95,
-                                    y: 0
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 400,
-                                    damping: 17
-                                }}
-                                className="ml-6 py-2 px-5 bg-secondary  text-base font-semibold text-white rounded-full relative overflow-hidden group"
-                            >
-                                <span className="relative z-10">
-                                    Entrar
-                                </span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
-                                    transition={{ duration: 0.3 }}
-                                />
-                            </motion.a>
-                          
-                        </motion.div>
+                                
+                                {/* Mostrar diferentes elementos según el estado de sesión */}
+                                {authLoading ? (
+                                    // Mostrando loading mientras se verifica auth
+                                    <div className="ml-6 py-2 px-4 bg-gray-300 text-base font-semibold text-gray-600 rounded-full flex items-center gap-2">
+                                        <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
+                                        <span>...</span>
+                                    </div>
+                                ) : auth?.user ? (
+                                    // Usuario logueado - Mostrar menú de usuario
+                                    <div className="relative group">
+                                        <motion.button
+                                            whileHover={{
+                                                scale: 1.06,
+                                                y: -2,
+                                                boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                            }}
+                                            whileTap={{
+                                                scale: 0.95,
+                                                y: 0
+                                            }}
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 400,
+                                                damping: 17
+                                            }}
+                                            className="ml-6 py-2 px-4 bg-secondary text-base font-semibold text-white rounded-full relative overflow-hidden group flex items-center gap-2"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                            </svg>
+                                            <span className="relative z-10">
+                                                {auth.user.name}
+                                            </span>
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                            <motion.div
+                                                className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
+                                                transition={{ duration: 0.3 }}
+                                            />
+                                        </motion.button>
+                                        
+                                        {/* Dropdown menu */}
+                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                                            <div className="py-1">
+                                        
+                                                <div className="border-t border-gray-100"></div>
+                                                <button 
+                                                    onClick={() => {
+                                                        fetch('/api/logout', { method: 'DELETE' })
+                                                            .then(() => location.reload());
+                                                    }}
+                                                    className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                                                >
+                                                    Cerrar Sesión
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    // Usuario no logueado - Mostrar botón de entrar
+                                    <motion.a
+                                        href="/login"
+                                        whileHover={{
+                                            scale: 1.06,
+                                            y: -2,
+                                            boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                        }}
+                                        whileTap={{
+                                            scale: 0.95,
+                                            y: 0
+                                        }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 17
+                                        }}
+                                        className="ml-6 py-2 px-5 bg-secondary  text-base font-semibold text-white rounded-full relative overflow-hidden group"
+                                    >
+                                        <span className="relative z-10">
+                                            Entrar
+                                        </span>
+                                        <motion.div
+                                            className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
+                                            transition={{ duration: 0.3 }}
+                                        />
+                                    </motion.a>
+                                )}
+
+                            </motion.div>
                         </motion.div>
 
                         {/*
@@ -595,7 +691,7 @@ const Header = ({
                             />
                         </motion.div> */}
 
-                     
+
 
                         <motion.div
                             variants={itemVariants}
@@ -606,7 +702,7 @@ const Header = ({
                                     ref={btnToggleRef}
                                     onClick={toggleMenu}
                                     whileTap={{ scale: 0.95 }}
-                                    whileHover={{ 
+                                    whileHover={{
                                         scale: 1.06,
                                         boxShadow: "0 8px 20px rgba(126, 90, 251, 0.3)"
                                     }}
@@ -619,19 +715,19 @@ const Header = ({
                                 >
                                     <div className="text-white relative z-10">
                                         {isOpen ? (
-                                            <svg 
-                                                className="w-6 h-6" 
-                                                fill="none" 
-                                                stroke="currentColor" 
+                                            <svg
+                                                className="w-6 h-6"
+                                                fill="none"
+                                                stroke="currentColor"
                                                 viewBox="0 0 24 24"
                                             >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                             </svg>
                                         ) : (
-                                            <svg 
-                                                className="w-6 h-6" 
-                                                fill="none" 
-                                                stroke="currentColor" 
+                                            <svg
+                                                className="w-6 h-6"
+                                                fill="none"
+                                                stroke="currentColor"
                                                 viewBox="0 0 24 24"
                                             >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -707,14 +803,14 @@ const Header = ({
                                         style={{ opacity: 1, visibility: 'visible' }}
                                     >
                                         {[
-                                            
-                                
-                                
+
+
+
                                             { path: "/nosotros", color: "bg-white" },
                                             { path: "/services", color: "bg-white" },
                                             { path: "/contacto", color: "bg-white" },
                                             { path: "/blog", color: "bg-white" },
-                                          
+
                                         ].map((item, index) => {
                                             const text = {
                                                 "/nosotros": t("public.header.home", "Nosotros"),
@@ -838,41 +934,142 @@ const Header = ({
                                     </motion.ul>
 
                                     {/* CTA Button */}
-                                        <motion.div
-                            variants={itemVariants}
-                            className=" flex flex-col gap-4 mt-8 w-full"
-                        >
-                           
-                            <motion.a 
-                                href="/contacto" 
-                                whileHover={{ 
-                                    scale: 1.06,
-                                    y: -2,
-                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
-                                }}
-                                whileTap={{ 
-                                    scale: 0.95,
-                                    y: 0
-                                }}
-                                transition={{
-                                    type: "spring",
-                                    stiffness: 400,
-                                    damping: 17
-                                }}
-                                className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
-                            >
-                                <span className="relative z-10">
-                                    Contáctanos
-                                </span>
-                                <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
-                                    transition={{ duration: 0.3 }}
-                                />
-                            </motion.a>
-                    
-                        </motion.div>
+                                    <motion.div
+                                        variants={itemVariants}
+                                        className=" flex flex-col gap-4 mt-8 w-full"
+                                    >
+                                        {authLoading ? (
+                                            // Estado de carga
+                                            <div className="py-3 px-4 flex items-center justify-center bg-gray-300 text-sm font-medium text-gray-600 rounded-full">
+                                                <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin mr-2"></div>
+                                                Verificando...
+                                            </div>
+                                        ) : auth?.user ? (
+                                            // Usuario logueado - Mostrar opciones de usuario
+                                            <>
+                                                <motion.a
+                                                    href="/my-account"
+                                                    whileHover={{
+                                                        scale: 1.06,
+                                                        y: -2,
+                                                        boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                                    }}
+                                                    whileTap={{
+                                                        scale: 0.95,
+                                                        y: 0
+                                                    }}
+                                                    transition={{
+                                                        type: "spring",
+                                                        stiffness: 400,
+                                                        damping: 17
+                                                    }}
+                                                    className="py-3 px-4 flex items-center justify-center bg-secondary text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                                >
+                                                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                    </svg>
+                                                    <span className="relative z-10">
+                                                        Mi Cuenta
+                                                    </span>
+                                                    <motion.div
+                                                        className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
+                                                        transition={{ duration: 0.3 }}
+                                                    />
+                                                </motion.a>
 
-                               
+                                                <motion.button
+                                                    onClick={() => {
+                                                        fetch('/api/logout', { method: 'DELETE' })
+                                                            .then(() => location.reload());
+                                                    }}
+                                                    whileHover={{
+                                                        scale: 1.06,
+                                                        y: -2,
+                                                        boxShadow: "0 10px 25px rgba(220, 38, 38, 0.3)"
+                                                    }}
+                                                    whileTap={{
+                                                        scale: 0.95,
+                                                        y: 0
+                                                    }}
+                                                    transition={{
+                                                        type: "spring",
+                                                        stiffness: 400,
+                                                        damping: 17
+                                                    }}
+                                                    className="py-3 px-4 flex items-center justify-center bg-red-500 text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                                >
+                                                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                    </svg>
+                                                    <span className="relative z-10">
+                                                        Cerrar Sesión
+                                                    </span>
+                                                    <motion.div
+                                                        className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 opacity-0 group-hover:opacity-100"
+                                                        transition={{ duration: 0.3 }}
+                                                    />
+                                                </motion.button>
+                                            </>
+                                        ) : (
+                                            // Usuario no logueado - Mostrar botón de entrar
+                                            <motion.a
+                                                href="/login"
+                                                whileHover={{
+                                                    scale: 1.06,
+                                                    y: -2,
+                                                    boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                                }}
+                                                whileTap={{
+                                                    scale: 0.95,
+                                                    y: 0
+                                                }}
+                                                transition={{
+                                                    type: "spring",
+                                                    stiffness: 400,
+                                                    damping: 17
+                                                }}
+                                                className="py-3 px-4 flex items-center justify-center bg-secondary text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                            >
+                                                <span className="relative z-10">
+                                                    Entrar
+                                                </span>
+                                                <motion.div
+                                                    className="absolute inset-0 bg-gradient-to-r from-primary to-accent/90 opacity-0 group-hover:opacity-100"
+                                                    transition={{ duration: 0.3 }}
+                                                />
+                                            </motion.a>
+                                        )}
+
+                                        <motion.a
+                                            href="/contacto"
+                                            whileHover={{
+                                                scale: 1.06,
+                                                y: -2,
+                                                boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
+                                            }}
+                                            whileTap={{
+                                                scale: 0.95,
+                                                y: 0
+                                            }}
+                                            transition={{
+                                                type: "spring",
+                                                stiffness: 400,
+                                                damping: 17
+                                            }}
+                                            className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                        >
+                                            <span className="relative z-10">
+                                                Contáctanos
+                                            </span>
+                                            <motion.div
+                                                className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
+                                                transition={{ duration: 0.3 }}
+                                            />
+                                        </motion.a>
+
+                                    </motion.div>
+
+
                                 </div>
                             </motion.div>
                         </>

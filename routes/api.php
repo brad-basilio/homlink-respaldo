@@ -4,6 +4,7 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\BannerMediaController;
 use App\Http\Controllers\PaymentMethodMediaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 // Admin
 use App\Http\Controllers\Admin\AboutusController as AdminAboutusController;
@@ -165,6 +166,21 @@ Route::get('/items/get-testimonies', [TestimonyController::class, 'getTestimonie
 /*OTROS */
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/signup', [AuthController::class, 'signup']);
+
+// Endpoint para verificar autenticación
+Route::get('/user-check', function() {
+    return response()->json([
+        'auth' => [
+            'user' => Auth::check() ? [
+                'id' => Auth::user()->id,
+                'name' => Auth::user()->name,
+                'lastname' => Auth::user()->lastname,
+                'email' => Auth::user()->email,
+                'fullname' => Auth::user()->name . ' ' . Auth::user()->lastname,
+            ] : null,
+        ]
+    ]);
+});
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
 
 Route::get('/landing_home/media/{uuid}', [LandingHomeController::class, 'media']);

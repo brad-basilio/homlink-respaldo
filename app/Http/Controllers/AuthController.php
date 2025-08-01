@@ -28,7 +28,7 @@ class AuthController extends Controller
           return redirect('/admin/messages');
           break;
         case 'Customer':
-          return redirect('/my-account');
+          return redirect('/'); // Redirigir a la página principal
           break;
 
         default:
@@ -89,7 +89,7 @@ class AuthController extends Controller
 
   public function registerView()
   {
-    if (Auth::check()) return redirect('/home');
+    if (Auth::check()) return redirect('/'); // Redirigir a la página principal si ya está logueado
 
     $roles = Role::where('public', true)->get();
 
@@ -109,7 +109,7 @@ class AuthController extends Controller
 
   public function confirmEmailView(Request $request, string $token)
   {
-    if (Auth::check()) return redirect('/home');
+    if (Auth::check()) return redirect('/'); // Redirigir a la página principal si ya está logueado
 
     $preUserJpa = PreUser::where('token', $token)->first();
     if (!$preUserJpa) return redirect('/login');
@@ -159,6 +159,8 @@ class AuthController extends Controller
         'name' => 'required|string|max:255',
         'lastname' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
+        'phone' => 'nullable|string|max:20',
+        'document' => 'nullable|string|max:20',
         'password' => 'required|string',
         'confirmation' => 'required|string',
         'captcha' => 'required|string',
@@ -175,29 +177,29 @@ class AuthController extends Controller
 
       if (!$roleJpa) throw new Exception('El rol que ingresaste no existe, que intentas hacer?');
 
-      $preUserJpa = PreUser::updateOrCreate([
-        'email' => $body['email']
-      ], [
+      // Crear el usuario directamente en lugar de PreUser
+      $userJpa = User::create([
+        'uuid' => Crypto::randomUUID(),
         'name' => $body['name'],
         'lastname' => $body['lastname'],
-        'birth_day' => $body['day'],
-        'birth_month' => $body['month'],
         'email' => $body['email'],
-        'role' => $roleJpa->relative_id,
-        'password' => Controller::decode($body['password']),
-        'confirmation_token' => Crypto::randomUUID(),
-        'notify_me' => $body['notify_me'],
-        'token' => Crypto::randomUUID(),
-      ]);
+        'phone' => $body['phone'],
+        'dni' => $body['document'], // Mapear document a dni
+        'email_verified_at' => Trace::getDate('mysql'),
+        'password' => bcrypt(Controller::decode($body['password'])), // Encriptar con bcrypt
+        'status' => true
+      ])->assignRole($roleJpa->name);
 
-      MailingController::simpleNotify('mailing.confirm-email', $preUserJpa->email, [
-        'title' => 'Confirmacion - ' . env('APP_NAME'),
-        'preUser' => $preUserJpa->toArray()
-      ]);
+      // Loguear automáticamente al usuario
+      Auth::login($userJpa);
+      $request->session()->regenerate();
 
       $response->status = 200;
-      $response->message = 'Operacion correcta';
-      $response->data = $preUserJpa->token;
+      $response->message = 'Cuenta creada exitosamente. Bienvenido!';
+      $response->data = [
+        'redirect' => '/', // Redirigir a la página principal
+        'user' => $userJpa->only(['name', 'lastname', 'email'])
+      ];
     } catch (\Throwable $th) {
       $response->status = 400;
       $response->message = $th->getMessage();
