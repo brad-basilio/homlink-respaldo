@@ -212,6 +212,8 @@ const Properties = () => {
     const departmentRef = useRef();
     const provinceRef = useRef();
     const districtRef = useRef();
+    const postalCodeRef = useRef();
+    const externalLinkRef = useRef();
     const bedroomsRef = useRef();
     const bathroomsRef = useRef();
     const maxGuestsRef = useRef();
@@ -251,6 +253,28 @@ const Properties = () => {
     const [houseRules, setHouseRules] = useState([
         { text: "", icon: "fas fa-info-circle" },
     ]);
+
+    // Amenidades predefinidas como en el formulario del cliente
+    const predefinedAmenities = [
+        { id: 'wifi', label: 'WiFi', icon: 'fa-wifi' },
+        { id: 'tv', label: 'TV', icon: 'fa-tv' },
+        { id: 'kitchen', label: 'Cocina', icon: 'fa-utensils' },
+        { id: 'washing_machine', label: 'Lavadora', icon: 'fa-tshirt' },
+        { id: 'parking', label: 'Estacionamiento', icon: 'fa-car' },
+        { id: 'air_conditioning', label: 'Aire acondicionado', icon: 'fa-snowflake' },
+        { id: 'heating', label: 'Calefacción', icon: 'fa-fire' },
+        { id: 'pool', label: 'Piscina', icon: 'fa-swimming-pool' },
+        { id: 'gym', label: 'Gimnasio', icon: 'fa-dumbbell' },
+        { id: 'balcony', label: 'Balcón', icon: 'fa-building' },
+        { id: 'garden', label: 'Jardín', icon: 'fa-leaf' },
+        { id: 'pet_friendly', label: 'Pet Friendly', icon: 'fa-paw' },
+        { id: 'elevator', label: 'Ascensor', icon: 'fa-elevator' },
+        { id: 'terrace', label: 'Terraza', icon: 'fa-home' },
+        { id: 'bbq', label: 'Parrilla/BBQ', icon: 'fa-fire-burner' },
+        { id: 'security', label: 'Seguridad 24h', icon: 'fa-shield-alt' }
+    ];
+
+    const [selectedAmenities, setSelectedAmenities] = useState([]);
 
     // Cargar datos iniciales
     useEffect(() => {
@@ -506,6 +530,15 @@ const Properties = () => {
         setGallery(prev => prev.filter((_, i) => i !== index));
     };
 
+    // Funciones para amenidades predefinidas
+    const togglePredefinedAmenity = (amenityId) => {
+        setSelectedAmenities(prev => 
+            prev.includes(amenityId)
+                ? prev.filter(id => id !== amenityId)
+                : [...prev, amenityId]
+        );
+    };
+
     // Funciones para amenidades
     const addAmenity = () => {
         setAmenities([...amenities, { name: "", icon: "", available: true }]);
@@ -581,10 +614,19 @@ const Properties = () => {
         if (data) {
             idRef.current.value = data.id || "";
             titleRef.current.value = data.title || "";
-            platformRef.current.value = data.platform || "Airbnb";
+            platformRef.current.value = "Airbnb"; // Siempre Airbnb
             priceRef.current.value = data.price_per_night || "";
             currencyRef.current.value = data.currency || "PEN";
             addressRef.current.value = data.address || "";
+            postalCodeRef.current.value = data.postal_code || "";
+            externalLinkRef.current.value = data.external_link || "";
+
+            // Cargar amenidades predefinidas
+            if (data.amenities && Array.isArray(data.amenities)) {
+                setSelectedAmenities(data.amenities);
+            } else {
+                setSelectedAmenities([]);
+            }
 
             // Cargar ubicación en secuencia asíncrona
             if (data.department) {
@@ -627,8 +669,9 @@ const Properties = () => {
               
             }
 
-            // Cargar arrays dinámicos
-            setAmenities(data.amenities?.length ? data.amenities : [{ name: "", icon: "", available: true }]);
+            // Cargar arrays dinámicos - separar amenidades predefinidas de personalizadas
+            const customAmenities = data.amenities_custom?.length ? data.amenities_custom : [{ name: "", icon: "", available: true }];
+            setAmenities(customAmenities);
             setServices(data.services?.length ? data.services : [{ name: "", description: "", icon: "", available: true }]);
             setCharacteristics(data.characteristics?.length ? data.characteristics : [{ name: "", value: "", icon: "" }]);
             setHouseRules(data.house_rules?.length ? data.house_rules : [{ text: "", icon: "fas fa-info-circle" }]);
@@ -637,10 +680,15 @@ const Properties = () => {
             // Limpiar formulario
             idRef.current.value = "";
             titleRef.current.value = "";
-            platformRef.current.value = "Airbnb";
+            platformRef.current.value = "Airbnb"; // Siempre Airbnb por defecto
             priceRef.current.value = "";
             currencyRef.current.value = "PEN";
             addressRef.current.value = "";
+            postalCodeRef.current.value = "";
+            externalLinkRef.current.value = "";
+
+            // Limpiar amenidades predefinidas
+            setSelectedAmenities([]);
 
             // Limpiar ubicación
             setSelectedDepartment("");
@@ -661,7 +709,7 @@ const Properties = () => {
             reviewsCountRef.current.value = 0;
 
             mainImageRef.current.value = "";
-            mainImageRef.current.image.src = `/api/property/media/undefined`;
+            mainImageRef.image.src = `/api/property/media/undefined`;
 
             setAmenities([{ name: "", icon: "", available: true }]);
             setServices([{ name: "", description: "", icon: "", available: true }]);
@@ -682,10 +730,12 @@ const Properties = () => {
         // Campos básicos
         if (idRef.current.value) formData.append("id", idRef.current.value);
         formData.append("title", titleRef.current.value);
-        formData.append("platform", platformRef.current.value);
+        formData.append("platform", "Airbnb"); // Siempre Airbnb
         formData.append("price_per_night", priceRef.current.value);
         formData.append("currency", currencyRef.current.value);
         formData.append("address", addressRef.current.value);
+        formData.append("postal_code", postalCodeRef.current.value);
+        formData.append("external_link", externalLinkRef.current.value);
         formData.append("department", $(departmentRef.current).val());
         formData.append("province", $(provinceRef.current).val());
         formData.append("district", $(districtRef.current).val());
@@ -699,6 +749,23 @@ const Properties = () => {
         formData.append("short_description", shortDescriptionRef.current.value);
         formData.append("rating", ratingRef.current.value);
         formData.append("reviews_count", reviewsCountRef.current.value);
+
+        // ✅ AGREGADO: Las propiedades creadas desde admin se aprueban automáticamente
+        if (!isEditing) {
+            formData.append("admin_approved", true);
+        }
+
+        // Amenidades predefinidas (como array simple)
+        selectedAmenities.forEach((amenityId, index) => {
+            formData.append(`amenities[${index}]`, amenityId);
+        });
+
+        // ✅ CORREGIDO: Amenidades personalizadas (en el campo amenities_custom)
+        amenities.forEach((amenity, index) => {
+            formData.append(`amenities_custom[${index}][name]`, amenity.name);
+            formData.append(`amenities_custom[${index}][icon]`, amenity.icon);
+            formData.append(`amenities_custom[${index}][available]`, amenity.available);
+        });
 
         // Imagen principal
         if (mainImageRef.current?.files?.[0]) {
@@ -718,11 +785,11 @@ const Properties = () => {
             formData.append("existing_gallery", JSON.stringify(existingGallery));
         }
 
-        // Arrays dinámicos
+        // Arrays dinámicos - amenidades personalizadas
         amenities.forEach((amenity, index) => {
-            formData.append(`amenities[${index}][name]`, amenity.name);
-            formData.append(`amenities[${index}][icon]`, amenity.icon);
-            formData.append(`amenities[${index}][available]`, amenity.available);
+            formData.append(`amenities_custom[${index}][name]`, amenity.name);
+            formData.append(`amenities_custom[${index}][icon]`, amenity.icon);
+            formData.append(`amenities_custom[${index}][available]`, amenity.available);
         });
 
         services.forEach((service, index) => {
@@ -768,6 +835,100 @@ const Properties = () => {
             $(gridRef.current).dxDataGrid("instance").refresh();
         } catch (error) {
             console.error("Error updating property:", error);
+        }
+    };
+
+    // ✅ AGREGADO: Función para aprobar propiedades
+    const onApproveProperty = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: '¿Aprobar propiedad?',
+                text: 'Esta propiedad será visible públicamente',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, aprobar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (result.isConfirmed) {
+                const response = await fetch('/api/admin/properties/approve', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                    },
+                    body: JSON.stringify({ id })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 200) {
+                    $(gridRef.current).dxDataGrid("instance").refresh();
+                    Swal.fire({
+                        title: 'Aprobada',
+                        text: 'La propiedad ha sido aprobada exitosamente',
+                        icon: 'success'
+                    });
+                } else {
+                    throw new Error(data.message);
+                }
+            }
+        } catch (error) {
+            console.error("Error approving property:", error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al aprobar la propiedad',
+                icon: 'error'
+            });
+        }
+    };
+
+    // ✅ AGREGADO: Función para rechazar propiedades
+    const onRejectProperty = async (id) => {
+        try {
+            const result = await Swal.fire({
+                title: '¿Rechazar propiedad?',
+                text: 'Esta propiedad no será visible públicamente',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Sí, rechazar',
+                cancelButtonText: 'Cancelar'
+            });
+
+            if (result.isConfirmed) {
+                const response = await fetch('/api/admin/properties/reject', {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                    },
+                    body: JSON.stringify({ id })
+                });
+
+                const data = await response.json();
+
+                if (data.status === 200) {
+                    $(gridRef.current).dxDataGrid("instance").refresh();
+                    Swal.fire({
+                        title: 'Rechazada',
+                        text: 'La propiedad ha sido rechazada',
+                        icon: 'success'
+                    });
+                } else {
+                    throw new Error(data.message);
+                }
+            }
+        } catch (error) {
+            console.error("Error rejecting property:", error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Error al rechazar la propiedad',
+                icon: 'error'
+            });
         }
     };
 
@@ -969,6 +1130,58 @@ const Properties = () => {
                                             );
                                         }
                                     },
+                                    // ✅ AGREGADO: Columna de aprobación
+                                    {
+                                        dataField: "admin_approved",
+                                        caption: "Aprobación",
+                                        width: "140px",
+                                        cellTemplate: (container, { data }) => {
+                                            ReactAppend(
+                                                container,
+                                                <div className="d-flex gap-1">
+                                                    {data.admin_approved ? (
+                                                        <>
+                                                            <span className="badge bg-success">
+                                                                <i className="fas fa-check me-1"></i>
+                                                                Aprobada
+                                                            </span>
+                                                            <button
+                                                                className="btn btn-xs btn-outline-danger"
+                                                                onClick={() => onRejectProperty(data.id)}
+                                                                title="Rechazar"
+                                                            >
+                                                                <i className="fas fa-times"></i>
+                                                            </button>
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <span className="badge bg-warning">
+                                                                <i className="fas fa-clock me-1"></i>
+                                                                Pendiente
+                                                            </span>
+                                                            <button
+                                                                className="btn btn-xs btn-outline-success"
+                                                                onClick={() => onApproveProperty(data.id)}
+                                                                title="Aprobar"
+                                                            >
+                                                                <i className="fas fa-check"></i>
+                                                            </button>
+                                                        </>
+                                                    )}
+                                                </div>
+                                            );
+                                        },
+                                        allowFiltering: true,
+                                        filterOperations: ["="],
+                                        lookup: {
+                                            dataSource: [
+                                                { value: true, text: "Aprobada" },
+                                                { value: false, text: "Pendiente" }
+                                            ],
+                                            valueExpr: "value",
+                                            displayExpr: "text"
+                                        }
+                                    },
                                     {
                                         caption: "Acciones",
                                         width: "100px",
@@ -1056,7 +1269,7 @@ const Properties = () => {
                                     </div>
                                     <div className="col-lg-2 mb-3">
                                         <label className="form-label fw-semibold">Moneda</label>
-                                        <select className="form-select" ref={currencyRef}>
+                                        <select className="form-select" ref={currencyRef} disabled>
                                             <option value="PEN">PEN</option>
                                             <option value="USD">USD</option>
                                             <option value="EUR">EUR</option>
@@ -1174,7 +1387,7 @@ const Properties = () => {
                             Ubicación
                         </h5>
                         <div className="row">
-                            <div className="col-lg-6 mb-3">
+                            <div className="col-lg-4 mb-3">
                                 <InputFormGroup
                                     label="Dirección completa"
                                     eRef={addressRef}
@@ -1183,6 +1396,27 @@ const Properties = () => {
                                 />
                             </div>
                             <div className="col-lg-2 mb-3">
+                                <InputFormGroup
+                                    label="Código Postal"
+                                    eRef={postalCodeRef}
+                                    placeholder="15074"
+                                />
+                            </div>
+                            <div className="col-lg-6 mb-3">
+                                <InputFormGroup
+                                    label="Link de Airbnb (Para sincronizar fechas)"
+                                    eRef={externalLinkRef}
+                                    type="url"
+                                    placeholder="https://www.airbnb.com/rooms/12345"
+                                />
+                                <small className="text-muted">
+                                    <i className="fas fa-info-circle me-1"></i>
+                                    Este enlace permite sincronizar automáticamente las fechas disponibles
+                                </small>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-lg-4 mb-3">
                                 <SelectFormGroup
                                     label="Departamento"
                                     eRef={departmentRef}
@@ -1200,7 +1434,7 @@ const Properties = () => {
                                     ))}
                                 </SelectFormGroup>
                             </div>
-                            <div className="col-lg-2 mb-3">
+                            <div className="col-lg-4 mb-3">
                                 <SelectFormGroup
                                     label="Provincia"
                                     eRef={provinceRef}
@@ -1225,7 +1459,7 @@ const Properties = () => {
                                     ))}
                                 </SelectFormGroup>
                             </div>
-                            <div className="col-lg-2 mb-3">
+                            <div className="col-lg-4 mb-3">
                                 <SelectFormGroup
                                     label="Distrito"
                                     eRef={districtRef}
@@ -1305,12 +1539,59 @@ const Properties = () => {
                         </div>
                     </div>
 
-                    {/* Amenidades */}
+                    {/* Amenidades Predefinidas */}
+                    <div className="col-12 mb-4">
+                        <h5 className="border-bottom pb-2">
+                            <i className="fas fa-star me-2"></i>
+                            Amenidades Principales
+                        </h5>
+                        <div className="row">
+                            {predefinedAmenities.map((amenity, index) => (
+                                <div key={amenity.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div 
+                                        className={`card h-100 border-2 cursor-pointer transition-all ${
+                                            selectedAmenities.includes(amenity.id)
+                                                ? 'border-primary bg-light'
+                                                : 'border-light hover:border-secondary'
+                                        }`}
+                                        onClick={() => togglePredefinedAmenity(amenity.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div className="card-body p-3 text-center">
+                                            <i className={`fas ${amenity.icon} fa-2x mb-2 ${
+                                                selectedAmenities.includes(amenity.id) ? 'text-primary' : 'text-muted'
+                                            }`}></i>
+                                            <h6 className={`mb-0 ${
+                                                selectedAmenities.includes(amenity.id) ? 'text-primary fw-bold' : 'text-dark'
+                                            }`}>
+                                                {amenity.label}
+                                            </h6>
+                                            {selectedAmenities.includes(amenity.id) && (
+                                                <div className="position-absolute top-0 end-0 p-2">
+                                                    <i className="fas fa-check-circle text-success"></i>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="alert alert-info">
+                            <i className="fas fa-info-circle me-2"></i>
+                            Selecciona las amenidades que tiene tu propiedad. Estas amenidades son las más comunes y aparecerán destacadas en los listados.
+                        </div>
+                    </div>
+
+                    {/* Amenidades Personalizadas */}
                     <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
                             <i className="fas fa-wifi me-2"></i>
-                            Amenidades
+                            Amenidades Personalizadas
                         </h5>
+                        <div className="alert alert-warning">
+                            <i className="fas fa-exclamation-triangle me-2"></i>
+                            Agrega amenidades adicionales que no estén en la lista principal.
+                        </div>
                         <div className="row">
                             {amenities.map((amenity, index) => (
                                 <div key={index} className="col-lg-4 mb-3">

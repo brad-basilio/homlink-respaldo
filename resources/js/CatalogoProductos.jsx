@@ -42,9 +42,38 @@ function CatalogoProductos({ propiedades, searchFilters = {} }) {
     // Estado para propiedades filtradas
     const [filteredProperties, setFilteredProperties] = useState(propiedades || []);
     const [propertyStats, setPropertyStats] = useState({ total: propiedades?.length || 0 });
+    
+    // ✅ AGREGADO: Estado para estadísticas de ubicación del mapa
+    const [locationStats, setLocationStats] = useState(null);
+    const [mapCenter, setMapCenter] = useState(null);
+
+    // ✅ AGREGADO: Cargar estadísticas de ubicación para centrar el mapa
+    const loadLocationStats = async () => {
+        try {
+            const response = await fetch('/api/properties/location-stats');
+            const data = await response.json();
+            
+            if (data.success && data.center) {
+                setLocationStats(data);
+                setMapCenter(data.center);
+                console.log('🗺️ Mapa centrado en:', data.center.location, 'con', data.center.count, 'propiedades');
+            }
+        } catch (error) {
+            console.error('Error loading location stats:', error);
+            // Fallback al centro de Lima si hay error
+            setMapCenter({
+                lat: -12.046374,
+                lng: -77.042793,
+                location: 'Lima, Perú',
+                count: 0
+            });
+        }
+    };
 
     // Inicializar filtros con los datos de búsqueda
     useEffect(() => {
+        loadLocationStats(); // Cargar estadísticas al inicio
+        
         if (searchFilters) {
             // Calcular el total de huéspedes
             const totalGuests = (parseInt(searchFilters.adults) || 0) + (parseInt(searchFilters.children) || 0);
@@ -566,7 +595,11 @@ function CatalogoProductos({ propiedades, searchFilters = {} }) {
             />
 
             {/* Main Content - Map View */}
-            <PropertyMapView propiedades={filteredProperties} />
+            <PropertyMapView 
+                propiedades={filteredProperties} 
+                center={mapCenter}
+                locationStats={locationStats}
+            />
 
             <Footer />
         </div>

@@ -83,6 +83,7 @@ use App\Http\Controllers\MyAccountController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PopupController;
 use App\Http\Controllers\PropertyDetailController;
+use App\Http\Controllers\PropertySubmissionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SolutionController;
 use App\Http\Controllers\PurchaseOptionController;
@@ -166,6 +167,10 @@ Route::get('/confirmation/{token}', [AuthController::class, 'loginView'])->name(
 Route::middleware(['auth', 'can:Customer'])->group(function () {
     Route::get('/my-account', [MyAccountController::class, 'reactView'])->name('MyAccount.jsx');
 });
+
+// Ruta para envío de propiedades por usuarios logueados
+Route::post('/property-submission', [PropertySubmissionController::class, 'store'])->middleware('auth')->name('property.submit');
+
 // Admin routes
 Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/', fn() => redirect('Admin/Home.jsx'));

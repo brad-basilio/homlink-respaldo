@@ -14,12 +14,14 @@ class Property extends Model
 
 
     protected $fillable = [
+        'user_id',
         'title',
         'slug',
         'platform',
         'price_per_night',
         'currency',
         'address',
+        'postal_code',
         'department',
         'province',
         'district',
@@ -32,10 +34,12 @@ class Property extends Model
         'max_guests',
         'area_m2',
         'description',
+        'external_link',
         'short_description',
         'main_image',
         'gallery',
         'amenities',
+        'amenities_custom',
         'services',
         'characteristics',
         'house_rules',
@@ -44,12 +48,14 @@ class Property extends Model
         'reviews_count',
         'active',
         'featured',
+        'admin_approved',
         'availability_status'
     ];
 
     protected $casts = [
         'gallery' => 'array',
         'amenities' => 'array',
+        'amenities_custom' => 'array',
         'services' => 'array',
         'characteristics' => 'array',
         'house_rules' => 'array',
@@ -60,6 +66,7 @@ class Property extends Model
         'rating' => 'decimal:1',
         'active' => 'boolean',
         'featured' => 'boolean',
+        'admin_approved' => 'boolean',
     ];
 
     // Accessor para la imagen principal
@@ -112,5 +119,23 @@ class Property extends Model
     public function scopeWithBedrooms($query, $bedrooms)
     {
         return $query->where('bedrooms', '>=', $bedrooms);
+    }
+
+    // Scope para propiedades aprobadas por el administrador
+    public function scopeApproved($query)
+    {
+        return $query->where('admin_approved', true);
+    }
+
+    // Scope para propiedades pendientes de aprobación
+    public function scopePendingApproval($query)
+    {
+        return $query->where('admin_approved', false);
+    }
+
+    // Relación con el usuario que creó la propiedad
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class);
     }
 }

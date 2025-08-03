@@ -20,6 +20,44 @@ class PropertyController extends BasicController
         return $model::orderBy('created_at', 'desc');
     }
 
+    // ✅ AGREGADO: Método para aprobar propiedades
+    public function approve(Request $request)
+    {
+        try {
+            $property = Property::findOrFail($request->id);
+            $property->update(['admin_approved' => true]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Propiedad aprobada exitosamente'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Error al aprobar la propiedad: ' . $e->getMessage()
+            ], 400);
+        }
+    }
+
+    // ✅ AGREGADO: Método para rechazar propiedades
+    public function reject(Request $request)
+    {
+        try {
+            $property = Property::findOrFail($request->id);
+            $property->update(['admin_approved' => false]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Propiedad rechazada'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 400,
+                'message' => 'Error al rechazar la propiedad: ' . $e->getMessage()
+            ], 400);
+        }
+    }
+
     public function beforeSave(Request $request)
     {
         $body = $request->all();
@@ -73,6 +111,26 @@ class PropertyController extends BasicController
             }
         }
         $body['amenities'] = $processedAmenities;
+
+        // ✅ AGREGADO: Procesar amenidades personalizadas (amenities_custom)
+        $processedCustomAmenities = [];
+        if ($request->has('amenities_custom')) {
+            $customAmenities = $request->amenities_custom;
+            foreach ($customAmenities as $index => $amenity) {
+                $name = trim($amenity['name'] ?? '');
+                $icon = trim($amenity['icon'] ?? '');
+                $available = isset($amenity['available']) ? filter_var($amenity['available'], FILTER_VALIDATE_BOOLEAN) : false;
+
+                if ($name) {
+                    $processedCustomAmenities[] = [
+                        'name' => $name,
+                        'icon' => $icon,
+                        'available' => $available
+                    ];
+                }
+            }
+        }
+        $body['amenities_custom'] = $processedCustomAmenities;
 
         // Procesar servicios
         $processedServices = [];
@@ -148,6 +206,11 @@ class PropertyController extends BasicController
         // Log del body procesado
         Log::info('PropertyController beforeSave - Processed body:', $body);
 
+        // ✅ AGREGADO: Propiedades creadas desde admin se aprueban automáticamente
+        if (!isset($body['id']) || empty($body['id'])) {
+            $body['admin_approved'] = true; // Nueva propiedad desde admin = aprobada
+        }
+
         return $body;
     }
 
@@ -166,7 +229,8 @@ class PropertyController extends BasicController
     // Método adicional para obtener propiedades públicas (para frontend)
     public function getPublicProperties(Request $request)
     {
-        $query = Property::active();
+        // ✅ CORREGIDO: Solo propiedades activas Y aprobadas por admin
+        $query = Property::active()->approved();
 
         // Filtros
         if ($request->has('platform')) {
@@ -200,5 +264,45 @@ class PropertyController extends BasicController
         $properties = $query->paginate(12);
 
         return response()->json($properties);
+    }
+
+    // ✅ AGREGADO: Método para obtener estadísticas de ubicaciones para el mapa
+    public function getLocationStats()
+    {
+        try {
+            $locationStats = Property::active()
+                ->approved()
+                ->selectRaw('department, province, district, COUNT(*) as count, AVG(latitude) as avg_lat, AVG(longitude) as avg_lng')
+                ->whereNotNull('latitude')
+                ->whereNotNull('longitude')
+                ->groupBy('department', 'province', 'district')
+                ->orderByDesc('count')
+                ->get();
+
+            // Calcular el centro basado en la ubicación con más propiedades
+            $centerLocation = null;
+            if ($locationStats->isNotEmpty()) {
+                $topLocation = $locationStats->first();
+                $centerLocation = [
+                    'lat' => (float) $topLocation->avg_lat,
+                    'lng' => (float) $topLocation->avg_lng,
+                    'location' => $topLocation->district . ', ' . $topLocation->province,
+                    'count' => $topLocation->count
+                ];
+            }
+
+            return response()->json([
+                'success' => true,
+                'center' => $centerLocation,
+                'locations' => $locationStats,
+                'total_properties' => Property::active()->approved()->count()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error al obtener estadísticas de ubicación',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 }

@@ -41,8 +41,8 @@ class CatalogController extends BasicController
             })->orderBy('updated_at', 'desc')
             ->first();
 
-        // Obtener propiedades con filtros aplicados
-        $propertiesQuery = Property::where('active', true);
+        // Obtener propiedades con filtros aplicados (solo las aprobadas por el admin)
+        $propertiesQuery = Property::where('active', true)->where('admin_approved', true);
 
         // Aplicar filtros de búsqueda si existen
         if ($request->has('location') && !empty($request->location)) {

@@ -170,17 +170,19 @@ Route::post('/signup', [AuthController::class, 'signup']);
 // Endpoint para verificar autenticación
 Route::get('/user-check', function() {
     return response()->json([
-        'auth' => [
-            'user' => Auth::check() ? [
-                'id' => Auth::user()->id,
-                'name' => Auth::user()->name,
-                'lastname' => Auth::user()->lastname,
-                'email' => Auth::user()->email,
-                'fullname' => Auth::user()->name . ' ' . Auth::user()->lastname,
-            ] : null,
-        ]
+        'authenticated' => Auth::check(),
+        'user' => Auth::check() ? [
+            'id' => Auth::user()->id,
+            'name' => Auth::user()->name,
+            'lastname' => Auth::user()->lastname,
+            'email' => Auth::user()->email,
+            'fullname' => Auth::user()->name . ' ' . Auth::user()->lastname,
+        ] : null,
     ]);
 });
+
+// Ruta para envío de propiedades desde el formulario público
+Route::middleware('auth')->post('/properties/submit', [App\Http\Controllers\PropertySubmissionController::class, 'store']);
 Route::get('/sliders/media/{uuid}', [AdminSliderController::class, 'media']);
 
 Route::get('/landing_home/media/{uuid}', [LandingHomeController::class, 'media']);
@@ -191,6 +193,7 @@ Route::get('/property/media/{uuid}', [PropertyController::class, 'media']);
 
 // Rutas públicas para propiedades
 Route::get('/properties/public', [AdminPropertyController::class, 'getPublicProperties']);
+Route::get('/properties/location-stats', [AdminPropertyController::class, 'getLocationStats']); // ✅ AGREGADO
 
 // Others
 Route::get('/solution/media/{uuid}', [SolutionController::class, 'media']);
@@ -531,6 +534,9 @@ Route::middleware('auth')->group(function () {
         Route::patch('/properties/status', [AdminPropertyController::class, 'status']);
         Route::patch('/properties/{field}', [AdminPropertyController::class, 'boolean']);
         Route::delete('/properties/{id}', [AdminPropertyController::class, 'delete']);
+        // ✅ AGREGADO: Rutas para aprobación de propiedades
+        Route::patch('/properties/approve', [AdminPropertyController::class, 'approve']);
+        Route::patch('/properties/reject', [AdminPropertyController::class, 'reject']);
 
         Route::post('/solutions', [AdminSolutionController::class, 'save']);
         Route::post('/solutions/paginate', [AdminSolutionController::class, 'paginate']);

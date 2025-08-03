@@ -444,6 +444,13 @@
       "_createLucideIcon-D_WcjKff.js"
     ]
   },
+  "_circle-check-big-DMAyPPBb.js": {
+    "file": "assets/circle-check-big-DMAyPPBb.js",
+    "name": "circle-check-big",
+    "imports": [
+      "_createLucideIcon-D_WcjKff.js"
+    ]
+  },
   "_classes-to-selector-DtC0LQ2m.js": {
     "file": "assets/classes-to-selector-DtC0LQ2m.js",
     "name": "classes-to-selector",
@@ -582,7 +589,7 @@
     ]
   },
   "node_modules/canvg/lib/index.es.js": {
-    "file": "assets/index.es-Dsb5JPxE.js",
+    "file": "assets/index.es-DI3JCJH6.js",
     "name": "index.es",
     "src": "node_modules/canvg/lib/index.es.js",
     "isDynamicEntry": true,
@@ -610,7 +617,8 @@
       "_createLucideIcon-D_WcjKff.js",
       "_proxy-Dg7W2VMC.js",
       "_sweetalert2.all-DJo0UVK6.js",
-      "_preload-helper-CZZ3Qsu7.js"
+      "_preload-helper-CZZ3Qsu7.js",
+      "_circle-check-big-DMAyPPBb.js"
     ],
     "css": [
       "swiper.css",
@@ -1832,7 +1840,7 @@
     ]
   },
   "resources/js/Admin/Properties.jsx": {
-    "file": "assets/Properties-DjjgPEGF.js",
+    "file": "assets/Properties-BsEwd6LS.js",
     "name": "Properties",
     "src": "resources/js/Admin/Properties.jsx",
     "isEntry": true,
@@ -2677,7 +2685,7 @@
     ]
   },
   "resources/js/CatalogoProductos.jsx": {
-    "file": "assets/CatalogoProductos-CijEzGEd.js",
+    "file": "assets/CatalogoProductos-Bni03MwW.js",
     "name": "CatalogoProductos",
     "src": "resources/js/CatalogoProductos.jsx",
     "isEntry": true,
@@ -3217,7 +3225,7 @@
     ]
   },
   "resources/js/Home.jsx": {
-    "file": "assets/Home-D7l-aZk3.js",
+    "file": "assets/Home-DfdrBRbm.js",
     "name": "Home",
     "src": "resources/js/Home.jsx",
     "isEntry": true,
@@ -3243,6 +3251,7 @@
       "_proxy-Dg7W2VMC.js",
       "_map-pin-CTNzH8F9.js",
       "_createLucideIcon-D_WcjKff.js",
+      "_circle-check-big-DMAyPPBb.js",
       "resources/js/components/Home/Supplies.jsx",
       "_PropertyCard-Wm8yFHdp.js",
       "_index.esm-zkRd-kwu.js",
@@ -3459,7 +3468,7 @@
     ]
   },
   "resources/js/LibroDeReclamaciones.jsx": {
-    "file": "assets/LibroDeReclamaciones-CmK45UdZ.js",
+    "file": "assets/LibroDeReclamaciones-CiUwCG7k.js",
     "name": "LibroDeReclamaciones",
     "src": "resources/js/LibroDeReclamaciones.jsx",
     "isEntry": true,
@@ -3475,6 +3484,7 @@
       "_main-Y8JAyXgE.js",
       "_preload-helper-CZZ3Qsu7.js",
       "_HtmlContent-CZmf3wHb.js",
+      "_circle-check-big-DMAyPPBb.js",
       "_createLucideIcon-D_WcjKff.js",
       "resources/js/components/Blog/Results.jsx",
       "resources/js/components/Blog/Filter.jsx",
@@ -4358,7 +4368,7 @@
     ]
   },
   "resources/js/components/Adminto/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-B0ALEkqN.js",
+    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/Adminto/form/SelectFormGroup.jsx",
     "isEntry": true,
@@ -5181,7 +5191,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -6061,7 +6071,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -6179,10 +6189,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-B6_1mLDL.js",
+    "file": "assets/Email-Kbv258F4.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6249,10 +6259,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-Dwtff5Cv.js",
+    "file": "assets/Treatment-DR32cJ8V.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6399,7 +6409,7 @@
     ]
   },
   "resources/js/components/form/SelectFormGroup.jsx": {
-    "file": "assets/SelectFormGroup-Dwtff5Cv.js",
+    "file": "assets/SelectFormGroup-B0ALEkqN.js",
     "name": "SelectFormGroup",
     "src": "resources/js/components/form/SelectFormGroup.jsx",
     "isEntry": true,
