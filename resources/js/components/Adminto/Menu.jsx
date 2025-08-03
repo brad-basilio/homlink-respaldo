@@ -186,17 +186,17 @@ const Menu = ({
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/properties"
-                                    icon="mdi mdi-help-circle"
+                                    icon="mdi mdi-office-building-marker"
                                 >
                                     {t("admin.sidebar.properties", "Propiedades")}
                                 </MenuItem>
-                                <MenuItem
+                            {/*    <MenuItem
                                     href="/admin/services"
                                     icon="mdi mdi-star-cog"
                                 >
                                     {t("admin.sidebar.services", "Servicios")}
                                 </MenuItem>
-
+ */}
 
                                 {/*  
                                   <MenuItem
@@ -230,16 +230,19 @@ const Menu = ({
                                         "admin.sidebar.facilities",
                                         "Localizaciones"
                                     )}
-                                </MenuItem>*/}
-
-
-
-                                <MenuItem
+                                </MenuItem>
+                                   <MenuItem
                                     href="/admin/coupons"
                                     icon="mdi mdi-ticket-percent"
                                 >
                                     Cupones
                                 </MenuItem>
+                                
+                                */}
+
+
+
+                             
 
                                 <MenuItem
                                     href="/admin/banners"
@@ -248,13 +251,13 @@ const Menu = ({
                                     Banners
                                 </MenuItem>
 
-
+{/*
                                 <MenuItem
                                     href="/admin/ads"
                                     icon="mdi mdi-google-ads"
                                 >
                                     Pop-ups
-                                </MenuItem>
+                                </MenuItem> */}
                                   <MenuItemContainer
                                     title="Blog"
                                     icon="mdi mdi-newspaper"
@@ -346,12 +349,12 @@ const Menu = ({
                                     {t("admin.sidebar.pages", "Páginas")}
                                 </MenuItem>
 
-                                <MenuItem
+                               {/* <MenuItem
                                     href="/admin/apps"
                                     icon="mdi mdi-cellphone-link"
                                 >
                                     Apps de descarga
-                                </MenuItem>
+                                </MenuItem> */}
 
 
                                 <MenuItem
@@ -382,12 +385,12 @@ const Menu = ({
                                 >
                                     Nosotros (normas)
                                 </MenuItem>
-                                <MenuItem
+                              {/*  <MenuItem
                                     href="/admin/payment-methods"
                                     icon="mdi mdi-account-heart"
                                 >
                                     {t("admin.sidebar.staff", "Metodos de pago")}
-                                </MenuItem>
+                                </MenuItem> */}
 
                                 <MenuItem
                                     href="/admin/specialities"
@@ -395,7 +398,7 @@ const Menu = ({
                                 >
                                     {t(
                                         "admin.sidebar.specialties",
-                                        "Pasos"
+                                        "Estilo de trabajo"
                                     )}
                                 </MenuItem>
                                 <MenuItem
@@ -413,23 +416,15 @@ const Menu = ({
                                 >
                                     {t("admin.sidebar.benefits", "Fortalezas")}
                                 </MenuItem>
-                                <MenuItem
+                               {/* <MenuItem
                                     href="/admin/core_values"
                                     icon="mdi mdi-shield-half-full"
                                 >
                                     Pilares de Acción
-                                </MenuItem>
+                                </MenuItem> */}
 
                                 {/* 
-                                    <MenuItem
-                                    href="/admin/testimonies"
-                                    icon="mdi mdi-comment-account"
-                                >
-                                    {t(
-                                        "admin.sidebar.testimonials",
-                                        "Testimonios"
-                                    )}
-                                </MenuItem>
+                                   
                                 <MenuItem
                                     href="/admin/categories"
                                     icon="mdi mdi-clipboard-list-outline"
@@ -463,6 +458,15 @@ const Menu = ({
                                     icon="mdi mdi-frequently-asked-questions"
                                 >
                                     FAQs
+                                </MenuItem>
+                                 <MenuItem
+                                    href="/admin/testimonies"
+                                    icon="mdi mdi-comment-account"
+                                >
+                                    {t(
+                                        "admin.sidebar.testimonials",
+                                        "Testimonios"
+                                    )}
                                 </MenuItem>
                                 <MenuItem
                                     href="/admin/socials"

@@ -80,6 +80,11 @@ class AboutController extends BasicController
         ->get();
 
 
+        $testimonials = Testimony::where('status', true)
+            ->where('visible', true)
+            ->where('lang_id', $langId)
+            ->get();
+
         return [
             'landing' => $landing,
             'strengths' => $strengths,
@@ -91,7 +96,8 @@ class AboutController extends BasicController
 
             'banner_why' => $banner_why,
             'benefits' => $benefits,
-            'work_style'=>$work_style
+            'work_style'=>$work_style,
+            'testimonials'=>$testimonials
         ];
     }
 }
