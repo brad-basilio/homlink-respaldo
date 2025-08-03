@@ -83,7 +83,7 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                             {/* Post destacado principal */}
                             {postRecent[0] && (
                                 <motion.div
-                                
+
                                     className="relative rounded-3xl overflow-hidden shadow-2xl mb-12 group cursor-pointer"
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: sectionsReady ? 1 : 0, scale: sectionsReady ? 1 : 0.95 }}
@@ -91,51 +91,51 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                     whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                                 >
                                     {/* Imagen de fondo */}
-<a     href={`/blog/${postRecent[0].slug}`}>
+                                    <a href={`/blog/${postRecent[0].slug}`}>
                                         <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
-                                        <motion.img
-                                            src={`/api/posts/media/${postRecent[0].image}`}
-                                            alt={postRecent[0].title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                            onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
-                                        />
+                                            <motion.img
+                                                src={`/api/posts/media/${postRecent[0].image}`}
+                                                alt={postRecent[0].title}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                onError={(e) => (e.target.src = "/api/cover/thumbnail/null")}
+                                            />
 
-                                        {/* Overlay gradiente */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-black/40 to-transparent"></div>
+                                            {/* Overlay gradiente */}
+                                            <div className="absolute inset-0 bg-gradient-to-t from-neutral-dark via-black/40 to-transparent"></div>
 
-                                        {/* Contenido superpuesto */}
-                                        <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 text-white">
-                                            <motion.div
-                                                className="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.6, delay: 0.6 }}
-                                            >
-                                                {postRecent[0].category?.name || "Categoría"}
-                                            </motion.div>
+                                            {/* Contenido superpuesto */}
+                                            <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 text-white">
+                                                <motion.div
+                                                    className="inline-block bg-primary text-white px-4 py-2 rounded-full text-sm font-medium mb-4"
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.6, delay: 0.6 }}
+                                                >
+                                                    {postRecent[0].category?.name || "Categoría"}
+                                                </motion.div>
 
-                                            <motion.h2
-                                                className="text-3xl lg:text-4xl font-bold mb-4 leading-tight"
-                                                initial={{ opacity: 0, y: 30 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.8, delay: 0.7 }}
-                                            >
-                                                {postRecent[0].title}
-                                            </motion.h2>
+                                                <motion.h2
+                                                    className="text-3xl lg:text-4xl font-bold mb-4 leading-tight"
+                                                    initial={{ opacity: 0, y: 30 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.8, delay: 0.7 }}
+                                                >
+                                                    {postRecent[0].title}
+                                                </motion.h2>
 
-                                            <motion.p
-                                                className="text-gray-200 text-lg mb-6 leading-relaxed max-w-3xl line-clamp-3"
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ duration: 0.6, delay: 0.8 }}
-                                            >
-                                                {postRecent[0].summary || "Proin ut tellus nisl. Aenean massa urna, lobortis eu varius ultrices, feugiat vel orci. Nam commodo elit justo, vitae venenatis risus sagittis non."}
-                                            </motion.p>
+                                                <motion.p
+                                                    className="text-gray-200 text-lg mb-6 leading-relaxed max-w-3xl line-clamp-3"
+                                                    initial={{ opacity: 0, y: 20 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.6, delay: 0.8 }}
+                                                >
+                                                    {postRecent[0].summary || "Proin ut tellus nisl. Aenean massa urna, lobortis eu varius ultrices, feugiat vel orci. Nam commodo elit justo, vitae venenatis risus sagittis non."}
+                                                </motion.p>
 
 
+                                            </div>
                                         </div>
-                                    </div>
-</a>
+                                    </a>
                                 </motion.div>
                             )}
 
