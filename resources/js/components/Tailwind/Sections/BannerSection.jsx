@@ -3,42 +3,42 @@ import { Link } from '@inertiajs/react';
 
 const BannerSection = ({ banner }) => {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-r from-secondary         to-secondary ">
+        <section className="  lg:py-0 relative overflow-hidden bg-gradient-to-r from-secondary         to-secondary ">
             {/* Background wave shape */}
             <div className="absolute top-0 left-0 w-full h-full">
                 <svg className='h-full' width="675" height="459" viewBox="0 0 675 459" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g style={{mixBlendMode: 'overlay'}} opacity="0.6">
+                    <g style={{ mixBlendMode: 'overlay' }} opacity="0.6">
                         <path fillRule="evenodd" clipRule="evenodd" d="M653.528 377.257C679.463 326.774 681.006 276.396 658.156 226.124C635.306 176.229 588.712 130.978 518.374 90.3679C448.363 49.947 369.984 23.0459 283.238 9.66441C196.491 -3.339 109.398 -2.35387 21.9573 12.6199C-49.1086 24.9396 -114.62 45.7633 -174.577 75.091C-175.56 75.6585 -176.38 76.1315 -177.035 76.5098C-199.149 86.4442 -230.58 85.8916 -251.191 74.5591C-251.519 74.3702 -251.846 74.1813 -252.173 73.9924C-252.5 73.8035 -252.827 73.6146 -253.154 73.4257C-324.801 32.0605 -445.633 44.0251 -489.416 97.0688C-500.568 111.062 -510.083 125.433 -517.961 140.181C-543.896 190.665 -545.602 240.949 -523.08 291.032C-499.903 341.115 -453.308 386.367 -383.297 426.788C-312.959 467.397 -234.581 494.299 -148.161 507.491C-61.0875 520.683 26.0061 519.698 113.119 504.536C185.495 492.215 251.825 471.108 312.111 441.213C333.243 431.279 363.692 431.265 384.796 441.747C385.777 442.313 386.759 442.88 387.74 443.446C388.722 444.013 389.703 444.58 390.685 445.146C461.35 485.945 579.727 473.698 623.508 421.788C635.315 407.416 645.322 392.573 653.528 377.257ZM306.279 396.415C245.428 361.283 153.598 354.236 76.9528 376.388C65.1612 379.796 53.2065 382.732 41.0888 385.195C-11.968 396.561 -63.8669 399.326 -114.608 393.489C-166.004 387.653 -211.495 373.307 -251.081 350.452C-291.321 327.22 -316.331 300.861 -326.113 271.376C-336.55 241.892 -331.761 211.928 -311.747 181.485C-299.933 162.198 -282.555 143.854 -259.612 126.452C-257.645 124.561 -255.515 122.953 -253.221 121.629C-252.893 121.44 -252.729 121.345 -252.729 121.345C-252.402 121.156 -251.91 120.872 -251.255 120.494C-229.137 107.724 -193.776 107.708 -171.693 120.457C-111.333 155.306 -19.0125 162.636 57.633 140.484C69.4246 137.076 81.3793 134.141 93.497 131.678C146.554 120.311 198.453 117.546 249.194 123.383C300.263 129.031 345.917 143.471 386.157 166.703C425.743 189.558 450.59 215.822 460.699 245.496C470.808 274.791 466.02 304.755 446.333 335.387C433.864 355.053 415.83 373.775 392.232 391.555C391.248 392.501 390.265 393.446 389.281 394.392C388.298 394.959 387.151 395.621 385.84 396.378C364.214 408.864 328.362 409.164 306.279 396.415Z" fill="white" />
                     </g>
                 </svg>
             </div>
 
-          
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
-                    {/* Left column - Text content */}
-                    <div className="text-white max-w-xl  mx-auto">
-                        <h2 className="text-4xl sm:text-5xl font-bold  !leading-[60px] mb-6">
-                            {banner?.name}
-                        </h2>
-                        <p className="text-lg mb-8">
-                            {banner?.description}
-                        </p>
-                        <Link
-                            href={banner?.button_link}
-                            className="inline-block px-8 py-4 bg-primary text-lg text-white font-semibold rounded-full hover:bg-accent transition-colors duration-300"
-                        >
-                            {banner?.button_text}
-                        </Link>
-                    </div>
 
-                        <img
-                            src={`/api/banners/media/${banner?.image}`}
-                            alt={banner?.name}
-                            className="min-h-[500px] h-full object-cover"
-                        />
-                  
+            <div className=" grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
+                {/* Left column - Text content */}
+                <div className="text-white max-w-xl  mx-auto px-[5%] lg:px-0 pt-4 lg:pt-0">
+                    <h2 className="text-4xl sm:text-5xl font-bold  !leading-[60px] mb-6">
+                        {banner?.name}
+                    </h2>
+                    <p className="text-lg mb-8">
+                        {banner?.description}
+                    </p>
+                    <Link
+                        href={banner?.button_link}
+                        className="inline-block px-8 py-4 bg-primary text-lg text-white font-semibold rounded-full hover:bg-accent transition-colors duration-300"
+                    >
+                        {banner?.button_text}
+                    </Link>
                 </div>
-            
+
+                <img
+                    src={`/api/banners/media/${banner?.image}`}
+                    alt={banner?.name}
+                    className=" min-h-[500px] h-full object-cover"
+                />
+
+            </div>
+
         </section>
     );
 };

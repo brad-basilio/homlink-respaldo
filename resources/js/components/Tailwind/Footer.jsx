@@ -268,29 +268,64 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                 alt="HomLink Logo"
                             />
                         </a>
-                    
+
                     </div>
 
                     {/* Columna 2 - Horario de Atención */}
                     <div className="w-full lg:w-4/12 flex flex-col lg:flex-row lg:flex-wrap lg:justify-end gap-6 lg:gap-0">
                         <div className="w-full lg:w-6/12 flex flex-col gap-2 text-sm pb-4 lg:pb-8">
                             <h3 className="text-lg lg:text-xl font-medium mb-2 lg:mb-4">
-Menu
+                                Menu
                             </h3>
-                          
-                                <div className="whitespace-pre-line">
-                                    Alquilar
-                                </div>
-                                  <div className="whitespace-pre-line">
-                                    Comprar
-                                </div>
-                                  <div className="whitespace-pre-line">
-                                    Blog
-                                </div>
-                                  <div className="whitespace-pre-line">
-                                    Contacto
-                                </div>
-                           
+
+                            <nav className="flex flex-col gap-2">
+                                {[
+                                    "/catalogo",
+                                    "/nosotros",
+                                    "/contacto",
+                                    "/blog",
+                                ].map((path) => {
+                                    const text = {
+                                        "/catalogo": t("public.header.catalogo", "Catálogo"),
+                                        "/nosotros": t(
+                                            "public.header.nosotros",
+                                            "Nosotros"
+                                        ), "/contacto": t(
+                                            "public.header.contact",
+                                            "Contacto"
+                                        ),
+
+                                        "/blog": t(
+                                            "public.header.options",
+                                            "Blog"
+                                        ),
+
+
+                                    }[path];
+
+                                    return (
+                                        <a
+                                            key={path}
+                                            href={path}
+                                            onClick={(e) => {
+                                                if (path.startsWith('#')) {
+                                                    e.preventDefault();
+                                                    toggleMegaMenu(path);
+                                                    handleLinkClick(path);
+                                                } else {
+                                                    // Para URLs normales, navega directamente
+                                                    handleLinkClick(path);
+                                                    window.location.href = path;
+                                                }
+                                            }}
+                                            className="text-white hover:text-secondary transition-colors text-sm"
+                                        >
+                                            {text}
+                                        </a>
+                                    );
+                                })}
+                            </nav>
+
                         </div>
 
                         {/* Columna 3 - Legal */}
@@ -301,7 +336,7 @@ Menu
                             <a onClick={() => openModal(0)} className="cursor-pointer hover:text-secondary transition-colors">Política de Privacidad</a>
                             <a onClick={() => openModal(1)} className="cursor-pointer hover:text-secondary transition-colors">Términos y Condiciones</a>
                             <a href="/libro-de-reclamaciones" className="cursor-pointer hover:text-secondary transition-colors">Libro de Reclamaciones</a>
-                          
+
 
                         </div>
 
@@ -373,8 +408,8 @@ Menu
                                         type="submit"
                                         disabled={saving || !termsAccepted}
                                         className={`font-bold text-sm px-3  py-3 rounded-full transition-colors ${!termsAccepted
-                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                                                : 'bg-primary text-neutral-light hover:bg-secondary'
+                                            ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                                            : 'bg-primary text-neutral-light hover:bg-secondary'
                                             }`}
                                         whileHover={termsAccepted ? {
                                             scale: 1.05,
@@ -396,7 +431,7 @@ Menu
                                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                                 </svg>
-                                                
+
                                             </div>
                                         ) : (
                                             <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -429,8 +464,8 @@ Menu
                                         type="submit"
                                         disabled={saving || !termsAccepted}
                                         className={`w-full font-bold text-sm px-6 py-3 rounded-full transition-all duration-300 ${!termsAccepted
-                                                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-                                                : 'bg-secondary text-neutral-dark hover:bg-accent hover:text-white shadow-lg hover:shadow-xl'
+                                            ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                                            : 'bg-secondary text-neutral-dark hover:bg-accent hover:text-white shadow-lg hover:shadow-xl'
                                             }`}
                                         whileHover={termsAccepted ? {
                                             scale: 1.02,
@@ -481,8 +516,8 @@ Menu
                                     />
                                     <motion.div
                                         className={`w-5 h-5 rounded-md border-2 cursor-pointer transition-all duration-300 ${termsAccepted
-                                                ? 'bg-secondary border-secondary shadow-lg shadow-secondary/25'
-                                                : 'bg-white border-neutral-light hover:border-secondary hover:shadow-sm'
+                                            ? 'bg-secondary border-secondary shadow-lg shadow-secondary/25'
+                                            : 'bg-white border-neutral-light hover:border-secondary hover:shadow-sm'
                                             }`}
                                         onClick={() => setTermsAccepted(!termsAccepted)}
                                         whileHover={{ scale: 1.1 }}
@@ -538,9 +573,9 @@ Menu
                 </div>
 
                 <div className="bg-primary">
-                  
+
                     <div className="flex flex-col lg:flex-row justify-between items-center w-full px-[5%] py-4 text-center lg:text-left gap-4 lg:gap-0">
-                      
+
                         <div className="flex items-center gap-2 lg:gap-3 flex-wrap justify-center">
                             {(phoneContact || supportPhone) && (
                                 <a
@@ -629,7 +664,7 @@ Menu
                                 </a>
                             )}
                         </div>
-                          <p className="text-sm lg:text-base text-neutral mb-0">
+                        <p className="text-sm lg:text-base text-neutral mb-0">
                             {copyrightText}
                         </p>
                     </div>

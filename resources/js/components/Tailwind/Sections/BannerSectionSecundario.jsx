@@ -19,7 +19,7 @@ const BannerSectionSecundario = ({ banner }) => {
                     </div>
 
                     {/* Left column - Text content */}
-                   <div className='flex items-center'>
+                   <div className='px-[5%] lg:px-0 pb-10 lg:pb-0 flex items-center'>
                      <div className="text-white max-w-xl  mx-auto ">
                         <h2 className="text-4xl sm:text-5xl font-bold  !leading-[60px] mb-6">
                             {banner?.name}

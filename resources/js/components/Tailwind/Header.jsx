@@ -381,7 +381,7 @@ const Header = ({
                 <div className="bg-primary relative overflow-hidden text-white text-xs md:text-sm py-2 md:py-3">
                     <div className="px-[5%] mx-auto flex flex-row items-center justify-between">
                         {/* Título del cintillo - lado izquierdo */}
-                        <div className="flex items-center gap-2 relative">
+                        <div className="hidden items-center gap-2 relative lg:flex">
                             <p className="font-bold text-sm whitespace-nowrap flex gap-2">
                                 <span className="inline-flex">
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -671,7 +671,7 @@ const Header = ({
                                                                 </p>
                                                                 {console.log(auth.user)}
                                                                 {auth.user.role === 'admin' && (
-                                                                    <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2 flex-shrink-0">
+                                                                    <span className="text-xs bg-blue-100 text-primary px-2 py-1 rounded-full ml-2 flex-shrink-0">
                                                                         Admin
                                                                     </span>
                                                                 )}
@@ -735,7 +735,7 @@ const Header = ({
                                                                     fetch('/api/logout', { method: 'DELETE' })
                                                                         .then(() => location.reload());
                                                                 }}
-                                                                className="flex items-center w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-150"
+                                                                className="flex items-center w-full text-left px-4 py-2 text-sm text-secondary hover:bg-red-50 transition-colors duration-150"
                                                             >
                                                                 <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -907,16 +907,17 @@ const Header = ({
                                         {[
 
 
-
+  { path: "/catalogo", color: "bg-white" },
                                             { path: "/nosotros", color: "bg-white" },
-                                            { path: "/services", color: "bg-white" },
+                                          
                                             { path: "/contacto", color: "bg-white" },
                                             { path: "/blog", color: "bg-white" },
 
                                         ].map((item, index) => {
                                             const text = {
+                                                 "/catalogo": t("public.header.services", "Catálogo"),
                                                 "/nosotros": t("public.header.home", "Nosotros"),
-                                                "/services": t("public.header.services", "Servicios"),
+                                               
                                                 "/contacto": t("public.header.contact", "Contacto"),
                                                 "/blog": t("public.header.options", "Blog"),
                                             }[item.path];
@@ -1060,7 +1061,7 @@ const Header = ({
                                                         </svg>
                                                         <span>Hola, {auth.user.name}</span>
                                                         {auth.user.role === 'Admin' && (
-                                                            <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full ml-2">
+                                                            <span className="text-xs bg-blue-100 text-primary px-2 py-1 rounded-full ml-2">
                                                                 Admin
                                                             </span>
                                                         )}
@@ -1085,7 +1086,7 @@ const Header = ({
                                                             stiffness: 400,
                                                             damping: 17
                                                         }}
-                                                        className="py-3 px-4 flex items-center justify-center bg-blue-600 text-sm font-medium text-white rounded-full relative overflow-hidden group mb-3"
+                                                        className="py-3 px-4 flex items-center justify-center bg-primary text-sm font-medium text-white rounded-full relative overflow-hidden group mb-3"
                                                     >
                                                         <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -1094,14 +1095,14 @@ const Header = ({
                                                             Dashboard
                                                         </span>
                                                         <motion.div
-                                                            className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 opacity-0 group-hover:opacity-100"
+                                                            className="absolute inset-0 bg-gradient-to-r from-primary to-primary opacity-0 group-hover:opacity-100"
                                                             transition={{ duration: 0.3 }}
                                                         />
                                                     </motion.a>
                                                 ) : (
                                                     // Opciones para usuario normal
                                                     <>
-                                                        <motion.a
+                                                        {/*<motion.a
                                                             href="/perfil"
                                                             whileHover={{
                                                                 scale: 1.06,
@@ -1160,7 +1161,7 @@ const Header = ({
                                                                 className="absolute inset-0 bg-gradient-to-r from-green-600 to-green-700 opacity-0 group-hover:opacity-100"
                                                                 transition={{ duration: 0.3 }}
                                                             />
-                                                        </motion.a>
+                                                        </motion.a> */}
                                                     </>
                                                 )}
 
@@ -1183,7 +1184,7 @@ const Header = ({
                                                         stiffness: 400,
                                                         damping: 17
                                                     }}
-                                                    className="py-3 px-4 flex items-center justify-center bg-red-500 text-sm font-medium text-white rounded-full relative overflow-hidden group"
+                                                    className="py-3 px-4 flex items-center justify-center bg-secondary text-sm font-medium text-white rounded-full relative overflow-hidden group"
                                                 >
                                                     <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -1192,7 +1193,7 @@ const Header = ({
                                                         Cerrar Sesión
                                                     </span>
                                                     <motion.div
-                                                        className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-700 opacity-0 group-hover:opacity-100"
+                                                        className="absolute inset-0 bg-gradient-to-r from-secondary to-secondary opacity-0 group-hover:opacity-100"
                                                         transition={{ duration: 0.3 }}
                                                     />
                                                 </motion.button>
@@ -1227,32 +1228,7 @@ const Header = ({
                                             </motion.a>
                                         )}
 
-                                        <motion.a
-                                            href="/contacto"
-                                            whileHover={{
-                                                scale: 1.06,
-                                                y: -2,
-                                                boxShadow: "0 10px 25px rgba(126, 90, 251, 0.3)"
-                                            }}
-                                            whileTap={{
-                                                scale: 0.95,
-                                                y: 0
-                                            }}
-                                            transition={{
-                                                type: "spring",
-                                                stiffness: 400,
-                                                damping: 17
-                                            }}
-                                            className="py-3 px-4 flex items-center justify-center bg-constrast uppercase text-sm font-medium text-white rounded-full relative overflow-hidden group"
-                                        >
-                                            <span className="relative z-10">
-                                                Contáctanos
-                                            </span>
-                                            <motion.div
-                                                className="absolute inset-0 bg-gradient-to-r from-constrast/90 to-accent/90 opacity-0 group-hover:opacity-100"
-                                                transition={{ duration: 0.3 }}
-                                            />
-                                        </motion.a>
+                                    
 
                                     </motion.div>
 
@@ -1275,284 +1251,7 @@ const Header = ({
                     </motion.div>
                 )}
 
-                {/* Modal Carrito */}
-                <AnimatePresence>
-                    {mostrarCarrito && (
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 bg-black/50 flex items-start justify-end px-[5%] lg:px-0 pt-12 pb-12 overflow-y-auto z-50 scrollbar-hide"
-                        >
-                            <motion.div
-                                initial={{ x: 100, opacity: 0 }}
-                                animate={{ x: 0, opacity: 1 }}
-                                exit={{ x: 100, opacity: 0 }}
-                                transition={{ type: "spring", damping: 25 }}
-                                className="bg-[#EFE5FF] shadow-lg w-full sm:max-w-[380px] lg:max-w-[700px] 2xl:max-w-[800px] h-max p-8 lg:p-14 rounded-[30px] lg:rounded-[50px]"
-                            >
-                                {/* Encabezado */}
-                                <div className="flex justify-between items-center">
-                                    <h2 className="text-[24.67px] lg:text-[44.67px] font-bold">
-                                        Tu Carrito
-                                    </h2>
-                                    <motion.button
-                                        whileHover={{ scale: 1.1 }}
-                                        whileTap={{ scale: 0.9 }}
-                                        onClick={() => setMostrarCarrito(false)}
-                                        className="text-lg font-bold text-[#5F48B7]"
-                                    >
-                                        ✖
-                                    </motion.button>
-                                </div>
-
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="bg-[#9C79D4] py-2 text-[13.95px] md:text-[16.95px] lg:text-[26.95px] mt-4 mb-8 text-center rounded-[14px] lg:rounded-[20px] text-white"
-                                >
-                                    ¡Tienes envío gratis en lima!{" "}
-                                    <motion.img
-                                        animate={{ rotate: [0, 15, 0] }}
-                                        transition={{
-                                            repeat: Infinity,
-                                            duration: 2,
-                                        }}
-                                        src="/assets/img/emojis/motor-scooter.png"
-                                        className="h-[16.88px] lg:h-[26.88px] inline-flex ml-2"
-                                    />{" "}
-                                </motion.div>
-
-                                {/* Lista de productos con Scroll */}
-                                <div className="flex-1 gap-4">
-                                    {carrito.length === 0 ? (
-                                        <motion.div
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            className="w-full flex flex-col items-center justify-center gap-5 text-3xl h-max my-5"
-                                        >
-                                            <img
-                                                src="/assets/img/logo.png"
-                                                alt="Wefem"
-                                                className="h-[58px] w-[330.55px] object-cover object-top"
-                                                style={{
-                                                    textShadow:
-                                                        "0px 4px 7.5px 0px #00000040",
-                                                }}
-                                            />
-                                            <p className="text-center text-gray-500">
-                                                Tu carrito está vacío
-                                            </p>
-                                        </motion.div>
-                                    ) : (
-                                        <AnimatePresence>
-                                            {carrito.map((item, index) => (
-                                                <motion.div
-                                                    key={item.id}
-                                                    variants={cartItemVariants}
-                                                    initial="hidden"
-                                                    animate="visible"
-                                                    exit="exit"
-                                                    layout
-                                                    className="flex items-center gap-4 mb-4 w-full"
-                                                >
-                                                    <motion.img
-                                                        layout
-                                                        src={`/api/items/media/${item.image}`}
-                                                        alt={item.name}
-                                                        onError={(e) =>
-                                                        (e.target.src =
-                                                            "/api/cover/thumbnail/null")
-                                                        }
-                                                        className="w-20 h-20 md:w-28 md:h-28 lg:w-52 lg:h-52 object-cover rounded-lg"
-                                                    />
-                                                    <div className="flex flex-col w-[calc(100%-5rem)] md:w-[calc(100%-7rem)] lg:w-[calc(100%-10rem)]">
-                                                        <div className="w-full flex">
-                                                            <div className="w-5/6 lg:w-8/12">
-                                                                <h3 className="text-[17.95px] md:text-[20.95px] lg:text-[24.95px] 2xl:text-[34.95px] font-normal leading-3 md:leading-[20.78px] lg:leading-[30.78px]">
-                                                                    {item.name}
-                                                                </h3>
-                                                                {item.summary && (
-                                                                    <p className="text-[10px] md:text-xs lg:text-[16.81px] 2xl:text-[25px] font-light inline-flex">
-                                                                        (
-                                                                        {
-                                                                            item.summary
-                                                                        }
-                                                                        )
-                                                                    </p>
-                                                                )}
-
-                                                                {item.discount && (
-                                                                    <motion.p
-                                                                        whileHover={{
-                                                                            scale: 1.02,
-                                                                        }}
-                                                                        className="w-11/12 md:w-full h-[18.55px] md:h-[25.55px] lg:h-[35.55px] bg-[#212529] text-white rounded-[5.44px] mb-2 md:my-2 lg:my-4 flex items-center justify-center text-[8.65px] md:text-[9.65px] 2xl:text-[16.65px] font-semibold leading-[21.75px]"
-                                                                    >
-                                                                        <span className="font-medium md:font-bold text-[7.65px] md:text-[9.65px] 2xl:text-[16.65px] mr-2">
-                                                                            ESTAS
-                                                                            AHORRANDO
-                                                                        </span>{" "}
-                                                                        S/{" "}
-                                                                        {Number(
-                                                                            item.price -
-                                                                            item.discount
-                                                                        ).toFixed(
-                                                                            0
-                                                                        )}{" "}
-                                                                        <img
-                                                                            src="/assets/img/emojis/fire.png"
-                                                                            className="h-[9.88px] 2xl:h-[16px] inline-flex ml-2"
-                                                                        />
-                                                                    </motion.p>
-                                                                )}
-                                                            </div>
-
-                                                            {/* 🗑️ Botón para eliminar */}
-                                                            <div className="w-1/6 lg:w-4/12 flex items-start justify-end">
-                                                                <motion.button
-                                                                    whileHover={{
-                                                                        scale: 1.1,
-                                                                    }}
-                                                                    whileTap={{
-                                                                        scale: 0.9,
-                                                                    }}
-                                                                    className="group text-white px-2 py-1 rounded-md hover:fill-red-500 transition-all duration-300"
-                                                                    onClick={() =>
-                                                                        eliminarProducto(
-                                                                            item.id
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    <div className="h-10 lg:h-12 scale-x-[-1]">
-                                                                        <svg
-                                                                            xmlns="http://www.w3.org/2000/svg"
-                                                                            viewBox="0 0 448 512"
-                                                                            className="h-full w-4 lg:w-5 relative"
-                                                                            fill="current"
-                                                                        >
-                                                                            <path
-                                                                                className="group-hover:-rotate-12 group-hover:absolute group-hover:inset-0"
-                                                                                fill="current"
-                                                                                d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3z"
-                                                                            />
-                                                                            <path
-                                                                                fill="current"
-                                                                                d="M32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"
-                                                                            />
-                                                                        </svg>
-                                                                    </div>
-                                                                </motion.button>
-                                                            </div>
-                                                        </div>
-                                                        <div className="w-full flex">
-                                                            <div className="w-1/2 md:w-4/6 lg:w-1/2 h-full flex">
-                                                                <p className="text-[18.42px] md:text-[24.42px] h-full items-center lg:text-[35.33px] 2xl:text-[45.33px] font-bold text-[#5F48B7]">
-                                                                    S/{" "}
-                                                                    {Number(
-                                                                        item.final_price
-                                                                    ).toFixed(
-                                                                        2
-                                                                    )}
-                                                                </p>
-                                                            </div>
-                                                            <div className="w-1/2 md:w-2/6 lg:w-1/2 h-full lg:h-14">
-                                                                <div className="flex h-full text-[#000000] bg-transparent border border-black items-center justify-around rounded-[8px] md:rounded-[10px]">
-                                                                    <motion.button
-                                                                        whileTap={{
-                                                                            scale: 0.8,
-                                                                        }}
-                                                                        className="h-full md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl"
-                                                                        onClick={() =>
-                                                                            decrementarCantidad(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        -
-                                                                    </motion.button>
-                                                                    <span className="h-full flex items-center text-xs md:text-base 2xl:text-2xl font-medium">
-                                                                        {item.variations &&
-                                                                            item
-                                                                                .variations
-                                                                                .length >
-                                                                            0
-                                                                            ? item.variations.reduce(
-                                                                                (
-                                                                                    sum,
-                                                                                    v
-                                                                                ) =>
-                                                                                    sum +
-                                                                                    v.quantity,
-                                                                                0
-                                                                            )
-                                                                            : item.quantity}
-                                                                    </span>
-                                                                    <motion.button
-                                                                        whileTap={{
-                                                                            scale: 0.8,
-                                                                        }}
-                                                                        className="h-6 md:w-8 md:h-8 text-xs md:text-base 2xl:text-2xl"
-                                                                        onClick={() =>
-                                                                            incrementarCantidad(
-                                                                                item.id
-                                                                            )
-                                                                        }
-                                                                    >
-                                                                        +
-                                                                    </motion.button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            ))}
-                                        </AnimatePresence>
-                                    )}
-                                </div>
-
-                                {/* Total y botón de Checkout */}
-                                {totalPrecio > 0 && (
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.2 }}
-                                        className="w-full mt-8"
-                                    >
-                                        <div className="w-full flex items-center justify-between my-6">
-                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black">
-                                                Subtotal
-                                            </p>
-                                            <p className="text-[25.42px] md:text-[50.42px] lg:text-[45.33px] 2xl:text-[51.33px] font-bold text-black">
-                                                S/ {totalPrecio.toFixed(2)}
-                                            </p>
-                                        </div>
-
-                                        <motion.a
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            href="/checkout"
-                                            className="block text-center text-[20.76px] md:text-[25.76px] lg:text-[34.76px] 2xl:text-[36.76px] w-full font-semibold rounded-[12.11px] lg:rounded-[15.11px] bg-[#FF9900] text-white py-3 2xl:py-4 hover:bg-opacity-90 transition-all duration-300"
-                                        >
-                                            IR A COMPRAR
-                                        </motion.a>
-
-                                        <motion.div
-                                            whileHover={{ scale: 1.01 }}
-                                            className="mt-6 relative w-full"
-                                        >
-                                            <img
-                                                src="/assets/img/checkout/banner-pagos.png"
-                                                className="w-full object-cover h-auto rounded-lg shadow-lg shadow-gray-500/20"
-                                            />
-                                        </motion.div>
-                                    </motion.div>
-                                )}
-                            </motion.div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+            
             </div>
         </>
     );

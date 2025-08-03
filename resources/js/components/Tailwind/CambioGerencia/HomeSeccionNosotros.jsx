@@ -212,7 +212,7 @@ const HomeSeccionNosotros = ({ data, strengths, about }) => {
                             <motion.img
                                 src={`/api/landing_home/media/${data?.image}`}
                                 alt={data?.title}
-                                className="w-full h-[500px]  relative z-0"
+                                className="object-cover lg:object-fill lg:w-full h-[500px]  relative z-0"
                                 initial={{ opacity: 0, scale: 1.2 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{
