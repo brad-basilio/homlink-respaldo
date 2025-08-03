@@ -82,7 +82,8 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
 
                             {/* Post destacado principal */}
                             {postRecent[0] && (
-                                <motion.div
+                                <motion.a
+                                    href={`/blog/${postRecent[0].slug}`}
                                     className="relative rounded-3xl overflow-hidden shadow-2xl mb-12 group cursor-pointer"
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: sectionsReady ? 1 : 0, scale: sectionsReady ? 1 : 0.95 }}
@@ -133,7 +134,7 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
 
                                         </div>
                                     </div>
-                                </motion.div>
+                                </motion.a>
                             )}
 
                             {/* Filtros */}

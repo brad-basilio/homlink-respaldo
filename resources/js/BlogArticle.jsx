@@ -450,7 +450,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                     >
                         <motion.div
                             variants={fadeInLeft}
-                            className="lg:w-2/3 lg:flex-shrink-0 overflow-hidden rounded-2xl shadow-2xl bg-white"
+                            className="lg:w-full lg:flex-shrink-0 overflow-hidden rounded-2xl shadow-2xl bg-white"
                             whileHover={{ 
                                 scale: 1.02, 
                                 boxShadow: "0 25px 50px rgba(0,0,0,0.15)" 
@@ -458,7 +458,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                             transition={{ type: "spring", stiffness: 400, damping: 25 }}
                         >
                             <motion.div 
-                                className="relative w-full h-full object-cover"
+                                className="relative w-full h-[500px] object-cover"
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 transition={{ duration: 0.8 }}
@@ -483,26 +483,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                                 />
                             </motion.div>
                         </motion.div>
-                        
-                        <motion.div 
-                            className="lg:w-1/3 lg:flex-shrink-0"
-                            variants={fadeInRight}
-                        >
-                            <motion.div
-                                initial={{ opacity: 0, y: 30, scale: 0.9 }}
-                                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                                transition={{ duration: 0.8, delay: 0.2 }}
-                                viewport={{ once: true }}
-                            >
-                                <ExchangeCard
-                                    title="Comienza tu cambio ahora"
-                                    initialOperationType="venta"
-                                    showCoupons={true}
-                                    showCredits={true}
-                                    onOperationStart={handleOperationStart}
-                                />
-                            </motion.div>
-                        </motion.div>
+                       
                     </motion.div>
 
                     <motion.div
@@ -516,7 +497,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                         <HtmlContentWithInsert
                             className="blog-article-content text-neutral-dark leading-relaxed"
                             html={article.description}
-                            insertComponent={<BannerArticle banner={banner} />}
+                          
                         />
 
                         <style jsx>{`
