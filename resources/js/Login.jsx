@@ -202,8 +202,8 @@ const Login = ({ }) => {
                             />
                             <div className="absolute inset-0 bg-black opacity-30"></div>
 
-                            {/* Testimonial */}
-                            <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
+                            {/* Testimonial 
+                             <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
                                 <blockquote className="text-lg font-medium mb-4 leading-relaxed">
                                     "Fusce tristique dolor nec diam facilisis, quis hendrerit magna posuere. Nam lectus libero, commodo ut neque vel."
                                 </blockquote>
@@ -212,6 +212,8 @@ const Login = ({ }) => {
                                     <div className="text-sm opacity-80">Lima</div>
                                 </div>
                             </div>
+                            */}
+                           
                         </div>
                     </div>
                 </div>
