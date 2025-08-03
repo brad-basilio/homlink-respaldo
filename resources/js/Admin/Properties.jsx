@@ -532,7 +532,7 @@ const Properties = () => {
 
     // Funciones para amenidades predefinidas
     const togglePredefinedAmenity = (amenityId) => {
-        setSelectedAmenities(prev => 
+        setSelectedAmenities(prev =>
             prev.includes(amenityId)
                 ? prev.filter(id => id !== amenityId)
                 : [...prev, amenityId]
@@ -633,7 +633,7 @@ const Properties = () => {
                 setSelectedDepartment(data.department);
                 await handleDepartmentChange(data.department);
                 $(departmentRef.current).val(data.department).trigger('change');
-                
+
                 // Ahora que las provincias están cargadas, establecer la provincia
                 if (data.province) {
                     setSelectedProvince(data.province);
@@ -641,7 +641,7 @@ const Properties = () => {
                     setTimeout(() => {
                         $(provinceRef.current).val(data.province).trigger('change');
                     }, 100);
-                    
+
                     // Ahora que los distritos están cargados, establecer el distrito
                     if (data.district) {
                         setSelectedDistrict(data.district);
@@ -666,7 +666,7 @@ const Properties = () => {
             // Configurar imagen principal si existe
             if (data.main_image) {
                 mainImageRef.image.src = `/api/property/media/${data.main_image}`;
-              
+
             }
 
             // Cargar arrays dinámicos - separar amenidades predefinidas de personalizadas
@@ -831,7 +831,7 @@ const Properties = () => {
 
     const onBooleanChange = async ({ id, field, value }) => {
         try {
-            await propertiesRest.save({ id, [field]: value });
+            await propertiesRest.boolean({ id, field, value });
             $(gridRef.current).dxDataGrid("instance").refresh();
         } catch (error) {
             console.error("Error updating property:", error);
@@ -853,27 +853,16 @@ const Properties = () => {
             });
 
             if (result.isConfirmed) {
-                const response = await fetch('/api/admin/properties/approve', {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-                    },
-                    body: JSON.stringify({ id })
+                await propertiesRest.boolean({ id, field: 'admin_approved', value: true });
+
+
+                $(gridRef.current).dxDataGrid("instance").refresh();
+                Swal.fire({
+                    title: 'Aprobada',
+                    text: 'La propiedad ha sido aprobada exitosamente',
+                    icon: 'success'
                 });
 
-                const data = await response.json();
-
-                if (data.status === 200) {
-                    $(gridRef.current).dxDataGrid("instance").refresh();
-                    Swal.fire({
-                        title: 'Aprobada',
-                        text: 'La propiedad ha sido aprobada exitosamente',
-                        icon: 'success'
-                    });
-                } else {
-                    throw new Error(data.message);
-                }
             }
         } catch (error) {
             console.error("Error approving property:", error);
@@ -966,7 +955,7 @@ const Properties = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="card">
-                        
+
                         <div className="card-body">
                             <Table
                                 gridRef={gridRef}
@@ -1548,22 +1537,19 @@ const Properties = () => {
                         <div className="row">
                             {predefinedAmenities.map((amenity, index) => (
                                 <div key={amenity.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
-                                    <div 
-                                        className={`card h-100 border-2 cursor-pointer transition-all ${
-                                            selectedAmenities.includes(amenity.id)
+                                    <div
+                                        className={`card h-100 border-2 cursor-pointer transition-all ${selectedAmenities.includes(amenity.id)
                                                 ? 'border-primary bg-light'
                                                 : 'border-light hover:border-secondary'
-                                        }`}
+                                            }`}
                                         onClick={() => togglePredefinedAmenity(amenity.id)}
                                         style={{ cursor: 'pointer' }}
                                     >
                                         <div className="card-body p-3 text-center">
-                                            <i className={`fas ${amenity.icon} fa-2x mb-2 ${
-                                                selectedAmenities.includes(amenity.id) ? 'text-primary' : 'text-muted'
-                                            }`}></i>
-                                            <h6 className={`mb-0 ${
-                                                selectedAmenities.includes(amenity.id) ? 'text-primary fw-bold' : 'text-dark'
-                                            }`}>
+                                            <i className={`fas ${amenity.icon} fa-2x mb-2 ${selectedAmenities.includes(amenity.id) ? 'text-primary' : 'text-muted'
+                                                }`}></i>
+                                            <h6 className={`mb-0 ${selectedAmenities.includes(amenity.id) ? 'text-primary fw-bold' : 'text-dark'
+                                                }`}>
                                                 {amenity.label}
                                             </h6>
                                             {selectedAmenities.includes(amenity.id) && (
