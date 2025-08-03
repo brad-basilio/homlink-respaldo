@@ -82,8 +82,8 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
 
                             {/* Post destacado principal */}
                             {postRecent[0] && (
-                                <motion.a
-                                    href={`/blog/${postRecent[0].slug}`}
+                                <motion.div
+                                
                                     className="relative rounded-3xl overflow-hidden shadow-2xl mb-12 group cursor-pointer"
                                     initial={{ opacity: 0, scale: 0.95 }}
                                     animate={{ opacity: sectionsReady ? 1 : 0, scale: sectionsReady ? 1 : 0.95 }}
@@ -91,7 +91,8 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
                                     whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
                                 >
                                     {/* Imagen de fondo */}
-                                    <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
+<a     href={`/blog/${postRecent[0].slug}`}>
+                                        <div className="relative h-[400px] lg:h-[500px] overflow-hidden">
                                         <motion.img
                                             src={`/api/posts/media/${postRecent[0].image}`}
                                             alt={postRecent[0].title}
@@ -134,7 +135,8 @@ function Blog({ categories, postRecent, landing, sliders, banner }) {
 
                                         </div>
                                     </div>
-                                </motion.a>
+</a>
+                                </motion.div>
                             )}
 
                             {/* Filtros */}

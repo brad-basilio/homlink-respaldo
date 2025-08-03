@@ -344,13 +344,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
         >
             <Header />
             
-            <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: sectionsReady ? 1 : 0, y: sectionsReady ? 0 : -20 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-            >
-                <CintilloSection/>
-            </motion.div>
+          
 
             <motion.section
                 initial="hidden"

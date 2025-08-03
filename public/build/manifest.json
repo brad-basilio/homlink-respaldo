@@ -48,15 +48,6 @@
       "resources/js/components/Blog/Filter.jsx"
     ]
   },
-  "_CintilloSection-bqzgqYqT.js": {
-    "file": "assets/CintilloSection-bqzgqYqT.js",
-    "name": "CintilloSection",
-    "imports": [
-      "resources/js/Admin/components/RequirementCard.jsx",
-      "_index-RYns6xqu.js",
-      "_proxy-Dg7W2VMC.js"
-    ]
-  },
   "_CouponsRest-wJ2qY0pS.js": {
     "file": "assets/CouponsRest-wJ2qY0pS.js",
     "name": "CouponsRest",
@@ -2550,7 +2541,7 @@
     ]
   },
   "resources/js/Blog.jsx": {
-    "file": "assets/Blog-Ccd_tE5b.js",
+    "file": "assets/Blog-NXdPs4pH.js",
     "name": "Blog",
     "src": "resources/js/Blog.jsx",
     "isEntry": true,
@@ -2587,7 +2578,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-DAR1Hf93.js",
+    "file": "assets/BlogArticle-DLI40gcq.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -2606,7 +2597,6 @@
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_main-Y8JAyXgE.js",
       "resources/js/components/Blog/Results.jsx",
-      "_CintilloSection-bqzgqYqT.js",
       "_proxy-Dg7W2VMC.js",
       "_createLucideIcon-D_WcjKff.js",
       "_check-CMa1b7nr.js",
@@ -3841,7 +3831,7 @@
     ]
   },
   "resources/js/ServiciosPage.jsx": {
-    "file": "assets/ServiciosPage-6vFq2WVf.js",
+    "file": "assets/ServiciosPage-Co0r6nKx.js",
     "name": "ServiciosPage",
     "src": "resources/js/ServiciosPage.jsx",
     "isEntry": true,
@@ -3858,10 +3848,9 @@
       "resources/js/components/Appointment/ModalAppointment.jsx",
       "resources/js/components/Blog/Results.jsx",
       "resources/js/components/Blog/Filter.jsx",
-      "_CintilloSection-bqzgqYqT.js",
+      "_proxy-Dg7W2VMC.js",
       "_TextWithHighlight-DJ4ZjNW2.js",
       "_WhatsAppButton-CGZmuOmm.js",
-      "_proxy-Dg7W2VMC.js",
       "resources/js/components/Tailwind/CambioGerencia/HomeSeccionBlog.jsx",
       "_pagination-iC1L0vLA.js",
       "_autoplay-DA1T4JLx.js",
@@ -4268,7 +4257,7 @@
     ]
   },
   "resources/js/components/Adminto/Modal.jsx": {
-    "file": "assets/Modal-B0ALEkqN.js",
+    "file": "assets/Modal-Dwtff5Cv.js",
     "name": "Modal",
     "src": "resources/js/components/Adminto/Modal.jsx",
     "isEntry": true,
@@ -4316,7 +4305,7 @@
     ]
   },
   "resources/js/components/Adminto/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
+    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/Adminto/form/CheckboxFormGroup.jsx",
     "isEntry": true,
@@ -4996,7 +4985,7 @@
     ]
   },
   "resources/js/components/Modal.jsx": {
-    "file": "assets/Modal-Dwtff5Cv.js",
+    "file": "assets/Modal-B0ALEkqN.js",
     "name": "Modal",
     "src": "resources/js/components/Modal.jsx",
     "isEntry": true,
@@ -5148,7 +5137,7 @@
     ]
   },
   "resources/js/components/Properties/PropertyFilters.jsx": {
-    "file": "assets/PropertyFilters-B0ALEkqN.js",
+    "file": "assets/PropertyFilters-Dwtff5Cv.js",
     "name": "PropertyFilters",
     "src": "resources/js/components/Properties/PropertyFilters.jsx",
     "isEntry": true,
@@ -5223,7 +5212,7 @@
     ]
   },
   "resources/js/components/Table.jsx": {
-    "file": "assets/Table-Dwtff5Cv.js",
+    "file": "assets/Table-B0ALEkqN.js",
     "name": "Table",
     "src": "resources/js/components/Table.jsx",
     "isEntry": true,
@@ -5813,7 +5802,7 @@
     ]
   },
   "resources/js/components/Tailwind/PropertyFilters.jsx": {
-    "file": "assets/PropertyFilters-Dwtff5Cv.js",
+    "file": "assets/PropertyFilters-B0ALEkqN.js",
     "name": "PropertyFilters",
     "src": "resources/js/components/Tailwind/PropertyFilters.jsx",
     "isEntry": true,
@@ -6103,7 +6092,7 @@
     ]
   },
   "resources/js/components/Tailwind/Table.jsx": {
-    "file": "assets/Table-B0ALEkqN.js",
+    "file": "assets/Table-Dwtff5Cv.js",
     "name": "Table",
     "src": "resources/js/components/Tailwind/Table.jsx",
     "isEntry": true,
@@ -6221,10 +6210,10 @@
     ]
   },
   "resources/js/components/Test/Email.jsx": {
-    "file": "assets/Email-B6_1mLDL.js",
+    "file": "assets/Email-Kbv258F4.js",
     "name": "Email",
     "src": "resources/js/components/Test/Email.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6255,10 +6244,10 @@
     ]
   },
   "resources/js/components/Test/HairType.jsx": {
-    "file": "assets/HairType-BzSP4Kvf.js",
+    "file": "assets/HairType-Chu0TyCG.js",
     "name": "HairType",
     "src": "resources/js/components/Test/HairType.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js",
@@ -6268,10 +6257,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6291,10 +6280,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-Dwtff5Cv.js",
+    "file": "assets/Treatment-DR32cJ8V.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6389,7 +6378,7 @@
     "isEntry": true
   },
   "resources/js/components/form/CheckboxFormGroup.jsx": {
-    "file": "assets/CheckboxFormGroup-Dwtff5Cv.js",
+    "file": "assets/CheckboxFormGroup-B0ALEkqN.js",
     "name": "CheckboxFormGroup",
     "src": "resources/js/components/form/CheckboxFormGroup.jsx",
     "isEntry": true,
