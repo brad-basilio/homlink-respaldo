@@ -124,6 +124,47 @@
     width: 100%;
     height: 200px;
   }
+  
+  /* Mobile property card adjustments */
+  .property-card {
+    margin-bottom: 1rem;
+  }
+  
+  /* Mobile filter adjustments */
+  .filter-button {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Mobile map controls */
+  .map-controls {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+  
+  .map-control-button {
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Small screen utility classes */
+@media (max-width: 480px) {
+  .xs\:hidden {
+    display: none;
+  }
+  
+  .xs\:inline {
+    display: inline;
+  }
+  
+  .xs\:block {
+    display: block;
+  }
+  
+  .xs\:flex {
+    display: flex;
+  }
 }
 
 /* Badge styles */

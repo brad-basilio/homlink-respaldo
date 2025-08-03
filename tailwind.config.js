@@ -8,6 +8,9 @@ export default {
     ],
     theme: {
         extend: {
+            screens: {
+                'xs': '480px', // Added xs breakpoint for small mobile devices
+            },
             keyframes: {
                 'fade-in-up': {
                     '0%': { opacity: 0, transform: 'translateY(32px)' },

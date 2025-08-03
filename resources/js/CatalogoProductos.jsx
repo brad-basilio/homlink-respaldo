@@ -40,6 +40,10 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
         featured: false
     });
 
+    // Estados para responsive
+    const [isMobileView, setIsMobileView] = useState(false);
+    const [showMap, setShowMap] = useState(true);
+
     // Estado para propiedades filtradas
     const [filteredProperties, setFilteredProperties] = useState(propiedades || []);
     const [propertyStats, setPropertyStats] = useState({ total: propiedades?.length || 0 });
@@ -311,20 +315,37 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+    
+    // Detectar si es una vista móvil
+    useEffect(() => {
+        const checkIfMobile = () => {
+            setIsMobileView(window.innerWidth < 768);
+            if (window.innerWidth >= 768) {
+                setShowMap(true);
+            }
+        };
+        
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        
+        return () => {
+            window.removeEventListener('resize', checkIfMobile);
+        };
+    }, []);
 
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
 
             {/* Search and Filters Bar */}
-            <div className="bg-white sticky top-0 z-40">
-                <div className="mx-auto px-[5%] py-4">
-                                        <div className="flex items-center justify-between gap-4">
+            <div className="bg-white sticky top-0 z-40 shadow-sm">
+                <div className="mx-auto px-[5%] py-3 md:py-4">
+                    <div className="flex items-center justify-between gap-2 md:gap-4">
                         {/* Search Location */}
                         <div className="flex-1 max-w-md">
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="h-4 w-4 md:h-5 md:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
                                 </div>
@@ -332,14 +353,14 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                                     type="text"
                                     value={searchLocation}
                                     onChange={handleSearchLocation}
-                                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-full leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                                    className="block w-full pl-9 pr-3 py-2 md:py-3 border border-gray-300 rounded-full text-sm md:text-base leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                                     placeholder="¿A dónde vas?"
                                 />
                             </div>
                         </div>
 
                         {/* Filter Buttons */}
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1 md:gap-3">
                             {/* Date/Sort Dropdown */}
                             <div className="relative dropdown-container">
                                 <button
@@ -348,8 +369,9 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                                         setShowGuestsDropdown(false);
                                         setShowPriceDropdown(false);
                                     }}
-                                    className="px-4 py-2 border border-gray-300 rounded-full text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
+                                    className="px-2 md:px-4 py-2 border border-gray-300 rounded-full text-xs md:text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-1 md:gap-2"
                                 >
+                                    <span className="hidden md:inline">
                                     {sortBy === 'relevancia' ? 'Relevancia' : 
                                      sortBy === 'precio-menor' ? 'Precio: menor a mayor' :
                                      sortBy === 'precio-mayor' ? 'Precio: mayor a menor' :
@@ -357,12 +379,22 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                                      sortBy === 'fecha-antigua' ? 'Más antiguos' :
                                      sortBy === 'rating' ? 'Mejor valorados' :
                                      sortBy === 'huespedes' ? 'Más huéspedes' : 'Ordenar'}
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    </span>
+                                    <span className="md:hidden">
+                                    {sortBy === 'relevancia' ? 'Relevancia' : 
+                                     sortBy === 'precio-menor' ? 'Precio ↓' :
+                                     sortBy === 'precio-mayor' ? 'Precio ↑' :
+                                     sortBy === 'fecha-reciente' ? 'Recientes' :
+                                     sortBy === 'fecha-antigua' ? 'Antiguos' :
+                                     sortBy === 'rating' ? 'Rating' :
+                                     sortBy === 'huespedes' ? 'Huéspedes' : 'Orden'}
+                                    </span>
+                                    <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
                                 {showDateDropdown && (
-                                    <div className="absolute top-full mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                    <div className="absolute top-full mt-2 w-48 md:w-56 right-0 md:right-auto bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                                         <div className="p-2">
                                             <button
                                                 onClick={() => handleSortChange('relevancia')}
@@ -411,24 +443,25 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                                 )}
                             </div>
 
-                            {/* Guests Dropdown */}
-                            <div className="relative dropdown-container">
+                            {/* Guests Dropdown - Hidden on smallest screens */}
+                            <div className="relative dropdown-container hidden xs:block">
                                 <button
                                     onClick={() => {
                                         setShowGuestsDropdown(!showGuestsDropdown);
                                         setShowDateDropdown(false);
                                         setShowPriceDropdown(false);
                                     }}
-                                    className={`px-4 py-2 border rounded-full text-sm font-medium ${selectedGuests ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700'
-                                        } hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2`}
+                                    className={`px-2 md:px-4 py-2 border rounded-full text-xs md:text-sm font-medium ${selectedGuests ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700'
+                                        } hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-1 md:gap-2`}
                                 >
-                                    {selectedGuests ? `${selectedGuests} huéspedes` : "Huéspedes"}
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <span className="hidden md:inline">{selectedGuests ? `${selectedGuests} huéspedes` : "Huéspedes"}</span>
+                                    <span className="md:hidden">{selectedGuests ? `${selectedGuests}` : "Huéspedes"}</span>
+                                    <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
                                 {showGuestsDropdown && (
-                                    <div className="absolute top-full mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                    <div className="absolute top-full mt-2 w-40 md:w-48 right-0 md:right-auto bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                                         <div className="p-2">
                                             {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
                                                 <button
@@ -461,26 +494,32 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                             </div>
 
                             {/* Price Range Dropdown */}
-                            <div className="relative dropdown-container">
+                            <div className="relative dropdown-container hidden sm:block">
                                 <button
                                     onClick={() => {
                                         setShowPriceDropdown(!showPriceDropdown);
                                         setShowDateDropdown(false);
                                         setShowGuestsDropdown(false);
                                     }}
-                                    className={`px-4 py-2 border rounded-full text-sm font-medium ${(priceRange[0] > 0 || priceRange[1] < 500) ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700'
-                                        } hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2`}
+                                    className={`px-2 md:px-4 py-2 border rounded-full text-xs md:text-sm font-medium ${(priceRange[0] > 0 || priceRange[1] < 500) ? 'bg-blue-50 border-blue-500 text-blue-700' : 'bg-white border-gray-300 text-gray-700'
+                                        } hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-1 md:gap-2`}
                                 >
                                     {(priceRange[0] > 0 || priceRange[1] < 500) ?
-                                        `S/ ${priceRange[0]} - S/ ${priceRange[1]}` :
-                                        "Rango de precio"
+                                        <>
+                                            <span className="hidden md:inline">{`S/ ${priceRange[0]} - S/ ${priceRange[1]}`}</span>
+                                            <span className="md:hidden">{`S/${priceRange[0]}-${priceRange[1]}`}</span>
+                                        </> :
+                                        <>
+                                            <span className="hidden md:inline">Rango de precio</span>
+                                            <span className="md:hidden">Precio</span>
+                                        </>
                                     }
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
                                 {showPriceDropdown && (
-                                    <div className="absolute top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                                    <div className="absolute top-full mt-2 w-48 md:w-64 right-0 md:right-auto bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                                         <div className="p-4">
                                             <h4 className="font-medium mb-3">Rango de precio por noche</h4>
                                             <div className="space-y-2">
@@ -541,23 +580,36 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                                 }}
                                 className="p-2 border border-gray-300 rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
-                                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg className="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z" />
                                 </svg>
                             </button>
+                            
+                            {/* Toggle Map View Button (Only on Mobile) */}
+                            {isMobileView && (
+                                <button
+                                    onClick={() => setShowMap(!showMap)}
+                                    className="p-2 border border-gray-300 rounded-full text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                    {showMap ? (
+                                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                        </svg>
+                                    )}
+                                </button>
+                            )}
                         </div>
-
-                    
                     </div>
-
-               
 
                     {/* Results count */}
                     <div className="mt-2">
-                        <p className="text-lg text-gray-600">
+                        <p className="text-sm md:text-lg text-gray-600">
                             {propertyStats.total} propiedades encontradas
                         </p>
-                    
                     </div>
                 </div>
             </div>
@@ -595,12 +647,53 @@ function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing
                 currentFilters={filters} // Pasar filtros actuales para sincronización
             />
 
-            {/* Main Content - Map View */}
-            <PropertyMapView 
-                propiedades={filteredProperties} 
-                center={mapCenter}
-                locationStats={locationStats}
-            />
+            {/* Main Content - Map View with Responsive Layout */}
+            <div className="flex flex-col md:flex-row bg-white gap-0 md:gap-6 min-h-screen md:px-[5%]">
+                {/* Mobile Toggle for List/Map View */}
+                {isMobileView && (
+                    <div className="sticky top-[70px] z-30 flex bg-white border-b shadow-sm">
+                        <button 
+                            onClick={() => setShowMap(false)}
+                            className={`flex-1 py-3 font-medium text-sm ${!showMap ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+                        >
+                            Lista
+                        </button>
+                        <button 
+                            onClick={() => setShowMap(true)}
+                            className={`flex-1 py-3 font-medium text-sm ${showMap ? 'text-blue-600 border-b-2 border-blue-600' : 'text-gray-500'}`}
+                        >
+                            Mapa
+                        </button>
+                    </div>
+                )}
+                
+                {/* Conditional Rendering based on device and view mode */}
+                {/* Desktop: Always show both */}
+                {/* Mobile: Show either Map or List based on showMap state */}
+                {(!isMobileView || (isMobileView && !showMap)) && (
+                    <div className={`${isMobileView ? 'w-full' : 'w-2/3'} flex flex-col bg-white property-list-container`}>
+                        <PropertyMapView 
+                            propiedades={filteredProperties}
+                            center={mapCenter}
+                            locationStats={locationStats}
+                            isMobileView={isMobileView}
+                            showMapOnly={false}
+                        />
+                    </div>
+                )}
+                
+                {(!isMobileView || (isMobileView && showMap)) && (
+                    <div className={`${isMobileView ? 'w-full h-[calc(100vh-145px)]' : 'w-1/3 sticky top-0 h-screen'} rounded-xl overflow-hidden`}>
+                        <PropertyMapView 
+                            propiedades={filteredProperties}
+                            center={mapCenter}
+                            locationStats={locationStats}
+                            isMobileView={isMobileView}
+                            showMapOnly={true}
+                        />
+                    </div>
+                )}
+            </div>
 
             <ServiceSeccionFaq faqs={faqs} landingFAQS={landing} />
 

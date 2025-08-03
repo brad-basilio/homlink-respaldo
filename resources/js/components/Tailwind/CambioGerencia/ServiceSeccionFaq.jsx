@@ -56,7 +56,7 @@ const ServiceSeccionFaq = ({ landingFAQS, faqs = [] }) => {
   }
   return (
     <motion.section
-      className="w-full relative mt-20 overflow-hidden font-title  bg-primary text-white px-[5%] py-12 md:py-24 flex flex-col lg:flex-row gap-10 lg:gap-20 mx-auto"
+      className="w-full relative lg:mt-20 overflow-hidden font-title  bg-primary text-white px-[5%] py-12 md:py-24 flex flex-col lg:flex-row gap-10 lg:gap-20 mx-auto"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
