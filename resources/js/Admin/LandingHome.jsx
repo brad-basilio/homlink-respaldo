@@ -106,10 +106,12 @@ const LandingHome = ({
        // solutions: "Soluciones",
        // purchase: "Opciones de compra",
        // partners: "Aliados comerciales",
+       catalogo: "Catálogo",
         aboutus: "Nosotros",
         //faqs: "Faqs",
         contact: "Contacto",
         blog: "Blog",
+
        // empresas: "Empresas",
     };
 

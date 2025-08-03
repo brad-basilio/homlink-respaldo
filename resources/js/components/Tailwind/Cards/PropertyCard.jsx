@@ -107,17 +107,12 @@ const PropertyCard = ({ propiedad, currentIndex = 0, onIndexChange = () => {} })
         
         {/* Featured badge */}
         {propiedad.featured && (
-          <div className="absolute top-2 left-2 bg-secondary text-white text-xs px-2 py-1 rounded z-20">
+          <div className="absolute top-0 right-0 bg-secondary text-white text-xs px-2 py-1 rounded-tr-lg rounded-bl-lg z-20">
             Destacado
           </div>
         )}
         
-        {/* Image counter */}
-        {images.length > 1 && (
-          <div className="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded z-20">
-            {currentIndex + 1}/{images.length}
-          </div>
-        )}
+       
       </div>
 
       {/* Property details */}

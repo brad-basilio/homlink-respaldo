@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Aboutus;
 use App\Models\Ad;
 use App\Models\Category;
+use App\Models\Faq;
 use App\Models\Indicator;
 use App\Models\Item;
 use App\Models\Post;
@@ -25,7 +26,7 @@ class CatalogController extends BasicController
     {
         $sliders = Slider::where('status', true)->where('visible', true)->get();
         $testimonies = Testimony::where('status', true)->where('visible', true)->get();
-        $landing = LandingHome::where('status', true)->where('visible', true)->first();
+       // $landing = LandingHome::where('status', true)->where('visible', true)->first();
 
         $supplies = Supply::where('status', true)->where('visible', true)->where('featured', true)->get();
         $anuncio = Ad::where('status', true)
@@ -78,6 +79,9 @@ class CatalogController extends BasicController
             'adults' => $request->adults ?? '',
             'children' => $request->children ?? '',
         ];
+   $langId = app('current_lang_id');
+ $landing = LandingHome::where('correlative', '=', 'page_catalogo_testimonios')->where('lang_id', $langId)->first();
+        $faqs = Faq::where('status', true)->where('visible', true)->get();
         
         return [
             'sliders' => $sliders,
@@ -87,7 +91,8 @@ class CatalogController extends BasicController
             'supplies' => $supplies,
             'anuncio' => $anuncio,
             'categories' => $categories,
-            'searchFilters' => $searchFilters
+            'searchFilters' => $searchFilters,
+            'faqs' => $faqs,
         ];
     }
 }

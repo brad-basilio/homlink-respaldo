@@ -9,7 +9,7 @@ const PropertyMapView = ({ propiedades = [], center = null }) => {
   
   // ✅ AGREGADO: Estado para paginación
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 12; // Mostrar 12 propiedades por página (4x3 grid)
+  const itemsPerPage = 9; // Mostrar 9 propiedades por página (3x3 grid)
   
   // Calcular propiedades paginadas
   const totalPages = Math.ceil(propiedades.length / itemsPerPage);
@@ -22,6 +22,17 @@ const PropertyMapView = ({ propiedades = [], center = null }) => {
     setCurrentPage(1);
     setSelectedProperty(null); // También resetear selección
   }, [propiedades.length]);
+  
+  // ✅ SCROLL TO TOP cuando cambie la página
+  useEffect(() => {
+    // Scroll suave hacia arriba del contenedor de propiedades
+    const propertyContainer = document.querySelector('.property-list-container');
+    if (propertyContainer) {
+      propertyContainer.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // También hacer scroll de la ventana si es necesario
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentPage]);
   
   // ✅ RESETEAR SELECCIÓN cuando se cambie de página si la propiedad seleccionada no está visible
   useEffect(() => {
@@ -57,12 +68,12 @@ const PropertyMapView = ({ propiedades = [], center = null }) => {
   };
 
   return (
-    <div className="flex h-screen px-[5%]">
+    <div className="flex bg-white gap-6 min-h-screen px-[5%]">
       {/* Properties List - Left Side */}
-      <div className="w-2/3 overflow-y-auto bg-white property-list-container">
+      <div className="w-2/3 flex flex-col bg-white property-list-container">
         {/* Header con información de selección */}
         {selectedProperty && (
-          <div className="p-4 bg-primary/10 border-l-4 border-primary mx-4 mt-4 rounded-r-lg">
+          <div className="p-4 bg-primary/10 border-l-4 border-primary mx-4 mt-4 rounded-r-lg flex-shrink-0">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <svg className="w-5 h-5 text-primary mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,110 +94,134 @@ const PropertyMapView = ({ propiedades = [], center = null }) => {
           </div>
         )}
         
-        <div className="py-10 grid grid-cols-3 gap-6">
-          {paginatedProperties && paginatedProperties.length > 0 ? (
-            paginatedProperties.map((propiedad) => (
-              <div 
-                key={propiedad.id} 
-                className="relative cursor-pointer"
-                data-property-id={propiedad.id}
-                onClick={() => {
-                  setSelectedProperty(selectedProperty === propiedad.id ? null : propiedad.id);
-                }}
-              >
-                {/* Check icon en la esquina superior izquierda */}
-                {selectedProperty === propiedad.id && (
-                  <div className="absolute top-2 left-2 z-20 bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                )}
-                
-                <PropertyCard
-                  propiedad={propiedad}
-                  currentIndex={currentIndexes[propiedad.id] || 0}
-                  onIndexChange={handleIndexChange}
-                />
+        {/* Grid de propiedades con tamaño completo */}
+        <div className="flex-1 px-4">
+          <div className="py-10 grid grid-cols-3 gap-6">
+            {paginatedProperties && paginatedProperties.length > 0 ? (
+              paginatedProperties.map((propiedad) => (
+                <div 
+                  key={propiedad.id} 
+                  className="relative cursor-pointer"
+                  data-property-id={propiedad.id}
+                  onClick={() => {
+                    setSelectedProperty(selectedProperty === propiedad.id ? null : propiedad.id);
+                  }}
+                >
+                  {/* Check icon en la esquina superior izquierda */}
+                  {selectedProperty === propiedad.id && (
+                    <div className="absolute top-2 left-2 z-20 bg-primary text-white w-6 h-6 rounded-full flex items-center justify-center shadow-lg">
+                      <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  )}
+                  
+                  <PropertyCard
+                    propiedad={propiedad}
+                    currentIndex={currentIndexes[propiedad.id] || 0}
+                    onIndexChange={handleIndexChange}
+                  />
+                </div>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-8">
+                <p className="text-gray-500">No hay propiedades disponibles en este momento.</p>
               </div>
-            ))
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No hay propiedades disponibles en este momento.</p>
-            </div>
-          )}
+            )}
+          </div>
         </div>
 
         {/* Pagination Controls */}
         {propiedades && propiedades.length > itemsPerPage && (
-          <div className="p-4 bg-white sticky bottom-0 border-t border-gray-200">
+          <div className="p-6 bg-gradient-to-r from-gray-50 to-white border-t border-gray-200 flex-shrink-0 shadow-sm">
             <div className="flex items-center justify-between">
               {/* Info de resultados */}
-              <div className="text-sm text-gray-600">
-                Mostrando {startIndex + 1}-{Math.min(endIndex, propiedades.length)} de {propiedades.length} propiedades
+              <div className="text-sm text-gray-600 font-medium">
+                <span className="hidden sm:inline">Mostrando </span>
+                <span className="font-bold text-primary">{startIndex + 1}-{Math.min(endIndex, propiedades.length)}</span>
+                <span className="hidden sm:inline"> de </span>
+                <span className="sm:hidden"> / </span>
+                <span className="font-bold">{propiedades.length}</span>
+                <span className="hidden sm:inline"> propiedades</span>
               </div>
               
               {/* Controles de paginación */}
               <div className="flex items-center space-x-2">
                 <button
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  onClick={() => {
+                    const newPage = Math.max(1, currentPage - 1);
+                    setCurrentPage(newPage);
+                  }}
                   disabled={currentPage === 1}
-                  className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     currentPage === 1 
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-primary hover:text-white border border-gray-300 hover:border-primary shadow-sm hover:shadow-md'
                   }`}
                 >
-                  ‹ Anterior
+                  <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                  <span className="hidden sm:inline">Anterior</span>
                 </button>
                 
                 {/* Números de página */}
-                {[...Array(Math.min(5, totalPages))].map((_, index) => {
-                  let pageNum;
-                  if (totalPages <= 5) {
-                    pageNum = index + 1;
-                  } else {
-                    // Lógica para mostrar páginas alrededor de la actual
-                    const start = Math.max(1, currentPage - 2);
-                    const end = Math.min(totalPages, start + 4);
-                    pageNum = start + index;
-                    if (pageNum > end) return null;
-                  }
-                  
-                  return (
-                    <button
-                      key={pageNum}
-                      onClick={() => setCurrentPage(pageNum)}
-                      className={`px-3 py-1 rounded-md text-sm transition-colors ${
-                        currentPage === pageNum
-                          ? 'bg-primary text-white'
-                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                      }`}
-                    >
-                      {pageNum}
-                    </button>
-                  );
-                })}
+                <div className="flex items-center space-x-1">
+                  {[...Array(Math.min(5, totalPages))].map((_, index) => {
+                    let pageNum;
+                    if (totalPages <= 5) {
+                      pageNum = index + 1;
+                    } else {
+                      // Lógica para mostrar páginas alrededor de la actual
+                      const start = Math.max(1, currentPage - 2);
+                      const end = Math.min(totalPages, start + 4);
+                      pageNum = start + index;
+                      if (pageNum > end) return null;
+                    }
+                    
+                    return (
+                      <button
+                        key={pageNum}
+                        onClick={() => setCurrentPage(pageNum)}
+                        className={`w-10 h-10 rounded-lg text-sm font-bold transition-all duration-200 ${
+                          currentPage === pageNum
+                            ? 'bg-primary text-white shadow-lg scale-110'
+                            : 'bg-white text-gray-700 hover:bg-primary hover:text-white border border-gray-300 hover:border-primary shadow-sm hover:shadow-md hover:scale-105'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    );
+                  })}
+                </div>
                 
                 <button
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  onClick={() => {
+                    const newPage = Math.min(totalPages, currentPage + 1);
+                    setCurrentPage(newPage);
+                  }}
                   disabled={currentPage === totalPages}
-                  className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                  className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                     currentPage === totalPages 
                       ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      : 'bg-white text-gray-700 hover:bg-primary hover:text-white border border-gray-300 hover:border-primary shadow-sm hover:shadow-md'
                   }`}
                 >
-                  Siguiente ›
+                  <span className="hidden sm:inline">Siguiente</span>
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
               </div>
             </div>
+            
+        
           </div>
         )}
       </div>
 
       {/* Map - Right Side */}
-      <div className="w-1/3 py-10 relative rounded-xl overflow-hidden">
+      <div className="w-1/3 sticky top-0 h-screen rounded-xl overflow-hidden">
         <LoadScript googleMapsApiKey={Global?.GMAPS_API_KEY || ''}>
           <GoogleMap
             mapContainerStyle={mapContainerStyle}

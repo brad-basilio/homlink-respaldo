@@ -10,8 +10,9 @@ import { CarritoProvider } from "./context/CarritoContext";
 import PropertyMapView from "./components/Properties/PropertyMapView";
 import PropertyFiltersModal from "./components/Properties/PropertyFiltersModal";
 import "../css/property-catalog.css";
+import ServiceSeccionFaq from "./components/Tailwind/CambioGerencia/ServiceSeccionFaq";
 
-function CatalogoProductos({ propiedades, searchFilters = {} }) {
+function CatalogoProductos({ propiedades, searchFilters = {}, faqs = [], landing }) {
     // Estados para los filtros de la barra superior
     const [searchLocation, setSearchLocation] = useState(searchFilters.location || "");
     const [selectedDate, setSelectedDate] = useState("Fecha");
@@ -600,6 +601,8 @@ function CatalogoProductos({ propiedades, searchFilters = {} }) {
                 center={mapCenter}
                 locationStats={locationStats}
             />
+
+            <ServiceSeccionFaq faqs={faqs} landingFAQS={landing} />
 
             <Footer />
         </div>
