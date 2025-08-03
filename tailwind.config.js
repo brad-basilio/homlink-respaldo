@@ -36,7 +36,7 @@ export default {
                 accent:"#07132D",
                 secondary:"#FF3D2A",
                 primary:"#195AEA",
-                constrast:"#7E5AFB",
+                constrast:"#07132D",
                 "neutral-dark":"#07132D",
                 "neutral":"#ECE6FE",
                 "neutral-light":"#07132D99",

@@ -169,15 +169,39 @@ Route::post('/signup', [AuthController::class, 'signup']);
 
 // Endpoint para verificar autenticación
 Route::get('/user-check', function() {
+    if (!Auth::check()) {
+        return response()->json([
+            'authenticated' => false,
+            'auth' => null,
+        ]);
+    }
+
+    $user = Auth::user();
+    $userRole = 'Customer'; // Valor por defecto
+    
+    try {
+        // Intentamos obtener el rol del usuario
+        $roles = $user->getRoleNames();
+        if ($roles->isNotEmpty()) {
+            $userRole = $roles->first();
+        }
+    } catch (\Exception $e) {
+        // Si hay algún error, mantenemos el valor por defecto
+        $userRole = 'Customer';
+    }
+
     return response()->json([
-        'authenticated' => Auth::check(),
-        'user' => Auth::check() ? [
-            'id' => Auth::user()->id,
-            'name' => Auth::user()->name,
-            'lastname' => Auth::user()->lastname,
-            'email' => Auth::user()->email,
-            'fullname' => Auth::user()->name . ' ' . Auth::user()->lastname,
-        ] : null,
+        'authenticated' => true,
+        'auth' => [
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'lastname' => $user->lastname,
+                'email' => $user->email,
+                'fullname' => $user->name . ' ' . $user->lastname,
+                'role' => $userRole,
+            ]
+        ],
     ]);
 });
 

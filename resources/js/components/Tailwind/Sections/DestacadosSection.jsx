@@ -20,9 +20,9 @@ const DestacadosSection = ({ propiedades = [], titulo = "Destino más visitados"
           <h2 className="text-2xl md:text-[40px] font-bold text-gray-800">
             {titulo}
           </h2>
-          <button className="bg-secondary hover:bg-primary text-white px-5 py-3 rounded-full text-base font-bold transition-colors">
+          <a href='/catalogo' className="bg-secondary hover:bg-primary text-white px-5 py-3 rounded-full text-base font-bold transition-colors">
             Ver todas
-          </button>
+          </a>
         </div>
 
         {/* Properties grid */}
