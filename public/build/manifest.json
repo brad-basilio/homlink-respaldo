@@ -2578,7 +2578,7 @@
     ]
   },
   "resources/js/BlogArticle.jsx": {
-    "file": "assets/BlogArticle-DLI40gcq.js",
+    "file": "assets/BlogArticle-BFpjvp1s.js",
     "name": "BlogArticle",
     "src": "resources/js/BlogArticle.jsx",
     "isEntry": true,
@@ -4335,7 +4335,7 @@
     ]
   },
   "resources/js/components/Adminto/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-Dwtff5Cv.js",
+    "file": "assets/InputFormGroup-B0ALEkqN.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/Adminto/form/InputFormGroup.jsx",
     "isEntry": true,
@@ -6224,15 +6224,13 @@
     ]
   },
   "resources/js/components/Test/Fragrance.jsx": {
-    "file": "assets/Fragrance-CWZ5d7UB.js",
+    "file": "assets/Fragrance-Dwtff5Cv.js",
     "name": "Fragrance",
     "src": "resources/js/components/Test/Fragrance.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
-      "_tippy-react.esm-DYFqe69e.js",
-      "_index-RYns6xqu.js",
-      "_index-CXU7o9CY.js"
+      "_index-RYns6xqu.js"
     ]
   },
   "resources/js/components/Test/HairGoals.jsx": {
@@ -6259,10 +6257,10 @@
     ]
   },
   "resources/js/components/Test/Main.jsx": {
-    "file": "assets/Main-Dwtff5Cv.js",
+    "file": "assets/Main-90rnymIv.js",
     "name": "Main",
     "src": "resources/js/components/Test/Main.jsx",
-    "isEntry": true,
+    "isDynamicEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6282,10 +6280,10 @@
     ]
   },
   "resources/js/components/Test/Treatment.jsx": {
-    "file": "assets/Treatment-DR32cJ8V.js",
+    "file": "assets/Treatment-Dwtff5Cv.js",
     "name": "Treatment",
     "src": "resources/js/components/Test/Treatment.jsx",
-    "isDynamicEntry": true,
+    "isEntry": true,
     "imports": [
       "resources/js/Admin/components/RequirementCard.jsx",
       "_index-RYns6xqu.js"
@@ -6390,7 +6388,7 @@
     ]
   },
   "resources/js/components/form/InputFormGroup.jsx": {
-    "file": "assets/InputFormGroup-B0ALEkqN.js",
+    "file": "assets/InputFormGroup-Dwtff5Cv.js",
     "name": "InputFormGroup",
     "src": "resources/js/components/form/InputFormGroup.jsx",
     "isEntry": true,

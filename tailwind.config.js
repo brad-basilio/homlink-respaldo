@@ -41,7 +41,7 @@ export default {
                 primary:"#195AEA",
                 constrast:"#07132D",
                 "neutral-dark":"#07132D",
-                "neutral":"#ECE6FE",
+                "neutral":"#07132D",
                 "neutral-light":"#07132D99",
             },
             // Puedes agregar personalizaciones aquí si es necesario

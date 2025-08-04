@@ -360,7 +360,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                     >
                         <motion.a
                             href="/blog"
-                            className="flex w-auto items-center gap-2 text-neutral-dark hover:text-accent transition-colors duration-200"
+                            className="flex w-auto items-center gap-2 !text-neutral-dark hover:text-accent transition-colors duration-200"
                             variants={fadeInLeft}
                             whileHover={{ x: -8, scale: 1.02 }}
                             whileTap={{ scale: 0.95 }}
@@ -371,7 +371,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                             >
                                 <ArrowLeftIcon />
                             </motion.div>
-                            <span className="text-base 2xl:text-lg font-medium">
+                            <span className="text-base  2xl:text-lg font-medium">
                                 Volver a blog
                             </span>
                         </motion.a>
@@ -381,7 +381,7 @@ const BlogArticle = ({ article, posts, landing, banner_operacion,banner }) => {
                             variants={fadeInUp}
                         >
                             <motion.span
-                                className="inline-block rounded-lg text-sm text-neutral font-semibold px-4 py-2 bg-constrast border border-primary/20"
+                                className="inline-block rounded-lg text-sm text-white font-semibold px-4 py-2 bg-constrast border border-primary/20"
                                 whileHover={{
                                     scale: 1.05,
                                     boxShadow: "0 4px 15px rgba(0,0,0,0.1)"
