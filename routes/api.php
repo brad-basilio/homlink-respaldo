@@ -649,6 +649,7 @@ Route::post('/property-metrics/track', [App\Http\Controllers\Admin\PropertyMetri
 
 // Rutas protegidas para métricas
 Route::middleware('auth')->group(function () {
+    Route::get('/user-dashboard-metrics', [App\Http\Controllers\UserDashboardController::class, 'getUserMetrics']);
     Route::get('/user-dashboard', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getUserDashboard']);
     Route::get('/property-metrics/{propertyId}', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getPropertyMetrics']);
     

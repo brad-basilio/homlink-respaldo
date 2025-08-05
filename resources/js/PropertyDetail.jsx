@@ -63,6 +63,125 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
     // Declarar allImages aquí para que esté disponible en useEffect
     const allImages = [main_image, ...(gallery || [])].filter(Boolean);
 
+    // ✅ FUNCIONES DE DEBUGGING Y UTILIDAD
+    const clearSessionViewData = () => {
+        if (property?.id) {
+            const cardClickKey = `property_card_clicked_${property.id}`;
+            const detailViewKey = `property_detail_viewed_${property.id}`;
+            const gallerySessionKey = `gallery_viewed_${property.id}`;
+            const cardTimestampKey = `${cardClickKey}_timestamp`;
+            const detailTimestampKey = `${detailViewKey}_timestamp`;
+            const galleryTimestampKey = `${gallerySessionKey}_timestamp`;
+            const executionCountKey = `${detailViewKey}_executions`;
+            
+            sessionStorage.removeItem(cardClickKey);
+            sessionStorage.removeItem(detailViewKey);
+            sessionStorage.removeItem(gallerySessionKey);
+            sessionStorage.removeItem(cardTimestampKey);
+            sessionStorage.removeItem(detailTimestampKey);
+            sessionStorage.removeItem(galleryTimestampKey);
+            sessionStorage.removeItem(executionCountKey);
+            
+            console.log('🧹 Datos de sesión limpiados para propiedad:', property.id);
+        }
+    };
+
+    const checkSessionStatus = () => {
+        if (property?.id) {
+            const cardClickKey = `property_card_clicked_${property.id}`;
+            const detailViewKey = `property_detail_viewed_${property.id}`;
+            const gallerySessionKey = `gallery_viewed_${property.id}`;
+            
+            console.log('📋 Estado de sesión para propiedad:', property.id);
+            console.log('  - Click en card:', sessionStorage.getItem(cardClickKey) || 'No registrado');
+            console.log('  - Vista de detalle:', sessionStorage.getItem(detailViewKey) || 'No registrada');
+            console.log('  - Vista de galería:', sessionStorage.getItem(gallerySessionKey) || 'No registrada');
+        }
+    };
+
+    const checkReactStrictMode = () => {
+        console.log('🔍 Verificando React Strict Mode...');
+        console.log('  - NODE_ENV:', process.env.NODE_ENV);
+        console.log('  - StrictMode detectado:', document.querySelector('[data-reactroot]') ? 'Posible' : 'No detectado');
+        
+        // Verificar si hay doble ejecución de useEffect
+        const testKey = 'react_strict_mode_test';
+        const currentCount = parseInt(sessionStorage.getItem(testKey) || '0') + 1;
+        sessionStorage.setItem(testKey, currentCount.toString());
+        
+        setTimeout(() => {
+            const finalCount = parseInt(sessionStorage.getItem(testKey) || '0');
+            console.log('  - Ejecuciones detectadas:', finalCount);
+            if (finalCount > 1) {
+                console.log('⚠️ React Strict Mode o re-renders múltiples detectados');
+            }
+            sessionStorage.removeItem(testKey);
+        }, 500);
+    };
+
+    // ✅ EJECUTAR FUNCIONES DE DEBUGGING SOLO UNA VEZ
+    useEffect(() => {
+        // Solo ejecutar si no se ha ejecutado antes en esta sesión
+        const debugExecutedKey = 'debug_functions_executed';
+        const alreadyExecuted = sessionStorage.getItem(debugExecutedKey);
+        
+        if (!alreadyExecuted && typeof window !== 'undefined') {
+            sessionStorage.setItem(debugExecutedKey, 'true');
+            
+            // ✅ FUNCIÓN MEJORADA PARA DEBUGGING
+            window.debugPropertyView = () => {
+                if (property?.id) {
+                    const cardClickKey = `property_card_clicked_${property.id}`;
+                    const detailViewKey = `property_detail_viewed_${property.id}`;
+                    const gallerySessionKey = `gallery_viewed_${property.id}`;
+                    const executionCountKey = `${detailViewKey}_executions`;
+                    
+                    const cardClicked = sessionStorage.getItem(cardClickKey);
+                    const detailViewed = sessionStorage.getItem(detailViewKey);
+                    const galleryViewed = sessionStorage.getItem(gallerySessionKey);
+                    const executionCount = sessionStorage.getItem(executionCountKey);
+                    
+                    console.log('📊 DEBUGGING - Estado completo para propiedad:', property.id);
+                    console.log('  - Click en card (sessionStorage):', cardClicked || 'No');
+                    console.log('  - Vista de detalle (sessionStorage):', detailViewed || 'No');
+                    console.log('  - Galería vista:', galleryViewed || 'No');
+                    console.log('  - Ejecuciones de useEffect:', executionCount || '0');
+                    console.log('  - NODE_ENV:', process.env.NODE_ENV);
+                    
+                    if (cardClicked) {
+                        const timestamp = sessionStorage.getItem(`${cardClickKey}_timestamp`);
+                        console.log('  - Card clicked:', timestamp ? new Date(timestamp).toLocaleString() : 'Sin timestamp');
+                    }
+                    
+                    if (detailViewed) {
+                        const timestamp = sessionStorage.getItem(`${detailViewKey}_timestamp`);
+                        console.log('  - Detail viewed:', timestamp ? new Date(timestamp).toLocaleString() : 'Sin timestamp');
+                    }
+                    
+                    // Mostrar todas las claves relacionadas
+                    console.log('🗂️ Todas las claves en sessionStorage relacionadas:');
+                    for (let i = 0; i < sessionStorage.length; i++) {
+                        const key = sessionStorage.key(i);
+                        if (key && key.includes(property.id)) {
+                            console.log(`  - ${key}: ${sessionStorage.getItem(key)}`);
+                        }
+                    }
+                }
+            };
+            
+            window.clearPropertyViewSession = clearSessionViewData;
+            window.checkPropertyViewSession = checkSessionStatus;
+            window.checkReactStrictMode = checkReactStrictMode;
+            
+            // Mensaje de ayuda
+            console.log('🛠️ Funciones de debugging disponibles:');
+            console.log('  - debugPropertyView() - Estado de métricas');
+            console.log('  - clearPropertyViewSession() - Limpiar datos');
+            console.log('  - checkReactStrictMode() - Verificar Strict Mode');
+            console.log('📊 Sistema con protección anti-duplicados implementado');
+        }
+    }, []); // Solo ejecutar una vez al montar el componente
+
     useEffect(() => {
         if (initialProperty) {
             setProperty(initialProperty);
@@ -75,28 +194,84 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         }
     }, [initialProperty, initialOtherProperties, initialTitle]);
 
-    // ✅ REGISTRAR VISUALIZACIÓN CUANDO SE CARGA LA PROPIEDAD
+    // ✅ REGISTRAR VISTA DE PROPIEDAD CUANDO SE CARGA EL DETALLE (CON CONTROL DE SESIÓN CORRECTO)
     useEffect(() => {
         if (property?.id) {
-            // Registrar la visualización de la propiedad
-            fetch('/api/property-metrics/track', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-                },
-                body: JSON.stringify({
-                    property_id: property.id,
-                    event_type: 'property_view',
-                    metadata: {
-                        page: 'property_detail',
-                        title: property.title,
-                        slug: property.slug
+            const viewSessionKey = `property_detail_viewed_${property.id}`;
+            const executionCountKey = `${viewSessionKey}_executions`;
+            
+            // Incrementar contador de ejecuciones para debugging
+            const currentExecutions = parseInt(sessionStorage.getItem(executionCountKey) || '0') + 1;
+            sessionStorage.setItem(executionCountKey, currentExecutions.toString());
+            
+            console.log(`🔄 useEffect ejecutándose (vez ${currentExecutions}) para propiedad:`, property.id);
+            
+            const alreadyViewed = sessionStorage.getItem(viewSessionKey);
+            
+            // SI NO HA SIDO VISTA EN ESTA SESIÓN, registrarla UNA SOLA VEZ
+            if (!alreadyViewed) {
+                console.log('🔍 Registrando vista de Property Detail para propiedad:', property.id);
+                
+                // MARCAR INMEDIATAMENTE COMO 'processing' para prevenir duplicados
+                sessionStorage.setItem(viewSessionKey, 'processing');
+                sessionStorage.setItem(`${viewSessionKey}_timestamp`, new Date().toISOString());
+                
+                // Agregar un timeout para verificar que no haya otra ejecución en paralelo
+                setTimeout(() => {
+                    const currentStatus = sessionStorage.getItem(viewSessionKey);
+                    
+                    // Solo enviar si aún está en 'processing' (no fue cambiado por otra ejecución)
+                    if (currentStatus === 'processing') {
+                        console.log('🚀 Enviando petición de Property Detail...');
+                        
+                        fetch('/api/property-metrics/track', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                            },
+                            body: JSON.stringify({
+                                property_id: property.id,
+                                event_type: 'property_detail_view',
+                                metadata: {
+                                    page: 'property_detail',
+                                    title: property.title,
+                                    slug: property.slug,
+                                    session_controlled: true,
+                                    timestamp: new Date().toISOString(),
+                                    source: 'property_detail_page',
+                                    execution_count: currentExecutions
+                                }
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                sessionStorage.setItem(viewSessionKey, 'completed');
+                                console.log('✅ Vista de Property Detail registrada exitosamente');
+                            } else {
+                                sessionStorage.setItem(viewSessionKey, 'error');
+                                console.log('⚠️ Error al registrar vista de Property Detail');
+                            }
+                        })
+                        .catch(error => {
+                            sessionStorage.setItem(viewSessionKey, 'error');
+                            console.log('❌ Error tracking property detail view:', error);
+                        });
+                    } else {
+                        console.log('🔒 Petición cancelada, ya procesada por otra ejecución. Status actual:', currentStatus);
                     }
-                })
-            }).catch(error => console.log('Error tracking property view:', error));
+                }, 50); // Timeout muy corto para evitar race conditions
+                
+            } else {
+                console.log('🔒 Property Detail ya vista en esta sesión para propiedad:', property.id);
+                console.log('📊 Status actual:', alreadyViewed);
+                const timestamp = sessionStorage.getItem(`${viewSessionKey}_timestamp`);
+                if (timestamp) {
+                    console.log('📅 Vista registrada el:', new Date(timestamp).toLocaleString());
+                }
+            }
         }
-    }, [property?.id]); // Se ejecuta cuando cambia el ID de la propiedad
+    }, [property?.id]);
 
     // Función para manejar el click en "Ir a Airbnb"
     const handleAirbnbClick = async () => {
@@ -129,7 +304,9 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     event_type: 'airbnb_click',
                     metadata: {
                         timestamp: new Date().toISOString(),
-                        url: window.location.href
+                        url: window.location.href,
+                        external_link: property?.external_link,
+                        user_action: 'intentional_click'
                     }
                 })
             });
@@ -138,7 +315,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
             
             if (response.ok) {
                 const result = await response.json();
-                console.log('✅ Métrica registrada:', result);
+                console.log('✅ Métrica de click registrada:', result);
             } else {
                 console.log('⚠️ Error en respuesta:', response.status);
             }
@@ -160,21 +337,41 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
     // Función para manejar la visualización de la galería completa
     const handleShowAllPhotos = () => {
-        // ✅ REGISTRAR MÉTRICA DE VER GALERÍA
-        fetch('/api/property-metrics/track', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
-            },
-            body: JSON.stringify({
-                property_id: property.id,
-                event_type: 'gallery_view',
-                metadata: {
-                    total_images: allImages.length
+        // ✅ REGISTRAR MÉTRICA DE VER GALERÍA (CON CONTROL DE SESIÓN)
+        const gallerySessionKey = `gallery_viewed_${property.id}`;
+        const alreadyViewedGallery = sessionStorage.getItem(gallerySessionKey);
+        
+        if (!alreadyViewedGallery) {
+            console.log('🖼️ Registrando primera vista de galería en esta sesión:', property.id);
+            
+            fetch('/api/property-metrics/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify({
+                    property_id: property.id,
+                    event_type: 'gallery_view',
+                    metadata: {
+                        total_images: allImages.length,
+                        session_controlled: true,
+                        timestamp: new Date().toISOString()
+                    }
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Marcar como vista de galería en esta sesión
+                    sessionStorage.setItem(gallerySessionKey, 'true');
+                    sessionStorage.setItem(`${gallerySessionKey}_timestamp`, new Date().toISOString());
+                    console.log('✅ Vista de galería registrada y marcada en sesión');
                 }
             })
-        }).catch(error => console.log('Error tracking metric:', error));
+            .catch(error => console.log('❌ Error tracking gallery metric:', error));
+        } else {
+            console.log('🔒 Galería ya vista en esta sesión para propiedad:', property.id);
+        }
 
         setShowAllPhotos(true);
     };
