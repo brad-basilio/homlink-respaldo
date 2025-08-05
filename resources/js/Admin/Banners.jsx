@@ -2,18 +2,18 @@ import React, { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import BaseAdminto from "@Adminto/Base";
 import CreateReactScript from "../Utils/CreateReactScript";
-import Table from "../Components/Table";
-import Modal from "../Components/Modal";
-import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
+import Table from "../components/Table";
+import Modal from "../components/Modal";
+import InputFormGroup from "../components/Adminto/form/InputFormGroup";
 import ReactAppend from "../Utils/ReactAppend";
-import DxButton from "../Components/dx/DxButton";
+import DxButton from "../components/dx/DxButton";
 import SwitchFormGroup from "@Adminto/form/SwitchFormGroup";
-import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
+import ImageFormGroup from "../components/Adminto/form/ImageFormGroup";
 import Swal from "sweetalert2";
-import BannersRest from "../Actions/Admin/BannersRest";
+import BannersRest from "../actions/Admin/BannersRest";
 import { renderToString } from "react-dom/server";
-import TextareaFormGroup from "../Components/Adminto/form/TextareaFormGroup";
-import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
+import TextareaFormGroup from "../components/Adminto/form/TextareaFormGroup";
+import SelectFormGroup from "../components/Adminto/form/SelectFormGroup";
 
 const bannersRest = new BannersRest();
 

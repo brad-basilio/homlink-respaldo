@@ -2,14 +2,14 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
+import Table from '../components/Table';
+import Modal from '../components/Modal';
+import InputFormGroup from '../components/Adminto/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
-import FormulasRest from '../Actions/Admin/FormulasRest';
-import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
-import SelectAPIFormGroup from '../Components/Adminto/form/SelectAPIFormGroup';
+import DxButton from '../components/dx/DxButton';
+import FormulasRest from '../actions/Admin/FormulasRest';
+import SelectFormGroup from '../components/Adminto/form/SelectFormGroup';
+import SelectAPIFormGroup from '../components/Adminto/form/SelectAPIFormGroup';
 import SetSelectValue from '../Utils/SetSelectValue';
 
 const formulasRest = new FormulasRest()

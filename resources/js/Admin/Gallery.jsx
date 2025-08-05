@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import GalleryRest from '../Actions/Admin/GalleryRest';
+import GalleryRest from '../actions/Admin/GalleryRest';
 import slugify from '../Utils/slugify';
 
 const galleryRest = new GalleryRest()

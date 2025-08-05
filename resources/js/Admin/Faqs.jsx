@@ -2,18 +2,18 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
-import InputFormGroup from '../Components/form/InputFormGroup';
+import Table from '../components/Table';
+import Modal from '../components/Modal';
+import InputFormGroup from '../components/form/InputFormGroup';
 import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
+import DxButton from '../components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
-import FaqsRest from '../Actions/Admin/FaqsRest';
-import QuillFormGroup from '../Components/Adminto/form/QuillFormGroup';
+import FaqsRest from '../actions/Admin/FaqsRest';
+import QuillFormGroup from '../components/Adminto/form/QuillFormGroup';
 import html2string from '../Utils/html2string';
-import SelectFormGroup from '../Components/Adminto/form/SelectFormGroup';
+import SelectFormGroup from '../components/Adminto/form/SelectFormGroup';
 
 const faqsRest = new FaqsRest()
 

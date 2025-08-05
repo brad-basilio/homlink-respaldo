@@ -2,13 +2,13 @@ import React, { useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import 'tippy.js/dist/tippy.css';
 import JSEncrypt from 'jsencrypt'
-import BaseAdminto from '../Components/Adminto/Base';
+import BaseAdminto from '../components/Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import AccountRest from '../Actions/Admin/AccountRest';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
-import PasswordFormGroup from '../Components/Adminto/form/PasswordFormGroup';
+import AccountRest from '../actions/Admin/AccountRest';
+import InputFormGroup from '../components/Adminto/form/InputFormGroup';
+import PasswordFormGroup from '../components/Adminto/form/PasswordFormGroup';
 import Global from '../Utils/Global';
-import Logout from '../Actions/Logout';
+import Logout from '../actions/Logout';
 
 const Account = ({ session }) => {
   const jsEncrypt = new JSEncrypt()

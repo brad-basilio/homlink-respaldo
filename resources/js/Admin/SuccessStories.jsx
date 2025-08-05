@@ -4,12 +4,12 @@ import BaseAdminto from "@Adminto/Base";
 import { renderToString } from "react-dom/server";
 import Swal from "sweetalert2";
 
-import Modal from "../Components/Adminto/Modal";
-import Table from "../Components/Adminto/Table";
-import ImageFormGroup from "../Components/Adminto/form/ImageFormGroup";
-import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
-import SelectAPIFormGroup from "../Components/Adminto/form/SelectAPIFormGroup";
-import DxButton from "../Components/dx/DxButton";
+import Modal from "../components/Adminto/Modal";
+import Table from "../components/Adminto/Table";
+import ImageFormGroup from "../components/Adminto/form/ImageFormGroup";
+import InputFormGroup from "../components/Adminto/form/InputFormGroup";
+import SelectAPIFormGroup from "../components/Adminto/form/SelectAPIFormGroup";
+import DxButton from "../components/dx/DxButton";
 import CreateReactScript from "../Utils/CreateReactScript";
 import ReactAppend from "../Utils/ReactAppend";
 

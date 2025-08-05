@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 // Asume que tienes un servicio para guardar los datos
-import BaseAdminto from "../Components/Adminto/Base";
-import GeneralsRest from "../Actions/Admin/GeneralsRest";
+import BaseAdminto from "../components/Adminto/Base";
+import GeneralsRest from "../actions/Admin/GeneralsRest";
 import CreateReactScript from "../Utils/CreateReactScript";
 import { createRoot } from "react-dom/client";
-import QuillFormGroup from "../Components/Adminto/form/QuillFormGroup";
-import TextareaFormGroup from "../Components/Adminto/form/TextareaFormGroup";
+import QuillFormGroup from "../components/Adminto/form/QuillFormGroup";
+import TextareaFormGroup from "../components/Adminto/form/TextareaFormGroup";
 import Global from "../Utils/Global";
-import InputFormGroup from "../Components/Adminto/form/InputFormGroup";
-import SelectFormGroup from "../Components/Adminto/form/SelectFormGroup";
+import InputFormGroup from "../components/Adminto/form/InputFormGroup";
+import SelectFormGroup from "../components/Adminto/form/SelectFormGroup";
 import TinyMCEFormGroup from "../components/Adminto/form/TinyMCEFormGroup";
 
 const generalsRest = new GeneralsRest();

@@ -2,8 +2,8 @@ import React, { useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import BaseAdminto from "@Adminto/Base";
 import CreateReactScript from "@Utils/CreateReactScript";
-import Table from "../Components/Table";
-import DxButton from "../Components/dx/DxButton";
+import Table from "../components/Table";
+import DxButton from "../components/dx/DxButton";
 import ReactAppend from "@Utils/ReactAppend";
 
 import Modal from "@Adminto/Modal";

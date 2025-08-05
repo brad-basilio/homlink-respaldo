@@ -3,9 +3,9 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Cookies, JSON, Notify } from 'sode-extend-react';
 import 'tippy.js/dist/tippy.css';
-import ProfileRest from '../Actions/Admin/ProfileRest';
-import BaseAdminto from '../Components/Adminto/Base';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
+import ProfileRest from '../actions/Admin/ProfileRest';
+import BaseAdminto from '../components/Adminto/Base';
+import InputFormGroup from '../components/Adminto/form/InputFormGroup';
 import CreateReactScript from '../Utils/CreateReactScript';
 
 const Profile = (props) => {

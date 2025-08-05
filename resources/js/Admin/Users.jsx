@@ -2,16 +2,16 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
+import Table from '../components/Table';
+import Modal from '../components/Modal';
 import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
+import DxButton from '../components/dx/DxButton';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
 import InputFormGroup from '@Adminto/form/InputFormGroup';
 import { renderToString } from 'react-dom/server';
-import UsersRest from '../Actions/Admin/UsersRest';
-import PasswordFormGroup from '../Components/Adminto/form/PasswordFormGroup';
+import UsersRest from '../actions/Admin/UsersRest';
+import PasswordFormGroup from '../components/Adminto/form/PasswordFormGroup';
 
 const usersRest = new UsersRest()
 

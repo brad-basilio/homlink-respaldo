@@ -2,15 +2,15 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import BaseAdminto from '@Adminto/Base';
 import CreateReactScript from '../Utils/CreateReactScript';
-import Table from '../Components/Table';
-import Modal from '../Components/Modal';
+import Table from '../components/Table';
+import Modal from '../components/Modal';
 import ReactAppend from '../Utils/ReactAppend';
-import DxButton from '../Components/dx/DxButton';
+import DxButton from '../components/dx/DxButton';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import Swal from 'sweetalert2';
-import InputFormGroup from '../Components/form/InputFormGroup';
-import TagsRest from '../Actions/Admin/TagsRets';
+import InputFormGroup from '../components/form/InputFormGroup';
+import TagsRest from '../actions/Admin/TagsRets';
 
 const tagsRest = new TagsRest()
 

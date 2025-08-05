@@ -1,5 +1,5 @@
 import React from "react";
-import InputFormGroup from "../../Components/Adminto/form/InputFormGroup";
+import InputFormGroup from "../../components/Adminto/form/InputFormGroup";
 import DragDropImage from "../../components/Adminto/form/DragDropImage";
 
 const RequirementCard = ({

@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import BaseAdminto from "@Adminto/Base";
 import { renderToString } from "react-dom/server";
 import Swal from "sweetalert2";
-import ServicesRest from "../Actions/Admin/ServicesRest";
+import ServicesRest from "../actions/Admin/ServicesRest";
 import Modal from "../components/Adminto/Modal";
 import Table from "../components/Adminto/Table";
 import ImageFormGroup from "../components/Adminto/form/ImageFormGroup";

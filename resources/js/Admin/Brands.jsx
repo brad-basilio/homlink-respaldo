@@ -5,11 +5,11 @@ import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import Swal from 'sweetalert2';
 import BrandsRest from '../actions/Admin/BrandsRest.js';
-import InputFormGroup from '../Components/Adminto/form/InputFormGroup';
-import ImageFormGroup from '../Components/Adminto/form/ImageFormGroup';
-import Modal from '../Components/Adminto/Modal';
-import Table from '../Components/Adminto/Table';
-import DxButton from '../Components/dx/DxButton';
+import InputFormGroup from '../components/Adminto/form/InputFormGroup';
+import ImageFormGroup from '../components/Adminto/form/ImageFormGroup';
+import Modal from '../components/Adminto/Modal';
+import Table from '../components/Adminto/Table';
+import DxButton from '../components/dx/DxButton';
 import CreateReactScript from '../Utils/CreateReactScript';
 import ReactAppend from '../Utils/ReactAppend';
 
