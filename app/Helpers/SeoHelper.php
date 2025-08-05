@@ -55,9 +55,9 @@ class SeoHelper
     {
         $seoData = self::getSeoData();
         
-        $title = $title ?? $seoData['seo_title'] ?? 'CambiaFX - Casa de Cambio Online';
-        $description = $description ?? $seoData['seo_description'] ?? 'Casa de cambio online con las mejores tasas de cambio. Compra y vende dólares de forma segura y rápida.';
-        $keywords = $keywords ?? $seoData['seo_keywords'] ?? 'casa de cambio, cambio de dólares, cambio de soles, tipo de cambio, compra dólares';
+        $title = $title ?? $seoData['seo_title'] ?? 'Homlynk';
+        $description = $description ?? $seoData['seo_description'] ?? 'Homlynk';
+        $keywords = $keywords ?? $seoData['seo_keywords'] ?? 'homlynk';
         
         return [
             'title' => $title,
