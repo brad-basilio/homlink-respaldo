@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import Logout from "../../Actions/Logout";
 import Tippy from "@tippyjs/react";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { CarritoContext } from "../../context/CarritoContext";
@@ -740,33 +741,7 @@ const Header = ({
                                                         
                                                         <div className="border-t border-gray-100">
                                                             <button 
-                                                                onClick={async () => {
-                                                                    try {
-                                                                        const response = await fetch('/logout', { 
-                                                                            method: 'POST',
-                                                                            headers: {
-                                                                                'Content-Type': 'application/json',
-                                                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || getCsrfTokenFromCookie(),
-                                                                                'Accept': 'application/json',
-                                                                                'X-Requested-With': 'XMLHttpRequest'
-                                                                            },
-                                                                            credentials: 'same-origin'
-                                                                        });
-                                                                        
-                                                                        if (response.ok || response.status === 302) {
-                                                                            // Logout exitoso, recargar la página
-                                                                            window.location.href = '/';
-                                                                        } else {
-                                                                            console.error('Error al cerrar sesión');
-                                                                            // Intentar con el método alternativo
-                                                                            window.location.href = '/logout';
-                                                                        }
-                                                                    } catch (error) {
-                                                                        console.error('Error de red al cerrar sesión:', error);
-                                                                        // Fallback: redirigir directamente
-                                                                        window.location.href = '/logout';
-                                                                    }
-                                                                }}
+                                                                onClick={Logout}
                                                                 className="flex items-center w-full text-left px-4 py-2 text-sm text-secondary hover:bg-red-50 transition-colors duration-150"
                                                             >
                                                                 <svg className="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1198,33 +1173,7 @@ const Header = ({
                                                 )}
 
                                                 <motion.button
-                                                    onClick={async () => {
-                                                        try {
-                                                            const response = await fetch('/logout', { 
-                                                                method: 'POST',
-                                                                headers: {
-                                                                    'Content-Type': 'application/json',
-                                                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || getCsrfTokenFromCookie(),
-                                                                    'Accept': 'application/json',
-                                                                    'X-Requested-With': 'XMLHttpRequest'
-                                                                },
-                                                                credentials: 'same-origin'
-                                                            });
-                                                            
-                                                            if (response.ok || response.status === 302) {
-                                                                // Logout exitoso, recargar la página
-                                                                window.location.href = '/';
-                                                            } else {
-                                                                console.error('Error al cerrar sesión');
-                                                                // Intentar con el método alternativo
-                                                                window.location.href = '/logout';
-                                                            }
-                                                        } catch (error) {
-                                                            console.error('Error de red al cerrar sesión:', error);
-                                                            // Fallback: redirigir directamente
-                                                            window.location.href = '/logout';
-                                                        }
-                                                    }}
+                                                    onClick={Logout}
                                                     whileHover={{
                                                         scale: 1.06,
                                                         y: -2,
