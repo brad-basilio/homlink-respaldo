@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from '../Utils/CreateReactScript';
-import BaseAdminto from '../Components/Adminto/Base';
+import BaseAdminto from '../components/Adminto/Base';
 
 const PropertyMetrics = ({ session }) => {
     const [dashboardData, setDashboardData] = useState(null);
