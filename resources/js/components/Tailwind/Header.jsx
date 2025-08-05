@@ -740,9 +740,32 @@ const Header = ({
                                                         
                                                         <div className="border-t border-gray-100">
                                                             <button 
-                                                                onClick={() => {
-                                                                    fetch('/api/logout', { method: 'DELETE' })
-                                                                        .then(() => location.reload());
+                                                                onClick={async () => {
+                                                                    try {
+                                                                        const response = await fetch('/logout', { 
+                                                                            method: 'POST',
+                                                                            headers: {
+                                                                                'Content-Type': 'application/json',
+                                                                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || getCsrfTokenFromCookie(),
+                                                                                'Accept': 'application/json',
+                                                                                'X-Requested-With': 'XMLHttpRequest'
+                                                                            },
+                                                                            credentials: 'same-origin'
+                                                                        });
+                                                                        
+                                                                        if (response.ok || response.status === 302) {
+                                                                            // Logout exitoso, recargar la página
+                                                                            window.location.href = '/';
+                                                                        } else {
+                                                                            console.error('Error al cerrar sesión');
+                                                                            // Intentar con el método alternativo
+                                                                            window.location.href = '/logout';
+                                                                        }
+                                                                    } catch (error) {
+                                                                        console.error('Error de red al cerrar sesión:', error);
+                                                                        // Fallback: redirigir directamente
+                                                                        window.location.href = '/logout';
+                                                                    }
                                                                 }}
                                                                 className="flex items-center w-full text-left px-4 py-2 text-sm text-secondary hover:bg-red-50 transition-colors duration-150"
                                                             >
@@ -1175,9 +1198,32 @@ const Header = ({
                                                 )}
 
                                                 <motion.button
-                                                    onClick={() => {
-                                                        fetch('/api/logout', { method: 'DELETE' })
-                                                            .then(() => location.reload());
+                                                    onClick={async () => {
+                                                        try {
+                                                            const response = await fetch('/logout', { 
+                                                                method: 'POST',
+                                                                headers: {
+                                                                    'Content-Type': 'application/json',
+                                                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || getCsrfTokenFromCookie(),
+                                                                    'Accept': 'application/json',
+                                                                    'X-Requested-With': 'XMLHttpRequest'
+                                                                },
+                                                                credentials: 'same-origin'
+                                                            });
+                                                            
+                                                            if (response.ok || response.status === 302) {
+                                                                // Logout exitoso, recargar la página
+                                                                window.location.href = '/';
+                                                            } else {
+                                                                console.error('Error al cerrar sesión');
+                                                                // Intentar con el método alternativo
+                                                                window.location.href = '/logout';
+                                                            }
+                                                        } catch (error) {
+                                                            console.error('Error de red al cerrar sesión:', error);
+                                                            // Fallback: redirigir directamente
+                                                            window.location.href = '/logout';
+                                                        }
                                                     }}
                                                     whileHover={{
                                                         scale: 1.06,
