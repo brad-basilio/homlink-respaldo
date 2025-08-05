@@ -188,7 +188,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/landing_home', [AdminLandingHomeController::class, 'reactView'])->name('Admin/LandingHome.jsx');
     Route::get('/services', [AdminServiceController::class, 'reactView'])->name('Admin/Services.jsx');
     Route::get('/properties', [AdminPropertyController::class, 'reactView'])->name('Admin/Properties.jsx');
-    Route::get('/property-metrics', [AdminPropertyMetricsController::class, 'reactView'])->name('Admin/PropertyMetrics');
+    Route::get('/property-metrics', [AdminPropertyMetricsController::class, 'reactView'])->name('Admin/PropertyMetrics.jsx');
     Route::get('/solutions', [AdminSolutionController::class, 'reactView'])->name('Admin/Solutions.jsx');
     Route::get('/purchaseOptions', [AdminPurchaseOptionController::class, 'reactView'])->name('Admin/PurchaseOptions.jsx');
     Route::get('/facilities', [AdminFacilityController::class, 'reactView'])->name('Admin/Facilities.jsx');
