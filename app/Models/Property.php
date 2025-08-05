@@ -138,4 +138,38 @@ class Property extends Model
     {
         return $this->belongsTo(\App\Models\User::class);
     }
+
+    // Relación con las métricas
+    public function metrics()
+    {
+        return $this->hasMany(PropertyMetric::class);
+    }
+
+    // Obtener métricas agrupadas por tipo
+    public function getMetricsSummary()
+    {
+        return $this->metrics()
+            ->selectRaw('event_type, COUNT(*) as count')
+            ->groupBy('event_type')
+            ->pluck('count', 'event_type')
+            ->toArray();
+    }
+
+    // Obtener total de visualizaciones
+    public function getViewsCountAttribute()
+    {
+        return $this->metrics()->where('event_type', 'view')->count();
+    }
+
+    // Obtener total de clicks a Airbnb
+    public function getAirbnbClicksCountAttribute()
+    {
+        return $this->metrics()->where('event_type', 'click_airbnb')->count();
+    }
+
+    // Obtener total de clicks a WhatsApp
+    public function getWhatsappClicksCountAttribute()
+    {
+        return $this->metrics()->where('event_type', 'click_whatsapp')->count();
+    }
 }

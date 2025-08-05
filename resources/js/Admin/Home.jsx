@@ -18,6 +18,12 @@ const Home = ({ session }) => {
                         <a href="/admin/items" className="btn btn-primary">
                             Ver productos
                         </a>
+                        <a href="/admin/properties" className="btn btn-success">
+                            Ver propiedades
+                        </a>
+                        <a href="/admin/property-metrics" className="btn btn-info">
+                            Ver métricas
+                        </a>
                         {/*<a href='/admin/posts' className='btn btn-primary'>Ver fórmulas</a>*/}
                     </div>
                 </div>

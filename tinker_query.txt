@@ -1,0 +1,1 @@
+Property::whereNotNull('external_link')->take(5)->get(['id', 'title', 'slug', 'external_link'])

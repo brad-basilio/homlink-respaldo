@@ -363,7 +363,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             </motion.h3>
 
                             <motion.p
-                                className="text-sm lg:text-base text-neutral mb-4"
+                                className="text-sm lg:text-base text-white mb-4"
                                 initial={{ opacity: 0, x: -20 }}
                                 whileInView={{ opacity: 1, x: 0 }}
                                 viewport={{ once: true }}
@@ -558,7 +558,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
 
                                 <motion.label
                                     htmlFor="terms-checkbox"
-                                    className="text-xs text-neutral cursor-pointer leading-tight"
+                                    className="text-xs !text-white cursor-pointer leading-tight"
                                     whileHover={{
                                         color: "#BBFF52",
                                         x: 2

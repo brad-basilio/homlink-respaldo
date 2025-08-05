@@ -643,3 +643,17 @@ Route::get('/property-filters/services', [App\Http\Controllers\PropertyFilterCon
 Route::get('/property-filters/characteristics', [App\Http\Controllers\PropertyFilterController::class, 'getCharacteristics']);
 Route::get('/property-filters/property-types', [App\Http\Controllers\PropertyFilterController::class, 'getPropertyTypes']);
 Route::post('/property-filters/filter', [App\Http\Controllers\PropertyFilterController::class, 'filterProperties']);
+
+// ✅ AGREGADO: Rutas para métricas de propiedades
+Route::post('/property-metrics/track', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'track']);
+
+// Rutas protegidas para métricas
+Route::middleware('auth')->group(function () {
+    Route::get('/user-dashboard', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getUserDashboard']);
+    Route::get('/property-metrics/{propertyId}', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getPropertyMetrics']);
+    
+    // Solo para administradores
+    Route::middleware('can:Admin')->group(function () {
+        Route::get('/admin-dashboard-metrics', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getAdminDashboard']);
+    });
+});

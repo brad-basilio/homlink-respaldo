@@ -55,6 +55,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\AppController as AdminAppController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\BenefitController as AdminBenefitController;
+use App\Http\Controllers\Admin\PropertyMetricsController as AdminPropertyMetricsController;
 
 // Public 
 use App\Http\Controllers\HomeController;
@@ -92,6 +93,7 @@ use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\TestResultController;
 use App\Http\Controllers\ThankController;
+use App\Http\Controllers\UserDashboardController;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
 
@@ -166,6 +168,7 @@ Route::get('/confirmation/{token}', [AuthController::class, 'loginView'])->name(
 
 Route::middleware(['auth', 'can:Customer'])->group(function () {
     Route::get('/my-account', [MyAccountController::class, 'reactView'])->name('MyAccount.jsx');
+    Route::get('/dashboard', [UserDashboardController::class, 'reactView'])->name('UserDashboard');
 });
 
 // Ruta para envío de propiedades por usuarios logueados
@@ -185,6 +188,7 @@ Route::middleware(['can:Admin', 'auth'])->prefix('admin')->group(function () {
     Route::get('/landing_home', [AdminLandingHomeController::class, 'reactView'])->name('Admin/LandingHome.jsx');
     Route::get('/services', [AdminServiceController::class, 'reactView'])->name('Admin/Services.jsx');
     Route::get('/properties', [AdminPropertyController::class, 'reactView'])->name('Admin/Properties.jsx');
+    Route::get('/property-metrics', [AdminPropertyMetricsController::class, 'reactView'])->name('Admin/PropertyMetrics');
     Route::get('/solutions', [AdminSolutionController::class, 'reactView'])->name('Admin/Solutions.jsx');
     Route::get('/purchaseOptions', [AdminPurchaseOptionController::class, 'reactView'])->name('Admin/PurchaseOptions.jsx');
     Route::get('/facilities', [AdminFacilityController::class, 'reactView'])->name('Admin/Facilities.jsx');

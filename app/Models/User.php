@@ -87,4 +87,10 @@ class User extends Authenticatable
     public function sales() {
         return $this->hasMany(Sale::class, 'email', 'email');
     }
+
+    // ✅ AGREGADO: Relación con propiedades
+    public function properties()
+    {
+        return $this->hasMany(Property::class);
+    }
 }

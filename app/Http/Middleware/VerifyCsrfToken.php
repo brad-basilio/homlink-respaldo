@@ -15,6 +15,7 @@ class VerifyCsrfToken extends Middleware
         '/api/culqi/webhook',
         '/set-current-lang',
         'get-languages',
-        '/api/admin/banners*'
+        '/api/admin/banners*',
+        '/api/property-metrics/track'
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\PropertyMetric;
 use Illuminate\Http\Request;
 
 class PropertyDetailController extends BasicController
@@ -24,6 +25,12 @@ class PropertyDetailController extends BasicController
         if (!$property) {
             abort(404, 'Propiedad no encontrada');
         }
+
+        // ✅ REGISTRAR MÉTRICA DE VISUALIZACIÓN
+        PropertyMetric::track($property->id, 'property_view', [
+            'page' => 'property_detail',
+            'slug' => $slug
+        ]);
 
         // Obtener otras propiedades relacionadas o destacadas
         $relatedData = $this->getRelatedProperties($property);
