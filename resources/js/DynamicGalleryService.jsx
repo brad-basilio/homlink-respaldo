@@ -260,3 +260,4 @@ const DynamicGalleryService = ({ service }) => {
 };
 
 export default DynamicGalleryService;
+

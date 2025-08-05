@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CreateReactScript from "./Utils/CreateReactScript";
 import { createRoot } from "react-dom/client";
-import Base from "./Components/Tailwind/Base";
+import Base from "./components/Tailwind/Base";
 import { Local } from "sode-extend-react";
 import { CarritoProvider } from "./context/CarritoContext";
 import Header from "./components/Tailwind/Header";
@@ -172,3 +172,4 @@ CreateReactScript((el, properties) => {
         </CarritoProvider>
     );
 });
+

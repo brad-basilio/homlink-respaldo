@@ -1,18 +1,18 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
-import Base from './Components/Tailwind/Base';
+import Base from './components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 import { Local } from 'sode-extend-react';
-// import Email from './Components/Test/Email';
-import ProgressBar from './Components/Test/components/ProgressBar';
+// import Email from './components/Test/Email';
+import ProgressBar from './components/Test/components/ProgressBar';
 
-const Main = React.lazy(() => import('./Components/Test/Main'));
-const Treatment = React.lazy(() => import('./Components/Test/Treatment'));
-const HairType = React.lazy(() => import('./Components/Test/HairType'));
-const Email = React.lazy(() => import('./Components/Test/Email'));
-const ScalpType = React.lazy(() => import('./Components/Test/ScalpType'));
-const HairGoals = React.lazy(() => import('./Components/Test/HairGoals'));
-const Fragrance = React.lazy(() => import('./Components/Test/Fragrance'));
+const Main = React.lazy(() => import('./components/Test/Main'));
+const Treatment = React.lazy(() => import('./components/Test/Treatment'));
+const HairType = React.lazy(() => import('./components/Test/HairType'));
+const Email = React.lazy(() => import('./components/Test/Email'));
+const ScalpType = React.lazy(() => import('./components/Test/ScalpType'));
+const HairGoals = React.lazy(() => import('./components/Test/HairGoals'));
+const Fragrance = React.lazy(() => import('./components/Test/Fragrance'));
 
 const Test = ({ session, hasTreatment, scalpType, hairType, hairGoals, fragrances, userFormulasCount = 0 }) => {
 

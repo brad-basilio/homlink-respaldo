@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { createRoot } from "react-dom/client";
-import Base from "./Components/Tailwind/Base";
+import Base from "./components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
@@ -410,3 +410,4 @@ CreateReactScript((el, properties) => {
         </CarritoProvider>
     );
 });
+

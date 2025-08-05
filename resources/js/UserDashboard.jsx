@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 import CreateReactScript from './Utils/CreateReactScript';
-import Base from './Components/Tailwind/Base';
+import Base from './components/Tailwind/Base';
 import Header from './components/Tailwind/Header';
 import Footer from './components/Tailwind/Footer';
 import { CarritoProvider } from './context/CarritoContext';

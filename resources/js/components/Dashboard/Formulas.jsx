@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import FormulaCard from './Components/FormulaCard';
+import HairType from '../Test/HairType';
 
 const Formulas = ({ items }) => {
 

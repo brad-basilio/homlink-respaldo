@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import CreateReactScript from "./Utils/CreateReactScript";
 import { createRoot } from "react-dom/client";
-import Base from "./Components/Tailwind/Base";
+import Base from "./components/Tailwind/Base";
 import HtmlContent from "./Utils/HtmlContent";
 import HtmlContentWithInsert from "./Utils/HtmlContentWithInsert";
 
@@ -18,7 +18,7 @@ import Tippy from "@tippyjs/react";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoProvider } from "./context/CarritoContext";
-import PostCard from "./Components/Blog/PostCard";
+import PostCard from "./components/Blog/PostCard";
 import TextWithHighlight from "./Utils/TextWithHighlight";
 
 import { Check } from "lucide-react";
@@ -958,3 +958,4 @@ CreateReactScript((el, properties) => {
         </CarritoProvider>
     );
 });
+

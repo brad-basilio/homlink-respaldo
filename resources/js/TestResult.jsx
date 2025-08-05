@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import Base from './Components/Tailwind/Base';
+import Base from './components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
-import SupplieCard from './Components/Supplies/components/SupplieCard';
-import ProgressBar from './Components/Test/components/ProgressBar';
+import SupplieCard from './components/Supplies/components/SupplieCard';
+import ProgressBar from './components/Test/components/ProgressBar';
 import { Local } from 'sode-extend-react';
 
 const TestResult = ({ user_formula, hair_goals, supplies }) => {

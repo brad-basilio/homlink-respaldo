@@ -225,3 +225,4 @@ const Login = ({ }) => {
 CreateReactScript((el, properties) => {
     createRoot(el).render(<Login {...properties} />);
 });
+

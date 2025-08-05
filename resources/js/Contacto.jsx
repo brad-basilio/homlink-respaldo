@@ -2,13 +2,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Send, ChevronDown, ArrowRight, Phone } from "lucide-react";
 import React, { useState, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import Base from "./Components/Tailwind/Base";
+import Base from "./components/Tailwind/Base";
 import CreateReactScript from "./Utils/CreateReactScript";
 import Header from "./components/Tailwind/Header";
 import Footer from "./components/Tailwind/Footer";
 import { CarritoContext, CarritoProvider } from "./context/CarritoContext";
 import TextWithHighlight from "./Utils/TextWithHighlight";
-import ContactForm from "./Components/Contact/ContactForm";
+import ContactForm from "./components/Contact/ContactForm";
 import MaintenancePage from "./Utils/MaintenancePage";
 import { useTranslation } from "./hooks/useTranslation";
 import MessagesRest from "./Actions/MessagesRest";
@@ -880,3 +880,4 @@ CreateReactScript((el, properties) => {
         </CarritoProvider>
     );
 });
+

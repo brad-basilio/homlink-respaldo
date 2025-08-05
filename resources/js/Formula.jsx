@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import Base from './Components/Tailwind/Base';
+import Base from './components/Tailwind/Base';
 import CreateReactScript from './Utils/CreateReactScript';
 
-import Checkout from './Components/Product/Checkout';
-import SelectColor from './Components/Product/SelectColor';
-import SelectPlan from './Components/Product/SelectPlan';
-import SelectProduct from './Components/Product/SelectProduct';
+import Checkout from './components/Product/Checkout';
+import SelectColor from './components/Product/SelectColor';
+import SelectPlan from './components/Product/SelectPlan';
+import SelectProduct from './components/Product/SelectProduct';
 
 
 const Formula = ({ user_formula, items, colors, publicKey, session, bundles, planes }) => {
