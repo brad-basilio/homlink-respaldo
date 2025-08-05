@@ -26,6 +26,91 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
     const [guests, setGuests] = useState(1);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // ✅ MAPEO DE ÍCONOS PARA AMENIDADES, SERVICIOS, CARACTERÍSTICAS Y REGLAS
+    // Usando exactamente los mismos IDs y labels que en HeroSecction.jsx
+    const amenityIcons = {
+        'wifi': { label: 'WiFi', icon: 'fa-wifi' },
+        'tv': { label: 'TV', icon: 'fa-tv' },
+        'kitchen': { label: 'Cocina', icon: 'fa-utensils' },
+        'washing_machine': { label: 'Lavadora', icon: 'fa-tshirt' },
+        'parking': { label: 'Estacionamiento', icon: 'fa-car' },
+        'air_conditioning': { label: 'Aire acondicionado', icon: 'fa-snowflake' },
+        'heating': { label: 'Calefacción', icon: 'fa-fire' },
+        'pool': { label: 'Piscina', icon: 'fa-swimming-pool' },
+        'gym': { label: 'Gimnasio', icon: 'fa-dumbbell' },
+        'balcony': { label: 'Balcón', icon: 'fa-building' },
+        'garden': { label: 'Jardín', icon: 'fa-leaf' },
+        'pet_friendly': { label: 'Pet Friendly', icon: 'fa-paw' }
+    };
+
+    const serviceIcons = {
+        'cleaning': { label: 'Servicio de limpieza', icon: 'fa-broom', description: 'Limpieza diaria o semanal' },
+        'laundry': { label: 'Servicio de lavandería', icon: 'fa-tshirt', description: 'Lavado y planchado de ropa' },
+        'breakfast': { label: 'Desayuno incluido', icon: 'fa-coffee', description: 'Desayuno continental' },
+        'transport': { label: 'Transporte al aeropuerto', icon: 'fa-plane', description: 'Traslado desde/hacia el aeropuerto' },
+        'concierge': { label: 'Servicio de conserje', icon: 'fa-concierge-bell', description: 'Asistencia personalizada' },
+        'grocery': { label: 'Servicio de compras', icon: 'fa-shopping-cart', description: 'Compra de alimentos y productos' },
+        'tour_guide': { label: 'Guía turístico', icon: 'fa-map-marked-alt', description: 'Tours y recomendaciones locales' },
+        'babysitting': { label: 'Cuidado de niños', icon: 'fa-baby', description: 'Servicio de niñera' },
+        'massage': { label: 'Servicio de masajes', icon: 'fa-spa', description: 'Masajes relajantes' },
+        'chef': { label: 'Chef privado', icon: 'fa-utensils', description: 'Preparación de comidas' }
+    };
+
+    const characteristicIcons = {
+        'ocean_view': { label: 'Vista al mar', icon: 'fa-water', value: 'Vista panorámica al océano' },
+        'mountain_view': { label: 'Vista a las montañas', icon: 'fa-mountain', value: 'Vista a las montañas' },
+        'city_view': { label: 'Vista a la ciudad', icon: 'fa-city', value: 'Vista urbana' },
+        'historic': { label: 'Edificio histórico', icon: 'fa-landmark', value: 'Patrimonio arquitectónico' },
+        'modern': { label: 'Diseño moderno', icon: 'fa-gem', value: 'Diseño contemporáneo' },
+        'luxury': { label: 'Propiedad de lujo', icon: 'fa-crown', value: 'Acabados premium' },
+        'eco_friendly': { label: 'Eco-amigable', icon: 'fa-leaf', value: 'Sostenible y ecológico' },
+        'quiet': { label: 'Zona tranquila', icon: 'fa-volume-mute', value: 'Ambiente silencioso' },
+        'central': { label: 'Ubicación céntrica', icon: 'fa-map-marker-alt', value: 'Centro de la ciudad' },
+        'beachfront': { label: 'Frente a la playa', icon: 'fa-umbrella-beach', value: 'Acceso directo a la playa' },
+        'renovated': { label: 'Recientemente renovado', icon: 'fa-hammer', value: 'Renovación reciente' },
+        'spacious': { label: 'Espacioso', icon: 'fa-expand-arrows-alt', value: 'Amplios espacios' }
+    };
+
+    const houseRuleIcons = {
+        'no_smoking': { label: 'No se permite fumar', icon: 'fa-smoking-ban', text: 'Prohibido fumar en toda la propiedad' },
+        'no_pets': { label: 'No se permiten mascotas', icon: 'fa-ban', text: 'No se admiten animales domésticos' },
+        'no_parties': { label: 'No se permiten fiestas', icon: 'fa-music', text: 'Prohibidas las fiestas y eventos ruidosos' },
+        'quiet_hours': { label: 'Horas de silencio', icon: 'fa-volume-mute', text: 'Mantener silencio de 10 PM a 8 AM' },
+        'no_shoes': { label: 'No usar zapatos dentro', icon: 'fa-shoe-prints', text: 'Quitarse los zapatos al ingresar' },
+        'clean_up': { label: 'Mantener limpio', icon: 'fa-broom', text: 'Mantener la propiedad limpia y ordenada' },
+        'check_in_time': { label: 'Horario de check-in', icon: 'fa-clock', text: 'Check-in: 3:00 PM - 10:00 PM' },
+        'check_out_time': { label: 'Horario de check-out', icon: 'fa-door-open', text: 'Check-out antes de las 11:00 AM' },
+        'max_guests': { label: 'Límite de huéspedes', icon: 'fa-users', text: 'No exceder el número máximo de huéspedes' },
+        'energy_saving': { label: 'Ahorro de energía', icon: 'fa-lightbulb', text: 'Apagar luces y equipos al salir' }
+    };
+
+    // ✅ FUNCIÓN PARA CONVERTIR STRINGS A OBJETOS CON ÍCONOS
+    const parseDataWithIcons = (dataArray, iconMap) => {
+        if (!Array.isArray(dataArray)) return [];
+        
+        return dataArray.map(item => {
+            if (typeof item === 'string') {
+                // Buscar el item por ID o por label
+                const mapData = iconMap[item] || null;
+                if (mapData) {
+                    return {
+                        name: mapData.label,
+                        icon: mapData.icon,
+                        description: mapData.description || null,
+                        value: mapData.value || null,
+                        text: mapData.text || null
+                    };
+                }
+                // Si no se encuentra, devolver con icono por defecto
+                return {
+                    name: item,
+                    icon: 'fa-check'
+                };
+            }
+            return item; // Si ya es un objeto, devolverlo tal como está
+        });
+    };
+
     const {
         title,
         platform,
@@ -47,10 +132,10 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         gallery,
         rating,
         reviews_count,
-        amenities,
-        services,
-        characteristics,
-        house_rules,
+        amenities: rawAmenities,
+        services: rawServices,
+        characteristics: rawCharacteristics,
+        house_rules: rawHouseRules,
         check_in_info,
         latitude,
         longitude,
@@ -59,6 +144,27 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         featured,
         availability_status
     } = property || {};
+
+    // ✅ PROCESAR DATOS CON ÍCONOS
+    const amenities = parseDataWithIcons(rawAmenities, amenityIcons);
+    const services = parseDataWithIcons(rawServices, serviceIcons);
+    const characteristics = parseDataWithIcons(rawCharacteristics, characteristicIcons);
+    const house_rules = parseDataWithIcons(rawHouseRules, houseRuleIcons);
+
+    // ✅ DEBUG: Mostrar datos en consola para verificar
+    useEffect(() => {
+        if (property?.id) {
+            console.log('🔍 DEBUGGING PropertyDetail - Datos recibidos:');
+            console.log('  - Raw Amenities:', rawAmenities);
+            console.log('  - Raw Services:', rawServices);
+            console.log('  - Raw Characteristics:', rawCharacteristics);
+            console.log('  - Raw House Rules:', rawHouseRules);
+            console.log('  - Processed Amenities:', amenities);
+            console.log('  - Processed Services:', services);
+            console.log('  - Processed Characteristics:', characteristics);
+            console.log('  - Processed House Rules:', house_rules);
+        }
+    }, [property?.id, rawAmenities, rawServices, rawCharacteristics, rawHouseRules]);
 
     // Declarar allImages aquí para que esté disponible en useEffect
     const allImages = [main_image, ...(gallery || [])].filter(Boolean);
@@ -380,7 +486,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         return (
             <div className="min-h-screen bg-white flex items-center justify-center">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
+                    <div className="animate-spin rounded-full h-32 w-32 -b-2 -secondary mx-auto"></div>
                     <p className="mt-4 text-gray-600">Cargando propiedad...</p>
                 </div>
             </div>
@@ -430,7 +536,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         .property-swiper .swiper-pagination-bullet-active {
                             width: 20px !important;
                             height: 8px !important;
-                            border-radius: 12px !important;
+                            -radius: 12px !important;
                             opacity: 1 !important;
                             background: white !important;
                         }
@@ -497,7 +603,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                             </Swiper>
                         ) : (
                             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <p className="text-gray-500">No hay imágenes disponibles</p>
+                                <p className="text-transparent0">No hay imágenes disponibles</p>
                             </div>
                         )}
                     </div>
@@ -508,29 +614,29 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     {/* Columna principal */}
                     <div className="lg:col-span-2">
                         {/* Información básica con íconos */}
-                        <div className="mb-8 pb-8 border-b border-gray-200">
+                        <div className="mb-8 pb-8 -b ">
                             <div className="flex items-center space-x-8 mb-6">
                                 <div className="flex items-center text-gray-600">
-                                    <svg className="w-5 h-5 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-5 h-5 mr-2 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
                                     </svg>
                                     <span>{max_guests || 4} huéspedes</span>
                                 </div>
                                 <div className="flex items-center text-gray-600">
-                                    <svg className="w-5 h-5 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-5 h-5 mr-2 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
                                     </svg>
                                     <span>{bedrooms || 2} habitaciones</span>
                                 </div>
                                 <div className="flex items-center text-gray-600">
-                                    <svg className="w-5 h-5 mr-2 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg className="w-5 h-5 mr-2 text-secondary" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732L14.146 12.8l-1.179 4.456a1 1 0 01-1.934 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732L9.854 7.2l1.179-4.456A1 1 0 0112 2z" clipRule="evenodd"/>
                                     </svg>
                                     <span>{bathrooms || 2} baños</span>
                                 </div>
                                 {area_m2 && (
                                     <div className="flex items-center text-gray-600">
-                                        <svg className="w-5 h-5 mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg className="w-5 h-5 mr-2 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
                                         </svg>
                                         <span>{area_m2} m²</span>
@@ -554,7 +660,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         </div>
 
                         {/* Descripción */}
-                        <div className="mb-8 pb-8 border-b border-gray-200">
+                        <div className="mb-8 pb-8 -b ">
                             <p className="text-gray-700 leading-relaxed">
                                 {description || short_description || "Descripción no disponible."}
                             </p>
@@ -562,7 +668,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
                         {/* Anfitrión - usando check_in_info si está disponible */}
                         {/*check_in_info && (
-                            <div className="mb-8 pb-8 border-b border-gray-200">
+                            <div className="mb-8 pb-8 -b ">
                                 <h3 className="text-lg font-semibold mb-4">Información del Anfitrión</h3>
                                 <div className="flex items-start">
                                     <div className="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center mr-4 overflow-hidden">
@@ -600,14 +706,14 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         )*/}
 
                         {/* Lo que ofrece este lugar - usando amenities de la base de datos */}
-                        <div className="mb-8 pb-8 border-b border-gray-200">
+                        <div className="mb-8 pb-8 -b ">
                             <h2 className="text-xl font-semibold mb-6">Lo que ofrece este lugar</h2>
                             {amenities && amenities.length > 0 ? (
                                 <div className="grid grid-cols-2 gap-4">
                                     {amenities.map((amenity, index) => (
-                                        <div key={index} className="flex items-center">
-                                            <i className={`${amenity.icon || 'fas fa-check'} w-6 h-6 mr-3 text-red-500`}></i>
-                                            <span>{amenity.name}</span>
+                                        <div key={index} className="flex items-center p-3 bg-transparent rounded-lg  ">
+                                            <i className={`fas ${amenity.icon || 'fa-check'} text-secondary mr-3 text-lg`}></i>
+                                            <span className="font-medium text-gray-900">{amenity.name}</span>
                                             {amenity.available === false && (
                                                 <span className="ml-2 text-gray-400 text-sm">(No disponible)</span>
                                             )}
@@ -615,20 +721,20 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                     ))}
                                 </div>
                             ) : (
-                                <p className="text-gray-500">No hay amenidades registradas.</p>
+                                <p className="text-transparent0">No hay amenidades registradas.</p>
                             )}
                         </div>
 
                         {/* Servicios */}
                         {services && services.length > 0 && (
-                            <div className="mb-8 pb-8 border-b border-gray-200">
+                            <div className="mb-8 pb-8 -b ">
                                 <h2 className="text-xl font-semibold mb-6">Servicios</h2>
-                                <div className="space-y-4">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     {services.map((service, index) => (
-                                        <div key={index} className="flex items-start">
-                                            <i className={`${service.icon || 'fas fa-concierge-bell'} w-6 h-6 mr-3 text-red-500 mt-1`}></i>
+                                        <div key={index} className="flex items-start p-4 bg-transparent  rounded-xl  -blue-200">
+                                            <i className={`fas ${service.icon || 'fa-concierge-bell'} text-secondary mr-3 mt-1 text-lg`}></i>
                                             <div>
-                                                <h4 className="font-semibold text-gray-900">{service.name}</h4>
+                                                <h4 className="font-semibold text-gray-900 mb-1">{service.name}</h4>
                                                 {service.description && (
                                                     <p className="text-gray-600 text-sm">{service.description}</p>
                                                 )}
@@ -641,18 +747,18 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
                         {/* Características */}
                         {characteristics && characteristics.length > 0 && (
-                            <div className="mb-8 pb-8 border-b border-gray-200">
+                            <div className="mb-8 pb-8 -b ">
                                 <h2 className="text-xl font-semibold mb-6">Características</h2>
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                     {characteristics.map((characteristic, index) => (
-                                        <div key={index} className="flex items-center justify-between">
-                                            <div className="flex items-center">
-                                                <i className={`${characteristic.icon || 'fas fa-info'} w-5 h-5 mr-3 text-red-500`}></i>
-                                                <span className="font-medium">{characteristic.name}</span>
+                                        <div key={index} className="flex items-start p-4  rounded-xl  -green-200">
+                                            <i className={`fas ${characteristic.icon || 'fa-info'} text-secondary mr-3 mt-1 text-lg`}></i>
+                                            <div>
+                                                <h4 className="font-semibold text-gray-900 mb-1">{characteristic.name}</h4>
+                                                {characteristic.value && (
+                                                    <p className="text-gray-600 text-sm">{characteristic.value}</p>
+                                                )}
                                             </div>
-                                            {characteristic.value && (
-                                                <span className="text-gray-600">{characteristic.value}</span>
-                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -660,7 +766,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         )}
 
                         {/* Políticas del alojamiento y reglas de la casa */}
-                        <div className="mb-8 pb-8 border-b border-gray-200">
+                        <div className="mb-8 pb-8 -b ">
                             <h2 className="text-xl font-semibold mb-6">Políticas del alojamiento</h2>
                             <div className="space-y-4">
                                 {/* Información de check-in/out desde check_in_info */}
@@ -691,11 +797,16 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 {house_rules && house_rules.length > 0 && (
                                     <div className="mt-6">
                                         <h3 className="text-lg font-semibold mb-4">Reglas de la casa</h3>
-                                        <div className="space-y-3">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                                             {house_rules.map((rule, index) => (
-                                                <div key={index} className="flex items-start">
-                                                    <i className={`${rule.icon || 'fas fa-info-circle'} w-5 h-5 mr-3 text-red-500 mt-1`}></i>
-                                                    <span className="text-gray-700">{rule.text}</span>
+                                                <div key={index} className="flex items-start p-4  rounded-xl  -orange-200">
+                                                    <i className={`fas ${rule.icon || 'fa-info-circle'} text-secondary  mr-3 mt-1 text-lg`}></i>
+                                                    <div>
+                                                        <h4 className="font-semibold text-gray-900 mb-1">{rule.name}</h4>
+                                                        {rule.text && (
+                                                            <p className="text-gray-600 text-sm">{rule.text}</p>
+                                                        )}
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
@@ -745,7 +856,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                     <p className="text-gray-600">Ubicación no disponible</p>
-                                    <p className="text-sm text-gray-500">No se han proporcionado coordenadas</p>
+                                    <p className="text-sm text-transparent0">No se han proporcionado coordenadas</p>
                                     {latitude && longitude && (
                                         <p className="text-xs text-gray-400 mt-1">
                                             Coordenadas: {latitude}, {longitude}
@@ -755,9 +866,9 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                             )}
                             
                             {/* Información de ubicación */}
-                            <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                            <div className="mt-4 p-4 bg-transparent rounded-lg">
                                 <div className="flex items-start">
-                                    <svg className="w-5 h-5 text-red-500 mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-5 h-5 text-secondary mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 616 0z" />
                                     </svg>
@@ -778,32 +889,32 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     {/* Sidebar de reserva */}
                     <div className="lg:col-span-1">
                         <div className="sticky top-8">
-                            <div className="bg-white border border-gray-300 rounded-xl shadow-lg p-6">
+                            <div className="bg-white  -gray-300 rounded-xl shadow-lg p-6">
                                 {/* Precio y rating */}
                                 <div className="flex items-center justify-between mb-6">
                                     <div>
                                         <span className="text-2xl font-bold">{currency}/{parseFloat(price_per_night).toFixed(0)}</span>
-                                        <span className="text-gray-500 ml-1">noche</span>
+                                        <span className="text-transparent0 ml-1">noche</span>
                                     </div>
                                     <div className="flex items-center">
                                         <svg className="w-4 h-4 text-yellow-400 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                         </svg>
                                         <span className="font-semibold">{rating || '4.6'}</span>
-                                        <span className="text-gray-500 ml-1">({reviews_count || 127} reseñas)</span>
+                                        <span className="text-transparent0 ml-1">({reviews_count || 127} reseñas)</span>
                                     </div>
                                 </div>
 
                                 {/* Fechas y huéspedes */}
-                                <div className="border border-gray-300 rounded-lg mb-4">
-                                    <div className="grid grid-cols-2 border-b border-gray-300">
-                                        <div className="p-3 border-r border-gray-300">
+                                <div className=" -gray-300 rounded-lg mb-4">
+                                    <div className="grid grid-cols-2 -b -gray-300">
+                                        <div className="p-3 -r -gray-300">
                                             <label className="block text-xs font-semibold text-gray-600 uppercase mb-1">Llegada</label>
                                             <input
                                                 type="date"
                                                 value={checkIn}
                                                 onChange={(e) => setCheckIn(e.target.value)}
-                                                className="w-full border-none outline-none text-sm"
+                                                className="w-full -none outline-none text-sm"
                                             />
                                         </div>
                                         <div className="p-3">
@@ -812,7 +923,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                                 type="date"
                                                 value={checkOut}
                                                 onChange={(e) => setCheckOut(e.target.value)}
-                                                className="w-full border-none outline-none text-sm"
+                                                className="w-full -none outline-none text-sm"
                                             />
                                         </div>
                                     </div>
@@ -821,7 +932,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                         <select
                                             value={guests}
                                             onChange={(e) => setGuests(e.target.value)}
-                                            className="w-full border-none outline-none text-sm"
+                                            className="w-full -none outline-none text-sm"
                                         >
                                             {[...Array(max_guests || 4)].map((_, i) => (
                                                 <option key={i + 1} value={i + 1}>
@@ -843,7 +954,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                     <span>Ver en Airbnb</span>
                                 </button>
 
-                                <div className="text-center text-sm text-gray-500 mb-4">
+                                <div className="text-center text-sm text-transparent0 mb-4">
                                     No se hará ningún cargo por el momento
                                 </div>
 
@@ -861,7 +972,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                         <span className="underline">Impuestos</span>
                                         <span>{currency}/{(parseFloat(price_per_night) * 0.05).toFixed(0)}</span>
                                     </div>
-                                    <div className="border-t border-gray-200 pt-3">
+                                    <div className="-t  pt-3">
                                         <div className="flex justify-between font-semibold">
                                             <span>Total</span>
                                             <span>{currency}/{(parseFloat(price_per_night) * 5 + parseFloat(price_per_night) * 0.15).toFixed(0)}</span>

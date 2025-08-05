@@ -274,7 +274,58 @@ const Properties = () => {
         { id: 'security', label: 'Seguridad 24h', icon: 'fa-shield-alt' }
     ];
 
+    // Servicios predefinidos
+    const predefinedServices = [
+        { id: 'cleaning', label: 'Servicio de limpieza', icon: 'fa-broom' },
+        { id: 'laundry', label: 'Servicio de lavandería', icon: 'fa-tshirt' },
+        { id: 'transport', label: 'Transporte', icon: 'fa-car' },
+        { id: 'breakfast', label: 'Desayuno incluido', icon: 'fa-coffee' },
+        { id: 'concierge', label: 'Conserje', icon: 'fa-concierge-bell' },
+        { id: 'grocery', label: 'Servicio de compras', icon: 'fa-shopping-basket' },
+        { id: 'room_service', label: 'Room service', icon: 'fa-bell' },
+        { id: 'spa', label: 'Servicio de spa', icon: 'fa-spa' },
+        { id: 'baby_sitting', label: 'Cuidado de niños', icon: 'fa-baby' },
+        { id: 'tour_guide', label: 'Guía turístico', icon: 'fa-map' },
+        { id: 'cooking', label: 'Servicio de cocina', icon: 'fa-utensils' },
+        { id: 'maintenance', label: 'Mantenimiento 24h', icon: 'fa-tools' }
+    ];
+
+    // Características predefinidas
+    const predefinedCharacteristics = [
+        { id: 'modern', label: 'Moderno', icon: 'fa-gem' },
+        { id: 'luxury', label: 'Lujo', icon: 'fa-crown' },
+        { id: 'historic', label: 'Histórico', icon: 'fa-landmark' },
+        { id: 'city_view', label: 'Vista a la ciudad', icon: 'fa-city' },
+        { id: 'ocean_view', label: 'Vista al mar', icon: 'fa-water' },
+        { id: 'mountain_view', label: 'Vista a la montaña', icon: 'fa-mountain' },
+        { id: 'quiet', label: 'Zona tranquila', icon: 'fa-volume-mute' },
+        { id: 'central', label: 'Ubicación central', icon: 'fa-map-marker-alt' },
+        { id: 'new_construction', label: 'Construcción nueva', icon: 'fa-hammer' },
+        { id: 'renovated', label: 'Recién renovado', icon: 'fa-paint-roller' },
+        { id: 'furnished', label: 'Completamente amueblado', icon: 'fa-couch' },
+        { id: 'spacious', label: 'Espacioso', icon: 'fa-expand-arrows-alt' }
+    ];
+
+    // Reglas de la casa predefinidas
+    const predefinedHouseRules = [
+        { id: 'no_pets', label: 'No mascotas', icon: 'fa-ban' },
+        { id: 'no_smoking', label: 'No fumar', icon: 'fa-smoking-ban' },
+        { id: 'no_parties', label: 'No fiestas', icon: 'fa-volume-off' },
+        { id: 'quiet_hours', label: 'Horas de silencio 22:00-08:00', icon: 'fa-clock' },
+        { id: 'clean_up', label: 'Mantener limpio', icon: 'fa-broom' },
+        { id: 'no_shoes', label: 'Sin zapatos en interiores', icon: 'fa-shoe-prints' },
+        { id: 'check_in_time', label: 'Check-in: 15:00-22:00', icon: 'fa-key' },
+        { id: 'check_out_time', label: 'Check-out: antes de 11:00', icon: 'fa-door-open' },
+        { id: 'max_guests', label: 'Respetar número máximo', icon: 'fa-users' },
+        { id: 'no_unregistered', label: 'No huéspedes no registrados', icon: 'fa-user-slash' },
+        { id: 'responsible_use', label: 'Uso responsable', icon: 'fa-handshake' },
+        { id: 'report_issues', label: 'Reportar problemas', icon: 'fa-exclamation-triangle' }
+    ];
+
     const [selectedAmenities, setSelectedAmenities] = useState([]);
+    const [selectedServices, setSelectedServices] = useState([]);
+    const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
+    const [selectedHouseRules, setSelectedHouseRules] = useState([]);
 
     // Cargar datos iniciales
     useEffect(() => {
@@ -539,6 +590,33 @@ const Properties = () => {
         );
     };
 
+    // Funciones para servicios predefinidos
+    const togglePredefinedService = (serviceId) => {
+        setSelectedServices(prev =>
+            prev.includes(serviceId)
+                ? prev.filter(id => id !== serviceId)
+                : [...prev, serviceId]
+        );
+    };
+
+    // Funciones para características predefinidas
+    const togglePredefinedCharacteristic = (characteristicId) => {
+        setSelectedCharacteristics(prev =>
+            prev.includes(characteristicId)
+                ? prev.filter(id => id !== characteristicId)
+                : [...prev, characteristicId]
+        );
+    };
+
+    // Funciones para reglas predefinidas
+    const togglePredefinedHouseRule = (ruleId) => {
+        setSelectedHouseRules(prev =>
+            prev.includes(ruleId)
+                ? prev.filter(id => id !== ruleId)
+                : [...prev, ruleId]
+        );
+    };
+
     // Funciones para amenidades
     const addAmenity = () => {
         setAmenities([...amenities, { name: "", icon: "", available: true }]);
@@ -628,6 +706,27 @@ const Properties = () => {
                 setSelectedAmenities([]);
             }
 
+            // Cargar servicios predefinidos
+            if (data.services && Array.isArray(data.services)) {
+                setSelectedServices(data.services);
+            } else {
+                setSelectedServices([]);
+            }
+
+            // Cargar características predefinidas
+            if (data.characteristics && Array.isArray(data.characteristics)) {
+                setSelectedCharacteristics(data.characteristics);
+            } else {
+                setSelectedCharacteristics([]);
+            }
+
+            // Cargar reglas predefinidas
+            if (data.house_rules && Array.isArray(data.house_rules)) {
+                setSelectedHouseRules(data.house_rules);
+            } else {
+                setSelectedHouseRules([]);
+            }
+
             // Cargar ubicación en secuencia asíncrona
             if (data.department) {
                 setSelectedDepartment(data.department);
@@ -672,9 +771,12 @@ const Properties = () => {
             // Cargar arrays dinámicos - separar amenidades predefinidas de personalizadas
             const customAmenities = data.amenities_custom?.length ? data.amenities_custom : [{ name: "", icon: "", available: true }];
             setAmenities(customAmenities);
+            
+            /* ARRAYS PERSONALIZADOS - OCULTO TEMPORALMENTE
             setServices(data.services?.length ? data.services : [{ name: "", description: "", icon: "", available: true }]);
             setCharacteristics(data.characteristics?.length ? data.characteristics : [{ name: "", value: "", icon: "" }]);
             setHouseRules(data.house_rules?.length ? data.house_rules : [{ text: "", icon: "fas fa-info-circle" }]);
+            */
             setGallery(data.gallery || []);
         } else {
             // Limpiar formulario
@@ -689,6 +791,9 @@ const Properties = () => {
 
             // Limpiar amenidades predefinidas
             setSelectedAmenities([]);
+            setSelectedServices([]);
+            setSelectedCharacteristics([]);
+            setSelectedHouseRules([]);
 
             // Limpiar ubicación
             setSelectedDepartment("");
@@ -712,9 +817,11 @@ const Properties = () => {
             mainImageRef.image.src = `/api/property/media/undefined`;
 
             setAmenities([{ name: "", icon: "", available: true }]);
+            /* ARRAYS PERSONALIZADOS - OCULTO TEMPORALMENTE
             setServices([{ name: "", description: "", icon: "", available: true }]);
             setCharacteristics([{ name: "", value: "", icon: "" }]);
             setHouseRules([{ text: "", icon: "fas fa-info-circle" }]);
+            */
             setGallery([]);
         }
 
@@ -760,6 +867,21 @@ const Properties = () => {
             formData.append(`amenities[${index}]`, amenityId);
         });
 
+        // Servicios predefinidos
+        selectedServices.forEach((serviceId, index) => {
+            formData.append(`services[${index}]`, serviceId);
+        });
+
+        // Características predefinidas
+        selectedCharacteristics.forEach((characteristicId, index) => {
+            formData.append(`characteristics[${index}]`, characteristicId);
+        });
+
+        // Reglas de la casa predefinidas
+        selectedHouseRules.forEach((ruleId, index) => {
+            formData.append(`house_rules[${index}]`, ruleId);
+        });
+
         // ✅ CORREGIDO: Amenidades personalizadas (en el campo amenities_custom)
         amenities.forEach((amenity, index) => {
             formData.append(`amenities_custom[${index}][name]`, amenity.name);
@@ -785,6 +907,7 @@ const Properties = () => {
             formData.append("existing_gallery", JSON.stringify(existingGallery));
         }
 
+        /* ARRAYS DINÁMICOS PERSONALIZADOS - OCULTO TEMPORALMENTE
         // Arrays dinámicos - amenidades personalizadas
         amenities.forEach((amenity, index) => {
             formData.append(`amenities_custom[${index}][name]`, amenity.name);
@@ -809,6 +932,7 @@ const Properties = () => {
             formData.append(`house_rules[${index}][text]`, rule.text);
             formData.append(`house_rules[${index}][icon]`, rule.icon);
         });
+        */
 
         try {
             await propertiesRest.save(formData);
@@ -1597,12 +1721,56 @@ const Properties = () => {
                         </div>
                     </div>
 
-                    {/* Servicios */}
+                    {/* Servicios Predefinidos */}
                     <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
                             <i className="fas fa-concierge-bell me-2"></i>
-                            Servicios
+                            Servicios Principales
                         </h5>
+                        <div className="row">
+                            {predefinedServices.map((service, index) => (
+                                <div key={service.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div
+                                        className={`card h-100 border-2 cursor-pointer transition-all ${selectedServices.includes(service.id)
+                                                ? 'border-success bg-light'
+                                                : 'border-light hover:border-secondary'
+                                            }`}
+                                        onClick={() => togglePredefinedService(service.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div className="card-body p-3 text-center">
+                                            <i className={`fas ${service.icon} fa-2x mb-2 ${selectedServices.includes(service.id) ? 'text-success' : 'text-muted'
+                                                }`}></i>
+                                            <h6 className={`mb-0 ${selectedServices.includes(service.id) ? 'text-success fw-bold' : 'text-dark'
+                                                }`}>
+                                                {service.label}
+                                            </h6>
+                                            {selectedServices.includes(service.id) && (
+                                                <div className="position-absolute top-0 end-0 p-2">
+                                                    <i className="fas fa-check-circle text-success"></i>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="alert alert-info">
+                            <i className="fas fa-info-circle me-2"></i>
+                            Selecciona los servicios que ofreces a tus huéspedes.
+                        </div>
+                    </div>
+
+                    {/* Servicios Personalizados - OCULTO TEMPORALMENTE 
+                    <div className="col-12 mb-4">
+                        <h5 className="border-bottom pb-2">
+                            <i className="fas fa-concierge-bell me-2"></i>
+                            Servicios Personalizados
+                        </h5>
+                        <div className="alert alert-warning">
+                            <i className="fas fa-exclamation-triangle me-2"></i>
+                            Agrega servicios adicionales que no estén en la lista principal.
+                        </div>
                         <div className="row">
                             {services.map((service, index) => (
                                 <div key={index} className="col-lg-4 mb-3">
@@ -1621,13 +1789,58 @@ const Properties = () => {
                             ))}
                         </div>
                     </div>
+                    */}
 
-                    {/* Características */}
+                    {/* Características Predefinidas */}
+                    <div className="col-12 mb-4">
+                        <h5 className="border-bottom pb-2">
+                            <i className="fas fa-star me-2"></i>
+                            Características Principales
+                        </h5>
+                        <div className="row">
+                            {predefinedCharacteristics.map((characteristic, index) => (
+                                <div key={characteristic.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div
+                                        className={`card h-100 border-2 cursor-pointer transition-all ${selectedCharacteristics.includes(characteristic.id)
+                                                ? 'border-warning bg-light'
+                                                : 'border-light hover:border-secondary'
+                                            }`}
+                                        onClick={() => togglePredefinedCharacteristic(characteristic.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div className="card-body p-3 text-center">
+                                            <i className={`fas ${characteristic.icon} fa-2x mb-2 ${selectedCharacteristics.includes(characteristic.id) ? 'text-warning' : 'text-muted'
+                                                }`}></i>
+                                            <h6 className={`mb-0 ${selectedCharacteristics.includes(characteristic.id) ? 'text-warning fw-bold' : 'text-dark'
+                                                }`}>
+                                                {characteristic.label}
+                                            </h6>
+                                            {selectedCharacteristics.includes(characteristic.id) && (
+                                                <div className="position-absolute top-0 end-0 p-2">
+                                                    <i className="fas fa-check-circle text-warning"></i>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="alert alert-info">
+                            <i className="fas fa-info-circle me-2"></i>
+                            Selecciona las características que mejor describan tu propiedad.
+                        </div>
+                    </div>
+
+                    {/* Características Personalizadas - OCULTO TEMPORALMENTE 
                     <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
                             <i className="fas fa-home me-2"></i>
-                            Características
+                            Características Personalizadas
                         </h5>
+                        <div className="alert alert-warning">
+                            <i className="fas fa-exclamation-triangle me-2"></i>
+                            Agrega características adicionales que no estén en la lista principal.
+                        </div>
                         <div className="row">
                             {characteristics.map((characteristic, index) => (
                                 <div key={index} className="col-lg-4 mb-3">
@@ -1646,13 +1859,58 @@ const Properties = () => {
                             ))}
                         </div>
                     </div>
+                    */}
 
-                    {/* Reglas de la casa */}
+                    {/* Reglas de la Casa Predefinidas */}
+                    <div className="col-12 mb-4">
+                        <h5 className="border-bottom pb-2">
+                            <i className="fas fa-list-check me-2"></i>
+                            Reglas de la Casa Principales
+                        </h5>
+                        <div className="row">
+                            {predefinedHouseRules.map((rule, index) => (
+                                <div key={rule.id} className="col-lg-3 col-md-4 col-sm-6 mb-3">
+                                    <div
+                                        className={`card h-100 border-2 cursor-pointer transition-all ${selectedHouseRules.includes(rule.id)
+                                                ? 'border-danger bg-light'
+                                                : 'border-light hover:border-secondary'
+                                            }`}
+                                        onClick={() => togglePredefinedHouseRule(rule.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
+                                        <div className="card-body p-3 text-center">
+                                            <i className={`fas ${rule.icon} fa-2x mb-2 ${selectedHouseRules.includes(rule.id) ? 'text-danger' : 'text-muted'
+                                                }`}></i>
+                                            <h6 className={`mb-0 ${selectedHouseRules.includes(rule.id) ? 'text-danger fw-bold' : 'text-dark'
+                                                }`}>
+                                                {rule.label}
+                                            </h6>
+                                            {selectedHouseRules.includes(rule.id) && (
+                                                <div className="position-absolute top-0 end-0 p-2">
+                                                    <i className="fas fa-check-circle text-danger"></i>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="alert alert-info">
+                            <i className="fas fa-info-circle me-2"></i>
+                            Selecciona las reglas que los huéspedes deben seguir durante su estadía.
+                        </div>
+                    </div>
+
+                    {/* Reglas de la Casa Personalizadas - OCULTO TEMPORALMENTE 
                     <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
                             <i className="fas fa-gavel me-2"></i>
-                            Reglas de la Casa
+                            Reglas de la Casa Personalizadas
                         </h5>
+                        <div className="alert alert-warning">
+                            <i className="fas fa-exclamation-triangle me-2"></i>
+                            Agrega reglas adicionales específicas para tu propiedad.
+                        </div>
                         <div className="row">
                             {houseRules.map((rule, index) => (
                                 <div key={index} className="col-lg-6 mb-3">
@@ -1671,6 +1929,7 @@ const Properties = () => {
                             ))}
                         </div>
                     </div>
+                    */}
 
                     {/* Información adicional */}
                     <div className="col-12 mb-4">
