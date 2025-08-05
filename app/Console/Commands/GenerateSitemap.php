@@ -44,7 +44,7 @@ class GenerateSitemap extends Command
      */
     private function generateSitemap()
     {
-        $baseUrl = config('app.url', 'https://cambiafx.com');
+        $baseUrl = config('app.url', 'https://homlynk.com');
         $now = Carbon::now()->toISOString();
         
         $urls = collect([

@@ -271,7 +271,7 @@ HTML
             [
                 'correlative' => 'email_coorporativo',
                 'name' => 'Email corporativo (para recibir notificaciones)',
-                'description' => 'admin@cambiafx.com'
+                'description' => 'admin@homlynk.com'
             ],
             // [
             //     'correlative' => 'address',

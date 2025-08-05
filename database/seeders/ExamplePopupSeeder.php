@@ -19,7 +19,7 @@ class ExamplePopupSeeder extends Seeder
             'name' => '🎉 ¡Hoy 7 de Julio es Feriado!',
             'description' => 'Disfruta de este día especial. Nuestras oficinas están cerradas pero nuestro servicio de cambio de divisas online sigue disponible 24/7. ¡Aprovecha nuestras tasas preferenciales!',
             'image' => null, // Puedes agregar una imagen después
-            'link' => 'https://mi.cambiafx.pe',
+            'link' => 'https://mi.homlynk.com',
             'seconds' => 0, // Se muestra inmediatamente
             'date_begin' => Carbon::today()->format('Y-m-d'),
             'date_end' => Carbon::today()->format('Y-m-d'),
@@ -51,7 +51,7 @@ class ExamplePopupSeeder extends Seeder
             'name' => '🏦 Registrados en la SBS',
             'description' => 'Somos una casa de cambio autorizada y supervisada por la Superintendencia de Banca, Seguros y AFP. Tu dinero está seguro con nosotros.',
             'image' => null,
-            'link' => 'https://cambiafx.pe/sobre-nosotros',
+            'link' => 'https://homlynk.com/sobre-nosotros',
             'seconds' => 30, // Se muestra después de 30 segundos
             'date_begin' => null, // Sin fecha límite
             'date_end' => null,

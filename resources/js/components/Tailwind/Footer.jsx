@@ -92,7 +92,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const supportEmail = getGeneralValue('support_email');
     const companyName = getGeneralValue('company_name') || 'Tu Cambio S.A.C.';
     const companyRuc = getGeneralValue('company_ruc') || '20603864957';
-    const copyrightText = getGeneralValue('copyright') || `Cambia FX © 2019 - Marca registrada de ${companyName} - RUC: ${companyRuc}`;
+    const copyrightText = getGeneralValue('copyright') || `homLynk © 2024 - Marca registrada de ${companyName} - RUC: ${companyRuc}`;
 
     const [aboutuses, setAboutuses] = useState(null); // o useState({});
 

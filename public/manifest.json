@@ -1,7 +1,7 @@
 {
-  "name": "CambiaFX",
-  "short_name": "CambiaFX",
-  "description": "Aplicación de intercambio de divisas CambiaFX",
+  "name": "homLynk",
+  "short_name": "homLynk",
+  "description": "Plataforma inmobiliaria homLynk",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

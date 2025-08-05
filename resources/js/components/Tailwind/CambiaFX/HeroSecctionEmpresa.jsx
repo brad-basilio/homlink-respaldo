@@ -135,7 +135,7 @@ export default function HeroSecctionEmpresa({ landing }) {
     const handleOperationStart = (operationData) => {
 
         // Aquí puedes manejar los datos de la operación como necesites
-        // Redirigir a la página de contacto en lugar de cambiafx
+        // Redirigir a la página de contacto en lugar de homlynk
         window.location.href = '/contacto';
     };
 

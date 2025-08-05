@@ -315,7 +315,7 @@ const Register = ({ PUBLIC_RSA_KEY, RECAPTCHA_SITE_KEY }) => {
                 alt="Persona trabajando"
                 onError={(e) => {
                   console.log('Error loading image:', e.target.src);
-                  e.target.src = '/assets/cambiafx/nosotros.png'; // Fallback image
+                  e.target.src = '/assets/homlynk/nosotros.png'; // Fallback image
                 }}
                 onLoad={() => console.log('Image loaded successfully')}
               />

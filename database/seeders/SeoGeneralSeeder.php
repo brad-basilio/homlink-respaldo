@@ -16,7 +16,7 @@ class SeoGeneralSeeder extends Seeder
             [
                 'correlative' => 'company_name',
                 'name' => 'Nombre de la Empresa',
-                'description' => 'CambiaFX - Tu Cambio S.A.C.'
+                'description' => 'homLynk - homLynk S.A.C.'
             ],
             [
                 'correlative' => 'company_description',
@@ -31,7 +31,7 @@ class SeoGeneralSeeder extends Seeder
             [
                 'correlative' => 'company_url',
                 'name' => 'URL de la Empresa',
-                'description' => 'https://cambiafx.com'
+                'description' => 'https://homlynk.com'
             ],
             [
                 'correlative' => 'company_phone',
@@ -41,7 +41,7 @@ class SeoGeneralSeeder extends Seeder
             [
                 'correlative' => 'company_email',
                 'name' => 'Email de la Empresa',
-                'description' => 'info@cambiafx.com'
+                'description' => 'info@homlynk.com'
             ],
             [
                 'correlative' => 'company_address',
@@ -51,22 +51,22 @@ class SeoGeneralSeeder extends Seeder
             [
                 'correlative' => 'twitter_site',
                 'name' => 'Twitter Site',
-                'description' => '@cambiafx'
+                'description' => '@homlynk'
             ],
             [
                 'correlative' => 'facebook_page',
                 'name' => 'Página de Facebook',
-                'description' => 'https://facebook.com/cambiafx'
+                'description' => 'https://facebook.com/homlynk'
             ],
             [
                 'correlative' => 'instagram_profile',
                 'name' => 'Perfil de Instagram',
-                'description' => 'https://instagram.com/cambiafx'
+                'description' => 'https://instagram.com/homlynk'
             ],
             [
                 'correlative' => 'linkedin_profile',
                 'name' => 'Perfil de LinkedIn',
-                'description' => 'https://linkedin.com/company/cambiafx'
+                'description' => 'https://linkedin.com/company/homlynk'
             ],
             [
                 'correlative' => 'og_image_default',

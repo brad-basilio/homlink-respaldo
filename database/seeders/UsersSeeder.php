@@ -25,18 +25,18 @@ class UsersSeeder extends Seeder
         ])->assignRole('Admin');
         
         User::updateOrCreate([
-            'email' => 'admin@cambiafx.com'
+            'email' => 'admin@homlynk.com'
         ], [
             'name' => 'Admin',
-            'lastname' => 'CambiaFX',
+            'lastname' => 'homLynk',
             'password' => 'C@mbiaFX!2025'
         ])->assignRole('Admin');
 
         User::updateOrCreate([
-            'email' => 'admin@cambiafx.pe'
+            'email' => 'admin@homlynk.pe'
         ], [
             'name' => 'Admin',
-            'lastname' => 'CambiaFX Peru',
+            'lastname' => 'homLynk Peru',
             'password' => 'C@mbiaFX.Pe!2025'
         ])->assignRole('Admin');
 

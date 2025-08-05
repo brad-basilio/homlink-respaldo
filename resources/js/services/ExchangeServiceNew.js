@@ -12,7 +12,7 @@ class ExchangeService {
         this.isLoading = false;
     }
 
-    // Obtener tipos de cambio desde la API real de CambiaFX
+    // Obtener tipos de cambio desde la API real de homLynk
     async fetchRealRates() {
         try {
             const response = await axios.get(this.apiURL, {

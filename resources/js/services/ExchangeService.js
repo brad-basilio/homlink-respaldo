@@ -154,7 +154,7 @@ class ExchangeService {
         return 0;
     }
 
-    // � MÉTODO CALCULATEEXCHANGE SEGÚN DOCUMENTACIÓN CAMBIAFX
+    // 🧮 MÉTODO CALCULATEEXCHANGE SEGÚN DOCUMENTACIÓN HOMLYNK
     calculateExchange(amount, operationType = 'V', origin = 'from') {
         let total = 0;
         
@@ -164,7 +164,7 @@ class ExchangeService {
         // Paso 1: Obtener el tipo de cambio correspondiente
         const _tc = this.getTCFromAmount(amount, operationType, mappedOrigin);
 
-        // Paso 2: Calcular el monto convertido según documentación CambiaFX
+        // Paso 2: Calcular el monto convertido según documentación homLynk
         // VENTA = soles → dólares (dividir por TC)
         // COMPRA = dólares → soles (multiplicar por TC)  
         const isVenta = operationType === 'V' || operationType === 'venta';
@@ -187,7 +187,7 @@ class ExchangeService {
         };
     }
 
-    // 🧠 IMPLEMENTACIÓN SEGÚN DOCUMENTACIÓN CAMBIAFX - MÉTODO PRINCIPAL
+    // 🧠 IMPLEMENTACIÓN SEGÚN DOCUMENTACIÓN HOMLYNK - MÉTODO PRINCIPAL
     getTCFromAmount(amount, operationType = 'V', origin = 'O') {
         if (!amount || amount <= 0) {
             if (this.tcData.length > 0) {
@@ -219,7 +219,7 @@ class ExchangeService {
         return isBuy ? objTC.tc_compra : objTC.tc_venta;
     }
 
-    // 💰 ¿El monto ingresado está en Soles? (según documentación CambiaFX)
+    // 💰 ¿El monto ingresado está en Soles? (según documentación homLynk)
     isPenCurrency(origin = 'O', isBuy = false) {
         // IMPORTANTE: Corrección de lógica final
         // VENTA = Usuario vende dólares por soles (PEN → USD) - ingresa soles, obtiene dólares
@@ -232,7 +232,7 @@ class ExchangeService {
         return false; // USD
     }
 
-    // 🔸 Para montos en Soles: getTcRangePEN (según documentación CambiaFX)
+    // 🔸 Para montos en Soles: getTcRangePEN (según documentación homLynk)
     getTcRangePEN(dataRangesTc = [], amount = 0, isBuy = false) {
         const typeOperation = isBuy ? 'compra' : 'venta';
 
@@ -254,7 +254,7 @@ class ExchangeService {
         return dataRangesTc[dataRangesTc.length - 1] ?? null;
     }
 
-    // 🔹 Para montos en Dólares: getTcRangeUSD (según documentación CambiaFX)
+    // 🔹 Para montos en Dólares: getTcRangeUSD (según documentación homLynk)
     getTcRangeUSD(dataRangesTc = [], amount = 0) {
         let objTC = null;
 

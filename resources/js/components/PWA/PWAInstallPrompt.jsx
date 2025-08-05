@@ -119,9 +119,12 @@ const PWAInstallPrompt = () => {
                     <div className="pwa-install-icon">
                         <img src="/icon-192x192.png" alt="CambiaFX" />
                     </div>
-                    <div className="pwa-install-title">
-                        <h3>Instalar CambiaFX</h3>
-                        <p>Accede más rápido desde tu pantalla de inicio</p>
+                                        <div className="app-info">
+                        <img src="/icon-192x192.png" alt="homLynk" />
+                        <div>
+                        <h3>Instalar homLynk</h3>
+                        <p>Añade la app a tu pantalla de inicio para un acceso rápido</p>
+                        </div>
                     </div>
                     <button 
                         className="pwa-install-close" 

@@ -92,7 +92,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
     const supportEmail = getGeneralValue('support_email');
     const companyName = getGeneralValue('company_name') || 'Tu Cambio S.A.C.';
     const companyRuc = getGeneralValue('company_ruc') || '20603864957';
-    const copyrightText = getGeneralValue('copyright') || `Cambia FX © 2019 - Marca registrada de ${companyName} - RUC: ${companyRuc}`;
+    const copyrightText = getGeneralValue('copyright') || `homLynk © 2024 - Marca registrada de ${companyName} - RUC: ${companyRuc}`;
 
     const [aboutuses, setAboutuses] = useState(null); // o useState({});
 
@@ -264,7 +264,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                             <img
                                 className="h-12 lg:h-14"
                                 src="/assets/img/logo-white.png"
-                                alt="CambiaFX Logo"
+                                alt="homLynk Logo"
                             />
                         </a>
                         <motion.div 
@@ -564,7 +564,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                     <path d="M1.66797 5L7.42882 8.26414C9.55264 9.4675 10.45 9.4675 12.5738 8.26414L18.3346 5" stroke="#1A1A1A" strokeWidth="1.25" strokeLinejoin="round" />
                                 </svg>
 
-                                <a href={`mailto:${emailContact || 'hola@cambiafx.pe'}`} className="hover:text-secondary transition-colors text-xs lg:text-sm">{emailContact || 'hola@cambiafx.pe'}</a>
+                                <a href={`mailto:${emailContact || 'hola@homlynk.pe'}`} className="hover:text-secondary transition-colors text-xs lg:text-sm">{emailContact || 'hola@homlynk.pe'}</a>
                             </div>
                         </div>
                     </div>

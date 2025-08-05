@@ -149,7 +149,7 @@ const Generals = ({ generals }) => {
 
         copyright:
             generals.find((x) => x.correlative == "copyright")?.description ?? 
-            "Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957",
+            "homLynk © 2024 - Marca registrada de homLynk S.A.C. - RUC: 20603864957",
         emailCoorporativo:
             generals.find((x) => x.correlative == "email_coorporativo")
                 ?.description ?? "",
@@ -775,7 +775,7 @@ const Generals = ({ generals }) => {
                                         emailCoorporativo: e.target.value,
                                     })
                                 }
-                                placeholder="admin@cambiafx.com"
+                                placeholder="admin@homlynk.com"
                             />
                             <small className="form-text text-muted">
                                 Email donde se enviarán las notificaciones de nuevos contactos.
@@ -861,7 +861,7 @@ const Generals = ({ generals }) => {
                                     seoTitle: e.target.value,
                                 })
                             }
-                            placeholder="CambiaFX - Casa de Cambio Online"
+                            placeholder="homLynk - Plataforma Inmobiliaria"
                         />
                         <small className="form-text text-muted mb-3">
                             Máximo 60 caracteres. Aparece en resultados de Google y pestañas del navegador.
@@ -930,7 +930,7 @@ const Generals = ({ generals }) => {
                                             companyName: e.target.value,
                                         })
                                     }
-                                    placeholder="CambiaFX - Tu Cambio S.A.C."
+                                    placeholder="homLynk - homLynk S.A.C."
                                 />
                             </div>
                             <div className="col-md-6">
@@ -943,7 +943,7 @@ const Generals = ({ generals }) => {
                                             companyUrl: e.target.value,
                                         })
                                     }
-                                    placeholder="https://cambiafx.com"
+                                    placeholder="https://homlynk.com"
                                 />
                             </div>
                         </div>
@@ -985,7 +985,7 @@ const Generals = ({ generals }) => {
                                             companyEmail: e.target.value,
                                         })
                                     }
-                                    placeholder="info@cambiafx.com"
+                                    placeholder="info@homlynk.com"
                                 />
                             </div>
                         </div>
@@ -1094,7 +1094,7 @@ const Generals = ({ generals }) => {
                                             twitterSite: e.target.value,
                                         })
                                     }
-                                    placeholder="@cambiafx"
+                                    placeholder="@homlynk"
                                 />
                                 <small className="form-text text-muted">
                                     Usuario de Twitter (incluye @)
@@ -1110,7 +1110,7 @@ const Generals = ({ generals }) => {
                                             facebookPage: e.target.value,
                                         })
                                     }
-                                    placeholder="https://facebook.com/cambiafx"
+                                    placeholder="https://facebook.com/homlynk"
                                 />
                             </div>
                         </div>
@@ -1126,7 +1126,7 @@ const Generals = ({ generals }) => {
                                             instagramProfile: e.target.value,
                                         })
                                     }
-                                    placeholder="https://instagram.com/cambiafx"
+                                    placeholder="https://instagram.com/homlynk"
                                 />
                             </div>
                             <div className="col-md-6">
@@ -1139,7 +1139,7 @@ const Generals = ({ generals }) => {
                                             linkedinProfile: e.target.value,
                                         })
                                     }
-                                    placeholder="https://linkedin.com/company/cambiafx"
+                                    placeholder="https://linkedin.com/company/homlynk"
                                 />
                             </div>
                         </div>

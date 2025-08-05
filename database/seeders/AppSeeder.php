@@ -14,14 +14,14 @@ class AppSeeder extends Seeder
     {
         \App\Models\App::create([
             'name' => 'Google Play',
-            'link' => 'https://play.google.com/store/apps/details?id=com.cambiafx.app',
+            'link' => 'https://play.google.com/store/apps/details?id=com.homlynk.app',
             'order' => 1,
             'status' => true,
         ]);
 
         \App\Models\App::create([
             'name' => 'App Store',
-            'link' => 'https://apps.apple.com/app/cambiafx/id123456789',
+            'link' => 'https://apps.apple.com/app/homlynk/id123456789',
             'order' => 2,
             'status' => true,
         ]);

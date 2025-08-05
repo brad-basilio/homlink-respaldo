@@ -38,7 +38,7 @@ class CopyrightGeneralSeeder extends Seeder
             'lang_id' => $langId,
             'correlative' => 'copyright',
             'name' => 'Texto de Copyright',
-            'description' => 'Cambia FX © 2019 - Marca registrada de Tu Cambio S.A.C. - RUC: 20603864957',
+            'description' => 'homLynk © 2024 - Marca registrada de homLynk S.A.C. - RUC: 20603864957',
             'status' => '1',
             'created_at' => now(),
             'updated_at' => now(),
