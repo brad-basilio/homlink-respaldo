@@ -35,7 +35,7 @@ export default defineConfig({
                 "resources/js/components/Tailwind"
             ),
             "@Utils": path.resolve(__dirname, "resources/js/Utils"),
-            "@Rest": path.resolve(__dirname, "resources/js/Actions"),
+            "@Rest": path.resolve(__dirname, "resources/js/actions"),
         },
     },
     build: {
