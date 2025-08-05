@@ -43,7 +43,7 @@ const Apps = () => {
         appSchemeRef.current.value = data?.app_scheme ?? "";
         orderRef.current.value = data?.order ?? "";
         platformRef.current.value = data?.platform ?? "other";
-        statusRef.current.checked = data?.status == 1 ?? true;
+        statusRef.current.checked = data?.status == 1;
         
         // Handle image
         if (data?.image) {

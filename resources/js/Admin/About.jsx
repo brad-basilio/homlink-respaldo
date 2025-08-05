@@ -3,11 +3,11 @@ import SwitchFormGroup from '@Adminto/form/SwitchFormGroup';
 import TextareaFormGroup from '@Adminto/form/TextareaFormGroup';
 import React, { useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import AboutusRest from '../Actions/Admin/AboutusRest';
-import Modal from '../Components/Modal';
-import Table from '../Components/Table';
-import DxButton from '../Components/dx/DxButton';
-import InputFormGroup from '../Components/form/InputFormGroup';
+import AboutusRest from '../actions/Admin/AboutusRest';
+import Modal from '../components/Modal';
+import Table from '../components/Table';
+import DxButton from '../components/dx/DxButton';
+import InputFormGroup from '../components/form/InputFormGroup';
 import CreateReactScript from '../Utils/CreateReactScript';
 import ReactAppend from '../Utils/ReactAppend';
 
