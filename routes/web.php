@@ -168,7 +168,7 @@ Route::get('/confirmation/{token}', [AuthController::class, 'loginView'])->name(
 
 Route::middleware(['auth', 'can:Customer'])->group(function () {
     Route::get('/my-account', [MyAccountController::class, 'reactView'])->name('MyAccount.jsx');
-    Route::get('/dashboard', [UserDashboardController::class, 'reactView'])->name('UserDashboard');
+    Route::get('/dashboard', [UserDashboardController::class, 'reactView'])->name('UserDashboard.jsx');
 });
 
 // Ruta para envío de propiedades por usuarios logueados
