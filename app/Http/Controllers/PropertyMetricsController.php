@@ -23,14 +23,67 @@ class PropertyMetricsController extends Controller
         ]);
 
         try {
+            $propertyId = $request->property_id;
+            $eventType = $request->event_type;
+            
+            // ✅ CONTROL DE SESIÓN PARA EVITAR MÚLTIPLES VISTAS DE LA MISMA PROPIEDAD
+            // Solo para eventos que deben ser únicos por sesión
+            $sessionControlledEvents = ['property_detail_view', 'property_view', 'gallery_view'];
+            
+            if (in_array($eventType, $sessionControlledEvents)) {
+                $sessionKey = "property_metric_{$eventType}_{$propertyId}";
+                
+                // Verificar si ya se registró en esta sesión
+                if (session()->has($sessionKey)) {
+                    Log::info("🔒 Métrica ya registrada en esta sesión", [
+                        'property_id' => $propertyId,
+                        'event_type' => $eventType,
+                        'session_id' => session()->getId(),
+                        'previous_timestamp' => session($sessionKey),
+                        'user_id' => Auth::id() ?? 'guest'
+                    ]);
+                    
+                    return response()->json([
+                        'success' => true, 
+                        'message' => 'Métrica ya registrada en esta sesión',
+                        'duplicated' => true
+                    ]);
+                }
+                
+                // Marcar como registrado en la sesión actual
+                session([$sessionKey => now()->toISOString()]);
+                
+                Log::info("✅ Nueva métrica registrada para la sesión", [
+                    'property_id' => $propertyId,
+                    'event_type' => $eventType,
+                    'session_id' => session()->getId(),
+                    'timestamp' => now()->toISOString(),
+                    'user_id' => Auth::id() ?? 'guest'
+                ]);
+            }
+
+            // Registrar la métrica en la base de datos
             PropertyMetric::track(
-                $request->property_id,
-                $request->event_type,
-                $request->metadata ?? []
+                $propertyId,
+                $eventType,
+                array_merge($request->metadata ?? [], [
+                    'session_id' => session()->getId(),
+                    'user_id' => Auth::id(),
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'session_controlled' => in_array($eventType, $sessionControlledEvents)
+                ])
             );
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'duplicated' => false]);
         } catch (\Exception $e) {
+            Log::error("❌ Error registrando métrica", [
+                'property_id' => $request->property_id ?? null,
+                'event_type' => $request->event_type ?? null,
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
@@ -271,6 +324,84 @@ class PropertyMetricsController extends Controller
                 'start' => $startDate,
                 'end' => $endDate
             ]
+        ]);
+    }
+
+    /**
+     * Limpiar métricas de sesión (para depuración)
+     */
+    public function clearSessionMetrics(Request $request)
+    {
+        $propertyId = $request->get('property_id');
+        
+        if ($propertyId) {
+            // Limpiar métricas específicas de una propiedad
+            $sessionKeys = [
+                "property_metric_property_detail_view_{$propertyId}",
+                "property_metric_property_view_{$propertyId}",
+                "property_metric_gallery_view_{$propertyId}"
+            ];
+            
+            foreach ($sessionKeys as $key) {
+                session()->forget($key);
+            }
+            
+            Log::info("🧹 Métricas de sesión limpiadas para propiedad", [
+                'property_id' => $propertyId,
+                'session_id' => session()->getId(),
+                'cleared_keys' => $sessionKeys
+            ]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => "Métricas de sesión limpiadas para propiedad {$propertyId}",
+                'cleared_keys' => $sessionKeys
+            ]);
+        } else {
+            // Limpiar todas las métricas de la sesión
+            $sessionData = session()->all();
+            $metricsKeys = array_filter(array_keys($sessionData), function($key) {
+                return strpos($key, 'property_metric_') === 0;
+            });
+            
+            foreach ($metricsKeys as $key) {
+                session()->forget($key);
+            }
+            
+            Log::info("🧹 Todas las métricas de sesión limpiadas", [
+                'session_id' => session()->getId(),
+                'cleared_keys' => $metricsKeys,
+                'total_cleared' => count($metricsKeys)
+            ]);
+            
+            return response()->json([
+                'success' => true,
+                'message' => 'Todas las métricas de sesión limpiadas',
+                'cleared_keys' => $metricsKeys,
+                'total_cleared' => count($metricsKeys)
+            ]);
+        }
+    }
+
+    /**
+     * Obtener información de depuración de la sesión
+     */
+    public function getSessionDebugInfo(Request $request)
+    {
+        $sessionData = session()->all();
+        $metricsKeys = array_filter($sessionData, function($key) {
+            return strpos($key, 'property_metric_') === 0;
+        }, ARRAY_FILTER_USE_KEY);
+        
+        return response()->json([
+            'session_id' => session()->getId(),
+            'user_id' => Auth::id() ?? 'guest',
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'metrics_in_session' => $metricsKeys,
+            'total_metrics' => count($metricsKeys),
+            'session_lifetime' => config('session.lifetime'),
+            'current_time' => now()->toISOString()
         ]);
     }
 }

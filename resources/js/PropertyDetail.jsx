@@ -20,7 +20,6 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
     const [otherProperties, setOtherProperties] = useState(initialOtherProperties || []);
     const [otherPropertiesTitle, setOtherPropertiesTitle] = useState(initialTitle || "Otros departamentos que te pueden gustar");
     const [loading, setLoading] = useState(false);
-    const [showAllPhotos, setShowAllPhotos] = useState(false);
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [guests, setGuests] = useState(1);
@@ -441,14 +440,14 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         window.open(property.external_link, '_blank');
     };
 
-    // Función para manejar la visualización de la galería completa
-    const handleShowAllPhotos = () => {
-        // ✅ REGISTRAR MÉTRICA DE VER GALERÍA (CON CONTROL DE SESIÓN)
+    // Función para registrar interacción con el slider (navegación entre imágenes)
+    const handleSliderInteraction = (swiper) => {
+        // ✅ REGISTRAR MÉTRICA DE INTERACCIÓN CON GALERÍA SOLO CUANDO HAY NAVEGACIÓN REAL
         const gallerySessionKey = `gallery_viewed_${property.id}`;
         const alreadyViewedGallery = sessionStorage.getItem(gallerySessionKey);
         
         if (!alreadyViewedGallery) {
-            console.log('🖼️ Registrando primera vista de galería en esta sesión:', property.id);
+            console.log('🖼️ Registrando primera interacción con galería en esta sesión:', property.id);
             
             fetch('/api/property-metrics/track', {
                 method: 'POST',
@@ -461,6 +460,8 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     event_type: 'gallery_view',
                     metadata: {
                         total_images: allImages.length,
+                        slide_index: swiper.realIndex,
+                        interaction_type: 'slider_navigation',
                         session_controlled: true,
                         timestamp: new Date().toISOString()
                     }
@@ -471,15 +472,13 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     // Marcar como vista de galería en esta sesión
                     sessionStorage.setItem(gallerySessionKey, 'true');
                     sessionStorage.setItem(`${gallerySessionKey}_timestamp`, new Date().toISOString());
-                    console.log('✅ Vista de galería registrada y marcada en sesión');
+                    console.log('✅ Interacción con galería registrada y marcada en sesión');
                 }
             })
             .catch(error => console.log('❌ Error tracking gallery metric:', error));
         } else {
             console.log('🔒 Galería ya vista en esta sesión para propiedad:', property.id);
         }
-
-        setShowAllPhotos(true);
     };
 
     if (loading) {
@@ -561,6 +560,18 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 }}
                                 onSlideChange={(swiper) => {
                                     setCurrentImageIndex(swiper.realIndex);
+                                    // ✅ Solo registrar si el cambio fue por interacción del usuario (no autoplay)
+                                    if (!swiper.autoplay.running) {
+                                        handleSliderInteraction(swiper);
+                                    }
+                                }}
+                                onNavigationNext={(swiper) => {
+                                    // ✅ Registrar interacción cuando usa navegación
+                                    handleSliderInteraction(swiper);
+                                }}
+                                onNavigationPrev={(swiper) => {
+                                    // ✅ Registrar interacción cuando usa navegación
+                                    handleSliderInteraction(swiper);
                                 }}
                                 className="property-swiper h-full w-full"
                             >
@@ -569,8 +580,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                         <img
                                             src={image ? `/api/property/media/${image}` : '/assets/images/property-placeholder.jpg'}
                                             alt={`${title} - Vista ${index + 1}`}
-                                            className="w-full h-full object-cover cursor-pointer hover:scale-105 transition-transform duration-300"
-                                            onClick={handleShowAllPhotos}
+                                            className="w-full h-full object-cover cursor-pointer"
                                             onError={(e) => {
                                                 e.target.src = '/assets/images/property-placeholder.jpg';
                                             }}
@@ -984,38 +994,6 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     </div>
                 </div>
             </div>
-
-            {/* Modal de galería completa */}
-            {showAllPhotos && (
-                <div className="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center">
-                    <div className="max-w-4xl mx-auto p-8">
-                        <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-white text-xl font-semibold">Todas las fotos</h2>
-                            <button 
-                                onClick={() => setShowAllPhotos(false)}
-                                className="text-white hover:text-gray-300"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto">
-                            {allImages.map((image, index) => (
-                                <img
-                                    key={index}
-                                    src={`/api/property/media/${image}`}
-                                    alt={`Vista ${index + 1}`}
-                                    className="w-full h-48 object-cover rounded-lg"
-                                    onError={(e) => {
-                                        e.target.src = '/assets/images/property-placeholder.jpg';
-                                    }}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
 
             {/*SECCION LO MAS VISITADO */}
             {/* Sección de propiedades relacionadas o destacadas */}

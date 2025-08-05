@@ -50,8 +50,8 @@ class PropertySubmissionController extends Controller
                 'postal_code' => 'nullable|string|max:20',
                 'external_link' => 'nullable|url',
                 'area_m2' => 'nullable|numeric|min:0',
-                'latitude' => 'nullable|numeric|between:-90,90',
-                'longitude' => 'nullable|numeric|between:-180,180',
+                'latitude' => 'nullable|numeric',
+                'longitude' => 'nullable|numeric',
                 
                 // Descripción
                 'description' => 'required|string|min:10',

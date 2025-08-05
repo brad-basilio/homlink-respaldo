@@ -647,6 +647,10 @@ Route::post('/property-filters/filter', [App\Http\Controllers\PropertyFilterCont
 // ✅ AGREGADO: Rutas para métricas de propiedades
 Route::post('/property-metrics/track', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'track']);
 
+// ✅ AGREGADO: Rutas de debugging para sesiones de métricas
+Route::post('/property-metrics/clear-session', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'clearSessionMetrics']);
+Route::get('/property-metrics/session-debug', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getSessionDebugInfo']);
+
 // Rutas protegidas para métricas
 Route::middleware('auth')->group(function () {
     Route::get('/user-dashboard-metrics', [App\Http\Controllers\UserDashboardController::class, 'getUserMetrics']);
