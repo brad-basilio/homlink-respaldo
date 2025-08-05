@@ -18,6 +18,8 @@ class Property extends Model
         'title',
         'slug',
         'platform',
+        'property_type',
+        'beds',
         'price_per_night',
         'currency',
         'address',

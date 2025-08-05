@@ -26,7 +26,14 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
 
     // Estados para el formulario de anunciar propiedad
     const [propertyFormData, setPropertyFormData] = useState({
+        // Información básica
         property_type: '',
+        title: '',
+        price: '',
+        currency: 'PEN',
+        platform: 'Airbnb',
+        
+        // Ubicación
         address: '',
         apartment: '',
         department: '',
@@ -34,12 +41,32 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         district: '',
         postal_code: '',
         external_link: '',
+        area_m2: '',
+        latitude: '',
+        longitude: '',
+        
+        // Descripción
         description: '',
+        short_description: '',
+        
+        // Datos básicos
         guests: 4,
         bedrooms: 1,
         beds: 1,
         bathrooms: 1,
-        amenities: [],
+        
+        // Información adicional
+        rating: 5.0,
+        reviews_count: 0,
+        
+        // Características
+        amenities: [], // Amenidades predefinidas
+        services: [], // Servicios predefinidos seleccionados
+        characteristics: [], // Características predefinidas seleccionadas
+        house_rules: [], // Reglas de la casa predefinidas seleccionadas
+        
+        // Imágenes
+        main_image: null,
         images: []
     });
 
@@ -70,6 +97,50 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         { id: 'pet_friendly', label: 'Pet Friendly', icon: 'fa-paw' }
     ];
 
+    // Servicios predefinidos
+    const predefinedServices = [
+        { id: 'cleaning', label: 'Servicio de limpieza', icon: 'fa-broom', description: 'Limpieza diaria o semanal' },
+        { id: 'laundry', label: 'Servicio de lavandería', icon: 'fa-tshirt', description: 'Lavado y planchado de ropa' },
+        { id: 'breakfast', label: 'Desayuno incluido', icon: 'fa-coffee', description: 'Desayuno continental' },
+        { id: 'transport', label: 'Transporte al aeropuerto', icon: 'fa-plane', description: 'Traslado desde/hacia el aeropuerto' },
+        { id: 'concierge', label: 'Servicio de conserje', icon: 'fa-concierge-bell', description: 'Asistencia personalizada' },
+        { id: 'grocery', label: 'Servicio de compras', icon: 'fa-shopping-cart', description: 'Compra de alimentos y productos' },
+        { id: 'tour_guide', label: 'Guía turístico', icon: 'fa-map-marked-alt', description: 'Tours y recomendaciones locales' },
+        { id: 'babysitting', label: 'Cuidado de niños', icon: 'fa-baby', description: 'Servicio de niñera' },
+        { id: 'massage', label: 'Servicio de masajes', icon: 'fa-spa', description: 'Masajes relajantes' },
+        { id: 'chef', label: 'Chef privado', icon: 'fa-utensils', description: 'Preparación de comidas' }
+    ];
+
+    // Características predefinidas
+    const predefinedCharacteristics = [
+        { id: 'ocean_view', label: 'Vista al mar', icon: 'fa-water', value: 'Vista panorámica al océano' },
+        { id: 'mountain_view', label: 'Vista a las montañas', icon: 'fa-mountain', value: 'Vista a las montañas' },
+        { id: 'city_view', label: 'Vista a la ciudad', icon: 'fa-city', value: 'Vista urbana' },
+        { id: 'historic', label: 'Edificio histórico', icon: 'fa-landmark', value: 'Patrimonio arquitectónico' },
+        { id: 'modern', label: 'Diseño moderno', icon: 'fa-gem', value: 'Diseño contemporáneo' },
+        { id: 'luxury', label: 'Propiedad de lujo', icon: 'fa-crown', value: 'Acabados premium' },
+        { id: 'eco_friendly', label: 'Eco-amigable', icon: 'fa-leaf', value: 'Sostenible y ecológico' },
+        { id: 'quiet', label: 'Zona tranquila', icon: 'fa-volume-mute', value: 'Ambiente silencioso' },
+        { id: 'central', label: 'Ubicación céntrica', icon: 'fa-map-marker-alt', value: 'Centro de la ciudad' },
+        { id: 'beachfront', label: 'Frente a la playa', icon: 'fa-umbrella-beach', value: 'Acceso directo a la playa' },
+        { id: 'renovated', label: 'Recientemente renovado', icon: 'fa-hammer', value: 'Renovación reciente' },
+        { id: 'spacious', label: 'Espacioso', icon: 'fa-expand-arrows-alt', value: 'Amplios espacios' }
+    ];
+
+    // Reglas de la casa predefinidas
+    const predefinedHouseRules = [
+        { id: 'no_smoking', label: 'No se permite fumar', icon: 'fa-smoking-ban', text: 'Prohibido fumar en toda la propiedad' },
+        { id: 'no_pets', label: 'No se permiten mascotas', icon: 'fa-ban', text: 'No se admiten animales domésticos' },
+        { id: 'no_parties', label: 'No se permiten fiestas', icon: 'fa-music', text: 'Prohibidas las fiestas y eventos ruidosos' },
+        { id: 'quiet_hours', label: 'Horas de silencio', icon: 'fa-volume-mute', text: 'Mantener silencio de 10 PM a 8 AM' },
+        { id: 'no_shoes', label: 'No usar zapatos dentro', icon: 'fa-shoe-prints', text: 'Quitarse los zapatos al ingresar' },
+        { id: 'clean_up', label: 'Mantener limpio', icon: 'fa-broom', text: 'Mantener la propiedad limpia y ordenada' },
+        { id: 'check_in_time', label: 'Horario de check-in', icon: 'fa-clock', text: 'Check-in: 3:00 PM - 10:00 PM' },
+        { id: 'check_out_time', label: 'Horario de check-out', icon: 'fa-door-open', text: 'Check-out antes de las 11:00 AM' },
+        { id: 'max_guests', label: 'Límite de huéspedes', icon: 'fa-users', text: 'No exceder el número máximo de huéspedes' },
+        { id: 'energy_saving', label: 'Ahorro de energía', icon: 'fa-lightbulb', text: 'Apagar luces y equipos al salir' }
+    ];
+
     // Verificar autenticación al cargar
     useEffect(() => {
         checkAuthentication();
@@ -82,7 +153,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf_token"]')?.getAttribute('content')
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
                 },
                 credentials: 'same-origin'
             });
@@ -173,11 +244,52 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         }));
     };
 
+    const toggleService = (serviceId) => {
+        setPropertyFormData(prev => ({
+            ...prev,
+            services: prev.services.includes(serviceId)
+                ? prev.services.filter(id => id !== serviceId)
+                : [...prev.services, serviceId]
+        }));
+    };
+
+    const toggleCharacteristic = (characteristicId) => {
+        setPropertyFormData(prev => ({
+            ...prev,
+            characteristics: prev.characteristics.includes(characteristicId)
+                ? prev.characteristics.filter(id => id !== characteristicId)
+                : [...prev.characteristics, characteristicId]
+        }));
+    };
+
+    const toggleHouseRule = (ruleId) => {
+        setPropertyFormData(prev => ({
+            ...prev,
+            house_rules: prev.house_rules.includes(ruleId)
+                ? prev.house_rules.filter(id => id !== ruleId)
+                : [...prev.house_rules, ruleId]
+        }));
+    };
+
+    // Funciones para servicios, características y reglas de la casa (ahora son predefinidas)
+    // Las funciones toggle están arriba junto con toggleAmenity
+
     const updateCounter = (field, increment) => {
         setPropertyFormData(prev => ({
             ...prev,
             [field]: Math.max(1, prev[field] + (increment ? 1 : -1))
         }));
+    };
+
+    // Función para manejar imagen principal
+    const handleMainImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setPropertyFormData(prev => ({
+                ...prev,
+                main_image: file
+            }));
+        }
     };
 
     // Manejo de imágenes drag and drop
@@ -248,37 +360,51 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     // Pasos del proceso de anunciar propiedad
     const propertySteps = [
         {
-            id: 1,
+            title: "Información básica",
+            description: "Título y precio de tu propiedad",
+            icon: Home
+        },
+        {
             title: "Tipo de alojamiento",
             description: "Selecciona qué tipo de propiedad ofreces",
             icon: Home
         },
         {
-            id: 2,
             title: "Ubicación",
             description: "Confirma la dirección de tu alojamiento",
             icon: MapPin
         },
         {
-            id: 3,
             title: "Descripción",
             description: "Describe tu alojamiento",
             icon: Camera
         },
         {
-            id: 4,
             title: "Datos básicos",
             description: "Información sobre tu espacio",
             icon: Users
         },
         {
-            id: 5,
             title: "Comodidades",
             description: "Comodidades de tu alojamiento",
             icon: CheckCircle
         },
         {
-            id: 6,
+            title: "Servicios adicionales",
+            description: "Servicios extra que ofreces",
+            icon: CheckCircle
+        },
+        {
+            title: "Características",
+            description: "Características especiales",
+            icon: CheckCircle
+        },
+        {
+            title: "Reglas de la casa",
+            description: "Normas de tu propiedad",
+            icon: CheckCircle
+        },
+        {
             title: "Imágenes",
             description: "Sube fotos de tu propiedad",
             icon: Upload
@@ -487,38 +613,130 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         setIsLoading(true);
 
         try {
+            // Obtener token CSRF de múltiples fuentes
+            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ||
+                             document.querySelector('input[name="_token"]')?.value ||
+                             window.Laravel?.csrfToken;
+
+            console.log('CSRF Token encontrado:', csrfToken);
+            
+            if (!csrfToken) {
+                alert('No se pudo obtener el token CSRF. Por favor recarga la página.');
+                return;
+            }
+
             const formData = new FormData();
             
-            // Agregar datos del formulario
-            Object.keys(propertyFormData).forEach(key => {
-                if (key === 'images') {
-                    propertyFormData.images.forEach((file, index) => {
-                        formData.append(`images[${index}]`, file);
-                    });
-                } else if (key === 'amenities') {
-                    propertyFormData.amenities.forEach((amenity, index) => {
-                        formData.append(`amenities[${index}]`, amenity);
-                    });
-                } else {
-                    formData.append(key, propertyFormData[key]);
-                }
+            // Log de todos los datos antes de enviar
+            console.log('Datos del formulario completos:', propertyFormData);
+            
+            // Información básica
+            formData.append('title', propertyFormData.title || '');
+            formData.append('property_type', propertyFormData.property_type || '');
+            formData.append('price', propertyFormData.price || '');
+            formData.append('currency', propertyFormData.currency || 'PEN');
+            formData.append('platform', propertyFormData.platform || 'Airbnb');
+            
+            // Ubicación
+            formData.append('address', propertyFormData.address || '');
+            formData.append('apartment', propertyFormData.apartment || '');
+            formData.append('department', propertyFormData.department || '');
+            formData.append('province', propertyFormData.province || '');
+            formData.append('district', propertyFormData.district || '');
+            formData.append('postal_code', propertyFormData.postal_code || '');
+            formData.append('external_link', propertyFormData.external_link || '');
+            formData.append('area_m2', propertyFormData.area_m2 || '');
+            formData.append('latitude', propertyFormData.latitude || '');
+            formData.append('longitude', propertyFormData.longitude || '');
+            
+            // Descripción
+            formData.append('description', propertyFormData.description || '');
+            formData.append('short_description', propertyFormData.short_description || '');
+            
+            // Datos básicos
+            formData.append('guests', propertyFormData.guests || 1);
+            formData.append('bedrooms', propertyFormData.bedrooms || 1);
+            formData.append('beds', propertyFormData.beds || 1);
+            formData.append('bathrooms', propertyFormData.bathrooms || 1);
+            
+            // Información adicional
+            formData.append('rating', propertyFormData.rating || 5.0);
+            formData.append('reviews_count', propertyFormData.reviews_count || 0);
+            
+            // Amenidades predefinidas
+            console.log('Amenidades seleccionadas:', propertyFormData.amenities);
+            propertyFormData.amenities.forEach((amenity, index) => {
+                formData.append(`amenities[${index}]`, amenity);
             });
+            
+            // Servicios (enviar solo los IDs seleccionados)
+            console.log('Servicios seleccionados:', propertyFormData.services);
+            propertyFormData.services.forEach((serviceId, index) => {
+                formData.append(`services[${index}]`, serviceId);
+            });
+            
+            // Características (enviar solo los IDs seleccionados)
+            console.log('Características seleccionadas:', propertyFormData.characteristics);
+            propertyFormData.characteristics.forEach((characteristicId, index) => {
+                formData.append(`characteristics[${index}]`, characteristicId);
+            });
+            
+            // Reglas de la casa (enviar solo los IDs seleccionados)
+            console.log('Reglas de la casa seleccionadas:', propertyFormData.house_rules);
+            propertyFormData.house_rules.forEach((ruleId, index) => {
+                formData.append(`house_rules[${index}]`, ruleId);
+            });
+            
+            // Imagen principal
+            console.log('Imagen principal:', propertyFormData.main_image);
+            if (propertyFormData.main_image) {
+                formData.append('main_image', propertyFormData.main_image);
+            }
+            
+            // Galería de imágenes
+            console.log('Imágenes de galería:', propertyFormData.images);
+            propertyFormData.images.forEach((file, index) => {
+                formData.append(`images[${index}]`, file);
+            });
+
+            // Log de todos los datos del FormData
+            console.log('=== DATOS ENVIADOS AL BACKEND ===');
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ', pair[1]);
+            }
 
             const response = await fetch('/api/properties/submit', {
                 method: 'POST',
                 headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf_token"]')?.getAttribute('content'),
+                    'X-CSRF-TOKEN': csrfToken,
                     'Accept': 'application/json'
                 },
                 body: formData,
                 credentials: 'same-origin'
             });
 
+            console.log('Response status:', response.status);
+            console.log('Response headers:', response.headers);
+
+            if (!response.ok) {
+                if (response.status === 419) {
+                    alert('Error de token CSRF. Por favor recarga la página e intenta nuevamente.');
+                    console.error('CSRF Token:', csrfToken);
+                    return;
+                }
+                const errorText = await response.text();
+                console.error('Error response body:', errorText);
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
             const result = await response.json();
+            console.log('=== RESPUESTA DEL BACKEND ===');
+            console.log('Result completo:', result);
 
             if (result.success) {
-                setActiveStep(6); // Paso de éxito
+                setActiveStep(10); // Paso de éxito
             } else {
+                console.error('Error del backend:', result);
                 alert(result.message || 'Error al enviar la propiedad');
             }
         } catch (error) {
@@ -538,7 +756,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     };
 
     const nextStep = () => {
-        if (activeStep < 6) {
+        if (activeStep < 9) {
             setActiveStep(activeStep + 1);
         }
     };
@@ -551,7 +769,71 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
 
     const renderStepContent = (step) => {
         switch (step) {
-            case 0: // Tipo de alojamiento
+            case 0: // Información básica
+                return (
+                    <div className="space-y-6">
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Título de tu propiedad</label>
+                            <input
+                                type="text"
+                                placeholder="Ej: Apartamento moderno en Miraflores con vista al mar"
+                                value={propertyFormData.title}
+                                onChange={(e) => setPropertyFormData(prev => ({ ...prev, title: e.target.value }))}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                            />
+                            <p className="text-sm text-gray-500 mt-1">
+                                Un título atractivo ayuda a destacar tu propiedad
+                            </p>
+                        </motion.div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Precio por noche</label>
+                                <div className="relative">
+                                    <span className="absolute left-3 top-3 text-gray-500">S/</span>
+                                    <input
+                                        type="number"
+                                        step="0.01"
+                                        min="0"
+                                        placeholder="120.00"
+                                        value={propertyFormData.price}
+                                        onChange={(e) => setPropertyFormData(prev => ({ ...prev, price: e.target.value }))}
+                                        className="w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    />
+                                </div>
+                            </motion.div>
+
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Área aproximada (m²)</label>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    placeholder="60"
+                                    value={propertyFormData.area_m2}
+                                    onChange={(e) => setPropertyFormData(prev => ({ ...prev, area_m2: e.target.value }))}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                />
+                            </motion.div>
+                        </div>
+
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Descripción corta</label>
+                            <textarea
+                                placeholder="Breve descripción que aparecerá en los listados (máximo 150 caracteres)"
+                                rows={2}
+                                maxLength={150}
+                                value={propertyFormData.short_description}
+                                onChange={(e) => setPropertyFormData(prev => ({ ...prev, short_description: e.target.value }))}
+                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                            />
+                            <p className="text-sm text-gray-500 mt-1">
+                                {propertyFormData.short_description.length}/150 caracteres
+                            </p>
+                        </motion.div>
+                    </div>
+                );
+
+            case 1: // Tipo de alojamiento
                 return (
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         {[
@@ -587,7 +869,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                     </div>
                 );
 
-            case 1: // Ubicación
+            case 2: // Ubicación
                 return (
                     <div className="space-y-4">
                         {/* País/Región */}
@@ -671,21 +953,36 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                             </motion.div>
                         </div>
 
-                        {/* Código postal */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
-                            <label className="block text-sm font-medium text-gray-700 mb-2">Código postal</label>
-                            <input
-                                type="text"
-                                placeholder="Ej: 93535"
-                                value={propertyFormData.postal_code}
-                                onChange={(e) => setPropertyFormData(prev => ({ ...prev, postal_code: e.target.value }))}
-                                className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                            />
-                        </motion.div>
+                        {/* Coordenadas */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Latitud (opcional)</label>
+                                <input
+                                    type="number"
+                                    step="0.000001"
+                                    placeholder="-12.1211"
+                                    value={propertyFormData.latitude}
+                                    onChange={(e) => setPropertyFormData(prev => ({ ...prev, latitude: e.target.value }))}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                />
+                            </motion.div>
+
+                            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Longitud (opcional)</label>
+                                <input
+                                    type="number"
+                                    step="0.000001"
+                                    placeholder="-77.0269"
+                                    value={propertyFormData.longitude}
+                                    onChange={(e) => setPropertyFormData(prev => ({ ...prev, longitude: e.target.value }))}
+                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                                />
+                            </motion.div>
+                        </div>
                     </div>
                 );
 
-            case 2: // Descripción
+            case 3: // Descripción
                 return (
                     <div className="space-y-6">
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
@@ -717,7 +1014,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                     </div>
                 );
 
-            case 3: // Datos básicos
+            case 4: // Datos básicos
                 return (
                     <div className="space-y-6">
                         {[
@@ -758,7 +1055,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                     </div>
                 );
 
-            case 4: // Comodidades
+            case 5: // Comodidades
                 return (
                     <div className="grid grid-cols-2 gap-4">
                         {predefinedAmenities.map((amenity, index) => (
@@ -794,81 +1091,260 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                     </div>
                 );
 
-            case 5: // Imágenes
+            case 6: // Servicios adicionales
                 return (
-                    <div className="space-y-6">
-                        {/* Zona de drag and drop */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className={`border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
-                                isDragOver ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'
-                            }`}
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
-                            onDrop={handleDrop}
-                        >
-                            <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                            <p className="text-gray-600 mb-4">
-                                <span className="font-medium">Arrastra y suelta tus imágenes aquí</span>
-                                <br />
-                                o <button 
-                                    type="button"
-                                    onClick={() => document.getElementById('fileInput').click()}
-                                    className="text-blue-500 underline"
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-6">Servicios adicionales que ofreces</h3>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            {predefinedServices.map((service, index) => (
+                                <motion.div
+                                    key={service.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    className={`border rounded-xl p-4 cursor-pointer transition-all ${
+                                        propertyFormData.services.includes(service.id)
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-gray-300 bg-gray-50'
+                                    }`}
+                                    onClick={() => toggleService(service.id)}
                                 >
-                                    selecciona archivos
-                                </button>
-                            </p>
-                            <p className="text-sm text-gray-500">
-                                Formatos: JPEG, PNG, WEBP • Máximo 5MB por imagen • Hasta 10 imágenes
-                            </p>
-                            <input
-                                id="fileInput"
-                                type="file"
-                                multiple
-                                accept="image/jpeg,image/png,image/webp"
-                                onChange={handleFileSelect}
-                                className="hidden"
-                            />
-                        </motion.div>
-
-                        {/* Vista previa de imágenes */}
-                        {uploadedImages.length > 0 && (
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                {uploadedImages.map((image, index) => (
-                                    <motion.div
-                                        key={image.id}
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="relative group"
-                                    >
-                                        <img
-                                            src={image.preview}
-                                            alt={`Preview ${index + 1}`}
-                                            className="w-full h-24 object-cover rounded-lg"
-                                        />
-                                        <button
-                                            type="button"
-                                            onClick={() => removeImage(image.id)}
-                                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                                        >
-                                            <X className="w-4 h-4" />
-                                        </button>
-                                        {index === 0 && (
-                                            <div className="absolute bottom-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded">
-                                                Principal
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex items-start gap-3">
+                                            <i className={`fas ${service.icon} text-gray-700 text-lg mt-1`}></i>
+                                            <div>
+                                                <h4 className="font-semibold text-gray-900 mb-1">{service.label}</h4>
+                                                <p className="text-sm text-gray-600">{service.description}</p>
                                             </div>
-                                        )}
-                                    </motion.div>
-                                ))}
-                            </div>
-                        )}
+                                        </div>
+                                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center mt-1 ${
+                                            propertyFormData.services.includes(service.id)
+                                                ? 'border-blue-500 bg-blue-500'
+                                                : 'border-gray-300'
+                                        }`}>
+                                            {propertyFormData.services.includes(service.id) && (
+                                                <CheckCircle className="w-3 h-3 text-white" />
+                                            )}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
                     </div>
                 );
 
-            case 6: // Éxito
+            case 7: // Características
+                return (
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-6">Características especiales de tu propiedad</h3>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            {predefinedCharacteristics.map((characteristic, index) => (
+                                <motion.div
+                                    key={characteristic.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    className={`border rounded-xl p-4 cursor-pointer transition-all ${
+                                        propertyFormData.characteristics.includes(characteristic.id)
+                                            ? 'border-green-500 bg-green-50'
+                                            : 'border-gray-200 hover:border-gray-300 bg-gray-50'
+                                    }`}
+                                    onClick={() => toggleCharacteristic(characteristic.id)}
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex items-start gap-3">
+                                            <i className={`fas ${characteristic.icon} text-gray-700 text-lg mt-1`}></i>
+                                            <div>
+                                                <h4 className="font-semibold text-gray-900 mb-1">{characteristic.label}</h4>
+                                                <p className="text-sm text-gray-600">{characteristic.value}</p>
+                                            </div>
+                                        </div>
+                                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center mt-1 ${
+                                            propertyFormData.characteristics.includes(characteristic.id)
+                                                ? 'border-green-500 bg-green-500'
+                                                : 'border-gray-300'
+                                        }`}>
+                                            {propertyFormData.characteristics.includes(characteristic.id) && (
+                                                <CheckCircle className="w-3 h-3 text-white" />
+                                            )}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                );
+
+            case 8: // Reglas de la casa
+                return (
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 mb-6">Reglas de la casa</h3>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            {predefinedHouseRules.map((rule, index) => (
+                                <motion.div
+                                    key={rule.id}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: index * 0.05 }}
+                                    className={`border rounded-xl p-4 cursor-pointer transition-all ${
+                                        propertyFormData.house_rules.includes(rule.id)
+                                            ? 'border-orange-500 bg-orange-50'
+                                            : 'border-gray-200 hover:border-gray-300 bg-gray-50'
+                                    }`}
+                                    onClick={() => toggleHouseRule(rule.id)}
+                                >
+                                    <div className="flex items-start justify-between">
+                                        <div className="flex items-start gap-3">
+                                            <i className={`fas ${rule.icon} text-gray-700 text-lg mt-1`}></i>
+                                            <div>
+                                                <h4 className="font-semibold text-gray-900 mb-1">{rule.label}</h4>
+                                                <p className="text-sm text-gray-600">{rule.text}</p>
+                                            </div>
+                                        </div>
+                                        <div className={`w-5 h-5 rounded border-2 flex items-center justify-center mt-1 ${
+                                            propertyFormData.house_rules.includes(rule.id)
+                                                ? 'border-orange-500 bg-orange-500'
+                                                : 'border-gray-300'
+                                        }`}>
+                                            {propertyFormData.house_rules.includes(rule.id) && (
+                                                <CheckCircle className="w-3 h-3 text-white" />
+                                            )}
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                );
+
+            case 9: // Imágenes
+                return (
+                    <div className="space-y-6">
+                        {/* Imagen principal */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-3">
+                                Imagen principal *
+                            </label>
+                            {propertyFormData.main_image ? (
+                                <div className="relative inline-block">
+                                    <img
+                                        src={URL.createObjectURL(propertyFormData.main_image)}
+                                        alt="Imagen principal"
+                                        className="w-32 h-32 object-cover rounded-lg border"
+                                    />
+                                    <div className="absolute -top-2 -right-2 flex gap-1">
+                                        <button
+                                            type="button"
+                                            onClick={() => setPropertyFormData(prev => ({ ...prev, main_image: null }))}
+                                            className="w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600"
+                                        >
+                                            ×
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => document.getElementById('mainImageInput').click()}
+                                            className="w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-blue-600"
+                                        >
+                                            ✓
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    onClick={() => document.getElementById('mainImageInput').click()}
+                                    className="w-32 h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-red-400 transition-colors"
+                                >
+                                    <div className="text-center">
+                                        <Camera className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                                        <span className="text-sm text-gray-500">Seleccionar</span>
+                                    </div>
+                                </motion.div>
+                            )}
+                            <input
+                                id="mainImageInput"
+                                type="file"
+                                accept="image/jpeg,image/png,image/webp"
+                                onChange={handleMainImageChange}
+                                className="hidden"
+                            />
+                            <p className="text-sm text-gray-500 mt-2">
+                                Esta será la imagen destacada de tu propiedad
+                            </p>
+                        </div>
+
+                        {/* Galería de imágenes */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-3">
+                                Galería de imágenes
+                            </label>
+                            
+                            {/* Área de drag and drop */}
+                            <motion.div
+                                className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+                                    isDragOver ? 'border-red-400 bg-red-50' : 'border-gray-300 hover:border-red-400'
+                                }`}
+                                onDragOver={handleDragOver}
+                                onDragLeave={handleDragLeave}
+                                onDrop={handleDrop}
+                            >
+                                <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                                <p className="text-gray-600 mb-4">
+                                    <span className="font-medium">Arrastra y suelta tus imágenes aquí</span>
+                                    <br />
+                                    o <button 
+                                        type="button"
+                                        onClick={() => document.getElementById('fileInput').click()}
+                                        className="text-blue-500 underline"
+                                    >
+                                        selecciona archivos
+                                    </button>
+                                </p>
+                                <p className="text-sm text-gray-500">
+                                    Formatos: JPEG, PNG, WEBP • Máximo 5MB por imagen • Hasta 10 imágenes
+                                </p>
+                                <input
+                                    id="fileInput"
+                                    type="file"
+                                    multiple
+                                    accept="image/jpeg,image/png,image/webp"
+                                    onChange={handleFileSelect}
+                                    className="hidden"
+                                />
+                            </motion.div>
+
+                            {/* Vista previa de imágenes */}
+                            {uploadedImages.length > 0 && (
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
+                                    {uploadedImages.map((image, index) => (
+                                        <motion.div
+                                            key={image.id}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            transition={{ delay: index * 0.1 }}
+                                            className="relative group"
+                                        >
+                                            <img
+                                                src={image.preview}
+                                                alt={`Preview ${index + 1}`}
+                                                className="w-full h-24 object-cover rounded-lg"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => removeImage(image.id)}
+                                                className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <X className="w-4 h-4" />
+                                            </button>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                );
+
+            case 10: // Éxito
                 return (
                     <div className="text-center">
                         <div className="mb-6">
@@ -1066,9 +1542,9 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                         ) : (
                             // Formulario de anunciar propiedad
                             <>
-                                {activeStep === 6 ? (
+                                {activeStep === 10 ? (
                                     // Paso final: Éxito
-                                    renderStepContent(6)
+                                    renderStepContent(10)
                                 ) : (
                                     <>
                                         {/* Verificación de autenticación */}
@@ -1091,26 +1567,6 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                             </div>
                                         ) : (
                                             <>
-                                                {/* Indicador de pasos */}
-                                                <div className="flex items-center justify-between mb-6">
-                                                    {propertySteps.map((step, index) => (
-                                                        <div key={index} className="flex items-center">
-                                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
-                                                                index <= activeStep 
-                                                                    ? 'bg-red-500 text-white' 
-                                                                    : 'bg-gray-200 text-gray-500'
-                                                            }`}>
-                                                                {index + 1}
-                                                            </div>
-                                                            {index < propertySteps.length - 1 && (
-                                                                <div className={`w-4 h-0.5 mx-2 ${
-                                                                    index < activeStep ? 'bg-red-500' : 'bg-gray-200'
-                                                                }`} />
-                                                            )}
-                                                        </div>
-                                                    ))}
-                                                </div>
-
                                                 {/* Título del paso */}
                                                 <h2 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
                                                     {propertySteps[activeStep]?.title}
@@ -1140,11 +1596,11 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                                                     <motion.button
                                                         whileHover={{ scale: 1.02 }}
                                                         whileTap={{ scale: 0.98 }}
-                                                        onClick={activeStep === 5 ? handlePropertySubmit : nextStep}
+                                                        onClick={activeStep === 9 ? handlePropertySubmit : nextStep}
                                                         disabled={isLoading}
                                                         className={`${activeStep > 0 ? 'flex-1' : 'w-full'} bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200 disabled:opacity-50`}
                                                     >
-                                                        {isLoading ? 'Enviando...' : activeStep === 5 ? 'Enviar propiedad' : 'Siguiente'}
+                                                        {isLoading ? 'Enviando...' : activeStep === 9 ? 'Enviar propiedad' : 'Siguiente'}
                                                     </motion.button>
                                                 </div>
                                             </>

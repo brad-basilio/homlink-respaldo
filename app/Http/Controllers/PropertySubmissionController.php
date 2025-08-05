@@ -27,30 +27,67 @@ class PropertySubmissionController extends Controller
                 ], 401);
             }
 
+            Log::info('=== INICIO SUBMISSION CONTROLLER ===');
+            Log::info('Datos recibidos:', $request->all());
+            Log::info('Archivos recibidos:', $request->allFiles());
+            Log::info('User ID:', ['user_id' => Auth::id()]);
+
             // Validar los datos del formulario
             $validatedData = $request->validate([
+                // Información básica
+                'title' => 'nullable|string|max:255',
                 'property_type' => 'required|string',
+                'price' => 'nullable|numeric|min:0',
+                'currency' => 'nullable|string|in:PEN,USD,EUR',
+                'platform' => 'nullable|string',
+                
+                // Ubicación
                 'address' => 'required|string|max:255',
                 'apartment' => 'nullable|string|max:255',
+                'department' => 'required|string|max:100',
+                'province' => 'required|string|max:100',
                 'district' => 'required|string|max:100',
                 'postal_code' => 'nullable|string|max:20',
-                'province' => 'required|string|max:100',
-                'department' => 'required|string|max:100',
-                'link' => 'nullable|url',
                 'external_link' => 'nullable|url',
+                'area_m2' => 'nullable|numeric|min:0',
+                'latitude' => 'nullable|numeric|between:-90,90',
+                'longitude' => 'nullable|numeric|between:-180,180',
+                
+                // Descripción
                 'description' => 'required|string|min:10',
+                'short_description' => 'nullable|string|max:255',
+                
+                // Datos básicos
                 'guests' => 'required|integer|min:1|max:20',
                 'bedrooms' => 'required|integer|min:1|max:20',
                 'beds' => 'required|integer|min:1|max:20',
                 'bathrooms' => 'required|integer|min:1|max:20',
+                
+                // Información adicional
+                'rating' => 'nullable|numeric|between:0,5',
+                'reviews_count' => 'nullable|integer|min:0',
+                
+                // Arrays
                 'amenities' => 'nullable|array',
-                'amenities_custom' => 'nullable|array', // ✅ AGREGADO: Validación para amenidades custom
+                'services' => 'nullable|array',
+                'characteristics' => 'nullable|array',
+                'house_rules' => 'nullable|array',
+                
+                // Imágenes
+                'main_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
                 'images' => 'nullable|array',
-                'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:5120' // 5MB y soporte WEBP
+                'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:5120'
             ]);
 
-            // Generar título basado en el tipo de propiedad y ubicación
-            $title = $this->generatePropertyTitle($validatedData);
+            Log::info('Datos validados exitosamente:', $validatedData);
+
+            // Generar valores automáticos si no se proporcionan
+            $title = $validatedData['title'] ?? $this->generatePropertyTitle($validatedData);
+            $shortDescription = $validatedData['short_description'] ?? $this->generateShortDescription(
+                $validatedData['property_type'],
+                $validatedData['guests'],
+                $validatedData['district']
+            );
             
             // Generar slug único
             $baseSlug = Str::slug($title);
@@ -62,16 +99,56 @@ class PropertySubmissionController extends Controller
                 $counter++;
             }
 
-            // Procesar amenidades
+            // Procesar todos los arrays de datos
             $amenities = $this->processAmenities($validatedData['amenities'] ?? []);
-            $customAmenities = $this->processCustomAmenities($validatedData['amenities_custom'] ?? []); // ✅ AGREGADO
+            $services = $this->processServices($validatedData['services'] ?? []);
+            $characteristics = $this->processCharacteristics($validatedData['characteristics'] ?? []);
+            $houseRules = $this->processHouseRules($validatedData['house_rules'] ?? []);
 
             // Crear la propiedad
+            Log::info('Creando propiedad con los siguientes datos:', [
+                'user_id' => Auth::id(),
+                'title' => $title,
+                'slug' => $slug,
+                'platform' => $validatedData['platform'] ?? 'Airbnb',
+                'property_type' => $validatedData['property_type'],
+                'price_per_night' => $validatedData['price'] ?? null,
+                'currency' => $validatedData['currency'] ?? 'PEN',
+                'area_m2' => $validatedData['area_m2'] ?? null,
+                'latitude' => $validatedData['latitude'] ?? null,
+                'longitude' => $validatedData['longitude'] ?? null,
+                'address' => $validatedData['address'],
+                'apartment' => $validatedData['apartment'] ?? null,
+                'department' => $validatedData['department'],
+                'province' => $validatedData['province'],
+                'district' => $validatedData['district'],
+                'postal_code' => $validatedData['postal_code'] ?? null,
+                'bedrooms' => $validatedData['bedrooms'],
+                'beds' => $validatedData['beds'],
+                'bathrooms' => $validatedData['bathrooms'],
+                'max_guests' => $validatedData['guests'],
+                'description' => $validatedData['description'],
+                'short_description' => $shortDescription,
+                'rating' => $validatedData['rating'] ?? null,
+                'reviews_count' => $validatedData['reviews_count'] ?? 0,
+                'external_link' => $validatedData['external_link'] ?? null,
+                'amenities' => $amenities,
+                'services' => $services,
+                'characteristics' => $characteristics,
+                'house_rules' => $houseRules,
+            ]);
+
             $property = Property::create([
                 'user_id' => Auth::id(),
                 'title' => $title,
                 'slug' => $slug,
-                'platform' => 'Airbnb', // ✅ CORREGIDO: Siempre Airbnb
+                'platform' => $validatedData['platform'] ?? 'Airbnb',
+                'property_type' => $validatedData['property_type'],
+                'price_per_night' => $validatedData['price'] ?? null,
+                'currency' => $validatedData['currency'] ?? 'PEN',
+                'area_m2' => $validatedData['area_m2'] ?? null,
+                'latitude' => $validatedData['latitude'] ?? null,
+                'longitude' => $validatedData['longitude'] ?? null,
                 'address' => $validatedData['address'],
                 'apartment' => $validatedData['apartment'] ?? null,
                 'department' => $validatedData['department'],
@@ -80,17 +157,28 @@ class PropertySubmissionController extends Controller
                 'postal_code' => $validatedData['postal_code'] ?? null, // ✅ AGREGADO: Campo postal_code
                 'country' => 'Perú',
                 'bedrooms' => $validatedData['bedrooms'],
+                'beds' => $validatedData['beds'],
                 'bathrooms' => $validatedData['bathrooms'],
                 'max_guests' => $validatedData['guests'],
                 'description' => $validatedData['description'],
-                'external_link' => $validatedData['external_link'] ?? $validatedData['link'] ?? null,
-                'short_description' => Str::limit($validatedData['description'], 150),
+                'short_description' => $shortDescription,
+                'rating' => $validatedData['rating'] ?? null,
+                'reviews_count' => $validatedData['reviews_count'] ?? 0,
+                'external_link' => $validatedData['external_link'] ?? null,
                 'amenities' => $amenities,
-                'amenities_custom' => $customAmenities, // ✅ AGREGADO: Amenidades personalizadas
+                'services' => $services,
+                'characteristics' => $characteristics,
+                'house_rules' => $houseRules,
                 'active' => true,
                 'admin_approved' => false, // Requiere aprobación del admin
                 'featured' => false,
                 'availability_status' => 'available'
+            ]);
+
+            Log::info('Propiedad creada exitosamente:', [
+                'property_id' => $property->id,
+                'title' => $property->title,
+                'all_data' => $property->toArray()
             ]);
 
             // Procesar imágenes si se subieron
@@ -128,7 +216,7 @@ class PropertySubmissionController extends Controller
             ], 500);
         }
     }
-
+    
     private function generatePropertyTitle($data)
     {
         $typeMap = [
@@ -156,6 +244,60 @@ class PropertySubmissionController extends Controller
         }
 
         return $amenities;
+    }
+
+    // Procesar servicios
+    private function processServices($servicesData)
+    {
+        $services = [];
+        
+        if (is_array($servicesData)) {
+            foreach ($servicesData as $service) {
+                if (is_string($service)) {
+                    $services[] = $service;
+                }
+            }
+        }
+
+        return $services;
+    }
+
+    // Procesar características
+    private function processCharacteristics($characteristicsData)
+    {
+        $characteristics = [];
+        
+        if (is_array($characteristicsData)) {
+            foreach ($characteristicsData as $characteristic) {
+                if (is_string($characteristic)) {
+                    $characteristics[] = $characteristic;
+                }
+            }
+        }
+
+        return $characteristics;
+    }
+
+    // Procesar reglas de la casa
+    private function processHouseRules($houseRulesData)
+    {
+        $houseRules = [];
+        
+        if (is_array($houseRulesData)) {
+            foreach ($houseRulesData as $rule) {
+                if (is_string($rule)) {
+                    $houseRules[] = $rule;
+                }
+            }
+        }
+
+        return $houseRules;
+    }
+
+    // Generar descripción corta
+    private function generateShortDescription($propertyType, $guests, $district)
+    {
+        return "Cómodo {$propertyType} para {$guests} huéspedes en {$district}";
     }
 
     // ✅ AGREGADO: Procesar amenidades personalizadas
