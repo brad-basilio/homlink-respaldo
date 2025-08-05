@@ -7,7 +7,10 @@ import General from "./General";
 
 const CreateReactScript = (render) => {
     createInertiaApp({
-        resolve: (name) => `/${name}.jsx`,
+        resolve: (name) => {
+            const pages = import.meta.glob('../**/*.jsx', { eager: true });
+            return pages[`../${name}.jsx`];
+        },
         setup: ({ el, props }) => {
             const properties = props.initialPage.props;
             if (properties?.global) {
