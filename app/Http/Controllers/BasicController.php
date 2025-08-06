@@ -572,11 +572,13 @@ class BasicController extends Controller
       // Start a transaction to ensure all database operations use the same connection
       DB::connection()->beginTransaction();
       
-      $deleted = $this->softDeletion
-        ? $this->model::where('id', $id)
-        ->update(['status' => false])
-        : $this->model::where('id', $id)
-        ->delete();
+      // ✅ CORREGIDO: Verificar si la tabla tiene columna 'status' antes de intentar soft delete
+      $table = (new $this->model)->getTable();
+      $hasStatusColumn = Schema::hasColumn($table, 'status');
+      
+      $deleted = $this->softDeletion && $hasStatusColumn
+        ? $this->model::where('id', $id)->update(['status' => false])
+        : $this->model::where('id', $id)->delete();
 
       if (!$deleted) throw new Exception('No se ha eliminado ningun registro');
 
