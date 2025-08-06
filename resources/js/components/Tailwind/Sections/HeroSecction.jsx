@@ -1,8 +1,10 @@
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion';
 import TextWithHighlight from '../../../Utils/TextWithHighlight';
-import { MapPin, Home, Users, Calendar, Camera, CheckCircle, Upload, X } from 'lucide-react';
+import { MapPin, Home, Users, Calendar, Camera, CheckCircle, Upload, X, ChevronDown } from 'lucide-react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Global from '../../../Utils/Global';
 
 export default function HeroSecction({ data = [], apps = [], indicators = [] }) {
     const [activeStep, setActiveStep] = useState(0);
@@ -14,6 +16,8 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
     const [activeTab, setActiveTab] = useState('buscar'); // 'buscar' o 'anunciar'
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+
+   
 
     // Estados para el formulario de búsqueda
     const [searchFormData, setSearchFormData] = useState({
@@ -233,6 +237,120 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
         } catch (error) {
             console.error('Error loading districts:', error);
         }
+    };
+
+    const handleDistrictChange = (district) => {
+        setPropertyFormData(prev => ({
+            ...prev,
+            district
+        }));
+    };
+
+    // Función para manejar clicks en el mapa
+    const handleMapClick = (event) => {
+        const lat = event.latLng.lat();
+        const lng = event.latLng.lng();
+        
+        setPropertyFormData(prev => ({
+            ...prev,
+            latitude: lat.toString(),
+            longitude: lng.toString()
+        }));
+    };
+
+    // Custom Enhanced Select Component
+    const EnhancedSelect = ({ label, value, onChange, options, disabled, placeholder }) => {
+        const [isOpen, setIsOpen] = useState(false);
+        const [searchTerm, setSearchTerm] = useState('');
+        const selectRef = useRef(null);
+
+        const filteredOptions = options.filter(option =>
+            option.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
+        useEffect(() => {
+            const handleClickOutside = (event) => {
+                if (selectRef.current && !selectRef.current.contains(event.target)) {
+                    setIsOpen(false);
+                    setSearchTerm('');
+                }
+            };
+
+            document.addEventListener('mousedown', handleClickOutside);
+            return () => document.removeEventListener('mousedown', handleClickOutside);
+        }, []);
+
+        const handleSelect = (option) => {
+            onChange(option);
+            setIsOpen(false);
+            setSearchTerm('');
+        };
+
+        return (
+            <div className="relative" ref={selectRef}>
+                <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+                <div
+                    className={`relative w-full p-3 border rounded-lg cursor-pointer transition-all ${
+                        disabled
+                            ? 'bg-gray-100 border-gray-200 cursor-not-allowed'
+                            : isOpen
+                            ? 'border-red-500 ring-2 ring-red-200'
+                            : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                    onClick={() => !disabled && setIsOpen(!isOpen)}
+                >
+                    <div className="flex justify-between items-center">
+                        <span className={`${value ? 'text-gray-900' : 'text-gray-500'}`}>
+                            {value || placeholder}
+                        </span>
+                        <ChevronDown
+                            className={`w-5 h-5 text-gray-400 transition-transform ${
+                                isOpen ? 'rotate-180' : ''
+                            }`}
+                        />
+                    </div>
+                </div>
+
+                {isOpen && !disabled && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-hidden"
+                    >
+                        {/* Search input */}
+                        <div className="p-2 border-b border-gray-100">
+                            <input
+                                type="text"
+                                placeholder="Buscar..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="w-full p-2 text-sm border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                        </div>
+
+                        {/* Options list */}
+                        <div className="max-h-48 overflow-y-auto">
+                            {filteredOptions.length > 0 ? (
+                                filteredOptions.map((option, index) => (
+                                    <div
+                                        key={index}
+                                        className="p-3 hover:bg-red-50 cursor-pointer transition-colors text-gray-900"
+                                        onClick={() => handleSelect(option)}
+                                    >
+                                        {option}
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="p-3 text-gray-500 text-center">
+                                    No se encontraron resultados
+                                </div>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </div>
+        );
     };
 
     const toggleAmenity = (amenityId) => {
@@ -892,53 +1010,41 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                             />
                         </motion.div>
 
-                        {/* Departamento y Apartamento */}
+                        {/* Departamento y Provincia con Enhanced Selects */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Departamento</label>
-                                <select
+                                <EnhancedSelect
+                                    label="Departamento"
                                     value={propertyFormData.department}
-                                    onChange={(e) => handleDepartmentChange(e.target.value)}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                                >
-                                    <option value="">Seleccionar departamento</option>
-                                    {ubigeoData.departments.map(dept => (
-                                        <option key={dept} value={dept}>{dept}</option>
-                                    ))}
-                                </select>
+                                    onChange={handleDepartmentChange}
+                                    options={ubigeoData.departments}
+                                    placeholder="Seleccionar..."
+                                />
                             </motion.div>
 
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Provincia</label>
-                                <select
+                                <EnhancedSelect
+                                    label="Provincia"
                                     value={propertyFormData.province}
-                                    onChange={(e) => handleProvinceChange(e.target.value)}
+                                    onChange={handleProvinceChange}
+                                    options={ubigeoData.provinces}
                                     disabled={!propertyFormData.department}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 disabled:bg-gray-100"
-                                >
-                                    <option value="">Seleccionar provincia</option>
-                                    {ubigeoData.provinces.map(prov => (
-                                        <option key={prov} value={prov}>{prov}</option>
-                                    ))}
-                                </select>
+                                    placeholder="Seleccionar..."
+                                />
                             </motion.div>
                         </div>
 
                         {/* Distrito y Apartamento */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Distrito</label>
-                                <select
+                                <EnhancedSelect
+                                    label="Distrito"
                                     value={propertyFormData.district}
-                                    onChange={(e) => setPropertyFormData(prev => ({ ...prev, district: e.target.value }))}
+                                    onChange={handleDistrictChange}
+                                    options={ubigeoData.districts}
                                     disabled={!propertyFormData.province}
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 disabled:bg-gray-100"
-                                >
-                                    <option value="">Seleccionar distrito</option>
-                                    {ubigeoData.districts.map(dist => (
-                                        <option key={dist} value={dist}>{dist}</option>
-                                    ))}
-                                </select>
+                                    placeholder="Seleccionar..."
+                                />
                             </motion.div>
 
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
@@ -953,10 +1059,44 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                             </motion.div>
                         </div>
 
-                        {/* Coordenadas */}
+                        {/* Mapa interactivo para coordenadas */}
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Ubicación en el mapa <span className="text-blue-600">(Opcional)</span>
+                            </label>
+                            <LoadScript googleMapsApiKey={Global.GMAPS_API_KEY}>
+                                <GoogleMap
+                                    mapContainerStyle={{
+                                        width: "100%",
+                                        height: "300px",
+                                        borderRadius: "8px"
+                                    }}
+                                    center={{
+                                        lat: propertyFormData.latitude ? parseFloat(propertyFormData.latitude) : -12.0464,
+                                        lng: propertyFormData.longitude ? parseFloat(propertyFormData.longitude) : -77.0428
+                                    }}
+                                    zoom={13}
+                                    onClick={handleMapClick}
+                                >
+                                    {propertyFormData.latitude && propertyFormData.longitude && (
+                                        <Marker 
+                                            position={{
+                                                lat: parseFloat(propertyFormData.latitude),
+                                                lng: parseFloat(propertyFormData.longitude)
+                                            }} 
+                                        />
+                                    )}
+                                </GoogleMap>
+                            </LoadScript>
+                            <p className="text-sm text-gray-500 mt-2">
+                                Haz clic en el mapa para seleccionar la ubicación exacta de tu propiedad
+                            </p>
+                        </motion.div>
+
+                        {/* Coordenadas manuales */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Latitud (opcional)</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Latitud</label>
                                 <input
                                     type="number"
                                     step="0.000001"
@@ -968,7 +1108,7 @@ export default function HeroSecction({ data = [], apps = [], indicators = [] }) 
                             </motion.div>
 
                             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Longitud (opcional)</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Longitud</label>
                                 <input
                                     type="number"
                                     step="0.000001"

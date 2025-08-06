@@ -181,8 +181,15 @@ class PropertySubmissionController extends Controller
                 'all_data' => $property->toArray()
             ]);
 
-            // Procesar imágenes si se subieron
+            // Procesar imagen principal si se subió
+            if ($request->hasFile('main_image')) {
+                Log::info('Procesando imagen principal');
+                $this->processMainImage($request->file('main_image'), $property);
+            }
+
+            // Procesar imágenes de galería si se subieron
             if ($request->hasFile('images')) {
+                Log::info('Procesando imágenes de galería');
                 $this->processImages($request->file('images'), $property);
             }
 
@@ -320,32 +327,97 @@ class PropertySubmissionController extends Controller
         return $customAmenities;
     }
 
-    private function processImages($images, $property)
+    private function processMainImage($mainImage, $property)
     {
-        $galleryPaths = [];
-        $mainImagePath = null;
+        try {
+            Log::info('Procesando imagen principal:', [
+                'original_name' => $mainImage->getClientOriginalName(),
+                'size' => $mainImage->getSize(),
+                'mime_type' => $mainImage->getMimeType()
+            ]);
 
-        foreach ($images as $index => $image) {
-            // ✅ CORREGIDO: Seguir la estructura del BasicController
+            // Generar UUID y extensión
             $uuid = Str::uuid();
-            $ext = $image->getClientOriginalExtension();
+            $ext = $mainImage->getClientOriginalExtension();
             $fileName = "{$uuid}.{$ext}";
             
             // Guardar en la estructura correcta: storage/app/images/property/
             $path = "images/property/{$fileName}";
-            Storage::put($path, file_get_contents($image));
+            Storage::put($path, file_get_contents($mainImage));
             
-            if ($index === 0) {
-                $mainImagePath = $fileName; // Solo el nombre del archivo con UUID
-            }
+            Log::info('Imagen principal guardada:', [
+                'path' => $path,
+                'fileName' => $fileName
+            ]);
             
-            $galleryPaths[] = $fileName; // Solo el nombre del archivo con UUID
+            // Actualizar la propiedad con la imagen principal
+            $property->update([
+                'main_image' => $fileName
+            ]);
+            
+            Log::info('Propiedad actualizada con imagen principal:', [
+                'property_id' => $property->id,
+                'main_image' => $fileName
+            ]);
+            
+        } catch (\Exception $e) {
+            Log::error('Error procesando imagen principal:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
         }
+    }
 
-        // Actualizar la propiedad con las imágenes
-        $property->update([
-            'main_image' => $mainImagePath,
-            'gallery' => $galleryPaths
-        ]);
+    private function processImages($images, $property)
+    {
+        try {
+            Log::info('Procesando imágenes de galería:', [
+                'count' => count($images)
+            ]);
+
+            $galleryPaths = [];
+
+            foreach ($images as $index => $image) {
+                Log::info("Procesando imagen de galería {$index}:", [
+                    'original_name' => $image->getClientOriginalName(),
+                    'size' => $image->getSize(),
+                    'mime_type' => $image->getMimeType()
+                ]);
+
+                // Generar UUID y extensión
+                $uuid = Str::uuid();
+                $ext = $image->getClientOriginalExtension();
+                $fileName = "{$uuid}.{$ext}";
+                
+                // Guardar en la estructura correcta: storage/app/images/property/
+                $path = "images/property/{$fileName}";
+                Storage::put($path, file_get_contents($image));
+                
+                $galleryPaths[] = $fileName; // Solo el nombre del archivo con UUID
+                
+                Log::info("Imagen de galería {$index} guardada:", [
+                    'path' => $path,
+                    'fileName' => $fileName
+                ]);
+            }
+
+            // Actualizar la propiedad solo con la galería (no tocar main_image)
+            $property->update([
+                'gallery' => $galleryPaths
+            ]);
+            
+            Log::info('Propiedad actualizada con galería:', [
+                'property_id' => $property->id,
+                'gallery_count' => count($galleryPaths)
+            ]);
+            
+        } catch (\Exception $e) {
+            Log::error('Error procesando imágenes de galería:', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            throw $e;
+        }
     }
 }
