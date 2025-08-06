@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
+import WhatsAppButton from '../../Shared/WhatsAppButton';
 
 const BannerSection = ({ banner }) => {
     return (
@@ -23,12 +24,14 @@ const BannerSection = ({ banner }) => {
                     <p className="text-lg mb-8">
                         {banner?.description}
                     </p>
-                    <Link
-                        href={banner?.button_link}
+                    <WhatsAppButton buttonData={banner?.button_link}> 
+                    <button
+                     
                         className="inline-block px-8 py-4 bg-primary text-lg text-white font-semibold rounded-full hover:bg-accent transition-colors duration-300"
                     >
                         {banner?.button_text}
-                    </Link>
+                    </button>
+                    </WhatsAppButton>
                 </div>
 
                 <img

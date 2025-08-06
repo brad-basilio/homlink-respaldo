@@ -21,6 +21,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import WhatsAppButton from "./components/Shared/WhatsAppButton";
 
 // Estilos CSS para el Swiper de apps en móvil
 const appSwiperStyles = `
@@ -409,7 +410,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal 
             transition={{ duration: 0.6 }}
         >
             <Header />
-           
+
 
             {/* SECCIÓN PRINCIPAL DE CONTACTO */}
             <motion.main
@@ -794,7 +795,7 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal 
                             >
                                 {banner_principal?.name}
                             </motion.span>
-  {/* Título */}
+                            {/* Título */}
                             <motion.span
                                 className="text-lg font-medium text-white"
                                 initial={{ opacity: 0, y: 10 }}
@@ -803,10 +804,12 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal 
                             >
                                 {banner_principal?.description}
                             </motion.span>
+                            <WhatsAppButton buttonData={banner_principal?.button_link}>
+                                <button className="bg-primary  text-white py-3 px-4 rounded-full">
+                                    {banner_principal?.button_text}
+                                </button>
+                            </WhatsAppButton>
 
-                            <button className="bg-primary  text-white py-3 px-4 rounded-full">
-                                {banner_principal?.button_text}
-                            </button>
                         </motion.div>
 
                         {/* Imagen principal desktop */}
@@ -852,9 +855,12 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal 
                             <p className="text-sm text-white opacity-80">
                                 {banner_principal?.description}
                             </p>
-                            <button className="bg-primary mt-4 text-white py-2 px-4 rounded-full">
-                                {banner_principal?.button_text}
-                            </button>
+
+                            <WhatsAppButton buttonData={banner_principal?.button_link}>
+                                <button className="bg-primary  text-white py-3 px-4 rounded-full">
+                                    {banner_principal?.button_text}
+                                </button>
+                            </WhatsAppButton>
                         </motion.div>
 
                     </motion.div>

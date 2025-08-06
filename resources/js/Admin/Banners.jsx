@@ -210,7 +210,7 @@ const Banners = ({ sections, positions, sectionPositions, multipleAllowedPositio
                                     .refresh(),
                         },
                     });
-                    container.unshift({
+                 /*   container.unshift({
                         widget: "dxButton",
                         location: "after",
                         options: {
@@ -219,7 +219,7 @@ const Banners = ({ sections, positions, sectionPositions, multipleAllowedPositio
                             hint: "Nuevo banner",
                             onClick: () => onModalOpen(),
                         },
-                    });
+                    }); */
                 }}
                 columns={[
                     {

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
+import WhatsAppButton from '../../Shared/WhatsAppButton';
 
 const BannerSectionSecundario = ({ banner }) => {
     return (
         <section className="relative overflow-hidden bg-gradient-to-r from-primary         to-primary ">
-           
+
 
             <div className="">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8  relative z-10">
@@ -19,27 +20,28 @@ const BannerSectionSecundario = ({ banner }) => {
                     </div>
 
                     {/* Left column - Text content */}
-                   <div className='px-[5%] lg:px-0 pb-10 lg:pb-0 flex items-center'>
-                     <div className="text-white max-w-xl  mx-auto ">
-                        <h2 className="text-4xl sm:text-5xl font-bold  !leading-[60px] mb-6">
-                            {banner?.name}
-                        </h2>
-                        <p className="text-lg mb-8">
-                            {banner?.description}
-                        </p>
-                        <Link
-                            href={banner?.button_link}
-                            className="inline-block px-8 py-4 bg-secondary text-lg text-white font-semibold rounded-full hover:bg-accent transition-colors duration-300"
-                        >
-                            {banner?.button_text}
-                        </Link>
+                    <div className='px-[5%] lg:px-0 pb-10 lg:pb-0 flex items-center'>
+                        <div className="text-white max-w-xl  mx-auto ">
+                            <h2 className="text-4xl sm:text-5xl font-bold  !leading-[60px] mb-6">
+                                {banner?.name}
+                            </h2>
+                            <p className="text-lg mb-8">
+                                {banner?.description}
+                            </p>
+                            <WhatsAppButton buttonData={banner?.button_link}>
+                                <button
+                                    className="inline-block px-8 py-4 bg-secondary text-lg text-white font-semibold rounded-full hover:bg-accent transition-colors duration-300"
+                                >
+                                    {banner?.button_text}
+                                </button>
+                            </WhatsAppButton>
+                        </div>
                     </div>
-                   </div>
 
 
                 </div>
             </div>
-             {/* Background wave shape */}
+            {/* Background wave shape */}
             <div className="absolute top-0 -right-96 w-full h-full">
                 <svg className='h-full w-full' width="681" height="461" viewBox="0 0 681 461" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g style={{ mixBlendMode: 'overlay' }} opacity="0.2">
