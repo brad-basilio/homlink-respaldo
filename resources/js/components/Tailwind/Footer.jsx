@@ -523,8 +523,8 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                         whileHover={{ scale: 1.1 }}
                                         whileTap={{ scale: 0.9 }}
                                         animate={{
-                                            backgroundColor: termsAccepted ? '#BBFF52' : '#ffffff',
-                                            borderColor: termsAccepted ? '#BBFF52' : '#9CA3AF'
+                                            backgroundColor: termsAccepted ? '#FF3D2A' : '#ffffff',
+                                            borderColor: termsAccepted ? '#FF3D2A' : '#9CA3AF'
                                         }}
                                         transition={{ duration: 0.2 }}
                                     >
@@ -538,7 +538,7 @@ const Footer = ({ terms, footerLinks = [] }) => {
                                                     className="absolute inset-0 flex items-center justify-center"
                                                 >
                                                     <svg
-                                                        className="w-3 h-3 text-neutral-dark"
+                                                        className="w-3 h-3 text-white"
                                                         fill="none"
                                                         stroke="currentColor"
                                                         viewBox="0 0 24 24"

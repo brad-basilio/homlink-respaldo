@@ -92,25 +92,37 @@ class PropertyController extends BasicController
 
         $body['gallery'] = $gallery;
 
-        // Procesar amenidades
+        // ✅ CORREGIDO: Procesar amenidades predefinidas (array de IDs)
         $processedAmenities = [];
         if ($request->has('amenities')) {
             $amenities = $request->amenities;
+            Log::info('Procesando amenidades recibidas:', ['amenities' => $amenities]);
+            
             foreach ($amenities as $index => $amenity) {
-                $name = trim($amenity['name'] ?? '');
-                $icon = trim($amenity['icon'] ?? '');
-                $available = isset($amenity['available']) ? filter_var($amenity['available'], FILTER_VALIDATE_BOOLEAN) : false;
+                // Si es string, es un ID predefinido
+                if (is_string($amenity)) {
+                    $processedAmenities[] = $amenity;
+                    Log::info('Amenidad predefinida agregada:', ['id' => $amenity]);
+                } 
+                // Si es array, es amenidad personalizada (para compatibilidad)
+                else if (is_array($amenity)) {
+                    $name = trim($amenity['name'] ?? '');
+                    $icon = trim($amenity['icon'] ?? '');
+                    $available = isset($amenity['available']) ? filter_var($amenity['available'], FILTER_VALIDATE_BOOLEAN) : false;
 
-                if ($name) {
-                    $processedAmenities[] = [
-                        'name' => $name,
-                        'icon' => $icon,
-                        'available' => $available
-                    ];
+                    if ($name) {
+                        $processedAmenities[] = [
+                            'name' => $name,
+                            'icon' => $icon,
+                            'available' => $available
+                        ];
+                        Log::info('Amenidad personalizada agregada:', ['name' => $name]);
+                    }
                 }
             }
         }
         $body['amenities'] = $processedAmenities;
+        Log::info('Amenidades finales procesadas:', ['amenities' => $processedAmenities]);
 
         // ✅ AGREGADO: Procesar amenidades personalizadas (amenities_custom)
         $processedCustomAmenities = [];
@@ -132,59 +144,80 @@ class PropertyController extends BasicController
         }
         $body['amenities_custom'] = $processedCustomAmenities;
 
-        // Procesar servicios
+        // ✅ CORREGIDO: Procesar servicios predefinidos (array de IDs)
         $processedServices = [];
         if ($request->has('services')) {
             $services = $request->services;
             foreach ($services as $index => $service) {
-                $name = trim($service['name'] ?? '');
-                $description = trim($service['description'] ?? '');
-                $icon = trim($service['icon'] ?? '');
-                $available = isset($service['available']) ? filter_var($service['available'], FILTER_VALIDATE_BOOLEAN) : false;
+                // Si es string, es un ID predefinido
+                if (is_string($service)) {
+                    $processedServices[] = $service;
+                } 
+                // Si es array, es servicio personalizado (para compatibilidad)
+                else if (is_array($service)) {
+                    $name = trim($service['name'] ?? '');
+                    $description = trim($service['description'] ?? '');
+                    $icon = trim($service['icon'] ?? '');
+                    $available = isset($service['available']) ? filter_var($service['available'], FILTER_VALIDATE_BOOLEAN) : false;
 
-                if ($name) {
-                    $processedServices[] = [
-                        'name' => $name,
-                        'description' => $description,
-                        'icon' => $icon,
-                        'available' => $available
-                    ];
+                    if ($name) {
+                        $processedServices[] = [
+                            'name' => $name,
+                            'description' => $description,
+                            'icon' => $icon,
+                            'available' => $available
+                        ];
+                    }
                 }
             }
         }
         $body['services'] = $processedServices;
 
-        // Procesar características
+        // ✅ CORREGIDO: Procesar características predefinidas (array de IDs)
         $processedCharacteristics = [];
         if ($request->has('characteristics')) {
             $characteristics = $request->characteristics;
             foreach ($characteristics as $index => $characteristic) {
-                $name = trim($characteristic['name'] ?? '');
-                $value = trim($characteristic['value'] ?? '');
-                $icon = trim($characteristic['icon'] ?? '');
+                // Si es string, es un ID predefinido
+                if (is_string($characteristic)) {
+                    $processedCharacteristics[] = $characteristic;
+                } 
+                // Si es array, es característica personalizada (para compatibilidad)
+                else if (is_array($characteristic)) {
+                    $name = trim($characteristic['name'] ?? '');
+                    $value = trim($characteristic['value'] ?? '');
+                    $icon = trim($characteristic['icon'] ?? '');
 
-                if ($name) {
-                    $processedCharacteristics[] = [
-                        'name' => $name,
-                        'value' => $value,
-                        'icon' => $icon
-                    ];
+                    if ($name) {
+                        $processedCharacteristics[] = [
+                            'name' => $name,
+                            'value' => $value,
+                            'icon' => $icon
+                        ];
+                    }
                 }
             }
         }
         $body['characteristics'] = $processedCharacteristics;
 
-        // Procesar reglas de la casa
+        // ✅ CORREGIDO: Procesar reglas de la casa predefinidas (array de IDs)
         $processedHouseRules = [];
         if ($request->has('house_rules')) {
             $houseRules = $request->house_rules;
             foreach ($houseRules as $rule) {
-                $text = trim($rule['text'] ?? '');
-                if ($text) {
-                    $processedHouseRules[] = [
-                        'text' => $text,
-                        'icon' => $rule['icon'] ?? 'fas fa-info-circle'
-                    ];
+                // Si es string, es un ID predefinido
+                if (is_string($rule)) {
+                    $processedHouseRules[] = $rule;
+                } 
+                // Si es array, es regla personalizada (para compatibilidad)
+                else if (is_array($rule)) {
+                    $text = trim($rule['text'] ?? '');
+                    if ($text) {
+                        $processedHouseRules[] = [
+                            'text' => $text,
+                            'icon' => $rule['icon'] ?? 'fas fa-info-circle'
+                        ];
+                    }
                 }
             }
         }

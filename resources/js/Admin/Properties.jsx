@@ -699,8 +699,12 @@ const Properties = () => {
             postalCodeRef.current.value = data.postal_code || "";
             externalLinkRef.current.value = data.external_link || "";
 
+            // ✅ CORREGIDO: Cargar datos para edición
+            console.log('Datos completos recibidos:', data);
+            
             // Cargar amenidades predefinidas
             if (data.amenities && Array.isArray(data.amenities)) {
+                console.log('Amenidades recibidas:', data.amenities);
                 setSelectedAmenities(data.amenities);
             } else {
                 setSelectedAmenities([]);
@@ -708,6 +712,7 @@ const Properties = () => {
 
             // Cargar servicios predefinidos
             if (data.services && Array.isArray(data.services)) {
+                console.log('Servicios recibidos:', data.services);
                 setSelectedServices(data.services);
             } else {
                 setSelectedServices([]);
@@ -715,6 +720,7 @@ const Properties = () => {
 
             // Cargar características predefinidas
             if (data.characteristics && Array.isArray(data.characteristics)) {
+                console.log('Características recibidas:', data.characteristics);
                 setSelectedCharacteristics(data.characteristics);
             } else {
                 setSelectedCharacteristics([]);
@@ -722,6 +728,7 @@ const Properties = () => {
 
             // Cargar reglas predefinidas
             if (data.house_rules && Array.isArray(data.house_rules)) {
+                console.log('Reglas recibidas:', data.house_rules);
                 setSelectedHouseRules(data.house_rules);
             } else {
                 setSelectedHouseRules([]);
@@ -863,21 +870,25 @@ const Properties = () => {
         }
 
         // Amenidades predefinidas (como array simple)
+        console.log('Enviando amenidades predefinidas:', selectedAmenities);
         selectedAmenities.forEach((amenityId, index) => {
             formData.append(`amenities[${index}]`, amenityId);
         });
 
         // Servicios predefinidos
+        console.log('Enviando servicios predefinidos:', selectedServices);
         selectedServices.forEach((serviceId, index) => {
             formData.append(`services[${index}]`, serviceId);
         });
 
         // Características predefinidas
+        console.log('Enviando características predefinidas:', selectedCharacteristics);
         selectedCharacteristics.forEach((characteristicId, index) => {
             formData.append(`characteristics[${index}]`, characteristicId);
         });
 
         // Reglas de la casa predefinidas
+        console.log('Enviando reglas predefinidas:', selectedHouseRules);
         selectedHouseRules.forEach((ruleId, index) => {
             formData.append(`house_rules[${index}]`, ruleId);
         });
@@ -933,6 +944,12 @@ const Properties = () => {
             formData.append(`house_rules[${index}][icon]`, rule.icon);
         });
         */
+
+        // Debug final
+        console.log('FormData completo antes de enviar:');
+        for (let pair of formData.entries()) {
+            console.log(pair[0], pair[1]);
+        }
 
         try {
             await propertiesRest.save(formData);
@@ -1606,8 +1623,8 @@ const Properties = () => {
                                 <InputFormGroup
                                     label="Latitud"
                                     eRef={latitudeRef}
-                                    type="number"
-                                    step="0.000001"
+                                    type="text"
+                                    
                                     placeholder="-12.1211"
                                 />
                             </div>
@@ -1615,8 +1632,8 @@ const Properties = () => {
                                 <InputFormGroup
                                     label="Longitud"
                                     eRef={longitudeRef}
-                                    type="number"
-                                    step="0.000001"
+                                    type="text"
+                                 
                                     placeholder="-77.0269"
                                 />
                             </div>
