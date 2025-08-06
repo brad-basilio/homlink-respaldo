@@ -254,7 +254,7 @@ const Properties = () => {
         { text: "", icon: "fas fa-info-circle" },
     ]);
 
-    // Amenidades predefinidas como en el formulario del cliente
+    // Amenidades predefinidas - SINCRONIZADAS con HeroSecction.jsx
     const predefinedAmenities = [
         { id: 'wifi', label: 'WiFi', icon: 'fa-wifi' },
         { id: 'tv', label: 'TV', icon: 'fa-tv' },
@@ -267,59 +267,51 @@ const Properties = () => {
         { id: 'gym', label: 'Gimnasio', icon: 'fa-dumbbell' },
         { id: 'balcony', label: 'Balcón', icon: 'fa-building' },
         { id: 'garden', label: 'Jardín', icon: 'fa-leaf' },
-        { id: 'pet_friendly', label: 'Pet Friendly', icon: 'fa-paw' },
-        { id: 'elevator', label: 'Ascensor', icon: 'fa-elevator' },
-        { id: 'terrace', label: 'Terraza', icon: 'fa-home' },
-        { id: 'bbq', label: 'Parrilla/BBQ', icon: 'fa-fire-burner' },
-        { id: 'security', label: 'Seguridad 24h', icon: 'fa-shield-alt' }
+        { id: 'pet_friendly', label: 'Pet Friendly', icon: 'fa-paw' }
     ];
 
-    // Servicios predefinidos
+    // Servicios predefinidos - SINCRONIZADOS con HeroSecction.jsx
     const predefinedServices = [
-        { id: 'cleaning', label: 'Servicio de limpieza', icon: 'fa-broom' },
-        { id: 'laundry', label: 'Servicio de lavandería', icon: 'fa-tshirt' },
-        { id: 'transport', label: 'Transporte', icon: 'fa-car' },
-        { id: 'breakfast', label: 'Desayuno incluido', icon: 'fa-coffee' },
-        { id: 'concierge', label: 'Conserje', icon: 'fa-concierge-bell' },
-        { id: 'grocery', label: 'Servicio de compras', icon: 'fa-shopping-basket' },
-        { id: 'room_service', label: 'Room service', icon: 'fa-bell' },
-        { id: 'spa', label: 'Servicio de spa', icon: 'fa-spa' },
-        { id: 'baby_sitting', label: 'Cuidado de niños', icon: 'fa-baby' },
-        { id: 'tour_guide', label: 'Guía turístico', icon: 'fa-map' },
-        { id: 'cooking', label: 'Servicio de cocina', icon: 'fa-utensils' },
-        { id: 'maintenance', label: 'Mantenimiento 24h', icon: 'fa-tools' }
+        { id: 'cleaning', label: 'Servicio de limpieza', icon: 'fa-broom', description: 'Limpieza diaria o semanal' },
+        { id: 'laundry', label: 'Servicio de lavandería', icon: 'fa-tshirt', description: 'Lavado y planchado de ropa' },
+        { id: 'breakfast', label: 'Desayuno incluido', icon: 'fa-coffee', description: 'Desayuno continental' },
+        { id: 'transport', label: 'Transporte al aeropuerto', icon: 'fa-plane', description: 'Traslado desde/hacia el aeropuerto' },
+        { id: 'concierge', label: 'Servicio de conserje', icon: 'fa-concierge-bell', description: 'Asistencia personalizada' },
+        { id: 'grocery', label: 'Servicio de compras', icon: 'fa-shopping-cart', description: 'Compra de alimentos y productos' },
+        { id: 'tour_guide', label: 'Guía turístico', icon: 'fa-map-marked-alt', description: 'Tours y recomendaciones locales' },
+        { id: 'babysitting', label: 'Cuidado de niños', icon: 'fa-baby', description: 'Servicio de niñera' },
+        { id: 'massage', label: 'Servicio de masajes', icon: 'fa-spa', description: 'Masajes relajantes' },
+        { id: 'chef', label: 'Chef privado', icon: 'fa-utensils', description: 'Preparación de comidas' }
     ];
 
-    // Características predefinidas
+    // Características predefinidas - SINCRONIZADAS con HeroSecction.jsx
     const predefinedCharacteristics = [
-        { id: 'modern', label: 'Moderno', icon: 'fa-gem' },
-        { id: 'luxury', label: 'Lujo', icon: 'fa-crown' },
-        { id: 'historic', label: 'Histórico', icon: 'fa-landmark' },
-        { id: 'city_view', label: 'Vista a la ciudad', icon: 'fa-city' },
-        { id: 'ocean_view', label: 'Vista al mar', icon: 'fa-water' },
-        { id: 'mountain_view', label: 'Vista a la montaña', icon: 'fa-mountain' },
-        { id: 'quiet', label: 'Zona tranquila', icon: 'fa-volume-mute' },
-        { id: 'central', label: 'Ubicación central', icon: 'fa-map-marker-alt' },
-        { id: 'new_construction', label: 'Construcción nueva', icon: 'fa-hammer' },
-        { id: 'renovated', label: 'Recién renovado', icon: 'fa-paint-roller' },
-        { id: 'furnished', label: 'Completamente amueblado', icon: 'fa-couch' },
-        { id: 'spacious', label: 'Espacioso', icon: 'fa-expand-arrows-alt' }
+        { id: 'ocean_view', label: 'Vista al mar', icon: 'fa-water', value: 'Vista panorámica al océano' },
+        { id: 'mountain_view', label: 'Vista a las montañas', icon: 'fa-mountain', value: 'Vista a las montañas' },
+        { id: 'city_view', label: 'Vista a la ciudad', icon: 'fa-city', value: 'Vista urbana' },
+        { id: 'historic', label: 'Edificio histórico', icon: 'fa-landmark', value: 'Patrimonio arquitectónico' },
+        { id: 'modern', label: 'Diseño moderno', icon: 'fa-gem', value: 'Diseño contemporáneo' },
+        { id: 'luxury', label: 'Propiedad de lujo', icon: 'fa-crown', value: 'Acabados premium' },
+        { id: 'eco_friendly', label: 'Eco-amigable', icon: 'fa-leaf', value: 'Sostenible y ecológico' },
+        { id: 'quiet', label: 'Zona tranquila', icon: 'fa-volume-mute', value: 'Ambiente silencioso' },
+        { id: 'central', label: 'Ubicación céntrica', icon: 'fa-map-marker-alt', value: 'Centro de la ciudad' },
+        { id: 'beachfront', label: 'Frente a la playa', icon: 'fa-umbrella-beach', value: 'Acceso directo a la playa' },
+        { id: 'renovated', label: 'Recientemente renovado', icon: 'fa-hammer', value: 'Renovación reciente' },
+        { id: 'spacious', label: 'Espacioso', icon: 'fa-expand-arrows-alt', value: 'Amplios espacios' }
     ];
 
-    // Reglas de la casa predefinidas
+    // Reglas de la casa predefinidas - SINCRONIZADAS con HeroSecction.jsx
     const predefinedHouseRules = [
-        { id: 'no_pets', label: 'No mascotas', icon: 'fa-ban' },
-        { id: 'no_smoking', label: 'No fumar', icon: 'fa-smoking-ban' },
-        { id: 'no_parties', label: 'No fiestas', icon: 'fa-volume-off' },
-        { id: 'quiet_hours', label: 'Horas de silencio 22:00-08:00', icon: 'fa-clock' },
-        { id: 'clean_up', label: 'Mantener limpio', icon: 'fa-broom' },
-        { id: 'no_shoes', label: 'Sin zapatos en interiores', icon: 'fa-shoe-prints' },
-        { id: 'check_in_time', label: 'Check-in: 15:00-22:00', icon: 'fa-key' },
-        { id: 'check_out_time', label: 'Check-out: antes de 11:00', icon: 'fa-door-open' },
-        { id: 'max_guests', label: 'Respetar número máximo', icon: 'fa-users' },
-        { id: 'no_unregistered', label: 'No huéspedes no registrados', icon: 'fa-user-slash' },
-        { id: 'responsible_use', label: 'Uso responsable', icon: 'fa-handshake' },
-        { id: 'report_issues', label: 'Reportar problemas', icon: 'fa-exclamation-triangle' }
+        { id: 'no_smoking', label: 'No se permite fumar', icon: 'fa-smoking-ban', text: 'Prohibido fumar en toda la propiedad' },
+        { id: 'no_pets', label: 'No se permiten mascotas', icon: 'fa-ban', text: 'No se admiten animales domésticos' },
+        { id: 'no_parties', label: 'No se permiten fiestas', icon: 'fa-music', text: 'Prohibidas las fiestas y eventos ruidosos' },
+        { id: 'quiet_hours', label: 'Horas de silencio', icon: 'fa-volume-mute', text: 'Mantener silencio de 10 PM a 8 AM' },
+        { id: 'no_shoes', label: 'No usar zapatos dentro', icon: 'fa-shoe-prints', text: 'Quitarse los zapatos al ingresar' },
+        { id: 'clean_up', label: 'Mantener limpio', icon: 'fa-broom', text: 'Mantener la propiedad limpia y ordenada' },
+        { id: 'check_in_time', label: 'Horario de check-in', icon: 'fa-clock', text: 'Check-in: 3:00 PM - 10:00 PM' },
+        { id: 'check_out_time', label: 'Horario de check-out', icon: 'fa-door-open', text: 'Check-out antes de las 11:00 AM' },
+        { id: 'max_guests', label: 'Límite de huéspedes', icon: 'fa-users', text: 'No exceder el número máximo de huéspedes' },
+        { id: 'energy_saving', label: 'Ahorro de energía', icon: 'fa-lightbulb', text: 'Apagar luces y equipos al salir' }
     ];
 
     const [selectedAmenities, setSelectedAmenities] = useState([]);
@@ -354,11 +346,22 @@ const Properties = () => {
     useEffect(() => {
         console.log('Districts state cambió:', districts);
         console.log('Cantidad de distritos:', districts.length);
+        console.log('Distrito seleccionado actual:', selectedDistrict);
 
         // Forzar actualización del select2 de distrito
         if (districtRef.current && districts.length > 0) {
             console.log('Actualizando select2 de distrito...');
             $(districtRef.current).trigger('change.select2');
+            
+            // Debug del contenido del select
+            setTimeout(() => {
+                if (districtRef.current) {
+                    console.log('Opciones del select de distrito:', districtRef.current.options.length);
+                    for (let i = 0; i < districtRef.current.options.length; i++) {
+                        console.log(`Distrito opción ${i}:`, districtRef.current.options[i].value, '-', districtRef.current.options[i].text);
+                    }
+                }
+            }, 100);
         }
     }, [districts]);
 
@@ -734,26 +737,38 @@ const Properties = () => {
                 setSelectedHouseRules([]);
             }
 
-            // Cargar ubicación en secuencia asíncrona
+            // Cargar ubicación en secuencia asíncrona con delays apropiados
             if (data.department) {
+                console.log('🔧 Cargando ubicación - Departamento:', data.department);
                 setSelectedDepartment(data.department);
                 await handleDepartmentChange(data.department);
-                $(departmentRef.current).val(data.department).trigger('change');
+                
+                // Establecer el valor en el select después de que se carguen las opciones
+                setTimeout(() => {
+                    $(departmentRef.current).val(data.department).trigger('change');
+                }, 50);
 
-                // Ahora que las provincias están cargadas, establecer la provincia
+                // Cargar provincia si existe
                 if (data.province) {
+                    console.log('🔧 Cargando ubicación - Provincia:', data.province);
                     setSelectedProvince(data.province);
                     await handleProvinceChange(data.province, data.department);
+                    
                     setTimeout(() => {
                         $(provinceRef.current).val(data.province).trigger('change');
-                    }, 100);
+                    }, 150);
 
-                    // Ahora que los distritos están cargados, establecer el distrito
+                    // Cargar distrito si existe
                     if (data.district) {
+                        console.log('🔧 Cargando ubicación - Distrito:', data.district);
                         setSelectedDistrict(data.district);
+                        
+                        // Esperar más tiempo para que se carguen los distritos
                         setTimeout(() => {
+                            console.log('🔧 Estableciendo distrito en select:', data.district);
+                            console.log('🔧 Distritos disponibles:', districts);
                             $(districtRef.current).val(data.district).trigger('change');
-                        }, 200);
+                        }, 300);
                     }
                 }
             }
