@@ -7,6 +7,7 @@ use App\Models\PropertyMetric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserDashboardController extends BasicController
 {
@@ -104,13 +105,27 @@ class UserDashboardController extends BasicController
             return response()->json(['error' => 'No autorizado'], 401);
         }
 
-        $startDate = $request->get('start_date', now()->subDays(30));
-        $endDate = $request->get('end_date', now());
+        // ✅ CORREGIR MANEJO DE FECHAS
+        $startDate = $request->get('start_date', now()->subDays(30)->toDateString());
+        $endDate = $request->get('end_date', now()->toDateString());
+        
+        // Convertir a Carbon para manejar correctamente las fechas con horas
+        $startDateTime = \Carbon\Carbon::parse($startDate)->startOfDay();
+        $endDateTime = \Carbon\Carbon::parse($endDate)->endOfDay();
+
+        // Log para debugging
+        Log::info("🔍 UserDashboard getUserMetrics", [
+            'user_id' => $user->id,
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'start_datetime' => $startDateTime->toISOString(),
+            'end_datetime' => $endDateTime->toISOString()
+        ]);
 
         // Obtener propiedades con métricas en el período
         $properties = Property::where('user_id', $user->id)
-            ->with(['metrics' => function ($query) use ($startDate, $endDate) {
-                $query->whereBetween('created_at', [$startDate, $endDate]);
+            ->with(['metrics' => function ($query) use ($startDateTime, $endDateTime) {
+                $query->whereBetween('created_at', [$startDateTime, $endDateTime]);
             }])
             ->get();
 
@@ -118,30 +133,64 @@ class UserDashboardController extends BasicController
         $processedProperties = $properties->map(function ($property) {
             $metrics = $property->metrics->groupBy('event_type')->map->count();
             
+            // Log para debugging por propiedad
+            Log::info("📊 Métricas para propiedad {$property->id}", [
+                'title' => $property->title,
+                'total_metrics' => $property->metrics->count(),
+                'metrics_by_type' => $metrics->toArray()
+            ]);
+            
             return [
                 'id' => $property->id,
                 'title' => $property->title,
                 'slug' => $property->slug,
                 'district' => $property->district,
                 'city' => $property->city,
+                'price_per_night' => $property->price_per_night,
+                'currency' => $property->currency,
+                'bedrooms' => $property->bedrooms,
+                'bathrooms' => $property->bathrooms,
+                'max_guests' => $property->max_guests,
+                'area_m2' => $property->area_m2,
+                'rating' => $property->rating,
+                'reviews_count' => $property->reviews_count,
+                'main_image' => $property->main_image,
+                'gallery' => $property->gallery,
+                'platform' => $property->platform,
                 'active' => $property->active,
                 'admin_approved' => $property->admin_approved,
                 'featured' => $property->featured,
                 'created_at' => $property->created_at,
-                'metrics' => [
+                'amenities' => $property->amenities,
+                'services' => $property->services,
+                'characteristics' => $property->characteristics,
+                'description' => $property->description,
+                'external_link' => $property->external_link,
+                'availability_status' => $property->availability_status,
+                'metrics_summary' => [
                     'property_view' => $metrics->get('property_view', 0),
                     'airbnb_click' => $metrics->get('airbnb_click', 0),
                     'gallery_view' => $metrics->get('gallery_view', 0),
-                ]
+                ],
+                // Calcular conversión por propiedad
+                'conversion_rate' => $metrics->get('property_view', 0) > 0 
+                    ? round(($metrics->get('airbnb_click', 0) / $metrics->get('property_view', 0)) * 100, 1)
+                    : 0
             ];
         });
 
         // Métricas totales
         $totalMetrics = [
-            'property_view' => $processedProperties->sum('metrics.property_view'),
-            'airbnb_click' => $processedProperties->sum('metrics.airbnb_click'),
-            'gallery_view' => $processedProperties->sum('metrics.gallery_view'),
+            'property_view' => $processedProperties->sum('metrics_summary.property_view'),
+            'airbnb_click' => $processedProperties->sum('metrics_summary.airbnb_click'),
+            'gallery_view' => $processedProperties->sum('metrics_summary.gallery_view'),
         ];
+
+        Log::info("📈 UserDashboard totales", [
+            'user_id' => $user->id,
+            'total_properties' => $processedProperties->count(),
+            'total_metrics' => $totalMetrics
+        ]);
 
         return response()->json([
             'properties' => $processedProperties,
