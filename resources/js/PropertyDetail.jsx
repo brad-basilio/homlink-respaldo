@@ -1033,7 +1033,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 </div>
 
                                 {/* Desglose de precios */}
-                                <div className="space-y-3 text-sm">
+                              {/*  <div className="space-y-3 text-sm">
                                     <div className="flex justify-between">
                                         <span className="underline">{currency}/{parseFloat(price_per_night).toFixed(0)} x 5 noches</span>
                                         <span>{currency}/{(parseFloat(price_per_night) * 5).toFixed(0)}</span>
@@ -1052,7 +1052,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                             <span>{currency}/{(parseFloat(price_per_night) * 5 + parseFloat(price_per_night) * 0.15).toFixed(0)}</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

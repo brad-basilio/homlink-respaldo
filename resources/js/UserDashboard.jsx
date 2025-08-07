@@ -5,6 +5,62 @@ import Base from './components/Tailwind/Base';
 import Header from './components/Tailwind/Header';
 import Footer from './components/Tailwind/Footer';
 import { CarritoProvider } from './context/CarritoContext';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import Global from './Utils/Global';
+
+// Definiciones de amenidades, servicios y características con iconos
+const amenitiesIcons = {
+    'wifi': 'fa-wifi',
+    'tv': 'fa-tv',
+    'kitchen': 'fa-utensils',
+    'washing_machine': 'fa-tshirt',
+    'parking': 'fa-car',
+    'air_conditioning': 'fa-snowflake',
+    'heating': 'fa-fire',
+    'pool': 'fa-swimming-pool',
+    'gym': 'fa-dumbbell',
+    'balcony': 'fa-building',
+    'garden': 'fa-leaf',
+    'pet_friendly': 'fa-paw',
+    'elevator': 'fa-elevator',
+    'terrace': 'fa-home',
+    'jacuzzi': 'fa-hot-tub',
+    'security': 'fa-shield-alt',
+    'concierge': 'fa-concierge-bell',
+    'laundry': 'fa-washing-machine'
+};
+
+const servicesIcons = {
+    'cleaning': 'fa-broom',
+    'laundry': 'fa-tshirt',
+    'breakfast': 'fa-coffee',
+    'transport': 'fa-plane',
+    'concierge': 'fa-concierge-bell',
+    'grocery': 'fa-shopping-cart',
+    'tour_guide': 'fa-map-marked-alt',
+    'babysitting': 'fa-baby',
+    'massage': 'fa-spa',
+    'chef': 'fa-utensils',
+    'housekeeping': 'fa-broom',
+    'maintenance': 'fa-tools'
+};
+
+const characteristicsIcons = {
+    'ocean_view': 'fa-water',
+    'mountain_view': 'fa-mountain',
+    'city_view': 'fa-city',
+    'historic': 'fa-landmark',
+    'modern': 'fa-gem',
+    'luxury': 'fa-crown',
+    'eco_friendly': 'fa-leaf',
+    'quiet': 'fa-volume-mute',
+    'central': 'fa-map-marker-alt',
+    'beachfront': 'fa-umbrella-beach',
+    'renovated': 'fa-hammer',
+    'spacious': 'fa-expand-arrows-alt',
+    'furnished': 'fa-couch',
+    'new_construction': 'fa-building'
+};
 
 const UserDashboard = ({ user, properties: initialProperties, userStats: initialStats }) => {
     const [properties, setProperties] = useState(initialProperties || []);
@@ -76,6 +132,10 @@ const UserDashboard = ({ user, properties: initialProperties, userStats: initial
     };
 
     const handlePropertySelect = (property) => {
+        console.log('🔍 DEBUGGING MODAL - Property seleccionada:', property);
+        console.log('🔍 Latitude:', property.latitude, 'Type:', typeof property.latitude);
+        console.log('🔍 Longitude:', property.longitude, 'Type:', typeof property.longitude);
+        console.log('🔍 Verificación condicional:', !!(property.latitude && property.longitude));
         setSelectedProperty(property);
         setShowPropertyModal(true);
     };
@@ -648,251 +708,413 @@ const UserDashboard = ({ user, properties: initialProperties, userStats: initial
                     </>
                 )}
 
-                {/* Modal de detalles de propiedad estilo admin */}
+                {/* Modal de detalles de propiedad estilo premium */}
                 {showPropertyModal && selectedProperty && (
-                    <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4" onClick={() => setShowPropertyModal(false)}>
-                        <div className="bg-white rounded-xl max-w-5xl w-full max-h-[95vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+                    <div className="fixed z-[99999] inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4" onClick={() => setShowPropertyModal(false)}>
+                        <div className="bg-white rounded-2xl max-w-7xl w-full max-h-[95vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
                             
-                            {/* Header */}
-                            <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
-                                <div className="flex items-center space-x-4">
-                                    {selectedProperty?.main_image ? (
-                                        <img 
-                                            src={`/api/property/media/${selectedProperty.main_image}`}
-                                            alt={selectedProperty.title}
-                                            className="w-16 h-16 object-cover rounded-lg shadow-md"
-                                        />
-                                    ) : (
-                                        <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-                                            <i className="mdi mdi-home text-white text-2xl"></i>
-                                        </div>
-                                    )}
-                                    <div>
-                                        <h3 className="text-xl font-bold text-gray-900">{selectedProperty.title}</h3>
-                                        <p className="text-sm text-gray-600">
-                                            <i className="mdi mdi-map-marker mr-1"></i>
-                                            {selectedProperty.district}, {selectedProperty.city}
-                                        </p>
-                                        <p className="text-xs text-gray-500 font-mono">/{selectedProperty.slug}</p>
+                            {/* Header con imagen de fondo */}
+                            <div className="relative h-64 bg-gradient-to-br from-primary to-accent rounded-t-2xl overflow-hidden">
+                                {selectedProperty?.main_image ? (
+                                    <img 
+                                        src={`/api/property/media/${selectedProperty.main_image}`}
+                                        alt={selectedProperty.title}
+                                        className="w-full h-full object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-full h-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                                        <i className="mdi mdi-home text-white text-6xl"></i>
                                     </div>
-                                </div>
+                                )}
+                                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                                
+                                {/* Botón cerrar */}
                                 <button
                                     onClick={() => setShowPropertyModal(false)}
-                                    className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg p-2 transition-colors"
+                                    className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-opacity-30 transition-all"
                                 >
-                                    <i className="mdi mdi-close text-xl"></i>
+                                    <i className="mdi mdi-close text-2xl"></i>
                                 </button>
+
+                                {/* Info superpuesta */}
+                                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                    <div className="flex items-end justify-between">
+                                        <div>
+                                            <h2 className="text-3xl font-bold mb-2">{selectedProperty.title}</h2>
+                                            <div className="flex items-center text-lg opacity-90">
+                                                <i className="mdi mdi-map-marker mr-2"></i>
+                                                {selectedProperty.district}, {selectedProperty.city}
+                                            </div>
+                                            {selectedProperty.price_per_night && (
+                                                <div className="mt-2 inline-flex items-center bg-white bg-opacity-20 backdrop-blur-sm rounded-full px-4 py-2">
+                                                    <span className="text-2xl font-bold">
+                                                        {selectedProperty.currency || '$'} {selectedProperty.price_per_night}
+                                                    </span>
+                                                    <span className="text-sm ml-1 opacity-80">/noche</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="text-right">
+                                            {getStatusBadge(selectedProperty)}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            {/* Contenido */}
-                            <div className="p-6">
+                            {/* Contenido del modal */}
+                            <div className="p-8">
                                 
-                                {/* Métricas principales */}
-                                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
-                                        <div className="text-2xl font-bold text-blue-600">
+                                {/* Métricas principales en tarjetas destacadas */}
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                                    <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-6 text-center shadow-lg">
+                                        <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                            <i className="mdi mdi-eye text-white text-2xl"></i>
+                                        </div>
+                                        <div className="text-3xl font-bold text-blue-600 mb-1">
                                             {formatNumber(selectedProperty.metrics_summary?.property_view || 0)}
                                         </div>
                                         <div className="text-sm text-blue-700 font-semibold">Visualizaciones</div>
                                     </div>
-                                    <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
-                                        <div className="text-2xl font-bold text-red-600">
+                                    
+                                    <div className="bg-gradient-to-br from-red-50 to-red-100 border border-red-200 rounded-2xl p-6 text-center shadow-lg">
+                                        <div className="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                            <i className="mdi mdi-open-in-new text-white text-2xl"></i>
+                                        </div>
+                                        <div className="text-3xl font-bold text-red-600 mb-1">
                                             {formatNumber(selectedProperty.metrics_summary?.airbnb_click || 0)}
                                         </div>
-                                        <div className="text-sm text-red-700 font-semibold">Clicks</div>
+                                        <div className="text-sm text-red-700 font-semibold">Clicks a Airbnb</div>
                                     </div>
-                                    <div className="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
-                                        <div className="text-2xl font-bold text-green-600">
+                                    
+                                    <div className="bg-gradient-to-br from-green-50 to-green-100 border border-green-200 rounded-2xl p-6 text-center shadow-lg">
+                                        <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                            <i className="mdi mdi-image-multiple text-white text-2xl"></i>
+                                        </div>
+                                        <div className="text-3xl font-bold text-green-600 mb-1">
                                             {formatNumber(selectedProperty.metrics_summary?.gallery_view || 0)}
                                         </div>
-                                        <div className="text-sm text-green-700 font-semibold">Galería</div>
+                                        <div className="text-sm text-green-700 font-semibold">Vistas Galería</div>
                                     </div>
-                                    <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
-                                        <div className="text-2xl font-bold text-purple-600">
+                                    
+                                    <div className="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-2xl p-6 text-center shadow-lg">
+                                        <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                            <i className="mdi mdi-chart-line text-white text-2xl"></i>
+                                        </div>
+                                        <div className="text-3xl font-bold text-purple-600 mb-1">
                                             {selectedProperty.conversion_rate || 0}%
                                         </div>
                                         <div className="text-sm text-purple-700 font-semibold">Conversión</div>
                                     </div>
                                 </div>
 
-                                {/* Grid de información */}
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                {/* Grid principal de información */}
+                                <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
                                     
-                                    {/* Información básica */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2">
-                                            <i className="mdi mdi-information-outline text-primary mr-2"></i>
-                                            Información Básica
-                                        </h4>
+                                    {/* Columna 1: Información básica y datos */}
+                                    <div className="xl:col-span-1 space-y-8">
                                         
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div className="bg-gray-50 rounded-lg p-3">
-                                                <div className="text-sm text-gray-600">Habitaciones</div>
-                                                <div className="text-lg font-bold text-gray-900">{selectedProperty.bedrooms || 'N/A'}</div>
+                                        {/* Información básica */}
+                                        <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-6 shadow-lg">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i className="mdi mdi-information text-white text-lg"></i>
+                                                </div>
+                                                Información Básica
+                                            </h3>
+                                            
+                                            <div className="grid grid-cols-2 gap-4 mb-6">
+                                                <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                                                    <div className="flex items-center mb-2">
+                                                        <i className="mdi mdi-bed text-gray-600 mr-2"></i>
+                                                        <span className="text-sm text-gray-600">Habitaciones</span>
+                                                    </div>
+                                                    <div className="text-2xl font-bold text-gray-900">{selectedProperty.bedrooms || 'N/A'}</div>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                                                    <div className="flex items-center mb-2">
+                                                        <i className="mdi mdi-shower text-gray-600 mr-2"></i>
+                                                        <span className="text-sm text-gray-600">Baños</span>
+                                                    </div>
+                                                    <div className="text-2xl font-bold text-gray-900">{selectedProperty.bathrooms || 'N/A'}</div>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                                                    <div className="flex items-center mb-2">
+                                                        <i className="mdi mdi-account-group text-gray-600 mr-2"></i>
+                                                        <span className="text-sm text-gray-600">Huéspedes</span>
+                                                    </div>
+                                                    <div className="text-2xl font-bold text-gray-900">{selectedProperty.max_guests || 'N/A'}</div>
+                                                </div>
+                                                <div className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                                                    <div className="flex items-center mb-2">
+                                                        <i className="mdi mdi-ruler-square text-gray-600 mr-2"></i>
+                                                        <span className="text-sm text-gray-600">Área</span>
+                                                    </div>
+                                                    <div className="text-2xl font-bold text-gray-900">
+                                                        {selectedProperty.area_m2 ? selectedProperty.area_m2 + ' m²' : 'N/A'}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="bg-gray-50 rounded-lg p-3">
-                                                <div className="text-sm text-gray-600">Baños</div>
-                                                <div className="text-lg font-bold text-gray-900">{selectedProperty.bathrooms || 'N/A'}</div>
-                                            </div>
-                                            <div className="bg-gray-50 rounded-lg p-3">
-                                                <div className="text-sm text-gray-600">Huéspedes</div>
-                                                <div className="text-lg font-bold text-gray-900">{selectedProperty.max_guests || 'N/A'}</div>
-                                            </div>
-                                            <div className="bg-gray-50 rounded-lg p-3">
-                                                <div className="text-sm text-gray-600">Área</div>
-                                                <div className="text-lg font-bold text-gray-900">{selectedProperty.area_m2 ? selectedProperty.area_m2 + ' m²' : 'N/A'}</div>
+
+                                            {selectedProperty.rating && (
+                                                <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-xl p-4">
+                                                    <div className="flex items-center justify-between">
+                                                        <div className="flex items-center">
+                                                            <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mr-4">
+                                                                <i className="mdi mdi-star text-white text-xl"></i>
+                                                            </div>
+                                                            <div>
+                                                                <div className="text-sm text-yellow-700 font-semibold">Rating</div>
+                                                                <div className="text-2xl font-bold text-yellow-800">{selectedProperty.rating}</div>
+                                                            </div>
+                                                        </div>
+                                                        {selectedProperty.reviews_count && (
+                                                            <div className="text-right">
+                                                                <div className="text-lg font-bold text-yellow-800">{selectedProperty.reviews_count}</div>
+                                                                <div className="text-xs text-yellow-700">reseñas</div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Información adicional */}
+                                            <div className="space-y-3 mt-6">
+                                                <div className="flex justify-between items-center p-3 bg-white rounded-xl border border-gray-100">
+                                                    <span className="text-sm text-gray-600 flex items-center">
+                                                        <i className="mdi mdi-domain mr-2"></i>
+                                                        Plataforma:
+                                                    </span>
+                                                    <span className="font-semibold text-gray-900 capitalize">{selectedProperty.platform || 'N/A'}</span>
+                                                </div>
+                                                <div className="flex justify-between items-center p-3 bg-white rounded-xl border border-gray-100">
+                                                    <span className="text-sm text-gray-600 flex items-center">
+                                                        <i className="mdi mdi-calendar mr-2"></i>
+                                                        Disponibilidad:
+                                                    </span>
+                                                    <span className="font-semibold text-gray-900 capitalize">{selectedProperty.availability_status || 'N/A'}</span>
+                                                </div>
+                                                <div className="flex justify-between items-center p-3 bg-white rounded-xl border border-gray-100">
+                                                    <span className="text-sm text-gray-600 flex items-center">
+                                                        <i className="mdi mdi-clock mr-2"></i>
+                                                        Registrada:
+                                                    </span>
+                                                    <span className="font-semibold text-gray-900">
+                                                        {new Date(selectedProperty.created_at).toLocaleDateString('es-ES')}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        {selectedProperty.price_per_night && (
-                                            <div className="bg-primary/10 border border-primary/20 rounded-lg p-4">
-                                                <div className="text-sm text-primary font-semibold">Precio por noche</div>
-                                                <div className="text-2xl font-bold text-primary">
-                                                    {selectedProperty.currency || '$'} {selectedProperty.price_per_night}
-                                                </div>
-                                            </div>
-                                        )}
-
-                                        {selectedProperty.rating && (
-                                            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                                                <div className="flex items-center justify-between">
-                                                    <div>
-                                                        <div className="text-sm text-yellow-700 font-semibold">Rating</div>
-                                                        <div className="flex items-center">
-                                                            <i className="mdi mdi-star text-yellow-500 text-xl mr-1"></i>
-                                                            <span className="text-xl font-bold text-yellow-800">{selectedProperty.rating}</span>
-                                                        </div>
-                                                    </div>
-                                                    {selectedProperty.reviews_count && (
-                                                        <div className="text-right">
-                                                            <div className="text-lg font-bold text-yellow-800">{selectedProperty.reviews_count}</div>
-                                                            <div className="text-xs text-yellow-700">reseñas</div>
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
 
-                                    {/* Información adicional */}
-                                    <div className="space-y-4">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2">
-                                            <i className="mdi mdi-cog text-primary mr-2"></i>
-                                            Detalles Adicionales
-                                        </h4>
-                                        
-                                        <div className="space-y-3">
-                                            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                                <span className="text-sm text-gray-600">Plataforma:</span>
-                                                <span className="font-semibold text-gray-900 capitalize">{selectedProperty.platform || 'N/A'}</span>
+                                    {/* Columna 2: Mapa de ubicación */}
+                                    <div className="xl:col-span-1">
+                                        <div className="bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-200 p-6 shadow-lg h-full">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i className="mdi mdi-map-marker text-white text-lg"></i>
+                                                </div>
+                                                Ubicación
+                                            </h3>
+                                            
+                                            {/* Dirección completa */}
+                                            <div className="bg-white rounded-xl p-4 border border-green-100 mb-6">
+                                                <div className="text-sm text-gray-600 mb-2">Dirección completa:</div>
+                                                <div className="text-lg font-semibold text-gray-900">
+                                                    {[selectedProperty.address, selectedProperty.district, selectedProperty.city]
+                                                        .filter(Boolean).join(', ')}
+                                                </div>
+                                                {selectedProperty.apartment && (
+                                                    <div className="text-sm text-gray-600 mt-1">
+                                                        Apto/Piso: {selectedProperty.apartment}
+                                                    </div>
+                                                )}
                                             </div>
-                                            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                                <span className="text-sm text-gray-600">Estado:</span>
-                                                {getStatusBadge(selectedProperty)}
-                                            </div>
-                                            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                                <span className="text-sm text-gray-600">Disponibilidad:</span>
-                                                <span className="font-semibold text-gray-900 capitalize">{selectedProperty.availability_status || 'N/A'}</span>
-                                            </div>
-                                            <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
-                                                <span className="text-sm text-gray-600">Registrada:</span>
-                                                <span className="font-semibold text-gray-900">
-                                                    {new Date(selectedProperty.created_at).toLocaleDateString('es-ES')}
-                                                </span>
-                                            </div>
+
+                                            {/* Mapa interactivo */}
+                                            {selectedProperty.latitude && selectedProperty.longitude && 
+                                             parseFloat(selectedProperty.latitude) !== 0 && parseFloat(selectedProperty.longitude) !== 0 ? (
+                                                <div className="rounded-xl overflow-hidden border border-green-200 shadow-lg">
+                                                    <LoadScript googleMapsApiKey={Global.GMAPS_API_KEY}>
+                                                        <GoogleMap
+                                                            mapContainerStyle={{
+                                                                width: "100%",
+                                                                height: "300px"
+                                                            }}
+                                                            center={{
+                                                                lat: parseFloat(selectedProperty.latitude),
+                                                                lng: parseFloat(selectedProperty.longitude)
+                                                            }}
+                                                            zoom={15}
+                                                        >
+                                                            <Marker 
+                                                                position={{
+                                                                    lat: parseFloat(selectedProperty.latitude),
+                                                                    lng: parseFloat(selectedProperty.longitude)
+                                                                }}
+                                                                title={selectedProperty.title}
+                                                            />
+                                                        </GoogleMap>
+                                                    </LoadScript>
+                                                </div>
+                                            ) : (
+                                                <div className="bg-gray-100 rounded-xl p-8 text-center border border-gray-200">
+                                                    <i className="mdi mdi-map-marker-off text-gray-400 text-4xl mb-4"></i>
+                                                    <div className="text-gray-600">
+                                                        <div className="font-semibold">Ubicación no disponible</div>
+                                                        <div className="text-sm mt-1">
+                                                            {selectedProperty.latitude || selectedProperty.longitude ? 
+                                                                'Coordenadas inválidas (0,0)' : 
+                                                                'No se han configurado coordenadas para esta propiedad'
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
+                                    </div>
+
+                                    {/* Columna 3: Características y servicios */}
+                                    <div className="xl:col-span-1 space-y-8">
+                                        
+                                        {/* Amenidades */}
+                                        {selectedProperty.amenities && selectedProperty.amenities.length > 0 && (
+                                            <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-200 p-6 shadow-lg">
+                                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
+                                                        <i className="mdi mdi-star text-white text-lg"></i>
+                                                    </div>
+                                                    Amenidades ({selectedProperty.amenities.length})
+                                                </h3>
+                                                <div className="grid grid-cols-1 gap-3">
+                                                    {selectedProperty.amenities.map((amenity, index) => {
+                                                        const iconClass = amenitiesIcons[amenity] || 'fa-check-circle';
+                                                        return (
+                                                            <div key={index} className="flex items-center p-3 bg-white rounded-xl border border-blue-100 shadow-sm hover:shadow-md transition-shadow">
+                                                                <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mr-3">
+                                                                    <i className={`fas ${iconClass} text-blue-600`}></i>
+                                                                </div>
+                                                                <span className="text-gray-700 font-medium capitalize">
+                                                                    {amenity.replace(/_/g, ' ')}
+                                                                </span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                       
+                                    </div>
+                                      {/* Columna 3: Características y servicios */}
+                                    <div className="xl:col-span-1 space-y-8">
+                                        
+                                     
+
+                                        {/* Servicios */}
+                                        {selectedProperty.services && selectedProperty.services.length > 0 && (
+                                            <div className="bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-200 p-6 shadow-lg">
+                                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-3">
+                                                        <i className="mdi mdi-room-service text-white text-lg"></i>
+                                                    </div>
+                                                    Servicios ({selectedProperty.services.length})
+                                                </h3>
+                                                <div className="grid grid-cols-1 gap-3">
+                                                    {selectedProperty.services.map((service, index) => {
+                                                        const iconClass = servicesIcons[service] || 'fa-cog';
+                                                        return (
+                                                            <div key={index} className="flex items-center p-3 bg-white rounded-xl border border-purple-100 shadow-sm hover:shadow-md transition-shadow">
+                                                                <div className="w-10 h-10 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center mr-3">
+                                                                    <i className={`fas ${iconClass} text-purple-600`}></i>
+                                                                </div>
+                                                                <span className="text-gray-700 font-medium capitalize">
+                                                                    {service.replace(/_/g, ' ')}
+                                                                </span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                     
+                                    </div>
+                                      {/* Columna 3: Características y servicios */}
+                                    <div className="xl:col-span-1 space-y-8">
+                                        
+                                     
+
+                                  
+
+                                        {/* Características */}
+                                        {selectedProperty.characteristics && selectedProperty.characteristics.length > 0 && (
+                                            <div className="bg-gradient-to-br from-emerald-50 to-white rounded-2xl border border-emerald-200 p-6 shadow-lg">
+                                                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                    <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                                                        <i className="mdi mdi-format-list-bulleted text-white text-lg"></i>
+                                                    </div>
+                                                    Características ({selectedProperty.characteristics.length})
+                                                </h3>
+                                                <div className="grid grid-cols-1 gap-3">
+                                                    {selectedProperty.characteristics.map((characteristic, index) => {
+                                                        const iconClass = characteristicsIcons[characteristic] || 'fa-tag';
+                                                        return (
+                                                            <div key={index} className="flex items-center p-3 bg-white rounded-xl border border-emerald-100 shadow-sm hover:shadow-md transition-shadow">
+                                                                <div className="w-10 h-10 bg-gradient-to-br from-emerald-100 to-emerald-200 rounded-lg flex items-center justify-center mr-3">
+                                                                    <i className={`fas ${iconClass} text-emerald-600`}></i>
+                                                                </div>
+                                                                <span className="text-gray-700 font-medium capitalize">
+                                                                    {characteristic.replace(/_/g, ' ')}
+                                                                </span>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
 
                                 {/* Descripción */}
                                 {selectedProperty.description && (
-                                    <div className="mt-6">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                                            <i className="mdi mdi-text text-primary mr-2"></i>
-                                            Descripción
-                                        </h4>
-                                        <div className="bg-gray-50 rounded-lg p-4">
-                                            <p className="text-gray-700 leading-relaxed">{selectedProperty.description}</p>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Amenidades */}
-                                {selectedProperty.amenities && selectedProperty.amenities.length > 0 && (
-                                    <div className="mt-6">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                                            <i className="mdi mdi-star text-primary mr-2"></i>
-                                            Amenidades ({selectedProperty.amenities.length})
-                                        </h4>
-                                        <div className="bg-gray-50 rounded-lg p-4">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                                {selectedProperty.amenities.map((amenity, index) => (
-                                                    <div key={index} className="flex items-center p-2 bg-white rounded border">
-                                                        <i className="mdi mdi-check-circle text-green-500 mr-2"></i>
-                                                        <span className="text-sm text-gray-700">{amenity}</span>
-                                                    </div>
-                                                ))}
+                                    <div className="mt-8">
+                                        <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 p-6 shadow-lg">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-gray-500 to-gray-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i className="mdi mdi-text text-white text-lg"></i>
+                                                </div>
+                                                Descripción
+                                            </h3>
+                                            <div className="bg-white rounded-xl p-6 border border-gray-100 shadow-sm">
+                                                <p className="text-gray-700 leading-relaxed text-lg">{selectedProperty.description}</p>
                                             </div>
                                         </div>
                                     </div>
                                 )}
 
-                                {/* Servicios */}
-                                {selectedProperty.services && selectedProperty.services.length > 0 && (
-                                    <div className="mt-6">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                                            <i className="mdi mdi-room-service text-primary mr-2"></i>
-                                            Servicios ({selectedProperty.services.length})
-                                        </h4>
-                                        <div className="bg-gray-50 rounded-lg p-4">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                {selectedProperty.services.map((service, index) => (
-                                                    <div key={index} className="flex items-center p-2 bg-white rounded border">
-                                                        <i className="mdi mdi-cog text-blue-500 mr-2"></i>
-                                                        <span className="text-sm text-gray-700">{service}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Características */}
-                                {selectedProperty.characteristics && selectedProperty.characteristics.length > 0 && (
-                                    <div className="mt-6">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                                            <i className="mdi mdi-format-list-bulleted text-primary mr-2"></i>
-                                            Características ({selectedProperty.characteristics.length})
-                                        </h4>
-                                        <div className="bg-gray-50 rounded-lg p-4">
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                                {selectedProperty.characteristics.map((characteristic, index) => (
-                                                    <div key={index} className="flex items-center p-2 bg-white rounded border">
-                                                        <i className="mdi mdi-tag text-purple-500 mr-2"></i>
-                                                        <span className="text-sm text-gray-700">{characteristic}</span>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-                                {/* Galería */}
+                                {/* Galería de imágenes mejorada */}
                                 {selectedProperty.gallery && selectedProperty.gallery.length > 0 && (
-                                    <div className="mt-6">
-                                        <h4 className="text-lg font-bold text-gray-900 border-b border-gray-200 pb-2 mb-4">
-                                            <i className="mdi mdi-image-multiple text-primary mr-2"></i>
-                                            Galería de Imágenes ({selectedProperty.gallery.length})
-                                        </h4>
-                                        <div className="bg-gray-50 rounded-lg p-4">
+                                    <div className="mt-8">
+                                        <div className="bg-gradient-to-br from-indigo-50 to-white rounded-2xl border border-indigo-200 p-6 shadow-lg">
+                                            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+                                                <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center mr-3">
+                                                    <i className="mdi mdi-image-multiple text-white text-lg"></i>
+                                                </div>
+                                                Galería de Imágenes ({selectedProperty.gallery.length})
+                                            </h3>
                                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                                                 {selectedProperty.gallery.map((image, index) => (
-                                                    <div key={index} className="relative aspect-square rounded-lg overflow-hidden border-2 border-white shadow-md">
-                                                        <img 
-                                                            src={`/api/property/media/${image}`}
-                                                            alt={`Imagen ${index + 1}`}
-                                                            className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
-                                                        />
+                                                    <div key={index} className="relative group">
+                                                        <div className="aspect-square rounded-xl overflow-hidden border-2 border-white shadow-lg hover:shadow-xl transition-shadow">
+                                                            <img 
+                                                                src={`/api/property/media/${image}`}
+                                                                alt={`Imagen ${index + 1}`}
+                                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                                            />
+                                                        </div>
+                                                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 rounded-xl flex items-center justify-center">
+                                                            <i className="mdi mdi-magnify text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </div>
@@ -901,32 +1123,32 @@ const UserDashboard = ({ user, properties: initialProperties, userStats: initial
                                 )}
                             </div>
 
-                            {/* Footer con acciones */}
-                            <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
-                                <div className="flex flex-col sm:flex-row gap-3 justify-end">
+                            {/* Footer con acciones mejoradas */}
+                            <div className="border-t border-gray-200 bg-gradient-to-r from-gray-50 to-white px-8 py-6 rounded-b-2xl">
+                                <div className="flex flex-col sm:flex-row gap-4 justify-end">
                                     <a
                                         href={`/property/${selectedProperty.slug}`}
                                         target="_blank"
-                                        className="inline-flex items-center justify-center px-6 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-colors"
+                                        className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200"
                                     >
-                                        <i className="mdi mdi-open-in-new mr-2"></i>
+                                        <i className="mdi mdi-open-in-new mr-2 text-lg"></i>
                                         Ver en el Sitio
                                     </a>
                                     {selectedProperty.external_link && (
                                         <a
                                             href={selectedProperty.external_link}
                                             target="_blank"
-                                            className="inline-flex items-center justify-center px-6 py-2 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transition-colors"
+                                            className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-secondary to-red-600 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-200"
                                         >
-                                            <i className="mdi mdi-link mr-2"></i>
+                                            <i className="mdi mdi-link mr-2 text-lg"></i>
                                             Ir a Plataforma
                                         </a>
                                     )}
                                     <button
                                         onClick={() => setShowPropertyModal(false)}
-                                        className="inline-flex items-center justify-center px-6 py-2 bg-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-400 transition-colors"
+                                        className="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-gray-300 to-gray-400 text-gray-700 font-semibold rounded-xl hover:from-gray-400 hover:to-gray-500 hover:scale-105 transition-all duration-200"
                                     >
-                                        <i className="mdi mdi-close mr-2"></i>
+                                        <i className="mdi mdi-close mr-2 text-lg"></i>
                                         Cerrar
                                     </button>
                                 </div>

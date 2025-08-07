@@ -33,9 +33,12 @@ class UserDashboardController extends BasicController
         // Obtener propiedades del usuario con métricas detalladas
         $properties = Property::where('user_id', $user->id)
             ->select([
-                'id', 'title', 'slug', 'district', 'city', 'country',
-                'price_per_night', 'currency', 'active', 'admin_approved', 
-                'featured', 'created_at', 'updated_at'
+                'id', 'title', 'slug', 'district', 'city', 'country', 'address',
+                'latitude', 'longitude', 'price_per_night', 'currency', 'active', 'admin_approved', 
+                'featured', 'created_at', 'updated_at', 'bedrooms', 'bathrooms', 'max_guests',
+                'area_m2', 'rating', 'reviews_count', 'main_image', 'gallery', 'platform',
+                'amenities', 'services', 'characteristics', 'description', 'external_link',
+                'availability_status'
             ])
             ->orderByDesc('created_at')
             ->get();
@@ -146,6 +149,9 @@ class UserDashboardController extends BasicController
                 'slug' => $property->slug,
                 'district' => $property->district,
                 'city' => $property->city,
+                'address' => $property->address,
+                'latitude' => $property->latitude,
+                'longitude' => $property->longitude,
                 'price_per_night' => $property->price_per_night,
                 'currency' => $property->currency,
                 'bedrooms' => $property->bedrooms,
