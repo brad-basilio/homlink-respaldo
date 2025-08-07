@@ -258,3 +258,8 @@ Route::get('/api/ubigeo', function () {
         return response()->json(['error' => 'Error al cargar ubigeo'], 500);
     }
 });
+
+// Ruta para test de métricas
+Route::get('/test-metrics', function () {
+    return view('test-metrics');
+});

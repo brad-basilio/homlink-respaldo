@@ -26,11 +26,17 @@ class PropertyDetailController extends BasicController
             abort(404, 'Propiedad no encontrada');
         }
 
-        // ✅ REGISTRAR MÉTRICA DE VISUALIZACIÓN
-        PropertyMetric::track($property->id, 'property_view', [
+        // ✅ REGISTRAR MÉTRICA DE VISUALIZACIÓN (TEMPORALMENTE DESHABILITADA)
+        // Nota: Deshabilitada para evitar duplicados con la métrica del frontend
+        // El frontend registrará la métrica con session_id adecuado
+        /*
+        PropertyMetric::track($property->id, 'property_view', null, [
             'page' => 'property_detail',
-            'slug' => $slug
+            'slug' => $slug,
+            'source' => 'backend_page_load',
+            'timestamp' => now()->toISOString()
         ]);
+        */
 
         // Obtener otras propiedades relacionadas o destacadas
         $relatedData = $this->getRelatedProperties($property);

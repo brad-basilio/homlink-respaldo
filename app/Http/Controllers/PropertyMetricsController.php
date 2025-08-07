@@ -16,58 +16,92 @@ class PropertyMetricsController extends Controller
      */
     public function track(Request $request)
     {
+        // 🔍 LOG INICIAL: Toda petición que llegue
+        Log::info("🚀 PropertyMetrics track iniciado", [
+            'method' => $request->method(),
+            'url' => $request->fullUrl(),
+            'user_agent' => $request->userAgent(),
+            'ip' => $request->ip(),
+            'all_data' => $request->all()
+        ]);
+
         $request->validate([
             'property_id' => 'required|exists:properties,id',
             'event_type' => 'required|in:' . implode(',', array_keys(PropertyMetric::EVENT_TYPES)),
+            'session_id' => 'nullable|string',
             'metadata' => 'nullable|array'
         ]);
 
         try {
             $propertyId = $request->property_id;
             $eventType = $request->event_type;
+            $sessionId = $request->session_id; // ✅ USAR EL SESSION_ID DEL FRONTEND
             
-            // ✅ CONTROL DE SESIÓN PARA EVITAR MÚLTIPLES VISTAS DE LA MISMA PROPIEDAD
+            Log::info("🔍 Datos recibidos validados", [
+                'property_id' => $propertyId,
+                'event_type' => $eventType,
+                'frontend_session_id' => $sessionId,
+                'laravel_session_id' => session()->getId(),
+                'metadata' => $request->metadata
+            ]);
+            
+            // ✅ CONTROL DE SESIÓN USANDO EL SESSION_ID DEL FRONTEND
             // Solo para eventos que deben ser únicos por sesión
             $sessionControlledEvents = ['property_detail_view', 'property_view', 'gallery_view'];
             
-            if (in_array($eventType, $sessionControlledEvents)) {
-                $sessionKey = "property_metric_{$eventType}_{$propertyId}";
+            if (in_array($eventType, $sessionControlledEvents) && $sessionId) {
+                // ✅ VERIFICAR EN BASE DE DATOS SI YA EXISTE ESTA MÉTRICA PARA ESTE SESSION_ID
+                $existingMetric = PropertyMetric::where('property_id', $propertyId)
+                    ->where('event_type', $eventType)
+                    ->where('session_id', $sessionId)
+                    ->first();
                 
-                // Verificar si ya se registró en esta sesión
-                if (session()->has($sessionKey)) {
-                    Log::info("🔒 Métrica ya registrada en esta sesión", [
+                Log::info("🔍 Verificando control de sesión por session_id", [
+                    'property_id' => $propertyId,
+                    'event_type' => $eventType,
+                    'frontend_session_id' => $sessionId,
+                    'existing_metric_found' => $existingMetric ? true : false,
+                    'existing_metric_id' => $existingMetric?->id,
+                    'existing_metric_created' => $existingMetric?->created_at
+                ]);
+                
+                // Si ya existe, no crear duplicado
+                if ($existingMetric) {
+                    Log::info("🔒 Métrica ya registrada para este session_id", [
                         'property_id' => $propertyId,
                         'event_type' => $eventType,
-                        'session_id' => session()->getId(),
-                        'previous_timestamp' => session($sessionKey),
+                        'session_id' => $sessionId,
+                        'existing_metric_id' => $existingMetric->id,
+                        'previous_timestamp' => $existingMetric->created_at,
                         'user_id' => Auth::id() ?? 'guest'
                     ]);
                     
                     return response()->json([
                         'success' => true, 
-                        'message' => 'Métrica ya registrada en esta sesión',
-                        'duplicated' => true
+                        'message' => 'Métrica ya registrada para este session_id',
+                        'duplicated' => true,
+                        'session_id' => $sessionId,
+                        'existing_metric_id' => $existingMetric->id
                     ]);
                 }
                 
-                // Marcar como registrado en la sesión actual
-                session([$sessionKey => now()->toISOString()]);
-                
-                Log::info("✅ Nueva métrica registrada para la sesión", [
+                Log::info("✅ Nueva métrica - session_id único", [
                     'property_id' => $propertyId,
                     'event_type' => $eventType,
-                    'session_id' => session()->getId(),
+                    'session_id' => $sessionId,
                     'timestamp' => now()->toISOString(),
                     'user_id' => Auth::id() ?? 'guest'
                 ]);
             }
 
-            // Registrar la métrica en la base de datos
-            PropertyMetric::track(
+            // ✅ REGISTRAR LA MÉTRICA CON EL SESSION_ID DEL FRONTEND
+            $metric = PropertyMetric::track(
                 $propertyId,
                 $eventType,
+                $sessionId, // ✅ PASAR EL SESSION_ID DEL FRONTEND
                 array_merge($request->metadata ?? [], [
-                    'session_id' => session()->getId(),
+                    'frontend_session_id' => $sessionId,
+                    'laravel_session_id' => session()->getId(),
                     'user_id' => Auth::id(),
                     'ip_address' => $request->ip(),
                     'user_agent' => $request->userAgent(),
@@ -75,7 +109,22 @@ class PropertyMetricsController extends Controller
                 ])
             );
 
-            return response()->json(['success' => true, 'duplicated' => false]);
+            Log::info("✅ Métrica guardada exitosamente", [
+                'metric_id' => $metric?->id ?? 'unknown',
+                'property_id' => $propertyId,
+                'event_type' => $eventType,
+                'session_id' => $sessionId,
+                'user_id' => Auth::id() ?? 'guest',
+                'created_at' => $metric?->created_at ?? 'unknown'
+            ]);
+
+            return response()->json([
+                'success' => true, 
+                'duplicated' => false,
+                'metric_id' => $metric?->id,
+                'session_id' => $sessionId,
+                'created_at' => $metric?->created_at
+            ]);
         } catch (\Exception $e) {
             Log::error("❌ Error registrando métrica", [
                 'property_id' => $request->property_id ?? null,

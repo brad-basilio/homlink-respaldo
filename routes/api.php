@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\BannerMediaController;
 use App\Http\Controllers\PaymentMethodMediaController;
+use App\Http\Controllers\PropertyMetricsController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -645,11 +646,11 @@ Route::get('/property-filters/property-types', [App\Http\Controllers\PropertyFil
 Route::post('/property-filters/filter', [App\Http\Controllers\PropertyFilterController::class, 'filterProperties']);
 
 // ✅ AGREGADO: Rutas para métricas de propiedades
-Route::post('/property-metrics/track', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'track']);
+Route::post('/property-metrics/track', [App\Http\Controllers\PropertyMetricsController::class, 'track']);
 
 // ✅ AGREGADO: Rutas de debugging para sesiones de métricas
-Route::post('/property-metrics/clear-session', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'clearSessionMetrics']);
-Route::get('/property-metrics/session-debug', [App\Http\Controllers\Admin\PropertyMetricsController::class, 'getSessionDebugInfo']);
+Route::post('/property-metrics/clear-session', [App\Http\Controllers\PropertyMetricsController::class, 'clearSessionMetrics']);
+Route::get('/property-metrics/session-debug', [App\Http\Controllers\PropertyMetricsController::class, 'getSessionDebugInfo']);
 
 // Rutas protegidas para métricas
 Route::middleware('auth')->group(function () {

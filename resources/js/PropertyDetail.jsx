@@ -25,6 +25,18 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
     const [guests, setGuests] = useState(1);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // ✅ GENERAR SESSION_ID ÚNICO PARA TODA LA SESIÓN DEL NAVEGADOR
+    useEffect(() => {
+        // Solo generar si no existe ya en sessionStorage
+        if (!sessionStorage.getItem('app_session_id')) {
+            const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            sessionStorage.setItem('app_session_id', sessionId);
+            console.log('🆔 Nuevo session_id generado:', sessionId);
+        } else {
+            console.log('🆔 Session_id existente:', sessionStorage.getItem('app_session_id'));
+        }
+    }, []);
+
     // ✅ MAPEO DE ÍCONOS PARA AMENIDADES, SERVICIOS, CARACTERÍSTICAS Y REGLAS
     // Usando exactamente los mismos IDs y labels que en HeroSecction.jsx
     const amenityIcons = {
@@ -313,21 +325,51 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
             
             const alreadyViewed = sessionStorage.getItem(viewSessionKey);
             
-            // SI NO HA SIDO VISTA EN ESTA SESIÓN, registrarla UNA SOLA VEZ
-            if (!alreadyViewed) {
+            // 🔍 DEBUGGING MODE: SIEMPRE ENVIAR (temporalmente deshabilitada la protección)
+            const debugMode = true; // ⚠️ CAMBIAR A false EN PRODUCCIÓN
+            
+            // SI NO HA SIDO VISTA EN ESTA SESIÓN O ESTÁ EN DEBUG MODE, registrarla
+            if (!alreadyViewed || debugMode) {
                 console.log('🔍 Registrando vista de Property Detail para propiedad:', property.id);
+                console.log('🔧 DEBUG MODE:', debugMode ? 'ACTIVADO - enviando siempre' : 'DESACTIVADO');
                 
                 // MARCAR INMEDIATAMENTE COMO 'processing' para prevenir duplicados
-                sessionStorage.setItem(viewSessionKey, 'processing');
+                sessionStorage.setItem(viewSessionKey, debugMode ? `debug_${Date.now()}` : 'processing');
                 sessionStorage.setItem(`${viewSessionKey}_timestamp`, new Date().toISOString());
                 
                 // Agregar un timeout para verificar que no haya otra ejecución en paralelo
                 setTimeout(() => {
-                    const currentStatus = sessionStorage.getItem(viewSessionKey);
+                    // En debug mode, siempre enviar; en modo normal, verificar status  
+                    const shouldSend = debugMode || true; // Forzar siempre para debugging
                     
-                    // Solo enviar si aún está en 'processing' (no fue cambiado por otra ejecución)
-                    if (currentStatus === 'processing') {
+                    if (shouldSend) {
+                        // � DEBUGGING: Verificar session_id antes de enviar
+                        const sessionId = sessionStorage.getItem('app_session_id');
+                        const fallbackSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+                        const finalSessionId = sessionId || fallbackSessionId;
+                        
                         console.log('🚀 Enviando petición de Property Detail...');
+                        console.log('🆔 Session ID desde sessionStorage:', sessionId);
+                        console.log('🆔 Session ID final que se enviará:', finalSessionId);
+                        console.log('🔍 Todos los datos en sessionStorage:', Object.keys(sessionStorage).map(key => `${key}: ${sessionStorage.getItem(key)}`));
+                        
+                        const requestData = {
+                            property_id: property.id,
+                            event_type: 'property_view',
+                            session_id: finalSessionId,
+                            metadata: {
+                                page: 'property_detail',
+                                title: property.title,
+                                slug: property.slug,
+                                session_controlled: true,
+                                timestamp: new Date().toISOString(),
+                                source: 'property_detail_page',
+                                execution_count: currentExecutions,
+                                debug_mode: debugMode
+                            }
+                        };
+                        
+                        console.log('📦 Datos que se enviarán:', JSON.stringify(requestData, null, 2));
                         
                         fetch('/api/property-metrics/track', {
                             method: 'POST',
@@ -335,32 +377,28 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                             },
-                            body: JSON.stringify({
-                                property_id: property.id,
-                                event_type: 'property_detail_view',
-                                metadata: {
-                                    page: 'property_detail',
-                                    title: property.title,
-                                    slug: property.slug,
-                                    session_controlled: true,
-                                    timestamp: new Date().toISOString(),
-                                    source: 'property_detail_page',
-                                    execution_count: currentExecutions
-                                }
-                            })
+                            body: JSON.stringify(requestData)
                         })
                         .then(response => {
-                            if (response.ok) {
+                            console.log('📡 Respuesta del servidor:', response.status, response.statusText);
+                            return response.text();
+                        })
+                        .then(responseText => {
+                            console.log('📋 Respuesta completa:', responseText);
+                            try {
+                                const responseJson = JSON.parse(responseText);
+                                console.log('✅ Respuesta JSON parseada:', responseJson);
                                 sessionStorage.setItem(viewSessionKey, 'completed');
                                 console.log('✅ Vista de Property Detail registrada exitosamente');
-                            } else {
+                            } catch (e) {
+                                console.log('⚠️ Respuesta no es JSON válido:', e);
                                 sessionStorage.setItem(viewSessionKey, 'error');
-                                console.log('⚠️ Error al registrar vista de Property Detail');
                             }
                         })
                         .catch(error => {
                             sessionStorage.setItem(viewSessionKey, 'error');
                             console.log('❌ Error tracking property detail view:', error);
+                            console.log('❌ Error completo:', error.stack);
                         });
                     } else {
                         console.log('🔒 Petición cancelada, ya procesada por otra ejecución. Status actual:', currentStatus);
@@ -397,6 +435,28 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         try {
             console.log('📊 Enviando petición al servidor...');
             
+            // 🔍 DEBUGGING: Verificar session_id antes de enviar
+            const sessionId = sessionStorage.getItem('app_session_id');
+            const fallbackSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const finalSessionId = sessionId || fallbackSessionId;
+            
+            console.log('🆔 Session ID desde sessionStorage:', sessionId);
+            console.log('🆔 Session ID final que se enviará:', finalSessionId);
+            
+            const requestData = {
+                property_id: propertyId,
+                event_type: 'airbnb_click',
+                session_id: finalSessionId,
+                metadata: {
+                    timestamp: new Date().toISOString(),
+                    url: window.location.href,
+                    external_link: property?.external_link,
+                    user_action: 'intentional_click'
+                }
+            };
+            
+            console.log('📦 Datos Airbnb que se enviarán:', JSON.stringify(requestData, null, 2));
+            
             // USAR RUTA RELATIVA (como el resto de la aplicación)
             const response = await fetch('/api/property-metrics/track', {
                 method: 'POST',
@@ -404,16 +464,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
-                body: JSON.stringify({
-                    property_id: propertyId,
-                    event_type: 'airbnb_click',
-                    metadata: {
-                        timestamp: new Date().toISOString(),
-                        url: window.location.href,
-                        external_link: property?.external_link,
-                        user_action: 'intentional_click'
-                    }
-                })
+                body: JSON.stringify(requestData)
             });
             
             console.log('📊 Respuesta recibida, status:', response.status);
@@ -449,23 +500,36 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         if (!alreadyViewedGallery) {
             console.log('🖼️ Registrando primera interacción con galería en esta sesión:', property.id);
             
+            // 🔍 DEBUGGING: Verificar session_id antes de enviar
+            const sessionId = sessionStorage.getItem('app_session_id');
+            const fallbackSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const finalSessionId = sessionId || fallbackSessionId;
+            
+            console.log('🆔 Gallery - Session ID desde sessionStorage:', sessionId);
+            console.log('🆔 Gallery - Session ID final que se enviará:', finalSessionId);
+            
+            const requestData = {
+                property_id: property.id,
+                event_type: 'gallery_view',
+                session_id: finalSessionId,
+                metadata: {
+                    total_images: allImages.length,
+                    slide_index: swiper.realIndex,
+                    interaction_type: 'slider_navigation',
+                    session_controlled: true,
+                    timestamp: new Date().toISOString()
+                }
+            };
+            
+            console.log('📦 Datos Gallery que se enviarán:', JSON.stringify(requestData, null, 2));
+            
             fetch('/api/property-metrics/track', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
                 },
-                body: JSON.stringify({
-                    property_id: property.id,
-                    event_type: 'gallery_view',
-                    metadata: {
-                        total_images: allImages.length,
-                        slide_index: swiper.realIndex,
-                        interaction_type: 'slider_navigation',
-                        session_controlled: true,
-                        timestamp: new Date().toISOString()
-                    }
-                })
+                body: JSON.stringify(requestData)
             })
             .then(response => {
                 if (response.ok) {
@@ -880,7 +944,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 <div className="flex items-start">
                                     <svg className="w-5 h-5 text-secondary mr-3 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 616 0z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
                                     <div>
                                         <p className="font-medium text-gray-900 mb-1">Dirección</p>

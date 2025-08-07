@@ -13,6 +13,7 @@ class PropertyMetric extends Model
     protected $fillable = [
         'property_id',
         'event_type',
+        'session_id',
         'user_ip',
         'user_agent',
         'referrer',
@@ -22,6 +23,7 @@ class PropertyMetric extends Model
     protected $casts = [
         'metadata' => 'array',
         'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public $timestamps = true;
@@ -67,7 +69,7 @@ class PropertyMetric extends Model
     /**
      * Método estático para registrar una métrica (CON CONTROL DE DUPLICADOS)
      */
-    public static function track($propertyId, $eventType, $metadata = [])
+    public static function track($propertyId, $eventType, $sessionId = null, $metadata = [])
     {
         $request = request();
         $userIp = $request->ip();
@@ -76,14 +78,13 @@ class PropertyMetric extends Model
         // ✅ CONTROL DE DUPLICADOS BASADO EN SESIÓN Y METADATA
         $sessionControlled = $metadata['session_controlled'] ?? false;
         
-        if ($sessionControlled) {
+        if ($sessionControlled && $sessionId) {
             // Para eventos controlados por sesión, verificar duplicados en un período corto
             $timeWindow = now()->subMinutes(5); // Ventana de 5 minutos
             
             $existingMetric = self::where('property_id', $propertyId)
                 ->where('event_type', $eventType)
-                ->where('user_ip', $userIp)
-                ->where('user_agent', $userAgent)
+                ->where('session_id', $sessionId) // ✅ USAR SESSION_ID PARA DETECCIÓN DE DUPLICADOS
                 ->where('created_at', '>=', $timeWindow)
                 ->first();
                 
@@ -91,6 +92,7 @@ class PropertyMetric extends Model
                 Log::info("🚫 Métrica duplicada detectada y bloqueada", [
                     'property_id' => $propertyId,
                     'event_type' => $eventType,
+                    'session_id' => $sessionId,
                     'user_ip' => $userIp,
                     'existing_metric_id' => $existingMetric->id,
                     'existing_created_at' => $existingMetric->created_at,
@@ -102,20 +104,23 @@ class PropertyMetric extends Model
         }
         
         // Si no existe duplicado, crear nuevo registro
-        $newMetric = self::create([
+        $metricData = [
             'property_id' => $propertyId,
             'event_type' => $eventType,
+            'session_id' => $sessionId, // ✅ GUARDAR EL SESSION_ID
             'user_ip' => $userIp,
             'user_agent' => $userAgent,
             'referrer' => $request->header('referer'),
-            'metadata' => $metadata,
-            'created_at' => now()
-        ]);
+            'metadata' => $metadata, // ✅ Laravel manejará la conversión automáticamente
+        ];
+        
+        $newMetric = self::create($metricData);
         
         Log::info("✅ Nueva métrica registrada", [
             'metric_id' => $newMetric->id,
             'property_id' => $propertyId,
             'event_type' => $eventType,
+            'session_id' => $sessionId,
             'user_ip' => $userIp,
             'session_controlled' => $sessionControlled
         ]);
