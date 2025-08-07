@@ -223,7 +223,7 @@ const Properties = () => {
     const descriptionRef = useRef();
     const shortDescriptionRef = useRef();
     const ratingRef = useRef();
-    const reviewsCountRef = useRef();
+    //const reviewsCountRef = useRef();
 
     // Image refs
     const mainImageRef = useRef();
@@ -782,7 +782,7 @@ const Properties = () => {
             descriptionRef.current.value = data.description || "";
             shortDescriptionRef.current.value = data.short_description || "";
             ratingRef.current.value = data.rating || 5.0;
-            reviewsCountRef.current.value = data.reviews_count || 0;
+          //  reviewsCountRef.current.value = data.reviews_count || 0;
 
             // Configurar imagen principal si existe
             if (data.main_image) {
@@ -833,7 +833,7 @@ const Properties = () => {
             descriptionRef.current.value = "";
             shortDescriptionRef.current.value = "";
             ratingRef.current.value = 5.0;
-            reviewsCountRef.current.value = 0;
+          //  reviewsCountRef.current.value = 0;
 
             mainImageRef.current.value = "";
             mainImageRef.image.src = `/api/property/media/undefined`;
@@ -877,8 +877,8 @@ const Properties = () => {
         formData.append("description", descriptionRef.current.value);
         formData.append("short_description", shortDescriptionRef.current.value);
         formData.append("rating", ratingRef.current.value);
-        formData.append("reviews_count", reviewsCountRef.current.value);
-
+        //formData.append("reviews_count", reviewsCountRef.current.value);
+formData.append("reviews_count", 0);
         // ✅ AGREGADO: Las propiedades creadas desde admin se aprueban automáticamente
         if (!isEditing) {
             formData.append("admin_approved", true);
@@ -1725,7 +1725,7 @@ const Properties = () => {
                     </div>
 
                     {/* Amenidades Personalizadas */}
-                    <div className="col-12 mb-4">
+                  {/*  <div className="col-12 mb-4">
                         <h5 className="border-bottom pb-2">
                             <i className="fas fa-wifi me-2"></i>
                             Amenidades Personalizadas
@@ -1751,7 +1751,7 @@ const Properties = () => {
                                 </div>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* Servicios Predefinidos */}
                     <div className="col-12 mb-4">
@@ -1981,7 +1981,7 @@ const Properties = () => {
                                     placeholder="5.0"
                                 />
                             </div>
-                            <div className="col-lg-3 mb-3">
+                          {/*  <div className="col-lg-3 mb-3">
                                 <InputFormGroup
                                     label="Número de reseñas"
                                     eRef={reviewsCountRef}
@@ -1989,7 +1989,7 @@ const Properties = () => {
                                     min="0"
                                     placeholder="0"
                                 />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

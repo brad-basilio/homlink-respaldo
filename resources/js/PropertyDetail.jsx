@@ -24,6 +24,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
     const [checkOut, setCheckOut] = useState('');
     const [guests, setGuests] = useState(1);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
 
     // ✅ GENERAR SESSION_ID ÚNICO PARA TODA LA SESIÓN DEL NAVEGADOR
     useEffect(() => {
@@ -416,6 +417,28 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         }
     }, [property?.id]);
 
+    // ✅ MANEJAR CERRAR MODAL CON TECLA ESCAPE
+    useEffect(() => {
+        const handleEscapeKey = (event) => {
+            if (event.key === 'Escape' && isGalleryModalOpen) {
+                setIsGalleryModalOpen(false);
+            }
+        };
+
+        if (isGalleryModalOpen) {
+            document.addEventListener('keydown', handleEscapeKey);
+            // Prevenir scroll del body cuando el modal está abierto
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+            document.body.style.overflow = 'unset';
+        };
+    }, [isGalleryModalOpen]);
+
     // Función para manejar el click en "Ir a Airbnb"
     const handleAirbnbClick = async () => {
         console.log('📊 Iniciando registro de click de Airbnb...');
@@ -489,6 +512,64 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
         
         console.log('📊 Abriendo enlace:', property.external_link);
         window.open(property.external_link, '_blank');
+    };
+
+    // Función para abrir el modal de galería y registrar métrica
+    const handleViewMorePhotos = () => {
+        console.log('🖼️ Abriendo modal de galería para propiedad:', property.id);
+        
+        // ✅ REGISTRAR MÉTRICA DE INTERACCIÓN CON GALERÍA AL ABRIR MODAL
+        const gallerySessionKey = `gallery_viewed_${property.id}`;
+        const alreadyViewedGallery = sessionStorage.getItem(gallerySessionKey);
+        
+        if (!alreadyViewedGallery) {
+            console.log('🖼️ Registrando primera interacción con galería en esta sesión:', property.id);
+            
+            // 🔍 DEBUGGING: Verificar session_id antes de enviar
+            const sessionId = sessionStorage.getItem('app_session_id');
+            const fallbackSessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+            const finalSessionId = sessionId || fallbackSessionId;
+            
+            console.log('🆔 Gallery - Session ID desde sessionStorage:', sessionId);
+            console.log('🆔 Gallery - Session ID final que se enviará:', finalSessionId);
+            
+            const requestData = {
+                property_id: property.id,
+                event_type: 'gallery_view',
+                session_id: finalSessionId,
+                metadata: {
+                    total_images: allImages.length,
+                    interaction_type: 'modal_open',
+                    session_controlled: true,
+                    timestamp: new Date().toISOString()
+                }
+            };
+            
+            console.log('📦 Datos Gallery que se enviarán:', JSON.stringify(requestData, null, 2));
+            
+            fetch('/api/property-metrics/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''
+                },
+                body: JSON.stringify(requestData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Marcar como vista de galería en esta sesión
+                    sessionStorage.setItem(gallerySessionKey, 'true');
+                    sessionStorage.setItem(`${gallerySessionKey}_timestamp`, new Date().toISOString());
+                    console.log('✅ Interacción con galería registrada y marcada en sesión');
+                }
+            })
+            .catch(error => console.log('❌ Error tracking gallery metric:', error));
+        } else {
+            console.log('🔒 Galería ya vista en esta sesión para propiedad:', property.id);
+        }
+        
+        // Abrir modal
+        setIsGalleryModalOpen(true);
     };
 
     // Función para registrar interacción con el slider (navegación entre imágenes)
@@ -585,99 +666,40 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     </div>
                 </div>
 
-                {/* Swiper de imágenes en loop */}
+                {/* Imagen principal con botón "Ver más fotos" */}
                 <div className="mb-8">
-                    <style jsx>{`
-                        .property-swiper .swiper-pagination-bullet {
-                            width: 8px !important;
-                            height: 8px !important;
-                            background: white !important;
-                            opacity: 0.7 !important;
-                            transition: all 0.3s ease !important;
-                            margin: 0 4px !important;
-                        }
-                        .property-swiper .swiper-pagination-bullet-active {
-                            width: 20px !important;
-                            height: 8px !important;
-                            -radius: 12px !important;
-                            opacity: 1 !important;
-                            background: white !important;
-                        }
-                    `}</style>
                     <div className="relative h-96 rounded-xl overflow-hidden group">
                         {allImages.length > 0 ? (
-                            <Swiper
-                                modules={[Pagination, Navigation, Autoplay]}
-                                spaceBetween={0}
-                                slidesPerView={1}
-                                loop={allImages.length > 1}
-                                autoplay={allImages.length > 1 ? {
-                                    delay: 4000,
-                                    disableOnInteraction: false,
-                                } : false}
-                                pagination={{
-                                    clickable: true,
-                                }}
-                                navigation={{
-                                    nextEl: '.property-swiper-button-next',
-                                    prevEl: '.property-swiper-button-prev',
-                                }}
-                                onSlideChange={(swiper) => {
-                                    setCurrentImageIndex(swiper.realIndex);
-                                    // ✅ Solo registrar si el cambio fue por interacción del usuario (no autoplay)
-                                    if (!swiper.autoplay.running) {
-                                        handleSliderInteraction(swiper);
-                                    }
-                                }}
-                                onNavigationNext={(swiper) => {
-                                    // ✅ Registrar interacción cuando usa navegación
-                                    handleSliderInteraction(swiper);
-                                }}
-                                onNavigationPrev={(swiper) => {
-                                    // ✅ Registrar interacción cuando usa navegación
-                                    handleSliderInteraction(swiper);
-                                }}
-                                className="property-swiper h-full w-full"
-                            >
-                                {allImages.map((image, index) => (
-                                    <SwiperSlide key={index}>
-                                        <img
-                                            src={image ? `/api/property/media/${image}` : '/assets/images/property-placeholder.jpg'}
-                                            alt={`${title} - Vista ${index + 1}`}
-                                            className="w-full h-full object-cover cursor-pointer"
-                                            onError={(e) => {
-                                                e.target.src = '/assets/images/property-placeholder.jpg';
-                                            }}
-                                        />
-                                    </SwiperSlide>
-                                ))}
+                            <>
+                                {/* Imagen principal */}
+                                <img
+                                    src={allImages[0] ? `/api/property/media/${allImages[0]}` : '/assets/images/property-placeholder.jpg'}
+                                    alt={`${title} - Imagen principal`}
+                                    className="w-full h-full object-cover cursor-pointer"
+                                    onClick={handleViewMorePhotos}
+                                    onError={(e) => {
+                                        e.target.src = '/assets/images/property-placeholder.jpg';
+                                    }}
+                                />
                                 
-                                {/* Navigation arrows - solo mostrar si hay más de 1 imagen */}
+                                {/* Botón "Ver más fotos" - solo mostrar si hay más de 1 imagen */}
                                 {allImages.length > 1 && (
-                                    <>
-                                        <div className="property-swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all opacity-0 group-hover:opacity-100 shadow-lg">
-                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-                                            </svg>
-                                        </div>
-                                        <div className="property-swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all opacity-0 group-hover:opacity-100 shadow-lg">
-                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </div>
-                                    </>
+                                    <button
+                                        onClick={handleViewMorePhotos}
+                                        className="absolute bottom-4 right-4 bg-secondary bg-opacity-90 hover:bg-opacity-100 text-white px-4 py-3 rounded-full font-medium shadow-lg transition-all duration-200 flex items-center space-x-2 backdrop-blur-sm border border-gray-200"
+                                    >
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span>Ver más fotos ({allImages.length})</span>
+                                    </button>
                                 )}
                                 
-                                {/* Image counter */}
-                                {allImages.length > 1 && (
-                                    <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm z-20">
-                                        {currentImageIndex + 1} / {allImages.length}
-                                    </div>
-                                )}
-                            </Swiper>
+                               
+                            </>
                         ) : (
                             <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                                <p className="text-transparent0">No hay imágenes disponibles</p>
+                                <p className="text-gray-500">No hay imágenes disponibles</p>
                             </div>
                         )}
                     </div>
@@ -727,7 +749,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                         </svg>
                                         <span className="font-bold text-yellow-900">{rating}</span>
                                     </div>
-                                    <span className="text-gray-600">({reviews_count || 0} reseñas)</span>
+                                  {/*  <span className="text-gray-600">({reviews_count || 0} reseñas)</span> */}
                                     <span className="ml-4 text-gray-600">{[district, city, department].filter(Boolean).join(', ')}</span>
                                 </div>
                             )}
@@ -975,7 +997,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                             <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                         </svg>
                                         <span className="font-semibold">{rating || '4.6'}</span>
-                                        <span className="text-transparent0 ml-1">({reviews_count || 127} reseñas)</span>
+                                     {/*   <span className="text-transparent0 ml-1">({reviews_count || 127} reseñas)</span> */}
                                     </div>
                                 </div>
 
@@ -1058,6 +1080,101 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                     </div>
                 </div>
             </div>
+
+            {/* Modal de galería con swiper completo */}
+            {isGalleryModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center p-4">
+                    <div className="relative w-full h-full max-w-xl max-h-96">
+                        {/* Botón cerrar */}
+                        <button
+                            onClick={() => setIsGalleryModalOpen(false)}
+                            className="absolute top-4 right-4 z-30 w-12 h-12 bg-black bg-opacity-50 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-opacity-30 transition-all"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
+                        {/* Título de la propiedad */}
+                        <div className="absolute top-4 left-4 z-30 bg-black bg-opacity-50 text-white px-4 py-2 rounded-lg">
+                            <h3 className="font-semibold text-lg">{title}</h3>
+                            <p className="text-sm opacity-90">{allImages.length} fotos</p>
+                        </div>
+
+                        {/* Swiper en modal */}
+                        <div className="w-full h-full rounded-lg overflow-hidden">
+                            <style jsx>{`
+                                .gallery-modal-swiper .swiper-pagination-bullet {
+                                    width: 8px !important;
+                                    height: 8px !important;
+                                    background: white !important;
+                                    opacity: 0.7 !important;
+                                    transition: all 0.3s ease !important;
+                                    margin: 0 4px !important;
+                                }
+                                .gallery-modal-swiper .swiper-pagination-bullet-active {
+                                    width: 20px !important;
+                                    height: 8px !important;
+                                    border-radius: 12px !important;
+                                    opacity: 1 !important;
+                                    background: white !important;
+                                }
+                            `}</style>
+                            <Swiper
+                                modules={[Pagination, Navigation]}
+                                spaceBetween={0}
+                                slidesPerView={1}
+                                loop={allImages.length > 1}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation={{
+                                    nextEl: '.gallery-modal-swiper-button-next',
+                                    prevEl: '.gallery-modal-swiper-button-prev',
+                                }}
+                                onSlideChange={(swiper) => {
+                                    setCurrentImageIndex(swiper.realIndex);
+                                    handleSliderInteraction(swiper);
+                                }}
+                                className="gallery-modal-swiper w-full h-full"
+                            >
+                                {allImages.map((image, index) => (
+                                    <SwiperSlide key={index}>
+                                        <div className="w-full h-full flex items-center justify-center bg-black">
+                                            <img
+                                                src={image ? `/api/property/media/${image}` : '/assets/images/property-placeholder.jpg'}
+                                                alt={`${title} - Vista ${index + 1}`}
+                                                className="w-full h-full object-cover"
+                                                onError={(e) => {
+                                                    e.target.src = '/assets/images/property-placeholder.jpg';
+                                                }}
+                                            />
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                                
+                                {/* Navigation arrows */}
+                                {allImages.length > 1 && (
+                                    <>
+                                        <div className="gallery-modal-swiper-button-prev absolute left-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-black bg-opacity-50 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all shadow-lg">
+                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                                            </svg>
+                                        </div>
+                                        <div className="gallery-modal-swiper-button-next absolute right-4 top-1/2 transform -translate-y-1/2 z-20 w-12 h-12 bg-black bg-opacity-50 backdrop-blur-sm rounded-full flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all shadow-lg">
+                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </>
+                                )}
+                                
+                               
+                            </Swiper>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/*SECCION LO MAS VISITADO */}
             {/* Sección de propiedades relacionadas o destacadas */}
