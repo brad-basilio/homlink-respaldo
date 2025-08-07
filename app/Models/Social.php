@@ -22,8 +22,5 @@ class Social extends Model
         'status',
     ];
 
-    protected $casts = [
-        'visible' => 'boolean',
-        'status' => 'boolean',
-    ];
+  
 }

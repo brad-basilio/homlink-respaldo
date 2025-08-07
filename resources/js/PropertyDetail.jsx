@@ -785,7 +785,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                     </div>
                                     <div className="flex-1">
                                         {check_in_info.host_name && (
-                                            <h4 className="font-semibold text-gray-900 mb-1">{check_in_info.host_name}</h4>
+                                            <h4 className="font-semibold text-gray-900 mb-1 text-lg">{check_in_info.host_name}</h4>
                                         )}
                                         {check_in_info.host_phone && (
                                             <p className="text-gray-600 text-sm mb-2">Teléfono: {check_in_info.host_phone}</p>
@@ -803,13 +803,13 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
                         {/* Lo que ofrece este lugar - usando amenities de la base de datos */}
                         <div className="mb-8 pb-8 -b ">
-                            <h2 className="text-xl font-semibold mb-6">Lo que ofrece este lugar</h2>
+                            <h2 className="text-2xl font-bold mb-6">Lo que ofrece este lugar</h2>
                             {amenities && amenities.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-2 gap-0">
                                     {amenities.map((amenity, index) => (
-                                        <div key={index} className="flex items-center p-3 bg-transparent rounded-lg  ">
+                                        <div key={index} className="flex items-center px-3 py-2 bg-transparent rounded-lg  ">
                                             <i className={`fas ${amenity.icon || 'fa-check'} text-secondary mr-3 text-lg`}></i>
-                                            <span className="font-medium text-gray-900">{amenity.name}</span>
+                                            <span className="font-medium text-gray-900 text-lg">{amenity.name}</span>
                                             {amenity.available === false && (
                                                 <span className="ml-2 text-gray-400 text-sm">(No disponible)</span>
                                             )}
@@ -824,13 +824,13 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         {/* Servicios */}
                         {services && services.length > 0 && (
                             <div className="mb-8 pb-8 -b ">
-                                <h2 className="text-xl font-semibold mb-6">Servicios</h2>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <h2 className="text-2xl font-bold mb-6">Servicios</h2>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                                     {services.map((service, index) => (
-                                        <div key={index} className="flex items-start p-4 bg-transparent  rounded-xl  -blue-200">
+                                        <div key={index} className="flex items-start px-4 py-2 bg-transparent  rounded-xl  -blue-200">
                                             <i className={`fas ${service.icon || 'fa-concierge-bell'} text-secondary mr-3 mt-1 text-lg`}></i>
                                             <div>
-                                                <h4 className="font-semibold text-gray-900 mb-1">{service.name}</h4>
+                                                <h4 className="font-semibold text-gray-900 mb-1 text-lg">{service.name}</h4>
                                                 {service.description && (
                                                     <p className="text-gray-600 text-sm">{service.description}</p>
                                                 )}
@@ -844,13 +844,13 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                         {/* Características */}
                         {characteristics && characteristics.length > 0 && (
                             <div className="mb-8 pb-8 -b ">
-                                <h2 className="text-xl font-semibold mb-6">Características</h2>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                <h2 className="text-2xl font-bold mb-6">Características</h2>
+                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                                     {characteristics.map((characteristic, index) => (
-                                        <div key={index} className="flex items-start p-4  rounded-xl  -green-200">
+                                        <div key={index} className="flex items-start p-4 py-2  rounded-xl  -green-200">
                                             <i className={`fas ${characteristic.icon || 'fa-info'} text-secondary mr-3 mt-1 text-lg`}></i>
                                             <div>
-                                                <h4 className="font-semibold text-gray-900 mb-1">{characteristic.name}</h4>
+                                                <h4 className="font-semibold text-gray-900 mb-1 text-lg">{characteristic.name}</h4>
                                                 {characteristic.value && (
                                                     <p className="text-gray-600 text-sm">{characteristic.value}</p>
                                                 )}
@@ -863,7 +863,7 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
                         {/* Políticas del alojamiento y reglas de la casa */}
                         <div className="mb-8 pb-8 -b ">
-                            <h2 className="text-xl font-semibold mb-6">Políticas del alojamiento</h2>
+                            <h2 className="text-2xl font-bold mb-6">Políticas del alojamiento</h2>
                             <div className="space-y-4">
                                 {/* Información de check-in/out desde check_in_info */}
                                 {check_in_info && (
@@ -893,12 +893,12 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
                                 {house_rules && house_rules.length > 0 && (
                                     <div className="mt-6">
                                         <h3 className="text-lg font-semibold mb-4">Reglas de la casa</h3>
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
                                             {house_rules.map((rule, index) => (
-                                                <div key={index} className="flex items-start p-4  rounded-xl  -orange-200">
+                                                <div key={index} className="flex items-start px-4 py-2  rounded-xl  -orange-200">
                                                     <i className={`fas ${rule.icon || 'fa-info-circle'} text-secondary  mr-3 mt-1 text-lg`}></i>
                                                     <div>
-                                                        <h4 className="font-semibold text-gray-900 mb-1">{rule.name}</h4>
+                                                        <h4 className="font-semibold text-gray-900 mb-1 text-lg">{rule.name}</h4>
                                                         {rule.text && (
                                                             <p className="text-gray-600 text-sm">{rule.text}</p>
                                                         )}
@@ -913,14 +913,14 @@ const PropertyDetail = ({ property: initialProperty, otherProperties: initialOth
 
                         {/* Ubicación */}
                         <div className="mb-8">
-                            <h2 className="text-xl font-semibold mb-6">Ubicación</h2>
+                            <h2 className="text-2xl font-bold mb-6">Ubicación</h2>
                             {latitude && longitude ? (
-                                <div className="h-64 rounded-lg overflow-hidden">
+                                <div className="h-72 rounded-lg overflow-hidden">
                                     <LoadScript googleMapsApiKey={Global.GMAPS_API_KEY}>
                                         <GoogleMap
                                             mapContainerStyle={{
                                                 width: "100%",
-                                                height: "256px",
+                                                height: "350px",
                                             }}
                                             center={{
                                                 lat: parseFloat(latitude),

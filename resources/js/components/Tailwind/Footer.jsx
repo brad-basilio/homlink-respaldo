@@ -64,18 +64,20 @@ const Footer = ({ terms, footerLinks = [] }) => {
         fetchApps();
     }, []); // Asegúrate de que este array de dependencias está vacío si solo se ejecuta una vez
 
-    // Redes sociales
-    const Facebook = socials.find(
-        (social) => social.description === "Facebook"
-    );
-    const Twitter = socials.find((social) => social.description === "Twitter");
-    const Instagram = socials.find(
-        (social) => social.description === "Instagram"
-    );
-    const Youtube = socials.find((social) => social.description === "YouTube");
-    const Tiktok = socials.find((social) => social.description === "TikTok");
-    const Whatsapp = socials.find((social) => social.description === "WhatsApp");
-    const LinkedIn = socials.find((social) => social.description === "LinkedIn");
+    // Redes sociales con soporte case-insensitive
+    const findSocialByName = (name) => {
+        return socials.find(social =>
+            social.description?.toLowerCase() === name.toLowerCase()
+        );
+    };
+
+    const Facebook = findSocialByName("Facebook");
+    const Twitter = findSocialByName("Twitter");
+    const Instagram = findSocialByName("Instagram");
+    const Youtube = findSocialByName("YouTube");
+    const Tiktok = findSocialByName("TikTok");
+    const Whatsapp = findSocialByName("WhatsApp");
+    const LinkedIn = findSocialByName("LinkedIn");
 
     // Datos de contacto desde generals
     const getGeneralValue = (correlative) => {

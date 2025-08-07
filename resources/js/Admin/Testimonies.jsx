@@ -15,7 +15,7 @@ import ImageFormGroup from "../components/Adminto/form/ImageFormGroup";
 
 const testimoniesRest = new TestimoniesRest();
 
-const Testimonies = ({}) => {
+const Testimonies = ({ }) => {
     const gridRef = useRef();
     const modalRef = useRef();
 
@@ -31,7 +31,7 @@ const Testimonies = ({}) => {
     const onModalOpen = (data) => {
         if (data?.id) setIsEditing(true);
         else setIsEditing(false);
-        
+
         idRef.current.value = data?.id ?? "";
         nameRef.current.value = data?.name ?? "";
         correlativeRef.current.value = data?.correlative ?? "";
@@ -51,7 +51,8 @@ const Testimonies = ({}) => {
             name: nameRef.current.value,
             correlative: correlativeRef.current.value,
             position: positionRef.current.value,
-        description: descriptionRef.current.value,
+            description: descriptionRef.current.value,
+            visible: 1,
         };
         const formData = new FormData();
         for (const key in request) {
@@ -165,8 +166,8 @@ const Testimonies = ({}) => {
                                         borderRadius: "4px",
                                     }}
                                     onError={(e) =>
-                                        (e.target.src =
-                                            "/api/cover/thumbnail/null")
+                                    (e.target.src =
+                                        "/api/cover/thumbnail/null")
                                     }
                                 />
                             );
@@ -242,17 +243,17 @@ const Testimonies = ({}) => {
                             label="Nombre"
                             required
                         />
-                         <InputFormGroup
+                        <InputFormGroup
                             eRef={positionRef}
                             label="Cargo"
                             required
                         />
-                    <InputFormGroup
+                        <InputFormGroup
                             eRef={correlativeRef}
                             label="Empresa"
                             required
                         />
-                         
+
                     </div>
                     <TextareaFormGroup
                         type="text"
