@@ -30,11 +30,11 @@ const Indicators = () => {
 
     // Form elements ref
     const idRef = useRef();
-    const symbolRef = useRef();
+    //const symbolRef = useRef();
     const nameRef = useRef();
    // const percentageRef = useRef();
     const descriptionRef = useRef();
-    const correlativeRef = useRef();
+   // const correlativeRef = useRef();
     const orderRef = useRef();
 
     const [isEditing, setIsEditing] = useState(false);
@@ -45,12 +45,12 @@ const Indicators = () => {
 
         idRef.current.value = data?.id ?? "";
         // symbolRef.current.value = data?.symbol ?? "";
-        symbolRef.image.src = `/api/indicator/media/${data?.symbol}`;
-        symbolRef.current.value = null;
+        //symbolRef.image.src = `/api/indicator/media/${data?.symbol}`;
+        //symbolRef.current.value = null;
         nameRef.current.value = data?.name ?? "";
         //percentageRef.current.value = data?.percentage ?? "";
         descriptionRef.current.value = data?.description ?? "";
-        correlativeRef.current.value = data?.correlative ?? "";
+       // correlativeRef.current.value = data?.correlative ?? "";
         orderRef.current.value = data?.order ?? "";
 
         $(modalRef.current).modal("show");
@@ -65,17 +65,17 @@ const Indicators = () => {
             name: nameRef.current.value,
             // percentage: percentageRef.current.value,
             description: descriptionRef.current.value,
-            correlative: correlativeRef.current.value,
+          //  correlative: correlativeRef.current.value,
             order: orderRef.current.value,
         };
         const formData = new FormData();
         for (const key in request) {
             formData.append(key, request[key]);
         }
-        const file = symbolRef.current.files[0];
+       /* const file = symbolRef.current.files[0];
         if (file) {
             formData.append("symbol", file);
-        }
+        }*/
 
         const result = await indicatorsRest.save(formData);
         if (!result) return;
@@ -141,7 +141,7 @@ const Indicators = () => {
                                     .refresh(),
                         },
                     });
-                    container.unshift({
+                   /* container.unshift({
                         widget: "dxButton",
                         location: "after",
                         options: {
@@ -150,7 +150,7 @@ const Indicators = () => {
                             hint: "Nuevo indicador",
                             onClick: () => onModalOpen(),
                         },
-                    });
+                    });*/
                 }}
                 columns={[
                     {
@@ -158,7 +158,7 @@ const Indicators = () => {
                         caption: "ID",
                         visible: false,
                     },
-                    {
+                 /*   {
                         dataField: "symbol",
                         caption: "Imagen",
                         width: "60px",
@@ -186,12 +186,12 @@ const Indicators = () => {
                                 />
                             );
                         },
-                    },
+                    },*/
                     {
                         dataField: "name",
                         caption: "Titulo",
                     },
-                    {
+                /*    {
                         dataField: "correlative",
                         caption: "Correlativo",
                         width: "120px",
@@ -204,7 +204,7 @@ const Indicators = () => {
                                 </span>
                             );
                         },
-                    },
+                    }*/
                     {
                         dataField: "order",
                         caption: "Orden",
@@ -219,16 +219,16 @@ const Indicators = () => {
                             );
                         },
                     },
-                    {
+                  /*  {
                         dataField: "percentage",
                         caption: "Porcentaje",
-                    },
+                    },*/
                     {
                         dataField: "description",
                         caption: "Descripción",
                     },
 
-                    {
+                  /*  {
                         dataField: "visible",
                         caption: "Visible",
                         dataType: "boolean",
@@ -248,7 +248,7 @@ const Indicators = () => {
                                 />
                             );
                         },
-                    },
+                    },*/
                     // {
                     //   dataField: 'status',
                     //   caption: 'Estado',
@@ -279,14 +279,14 @@ const Indicators = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            container.append(
+                           /* container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );
+                            );*/
                         },
                         allowFiltering: false,
                         allowExporting: false,
@@ -295,20 +295,20 @@ const Indicators = () => {
             />
             <Modal
                 modalRef={modalRef}
-                title={isEditing ? "Editar término" : "Agregar término"}
+                title={isEditing ? "Editar Indicador" : "Agregar Indicador"}
                 onSubmit={onModalSubmit}
                 size="md"
             >
                 <div className="row" id="indicators-container">
                     <input ref={idRef} type="hidden" />
-                    <ImageFormGroup
+                  {/*  <ImageFormGroup
                         eRef={symbolRef}
                         label="Imagen"
                         aspect={1}
                         fit="cover"
                         col="col-sm-4"
-                    />
-                    <div className="col-md-8">
+                    /> */}
+                    <div className="col-md-12">
                         <InputFormGroup eRef={nameRef} label="Título" />
                         {/*<InputFormGroup eRef={symbolRef} label='Símbolo' col='col-sm-4' rows={2} required />*/}
 
@@ -320,7 +320,7 @@ const Indicators = () => {
                         /> */}
                         
                         <div className="row">
-                            <div className="col-md-6">
+                          {/*  <div className="col-md-6">
                                 <SelectFormGroup
                                     eRef={correlativeRef}
                                     label="Correlativo"
@@ -335,8 +335,8 @@ const Indicators = () => {
                                         </option>
                                     ))}
                                     </SelectFormGroup>
-                            </div>
-                            <div className="col-md-6">
+                            </div> */}
+                            <div className="col-md-12">
                                 <InputFormGroup
                                     eRef={orderRef}
                                     type="number"

@@ -303,7 +303,8 @@ const ContactoPage = ({ landing, sedes, whatsapp, staff, faqs, banner_principal 
         setSending(true)
 
         const request = {
-            name: nameRef.current.value + ' ' + lastnameRef.current.value,
+            //name: nameRef.current.value + ' ' + lastnameRef.current.value,
+            name:nameRef.current.value,
             phone: phoneRef.current.value,
             email: emailRef.current.value,
             description: descriptionRef.current.value,

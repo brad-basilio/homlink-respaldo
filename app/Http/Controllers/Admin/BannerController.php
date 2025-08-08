@@ -67,10 +67,10 @@ class BannerController extends BasicController
         // Opciones para los selects de sección
         $sections = [
             'home' => 'Inicio',
-            'empresa' => 'Empresas',
-            'servicios' => 'Servicios',
-            'nosotros' => 'Nosotros',
-            'blog' => 'Blog',
+           // 'empresa' => 'Empresas',
+            //'servicios' => 'Servicios',
+            //'nosotros' => 'Nosotros',
+            //'blog' => 'Blog',
             'contacto' => 'Contacto'
         ];
 

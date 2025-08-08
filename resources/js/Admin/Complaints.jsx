@@ -239,8 +239,7 @@ const Complaints = () => {
                         caption: "Consumidor",
                         cellTemplate: (container, { data }) => {
                             container.text(`${data.nombre} ${data.apellido}`);
-                        },
-                        width: "15%",
+                        }, 
                     },
                     {
                         dataField: "tipo_documento",
@@ -254,11 +253,7 @@ const Complaints = () => {
                         },
                         width: "12%",
                     },
-                    {
-                        dataField: "sede",
-                        caption: "Sede",
-                        width: "12%",
-                    },
+                    
                     {
                         dataField: "tipo_reclamo",
                         caption: "Tipo",
@@ -302,7 +297,7 @@ const Complaints = () => {
                         cellTemplate: (container, { data }) => {
                             container.text(formatDateTime(data.created_at));
                         },
-                        width: "10%",
+                       
                     },
                     {
                         caption: "Acciones",
@@ -316,14 +311,14 @@ const Complaints = () => {
                                     onClick: () => onModalOpen(data),
                                 })
                             );
-                            container.append(
+                           /* container.append(
                                 DxButton({
                                     className: "btn btn-xs btn-soft-danger",
                                     title: "Eliminar",
                                     icon: "fa fa-trash",
                                     onClick: () => onDeleteClicked(data.id),
                                 })
-                            );
+                            );*/
                         },
                         allowFiltering: false,
                         allowExporting: false,
@@ -464,10 +459,7 @@ const Complaints = () => {
                                     Detalles del Servicio
                                 </h4>
                                 <div className="pl-3">
-                                    <p>
-                                        <strong>Sede:</strong>{" "}
-                                        {currentComplaint.sede}
-                                    </p>
+                                 
                                     <p>
                                         <strong>Servicio:</strong>{" "}
                                         {currentComplaint.servicio}
